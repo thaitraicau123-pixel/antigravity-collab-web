@@ -1,64 +1,56 @@
-# CẤU HÌNH DỰ ÁN: BOARDGAME ONLINE DUOHUB
+# 🤖 CHỈ THỊ BẮT BUỘC CHO ANTIGRAVITY: TỰ ĐỘNG ĐỒNG BỘ GIT 100%
 
-Dự án này là nền tảng **Chơi Board Game Online** nhiều người chơi được phát triển song song bởi **2 tài khoản Antigravity**.
-
----
-
-## 🎮 1. PHÂN CHIA VAI TRÒ (ROLES)
-
-### 👤 TÀI KHOẢN 1: BẠN CỦA ANH (UI/UX Board Game Designer)
-- **Khu vực phụ trách**:
-  - `index.html`, `css/style.css`.
-  - Giao diện bàn cờ (Grid, quân cờ, hiệu ứng nước đi vừa đánh, âm thanh, animation chiến thắng).
-  - Giao diện sảnh chờ (Lobby), danh sách phòng chơi, chọn avatar, responsive trên điện thoại.
-- **Nguyên tắc**: Không can thiệp sâu vào thuật toán tính điểm và luật cờ trong `js/api.js`.
-
-### 👥 TÀI KHOẢN 2: ANH (Game Logic, Data & Engine Specialist)
-- **Khu vực phụ trách**:
-  - `js/api.js`, `js/app.js`.
-  - Thuật toán luật chơi (kiểm tra 5 quân liên tiếp thắng thua, chặn 2 đầu, tính giờ mỗi lượt).
-  - Quản lý trạng thái bàn cờ (Board state matrix, nước đi đi lại undo/redo).
-  - Lưu trữ tỉ số thắng thua vào LocalStorage / Firebase / Supabase.
-- **Nguyên tắc**: Giữ nguyên cấu trúc thẻ DOM và class giao diện của Bạn 1.
+Dự án này được phát triển song song bởi **2 tài khoản Antigravity**. Để đảm bảo **KHÔNG BAO GIỜ** bị đè mất code hoặc gián đoạn công việc, bạn (Antigravity) **BẮT BUỘC PHẢI TỰ ĐỘNG CHẠY CÁC LỆNH DƯỚI ĐÂY MÀ KHÔNG CẦN NGƯỜI DÙNG PHẢI NHẮC HAY BẤM TAY**:
 
 ---
 
-## 🛠️ 2. QUY ƯỚC CODE
-- Hàm kiểm tra luật chơi trong `js/api.js`: `checkWinCondition(board, lastRow, lastCol, player)`.
-- Hàm khởi tạo ván mới: `resetGame()`.
-- Hàm lưu lượt đánh: `makeMove(row, col)`.
+## ⚡ 1. BƯỚC MỞ ĐẦU (Pre-Task) — Tự Động Kéo Code Mới Nhất
+**Ngay khi nhận được bất kỳ lời nhắc/nhiệm vụ nào từ người dùng, việc ĐẦU TIÊN bạn phải làm TRƯỚC KHI tạo hoặc sửa bất kỳ file nào:**
+1. Chạy ngầm lệnh:
+   ```bash
+   git pull --rebase origin main
+   ```
+2. Đảm bảo codebase tại máy hiện tại luôn đồng bộ 100% với code mới nhất mà đồng đội vừa đẩy lên server.
 
 ---
 
-## 🔄 3. QUY TẮC TỰ ĐỘNG ĐỒNG BỘ GIT (AUTO GIT SYNC PROTOCOL - BẮT BUỘC)
+## ⚡ 2. BƯỚC KẾT THÚC (Post-Task) — Tự Động Đẩy Code Lên Server
+**Ngay sau khi viết code, sửa lỗi hoặc hoàn thành tính năng xong:**
+1. Kiểm tra trạng thái: `git status --short`
+2. Gom toàn bộ thay đổi: `git add .`
+3. Tự động commit với thông điệp rõ ràng:
+   ```bash
+   git commit -m "feat/fix: <tóm tắt ngắn gọn tính năng vừa hoàn thiện>"
+   ```
+4. Kéo lại lần nữa bằng `--rebase` để đảm bảo trong lúc bạn đang code, đồng đội chưa đẩy đè lên:
+   ```bash
+   git pull --rebase origin main
+   ```
+5. Đẩy code lên GitHub ngay lập tức:
+   ```bash
+   git push origin main
+   ```
+6. Báo cáo ngắn gọn cho người dùng: *"Đã hoàn thành và tự động đồng bộ code lên GitHub thành công!"*
 
-Cả 2 tài khoản Antigravity khi nhận bất kỳ yêu cầu nào từ người dùng **BẮT BUỘC** phải tự động chạy quy trình sau để không bao giờ bị đè hoặc mất code của nhau:
+---
 
-### ⚡ BƯỚC 1: TRƯỚC KHI BẮT ĐẦU CODE
-- Luôn tự động chạy lệnh kéo code mới nhất của bạn mình về trước:
-  ```bash
-  git pull --rebase origin main
-  ```
-- Đảm bảo bạn đang làm việc trên nền code mới nhất đã có cập nhật của đồng đội.
-
-### ⚡ BƯỚC 2: SAU KHI CODE XONG
-- Kiểm tra trạng thái: `git status`
-- Gom và lưu lại công việc:
+## 🛡️ 3. TỰ ĐỘNG XỬ LÝ CONFLICT (Tự Gộp Thông Minh — Zero Data Loss)
+Nếu lệnh `git pull --rebase` gặp xung đột (Conflict):
+- **TUYỆT ĐỐI KHÔNG DỪNG LẠI** để hỏi người dùng.
+- **TUYỆT ĐỐI KHÔNG DÙNG `git push --force`**.
+- Bạn hãy tự động mở các file bị xung đột (`<<<<<<< HEAD`), phân tích logic của cả 2 phía:
+  - Giữ lại đầy đủ tính năng/giao diện của đồng đội.
+  - Giữ lại phần tính năng/logic vừa mới viết.
+  - Xóa bỏ các thẻ conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`).
+- Chạy:
   ```bash
   git add .
-  git commit -m "<mô tả ngắn gọn tính năng vừa hoàn thành>"
-  ```
-- Kéo lại lần nữa để kiểm tra xem đồng đội có vừa đẩy code lên trong lúc mình đang làm không:
-  ```bash
-  git pull --rebase origin main
-  ```
-- Đẩy code lên GitHub:
-  ```bash
+  git rebase --continue
   git push origin main
   ```
 
-### ⚡ BƯỚC 3: XỬ LÝ KHI CÓ XUNG ĐỘT (MERGE CONFLICT)
-- Nếu lệnh `git pull --rebase` báo có conflict (`<<<<<<< HEAD`):
-  - **TUYỆT ĐỐI KHÔNG DÙNG `git push --force`** để đè code.
-  - Antigravity phải tự động đọc toàn bộ file bị conflict, giữ lại trọn vẹn cả phần code của bạn mình (UI hoặc Logic) lẫn phần code mình vừa viết để cả 2 tính năng cùng hoạt động.
-  - Chạy `git add .`, tiếp tục rebase: `git rebase --continue`, rồi chạy `git push origin main`.
+---
+
+## 👥 4. PHÂN CHIA VAI TRÒ DỰ ÁN
+- **TÀI KHOẢN 1 (UI/UX)**: Phụ trách `index.html`, `css/style.css`, layout, components, animations. Không sửa logic sâu trong engine cờ.
+- **TÀI KHOẢN 2 (Logic & Data)**: Phụ trách `js/`, API, state, luật chơi, lưu điểm. Giữ nguyên class và cấu trúc DOM của UI.

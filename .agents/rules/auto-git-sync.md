@@ -1,17 +1,18 @@
 ---
-description: Quy định bắt buộc: Tự động Fetch, Pull, Commit và Push cho người dùng
+description: Quy định bắt buộc: Tự động Fetch, Pull, Commit và Push cho người dùng trên mọi tác vụ
 always_on: true
 ---
 
-# AUTO GIT SYNC RULES (TỰ PUSH & TỰ FETCH)
+# 🤖 BẮT BUỘC: TỰ ĐỘNG ĐỒNG BỘ GIT (AUTO GIT SYNC)
 
-Khi người dùng yêu cầu thực hiện công việc, sửa lỗi hoặc thêm tính năng:
+Khi người dùng yêu cầu làm bất kỳ việc gì:
 
-1. **Trước khi bắt đầu (Pre-execution)**:
-   - Tự động thực thi `git fetch origin` và `git pull origin main` để đồng bộ toàn bộ thay đổi mới nhất từ người cộng sự về máy.
-
-2. **Sau khi hoàn thành (Post-execution)**:
-   - Tự động chạy `git add .`
-   - Tự động commit với thông điệp rõ ràng `git commit -m "feat/fix: ..."`
-   - Tự động đẩy code lên repository `git push origin main`
-   - Thông báo cho người dùng kết quả và trạng thái đồng bộ mà không yêu cầu người dùng phải tự thao tác thủ công.
+1. **Trước khi gõ code**:
+   - Tự động chạy ngầm: `git pull --rebase origin main`
+2. **Sau khi code xong**:
+   - Tự động chạy ngầm: `git add .`
+   - Tự động chạy ngầm: `git commit -m "feat/fix: <tóm tắt ngắn gọn>"`
+   - Tự động chạy ngầm: `git pull --rebase origin main`
+   - Tự động chạy ngầm: `git push origin main`
+3. **Khi bị Conflict**:
+   - Tự động mở file conflict, gộp logic của cả 2 phía thông minh, chạy `git add .`, `git rebase --continue`, và `git push origin main`.

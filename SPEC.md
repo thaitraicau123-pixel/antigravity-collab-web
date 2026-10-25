@@ -70,3 +70,27 @@ Thay thế toàn bộ emoji thô sơ bằng hệ thống icon SVG vector tinh x�
 - Cú pháp HTML/CSS/JS phải đạt chuẩn 100% không lỗi syntax.
 - Đồng bộ nguyên vẹn giữa `index.html` và `tabletop-arena-boardgame.html`.
 - Tự động commit và push lên nhánh `feat/ui` và `main` theo quy định tại `AGENTS.md`.
+
+---
+
+## ⚡ PHẦN 6: SPECTATOR SPEED 100X, BOT WIN RATE ANALYTICS & POPUP ELIMINATION
+1. **Tăng Tốc Quan Sát Tối Đa 100x (Max 100x Speed)**:
+   - Mở rộng dải nút tốc độ: `1x`, `2x`, `5x`, `10x`, `25x`, `50x`, `100x 🔥`.
+   - Nút `100x` thiết kế nổi bật với dải gradient `from-amber-400 to-rose-500` và đổ bóng năng lượng.
+   - Cơ chế nén thời gian siêu tốc:
+     * `rollDuration`: tối thiểu 12ms.
+     * `stepDuration`: tối thiểu 6ms.
+     * `botDelay`: tối thiểu 15ms.
+     * Mute âm thanh tự động khi tốc độ > 5x để loại bỏ hiện tượng tràn bộ đệm WebAudio khi mô phỏng hàng trăm ván cờ.
+2. **Thống Kê Tỷ Lệ Thắng Đấu Thủ & BOT (Bot Win Rate Analytics)**:
+   - Tích hợp động vào tab `🎲 Thống Kê`:
+     * Số tổng ván đấu `statTotalMatches`.
+     * Thanh đo tỷ lệ thắng (%) kèm số ván thắng thực tế cho 4 đối thủ: Bạn (P1 Cyan), Cáo Lửa (BOT 1 Rose), Sói Băng (BOT 2 Indigo), Gấu Trúc (BOT 3 Emerald).
+     * Nút "Đặt lại" thống kê để làm mới benchmark khi cần.
+     * Lưu trữ bền vững qua `localStorage` (`tabletop_bot_win_stats`).
+3. **Triệt Tiêu Popup Kết Thúc Trận Ở Chế Độ Quan Sát (Zero Disruption)**:
+   - Khi ở `isSpectatorMode === true`:
+     * Không bật `victoryModal` che khuất màn hình (khắc phục hoàn toàn lỗi ở Ảnh 3).
+     * Cập nhật chiến thắng vào `miniLog` và bắn toast thông báo nhẹ nhàng không chặn tương tác.
+     * Tự động khởi tranh ván tiếp theo sau khoảng chờ siêu ngắn tỉ lệ theo tốc độ (ở 100x < 80ms).
+   - Khi chơi thủ công (Người chơi thật), modal chúc mừng chiến thắng vẫn hiển thị trang trọng đầy đủ.

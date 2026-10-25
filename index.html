@@ -445,13 +445,16 @@
             <span id="specPauseText">Tạm Dừng</span>
           </button>
 
-          <!-- Speed Controls -->
-          <div class="flex items-center bg-black/60 p-1 rounded-xl border border-cyan-500/30 text-xs font-bold">
-            <span class="text-[10px] text-slate-400 px-1.5">Tốc độ:</span>
-            <button onclick="setSpectatorSpeed(1)" id="specSpd1" class="px-2 py-0.5 rounded-md bg-cyan-600 text-white font-bold">1x</button>
-            <button onclick="setSpectatorSpeed(2)" id="specSpd2" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white">2x</button>
-            <button onclick="setSpectatorSpeed(3)" id="specSpd3" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white">3x</button>
-            <button onclick="setSpectatorSpeed(5)" id="specSpd5" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all font-mono">5x</button>
+          <!-- Speed Controls (1x up to 100x Max) -->
+          <div class="flex items-center bg-black/70 p-1 rounded-xl border border-cyan-500/40 text-xs font-bold gap-0.5">
+            <span class="text-[10px] text-cyan-300/80 px-1 font-mono">⚡ Tốc độ:</span>
+            <button onclick="setSpectatorSpeed(1)" id="specSpd1" class="px-1.5 py-0.5 rounded-md bg-cyan-500 text-black font-black text-[11px] transition-all">1x</button>
+            <button onclick="setSpectatorSpeed(2)" id="specSpd2" class="px-1.5 py-0.5 rounded-md text-slate-400 hover:text-white text-[11px] transition-all font-mono">2x</button>
+            <button onclick="setSpectatorSpeed(5)" id="specSpd5" class="px-1.5 py-0.5 rounded-md text-slate-400 hover:text-white text-[11px] transition-all font-mono">5x</button>
+            <button onclick="setSpectatorSpeed(10)" id="specSpd10" class="px-1.5 py-0.5 rounded-md text-slate-400 hover:text-white text-[11px] transition-all font-mono">10x</button>
+            <button onclick="setSpectatorSpeed(25)" id="specSpd25" class="px-1.5 py-0.5 rounded-md text-slate-400 hover:text-white text-[11px] transition-all font-mono">25x</button>
+            <button onclick="setSpectatorSpeed(50)" id="specSpd50" class="px-1.5 py-0.5 rounded-md text-slate-400 hover:text-white text-[11px] transition-all font-mono">50x</button>
+            <button onclick="setSpectatorSpeed(100)" id="specSpd100" class="px-2 py-0.5 rounded-md bg-gradient-to-r from-amber-400 to-rose-500 text-black font-extrabold text-[11px] shadow-sm shadow-rose-500/40 hover:brightness-110 transition-all font-mono" title="Tốc độ tối đa 100x">100x 🔥</button>
           </div>
 
           <!-- Exit Spectator Button -->
@@ -725,22 +728,86 @@
               </div>
             </div>
 
-            <!-- Sub-tab 3: Dice Stats -->
-            <div id="tTabContentStats" class="hidden flex-1 space-y-2 text-xs">
-              <div class="grid grid-cols-2 gap-2 text-[11px]">
-                <div class="p-2 rounded-xl bg-black/40 border border-board-border text-center">
-                  <div class="text-slate-400 text-[10px]">Tổng lượt gieo</div>
-                  <div class="text-sm font-bold text-white font-mono" id="statTotalRolls">0</div>
+            <!-- Sub-tab 3: Bot Win Rate & Battle Analytics -->
+            <div id="tTabContentStats" class="hidden flex-1 space-y-2.5 text-xs">
+              <!-- Win Rate Header & Reset Button -->
+              <div class="flex items-center justify-between pb-1.5 border-b border-board-border/60">
+                <div class="flex items-center gap-1.5 text-amber-400 font-cinzel text-[11px] font-bold">
+                  <i data-lucide="trophy" class="w-3.5 h-3.5 text-amber-400"></i>
+                  <span>TỶ LỆ THẮNG ĐẤU THỦ</span>
                 </div>
-                <div class="p-2 rounded-xl bg-black/40 border border-board-border text-center">
-                  <div class="text-slate-400 text-[10px]">Gieo cao nhất</div>
-                  <div class="text-sm font-bold text-amber-400 font-mono" id="statHighestRoll">-</div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/50 text-cyan-300 border border-cyan-500/30">
+                    <span id="statTotalMatches">0</span> Ván
+                  </span>
+                  <button onclick="resetBotWinStats()" class="btn-spring px-1.5 py-0.5 rounded bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 text-[10px] font-mono transition-colors" title="Đặt lại toàn bộ tỷ lệ thắng">
+                    Đặt lại
+                  </button>
                 </div>
               </div>
-              <div class="p-2 rounded-xl bg-board-tray border border-board-border text-[10px] text-slate-300">
-                <div class="flex justify-between mb-1">
-                  <span>Chỉ số may mắn:</span>
-                  <span class="text-emerald-400 font-bold" id="statLuckRating">Cân Bằng 🎲</span>
+
+              <!-- Real-time Bot Win Rate Progress Bars -->
+              <div class="space-y-1.5" id="botWinStatsList">
+                <!-- P1 Win Rate -->
+                <div class="p-1.5 rounded-lg bg-black/30 border border-cyan-500/20 space-y-1">
+                  <div class="flex items-center justify-between text-[10px] font-mono">
+                    <span class="text-cyan-400 font-bold flex items-center gap-1">
+                      <span class="w-2 h-2 rounded-full bg-cyan-400"></span> Bạn (P1)
+                    </span>
+                    <span class="text-slate-200 font-bold" id="statWinTextP1">0 ván (0%)</span>
+                  </div>
+                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                    <div id="statWinBarP1" class="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 transition-all duration-300" style="width: 0%"></div>
+                  </div>
+                </div>
+
+                <!-- BOT 1 Win Rate -->
+                <div class="p-1.5 rounded-lg bg-black/30 border border-rose-500/20 space-y-1">
+                  <div class="flex items-center justify-between text-[10px] font-mono">
+                    <span class="text-rose-400 font-bold flex items-center gap-1">
+                      <span class="w-2 h-2 rounded-full bg-rose-400"></span> Cáo Lửa (BOT 1)
+                    </span>
+                    <span class="text-slate-200 font-bold" id="statWinTextP2">0 ván (0%)</span>
+                  </div>
+                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                    <div id="statWinBarP2" class="h-full bg-gradient-to-r from-rose-600 to-rose-400 transition-all duration-300" style="width: 0%"></div>
+                  </div>
+                </div>
+
+                <!-- BOT 2 Win Rate -->
+                <div id="statWinRowP3" class="p-1.5 rounded-lg bg-black/30 border border-indigo-500/20 space-y-1">
+                  <div class="flex items-center justify-between text-[10px] font-mono">
+                    <span class="text-indigo-400 font-bold flex items-center gap-1">
+                      <span class="w-2 h-2 rounded-full bg-indigo-400"></span> Sói Băng (BOT 2)
+                    </span>
+                    <span class="text-slate-200 font-bold" id="statWinTextP3">0 ván (0%)</span>
+                  </div>
+                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                    <div id="statWinBarP3" class="h-full bg-gradient-to-r from-indigo-600 to-indigo-400 transition-all duration-300" style="width: 0%"></div>
+                  </div>
+                </div>
+
+                <!-- BOT 3 Win Rate -->
+                <div id="statWinRowP4" class="p-1.5 rounded-lg bg-black/30 border border-emerald-500/20 space-y-1">
+                  <div class="flex items-center justify-between text-[10px] font-mono">
+                    <span class="text-emerald-400 font-bold flex items-center gap-1">
+                      <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Gấu Trúc (BOT 3)
+                    </span>
+                    <span class="text-slate-200 font-bold" id="statWinTextP4">0 ván (0%)</span>
+                  </div>
+                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                    <div id="statWinBarP4" class="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 transition-all duration-300" style="width: 0%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Compact Dice Stats Footer -->
+              <div class="grid grid-cols-2 gap-1.5 pt-1 text-[10px] font-mono">
+                <div class="p-1.5 rounded-lg bg-black/40 border border-board-border text-center">
+                  <span class="text-slate-400">Tổng gieo:</span> <b class="text-white" id="statTotalRolls">0</b>
+                </div>
+                <div class="p-1.5 rounded-lg bg-black/40 border border-board-border text-center">
+                  <span class="text-slate-400">Cao nhất:</span> <b class="text-amber-400" id="statHighestRoll">-</b>
                 </div>
               </div>
             </div>
@@ -2606,6 +2673,63 @@
     }
 
     
+    
+    // ================= BOT WIN RATE ANALYTICS ENGINE =================
+    let botWinStats = {
+      totalMatches: 0,
+      wins: { 1: 0, 2: 0, 3: 0, 4: 0 }
+    };
+
+    function loadBotWinStats() {
+      try {
+        const saved = localStorage.getItem('tabletop_bot_win_stats');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed && typeof parsed.totalMatches === 'number') {
+            botWinStats = parsed;
+          }
+        }
+      } catch (e) {
+        console.warn('Could not load bot win stats from localStorage', e);
+      }
+      updateBotWinStatsUI();
+    }
+
+    function recordBotMatchWin(winnerId) {
+      botWinStats.totalMatches++;
+      if (!botWinStats.wins) botWinStats.wins = { 1: 0, 2: 0, 3: 0, 4: 0 };
+      botWinStats.wins[winnerId] = (botWinStats.wins[winnerId] || 0) + 1;
+      try {
+        localStorage.setItem('tabletop_bot_win_stats', JSON.stringify(botWinStats));
+      } catch (e) {}
+      updateBotWinStatsUI();
+    }
+
+    function resetBotWinStats() {
+      botWinStats = { totalMatches: 0, wins: { 1: 0, 2: 0, 3: 0, 4: 0 } };
+      try {
+        localStorage.removeItem('tabletop_bot_win_stats');
+      } catch (e) {}
+      updateBotWinStatsUI();
+      showToast('🧹 Đã đặt lại toàn bộ thống kê tỷ lệ thắng!');
+    }
+
+    function updateBotWinStatsUI() {
+      const totMatches = botWinStats.totalMatches || 0;
+      const totEl = document.getElementById('statTotalMatches');
+      if (totEl) totEl.textContent = totMatches;
+
+      for (let p = 1; p <= 4; p++) {
+        const wins = (botWinStats.wins && botWinStats.wins[p]) || 0;
+        const pct = totMatches > 0 ? ((wins / totMatches) * 100).toFixed(1) : '0.0';
+        
+        const txtEl = document.getElementById(`statWinTextP${p}`);
+        const barEl = document.getElementById(`statWinBarP${p}`);
+        if (txtEl) txtEl.textContent = `${wins} ván (${pct}%)`;
+        if (barEl) barEl.style.width = `${pct}%`;
+      }
+    }
+
     // ================= BESPOKE LUXURY VECTOR ICON ENGINE =================
     function getTileSvgIcon(id) {
       switch(id) {
@@ -3041,7 +3165,7 @@
       if (hint) hint.textContent = `🎲 ${pName} đang gieo xúc xắc...`;
       soundTone(440, 'square', 0.08, 0.06);
 
-      const rollDuration = Math.max(250, Math.floor(650 / spectatorSpeed));
+      const rollDuration = isSpectatorMode ? Math.max(12, Math.floor(600 / spectatorSpeed)) : 650;
       const roll = Math.floor(Math.random() * 6) + 1;
       await new Promise(r => setTimeout(r, rollDuration));
       if (dice) dice.classList.remove('rolling-dice');
@@ -3057,7 +3181,7 @@
     }
 
     async function moveMeepleSteps(player, steps) {
-      const stepDuration = Math.max(60, Math.floor(220 / spectatorSpeed));
+      const stepDuration = isSpectatorMode ? Math.max(6, Math.floor(200 / spectatorSpeed)) : 220;
       for (let s = 1; s <= steps; s++) {
         positions[player] = (positions[player] + 1) % TILES.length;
         renderTokens();
@@ -3096,7 +3220,8 @@
       updateDiceUI();
 
       if (scores[player] >= GOAL_SCORE) {
-        showVictory(label);
+        recordBotMatchWin(player);
+        showVictory(label, player);
         return;
       }
 
@@ -3131,7 +3256,7 @@
         if (text) text.textContent = `Lượt của ${pName}...`;
         if (hint) hint.textContent = `${pName} đang tính toán...`;
 
-        const botDelay = Math.max(250, Math.floor(900 / spectatorSpeed));
+        const botDelay = isSpectatorMode ? Math.max(15, Math.floor(700 / spectatorSpeed)) : 800;
         setTimeout(() => {
           if (!spectatorPaused && ((currentTurn > 1) || isSpectatorMode)) {
             triggerAutoRoll(currentTurn);
@@ -3336,14 +3461,22 @@
 
     function setSpectatorSpeed(spd) {
       spectatorSpeed = spd;
-      [1, 2, 3, 5].forEach(s => {
+      const speeds = [1, 2, 5, 10, 25, 50, 100];
+      speeds.forEach(s => {
         const b = document.getElementById('specSpd' + s);
         if (b) {
-          if (s === spd) b.className = 'px-2 py-0.5 rounded-md bg-cyan-600 text-white font-bold';
-          else b.className = 'px-2 py-0.5 rounded-md text-slate-400 hover:text-white';
+          if (s === spd) {
+            if (s === 100) {
+              b.className = 'px-2 py-0.5 rounded-md bg-gradient-to-r from-amber-400 to-rose-500 text-black font-extrabold text-[11px] shadow-sm shadow-rose-500/40 font-mono';
+            } else {
+              b.className = 'px-1.5 py-0.5 rounded-md bg-cyan-500 text-black font-black text-[11px] shadow-sm font-mono';
+            }
+          } else {
+            b.className = 'px-1.5 py-0.5 rounded-md text-slate-400 hover:text-white text-[11px] transition-all font-mono';
+          }
         }
       });
-      showToast(`⚡ Tốc độ quan sát: ${spd}x`);
+      showToast(`⚡ Tốc độ quan sát: ${spd}x (Tối đa: 100x)`);
     }
 
     function setOpponent(mode) {
@@ -3584,25 +3717,36 @@
       }
     }
 
-    function showVictory(winnerName) {
+    function showVictory(winnerName, winnerPlayerId = 1) {
+      // 1. CHẾ ĐỘ QUAN SÁT (SPECTATOR MODE): BỎ HOÀN TOÀN POPUP KẾT THÚC VÁN (ẢNH 3)
+      if (isSpectatorMode) {
+        const miniLog = document.getElementById('miniLog');
+        if (miniLog) {
+          miniLog.innerHTML = `🏆 <b class="text-amber-400">${winnerName}</b> cán đích (${GOAL_SCORE}đ) Toàn Thắng! Đang tự động bắt đầu ván mới...`;
+        }
+        
+        // Thông báo toast nhẹ nhàng không che màn hình
+        const toastDuration = Math.max(200, Math.floor(1500 / spectatorSpeed));
+        showToast(`🏆 ${winnerName} chiến thắng! (Ván #${botWinStats.totalMatches})`, toastDuration);
+
+        // Tự động khởi tranh ván mới mượt mà, tốc độ 100x chuyển gần như tức thì (< 80ms)
+        const restartDelay = Math.max(60, Math.floor(1200 / spectatorSpeed));
+        setTimeout(() => {
+          if (isSpectatorMode && !spectatorPaused) {
+            handleReset();
+          }
+        }, restartDelay);
+        return;
+      }
+
+      // 2. CHẾ ĐỘ NGƯỜI CHƠI THẬT: HIỂN THỊ MODAL CHÚC MỪNG HOÀNG GIA
       const modal = document.getElementById('victoryModal');
       const card = document.getElementById('victoryCard');
       const title = document.getElementById('vicTitle');
       const desc = document.getElementById('vicDesc');
 
       title.textContent = winnerName.includes('Hòa') ? 'Bắt Tay Hòa Trận!' : `${winnerName} Toàn Thắng!`;
-      if (isSpectatorMode) {
-        desc.innerHTML = `Ván quan sát kết thúc! <span class="text-cyan-300 font-bold">Tự động khởi động ván mới sau 3 giây...</span>`;
-        setTimeout(() => {
-          if (isSpectatorMode) {
-            closeModal('victoryModal');
-            handleReset();
-            showToast('🔄 Tự động bắt đầu ván quan sát tiếp theo!');
-          }
-        }, 3200);
-      } else {
-        desc.textContent = `Chúc mừng bạn đã hoàn thành một thế cờ xuất chúng!`;
-      }
+      desc.textContent = `Chúc mừng bạn đã hoàn thành một thế cờ xuất chúng!`;
 
       modal.classList.remove('hidden');
       setTimeout(() => {
@@ -3623,7 +3767,7 @@
         positions = { 1: 0, 2: 0, 3: 0, 4: 0 };
         currentTurn = 1;
         isDiceRolling = false;
-        document.getElementById('diceFaceDisplay').textContent = '🎲';
+        document.getElementById('diceFaceDisplay').innerHTML = getDiceFaceSvg(0);
         document.getElementById('miniLog').textContent = '⚔️ Đấu trường khai màn! Hãy gieo xúc xắc để xuất quân.';
         updateDiceUI();
         renderCircuitBoard();
@@ -3631,9 +3775,10 @@
         if (isSpectatorMode) {
           const hint = document.getElementById('diceActionHint');
           if (hint) hint.textContent = '👁️ Chế độ Quan Sát đang tự động khởi chạy...';
+          const startDelay = Math.max(50, Math.floor(700 / spectatorSpeed));
           setTimeout(() => {
             if (isSpectatorMode && !spectatorPaused) triggerAutoRoll(1);
-          }, 800);
+          }, startDelay);
         } else {
           const hint = document.getElementById('diceActionHint');
           if (hint) hint.textContent = 'Chạm vào xúc xắc để gieo';
@@ -5381,6 +5526,7 @@
 
     // App Initialization
     window.addEventListener('DOMContentLoaded', () => {
+      loadBotWinStats();
       lucide.createIcons();
       loadAdminConfig();
       initVersionTracker();

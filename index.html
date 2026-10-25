@@ -164,8 +164,8 @@
       
       <!-- Brand Logo -->
       <div class="flex items-center gap-6 sm:gap-8">
-        <div class="flex items-center gap-3 cursor-pointer group" onclick="switchGameView('dice')">
-          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 p-0.5 shadow-lg shadow-amber-600/25 flex items-center justify-center group-hover:scale-105 transition-transform">
+        <div class="flex items-center gap-3 cursor-pointer group" onclick="handleLogoSecretClick(event)" title="Tabletop Arena (Nhấp 3 lần để mở Cổng Quản Trị)">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 p-0.5 shadow-lg shadow-amber-600/25 flex items-center justify-center group-hover:scale-105 transition-transform" id="brandLogoIcon">
             <div class="w-full h-full bg-[#0E1526] rounded-[14px] flex items-center justify-center text-amber-400">
               <i data-lucide="crown" class="w-5 h-5 fill-amber-400/20"></i>
             </div>
@@ -197,11 +197,6 @@
           <button onclick="openModal('rulesModal')" class="btn-spring px-3.5 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/50 flex items-center gap-2">
             <i data-lucide="scroll" class="w-4 h-4 text-cyan-400"></i>
             Luật Chơi
-          </button>
-          <button onclick="openAdminModal()" class="btn-spring px-3 py-2 rounded-xl text-rose-300 hover:text-white bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/40 flex items-center gap-1.5 shadow-sm">
-            <i data-lucide="shield" class="w-4 h-4 text-rose-400"></i>
-            <span>Quản Trị</span>
-            <span class="text-[9px] px-1.5 py-0.2 rounded bg-rose-500/30 text-rose-200 font-bold border border-rose-500/50 font-mono">ADMIN</span>
           </button>
         </nav>
       </div>
@@ -252,7 +247,7 @@
                 <i data-lucide="user-check" class="w-4 h-4 text-amber-400"></i>
                 Hồ Sơ & Dữ Liệu Firebase
               </button>
-              <button onclick="openAdminModal()" class="w-full px-3 py-2 rounded-xl hover:bg-rose-500/10 text-left flex items-center gap-2 text-rose-300 font-semibold">
+              <button id="dropdownAdminBtn" onclick="openAdminModal()" class="hidden w-full px-3 py-2 rounded-xl hover:bg-rose-500/10 text-left items-center gap-2 text-rose-300 font-semibold">
                 <i data-lucide="shield-check" class="w-4 h-4 text-rose-400"></i>
                 Đại Sảnh Quản Trị (Admin)
               </button>
@@ -497,15 +492,14 @@
         <h4 class="font-bold text-slate-200 mb-2 uppercase text-[10px] tracking-wider font-cinzel">Cộng Đồng & Quy Tắc</h4>
         <ul class="space-y-1.5 text-[11px]">
           <li><button onclick="openModal('rulesModal')" class="hover:text-amber-400 transition-colors">📖 Luật Chơi Chi Tiết</button></li>
-          <li><button onclick="openAdminModal()" class="hover:text-rose-400 text-rose-300 transition-colors flex items-center gap-1 font-semibold">🛡️ Cổng Quản Trị Viên (Admin)</button></li>
           <li><a href="https://github.com/thaitraicau123-pixel/antigravity-collab-web/tree/feat/ui" target="_blank" class="hover:text-amber-400 transition-colors flex items-center gap-1">💻 Nhánh feat/ui GitHub</a></li>
-          <li><span class="text-slate-500 font-mono">Phiên bản: v3.3.0-AdminPortal</span></li>
+          <li><span class="text-slate-500 font-mono">Phiên bản: v3.3.0-SecretAdmin</span></li>
         </ul>
       </div>
     </div>
 
     <div class="max-w-6xl mx-auto pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-[11px]">
-      <div>© 2026 Tabletop Arena. Kết nối hệ sinh thái Firebase Authentication & Cloud Firestore.</div>
+      <div><span onclick="handleSecretFooterClick(event)" class="cursor-pointer select-none hover:text-amber-400 transition-colors font-bold" title="© 2026 Tabletop Arena">©</span> 2026 Tabletop Arena. Kết nối hệ sinh thái Firebase Authentication & Cloud Firestore.</div>
       <div class="flex gap-4 text-slate-400">
         <a href="#" class="hover:text-amber-400">Điều khoản</a>
         <a href="#" class="hover:text-amber-400">Chính sách bảo mật</a>
@@ -1679,12 +1673,28 @@
       const initials = userData.displayName.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
       document.getElementById('userAvatarSmall').textContent = initials;
       document.getElementById('profileAvatarBig').textContent = initials;
+
+      const dropAdmin = document.getElementById('dropdownAdminBtn');
+      if (dropAdmin) {
+        if (userData.role === 'Admin') {
+          dropAdmin.classList.remove('hidden');
+          dropAdmin.classList.add('flex');
+        } else {
+          dropAdmin.classList.add('hidden');
+          dropAdmin.classList.remove('flex');
+        }
+      }
     };
 
     window.applyGuestUI = function() {
       document.getElementById('btnLoginTrigger').classList.remove('hidden');
       document.getElementById('userProfileWidget').classList.add('hidden');
       document.getElementById('p1CardName').innerHTML = `Người chơi 1 <span class="text-[9px] px-1 rounded bg-cyan-500/20 text-cyan-300">P1</span>`;
+      const dropAdmin = document.getElementById('dropdownAdminBtn');
+      if (dropAdmin) {
+        dropAdmin.classList.add('hidden');
+        dropAdmin.classList.remove('flex');
+      }
     };
 
     window.quickSocialLogin = function(provider) {
@@ -2190,6 +2200,86 @@
       { id: 4, time: '12 phút trước', tag: 'VIP', color: 'purple', text: 'Giao dịch nâng cấp gói Huyền Thoại VIP kích hoạt thành công.' }
     ];
 
+    // =========================================================================
+    // SECRET PORTAL SYSTEM (4 CỔNG BÍ MẬT DÀNH CHO QUẢN TRỊ VIÊN)
+    // =========================================================================
+    let logoSecretClicks = 0;
+    let logoSecretTimer = null;
+
+    window.handleLogoSecretClick = function(e) {
+      logoSecretClicks++;
+      clearTimeout(logoSecretTimer);
+      logoSecretTimer = setTimeout(() => {
+        if (logoSecretClicks < 3) {
+          switchGameView('dice');
+        }
+        logoSecretClicks = 0;
+      }, 800);
+
+      if (logoSecretClicks >= 3) {
+        logoSecretClicks = 0;
+        clearTimeout(logoSecretTimer);
+        triggerSecretPortal('Vương Miện Logo (Triple-Click)');
+      }
+    };
+
+    let footerSecretClicks = 0;
+    let footerSecretTimer = null;
+
+    window.handleSecretFooterClick = function(e) {
+      footerSecretClicks++;
+      clearTimeout(footerSecretTimer);
+      footerSecretTimer = setTimeout(() => {
+        footerSecretClicks = 0;
+      }, 800);
+
+      if (footerSecretClicks >= 3) {
+        footerSecretClicks = 0;
+        clearTimeout(footerSecretTimer);
+        triggerSecretPortal('Bản Quyền © Footer (Triple-Click)');
+      }
+    };
+
+    function triggerSecretPortal(sourceName) {
+      // Secret visual flourish on Logo
+      const logoIcon = document.getElementById('brandLogoIcon');
+      if (logoIcon) {
+        logoIcon.classList.add('ring-4', 'ring-amber-400', 'scale-110');
+        setTimeout(() => logoIcon.classList.remove('ring-4', 'ring-amber-400', 'scale-110'), 900);
+      }
+
+      // Secret Magical Chime Audio Synthesis
+      soundTone(523.25, 'sine', 0.12, 0.12); // C5
+      setTimeout(() => soundTone(659.25, 'sine', 0.12, 0.12), 100); // E5
+      setTimeout(() => soundTone(783.99, 'triangle', 0.22, 0.18), 200); // G5
+      setTimeout(() => soundTone(1046.50, 'triangle', 0.35, 0.25), 320); // C6
+
+      // Open Modal
+      openAdminModal();
+      showToast(`🗝️ Cổng Bí Mật Quản Trị Viên kích hoạt qua [${sourceName}]!`);
+      adminAddLog('AUTH', `Kích hoạt Cổng Bí Mật Quản Trị Viên thành công qua [${sourceName}].`);
+    }
+
+    // Secret Hotkey Listener: Ctrl + Shift + A hoặc Alt + Shift + A
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey || e.altKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        triggerSecretPortal('Phím tắt Ctrl+Shift+A');
+      }
+    });
+
+    // Secret URL Hash / Query check: #admin hoặc ?secret=admin
+    function checkSecretPortalFromURL() {
+      const hash = (window.location.hash || '').toLowerCase();
+      const search = (window.location.search || '').toLowerCase();
+      if (hash === '#admin' || hash === '#secret' || search.includes('secret=admin') || search.includes('admin=true')) {
+        setTimeout(() => {
+          triggerSecretPortal('URL Mật Mã (#admin)');
+        }, 400);
+      }
+    }
+    window.addEventListener('hashchange', checkSecretPortalFromURL);
+
     // Load saved admin config from localStorage
     function loadAdminConfig() {
       const savedCfg = localStorage.getItem('tabletop_admin_config');
@@ -2612,6 +2702,7 @@
       loadAdminConfig();
       renderCircuitBoard();
       updateDiceUI();
+      checkSecretPortalFromURL();
 
       // Check local cache if any
       const cached = localStorage.getItem('tabletop_firebase_user');

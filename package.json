@@ -1,0 +1,13 @@
+{
+  "name": "antigravity-collab-web",
+  "version": "1.0.0",
+  "description": "Collaborative web development starter for 2 Antigravity accounts",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": ["antigravity", "collaboration", "pair-programming", "web"],
+  "author": "Antigravity Duo Team",
+  "license": "MIT"
+}

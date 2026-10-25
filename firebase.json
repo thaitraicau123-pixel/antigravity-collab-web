@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "day_len_github.bat",
+      "day_len_firebase.bat",
+      "server.py",
+      "*.zip"
+    ]
+  }
+}

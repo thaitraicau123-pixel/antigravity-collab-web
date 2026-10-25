@@ -32,3 +32,17 @@
   - Kiểm thử đổi điểm thắng (30đ, 75đ, 100đ).
   - Kiểm thử chế độ Khán Giả (Tự động gieo xúc xắc, tạm dừng, đổi tốc độ).
   - Xác thực GitHub Pages build thành công 100%.
+
+## 3. Hợp nhất Tính năng Đồng đội (Dev 1 & Dev 2 Collaboration)
+- **Bạn 1 (Frontend & UI/UX Specialist - Nhánh `feat/ui`):**
+  - Đấu trường Multi-Bot 1 - 3 BOTs (Cáo Lửa 🦊, Sói Băng 🐺, Gấu Trúc 🐼) & P1 (👤).
+  - Tùy chỉnh Điểm Cán Đích (30đ, 50đ, 100đ, Custom) kèm Race Tracker 4 người chơi.
+  - Chế độ Khán Giả Quan Sát (Spectator Mode) tự động gieo xúc xắc với tốc độ 1x, 2x, 3x và nút lấy lại quyền chơi.
+  - 4 Cổng bảo mật Secret Portals (`Ctrl+Shift+A`, triple-click logo, `#admin`, footer `©`).
+  - Giao diện Boardgame Cyber Tabletop sang trọng, font chữ chuẩn tiếng Việt.
+- **Bạn 2 (Game Logic & Version Engine - Nhánh `feat/logic` / `main`):**
+  - Hệ thống GitHub Live Version Tracker tự động đồng bộ commit từ GitHub API.
+  - Hộp thoại Nhật Ký Phiên Bản (Changelog `#versionModal`) phân loại đóng góp của Dev 1 vs Dev 2.
+  - Nút Version Pill nổi bật trên Header (`#headerVersionPill`) và liên kết footer.
+  - Dự phòng Offline Curated Changelog đảm bảo không bao giờ bị nghẽn API rate limit.
+  - Công cụ triển khai tự động: `day_len_github.bat`, `day_len_firebase.bat`, `HUONG_DAN_CHO_BAN_CUA_ANH.md`.

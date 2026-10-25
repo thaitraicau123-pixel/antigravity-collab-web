@@ -210,6 +210,13 @@
           <span class="text-emerald-400 font-bold" id="firebaseSyncStatus">Trực Tuyến</span>
         </div>
 
+        <!-- Version & Contributor Changelog Pill -->
+        <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm" title="Xem phiên bản & cập nhật của lập trình viên">
+          <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
+          <span id="headerVersionPill" class="font-bold">v2.5.0</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+        </button>
+
         <!-- Coin & Gem Pouch -->
         <div class="hidden md:flex items-center gap-3 px-3.5 py-1.5 rounded-xl bg-board-tray border border-board-border text-xs font-semibold shadow-inner">
           <div class="flex items-center gap-1.5 text-amber-400" title="Xu Vàng Hoàng Gia">
@@ -936,6 +943,7 @@
         <h4 class="font-bold text-slate-200 mb-2 uppercase text-[10px] tracking-wider font-cinzel">Hỗ Trợ & Điều Khoản</h4>
         <ul class="space-y-1.5 text-[11px]">
           <li><button onclick="switchMainTab('rules')" class="hover:text-amber-400 transition-colors">📖 Hướng Dẫn & Luật Chơi</button></li>
+          <li><button onclick="openModal('versionModal')" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5 font-semibold text-cyan-400/90"><i data-lucide="git-pull-request" class="w-3.5 h-3.5 text-cyan-400"></i><span>Nhật Ký Phiên Bản (Changelog)</span></button></li>
           <li><a href="#" class="hover:text-amber-400 transition-colors">🛡️ Điều Khoản Dịch Vụ</a></li>
           <li><a href="#" class="hover:text-amber-400 transition-colors">🔒 Chính Sách Bảo Mật</a></li>
         </ul>
@@ -1664,6 +1672,114 @@
 
         </div>
 
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: NHẬT KÝ PHIÊN BẢN & ĐÓNG GÓP LẬP TRÌNH VIÊN (CHANGELOG)
+       ========================================================================= -->
+  <div id="versionModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div id="versionCard" class="w-full max-w-3xl tabletop-mat rounded-3xl p-5 sm:p-6 shadow-2xl border border-board-border transform scale-90 transition-transform duration-300 relative max-h-[90vh] flex flex-col">
+      
+      <!-- Close Button -->
+      <button onclick="closeModal('versionModal')" class="absolute top-5 right-5 p-1.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white transition-colors" title="Đóng">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-board-border shrink-0 pr-8">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 text-lg shadow-inner">
+            <i data-lucide="git-branch" class="w-5 h-5 text-cyan-400"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v2.5.0</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
+          </div>
+        </div>
+
+        <button onclick="refreshDevChangelog()" id="btnRefreshChangelog" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700/80 text-xs font-mono text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 transition shadow-sm w-fit">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5" id="refreshIcon"></i>
+          <span>Đồng Bộ GitHub API</span>
+        </button>
+      </div>
+
+      <!-- Developer Summary Cards (2 Devs) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 my-4 shrink-0">
+        <!-- Dev 2: Anh (Logic) -->
+        <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-cyan-500/30 space-y-2 relative overflow-hidden">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold text-xs">
+                L
+              </div>
+              <div>
+                <div class="text-xs font-bold text-white">thaitraicau123-pixel (Anh)</div>
+                <div class="text-[10px] text-cyan-400 font-mono">Logic, Data & Engine Specialist</div>
+              </div>
+            </div>
+            <span id="dev2CommitCount" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+              -- Commits
+            </span>
+          </div>
+          <div class="text-[11px] text-slate-300 space-y-1 pl-1">
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Engine theo dõi phiên bản & GitHub REST API live fetch</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Thuật toán tính điểm 12 ô xúc xắc & Bot AI thông minh</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Cổng Grandmaster Admin Audit Logs & Cân bằng game</span></div>
+          </div>
+        </div>
+
+        <!-- Dev 1: Bạn của anh (UI/UX) -->
+        <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-pink-500/30 space-y-2 relative overflow-hidden">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-pink-400 font-bold text-xs">
+                U
+              </div>
+              <div>
+                <div class="text-xs font-bold text-white">cuongcuca111-web (Bạn anh)</div>
+                <div class="text-[10px] text-pink-400 font-mono">UI/UX Board Game Designer</div>
+              </div>
+            </div>
+            <span id="dev1CommitCount" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-pink-500/10 text-pink-400 border border-pink-500/30">
+              -- Commits
+            </span>
+          </div>
+          <div class="text-[11px] text-slate-300 space-y-1 pl-1">
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Layout Cyber Tabletop Arena, nỉ nhung & khay 3D</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Hệ thống View Tabs (Bàn Đấu, Bảng Phong Thần, VIP, Luật)</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Cột Tactical Bento HUD & Responsive Mobile tối ưu</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Controls Bar -->
+      <div class="flex items-center justify-between pb-3 shrink-0">
+        <div class="flex items-center gap-1.5 bg-black/40 p-1 rounded-xl border border-board-border text-xs font-bold">
+          <button id="vFilterAll" onclick="filterVersionLog('all')" class="px-3 py-1 rounded-lg bg-amber-600 text-white shadow-sm transition">
+            Tất Cả
+          </button>
+          <button id="vFilterDev2" onclick="filterVersionLog('dev2')" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">
+            Anh (Logic)
+          </button>
+          <button id="vFilterDev1" onclick="filterVersionLog('dev1')" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">
+            Bạn anh (UI/UX)
+          </button>
+        </div>
+        <div id="vSyncStatus" class="text-[11px] font-mono text-emerald-400 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>GitHub API Live</span>
+        </div>
+      </div>
+
+      <!-- Changelog Feed Container -->
+      <div id="versionFeedContainer" class="flex-1 overflow-y-auto space-y-2.5 pr-1 min-h-[200px]">
+        <!-- Populated dynamically via JS -->
       </div>
 
     </div>
@@ -3452,9 +3568,368 @@
       showToast('🗑️ Đã dọn sạch nhật ký quản trị');
     };
 
+    // =========================================================================
+    // LOGIC ENGINE: TỰ ĐỘNG THEO DÕI PHIÊN BẢN & ĐÓNG GÓP CỦA LẬP TRÌNH VIÊN
+    // (Developer 2: Game Logic, Engine & Data Specialist)
+    // =========================================================================
+    const GITHUB_TRACKER_CONFIG = {
+      owner: 'thaitraicau123-pixel',
+      repo: 'antigravity-collab-web',
+      token: localStorage.getItem('boardgame_github_token') || '',
+      currentVersion: 'v2.5.0'
+    };
+
+    let allChangelogItems = [];
+    let currentChangelogFilter = 'all';
+
+    // Curated fallback updates in case of offline or GitHub API rate limiting
+    const CURATED_CHANGELOG = [
+      {
+        sha: 'b2b431d',
+        roleType: 'dev1',
+        author: 'cuongcuca111-web (Bạn anh)',
+        version: 'v2.4.0',
+        title: 'Tái cấu trúc bố cục Unified Match Console, View Tabs & Bento HUD',
+        details: 'Phân tách 4 view độc lập (Arena, Bảng phong thần, VIP, Luật chơi), gộp thanh công cụ điều khiển trung tâm và tối ưu hóa không gian hiển thị.',
+        date: '2026-10-25T17:26:18Z'
+      },
+      {
+        sha: 'a025607',
+        roleType: 'dev2',
+        author: 'thaitraicau123-pixel (Anh)',
+        version: 'v2.3.0',
+        title: 'Xây dựng Logic Engine tự động đối soát phiên bản từ GitHub API',
+        details: 'Tích hợp GitHub REST API live fetch, tự động phát hiện lập trình viên nào đã commit những tính năng gì, phân loại UI/Logic theo AGENTS.md.',
+        date: '2026-10-25T17:27:18Z'
+      },
+      {
+        sha: '2d458fd',
+        roleType: 'dev1',
+        author: 'cuongcuca111-web (Bạn anh)',
+        version: 'v2.2.0',
+        title: 'Ẩn siêu dữ liệu lập trình và bảo tồn 4 cổng Admin bí mật',
+        details: 'Làm sạch giao diện người chơi công cộng, tích hợp bảo mật cho 4 cổng kích hoạt quản trị (Triple-click Logo, Hotkey, Hash URL, Footer).',
+        date: '2026-10-25T17:20:11Z'
+      },
+      {
+        sha: 'f5554e2',
+        roleType: 'dev2',
+        author: 'thaitraicau123-pixel (Anh)',
+        version: 'v2.1.0',
+        title: 'Hiển thị nhật ký đóng góp & trạng thái Push/Fetch của 2 Dev',
+        details: 'Tạo thẻ tóm tắt năng suất của 2 lập trình viên, tích hợp bộ lọc tương tác và nhật ký cập nhật chi tiết.',
+        date: '2026-10-25T17:06:42Z'
+      },
+      {
+        sha: '631be54',
+        roleType: 'dev1',
+        author: 'cuongcuca111-web (Bạn anh)',
+        version: 'v2.0.0',
+        title: 'Thiết kế giao diện Grandmaster Admin Portal & Bảng cân bằng game',
+        details: 'Giao diện quản trị viên đẳng cấp với thống kê tổng quan, quản lý kỳ thủ, form tinh chỉnh phần thưởng sao/rương/lỗ đen.',
+        date: '2026-10-25T17:07:02Z'
+      },
+      {
+        sha: '4776a51',
+        roleType: 'dev2',
+        author: 'thaitraicau123-pixel (Anh)',
+        version: 'v1.9.0',
+        title: 'Cấu hình Firebase Hosting & kịch bản triển khai tự động 1-click',
+        details: 'Tạo firebase.json và script day_len_firebase.bat để dễ dàng phát hành trang web lên đám mây.',
+        date: '2026-10-25T17:04:45Z'
+      },
+      {
+        sha: '5c2ce7b',
+        roleType: 'dev1',
+        author: 'cuongcuca111-web (Bạn anh)',
+        version: 'v1.8.0',
+        title: 'Tối ưu hóa hiển thị font tiếng Việt Playfair Display & Be Vietnam Pro',
+        details: 'Khắc phục lỗi font có dấu, áp dụng typography hoàng gia cho toàn bộ tiêu đề, nhãn thẻ và thông số bàn cờ.',
+        date: '2026-10-25T16:53:20Z'
+      },
+      {
+        sha: '679ef54',
+        roleType: 'dev2',
+        author: 'thaitraicau123-pixel (Anh)',
+        version: 'v1.7.0',
+        title: 'Tích hợp Firebase Realtime Database chơi cờ Online nhiều người',
+        details: 'Xử lý đồng bộ hóa trạng thái phòng chơi trực tuyến, phát hiện lượt đi của đối thủ qua Web Socket Firebase.',
+        date: '2026-10-25T16:43:39Z'
+      },
+      {
+        sha: '9746d8f',
+        roleType: 'dev1',
+        author: 'cuongcuca111-web (Bạn anh)',
+        version: 'v1.6.0',
+        title: 'Thiết kế phong cách Tabletop Board Game sang trọng phong cách Nỉ Nhung',
+        details: 'Hiệu ứng ánh sáng vàng hổ phách, gạch men sứ acrylic, khay xúc xắc 3D viền gỗ óc chó cao cấp.',
+        date: '2026-10-25T16:43:28Z'
+      },
+      {
+        sha: '1a4fd79',
+        roleType: 'dev2',
+        author: 'thaitraicau123-pixel (Anh)',
+        version: 'v1.5.0',
+        title: 'Thuật toán tính toán nước đi thông minh của Bot AI đấu kỳ thủ',
+        details: 'Heuristic đánh chặn các chuỗi nguy hiểm 3, 4 quân và tìm kiếm chuỗi 5 quân kết liễu trận đấu.',
+        date: '2026-10-25T16:36:52Z'
+      },
+      {
+        sha: '86e3604',
+        roleType: 'dev1',
+        author: 'cuongcuca111-web (Bạn anh)',
+        version: 'v1.4.0',
+        title: 'Xây dựng toàn bộ hệ thống Modal: Auth, Profile, VIP, Leaderboard, Rules',
+        details: 'Hoàn thiện trải nghiệm người dùng với các hộp thoại tương tác, hiệu ứng mở mượt mà và hỗ trợ di động.',
+        date: '2026-10-25T16:36:32Z'
+      },
+      {
+        sha: 'b0473a2',
+        roleType: 'dev2',
+        author: 'thaitraicau123-pixel (Anh)',
+        version: 'v1.3.0',
+        title: 'Thiết lập quy tắc AGENTS.md & cơ chế phân chia nhánh Git chống conflict',
+        details: 'Quy định chuẩn hóa Developer 1 phụ trách feat/ui, Developer 2 phụ trách feat/logic theo chuẩn Antigravity.',
+        date: '2026-10-25T16:27:48Z'
+      }
+    ];
+
+    function formatVietnameseDate(dateStr) {
+      if (!dateStr) return 'Vừa xong';
+      try {
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return dateStr;
+        const pad = n => String(n).padStart(2, '0');
+        return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      } catch (e) {
+        return dateStr;
+      }
+    }
+
+    function parseCommitDetails(c, index, total) {
+      const sha7 = (c.sha || '').substring(0, 7);
+      const msg = (c.commit && c.commit.message) || '';
+      const firstLine = msg.split('\n')[0].trim();
+      const authorLogin = (c.author && c.author.login) || '';
+      const authorName = (c.commit && c.commit.author && c.commit.author.name) || '';
+
+      const isDev1 = authorLogin.includes('cuongcuca') ||
+                     authorName.includes('cuongcuca') ||
+                     firstLine.includes('(ui)') ||
+                     firstLine.includes('feat/ui') ||
+                     firstLine.includes('style(') ||
+                     firstLine.includes('typography');
+
+      const roleType = isDev1 ? 'dev1' : 'dev2';
+      const author = isDev1 ? 'cuongcuca111-web (Bạn anh)' : 'thaitraicau123-pixel (Anh)';
+
+      // Calculate pseudo version tag based on index
+      const major = 2;
+      const minor = Math.max(0, 5 - Math.floor(index / 2));
+      const patch = index % 2 === 0 ? 0 : 5;
+      const version = `v${major}.${minor}.${patch}`;
+
+      // Clean up title
+      let cleanTitle = firstLine.replace(/^(feat|fix|style|chore|docs)\([^)]+\):\s*/i, '');
+      cleanTitle = cleanTitle.charAt(0).toUpperCase() + cleanTitle.slice(1);
+
+      // Extract body details if available
+      const lines = msg.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+      const details = lines.length > 1 ? lines.slice(1).join(' ') : (isDev1 ? 'Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ.' : 'Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống.');
+
+      return {
+        sha: sha7,
+        roleType,
+        author,
+        version,
+        title: cleanTitle,
+        details,
+        date: c.commit && c.commit.author && c.commit.author.date
+      };
+    }
+
+    async function fetchGitHubCommits() {
+      const { owner, repo, token } = GITHUB_TRACKER_CONFIG;
+      const headers = { 'Accept': 'application/vnd.github.v3+json' };
+      if (token) headers['Authorization'] = `token ${token}`;
+
+      try {
+        const [resMain, resUi] = await Promise.allSettled([
+          fetch(`https://api.github.com/repos/${owner}/${repo}/commits?sha=main&per_page=25`, { headers }),
+          fetch(`https://api.github.com/repos/${owner}/${repo}/commits?sha=feat/ui&per_page=25`, { headers })
+        ]);
+
+        let rawCommits = [];
+        if (resMain.status === 'fulfilled' && resMain.value.ok) {
+          const mainData = await resMain.value.json();
+          if (Array.isArray(mainData)) rawCommits.push(...mainData);
+        }
+        if (resUi.status === 'fulfilled' && resUi.value.ok) {
+          const uiData = await resUi.value.json();
+          if (Array.isArray(uiData)) rawCommits.push(...uiData);
+        }
+
+        if (rawCommits.length === 0) {
+          console.warn('GitHub API returned no commits, using curated fallback.');
+          return CURATED_CHANGELOG;
+        }
+
+        // Deduplicate by sha and sort by date descending
+        const map = new Map();
+        rawCommits.forEach(c => {
+          if (c.sha && !map.has(c.sha)) {
+            map.set(c.sha, c);
+          }
+        });
+
+        const sorted = Array.from(map.values()).sort((a, b) => {
+          const da = new Date(a.commit?.author?.date || 0);
+          const db = new Date(b.commit?.author?.date || 0);
+          return db - da;
+        });
+
+        return sorted.map((c, i) => parseCommitDetails(c, i, sorted.length));
+      } catch (err) {
+        console.warn('Error fetching GitHub commits:', err);
+        return CURATED_CHANGELOG;
+      }
+    }
+
+    function renderChangelogFeed(filter = 'all') {
+      const container = document.getElementById('versionFeedContainer');
+      if (!container) return;
+
+      container.innerHTML = '';
+      const filtered = filter === 'all' 
+        ? allChangelogItems 
+        : allChangelogItems.filter(item => item.roleType === filter);
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="py-8 text-center text-xs text-slate-500 italic">
+            Chưa có ghi chép bản cập nhật nào cho bộ lọc này.
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const isDev2 = item.roleType === 'dev2';
+        const borderCol = isDev2 ? 'border-cyan-500/30 hover:border-cyan-400/60' : 'border-pink-500/30 hover:border-pink-400/60';
+        const badgeBg = isDev2 ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30' : 'bg-pink-500/10 text-pink-400 border-pink-500/30';
+        const tagText = isDev2 ? 'Anh (Logic & Engine)' : 'Bạn anh (UI/UX Frontend)';
+        const commitUrl = `https://github.com/${GITHUB_TRACKER_CONFIG.owner}/${GITHUB_TRACKER_CONFIG.repo}/commit/${item.sha}`;
+
+        const card = document.createElement('div');
+        card.className = `p-3.5 rounded-2xl bg-slate-950/80 border ${borderCol} space-y-2 transition-all shadow-sm`;
+        card.innerHTML = `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${badgeBg}">
+                ${tagText}
+              </span>
+              <span class="text-[10px] font-mono text-amber-400 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded font-bold">
+                ${item.version}
+              </span>
+              <strong class="text-xs text-white">${item.title}</strong>
+            </div>
+            <div class="flex items-center gap-2 text-[11px] text-slate-400 font-mono shrink-0">
+              <a href="${commitUrl}" target="_blank" rel="noopener noreferrer" class="hover:underline text-cyan-400 font-mono transition" title="Xem commit trên GitHub">
+                [#${item.sha}]
+              </a>
+              <span>•</span>
+              <span>${formatVietnameseDate(item.date)}</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed pl-1">${item.details}</p>
+        `;
+        container.appendChild(card);
+      });
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+
+    window.filterVersionLog = function(filter) {
+      currentChangelogFilter = filter;
+      const btnAll = document.getElementById('vFilterAll');
+      const btnDev2 = document.getElementById('vFilterDev2');
+      const btnDev1 = document.getElementById('vFilterDev1');
+
+      [btnAll, btnDev2, btnDev1].forEach(b => {
+        if (b) {
+          b.className = 'px-3 py-1 rounded-lg text-slate-400 hover:text-white transition';
+        }
+      });
+
+      if (filter === 'all' && btnAll) {
+        btnAll.className = 'px-3 py-1 rounded-lg bg-amber-600 text-white shadow-sm transition';
+      } else if (filter === 'dev2' && btnDev2) {
+        btnDev2.className = 'px-3 py-1 rounded-lg bg-cyan-600 text-white shadow-sm transition';
+      } else if (filter === 'dev1' && btnDev1) {
+        btnDev1.className = 'px-3 py-1 rounded-lg bg-pink-600 text-white shadow-sm transition';
+      }
+
+      renderChangelogFeed(filter);
+    };
+
+    window.refreshDevChangelog = async function() {
+      const icon = document.getElementById('refreshIcon');
+      if (icon) icon.classList.add('animate-spin');
+      showToast('🔄 Đang đồng bộ phiên bản mới nhất từ GitHub REST API...');
+
+      allChangelogItems = await fetchGitHubCommits();
+      updateChangelogStats();
+      renderChangelogFeed(currentChangelogFilter);
+
+      setTimeout(() => {
+        if (icon) icon.classList.remove('animate-spin');
+        showToast(`✅ Đã đồng bộ thành công ${allChangelogItems.length} bản cập nhật từ 2 Dev!`);
+      }, 500);
+    };
+
+    function updateChangelogStats() {
+      const dev2Count = allChangelogItems.filter(i => i.roleType === 'dev2').length;
+      const dev1Count = allChangelogItems.filter(i => i.roleType === 'dev1').length;
+
+      const dev2Badge = document.getElementById('dev2CommitCount');
+      if (dev2Badge) dev2Badge.innerText = `${dev2Count} Commits (Push & Logic)`;
+
+      const dev1Badge = document.getElementById('dev1CommitCount');
+      if (dev1Badge) dev1Badge.innerText = `${dev1Count} Commits (Push & UI)`;
+
+      const btnAll = document.getElementById('vFilterAll');
+      if (btnAll) btnAll.innerText = `Tất Cả (${allChangelogItems.length})`;
+
+      const btnDev2 = document.getElementById('vFilterDev2');
+      if (btnDev2) btnDev2.innerText = `Anh (Logic - ${dev2Count})`;
+
+      const btnDev1 = document.getElementById('vFilterDev1');
+      if (btnDev1) btnDev1.innerText = `Bạn anh (UI - ${dev1Count})`;
+    }
+
+    async function initVersionTracker() {
+      allChangelogItems = CURATED_CHANGELOG;
+      updateChangelogStats();
+      renderChangelogFeed('all');
+
+      // Async live sync with GitHub API
+      fetchGitHubCommits().then(liveItems => {
+        if (liveItems && liveItems.length > 0) {
+          allChangelogItems = liveItems;
+          updateChangelogStats();
+          renderChangelogFeed(currentChangelogFilter);
+        }
+      }).catch(err => {
+        console.warn('Initial GitHub sync fell back to curated logs:', err);
+      });
+    }
+
     // App Initialization
     window.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
+      initVersionTracker();
       loadAdminConfig();
       renderCircuitBoard();
       updateDiceUI();

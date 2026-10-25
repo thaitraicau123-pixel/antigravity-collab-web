@@ -547,14 +547,34 @@ async function initDevChangelog() {
 
   if (!container) return;
 
+  // Hiển thị trạng thái đang đồng bộ
+  container.innerHTML = '<div class="flex items-center justify-center gap-2 py-6 text-slate-400 text-xs font-mono"><span class="inline-block w-4 h-4 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin"></span><span>Đang đồng bộ phiên bản từ GitHub...</span></div>';
+
   const updates = await TeamAPI.getDevUpdates();
+
+  const dev2Count = updates.filter(u => u.roleType === 'dev2').length;
+  const dev1Count = updates.filter(u => u.roleType === 'dev1').length;
+
+  // Cập nhật số lượng commit trên thẻ tóm tắt của 2 Developer nếu tìm thấy trong DOM
+  const summaryCards = document.querySelectorAll('.grid.grid-cols-1.md\\:grid-cols-2 > div');
+  if (summaryCards.length >= 2) {
+    const dev2Badge = summaryCards[0].querySelector('span.font-mono');
+    if (dev2Badge && dev2Count > 0) dev2Badge.innerText = dev2Count + ' Commits (Push)';
+    const dev1Badge = summaryCards[1].querySelector('span.font-mono');
+    if (dev1Badge && dev1Count > 0) dev1Badge.innerText = dev1Count + ' Commits (Push & UI)';
+  }
+
+  // Cập nhật nhãn số lượng trên các nút lọc
+  if (btnAll) btnAll.innerText = 'Tất Cả (' + updates.length + ')';
+  if (btnDev2) btnDev2.innerText = 'Anh (Logic - ' + dev2Count + ')';
+  if (btnDev1) btnDev1.innerText = 'Bạn anh (UI - ' + dev1Count + ')';
 
   const renderChangelog = (filter) => {
     container.innerHTML = '';
     const filtered = filter === 'all' ? updates : updates.filter(u => u.roleType === filter);
 
     if (filtered.length === 0) {
-      container.innerHTML = '<p class="text-xs text-slate-500 italic py-3 text-center">Chưa có ghi chú cập nhật nào.</p>';
+      container.innerHTML = '<p class="text-xs text-slate-500 italic py-4 text-center">Chưa có ghi chú cập nhật nào cho bộ lọc này.</p>';
       return;
     }
 
@@ -564,26 +584,25 @@ async function initDevChangelog() {
       const badgeBg = isDev2 ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' : 'bg-pink-500/10 text-pink-400 border-pink-500/20';
 
       const card = document.createElement('div');
-      card.className = `p-4 rounded-xl bg-slate-950/80 border ${borderCol} space-y-2 hover:border-slate-700 transition`;
-      card.innerHTML = `
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${badgeBg}">
-              ${item.author}
-            </span>
-            <span class="text-[10px] font-mono text-amber-400 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded font-bold">
-              ${item.version}
-            </span>
-            <strong class="text-xs text-white">${item.title}</strong>
-          </div>
-          <div class="flex items-center gap-2 text-[11px] text-slate-500 font-mono">
-            <span>[#${item.commit}]</span>
-            <span>•</span>
-            <span>${item.time}</span>
-          </div>
-        </div>
-        <p class="text-xs text-slate-300 leading-relaxed pl-1">${item.details}</p>
-      `;
+      card.className = 'p-4 rounded-xl bg-slate-950/80 border ' + borderCol + ' space-y-2 hover:border-slate-700 transition shadow-sm';
+      card.innerHTML = 
+        '<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">' +
+          '<div class="flex flex-wrap items-center gap-2">' +
+            '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ' + badgeBg + '">' +
+              item.author +
+            '</span>' +
+            '<span class="text-[10px] font-mono text-amber-400 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded font-bold">' +
+              item.version +
+            '</span>' +
+            '<strong class="text-xs text-white">' + item.title + '</strong>' +
+          '</div>' +
+          '<div class="flex items-center gap-2 text-[11px] text-slate-500 font-mono">' +
+            '<span>[#' + item.commit + ']</span>' +
+            '<span>•</span>' +
+            '<span>' + item.time + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<p class="text-xs text-slate-300 leading-relaxed pl-1">' + item.details + '</p>';
       container.appendChild(card);
     });
 

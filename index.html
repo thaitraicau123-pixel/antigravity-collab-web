@@ -126,6 +126,51 @@
       </div>
     </div>
 
+    <!-- Live Project Progress Bar & Statistics Widget (Powered by feat/logic) -->
+    <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 shadow-xl space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+            <i data-lucide="activity" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-base font-bold text-white tracking-tight">Tiến Độ Dự Án (Live Progress)</h3>
+              <span id="progressBadge" class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold font-mono">0%</span>
+            </div>
+            <p class="text-xs text-slate-400">Tính năng tính toán tự động qua module logic <code class="font-mono text-purple-400 text-[11px]">js/api.js</code> (nhánh feat/logic)</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-4 text-xs font-medium text-slate-300">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span>Hoàn thành: <strong id="statDoneCount" class="text-emerald-400 font-mono font-bold">0</strong>/<span id="statTotalCount" class="font-mono">0</span></span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+            <span>Đang code: <strong id="statInProgressCount" class="text-blue-400 font-mono font-bold">0</strong></span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+            <span>Cần làm: <strong id="statTodoCount" class="text-amber-400 font-mono font-bold">0</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Animated Progress Bar -->
+      <div class="space-y-1.5">
+        <div class="w-full bg-slate-950 rounded-full h-3.5 p-0.5 border border-slate-800 overflow-hidden">
+          <div id="progressBarFill" class="bg-gradient-to-r from-blue-600 via-indigo-500 to-emerald-500 h-full rounded-full transition-all duration-700 ease-out shadow-sm" style="width: 0%;"></div>
+        </div>
+        <div class="flex items-center justify-between text-[11px] text-slate-500 font-mono">
+          <span>0%</span>
+          <span id="progressSummaryText" class="text-slate-300 font-sans">Đang đồng bộ số liệu tiến độ...</span>
+          <span>100% Hoàn tất</span>
+        </div>
+      </div>
+    </div>
+
     <!-- 2 Roles Info Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <!-- Acc 1 Card -->

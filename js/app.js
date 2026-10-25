@@ -77,9 +77,48 @@ async function renderTasks() {
   document.getElementById('countInProgress').innerText = countInProgress;
   document.getElementById('countDone').innerText = countDone;
 
+  // Cập nhật thanh tiến độ dự án (Logic từ feat/logic)
+  await updateProgressUI();
+
   // Re-run icons
   if (window.lucide) {
     lucide.createIcons();
+  }
+}
+
+/**
+ * [Collab-App]: Cập nhật thanh tiến độ dự án từ TeamAPI.getProgressStats
+ */
+async function updateProgressUI() {
+  const stats = await TeamAPI.getProgressStats();
+  
+  const progressBarFill = document.getElementById('progressBarFill');
+  const progressBadge = document.getElementById('progressBadge');
+  const statDoneCount = document.getElementById('statDoneCount');
+  const statTotalCount = document.getElementById('statTotalCount');
+  const statInProgressCount = document.getElementById('statInProgressCount');
+  const statTodoCount = document.getElementById('statTodoCount');
+  const progressSummaryText = document.getElementById('progressSummaryText');
+
+  if (!progressBarFill) return;
+
+  // Cập nhật số
+  if (statDoneCount) statDoneCount.innerText = stats.done;
+  if (statTotalCount) statTotalCount.innerText = stats.total;
+  if (statInProgressCount) statInProgressCount.innerText = stats.inProgress;
+  if (statTodoCount) statTodoCount.innerText = stats.todo;
+  if (progressBadge) progressBadge.innerText = `${stats.percentage}%`;
+
+  // Cập nhật thanh bar (animated width)
+  progressBarFill.style.width = `${stats.percentage}%`;
+
+  // Cập nhật text tóm tắt
+  if (progressSummaryText) {
+    if (stats.percentage === 100) {
+      progressSummaryText.innerHTML = '🎉 <strong class="text-emerald-400">Xuất sắc!</strong> Dự án đã hoàn thành 100% tất cả các task!';
+    } else {
+      progressSummaryText.innerHTML = `Đã hoàn thành <strong class="text-white">${stats.done}/${stats.total}</strong> nhiệm vụ (<span class="text-emerald-400 font-semibold">${stats.percentage}%</span>)`;
+    }
   }
 }
 

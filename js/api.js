@@ -233,6 +233,48 @@ const TeamAPI = {
   },
 
   /**
+   * [Collab-Acc2]: Tính toán số liệu thống kê tiến độ dự án
+   * @returns {Promise<{total: number, done: number, inProgress: number, todo: number, percentage: number, acc1Done: number, acc2Done: number}>}
+   */
+  async getProgressStats() {
+    const tasks = await this.getTasks();
+    const total = tasks.length;
+    if (total === 0) {
+      return {
+        total: 0,
+        done: 0,
+        inProgress: 0,
+        todo: 0,
+        percentage: 0,
+        acc1Done: 0,
+        acc2Done: 0
+      };
+    }
+
+    const doneTasks = tasks.filter(t => t.status === 'done');
+    const inProgressTasks = tasks.filter(t => t.status === 'inProgress');
+    const todoTasks = tasks.filter(t => t.status === 'todo');
+
+    const done = doneTasks.length;
+    const inProgress = inProgressTasks.length;
+    const todo = todoTasks.length;
+    const percentage = Math.round((done / total) * 100);
+
+    const acc1Done = doneTasks.filter(t => t.assignee.includes('1') || t.assignee.includes('UI')).length;
+    const acc2Done = doneTasks.filter(t => t.assignee.includes('2') || t.assignee.includes('Logic')).length;
+
+    return {
+      total,
+      done,
+      inProgress,
+      todo,
+      percentage,
+      acc1Done,
+      acc2Done
+    };
+  },
+
+  /**
    * Reset lại dữ liệu ban đầu
    */
   resetData() {

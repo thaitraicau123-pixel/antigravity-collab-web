@@ -211,9 +211,9 @@
         </div>
 
         <!-- Version & Contributor Changelog Pill -->
-        <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm" title="Xem phiên bản & cập nhật của lập trình viên">
+        <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v2.5.0</span>
+          <span id="headerVersionPill" class="font-bold">v2.6.0</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -391,6 +391,7 @@
             <button onclick="setSpectatorSpeed(1)" id="specSpd1" class="px-2 py-0.5 rounded-md bg-cyan-600 text-white font-bold">1x</button>
             <button onclick="setSpectatorSpeed(2)" id="specSpd2" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white">2x</button>
             <button onclick="setSpectatorSpeed(3)" id="specSpd3" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white">3x</button>
+            <button onclick="setSpectatorSpeed(5)" id="specSpd5" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all font-mono">5x</button>
           </div>
 
           <!-- Exit Spectator Button -->
@@ -1697,7 +1698,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v2.5.0</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v2.6.0</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -1729,7 +1730,7 @@
           </div>
           <div class="text-[11px] text-slate-300 space-y-1 pl-1">
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Engine theo dõi phiên bản & GitHub REST API live fetch</span></div>
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Thuật toán tính điểm 12 ô xúc xắc & Bot AI thông minh</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Nâng cấp Đa BOT AI (1-3 Bots), Tốc độ Khán giả 1x-5x & Tự động ván mới</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Cổng Grandmaster Admin Audit Logs & Cân bằng game</span></div>
           </div>
         </div>
@@ -1752,8 +1753,8 @@
           </div>
           <div class="text-[11px] text-slate-300 space-y-1 pl-1">
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Layout Cyber Tabletop Arena, nỉ nhung & khay 3D</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Bảng điều khiển Multi-Bot, Chọn đích 30-100đ & Thanh Khán giả</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Hệ thống View Tabs (Bàn Đấu, Bảng Phong Thần, VIP, Luật)</span></div>
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Cột Tactical Bento HUD & Responsive Mobile tối ưu</span></div>
           </div>
         </div>
       </div>
@@ -2454,7 +2455,13 @@
       if (tile.type === 'plus') {
         scores[player] += tile.pts;
         soundTone(880, 'triangle', 0.2, 0.18);
-        document.getElementById('miniLog').innerHTML = `✨ <span class="text-amber-400 font-bold">${label}</span> đáp vào <b>${tile.name}</b>: +${tile.pts} điểm!`;
+        const botQuotes = {
+          2: ['🦊 Cáo Lửa bứt tốc!', '🦊 Cáo Lửa săn điểm!', '🦊 Cáo Lửa ranh mãnh!'],
+          3: ['🐺 Sói Băng tính toán!', '🐺 Sói Băng bám đuổi!', '🐺 Sói Băng lạnh lùng!'],
+          4: ['🐼 Gấu Trúc ung dung!', '🐼 Gấu Trúc may mắn!', '🐼 Gấu Trúc húp điểm!']
+        };
+        const botQuote = (botQuotes[player] && botQuotes[player][Math.floor(Math.random() * botQuotes[player].length)]) || '';
+        document.getElementById('miniLog').innerHTML = `✨ <span class="text-amber-400 font-bold">${label}</span> đáp vào <b>${tile.name}</b> (+${tile.pts}đ)! ${botQuote ? `<span class="text-[10px] text-cyan-300 italic ml-1">(${botQuote})</span>` : ''}`;
       } else if (tile.type === 'minus') {
         scores[player] = Math.max(0, scores[player] + tile.pts);
         soundTone(200, 'sawtooth', 0.25, 0.14);
@@ -2706,7 +2713,7 @@
 
     function setSpectatorSpeed(spd) {
       spectatorSpeed = spd;
-      [1, 2, 3].forEach(s => {
+      [1, 2, 3, 5].forEach(s => {
         const b = document.getElementById('specSpd' + s);
         if (b) {
           if (s === spd) b.className = 'px-2 py-0.5 rounded-md bg-cyan-600 text-white font-bold';
@@ -2947,7 +2954,18 @@
       const desc = document.getElementById('vicDesc');
 
       title.textContent = winnerName.includes('Hòa') ? 'Bắt Tay Hòa Trận!' : `${winnerName} Toàn Thắng!`;
-      desc.textContent = `Chúc mừng bạn đã hoàn thành một thế cờ xuất chúng!`;
+      if (isSpectatorMode) {
+        desc.innerHTML = `Ván quan sát kết thúc! <span class="text-cyan-300 font-bold">Tự động khởi động ván mới sau 3 giây...</span>`;
+        setTimeout(() => {
+          if (isSpectatorMode) {
+            closeModal('victoryModal');
+            handleReset();
+            showToast('🔄 Tự động bắt đầu ván quan sát tiếp theo!');
+          }
+        }, 3200);
+      } else {
+        desc.textContent = `Chúc mừng bạn đã hoàn thành một thế cờ xuất chúng!`;
+      }
 
       modal.classList.remove('hidden');
       setTimeout(() => {
@@ -3576,7 +3594,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v2.5.0'
+      currentVersion: 'v2.6.0'
     };
 
     let allChangelogItems = [];
@@ -3584,6 +3602,24 @@
 
     // Curated fallback updates in case of offline or GitHub API rate limiting
     const CURATED_CHANGELOG = [
+      {
+        sha: '6fe116d',
+        roleType: 'dev1',
+        author: 'cuongcuca111-web (Bạn anh)',
+        version: 'v2.6.0',
+        title: 'Ra mắt Đa BOT (1-3 Bots), Tùy biến Điểm Cán Đích & Chế độ Khán Giả Tự Động',
+        details: 'Tùy chọn 1-3 BOT AI (Cáo Lửa 🦊, Sói Băng 🐺, Gấu Trúc 🐼); tùy biến điểm thắng (30đ, 50đ, 100đ, tùy chọn); chế độ Khán Giả quan sát tự động với tốc độ từ 1x đến 5x siêu tốc và tự động sang ván mới.',
+        date: '2026-10-25T17:49:22Z'
+      },
+      {
+        sha: 'b88199f',
+        roleType: 'dev2',
+        author: 'thaitraicau123-pixel (Anh)',
+        version: 'v2.5.0',
+        title: 'Tích hợp Live GitHub REST API Version Tracker & Changelog Engine',
+        details: 'Cơ chế tự động đối soát commit giữa 2 lập trình viên, huy hiệu phiên bản trên Header, link chân trang và modal hiển thị chi tiết theo chuẩn AGENTS.md.',
+        date: '2026-10-25T17:50:46Z'
+      },
       {
         sha: 'b2b431d',
         roleType: 'dev1',
@@ -3657,15 +3693,6 @@
         date: '2026-10-25T16:43:39Z'
       },
       {
-        sha: '9746d8f',
-        roleType: 'dev1',
-        author: 'cuongcuca111-web (Bạn anh)',
-        version: 'v1.6.0',
-        title: 'Thiết kế phong cách Tabletop Board Game sang trọng phong cách Nỉ Nhung',
-        details: 'Hiệu ứng ánh sáng vàng hổ phách, gạch men sứ acrylic, khay xúc xắc 3D viền gỗ óc chó cao cấp.',
-        date: '2026-10-25T16:43:28Z'
-      },
-      {
         sha: '1a4fd79',
         roleType: 'dev2',
         author: 'thaitraicau123-pixel (Anh)',
@@ -3682,15 +3709,6 @@
         title: 'Xây dựng toàn bộ hệ thống Modal: Auth, Profile, VIP, Leaderboard, Rules',
         details: 'Hoàn thiện trải nghiệm người dùng với các hộp thoại tương tác, hiệu ứng mở mượt mà và hỗ trợ di động.',
         date: '2026-10-25T16:36:32Z'
-      },
-      {
-        sha: 'b0473a2',
-        roleType: 'dev2',
-        author: 'thaitraicau123-pixel (Anh)',
-        version: 'v1.3.0',
-        title: 'Thiết lập quy tắc AGENTS.md & cơ chế phân chia nhánh Git chống conflict',
-        details: 'Quy định chuẩn hóa Developer 1 phụ trách feat/ui, Developer 2 phụ trách feat/logic theo chuẩn Antigravity.',
-        date: '2026-10-25T16:27:48Z'
       }
     ];
 
@@ -3718,22 +3736,20 @@
                      firstLine.includes('(ui)') ||
                      firstLine.includes('feat/ui') ||
                      firstLine.includes('style(') ||
-                     firstLine.includes('typography');
+                     firstLine.includes('typography') ||
+                     firstLine.includes('(arena)');
 
       const roleType = isDev1 ? 'dev1' : 'dev2';
       const author = isDev1 ? 'cuongcuca111-web (Bạn anh)' : 'thaitraicau123-pixel (Anh)';
 
-      // Calculate pseudo version tag based on index
       const major = 2;
-      const minor = Math.max(0, 5 - Math.floor(index / 2));
+      const minor = Math.max(0, 6 - Math.floor(index / 2));
       const patch = index % 2 === 0 ? 0 : 5;
       const version = `v${major}.${minor}.${patch}`;
 
-      // Clean up title
       let cleanTitle = firstLine.replace(/^(feat|fix|style|chore|docs)\([^)]+\):\s*/i, '');
       cleanTitle = cleanTitle.charAt(0).toUpperCase() + cleanTitle.slice(1);
 
-      // Extract body details if available
       const lines = msg.split('\n').map(l => l.trim()).filter(l => l.length > 0);
       const details = lines.length > 1 ? lines.slice(1).join(' ') : (isDev1 ? 'Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ.' : 'Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống.');
 
@@ -3755,8 +3771,8 @@
 
       try {
         const [resMain, resUi] = await Promise.allSettled([
-          fetch(`https://api.github.com/repos/${owner}/${repo}/commits?sha=main&per_page=25`, { headers }),
-          fetch(`https://api.github.com/repos/${owner}/${repo}/commits?sha=feat/ui&per_page=25`, { headers })
+          fetch(`https://api.github.com/repos/${owner}/${repo}/commits?sha=main&per_page=30`, { headers }),
+          fetch(`https://api.github.com/repos/${owner}/${repo}/commits?sha=feat/ui&per_page=30`, { headers })
         ]);
 
         let rawCommits = [];
@@ -3770,11 +3786,9 @@
         }
 
         if (rawCommits.length === 0) {
-          console.warn('GitHub API returned no commits, using curated fallback.');
           return CURATED_CHANGELOG;
         }
 
-        // Deduplicate by sha and sort by date descending
         const map = new Map();
         rawCommits.forEach(c => {
           if (c.sha && !map.has(c.sha)) {
@@ -3914,7 +3928,6 @@
       updateChangelogStats();
       renderChangelogFeed('all');
 
-      // Async live sync with GitHub API
       fetchGitHubCommits().then(liveItems => {
         if (liveItems && liveItems.length > 0) {
           allChangelogItems = liveItems;
@@ -3929,8 +3942,8 @@
     // App Initialization
     window.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
-      initVersionTracker();
       loadAdminConfig();
+      initVersionTracker();
       renderCircuitBoard();
       updateDiceUI();
       checkSecretPortalFromURL();

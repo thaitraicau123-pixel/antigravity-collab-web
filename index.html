@@ -164,7 +164,7 @@
       
       <!-- Brand Logo -->
       <div class="flex items-center gap-6 sm:gap-8">
-        <div class="flex items-center gap-3 cursor-pointer group" onclick="handleLogoSecretClick(event)" title="Tabletop Arena (Nhấp 3 lần để mở Cổng Quản Trị)">
+        <div class="flex items-center gap-3 cursor-pointer group" onclick="handleLogoSecretClick(event)" title="Tabletop Arena - Sảnh Đấu Trí">
           <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 p-0.5 shadow-lg shadow-amber-600/25 flex items-center justify-center group-hover:scale-105 transition-transform" id="brandLogoIcon">
             <div class="w-full h-full bg-[#0E1526] rounded-[14px] flex items-center justify-center text-amber-400">
               <i data-lucide="crown" class="w-5 h-5 fill-amber-400/20"></i>
@@ -175,7 +175,7 @@
               TABLETOP<span class="text-amber-400">ARENA</span>
             </span>
             <span class="text-[9px] uppercase font-bold text-amber-500/80 tracking-widest block font-mono">
-              Grandmaster Board Club • Firebase Live
+              Grandmaster Board Club • Trực Tuyến
             </span>
           </div>
         </div>
@@ -234,7 +234,7 @@
                 MD
               </div>
               <span id="navUserName" class="font-bold text-white max-w-[90px] truncate">Minh Dev</span>
-              <span id="navUserBadge" class="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold">FIREBASE</span>
+              <span id="navUserBadge" class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold font-mono">ONLINE</span>
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
             </button>
 
@@ -245,7 +245,7 @@
               </div>
               <button onclick="openModal('profileModal')" class="w-full px-3 py-2 rounded-xl hover:bg-slate-800 text-left flex items-center gap-2 text-slate-200">
                 <i data-lucide="user-check" class="w-4 h-4 text-amber-400"></i>
-                Hồ Sơ & Dữ Liệu Firebase
+                Hồ Sơ & Thành Tựu
               </button>
               <button id="dropdownAdminBtn" onclick="openAdminModal()" class="hidden w-full px-3 py-2 rounded-xl hover:bg-rose-500/10 text-left items-center gap-2 text-rose-300 font-semibold">
                 <i data-lucide="shield-check" class="w-4 h-4 text-rose-400"></i>
@@ -258,7 +258,7 @@
               <div class="h-px bg-slate-800 my-1"></div>
               <button onclick="handleFirebaseLogout()" class="w-full px-3 py-2 rounded-xl hover:bg-rose-500/10 text-left flex items-center gap-2 text-rose-400 font-semibold">
                 <i data-lucide="log-out" class="w-4 h-4"></i>
-                Đăng Xuất Firebase
+                Đăng Xuất
               </button>
             </div>
           </div>
@@ -290,10 +290,10 @@
       </button>
     </div>
 
-    <!-- Firebase Connection Status Badge -->
+    <!-- Server Status Badge -->
     <div class="flex items-center gap-2 text-xs text-slate-400 font-mono">
       <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span>Đồng Bộ: <b class="text-amber-400" id="firebaseSyncStatus">Firebase Firestore Live</b></span>
+      <span>Máy Chủ: <b class="text-emerald-400" id="firebaseSyncStatus">Trực Tuyến</b></span>
     </div>
   </div>
 
@@ -466,7 +466,7 @@
           TABLETOP ARENA
         </div>
         <p class="text-[11px] text-slate-400 leading-relaxed">
-          Không gian cờ bàn kỹ thuật số thượng hạng, tích hợp Firebase Authentication và Cloud Firestore thời gian thực.
+          Đấu trường cờ bàn kỹ thuật số thượng hạng, quy tụ các kỳ thủ chiến thuật đỉnh cao trên toàn quốc.
         </p>
       </div>
 
@@ -480,26 +480,26 @@
       </div>
 
       <div>
-        <h4 class="font-bold text-slate-200 mb-2 uppercase text-[10px] tracking-wider font-cinzel">Tài Khoản & Firebase</h4>
+        <h4 class="font-bold text-slate-200 mb-2 uppercase text-[10px] tracking-wider font-cinzel">Tài Khoản Kỳ Thủ</h4>
         <ul class="space-y-1.5 text-[11px]">
-          <li><button onclick="openAuthModal('signup')" class="hover:text-amber-400 transition-colors">📝 Đăng Ký Tài Khoản Thật</button></li>
-          <li><button onclick="openAuthModal('signin')" class="hover:text-amber-400 transition-colors">🔐 Đăng Nhập Firebase</button></li>
-          <li><button onclick="openModal('profileModal')" class="hover:text-amber-400 transition-colors">☁️ Đồng Bộ Cloud Firestore</button></li>
+          <li><button onclick="openAuthModal('signup')" class="hover:text-amber-400 transition-colors">📝 Đăng Ký Tài Khoản</button></li>
+          <li><button onclick="openAuthModal('signin')" class="hover:text-amber-400 transition-colors">🔐 Đăng Nhập Kỳ Thủ</button></li>
+          <li><button onclick="openModal('profileModal')" class="hover:text-amber-400 transition-colors">👤 Hồ Sơ & Thành Tựu</button></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="font-bold text-slate-200 mb-2 uppercase text-[10px] tracking-wider font-cinzel">Cộng Đồng & Quy Tắc</h4>
+        <h4 class="font-bold text-slate-200 mb-2 uppercase text-[10px] tracking-wider font-cinzel">Hỗ Trợ & Điều Khoản</h4>
         <ul class="space-y-1.5 text-[11px]">
-          <li><button onclick="openModal('rulesModal')" class="hover:text-amber-400 transition-colors">📖 Luật Chơi Chi Tiết</button></li>
-          <li><a href="https://github.com/thaitraicau123-pixel/antigravity-collab-web/tree/feat/ui" target="_blank" class="hover:text-amber-400 transition-colors flex items-center gap-1">💻 Nhánh feat/ui GitHub</a></li>
-          <li><span class="text-slate-500 font-mono">Phiên bản: v3.3.0-SecretAdmin</span></li>
+          <li><button onclick="openModal('rulesModal')" class="hover:text-amber-400 transition-colors">📖 Hướng Dẫn & Luật Chơi</button></li>
+          <li><a href="#" class="hover:text-amber-400 transition-colors">🛡️ Điều Khoản Dịch Vụ</a></li>
+          <li><a href="#" class="hover:text-amber-400 transition-colors">🔒 Chính Sách Bảo Mật</a></li>
         </ul>
       </div>
     </div>
 
     <div class="max-w-6xl mx-auto pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-[11px]">
-      <div><span onclick="handleSecretFooterClick(event)" class="cursor-pointer select-none hover:text-amber-400 transition-colors font-bold" title="© 2026 Tabletop Arena">©</span> 2026 Tabletop Arena. Kết nối hệ sinh thái Firebase Authentication & Cloud Firestore.</div>
+      <div><span onclick="handleSecretFooterClick(event)" class="cursor-pointer select-none hover:text-amber-400 transition-colors font-bold" title="Tabletop Arena">©</span> 2026 Tabletop Arena. Bản quyền thuộc về Đấu Trường Cờ Bàn Thượng Hạng.</div>
       <div class="flex gap-4 text-slate-400">
         <a href="#" class="hover:text-amber-400">Điều khoản</a>
         <a href="#" class="hover:text-amber-400">Chính sách bảo mật</a>
@@ -520,13 +520,13 @@
           👑
         </div>
         <h3 class="font-cinzel text-xl font-bold text-white tracking-wide">GIA NHẬP ĐẤU TRƯỜNG</h3>
-        <p class="text-xs text-slate-400 mt-1">Đăng ký tài khoản thật và đồng bộ trực tiếp lên Firebase</p>
+        <p class="text-xs text-slate-400 mt-1">Đăng ký tài khoản để lưu trữ thành tích và tham gia xếp hạng</p>
       </div>
 
       <!-- Auth Tabs: Đăng Ký vs Đăng Nhập -->
       <div class="flex bg-board-tray p-1 rounded-xl border border-board-border mb-5 text-xs font-bold">
         <button id="tabBtnSignup" onclick="setAuthTab('signup')" class="flex-1 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white transition-all shadow-sm">
-          Đăng Ký Tài Khoản Thật
+          Đăng Ký Tài Khoản
         </button>
         <button id="tabBtnSignin" onclick="setAuthTab('signin')" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition-all">
           Đăng Nhập
@@ -558,7 +558,7 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Địa Chỉ Email Thật</label>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Địa Chỉ Email</label>
           <input type="email" id="authEmail" required placeholder="kythu@tabletop.io" class="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-board-border text-xs text-white focus:outline-none focus:border-amber-500">
         </div>
 
@@ -574,23 +574,23 @@
         </div>
 
         <button type="submit" id="authSubmitBtn" class="btn-spring w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-black text-xs shadow-lg shadow-amber-700/30 border border-amber-400/40 mt-3 flex items-center justify-center gap-2">
-          <span id="authBtnText">Tạo Tài Khoản & Lưu Lên Firebase</span>
+          <span id="authBtnText">Đăng Ký Tài Khoản Kỳ Thủ</span>
           <span id="authSpinner" class="hidden w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
         </button>
       </form>
 
-      <!-- Custom Firebase Config Toggle -->
-      <div class="mt-4 pt-3 border-t border-board-border/60 text-center">
+      <!-- Custom Firebase Config (Hidden for clean commercial UI) -->
+      <div id="customConfigWrapper" class="hidden mt-4 pt-3 border-t border-board-border/60 text-center">
         <button onclick="toggleFirebaseConfigBox()" class="text-[11px] text-amber-400/80 hover:text-amber-300 font-mono flex items-center justify-center gap-1.5 mx-auto">
           <i data-lucide="settings" class="w-3.5 h-3.5"></i>
-          <span>Tùy chỉnh Firebase Config riêng của bạn</span>
+          <span>Cấu hình kết nối</span>
         </button>
 
         <div id="firebaseConfigBox" class="hidden mt-2 p-3 bg-black/70 rounded-xl border border-board-border text-left">
-          <p class="text-[10px] text-slate-400 mb-1">Dán cấu hình Firebase Console của bạn (JSON format):</p>
-          <textarea id="customConfigInput" rows="3" class="w-full p-2 bg-slate-950 border border-board-border rounded-lg text-[10px] font-mono text-slate-200 focus:outline-none focus:border-amber-500" placeholder='{"apiKey":"AIzaSy...","projectId":"your-app","authDomain":"your-app.firebaseapp.com"}'></textarea>
+          <p class="text-[10px] text-slate-400 mb-1">Cấu hình hệ thống (JSON format):</p>
+          <textarea id="customConfigInput" rows="3" class="w-full p-2 bg-slate-950 border border-board-border rounded-lg text-[10px] font-mono text-slate-200 focus:outline-none focus:border-amber-500"></textarea>
           <button onclick="saveCustomFirebaseConfig()" class="mt-1.5 px-3 py-1 bg-amber-600 hover:bg-amber-500 text-white text-[10px] font-bold rounded-lg">
-            Áp Dụng Config Mới
+            Áp Dụng
           </button>
         </div>
       </div>
@@ -612,11 +612,11 @@
         <div>
           <div class="flex items-center gap-2">
             <h3 class="font-cinzel text-xl font-bold text-white" id="profileFullName">Minh Dev</h3>
-            <span class="text-[9px] font-black px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">FIRESTORE SYNCED</span>
+            <span class="text-[9px] font-black px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">ĐÃ XÁC THỰC</span>
           </div>
           <p class="text-xs text-slate-400 font-mono" id="profileEmailDisplay">kythu@tabletop.io</p>
           <div class="flex items-center gap-2 text-[11px] text-amber-400 font-bold mt-1">
-            <i data-lucide="shield-check" class="w-4 h-4"></i> UID: <span id="profileUidDisplay" class="font-mono text-[10px] text-slate-400 truncate max-w-[150px]">fb_123456</span>
+            <i data-lucide="shield-check" class="w-4 h-4"></i> Mã Kỳ Thủ: <span id="profileUidDisplay" class="font-mono text-[10px] text-slate-400 truncate max-w-[150px]">fb_123456</span>
           </div>
         </div>
       </div>
@@ -639,21 +639,21 @@
 
       <!-- Active Equipment -->
       <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-3 flex items-center gap-1.5 font-cinzel">
-        <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i> Kho Trang Bị Cloud Firestore
+        <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i> Kho Trang Bị Hoàng Gia
       </h4>
       <div class="grid grid-cols-2 gap-3 mb-6">
         <div class="p-3 rounded-xl bg-board-tray border border-amber-500/40 flex items-center gap-2.5">
           <span class="text-2xl">🎲</span>
           <div>
             <div class="text-xs font-bold text-white">Xúc Xắc Hoàng Kim</div>
-            <div class="text-[10px] text-emerald-400 font-medium">Lưu trữ đám mây</div>
+            <div class="text-[10px] text-emerald-400 font-medium">Đã Kích Hoạt</div>
           </div>
         </div>
         <div class="p-3 rounded-xl bg-board-tray border border-cyan-500/40 flex items-center gap-2.5">
           <span class="text-2xl">🤖</span>
           <div>
             <div class="text-xs font-bold text-white">Hiệp Sĩ Lam Ngọc</div>
-            <div class="text-[10px] text-emerald-400 font-medium">Lưu trữ đám mây</div>
+            <div class="text-[10px] text-emerald-400 font-medium">Đã Kích Hoạt</div>
           </div>
         </div>
       </div>
@@ -1336,7 +1336,7 @@
 
       errorBox.classList.add('hidden');
       spinner.classList.remove('hidden');
-      btnText.textContent = isSignup ? 'Đang tạo tài khoản Firebase...' : 'Đang xác thực Firebase...';
+      btnText.textContent = isSignup ? 'Đang tạo tài khoản...' : 'Đang xác thực đăng nhập...';
 
       try {
         if (isSignup) {
@@ -1403,7 +1403,7 @@
           window.applyUserUI(firestoreUserData);
 
           window.closeModal('authModal');
-          window.showToast(`🎉 Đăng ký thành công! Đã lưu hồ sơ lên Firebase Firestore.`);
+          window.showToast(`🎉 Đăng ký thành công! Chào mừng bạn gia nhập bàn cờ.`);
           window.soundTone(880, 'triangle', 0.25, 0.2);
 
         } else {
@@ -1457,11 +1457,11 @@
         } else if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
           errorText.textContent = "Email hoặc mật khẩu không chính xác!";
         } else {
-          errorText.textContent = err.message || "Lỗi xác thực Firebase.";
+          errorText.textContent = err.message || "Lỗi xác thực tài khoản.";
         }
       } finally {
         spinner.classList.add('hidden');
-        btnText.textContent = isSignup ? 'Tạo Tài Khoản & Lưu Lên Firebase' : 'Đăng Nhập Ngay';
+        btnText.textContent = isSignup ? 'Đăng Ký Tài Khoản Kỳ Thủ' : 'Đăng Nhập Ngay';
       }
     };
 
@@ -1529,7 +1529,7 @@
       window.currentFirebaseUser = null;
       window.applyGuestUI();
       document.getElementById('profileDropdown').classList.add('hidden');
-      window.showToast('Đã đăng xuất khỏi Firebase.');
+      window.showToast('Đã đăng xuất an toàn.');
     };
   </script>
 
@@ -1623,7 +1623,7 @@
         btnSignup.className = 'flex-1 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition-all shadow-sm';
         btnSignin.className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white font-bold transition-all';
         fieldName.classList.remove('hidden');
-        btnText.textContent = 'Tạo Tài Khoản & Lưu Lên Firebase';
+        btnText.textContent = 'Đăng Ký Tài Khoản Kỳ Thủ';
       } else {
         btnSignin.className = 'flex-1 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition-all shadow-sm';
         btnSignup.className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white font-bold transition-all';
@@ -1711,7 +1711,7 @@
       localStorage.setItem('tabletop_firebase_user', JSON.stringify(firestoreUserData));
       window.applyUserUI(firestoreUserData);
       closeModal('authModal');
-      showToast(`Đăng nhập ${provider} thành công! Dữ liệu đã lưu lên Firebase.`);
+      showToast(`Đăng nhập ${provider} thành công! Chào mừng bạn quay trở lại.`);
       soundTone(659, 'triangle', 0.2, 0.15);
     };
 

@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cyber Board Quest - Animate UI Board Game</title>
+  <title>Minimal Board Game Arena - Animate UI</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -15,22 +16,15 @@
         extend: {
           colors: {
             brand: {
-              50: '#eef2ff',
               400: '#818cf8',
               500: '#6366f1',
               600: '#4f46e5',
             },
-            amber: {
-              400: '#fbbf24',
-              500: '#f59e0b',
-            },
-            emerald: {
-              400: '#34d399',
-              500: '#10b981',
-            },
-            rose: {
-              400: '#fb7185',
-              500: '#f43f5e',
+            accent: {
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              rose: '#f43f5e',
+              amber: '#f59e0b',
             }
           },
           fontFamily: {
@@ -40,601 +34,674 @@
       }
     }
   </script>
+
   <style>
     /* Animate UI Physics & Token Definitions */
     :root {
-      /* Tokens from @animate-ui/react/utils/motion */
       --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-out: cubic-bezier(0, 0, 0.2, 1);
-      --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
       --spring-press-scale: 0.97;
     }
 
     /* Spring press physics */
     .btn-spring {
-      transition: transform 0.14s var(--ease-soft), box-shadow 0.14s var(--ease-soft), background-color 0.2s;
-      transform-origin: center center;
-    }
-    .btn-spring:hover {
-      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.35);
+      transition: transform 0.12s var(--ease-soft), box-shadow 0.15s, background-color 0.15s;
     }
     .btn-spring:active {
       transform: scale(var(--spring-press-scale));
     }
 
-    /* Tile Hover & Active Spring */
-    .tile-card {
-      transition: transform 0.22s var(--ease-soft), border-color 0.2s, box-shadow 0.22s var(--ease-soft);
+    /* Tile Hover & Spring */
+    .tile-box {
+      transition: transform 0.2s var(--ease-soft), border-color 0.2s, background-color 0.2s;
     }
-    .tile-card:hover {
-      transform: translateY(-3px) scale(1.02);
+    .tile-box:hover {
+      transform: translateY(-2px);
     }
 
-    /* 3D Dice Flip Animation */
+    /* 3D Rolling Dice */
     .dice-cube {
-      transform-style: preserve-3d;
       transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .rolling {
       animation: diceRoll 0.65s cubic-bezier(0.2, 0.8, 0.2, 1.2) infinite;
     }
     @keyframes diceRoll {
-      0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(0.9); }
-      25% { transform: rotateX(180deg) rotateY(90deg) rotateZ(45deg) scale(1.1); }
-      50% { transform: rotateX(360deg) rotateY(270deg) rotateZ(180deg) scale(0.95); }
-      75% { transform: rotateX(540deg) rotateY(450deg) rotateZ(270deg) scale(1.08); }
-      100% { transform: rotateX(720deg) rotateY(720deg) rotateZ(360deg) scale(1); }
+      0% { transform: rotate(0deg) scale(0.9); }
+      50% { transform: rotate(180deg) scale(1.1); }
+      100% { transform: rotate(360deg) scale(1); }
     }
 
-    /* Meeple Token Bounce */
-    .meeple-bounce {
-      animation: meepleHop 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* Meeple Token Hop */
+    .meeple-hop {
+      animation: meepleHop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     @keyframes meepleHop {
       0% { transform: scale(1) translateY(0); }
-      40% { transform: scale(1.25) translateY(-16px); }
-      75% { transform: scale(0.92) translateY(2px); }
+      50% { transform: scale(1.3) translateY(-12px); }
       100% { transform: scale(1) translateY(0); }
     }
 
-    /* Glassmorphism background */
-    .glass-panel {
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+    /* Glass Panels */
+    .glass-card {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .glass-tile {
-      background: rgba(30, 41, 59, 0.6);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
     }
   </style>
 </head>
-<body class="bg-[#090D16] text-slate-100 min-h-screen flex flex-col items-center justify-center p-3 sm:p-6 font-sans select-none antialiased selection:bg-brand-500 selection:text-white">
+<body class="bg-[#080C16] text-slate-100 min-h-screen flex flex-col items-center justify-between p-4 sm:p-6 font-sans antialiased selection:bg-brand-500 selection:text-white">
 
-  <!-- Ambient Glow Effects -->
-  <div class="fixed top-[-10%] left-[-10%] w-[40vw] h-[40vw] rounded-full bg-brand-600/15 blur-[120px] pointer-events-none"></div>
-  <div class="fixed bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-emerald-600/15 blur-[120px] pointer-events-none"></div>
+  <!-- Ambient Light Orbs -->
+  <div class="fixed top-0 left-1/4 w-[35vw] h-[35vw] rounded-full bg-brand-600/10 blur-[130px] pointer-events-none"></div>
+  <div class="fixed bottom-0 right-1/4 w-[35vw] h-[35vw] rounded-full bg-accent-cyan/10 blur-[130px] pointer-events-none"></div>
 
-  <!-- Header & Control Bar -->
-  <header class="w-full max-w-5xl flex flex-wrap items-center justify-between gap-4 mb-5 px-2">
+  <!-- Top Navigation Header -->
+  <header class="w-full max-w-4xl flex flex-wrap items-center justify-between gap-4 py-2">
+    <!-- Brand -->
     <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center shadow-lg shadow-brand-500/30">
-        <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+      <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-brand-500/25">
+        <i data-lucide="gamepad-2" class="w-5 h-5"></i>
       </div>
       <div>
-        <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-          Cyber Quest <span class="text-xs uppercase font-semibold px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30">Animate UI</span>
+        <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+          Board Game <span class="text-xs uppercase font-semibold px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30">Minimal UI</span>
         </h1>
-        <p class="text-xs text-slate-400">Board game chiến thuật nảy xúc xắc với chuyển động Spring vật lý 60fps</p>
+        <p class="text-xs text-slate-400">Giao diện tối giản, ô cờ thoáng rộng & chuyển động Animate UI</p>
       </div>
     </div>
 
-    <!-- Mode Selector & Reset -->
-    <div class="flex items-center gap-2">
-      <div class="relative bg-slate-900/80 p-1 rounded-xl border border-slate-800 flex items-center">
-        <!-- Gliding Highlight Pill -->
-        <div id="modePill" class="absolute top-1 bottom-1 w-[80px] bg-brand-600 rounded-lg transition-all duration-200 ease-out left-1 shadow-md shadow-brand-600/40"></div>
-        <button onclick="setGameMode('pve')" class="relative z-10 px-3 py-1.5 text-xs font-medium rounded-lg text-white w-[80px] text-center transition-colors">
-          Vs BOT
+    <!-- Game Tabs & Controls -->
+    <div class="flex items-center gap-3">
+      <!-- Game Mode Pill (Dice Quest vs Tic-Tac-Toe) -->
+      <div class="relative bg-slate-900/90 p-1 rounded-xl border border-slate-800 flex items-center">
+        <div id="gameTabPill" class="absolute top-1 bottom-1 w-[90px] bg-brand-600 rounded-lg transition-all duration-200 ease-out left-1 shadow-md shadow-brand-600/30"></div>
+        <button onclick="switchGameView('dice')" class="relative z-10 px-3 py-1.5 text-xs font-medium rounded-lg text-white w-[90px] text-center transition-colors">
+          🎲 Xúc Xắc
         </button>
-        <button onclick="setGameMode('pvp')" class="relative z-10 px-3 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-white w-[80px] text-center transition-colors">
-          2 Người
+        <button onclick="switchGameView('tictactoe')" class="relative z-10 px-3 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-white w-[90px] text-center transition-colors">
+          ⭕❌ Cờ Ca-rô
         </button>
       </div>
 
-      <button onclick="resetGame()" class="btn-spring p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/80" title="Chơi lại">
+      <!-- Reset & Sound -->
+      <button onclick="handleReset()" class="btn-spring p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/80" title="Chơi lại">
         <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
       </button>
-
-      <button id="soundToggle" onclick="toggleSound()" class="btn-spring p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/80" title="Bật/Tắt âm thanh">
+      <button onclick="toggleSound()" class="btn-spring p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/80" title="Bật/Tắt âm">
         <i data-lucide="volume-2" id="soundIcon" class="w-4 h-4"></i>
       </button>
     </div>
   </header>
 
-  <!-- Main Arena Layout -->
-  <main class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-
-    <!-- Left & Center: Board Map (20 Tiles Circuit) -->
-    <div class="lg:col-span-8 glass-panel rounded-3xl p-4 sm:p-6 shadow-2xl relative overflow-hidden">
-      
-      <!-- Center Arena Dashboard (Inside the perimeter circuit) -->
-      <div class="grid grid-cols-6 grid-rows-6 gap-2 sm:gap-2.5 aspect-square max-w-[560px] mx-auto relative" id="boardGrid">
-        <!-- Center Arena Content -->
-        <div class="col-start-2 col-end-6 row-start-2 row-end-6 rounded-2xl bg-slate-900/60 border border-slate-800/80 p-4 sm:p-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
-          
-          <!-- Inner Glow -->
-          <div class="absolute inset-0 bg-gradient-to-b from-brand-500/5 via-transparent to-transparent pointer-events-none"></div>
-
-          <!-- Turn Status Badge -->
-          <div id="turnBadge" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold mb-4 shadow-sm">
+  <!-- ================= VIEW 1: DICE QUEST (12 Ô LỚN THOÁNG ĐÃNG) ================= -->
+  <main id="diceView" class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-12 gap-5 my-auto items-stretch">
+    
+    <!-- Left: 4x4 Perimeter Board (12 Tiles Total) -->
+    <div class="md:col-span-8 glass-card rounded-3xl p-5 shadow-2xl flex flex-col justify-center">
+      <div class="grid grid-cols-4 grid-rows-4 gap-2.5 sm:gap-3 aspect-square max-w-[500px] w-full mx-auto" id="circuitGrid">
+        
+        <!-- Center Arena: Dice & Status (Col 2..3, Row 2..3) -->
+        <div class="col-start-2 col-end-4 row-start-2 row-end-4 rounded-2xl bg-slate-900/80 border border-slate-800 p-4 flex flex-col items-center justify-center text-center shadow-inner relative">
+          <!-- Turn Indicator -->
+          <div id="diceTurnBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold mb-3">
             <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span>
-            <span id="turnText">Lượt của Người chơi 1</span>
+            <span id="diceTurnText">Lượt của Người chơi 1</span>
           </div>
 
-          <!-- 3D Interactive Dice -->
-          <div class="my-3 flex flex-col items-center">
-            <div id="diceWrapper" onclick="rollDice()" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-brand-500/40 shadow-xl shadow-brand-500/20 flex items-center justify-center cursor-pointer select-none transition-all duration-200 hover:border-brand-400 hover:scale-105 active:scale-95 group">
-              <span id="diceFace" class="text-3xl sm:text-4xl font-extrabold text-white group-hover:text-brand-300 transition-colors">🎲</span>
-            </div>
-            <span id="diceHint" class="text-[11px] text-slate-400 mt-2 font-medium">Bấm vào xúc xắc để gieo</span>
+          <!-- Big Interactive Dice -->
+          <div onclick="rollDiceQuest()" id="diceButton" class="btn-spring w-20 h-20 sm:w-22 sm:h-22 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-brand-500/40 shadow-xl shadow-brand-500/20 flex items-center justify-center text-4xl sm:text-5xl cursor-pointer hover:border-brand-400 select-none group">
+            <span id="diceFaceDisplay" class="group-hover:scale-110 transition-transform">🎲</span>
           </div>
 
-          <!-- Action Status Message -->
-          <div id="actionStatus" class="text-xs sm:text-sm text-slate-300 font-medium h-6 flex items-center justify-center text-center px-4">
-            Chào mừng bạn đến với Cyber Quest!
-          </div>
-
+          <p id="diceActionHint" class="text-xs text-slate-400 mt-3 font-medium">Bấm xúc xắc để gieo bước</p>
         </div>
 
-        <!-- 20 Circuit Tiles will be populated via JavaScript around perimeter -->
+        <!-- 12 Tiles will be placed around perimeter -->
       </div>
     </div>
 
-    <!-- Right Column: Player Cards, Inventory, Logs -->
-    <div class="lg:col-span-4 flex flex-col gap-4">
+    <!-- Right: Minimal Stats & Controls -->
+    <div class="md:col-span-4 flex flex-col gap-3.5">
       
-      <!-- Player 1 Card (Blue) -->
-      <div id="p1Card" class="glass-panel rounded-2xl p-4 border-l-4 border-l-brand-500 transition-all duration-300 ring-2 ring-brand-500/50">
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-lg shadow-sm">
+      <!-- Opponent Selector -->
+      <div class="glass-card rounded-2xl p-3 flex items-center justify-between">
+        <span class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+          <i data-lucide="cpu" class="w-3.5 h-3.5 text-brand-400"></i> Đối thủ:
+        </span>
+        <div class="flex bg-slate-900 p-0.5 rounded-lg border border-slate-800 text-xs">
+          <button onclick="setOpponent('bot')" id="btnBot" class="px-3 py-1 rounded-md bg-brand-600 text-white font-medium transition-all">
+            Máy (BOT)
+          </button>
+          <button onclick="setOpponent('human')" id="btnHuman" class="px-3 py-1 rounded-md text-slate-400 hover:text-white font-medium transition-all">
+            2 Người
+          </button>
+        </div>
+      </div>
+
+      <!-- Player 1 Card -->
+      <div id="cardP1" class="glass-card rounded-2xl p-4 border-l-4 border-l-indigo-500 ring-2 ring-indigo-500/50 transition-all">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-base">
               🤖
             </div>
             <div>
-              <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
-                Player 1 <span class="text-[10px] px-1.5 py-0.5 rounded bg-brand-500/30 text-brand-300">P1</span>
-              </h3>
-              <p class="text-[11px] text-slate-400">Cyber Knight</p>
+              <div class="text-sm font-bold text-white">Người chơi 1</div>
+              <div class="text-[11px] text-slate-400">Hiệp sĩ Xanh</div>
             </div>
           </div>
-          <!-- Score -->
           <div class="text-right">
-            <span class="text-[10px] uppercase font-semibold text-slate-400">Điểm số</span>
-            <div id="p1Score" class="text-xl font-black text-brand-400">0</div>
+            <div class="text-[10px] text-slate-400 font-semibold">ĐIỂM</div>
+            <div id="scoreP1" class="text-2xl font-black text-indigo-400">0</div>
           </div>
         </div>
-
-        <!-- Position & Progress -->
-        <div class="bg-slate-900/60 rounded-xl p-2.5 flex items-center justify-between text-xs">
-          <span class="text-slate-400 flex items-center gap-1.5">
-            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-400"></i> Vị trí:
-          </span>
-          <span id="p1TileName" class="font-semibold text-slate-200">Ô 0: Khởi hành 🚀</span>
+        <div class="text-xs text-slate-400 flex items-center justify-between bg-slate-900/60 px-2.5 py-1.5 rounded-lg">
+          <span>Vị trí:</span>
+          <span id="posP1Text" class="font-semibold text-slate-200">Ô 0: Khởi hành 🚀</span>
         </div>
       </div>
 
-      <!-- Player 2 / BOT Card (Rose / Red) -->
-      <div id="p2Card" class="glass-panel rounded-2xl p-4 border-l-4 border-l-rose-500 transition-all duration-300 opacity-70">
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-lg shadow-sm">
+      <!-- Player 2 / BOT Card -->
+      <div id="cardP2" class="glass-card rounded-2xl p-4 border-l-4 border-l-rose-500 opacity-70 transition-all">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-base">
               🦊
             </div>
             <div>
-              <h3 class="text-sm font-bold text-white flex items-center gap-1.5" id="p2Name">
-                AI Bot <span class="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/30 text-rose-300">BOT</span>
-              </h3>
-              <p class="text-[11px] text-slate-400">Neon Phoenix</p>
+              <div class="text-sm font-bold text-white" id="p2Title">AI Bot</div>
+              <div class="text-[11px] text-slate-400">Chiến binh Đỏ</div>
             </div>
           </div>
-          <!-- Score -->
           <div class="text-right">
-            <span class="text-[10px] uppercase font-semibold text-slate-400">Điểm số</span>
-            <div id="p2Score" class="text-xl font-black text-rose-400">0</div>
+            <div class="text-[10px] text-slate-400 font-semibold">ĐIỂM</div>
+            <div id="scoreP2" class="text-2xl font-black text-rose-400">0</div>
           </div>
         </div>
-
-        <!-- Position & Progress -->
-        <div class="bg-slate-900/60 rounded-xl p-2.5 flex items-center justify-between text-xs">
-          <span class="text-slate-400 flex items-center gap-1.5">
-            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-rose-400"></i> Vị trí:
-          </span>
-          <span id="p2TileName" class="font-semibold text-slate-200">Ô 0: Khởi hành 🚀</span>
+        <div class="text-xs text-slate-400 flex items-center justify-between bg-slate-900/60 px-2.5 py-1.5 rounded-lg">
+          <span>Vị trí:</span>
+          <span id="posP2Text" class="font-semibold text-slate-200">Ô 0: Khởi hành 🚀</span>
         </div>
       </div>
 
-      <!-- Game History & Log Panel -->
-      <div class="glass-panel rounded-2xl p-4 flex-1 flex flex-col">
-        <h4 class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-          <i data-lucide="scroll-text" class="w-3.5 h-3.5 text-brand-400"></i> Nhật ký trận đấu
-        </h4>
-        <div id="logList" class="flex-1 overflow-y-auto max-h-[180px] space-y-1.5 pr-1 text-[11px] text-slate-400 font-mono">
-          <div class="p-1.5 rounded bg-slate-900/40 border border-slate-800 text-slate-300">
-            Trận đấu bắt đầu! Mục tiêu: Đạt 100 điểm trước.
-          </div>
+      <!-- Game Goal & Log -->
+      <div class="glass-card rounded-2xl p-3.5 flex-1 flex flex-col justify-between">
+        <div class="text-xs font-semibold text-slate-300 flex items-center justify-between border-b border-slate-800 pb-2">
+          <span class="flex items-center gap-1.5"><i data-lucide="target" class="w-3.5 h-3.5 text-accent-emerald"></i> Mục tiêu:</span>
+          <span class="text-amber-400 font-bold">50 Điểm</span>
+        </div>
+        <div id="miniLog" class="text-xs text-slate-300 my-2.5 font-mono min-h-[32px] flex items-center">
+          Chào mừng! Hãy gieo xúc xắc để bắt đầu.
+        </div>
+        <div class="text-[11px] text-slate-400 bg-slate-900/40 p-2 rounded-lg border border-slate-800/80">
+          💡 Mẹo: Ô ⭐ và 👑 cho điểm cao; tránh xa ô 💣 và 🌩️ nhé!
         </div>
       </div>
 
     </div>
   </main>
 
-  <!-- Winner Modal (Animate UI Dialog Spring) -->
-  <div id="winnerModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
-    <div id="winnerCard" class="w-full max-w-sm glass-panel rounded-3xl p-6 text-center shadow-2xl border border-brand-500/30 transform scale-90 transition-transform duration-300">
+  <!-- ================= VIEW 2: TIC-TAC-TOE NEON (CỜ CA-RÔ TỐI GIẢN) ================= -->
+  <main id="tictactoeView" class="w-full max-w-xl mx-auto my-auto glass-card rounded-3xl p-6 sm:p-8 shadow-2xl hidden flex-col items-center">
+    <!-- Header of Tic-Tac-Toe -->
+    <div class="w-full flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
+      <div>
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          Cờ Ca-rô Neon <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-accent-cyan/20 text-accent-cyan border border-accent-cyan/30">3x3 Grid</span>
+        </h2>
+        <p class="text-xs text-slate-400">Tối giản, thông minh, đấu trí với AI hoặc bạn bè</p>
+      </div>
+
+      <!-- Turn badge -->
+      <div id="tttTurnBadge" class="px-3 py-1.5 rounded-xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-xs font-bold flex items-center gap-1.5">
+        <span>Lượt:</span> <span id="tttTurnSign" class="text-base text-cyan-400">X</span>
+      </div>
+    </div>
+
+    <!-- 3x3 Grid Matrix -->
+    <div class="grid grid-cols-3 gap-3 w-full max-w-[340px] aspect-square mx-auto mb-6" id="tttGrid">
+      <!-- 9 Interactive Tiles -->
+    </div>
+
+    <!-- Score Bar -->
+    <div class="w-full grid grid-cols-3 gap-3 text-center text-xs font-medium">
+      <div class="bg-cyan-500/10 border border-cyan-500/30 p-2.5 rounded-xl">
+        <div class="text-cyan-400 font-bold">Người chơi X</div>
+        <div class="text-xl font-black text-white mt-0.5" id="tttScoreX">0</div>
+      </div>
+      <div class="bg-slate-800/60 border border-slate-700/60 p-2.5 rounded-xl">
+        <div class="text-slate-400 font-bold">Hòa</div>
+        <div class="text-xl font-black text-white mt-0.5" id="tttScoreDraw">0</div>
+      </div>
+      <div class="bg-rose-500/10 border border-rose-500/30 p-2.5 rounded-xl">
+        <div class="text-rose-400 font-bold">Máy (O)</div>
+        <div class="text-xl font-black text-white mt-0.5" id="tttScoreO">0</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Winner Modal -->
+  <div id="victoryModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div id="victoryCard" class="w-full max-w-sm glass-card rounded-3xl p-6 text-center shadow-2xl border border-brand-500/30 transform scale-90 transition-transform duration-300">
       <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-3xl mx-auto mb-3 shadow-lg shadow-amber-500/20 animate-bounce">
         🏆
       </div>
-      <h3 class="text-xl font-extrabold text-white mb-1" id="winnerTitle">Chiến Thắng!</h3>
-      <p class="text-xs text-slate-400 mb-5" id="winnerDesc">Chúc mừng bạn đã giành chiến thắng chung cuộc!</p>
+      <h3 class="text-xl font-bold text-white mb-1" id="vicTitle">Chiến Thắng!</h3>
+      <p class="text-xs text-slate-400 mb-5" id="vicDesc">Bạn đã có màn đấu trí xuất sắc!</p>
       
-      <button onclick="resetGame()" class="btn-spring w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 text-white font-semibold text-sm shadow-lg shadow-brand-600/30 hover:opacity-95">
+      <button onclick="handleReset()" class="btn-spring w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs shadow-lg shadow-brand-600/30">
         Chơi lại ván mới 🎮
       </button>
     </div>
   </div>
 
-  <!-- Game Engine JavaScript -->
+  <!-- Footer -->
+  <footer class="w-full max-w-4xl text-center py-2 text-[11px] text-slate-400 border-t border-slate-800/60">
+    Được thiết kế theo tiêu chuẩn <span class="text-slate-300 font-medium">Animate UI</span> • Web Audio API • 60 FPS Spring Motion
+  </footer>
+
+  <!-- Application Logic -->
   <script>
-    // Audio Context Synthesizer (Zero external dependencies)
+    // Audio Synthesizer
     let audioCtx = null;
-    let soundEnabled = true;
+    let isSoundOn = true;
 
     function initAudio() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
 
-    function playTone(freq, type = 'sine', duration = 0.12, gainVal = 0.1) {
-      if (!soundEnabled) return;
+    function soundTone(freq, type = 'sine', duration = 0.1, gain = 0.1) {
+      if (!isSoundOn) return;
       try {
         initAudio();
         const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
+        const g = audioCtx.createGain();
         osc.type = type;
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
+        g.gain.setValueAtTime(gain, audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(g);
+        g.connect(audioCtx.destination);
         osc.start();
         osc.stop(audioCtx.currentTime + duration);
       } catch (e) {}
     }
 
-    function playDiceRollSound() {
-      if (!soundEnabled) return;
-      for (let i = 0; i < 4; i++) {
-        setTimeout(() => playTone(300 + Math.random() * 200, 'square', 0.05, 0.05), i * 90);
-      }
-    }
-
-    function playHopSound() {
-      playTone(520, 'sine', 0.08, 0.12);
-    }
-
-    function playBonusSound() {
-      playTone(659, 'triangle', 0.15, 0.15);
-      setTimeout(() => playTone(880, 'triangle', 0.25, 0.2), 120);
-    }
-
-    function playTrapSound() {
-      playTone(220, 'sawtooth', 0.2, 0.12);
-      setTimeout(() => playTone(160, 'sawtooth', 0.3, 0.15), 100);
-    }
-
     function toggleSound() {
-      soundEnabled = !soundEnabled;
-      document.getElementById('soundIcon').setAttribute('data-lucide', soundEnabled ? 'volume-2' : 'volume-x');
+      isSoundOn = !isSoundOn;
+      document.getElementById('soundIcon').setAttribute('data-lucide', isSoundOn ? 'volume-2' : 'volume-x');
       lucide.createIcons();
     }
 
-    // Board Tiles Definition (20 tiles along 6x6 grid perimeter)
-    const TILE_DATA = [
-      { id: 0, name: 'Khởi hành', icon: '🚀', type: 'start', value: 0, desc: 'Điểm bắt đầu' },
-      { id: 1, name: 'Đá Năng Lượng', icon: '💎', type: 'point', value: 10, desc: '+10 điểm' },
-      { id: 2, name: 'Hố Đen Bẫy', icon: '💣', type: 'trap', value: -10, desc: '-10 điểm' },
-      { id: 3, name: 'Kho Báu Cổ', icon: '👑', type: 'point', value: 15, desc: '+15 điểm' },
-      { id: 4, name: 'Trạm Tiếp Liệu', icon: '⚡', type: 'point', value: 10, desc: '+10 điểm' },
-      { id: 5, name: 'Góc Thiên Hà', icon: '🌌', type: 'neutral', value: 0, desc: 'Nghỉ chân' },
-      { id: 6, name: 'Sao Băng', icon: '⭐', type: 'point', value: 20, desc: '+20 điểm' },
-      { id: 7, name: 'Bão Điện Từ', icon: '🌩️', type: 'trap', value: -15, desc: '-15 điểm' },
-      { id: 8, name: 'Rương Vàng', icon: '📦', type: 'point', value: 25, desc: '+25 điểm' },
-      { id: 9, name: 'Vòng Xoáy Lượng Tử', icon: '🌀', type: 'trap', value: -10, desc: '-10 điểm' },
-      { id: 10, name: 'Trạm Không Gian', icon: '🛰️', type: 'neutral', value: 0, desc: 'Khu an toàn' },
-      { id: 11, name: 'Kim Cương Xanh', icon: '💠', type: 'point', value: 15, desc: '+15 điểm' },
-      { id: 12, name: 'Mìn Laze', icon: '⚠️', type: 'trap', value: -15, desc: '-15 điểm' },
-      { id: 13, name: 'Tinh Vân Bí Ẩn', icon: '🔮', type: 'point', value: 30, desc: '+30 điểm' },
-      { id: 14, name: 'Hộp Quà May Mắn', icon: '🎁', type: 'point', value: 15, desc: '+15 điểm' },
-      { id: 15, name: 'Cổng Warp', icon: '🛸', type: 'neutral', value: 0, desc: 'Điểm chuyển tiếp' },
-      { id: 16, name: 'Trường Trọng Lực', icon: '🧲', type: 'trap', value: -10, desc: '-10 điểm' },
-      { id: 17, name: 'Lõi Năng Lượng', icon: '🔥', type: 'point', value: 20, desc: '+20 điểm' },
-      { id: 18, name: 'Quái Vật Không Gian', icon: '👾', type: 'trap', value: -20, desc: '-20 điểm' },
-      { id: 19, name: 'Chìa Khóa Thần', icon: '🗝️', type: 'point', value: 35, desc: '+35 điểm JACKPOT' }
+    // 12 Spacious Tiles (4x4 Perimeter Circuit)
+    const TILES = [
+      { id: 0, name: 'Khởi hành', icon: '🚀', pts: 0, type: 'start' },
+      { id: 1, name: 'Đá Quý', icon: '💎', pts: 10, type: 'plus' },
+      { id: 2, name: 'Hố Đen', icon: '💣', pts: -10, type: 'minus' },
+      { id: 3, name: 'Trạm Tiếp', icon: '⚡', pts: 10, type: 'plus' },
+      { id: 4, name: 'Kho Báu', icon: '👑', pts: 20, type: 'plus' },
+      { id: 5, name: 'Bão Điện', icon: '🌩️', pts: -15, type: 'minus' },
+      { id: 6, name: 'Góc Nghỉ', icon: '🌌', pts: 0, type: 'neutral' },
+      { id: 7, name: 'Ngôi Sao', icon: '⭐', pts: 15, type: 'plus' },
+      { id: 8, name: 'Cạm Bẫy', icon: '⚠️', pts: -10, type: 'minus' },
+      { id: 9, name: 'Rương Vàng', icon: '🎁', pts: 25, type: 'plus' },
+      { id: 10, name: 'Cổng Warp', icon: '🛸', pts: 0, type: 'neutral' },
+      { id: 11, name: 'Chìa Khóa', icon: '🗝️', pts: 30, type: 'plus' }
     ];
 
-    // Grid coordinates for 6x6 perimeter (Top: 0..5, Right: 5..10, Bottom: 10..15, Left: 15..19)
-    const GRID_COORDS = [
-      { r: 1, c: 1 }, { r: 1, c: 2 }, { r: 1, c: 3 }, { r: 1, c: 4 }, { r: 1, c: 5 }, { r: 1, c: 6 },
-      { r: 2, c: 6 }, { r: 3, c: 6 }, { r: 4, c: 6 }, { r: 5, c: 6 }, { r: 6, c: 6 },
-      { r: 6, c: 5 }, { r: 6, c: 4 }, { r: 6, c: 3 }, { r: 6, c: 2 }, { r: 6, c: 1 },
-      { r: 5, c: 1 }, { r: 4, c: 1 }, { r: 3, c: 1 }, { r: 2, c: 1 }
+    // Grid coordinates for 4x4 circuit (Top: 0..3, Right: 3..6, Bottom: 6..9, Left: 9..11)
+    const COORDS_12 = [
+      { r: 1, c: 1 }, { r: 1, c: 2 }, { r: 1, c: 3 }, { r: 1, c: 4 },
+      { r: 2, c: 4 }, { r: 3, c: 4 }, { r: 4, c: 4 },
+      { r: 4, c: 3 }, { r: 4, c: 2 }, { r: 4, c: 1 },
+      { r: 3, c: 1 }, { r: 2, c: 1 }
     ];
 
-    // Game State
-    let gameMode = 'pve'; // 'pve' or 'pvp'
-    let currentTurn = 1; // 1 = P1, 2 = P2 / BOT
-    let isRolling = false;
+    // Game 1: Dice Quest State
+    let currentOpponent = 'bot'; // 'bot' or 'human'
+    let currentTurn = 1;
     let scores = { 1: 0, 2: 0 };
     let positions = { 1: 0, 2: 0 };
-    const WINNING_SCORE = 100;
+    let isDiceRolling = false;
+    const GOAL_SCORE = 50;
 
-    // Render 20 Perimeter Tiles into Grid
-    function renderBoard() {
-      const grid = document.getElementById('boardGrid');
-      // Remove any previously rendered tile elements
-      const oldTiles = grid.querySelectorAll('.tile-cell');
-      oldTiles.forEach(t => t.remove());
+    function renderCircuitBoard() {
+      const grid = document.getElementById('circuitGrid');
+      const old = grid.querySelectorAll('.board-tile-cell');
+      old.forEach(o => o.remove());
 
-      TILE_DATA.forEach((tile, index) => {
-        const coord = GRID_COORDS[index];
+      TILES.forEach((t, i) => {
+        const coord = COORDS_12[i];
         const el = document.createElement('div');
-        el.className = `tile-cell tile-card glass-tile rounded-xl sm:rounded-2xl p-1 sm:p-2 flex flex-col items-center justify-between text-center border relative cursor-default select-none transition-all duration-200`;
-        el.id = `tile-${index}`;
+        el.className = `board-tile-cell tile-box rounded-2xl p-2 flex flex-col items-center justify-between text-center border relative select-none cursor-default bg-slate-900/60`;
         el.style.gridRow = coord.r;
         el.style.gridColumn = coord.c;
 
-        // Custom borders depending on type
-        if (tile.type === 'start') {
+        if (t.type === 'start') {
           el.classList.add('border-brand-500/60', 'bg-brand-500/10');
-        } else if (tile.type === 'point') {
-          el.classList.add('border-emerald-500/30', 'hover:border-emerald-400');
-        } else if (tile.type === 'trap') {
-          el.classList.add('border-rose-500/30', 'hover:border-rose-400');
+        } else if (t.type === 'plus') {
+          el.classList.add('border-emerald-500/30', 'hover:border-emerald-400/60');
+        } else if (t.type === 'minus') {
+          el.classList.add('border-rose-500/30', 'hover:border-rose-400/60');
         } else {
-          el.classList.add('border-slate-700/60');
+          el.classList.add('border-slate-800');
         }
 
+        const badge = t.pts > 0 ? `+${t.pts}` : (t.pts < 0 ? `${t.pts}` : '');
+
         el.innerHTML = `
-          <div class="text-[10px] text-slate-400 font-mono flex items-center justify-between w-full px-0.5">
-            <span>#${index}</span>
-            <span class="text-[8px] opacity-75">${tile.value > 0 ? '+' + tile.value : (tile.value < 0 ? tile.value : '')}</span>
+          <div class="w-full flex items-center justify-between text-[11px] font-mono text-slate-400">
+            <span>#${i}</span>
+            <span class="${t.pts > 0 ? 'text-emerald-400 font-bold' : (t.pts < 0 ? 'text-rose-400 font-bold' : '')}">${badge}</span>
           </div>
-          <div class="text-base sm:text-2xl my-0.5">${tile.icon}</div>
-          <div class="text-[9px] sm:text-[10px] font-semibold truncate w-full text-slate-300">${tile.name}</div>
-          <!-- Token Container -->
-          <div id="tile-tokens-${index}" class="absolute -bottom-1 -right-1 flex gap-0.5 z-20"></div>
+          <div class="text-2xl sm:text-3xl my-1">${t.icon}</div>
+          <div class="text-[11px] sm:text-xs font-semibold text-slate-200">${t.name}</div>
+          <div id="token-box-${i}" class="absolute -bottom-1 -right-1 flex gap-1 z-20"></div>
         `;
         grid.appendChild(el);
       });
 
-      updateMeeples();
+      renderTokens();
     }
 
-    // Render Meeples on their current tiles
-    function updateMeeples() {
-      // Clear all token containers
-      for (let i = 0; i < TILE_DATA.length; i++) {
-        const container = document.getElementById(`tile-tokens-${i}`);
-        if (container) container.innerHTML = '';
+    function renderTokens() {
+      for (let i = 0; i < TILES.length; i++) {
+        const box = document.getElementById(`token-box-${i}`);
+        if (box) box.innerHTML = '';
       }
 
-      // Player 1 Meeple (Blue Robot)
-      const p1Container = document.getElementById(`tile-tokens-${positions[1]}`);
-      if (p1Container) {
+      // P1 Meeple
+      const b1 = document.getElementById(`token-box-${positions[1]}`);
+      if (b1) {
         const m1 = document.createElement('div');
-        m1.id = 'meeple-1';
-        m1.className = 'w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-brand-500 border-2 border-white flex items-center justify-center text-[11px] shadow-lg shadow-brand-500/50';
+        m1.id = 'meeple-p1';
+        m1.className = 'w-6 h-6 rounded-full bg-indigo-500 border-2 border-white flex items-center justify-center text-xs shadow-md shadow-indigo-500/50';
         m1.textContent = '🤖';
-        p1Container.appendChild(m1);
+        b1.appendChild(m1);
       }
 
-      // Player 2 Meeple (Rose Fox)
-      const p2Container = document.getElementById(`tile-tokens-${positions[2]}`);
-      if (p2Container) {
+      // P2 Meeple
+      const b2 = document.getElementById(`token-box-${positions[2]}`);
+      if (b2) {
         const m2 = document.createElement('div');
-        m2.id = 'meeple-2';
-        m2.className = 'w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-rose-500 border-2 border-white flex items-center justify-center text-[11px] shadow-lg shadow-rose-500/50';
+        m2.id = 'meeple-p2';
+        m2.className = 'w-6 h-6 rounded-full bg-rose-500 border-2 border-white flex items-center justify-center text-xs shadow-md shadow-rose-500/50';
         m2.textContent = '🦊';
-        p2Container.appendChild(m2);
+        b2.appendChild(m2);
       }
     }
 
-    // Animate Hop Step by Step
-    async function movePlayer(player, steps) {
-      for (let s = 1; s <= steps; s++) {
-        positions[player] = (positions[player] + 1) % TILE_DATA.length;
-        updateMeeples();
-        playHopSound();
-        const meeple = document.getElementById(`meeple-${player}`);
-        if (meeple) {
-          meeple.classList.remove('meeple-bounce');
-          void meeple.offsetWidth; // trigger reflow
-          meeple.classList.add('meeple-bounce');
-        }
-        await new Promise(r => setTimeout(r, 220)); // spring timing
-      }
+    async function rollDiceQuest() {
+      if (isDiceRolling) return;
+      if (currentOpponent === 'bot' && currentTurn === 2) return;
 
-      // Process Landed Tile
-      const landedTile = TILE_DATA[positions[player]];
-      const playerLabel = player === 1 ? 'Player 1' : (gameMode === 'pve' ? 'AI Bot' : 'Player 2');
-
-      if (landedTile.type === 'point') {
-        scores[player] += landedTile.value;
-        playBonusSound();
-        logMessage(`<span class="${player === 1 ? 'text-brand-400' : 'text-rose-400'} font-semibold">${playerLabel}</span> đáp vào <b>${landedTile.name}</b>: +${landedTile.value} điểm!`);
-      } else if (landedTile.type === 'trap') {
-        scores[player] = Math.max(0, scores[player] + landedTile.value);
-        playTrapSound();
-        logMessage(`<span class="${player === 1 ? 'text-brand-400' : 'text-rose-400'} font-semibold">${playerLabel}</span> vướng vào <b>${landedTile.name}</b>: ${landedTile.value} điểm!`);
-      } else {
-        logMessage(`<span class="${player === 1 ? 'text-brand-400' : 'text-rose-400'} font-semibold">${playerLabel}</span> dừng ở <b>${landedTile.name}</b>.`);
-      }
-
-      // Update UI Stats
-      updateUI();
-
-      // Check Winner
-      if (scores[player] >= WINNING_SCORE) {
-        showWinner(player);
-        return;
-      }
-
-      // Switch Turn
-      switchTurn();
-    }
-
-    // Roll Dice Action
-    async function rollDice() {
-      if (isRolling) return;
-      if (gameMode === 'pve' && currentTurn === 2) return; // Prevent clicking during Bot's turn
-
-      isRolling = true;
-      const dice = document.getElementById('diceWrapper');
-      const diceFace = document.getElementById('diceFace');
-      const hint = document.getElementById('diceHint');
+      isDiceRolling = true;
+      const dice = document.getElementById('diceButton');
+      const face = document.getElementById('diceFaceDisplay');
+      const hint = document.getElementById('diceActionHint');
 
       dice.classList.add('rolling');
       hint.textContent = 'Đang xoay xúc xắc...';
-      playDiceRollSound();
+      soundTone(440, 'square', 0.08, 0.06);
 
-      const rollVal = Math.floor(Math.random() * 6) + 1;
-
-      // Animate roll duration 600ms
+      const roll = Math.floor(Math.random() * 6) + 1;
       await new Promise(r => setTimeout(r, 650));
       dice.classList.remove('rolling');
 
-      const diceEmojis = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-      diceFace.textContent = diceEmojis[rollVal - 1];
-      hint.textContent = `Kết quả: ${rollVal} nút!`;
+      const emojis = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+      face.textContent = emojis[roll - 1];
+      hint.textContent = `Kết quả: ${roll} nút!`;
 
-      const playerLabel = currentTurn === 1 ? 'Player 1' : (gameMode === 'pve' ? 'AI Bot' : 'Player 2');
-      document.getElementById('actionStatus').innerHTML = `<b>${playerLabel}</b> gieo được <span class="text-amber-400 font-bold">${rollVal}</span> bước!`;
-
-      // Move Meeple
-      await movePlayer(currentTurn, rollVal);
-      isRolling = false;
+      await moveMeepleSteps(currentTurn, roll);
+      isDiceRolling = false;
     }
 
-    // Switch Turn Function
+    async function moveMeepleSteps(player, steps) {
+      for (let s = 1; s <= steps; s++) {
+        positions[player] = (positions[player] + 1) % TILES.length;
+        renderTokens();
+        soundTone(550, 'sine', 0.06, 0.1);
+
+        const m = document.getElementById(`meeple-p${player}`);
+        if (m) {
+          m.classList.remove('meeple-hop');
+          void m.offsetWidth;
+          m.classList.add('meeple-hop');
+        }
+        await new Promise(r => setTimeout(r, 220));
+      }
+
+      // Tile trigger
+      const tile = TILES[positions[player]];
+      const label = player === 1 ? 'Người chơi 1' : (currentOpponent === 'bot' ? 'AI Bot' : 'Người chơi 2');
+
+      if (tile.type === 'plus') {
+        scores[player] += tile.pts;
+        soundTone(880, 'triangle', 0.2, 0.15);
+        document.getElementById('miniLog').innerHTML = `<span class="text-emerald-400 font-semibold">${label}</span> đáp vào <b>${tile.name}</b>: +${tile.pts} điểm!`;
+      } else if (tile.type === 'minus') {
+        scores[player] = Math.max(0, scores[player] + tile.pts);
+        soundTone(200, 'sawtooth', 0.25, 0.12);
+        document.getElementById('miniLog').innerHTML = `<span class="text-rose-400 font-semibold">${label}</span> dính <b>${tile.name}</b>: ${tile.pts} điểm!`;
+      } else {
+        document.getElementById('miniLog').innerHTML = `${label} dừng tại <b>${tile.name}</b>.`;
+      }
+
+      updateDiceUI();
+
+      if (scores[player] >= GOAL_SCORE) {
+        showVictory(label);
+        return;
+      }
+
+      switchTurn();
+    }
+
     function switchTurn() {
       currentTurn = currentTurn === 1 ? 2 : 1;
-      const p1Card = document.getElementById('p1Card');
-      const p2Card = document.getElementById('p2Card');
-      const turnBadge = document.getElementById('turnBadge');
-      const turnText = document.getElementById('turnText');
+      const c1 = document.getElementById('cardP1');
+      const c2 = document.getElementById('cardP2');
+      const badge = document.getElementById('diceTurnBadge');
+      const text = document.getElementById('diceTurnText');
 
       if (currentTurn === 1) {
-        p1Card.classList.remove('opacity-70');
-        p1Card.classList.add('ring-2', 'ring-brand-500/50');
-        p2Card.classList.add('opacity-70');
-        p2Card.classList.remove('ring-2', 'ring-rose-500/50');
+        c1.classList.remove('opacity-70');
+        c1.classList.add('ring-2', 'ring-indigo-500/50');
+        c2.classList.add('opacity-70');
+        c2.classList.remove('ring-2', 'ring-rose-500/50');
 
-        turnBadge.className = 'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold mb-4 shadow-sm';
-        turnText.textContent = 'Lượt của Player 1';
-        document.getElementById('diceHint').textContent = 'Bấm vào xúc xắc để gieo';
+        badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold mb-3';
+        text.textContent = 'Lượt của Người chơi 1';
+        document.getElementById('diceActionHint').textContent = 'Bấm xúc xắc để gieo bước';
       } else {
-        p2Card.classList.remove('opacity-70');
-        p2Card.classList.add('ring-2', 'ring-rose-500/50');
-        p1Card.classList.add('opacity-70');
-        p1Card.classList.remove('ring-2', 'ring-brand-500/50');
+        c2.classList.remove('opacity-70');
+        c2.classList.add('ring-2', 'ring-rose-500/50');
+        c1.classList.add('opacity-70');
+        c1.classList.remove('ring-2', 'ring-indigo-500/50');
 
-        turnBadge.className = 'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold mb-4 shadow-sm';
-        turnText.textContent = gameMode === 'pve' ? 'Lượt của AI Bot...' : 'Lượt của Player 2';
+        badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold mb-3';
+        text.textContent = currentOpponent === 'bot' ? 'Lượt của AI Bot...' : 'Lượt của Người chơi 2';
 
-        if (gameMode === 'pve') {
-          document.getElementById('diceHint').textContent = 'AI Bot đang tính toán...';
-          setTimeout(() => {
-            botPlay();
-          }, 800);
+        if (currentOpponent === 'bot') {
+          document.getElementById('diceActionHint').textContent = 'AI Bot đang tính toán...';
+          setTimeout(botPlayDice, 800);
         } else {
-          document.getElementById('diceHint').textContent = 'Player 2 bấm vào xúc xắc';
+          document.getElementById('diceActionHint').textContent = 'Người chơi 2 bấm xúc xắc';
         }
       }
     }
 
-    // Simple AI Bot Logic
-    async function botPlay() {
+    async function botPlayDice() {
       if (currentTurn !== 2) return;
-      isRolling = true;
-      const dice = document.getElementById('diceWrapper');
-      const diceFace = document.getElementById('diceFace');
-      const hint = document.getElementById('diceHint');
+      isDiceRolling = true;
+      const dice = document.getElementById('diceButton');
+      const face = document.getElementById('diceFaceDisplay');
+      const hint = document.getElementById('diceActionHint');
 
       dice.classList.add('rolling');
-      hint.textContent = 'AI Bot đang gieo xúc xắc...';
-      playDiceRollSound();
+      hint.textContent = 'AI Bot đang gieo...';
+      soundTone(440, 'square', 0.08, 0.06);
 
-      const rollVal = Math.floor(Math.random() * 6) + 1;
+      const roll = Math.floor(Math.random() * 6) + 1;
       await new Promise(r => setTimeout(r, 650));
       dice.classList.remove('rolling');
 
-      const diceEmojis = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-      diceFace.textContent = diceEmojis[rollVal - 1];
-      hint.textContent = `Bot gieo được: ${rollVal} nút!`;
-      document.getElementById('actionStatus').innerHTML = `<b>AI Bot</b> gieo được <span class="text-rose-400 font-bold">${rollVal}</span> bước!`;
+      const emojis = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+      face.textContent = emojis[roll - 1];
+      hint.textContent = `Bot gieo được: ${roll} nút!`;
 
-      await movePlayer(2, rollVal);
-      isRolling = false;
+      await moveMeepleSteps(2, roll);
+      isDiceRolling = false;
     }
 
-    // Update Score and Position in UI
-    function updateUI() {
-      document.getElementById('p1Score').textContent = scores[1];
-      document.getElementById('p2Score').textContent = scores[2];
-      document.getElementById('p1TileName').textContent = `Ô ${positions[1]}: ${TILE_DATA[positions[1]].name} ${TILE_DATA[positions[1]].icon}`;
-      document.getElementById('p2TileName').textContent = `Ô ${positions[2]}: ${TILE_DATA[positions[2]].name} ${TILE_DATA[positions[2]].icon}`;
+    function updateDiceUI() {
+      document.getElementById('scoreP1').textContent = scores[1];
+      document.getElementById('scoreP2').textContent = scores[2];
+      document.getElementById('posP1Text').textContent = `Ô ${positions[1]}: ${TILES[positions[1]].name} ${TILES[positions[1]].icon}`;
+      document.getElementById('posP2Text').textContent = `Ô ${positions[2]}: ${TILES[positions[2]].name} ${TILES[positions[2]].icon}`;
     }
 
-    // Log messages to panel
-    function logMessage(html) {
-      const list = document.getElementById('logList');
-      const item = document.createElement('div');
-      item.className = 'p-1.5 rounded bg-slate-900/40 border border-slate-800 text-slate-300 animate-fadeIn';
-      item.innerHTML = html;
-      list.appendChild(item);
-      list.scrollTop = list.scrollHeight;
-    }
+    function setOpponent(mode) {
+      currentOpponent = mode;
+      const btnB = document.getElementById('btnBot');
+      const btnH = document.getElementById('btnHuman');
+      const title = document.getElementById('p2Title');
 
-    // Set Game Mode (PvE or PvP)
-    function setGameMode(mode) {
-      gameMode = mode;
-      const pill = document.getElementById('modePill');
-      const p2Name = document.getElementById('p2Name');
-
-      if (mode === 'pve') {
-        pill.style.left = '4px';
-        p2Name.innerHTML = 'AI Bot <span class="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/30 text-rose-300">BOT</span>';
+      if (mode === 'bot') {
+        btnB.className = 'px-3 py-1 rounded-md bg-brand-600 text-white font-medium transition-all';
+        btnH.className = 'px-3 py-1 rounded-md text-slate-400 hover:text-white font-medium transition-all';
+        title.textContent = 'AI Bot';
       } else {
-        pill.style.left = '84px';
-        p2Name.innerHTML = 'Player 2 <span class="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/30 text-rose-300">P2</span>';
+        btnH.className = 'px-3 py-1 rounded-md bg-brand-600 text-white font-medium transition-all';
+        btnB.className = 'px-3 py-1 rounded-md text-slate-400 hover:text-white font-medium transition-all';
+        title.textContent = 'Người chơi 2';
       }
-      resetGame();
+      handleReset();
     }
 
-    // Show Winner Modal
-    function showWinner(player) {
-      const modal = document.getElementById('winnerModal');
-      const card = document.getElementById('winnerCard');
-      const title = document.getElementById('winnerTitle');
-      const desc = document.getElementById('winnerDesc');
+    // ================= GAME 2: TIC-TAC-TOE LOGIC =================
+    let tttBoard = Array(9).fill(null);
+    let tttTurn = 'X';
+    let tttScores = { X: 0, O: 0, draw: 0 };
+    let tttGameOver = false;
 
-      const isBot = gameMode === 'pve' && player === 2;
-      title.textContent = isBot ? 'AI Bot Đã Thắng!' : `Player ${player} Chiến Thắng!`;
-      desc.textContent = `Đạt mốc ${scores[player]} điểm với lối chơi xuất sắc!`;
+    function renderTicTacToe() {
+      const grid = document.getElementById('tttGrid');
+      grid.innerHTML = '';
+
+      tttBoard.forEach((val, idx) => {
+        const btn = document.createElement('button');
+        btn.className = `tile-box rounded-2xl bg-slate-900/90 border border-slate-800 flex items-center justify-center text-4xl sm:text-5xl font-black select-none transition-all shadow-md`;
+        if (val === 'X') {
+          btn.innerHTML = `<span class="text-cyan-400 drop-shadow-[0_0_12px_rgba(6,182,212,0.6)] animate-pulse">X</span>`;
+        } else if (val === 'O') {
+          btn.innerHTML = `<span class="text-rose-400 drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]">O</span>`;
+        } else {
+          btn.innerHTML = ``;
+          btn.onclick = () => handleTTTClick(idx);
+        }
+        grid.appendChild(btn);
+      });
+    }
+
+    function handleTTTClick(idx) {
+      if (tttBoard[idx] || tttGameOver) return;
+
+      tttBoard[idx] = tttTurn;
+      soundTone(tttTurn === 'X' ? 600 : 450, 'sine', 0.08, 0.12);
+      renderTicTacToe();
+
+      if (checkTTTWinner(tttTurn)) {
+        tttScores[tttTurn]++;
+        updateTTTScores();
+        showVictory(tttTurn === 'X' ? 'Người chơi X' : 'Máy (O)');
+        tttGameOver = true;
+        return;
+      }
+
+      if (tttBoard.every(c => c !== null)) {
+        tttScores.draw++;
+        updateTTTScores();
+        showVictory('Trận đấu Hòa!');
+        tttGameOver = true;
+        return;
+      }
+
+      // Switch turn
+      tttTurn = tttTurn === 'X' ? 'O' : 'X';
+      document.getElementById('tttTurnSign').textContent = tttTurn;
+      document.getElementById('tttTurnSign').className = tttTurn === 'X' ? 'text-base text-cyan-400' : 'text-base text-rose-400';
+
+      if (tttTurn === 'O') {
+        setTimeout(botPlayTTT, 400);
+      }
+    }
+
+    function botPlayTTT() {
+      if (tttGameOver) return;
+      const empty = tttBoard.map((v, i) => v === null ? i : null).filter(v => v !== null);
+      if (empty.length === 0) return;
+
+      let move = empty[Math.floor(Math.random() * empty.length)];
+      for (let i of empty) {
+        tttBoard[i] = 'O';
+        if (checkTTTWinner('O')) { move = i; tttBoard[i] = null; break; }
+        tttBoard[i] = null;
+      }
+
+      handleTTTClick(move);
+    }
+
+    function checkTTTWinner(p) {
+      const wins = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+      ];
+      return wins.some(([a, b, c]) => tttBoard[a] === p && tttBoard[b] === p && tttBoard[c] === p);
+    }
+
+    function updateTTTScores() {
+      document.getElementById('tttScoreX').textContent = tttScores.X;
+      document.getElementById('tttScoreO').textContent = tttScores.O;
+      document.getElementById('tttScoreDraw').textContent = tttScores.draw;
+    }
+
+    // Switch Views
+    let activeTab = 'dice';
+    function switchGameView(tab) {
+      activeTab = tab;
+      const pill = document.getElementById('gameTabPill');
+      const vDice = document.getElementById('diceView');
+      const vTTT = document.getElementById('tictactoeView');
+
+      if (tab === 'dice') {
+        pill.style.left = '4px';
+        vDice.classList.remove('hidden');
+        vDice.classList.add('grid');
+        vTTT.classList.add('hidden');
+        vTTT.classList.remove('flex');
+      } else {
+        pill.style.left = '94px';
+        vDice.classList.add('hidden');
+        vDice.classList.remove('grid');
+        vTTT.classList.remove('hidden');
+        vTTT.classList.add('flex');
+        renderTicTacToe();
+      }
+    }
+
+    // Victory Modal
+    function showVictory(winnerName) {
+      const modal = document.getElementById('victoryModal');
+      const card = document.getElementById('victoryCard');
+      const title = document.getElementById('vicTitle');
+      const desc = document.getElementById('vicDesc');
+
+      title.textContent = winnerName.includes('Hòa') ? 'Bắt Tay Hòa!' : `${winnerName} Thắng!`;
+      desc.textContent = `Chúc mừng bạn đã hoàn thành ván đấu ngoạn mục!`;
 
       modal.classList.remove('hidden');
       setTimeout(() => {
@@ -643,44 +710,45 @@
         card.classList.add('scale-100');
       }, 20);
 
-      playBonusSound();
+      soundTone(659, 'triangle', 0.15, 0.15);
+      setTimeout(() => soundTone(880, 'triangle', 0.3, 0.2), 120);
     }
 
-    // Reset Game
-    function resetGame() {
-      scores = { 1: 0, 2: 0 };
-      positions = { 1: 0, 2: 0 };
-      currentTurn = 1;
-      isRolling = false;
-
-      const modal = document.getElementById('winnerModal');
-      const card = document.getElementById('winnerCard');
+    // Reset Function
+    function handleReset() {
+      const modal = document.getElementById('victoryModal');
+      const card = document.getElementById('victoryCard');
       modal.classList.add('opacity-0');
       card.classList.add('scale-90');
       setTimeout(() => modal.classList.add('hidden'), 250);
 
-      document.getElementById('diceFace').textContent = '🎲';
-      document.getElementById('diceHint').textContent = 'Bấm vào xúc xắc để gieo';
-      document.getElementById('actionStatus').textContent = 'Ván mới đã bắt đầu!';
-      document.getElementById('logList').innerHTML = '<div class="p-1.5 rounded bg-slate-900/40 border border-slate-800 text-slate-300">Ván mới sẵn sàng! Mục tiêu: 100 điểm.</div>';
-
-      updateUI();
-      renderBoard();
-      
-      const p1Card = document.getElementById('p1Card');
-      const p2Card = document.getElementById('p2Card');
-      p1Card.classList.remove('opacity-70');
-      p1Card.classList.add('ring-2', 'ring-brand-500/50');
-      p2Card.classList.add('opacity-70');
-      p2Card.classList.remove('ring-2', 'ring-rose-500/50');
-      document.getElementById('turnText').textContent = 'Lượt của Player 1';
+      if (activeTab === 'dice') {
+        scores = { 1: 0, 2: 0 };
+        positions = { 1: 0, 2: 0 };
+        currentTurn = 1;
+        isDiceRolling = false;
+        document.getElementById('diceFaceDisplay').textContent = '🎲';
+        document.getElementById('diceActionHint').textContent = 'Bấm xúc xắc để gieo bước';
+        document.getElementById('miniLog').textContent = 'Ván mới sẵn sàng! Hãy gieo xúc xắc.';
+        updateDiceUI();
+        renderCircuitBoard();
+        switchTurn();
+        currentTurn = 1;
+      } else {
+        tttBoard = Array(9).fill(null);
+        tttTurn = 'X';
+        tttGameOver = false;
+        document.getElementById('tttTurnSign').textContent = 'X';
+        document.getElementById('tttTurnSign').className = 'text-base text-cyan-400';
+        renderTicTacToe();
+      }
     }
 
-    // Init App
+    // App Initialization
     window.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
-      renderBoard();
-      updateUI();
+      renderCircuitBoard();
+      updateDiceUI();
     });
   </script>
 </body>

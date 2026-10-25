@@ -191,7 +191,7 @@
       
       <!-- Brand Logo -->
       <div class="flex items-center gap-4 sm:gap-6 shrink-0">
-        <div class="flex items-center gap-2.5 cursor-pointer group" onclick="handleLogoSecretClick(event)" title="Tabletop Arena - Sảnh Đấu Trí">
+        <div class="flex items-center gap-2.5 cursor-pointer group" onclick="switchMainTab('lobby')" title="Về Sảnh Trò Chơi (Menu Chính)">
           <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-600 to-amber-800 p-0.5 shadow-xl shadow-amber-600/30 flex items-center justify-center group-hover:scale-105 transition-transform" id="brandLogoIcon">
             <div class="w-full h-full bg-[#080D1A] rounded-[14px] flex items-center justify-center p-1 relative overflow-hidden">
               <div class="absolute inset-0 bg-gradient-to-tr from-amber-500/10 via-transparent to-amber-300/20 pointer-events-none"></div>
@@ -230,8 +230,12 @@
 
         <!-- Navigation Menu Tabs (Desktop) -->
         <nav class="hidden lg:flex items-center gap-1 bg-black/40 p-1 rounded-2xl border border-board-border/60 text-xs font-bold" id="mainNavBar">
-          <button id="navTabArena" onclick="switchMainTab('arena')" class="btn-spring px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white flex items-center gap-1.5 shadow-md shadow-amber-700/30 transition-all">
-            <i data-lucide="swords" class="w-3.5 h-3.5 text-amber-300"></i>
+          <button id="navTabLobby" onclick="switchMainTab('lobby')" class="btn-spring px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white flex items-center gap-1.5 shadow-md shadow-amber-700/30 transition-all font-bold">
+            <i data-lucide="layout-grid" class="w-3.5 h-3.5 text-amber-300"></i>
+            <span>Sảnh Game</span>
+          </button>
+          <button id="navTabArena" onclick="switchMainTab('arena')" class="btn-spring px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-1.5 transition-all font-semibold">
+            <i data-lucide="swords" class="w-3.5 h-3.5 text-amber-400"></i>
             <span>Bàn Đấu</span>
           </button>
           <button id="navTabLeaderboard" onclick="switchMainTab('leaderboard')" class="btn-spring px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-1.5 transition-all">
@@ -341,7 +345,8 @@
 
     <!-- Mobile Secondary Tab Bar (chỉ hiển thị dưới màn hình lg) -->
     <div class="flex lg:hidden items-center justify-around gap-1 mt-2.5 pt-2 border-t border-board-border/40 text-[11px] font-bold">
-      <button onclick="switchMainTab('arena')" id="mTabArena" class="flex-1 py-1.5 rounded-lg bg-amber-600 text-white text-center">Bàn Đấu</button>
+      <button onclick="switchMainTab('lobby')" id="mTabLobby" class="flex-1 py-1.5 rounded-lg bg-amber-600 text-white text-center">Sảnh Game</button>
+      <button onclick="switchMainTab('arena')" id="mTabArena" class="flex-1 py-1.5 rounded-lg text-slate-400 text-center">Bàn Đấu</button>
       <button onclick="switchMainTab('leaderboard')" id="mTabLeaderboard" class="flex-1 py-1.5 rounded-lg text-slate-400 text-center">Xếp Hạng</button>
       <button onclick="switchMainTab('vip')" id="mTabVIP" class="flex-1 py-1.5 rounded-lg text-slate-400 text-center">Gói VIP</button>
       <button onclick="switchMainTab('rules')" id="mTabRules" class="flex-1 py-1.5 rounded-lg text-slate-400 text-center">Luật Chơi</button>
@@ -351,14 +356,225 @@
   <!-- ================= MAIN CONTENT VIEWPORT ================= -->
   <div class="flex-1 flex flex-col justify-start items-center p-3 sm:p-6 w-full max-w-7xl mx-auto">
 
+        <!-- ================= VIEWPORT 0: MAIN LOBBY / MENU CHÍNH ================= -->
+    <div id="mainViewLobby" class="w-full max-w-6xl flex flex-col items-center animate-fade-in">
+      
+      <!-- Lobby Hero Header -->
+      <div class="w-full text-center mb-8 pt-2 relative">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold mb-3 shadow-inner">
+          <i data-lucide="crown" class="w-4 h-4 text-amber-400"></i>
+          <span>GRANDMASTER GAME SELECTION HUB</span>
+        </div>
+        <h1 class="font-cinzel text-3xl sm:text-5xl font-black text-white tracking-wide mb-3">
+          ĐẠI SẢNH <span class="bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 bg-clip-text text-transparent">TRÒ CHƠI</span>
+        </h1>
+        <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto font-sans">
+          Tuyển chọn các đấu trường cờ bàn thượng hạng. Chọn trò chơi bạn yêu thích để bắt đầu cuộc đấu trí cùng AI thông minh hoặc bạn bè!
+        </p>
+
+        <!-- Feature Badges Pill -->
+        <div class="flex flex-wrap items-center justify-center gap-2.5 mt-4 text-xs font-mono text-slate-300">
+          <span class="px-2.5 py-1 rounded-xl bg-board-tray border border-board-border flex items-center gap-1.5 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> 3 Đấu Trường Sẵn Sàng
+          </span>
+          <span class="px-2.5 py-1 rounded-xl bg-board-tray border border-board-border flex items-center gap-1.5 shadow-sm">
+            <i data-lucide="bot" class="w-3.5 h-3.5 text-cyan-400"></i> Đấu Trí AI Đa Cấp Độ
+          </span>
+          <span class="px-2.5 py-1 rounded-xl bg-board-tray border border-board-border flex items-center gap-1.5 shadow-sm">
+            <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i> Mô Phỏng Siêu Tốc 100x
+          </span>
+          <span class="px-2.5 py-1 rounded-xl bg-board-tray border border-board-border flex items-center gap-1.5 shadow-sm">
+            <i data-lucide="users" class="w-3.5 h-3.5 text-rose-400"></i> Chế Độ 2 Người Chơi
+          </span>
+        </div>
+      </div>
+
+      <!-- Bento Grid of Games -->
+      <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        
+        <!-- GAME CARD 1: XÚC XẮC 12 Ô -->
+        <div class="group relative tabletop-mat rounded-3xl p-6 border border-amber-500/30 hover:border-amber-400/80 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-500/20 flex flex-col justify-between overflow-hidden">
+          <div class="absolute -right-10 -top-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-500/20 transition-all"></div>
+          
+          <div>
+            <!-- Top Tag & Icon -->
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-2.5 py-1 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[10px] font-bold uppercase tracking-wider font-mono">
+                🔥 Phổ Biến Nhất
+              </span>
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-700/20 border border-amber-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                <i data-lucide="dice-5" class="w-6 h-6 text-amber-400"></i>
+              </div>
+            </div>
+
+            <!-- Game Title & Info -->
+            <h3 class="font-cinzel text-xl font-bold text-white mb-1.5 group-hover:text-amber-300 transition-colors">
+              Xúc Xắc 12 Ô Hoàng Kim
+            </h3>
+            <p class="text-xs text-slate-400 mb-4 font-sans line-clamp-2">
+              Đua điểm 50đ qua 12 ô cạm bẫy & kho báu hoàng gia. Tranh tài cùng 3 linh thú AI tinh quái hoặc chế độ quan sát 100x.
+            </p>
+
+            <!-- Feature Bullet List -->
+            <div class="space-y-2 mb-6 text-xs text-slate-300">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <span>1 - 4 Đấu thủ (Solo, 3 BOT, 2 Người)</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <span>Tăng tốc quan sát tối đa <b>100x</b></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <span>Thống kê tỷ lệ thắng BOT thời gian thực</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Play Button -->
+          <button onclick="enterGameFromLobby('dice')" class="btn-spring w-full py-3 rounded-2xl bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 hover:from-amber-500 hover:to-amber-400 text-black font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-600/30 transition-all cursor-pointer">
+            <i data-lucide="play" class="w-4 h-4 fill-black"></i>
+            <span>VÀO BÀN ĐẤU NGAY</span>
+          </button>
+        </div>
+
+        <!-- GAME CARD 2: CỜ VUA HOÀNG GIA -->
+        <div class="group relative tabletop-mat rounded-3xl p-6 border border-indigo-500/30 hover:border-indigo-400/80 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/20 flex flex-col justify-between overflow-hidden">
+          <div class="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-indigo-500/20 transition-all"></div>
+
+          <div>
+            <!-- Top Tag & Icon -->
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-2.5 py-1 rounded-lg bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-[10px] font-bold uppercase tracking-wider font-mono">
+                ⭐ Chuẩn Quốc Tế FIDE
+              </span>
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-indigo-700/20 border border-indigo-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                <i data-lucide="crown" class="w-6 h-6 text-indigo-400"></i>
+              </div>
+            </div>
+
+            <!-- Game Title & Info -->
+            <h3 class="font-cinzel text-xl font-bold text-white mb-1.5 group-hover:text-indigo-300 transition-colors">
+              Cờ Vua Hoàng Gia (8x8)
+            </h3>
+            <p class="text-xs text-slate-400 mb-4 font-sans line-clamp-2">
+              Đấu trường cờ vua tiêu chuẩn FIDE 64 ô. Đấu trí 4 cấp độ Elo BOT từ Tập sự (800) tới Huyền thoại (2000+).
+            </p>
+
+            <!-- Feature Bullet List -->
+            <div class="space-y-2 mb-6 text-xs text-slate-300">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-400 shrink-0"></i>
+                <span>4 Cấp độ Elo BOT (800 ➔ 2000+)</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-400 shrink-0"></i>
+                <span>Gợi ý nước đi & phân tích lợi thế</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-400 shrink-0"></i>
+                <span>Luật FIDE: Nhập thành, bắt tốt, phong cấp</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Play Button -->
+          <button onclick="enterGameFromLobby('chess')" class="btn-spring w-full py-3 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 hover:from-indigo-500 hover:to-indigo-400 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 transition-all cursor-pointer">
+            <i data-lucide="play" class="w-4 h-4 fill-white"></i>
+            <span>VÀO BÀN ĐẤU NGAY</span>
+          </button>
+        </div>
+
+        <!-- GAME CARD 3: CỜ CA-RÔ NEON -->
+        <div class="group relative tabletop-mat rounded-3xl p-6 border border-cyan-500/30 hover:border-cyan-400/80 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20 flex flex-col justify-between overflow-hidden">
+          <div class="absolute -right-10 -top-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-500/20 transition-all"></div>
+
+          <div>
+            <!-- Top Tag & Icon -->
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-2.5 py-1 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 text-[10px] font-bold uppercase tracking-wider font-mono">
+                ⚡ Đấu Trí Chớp Nhoáng
+              </span>
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-700/20 border border-cyan-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                <i data-lucide="grid-3x3" class="w-6 h-6 text-cyan-400"></i>
+              </div>
+            </div>
+
+            <!-- Game Title & Info -->
+            <h3 class="font-cinzel text-xl font-bold text-white mb-1.5 group-hover:text-cyan-300 transition-colors">
+              Cờ Ca-rô Neon (3x3)
+            </h3>
+            <p class="text-xs text-slate-400 mb-4 font-sans line-clamp-2">
+              Đấu trường Ca-rô Neon 3 nước thẳng hàng cùng Trí Tuệ Nhân Tạo Minimax hoặc 2 người chơi so tài chớp nhoáng.
+            </p>
+
+            <!-- Feature Bullet List -->
+            <div class="space-y-2 mb-6 text-xs text-slate-300">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-cyan-400 shrink-0"></i>
+                <span>Thuật toán Minimax AI tính toán</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-cyan-400 shrink-0"></i>
+                <span>Chế độ 1 Người với Máy hoặc 2 Người</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-cyan-400 shrink-0"></i>
+                <span>Hiệu ứng phát quang Cyber Neon 60fps</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Play Button -->
+          <button onclick="enterGameFromLobby('tictactoe')" class="btn-spring w-full py-3 rounded-2xl bg-gradient-to-r from-cyan-600 via-cyan-500 to-cyan-600 hover:from-cyan-500 hover:to-cyan-400 text-black font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-600/30 transition-all cursor-pointer">
+            <i data-lucide="play" class="w-4 h-4 fill-black"></i>
+            <span>VÀO BÀN ĐẤU NGAY</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Quick Action Utilities Bar -->
+      <div class="w-full p-4 rounded-2xl bg-[#0B101E]/80 border border-board-border flex flex-wrap items-center justify-between gap-4 backdrop-blur-md">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+            <i data-lucide="sparkles" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-white font-cinzel">CHƯA BIẾT CHỌN GAME NÀO?</div>
+            <div class="text-[11px] text-slate-400 font-sans">Hãy để hệ thống ghép bạn ngẫu nhiên vào một bàn cờ đang sôi động!</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2.5">
+          <button onclick="playRandomGame()" class="btn-spring px-4 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-amber-600/30">
+            <i data-lucide="shuffle" class="w-3.5 h-3.5 text-amber-300"></i>
+            <span>Chọn Game Ngẫu Nhiên</span>
+          </button>
+          <button onclick="switchMainTab('leaderboard')" class="btn-spring px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center gap-1.5">
+            <i data-lucide="trophy" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>Bảng Phong Thần</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+
     <!-- VIEWPORT 1: MAIN ARENA (BÀN ĐẤU) -->
-    <div id="mainViewArena" class="w-full flex flex-col items-center">
+    <div id="mainViewArena" class="hidden w-full flex flex-col items-center">
 
       <!-- UNIFIED ARENA MATCH CONSOLE (BẢNG ĐIỀU KHIỂN TRẬN ĐẤU TẬP TRUNG) -->
       <div class="w-full max-w-5xl mb-3 p-2.5 sm:p-3 rounded-2xl bg-[#0B101E]/90 border border-amber-500/30 shadow-xl backdrop-blur-md flex flex-wrap items-center justify-between gap-2.5">
         
         <!-- Left: Game Mode Selector & Matchmaker -->
         <div class="flex flex-wrap items-center gap-2">
+          <!-- Back to Main Menu Button -->
+          <button onclick="switchMainTab('lobby')" class="btn-spring px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all" title="Quay về Menu Chính chọn trò chơi khác">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>Sảnh Game</span>
+          </button>
           <!-- Game Mode Pill Switcher -->
 <div class="relative bg-board-tray p-1 rounded-xl border border-board-border flex items-center shadow-inner overflow-x-auto">
             <div id="gameTabPill" class="absolute top-1 bottom-1 w-[112px] bg-gradient-to-r from-amber-600 to-amber-700 rounded-lg transition-all duration-200 ease-out left-1 shadow-md shadow-amber-600/30"></div>
@@ -3600,12 +3816,27 @@
       document.getElementById('tttScoreDraw').textContent = tttScores.draw;
     }
 
-    // ================= MAIN NAVIGATION TABS (ARENA, LEADERBOARDS, VIP, RULES) =================
-    window.currentMainTab = 'arena';
+    // ================= MAIN NAVIGATION TABS (LOBBY, ARENA, LEADERBOARDS, VIP, RULES) =================
+    window.currentMainTab = 'lobby';
+
+    function enterGameFromLobby(gameKey) {
+      switchMainTab('arena');
+      switchGameView(gameKey);
+      soundTone(720, 'triangle', 0.12, 0.15);
+    }
+
+    function playRandomGame() {
+      const games = ['dice', 'chess', 'tictactoe'];
+      const chosen = games[Math.floor(Math.random() * games.length)];
+      enterGameFromLobby(chosen);
+      showToast(`🎲 Đã ghép ngẫu nhiên vào: ${chosen === 'dice' ? 'Xúc Xắc 12 Ô' : (chosen === 'chess' ? 'Cờ Vua FIDE' : 'Ca-rô Neon')}!`);
+    }
+
     function switchMainTab(tab) {
       window.currentMainTab = tab;
 
       const views = {
+        lobby: document.getElementById('mainViewLobby'),
         arena: document.getElementById('mainViewArena'),
         leaderboard: document.getElementById('mainViewLeaderboard'),
         vip: document.getElementById('mainViewVIP'),
@@ -3613,6 +3844,7 @@
       };
 
       const navTabs = {
+        lobby: document.getElementById('navTabLobby'),
         arena: document.getElementById('navTabArena'),
         leaderboard: document.getElementById('navTabLeaderboard'),
         vip: document.getElementById('navTabVIP'),
@@ -3620,6 +3852,7 @@
       };
 
       const mTabs = {
+        lobby: document.getElementById('mTabLobby'),
         arena: document.getElementById('mTabArena'),
         leaderboard: document.getElementById('mTabLeaderboard'),
         vip: document.getElementById('mTabVIP'),
@@ -5527,6 +5760,7 @@
     // App Initialization
     window.addEventListener('DOMContentLoaded', () => {
       loadBotWinStats();
+      switchMainTab('lobby');
       lucide.createIcons();
       loadAdminConfig();
       initVersionTracker();

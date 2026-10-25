@@ -148,7 +148,32 @@
         0 0 0 1px rgba(255, 255, 255, 0.06),
         inset 0 1px 1px rgba(255, 255, 255, 0.15);
     }
-  </style>
+  
+    /* Royal Chess Piece Styling */
+    .chess-piece {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      user-select: none;
+      cursor: pointer;
+      transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .chess-piece:hover {
+      transform: scale(1.12);
+    }
+    .white-piece {
+      color: #FFFFFF;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 0 1px #475569, 0 0 8px rgba(245, 158, 11, 0.4);
+      -webkit-text-stroke: 1px #1E293B;
+    }
+    .black-piece {
+      color: #0F172A;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 0 2px #38BDF8, 0 0 8px rgba(14, 165, 233, 0.4);
+      -webkit-text-stroke: 1.2px #94A3B8;
+    }
+</style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black">
 
@@ -213,7 +238,7 @@
         <!-- Version & Contributor Changelog Pill -->
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v2.6.0</span>
+          <span id="headerVersionPill" class="font-bold">v2.7.0</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -303,13 +328,16 @@
         <!-- Left: Game Mode Selector & Matchmaker -->
         <div class="flex flex-wrap items-center gap-2">
           <!-- Game Mode Pill Switcher -->
-          <div class="relative bg-board-tray p-1 rounded-xl border border-board-border flex items-center shadow-inner">
-            <div id="gameTabPill" class="absolute top-1 bottom-1 w-[115px] bg-gradient-to-r from-amber-600 to-amber-700 rounded-lg transition-all duration-200 ease-out left-1 shadow-md shadow-amber-600/30"></div>
-            <button onclick="switchGameView('dice')" class="relative z-10 px-2.5 py-1.5 text-xs font-bold rounded-lg text-white w-[115px] text-center transition-colors">
+          <div class="relative bg-board-tray p-1 rounded-xl border border-board-border flex items-center shadow-inner overflow-x-auto">
+            <div id="gameTabPill" class="absolute top-1 bottom-1 w-[112px] bg-gradient-to-r from-amber-600 to-amber-700 rounded-lg transition-all duration-200 ease-out left-1 shadow-md shadow-amber-600/30"></div>
+            <button onclick="switchGameView('dice')" id="pillBtnDice" class="relative z-10 px-2 py-1.5 text-xs font-bold rounded-lg text-white w-[112px] text-center transition-colors shrink-0">
               🎲 Xúc Xắc 12 Ô
             </button>
-            <button onclick="switchGameView('tictactoe')" class="relative z-10 px-2.5 py-1.5 text-xs font-bold rounded-lg text-slate-400 hover:text-white w-[115px] text-center transition-colors">
+            <button onclick="switchGameView('tictactoe')" id="pillBtnTTT" class="relative z-10 px-2 py-1.5 text-xs font-bold rounded-lg text-slate-400 hover:text-white w-[112px] text-center transition-colors shrink-0">
               ⭕❌ Ca-rô Neon
+            </button>
+            <button onclick="switchGameView('chess')" id="pillBtnChess" class="relative z-10 px-2 py-1.5 text-xs font-bold rounded-lg text-slate-400 hover:text-white w-[112px] text-center transition-colors shrink-0">
+              ♟️ Cờ Vua FIDE
             </button>
           </div>
 
@@ -699,6 +727,219 @@
         </div>
       </main>
 
+      <!-- =========================================================================
+           ROYAL CHESS ARENA (ĐẤU TRƯỜNG CỜ VUA HOÀNG GIA 8x8 FIDE)
+           ========================================================================= -->
+      <div id="chessView" class="w-full max-w-5xl mx-auto tabletop-mat rounded-3xl p-4 sm:p-7 shadow-2xl border border-board-border hidden flex-col items-center relative animate-fade-in">
+        
+        <!-- Chess Header -->
+        <div class="w-full flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-4 border-b border-board-border">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">♟️</span>
+              <h2 class="font-cinzel text-xl sm:text-2xl font-bold text-white tracking-wide">
+                Cờ Vua Hoàng Gia
+              </h2>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 font-bold">Chuẩn FIDE 8x8</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">Đấu trí chiến thuật vương giả • 4 Cấp độ Bot Elo • Chơi 2 người cùng máy / Online</p>
+          </div>
+
+          <!-- Quick Chess Status Badges -->
+          <div class="flex flex-wrap items-center gap-2.5">
+            <!-- Turn Badge -->
+            <div id="chessTurnBadge" class="px-3.5 py-1.5 rounded-xl bg-board-tray border border-amber-500/40 text-amber-300 text-xs font-bold flex items-center gap-2 shadow-inner">
+              <span class="w-2.5 h-2.5 rounded-full bg-white border border-slate-400 shadow-sm" id="chessTurnDot"></span>
+              <span>Lượt:</span>
+              <span id="chessTurnText" class="text-white font-mono font-bold">Trắng Đi</span>
+            </div>
+
+            <!-- In-Check / Alert Badge -->
+            <div id="chessCheckAlert" class="hidden px-3 py-1.5 rounded-xl bg-rose-500/20 border border-rose-500/50 text-rose-300 text-xs font-bold animate-pulse flex items-center gap-1.5 shadow-md shadow-rose-900/30">
+              <span>⚠️</span> <span>CHIẾU TƯỚNG!</span>
+            </div>
+
+            <!-- Bot Thinking Badge -->
+            <div id="chessBotThinking" class="hidden px-3 py-1.5 rounded-xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 text-xs font-bold flex items-center gap-1.5 animate-pulse">
+              <span class="inline-block w-3 h-3 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin"></span>
+              <span>BOT Đang Tính...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chess Control Toolbar -->
+        <div class="w-full bg-[#080D1A]/90 p-3 rounded-2xl border border-board-border/80 flex flex-wrap items-center justify-between gap-3 mb-5 shadow-inner">
+          
+          <!-- Mode, Bot Elo & Color Selectors -->
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Mode Selector -->
+            <div class="flex items-center bg-board-tray p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
+              <span class="text-[11px] text-slate-400 px-2 flex items-center gap-1">
+                <i data-lucide="gamepad-2" class="w-3.5 h-3.5 text-amber-400"></i> Chế Độ:
+              </span>
+              <button onclick="setChessMode('bot')" id="chessModeBtnBot" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition shadow-sm">
+                🤖 Đấu BOT
+              </button>
+              <button onclick="setChessMode('local')" id="chessModeBtnLocal" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">
+                👥 2 Người
+              </button>
+              <button onclick="setChessMode('online')" id="chessModeBtnOnline" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">
+                🌐 Online
+              </button>
+            </div>
+
+            <!-- Bot Elo Tier Selector (Only in Bot Mode) -->
+            <div id="chessBotTierWrapper" class="flex items-center bg-board-tray p-1 rounded-xl border border-cyan-500/30 text-xs font-bold shadow-inner">
+              <span class="text-[11px] text-cyan-400 px-1.5 flex items-center gap-1 font-semibold">
+                <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-400"></i> Bot Elo:
+              </span>
+              <button onclick="setChessBotElo(800)" id="chessEloBtn800" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition font-mono text-[11px]" title="Tập sự - Dễ dàng cho người mới">🐣 800</button>
+              <button onclick="setChessBotElo(1200)" id="chessEloBtn1200" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition font-mono text-[11px]" title="Kỳ thủ - Đòn chiến thuật cơ bản">🦊 1200</button>
+              <button onclick="setChessBotElo(1600)" id="chessEloBtn1600" class="px-2 py-0.5 rounded-md bg-gradient-to-r from-cyan-600 to-cyan-700 text-white font-bold transition shadow-sm font-mono text-[11px]" title="Kiện tướng - Tính toán sâu, kiểm soát trung tâm">🐺 1600</button>
+              <button onclick="setChessBotElo(2000)" id="chessEloBtn2000" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-amber-400 transition font-mono text-[11px]" title="Đại kiện tướng - Sát thủ bàn cờ 2000+">👑 2000+</button>
+            </div>
+
+            <!-- Player Color Picker (When playing with Bot) -->
+            <div id="chessColorWrapper" class="flex items-center bg-board-tray p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
+              <span class="text-[11px] text-slate-400 px-1.5">Bạn Cầm:</span>
+              <button onclick="setChessPlayerColor('w')" id="chessColorBtnW" class="px-2 py-0.5 rounded-md bg-white text-slate-950 font-bold transition text-[11px]">⚪ Trắng</button>
+              <button onclick="setChessPlayerColor('b')" id="chessColorBtnB" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition text-[11px]">⚫ Đen</button>
+            </div>
+          </div>
+
+          <!-- Match Action Buttons -->
+          <div class="flex items-center gap-2">
+            <button onclick="resetChessGame()" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-200 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm" title="Bắt đầu ván mới">
+              <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Ván Mới</span>
+            </button>
+            <button onclick="undoChessMove()" id="btnChessUndo" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm" title="Đi lại 1 nước cờ">
+              <i data-lucide="undo-2" class="w-3.5 h-3.5 text-cyan-400"></i>
+              <span>Đi Lại</span>
+            </button>
+            <button onclick="flipChessBoard()" class="btn-spring p-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white border border-board-border text-xs font-bold shadow-sm" title="Xoay bàn cờ">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-slate-400"></i>
+            </button>
+            <button onclick="resignChessGame()" class="btn-spring p-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs font-bold shadow-sm" title="Đầu hàng ván đấu">
+              <i data-lucide="flag" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Main Chess Arena: 2 Columns Layout (Board 65% : Tactical Deck 35%) -->
+        <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          <!-- LEFT / CENTER: Chessboard Container (Cols 1-7 or 8) -->
+          <div class="lg:col-span-7 xl:col-span-8 flex flex-col items-center">
+            
+            <!-- Top Player / Opponent Bar -->
+            <div class="w-full max-w-[340px] sm:max-w-[480px] md:max-w-[500px] flex items-center justify-between px-3.5 py-2 rounded-xl bg-board-tray/80 border border-board-border mb-2.5 shadow-md">
+              <div class="flex items-center gap-2.5">
+                <div id="chessTopAvatar" class="w-8 h-8 rounded-lg bg-slate-900 border border-board-border flex items-center justify-center text-lg shadow-inner">
+                  🐺
+                </div>
+                <div>
+                  <div id="chessTopName" class="text-xs font-bold text-white flex items-center gap-1.5 font-cinzel">
+                    Kiện Tướng Sói Băng
+                  </div>
+                  <div class="flex items-center gap-2 text-[10px] text-slate-400 font-mono">
+                    <span id="chessTopElo" class="text-cyan-400 font-bold">1600 Elo</span>
+                    <span>•</span>
+                    <span id="chessTopCaptured" class="text-slate-300">Tù binh: -</span>
+                  </div>
+                </div>
+              </div>
+              <div id="chessTopTimer" class="px-2.5 py-1 rounded-lg bg-black/60 border border-board-border text-xs font-mono font-bold text-amber-300 shadow-inner">
+                10:00
+              </div>
+            </div>
+
+            <!-- The 8x8 Board Container -->
+            <div class="relative p-2 sm:p-3 rounded-2xl bg-[#141B2D] border-2 border-board-border shadow-2xl">
+              <!-- Coordinates Labels Container & 64 Squares Grid -->
+              <div id="chessboardGrid" class="grid grid-cols-8 grid-rows-8 w-[310px] h-[310px] sm:w-[460px] sm:h-[460px] md:w-[480px] md:h-[480px] rounded-lg overflow-hidden border border-black/60 shadow-2xl select-none relative">
+                <!-- 64 cells dynamically rendered -->
+              </div>
+            </div>
+
+            <!-- Bottom Player / You Bar -->
+            <div class="w-full max-w-[340px] sm:max-w-[480px] md:max-w-[500px] flex items-center justify-between px-3.5 py-2 rounded-xl bg-board-tray/80 border border-board-border mt-2.5 shadow-md">
+              <div class="flex items-center gap-2.5">
+                <div id="chessBottomAvatar" class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-lg text-amber-400 shadow-inner">
+                  👑
+                </div>
+                <div>
+                  <div id="chessBottomName" class="text-xs font-bold text-white flex items-center gap-1.5 font-cinzel">
+                    Kỳ Thủ (Bạn)
+                  </div>
+                  <div class="flex items-center gap-2 text-[10px] text-slate-400 font-mono">
+                    <span id="chessBottomElo" class="text-amber-400 font-bold">1500 Elo</span>
+                    <span>•</span>
+                    <span id="chessBottomCaptured" class="text-slate-300">Tù binh: -</span>
+                  </div>
+                </div>
+              </div>
+              <div id="chessBottomTimer" class="px-2.5 py-1 rounded-lg bg-black/60 border border-board-border text-xs font-mono font-bold text-white shadow-inner">
+                10:00
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: Chess Tactical Intel & Move History (Cols 8-12) -->
+          <div class="lg:col-span-5 xl:col-span-4 w-full flex flex-col gap-3.5">
+            
+            <!-- Bot Personality Intel Card -->
+            <div id="chessBotProfileCard" class="p-4 rounded-2xl bg-[#0C1222] border border-cyan-500/30 space-y-2 shadow-lg">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span id="chessBotCardIcon" class="text-xl">🐺</span>
+                  <div>
+                    <h4 id="chessBotCardTitle" class="text-xs font-bold text-white font-cinzel">Kiện Tướng Sói Băng</h4>
+                    <span id="chessBotCardElo" class="text-[10px] text-cyan-400 font-mono">1600 Elo • Chiến Thuật Sâu</span>
+                  </div>
+                </div>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">AI BOT</span>
+              </div>
+              <p id="chessBotCardDesc" class="text-[11px] text-slate-300 leading-relaxed pl-1">
+                Kiểm soát trung tâm bàn cờ, phối hợp Mã và Tượng chặt chẽ. Khai thác sơ hở chiến thuật và không bao giờ bỏ lỡ cơ hội chiếu bắt quân.
+              </p>
+            </div>
+
+            <!-- Move History Notation Deck -->
+            <div class="p-4 rounded-2xl bg-[#0C1222] border border-board-border flex flex-col shadow-lg min-h-[220px]">
+              <div class="flex items-center justify-between pb-2 mb-2 border-b border-board-border">
+                <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5 font-cinzel">
+                  📜 Nhật Ký Nước Đi (PGN)
+                </span>
+                <span id="chessMoveCount" class="text-[10px] font-mono text-slate-500">0 nước</span>
+              </div>
+              <div id="chessMoveHistoryLog" class="flex-1 overflow-y-auto max-h-[180px] space-y-1 font-mono text-xs text-slate-300 pr-1">
+                <div class="text-[11px] text-slate-500 italic text-center py-4">Ván cờ bắt đầu. Hãy đi nước đầu tiên!</div>
+              </div>
+            </div>
+
+            <!-- Material Balance & Tactical Hints -->
+            <div class="p-3.5 rounded-2xl bg-[#0C1222] border border-board-border space-y-1.5 text-xs text-slate-300 shadow-lg">
+              <div class="flex items-center justify-between text-[11px] font-bold text-slate-400">
+                <span>Cân Bằng Lực Lượng</span>
+                <span id="chessMaterialDiff" class="text-white font-mono">Hòa (+0)</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden flex">
+                <div id="chessAdvantageWhite" class="h-full bg-amber-400 transition-all duration-300" style="width: 50%"></div>
+                <div id="chessAdvantageBlack" class="h-full bg-slate-700 transition-all duration-300" style="width: 50%"></div>
+              </div>
+              <div id="chessTacticalHint" class="text-[11px] text-slate-400 italic pt-1">
+                💡 Mẹo: Nhập thành sớm để bảo vệ Vua và kích hoạt Xe tham chiến.
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
 
     <!-- VIEWPORT 2: LEADERBOARDS (BẢNG PHONG THẦN CHUYÊN BIỆT) -->
@@ -926,6 +1167,7 @@
         <ul class="space-y-1.5 text-[11px]">
           <li><button onclick="switchMainTab('arena'); switchGameView('dice')" class="hover:text-amber-400 transition-colors">🎲 Cờ Xúc Xắc 12 Ô Lớn</button></li>
           <li><button onclick="switchMainTab('arena'); switchGameView('tictactoe')" class="hover:text-amber-400 transition-colors">⭕❌ Cờ Ca-rô Hoàng Gia</button></li>
+          <li><button onclick="switchMainTab('arena'); switchGameView('chess')" class="hover:text-amber-400 transition-colors font-semibold text-amber-300">♟️ Cờ Vua Hoàng Gia (FIDE 8x8)</button></li>
           <li><button onclick="switchMainTab('leaderboard')" class="hover:text-amber-400 transition-colors">🏆 Bảng Xếp Hạng Kỳ Thủ</button></li>
         </ul>
       </div>
@@ -1698,7 +1940,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v2.6.0</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v2.7.0</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -1783,6 +2025,30 @@
         <!-- Populated dynamically via JS -->
       </div>
 
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: TẤN CẤP TỐT (PAWN PROMOTION)
+       ========================================================================= -->
+  <div id="chessPromoModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-200">
+    <div class="w-full max-w-xs tabletop-mat rounded-2xl p-5 border border-amber-500/40 text-center space-y-3 shadow-2xl relative">
+      <h3 class="font-cinzel text-base font-bold text-white tracking-wide">Tấn Cấp Tốt</h3>
+      <p class="text-[11px] text-slate-300">Tốt đã đến hàng cuối! Chọn quân biến hóa:</p>
+      <div class="grid grid-cols-4 gap-2 pt-2">
+        <button onclick="handlePromotionSelect('q')" class="btn-spring p-2.5 rounded-xl bg-board-tray hover:bg-amber-500/20 border border-board-border text-3xl flex flex-col items-center">
+          <span class="white-piece">♕</span><span class="text-[10px] text-slate-300 font-bold mt-1">Hậu</span>
+        </button>
+        <button onclick="handlePromotionSelect('r')" class="btn-spring p-2.5 rounded-xl bg-board-tray hover:bg-amber-500/20 border border-board-border text-3xl flex flex-col items-center">
+          <span class="white-piece">♖</span><span class="text-[10px] text-slate-300 font-bold mt-1">Xe</span>
+        </button>
+        <button onclick="handlePromotionSelect('b')" class="btn-spring p-2.5 rounded-xl bg-board-tray hover:bg-amber-500/20 border border-board-border text-3xl flex flex-col items-center">
+          <span class="white-piece">♗</span><span class="text-[10px] text-slate-300 font-bold mt-1">Tượng</span>
+        </button>
+        <button onclick="handlePromotionSelect('n')" class="btn-spring p-2.5 rounded-xl bg-board-tray hover:bg-amber-500/20 border border-board-border text-3xl flex flex-col items-center">
+          <span class="white-piece">♘</span><span class="text-[10px] text-slate-300 font-bold mt-1">Mã</span>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -2930,20 +3196,34 @@
       const pill = document.getElementById('gameTabPill');
       const vDice = document.getElementById('diceView');
       const vTTT = document.getElementById('tictactoeView');
+      const vChess = document.getElementById('chessView');
+
+      const bDice = document.getElementById('pillBtnDice');
+      const bTTT = document.getElementById('pillBtnTTT');
+      const bChess = document.getElementById('pillBtnChess');
+
+      [bDice, bTTT, bChess].forEach(b => {
+        if (b) {
+          b.className = 'relative z-10 px-2 py-1.5 text-xs font-bold rounded-lg text-slate-400 hover:text-white w-[112px] text-center transition-colors shrink-0';
+        }
+      });
+
+      if (vDice) { vDice.classList.add('hidden'); vDice.classList.remove('grid'); }
+      if (vTTT) { vTTT.classList.add('hidden'); vTTT.classList.remove('flex'); }
+      if (vChess) { vChess.classList.add('hidden'); vChess.classList.remove('flex'); }
 
       if (tab === 'dice') {
-        if (pill) pill.style.left = '4px';
-        vDice.classList.remove('hidden');
-        vDice.classList.add('grid');
-        vTTT.classList.add('hidden');
-        vTTT.classList.remove('flex');
-      } else {
-        if (pill) pill.style.left = '124px';
-        vDice.classList.add('hidden');
-        vDice.classList.remove('grid');
-        vTTT.classList.remove('hidden');
-        vTTT.classList.add('flex');
-        renderTicTacToe();
+        if (pill) { pill.style.left = '4px'; pill.style.width = '112px'; }
+        if (bDice) bDice.className = 'relative z-10 px-2 py-1.5 text-xs font-bold rounded-lg text-white w-[112px] text-center transition-colors shrink-0';
+        if (vDice) { vDice.classList.remove('hidden'); vDice.classList.add('grid'); }
+      } else if (tab === 'tictactoe') {
+        if (pill) { pill.style.left = '120px'; pill.style.width = '112px'; }
+        if (bTTT) bTTT.className = 'relative z-10 px-2 py-1.5 text-xs font-bold rounded-lg text-white w-[112px] text-center transition-colors shrink-0';
+        if (vTTT) { vTTT.classList.remove('hidden'); vTTT.classList.add('flex'); renderTicTacToe(); }
+      } else if (tab === 'chess') {
+        if (pill) { pill.style.left = '236px'; pill.style.width = '112px'; }
+        if (bChess) bChess.className = 'relative z-10 px-2 py-1.5 text-xs font-bold rounded-lg text-white w-[112px] text-center transition-colors shrink-0';
+        if (vChess) { vChess.classList.remove('hidden'); vChess.classList.add('flex'); initChessGame(); }
       }
     }
 
@@ -3587,6 +3867,800 @@
     };
 
     // =========================================================================
+    // INLINED CHESS.JS FIDE ENGINE (STANDALONE ZERO-DEPENDENCY OFFLINE ENGINE)
+    // =========================================================================
+    var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t="pnbrqkPNBRQK",e="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",g=["1-0","0-1","1/2-1/2","*"],C={b:[16,32,17,15],w:[-16,-32,-17,-15]},T={n:[-18,-33,-31,-14,18,33,31,14],b:[-17,-15,17,15],r:[-16,1,16,-1],q:[-17,-16,-15,1,17,16,15,-1],k:[-17,-16,-15,1,17,16,15,-1]},c=[20,0,0,0,0,0,0,24,0,0,0,0,0,0,20,0,0,20,0,0,0,0,0,24,0,0,0,0,0,20,0,0,0,0,20,0,0,0,0,24,0,0,0,0,20,0,0,0,0,0,0,20,0,0,0,24,0,0,0,20,0,0,0,0,0,0,0,0,20,0,0,24,0,0,20,0,0,0,0,0,0,0,0,0,0,20,2,24,2,20,0,0,0,0,0,0,0,0,0,0,0,2,53,56,53,2,0,0,0,0,0,0,24,24,24,24,24,24,56,0,56,24,24,24,24,24,24,0,0,0,0,0,0,2,53,56,53,2,0,0,0,0,0,0,0,0,0,0,0,20,2,24,2,20,0,0,0,0,0,0,0,0,0,0,20,0,0,24,0,0,20,0,0,0,0,0,0,0,0,20,0,0,0,24,0,0,0,20,0,0,0,0,0,0,20,0,0,0,0,24,0,0,0,0,20,0,0,0,0,20,0,0,0,0,0,24,0,0,0,0,0,20,0,0,20,0,0,0,0,0,0,24,0,0,0,0,0,0,20],v=[17,0,0,0,0,0,0,16,0,0,0,0,0,0,15,0,0,17,0,0,0,0,0,16,0,0,0,0,0,15,0,0,0,0,17,0,0,0,0,16,0,0,0,0,15,0,0,0,0,0,0,17,0,0,0,16,0,0,0,15,0,0,0,0,0,0,0,0,17,0,0,16,0,0,15,0,0,0,0,0,0,0,0,0,0,17,0,16,0,15,0,0,0,0,0,0,0,0,0,0,0,0,17,16,15,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,-15,-16,-17,0,0,0,0,0,0,0,0,0,0,0,0,-15,0,-16,0,-17,0,0,0,0,0,0,0,0,0,0,-15,0,0,-16,0,0,-17,0,0,0,0,0,0,0,0,-15,0,0,0,-16,0,0,0,-17,0,0,0,0,0,0,-15,0,0,0,0,-16,0,0,0,0,-17,0,0,0,0,-15,0,0,0,0,0,-16,0,0,0,0,0,-17,0,0,-15,0,0,0,0,0,0,-16,0,0,0,0,0,0,-17],h={p:0,n:1,b:2,r:3,q:4,k:5},o={NORMAL:"n",CAPTURE:"c",BIG_PAWN:"b",EP_CAPTURE:"e",PROMOTION:"p",KSIDE_CASTLE:"k",QSIDE_CASTLE:"q"},I={NORMAL:1,CAPTURE:2,BIG_PAWN:4,EP_CAPTURE:8,PROMOTION:16,KSIDE_CASTLE:32,QSIDE_CASTLE:64},P=7,w=6,L=1,R=0,N={a8:0,b8:1,c8:2,d8:3,e8:4,f8:5,g8:6,h8:7,a7:16,b7:17,c7:18,d7:19,e7:20,f7:21,g7:22,h7:23,a6:32,b6:33,c6:34,d6:35,e6:36,f6:37,g6:38,h6:39,a5:48,b5:49,c5:50,d5:51,e5:52,f5:53,g5:54,h5:55,a4:64,b4:65,c4:66,d4:67,e4:68,f4:69,g4:70,h4:71,a3:80,b3:81,c3:82,d3:83,e3:84,f3:85,g3:86,h3:87,a2:96,b2:97,c2:98,d2:99,e2:100,f2:101,g2:102,h2:103,a1:112,b1:113,c1:114,d1:115,e1:116,f1:117,g1:118,h1:119},E={w:[{square:N.a1,flag:I.QSIDE_CASTLE},{square:N.h1,flag:I.KSIDE_CASTLE}],b:[{square:N.a8,flag:I.QSIDE_CASTLE},{square:N.h8,flag:I.KSIDE_CASTLE}]},O=new Array(128),k={w:l,b:l},q=s,D={w:0,b:0},K=l,d=0,b=1,Q=[],U={};function x(r){void 0===r&&(r=!1),O=new Array(128),k={w:l,b:l},q=s,D={w:0,b:0},K=l,d=0,b=1,Q=[],r||(U={}),F(M())}function j(){B(e)}function B(r,e){void 0===e&&(e=!1);var n=r.split(/\s+/),t=n[0],o=0;if(!$(r).valid)return!1;x(e);for(var i=0;i<t.length;i++){var f=t.charAt(i);if("/"===f)o+=8;else if(-1!=="0123456789".indexOf(f))o+=parseInt(f,10);else{var a=f<"a"?s:u;W({type:f.toLowerCase(),color:a},fr(o)),o++}}return q=n[1],-1<n[2].indexOf("K")&&(D.w|=I.KSIDE_CASTLE),-1<n[2].indexOf("Q")&&(D.w|=I.QSIDE_CASTLE),-1<n[2].indexOf("k")&&(D.b|=I.KSIDE_CASTLE),-1<n[2].indexOf("q")&&(D.b|=I.QSIDE_CASTLE),K="-"===n[3]?l:N[n[3]],d=parseInt(n[4],10),b=parseInt(n[5],10),F(M()),!0}function $(r){var e="No errors.",n="FEN string must contain six space-delimited fields.",t="6th field (move number) must be a positive integer.",o="5th field (half move counter) must be a non-negative integer.",i="4th field (en-passant square) is invalid.",f="3rd field (castling availability) is invalid.",a="2nd field (side to move) is invalid.",l="1st field (piece positions) does not contain 8 '/'-delimited rows.",u="1st field (piece positions) is invalid [consecutive numbers].",s="1st field (piece positions) is invalid [invalid piece].",p="1st field (piece positions) is invalid [row too large].",c="Illegal en-passant square",v=r.split(/\s+/);if(6!==v.length)return{valid:!1,error_number:1,error:n};if(isNaN(v[5])||parseInt(v[5],10)<=0)return{valid:!1,error_number:2,error:t};if(isNaN(v[4])||parseInt(v[4],10)<0)return{valid:!1,error_number:3,error:o};if(!/^(-|[abcdefgh][36])$/.test(v[3]))return{valid:!1,error_number:4,error:i};if(!/^(KQ?k?q?|Qk?q?|kq?|q|-)$/.test(v[2]))return{valid:!1,error_number:5,error:f};if(!/^(w|b)$/.test(v[1]))return{valid:!1,error_number:6,error:a};var g=v[0].split("/");if(8!==g.length)return{valid:!1,error_number:7,error:l};for(var h=0;h<g.length;h++){for(var E=0,d=!1,b=0;b<g[h].length;b++)if(isNaN(g[h][b])){if(!/^[prnbqkPRNBQK]$/.test(g[h][b]))return{valid:!1,error_number:9,error:s};E+=1,d=!1}else{if(d)return{valid:!1,error_number:8,error:u};E+=parseInt(g[h][b],10),d=!0}if(8!==E)return{valid:!1,error_number:10,error:p}}return"3"==v[3][1]&&"w"==v[1]||"6"==v[3][1]&&"b"==v[1]?{valid:!1,error_number:11,error:c}:{valid:!0,error_number:0,error:e}}function M(){for(var r=0,e="",n=N.a8;n<=N.h1;n++){if(null==O[n])r++;else{0<r&&(e+=r,r=0);var t=O[n].color,o=O[n].type;e+=t===s?o.toUpperCase():o.toLowerCase()}n+1&136&&(0<r&&(e+=r),n!==N.h1&&(e+="/"),r=0,n+=8)}var i="";D[s]&I.KSIDE_CASTLE&&(i+="K"),D[s]&I.QSIDE_CASTLE&&(i+="Q"),D[u]&I.KSIDE_CASTLE&&(i+="k"),D[u]&I.QSIDE_CASTLE&&(i+="q"),i=i||"-";var f=K===l?"-":fr(K);return[e,q,i,f,d,b].join(" ")}function G(r){for(var e=0;e<r.length;e+=2)"string"==typeof r[e]&&"string"==typeof r[e+1]&&(U[r[e]]=r[e+1]);return U}function F(r){0<Q.length||(r!==e?(U.SetUp="1",U.FEN=r):(delete U.SetUp,delete U.FEN))}function i(r){var e=O[N[r]];return e?{type:e.type,color:e.color}:null}function W(r,e){if(!("type"in r&&"color"in r))return!1;if(-1===t.indexOf(r.type.toLowerCase()))return!1;if(!(e in N))return!1;var n=N[e];return(r.type!=p||k[r.color]==l||k[r.color]==n)&&(O[n]={type:r.type,color:r.color},r.type===p&&(k[r.color]=n),F(M()),!0)}function H(r,e,n,t,o){var i={color:q,from:e,to:n,flags:t,piece:r[e].type};return o&&(i.flags|=I.PROMOTION,i.promotion=o),r[n]?i.captured=r[n].type:t&I.EP_CAPTURE&&(i.captured=_),i}function Z(r){function e(r,e,n,t,o){if(r[n].type!==_||or(t)!==R&&or(t)!==P)e.push(H(r,n,t,o));else for(var i=[y,m,S,A],f=0,a=i.length;f<a;f++)e.push(H(r,n,t,o,i[f]))}var n=[],t=q,o=ar(t),i={b:L,w:w},f=N.a8,a=N.h1,l=!1,u=!(void 0!==r&&"legal"in r)||r.legal;if(void 0!==r&&"square"in r){if(!(r.square in N))return[];f=a=N[r.square],l=!0}for(var s=f;s<=a;s++)if(136&s)s+=7;else{var p=O[s];if(null!=p&&p.color===t)if(p.type===_){var c=s+C[t][0];if(null==O[c]){e(O,n,s,c,I.NORMAL);c=s+C[t][1];i[t]===or(s)&&null==O[c]&&e(O,n,s,c,I.BIG_PAWN)}for(v=2;v<4;v++){136&(c=s+C[t][v])||(null!=O[c]&&O[c].color===o?e(O,n,s,c,I.CAPTURE):c===K&&e(O,n,s,K,I.EP_CAPTURE))}}else for(var v=0,g=T[p.type].length;v<g;v++){var h=T[p.type][v];for(c=s;!(136&(c+=h));){if(null!=O[c]){if(O[c].color===t)break;e(O,n,s,c,I.CAPTURE);break}if(e(O,n,s,c,I.NORMAL),"n"===p.type||"k"===p.type)break}}}if(!l||a===k[t]){if(D[t]&I.KSIDE_CASTLE){var E=(d=k[t])+2;null!=O[d+1]||null!=O[E]||V(o,k[t])||V(o,d+1)||V(o,E)||e(O,n,k[t],E,I.KSIDE_CASTLE)}if(D[t]&I.QSIDE_CASTLE){var d;E=(d=k[t])-2;null!=O[d-1]||null!=O[d-2]||null!=O[d-3]||V(o,k[t])||V(o,d-1)||V(o,E)||e(O,n,k[t],E,I.QSIDE_CASTLE)}}if(!u)return n;var b=[];for(s=0,g=n.length;s<g;s++)er(n[s]),X(t)||b.push(n[s]),nr();return b}function z(r,e){var n="";if(r.flags&I.KSIDE_CASTLE)n="O-O";else if(r.flags&I.QSIDE_CASTLE)n="O-O-O";else{var t=function(r,e){for(var n=Z({legal:!e}),t=r.from,o=r.to,i=r.piece,f=0,a=0,l=0,u=0,s=n.length;u<s;u++){var p=n[u].from,c=n[u].to,v=n[u].piece;i===v&&t!==p&&o===c&&(f++,or(t)===or(p)&&a++,ir(t)===ir(p)&&l++)}if(0<f)return 0<a&&0<l?fr(t):0<l?fr(t).charAt(1):fr(t).charAt(0);return""}(r,e);r.piece!==_&&(n+=r.piece.toUpperCase()+t),r.flags&(I.CAPTURE|I.EP_CAPTURE)&&(r.piece===_&&(n+=fr(r.from)[0]),n+="x"),n+=fr(r.to),r.flags&I.PROMOTION&&(n+="="+r.promotion.toUpperCase())}return er(r),f()&&(a()?n+="#":n+="+"),nr(),n}function J(r){return r.replace(/=/,"").replace(/[+#]?[?!]*$/,"")}function V(r,e){for(var n=N.a8;n<=N.h1;n++)if(136&n)n+=7;else if(null!=O[n]&&O[n].color===r){var t=O[n],o=n-e,i=119+o;if(c[i]&1<<h[t.type]){if(t.type===_){if(0<o){if(t.color===s)return!0}else if(t.color===u)return!0;continue}if("n"===t.type||"k"===t.type)return!0;for(var f=v[i],a=n+f,l=!1;a!==e;){if(null!=O[a]){l=!0;break}a+=f}if(!l)return!0}}return!1}function X(r){return V(ar(r),k[r])}function f(){return X(q)}function a(){return f()&&0===Z().length}function n(){return!f()&&0===Z().length}function Y(){for(var r={},e=[],n=0,t=0,o=N.a8;o<=N.h1;o++)if(t=(t+1)%2,136&o)o+=7;else{var i=O[o];i&&(r[i.type]=i.type in r?r[i.type]+1:1,i.type===S&&e.push(t),n++)}if(2===n)return!0;if(3===n&&(1===r[S]||1===r[A]))return!0;if(n===r[S]+2){var f=0,a=e.length;for(o=0;o<a;o++)f+=e[o];if(0===f||f===a)return!0}return!1}function rr(){for(var r=[],e={},n=!1;;){var t=nr();if(!t)break;r.push(t)}for(;;){var o=M().split(" ").slice(0,4).join(" ");if(e[o]=o in e?e[o]+1:1,3<=e[o]&&(n=!0),!r.length)break;er(r.pop())}return n}function er(r){var e,n=q,t=ar(n);if(e=r,Q.push({move:e,kings:{b:k.b,w:k.w},turn:q,castling:{b:D.b,w:D.w},ep_square:K,half_moves:d,move_number:b}),O[r.to]=O[r.from],O[r.from]=null,r.flags&I.EP_CAPTURE&&(q===u?O[r.to-16]=null:O[r.to+16]=null),r.flags&I.PROMOTION&&(O[r.to]={type:r.promotion,color:n}),O[r.to].type===p){if(k[O[r.to].color]=r.to,r.flags&I.KSIDE_CASTLE){var o=r.to-1,i=r.to+1;O[o]=O[i],O[i]=null}else if(r.flags&I.QSIDE_CASTLE){o=r.to+1,i=r.to-2;O[o]=O[i],O[i]=null}D[n]=""}if(D[n])for(var f=0,a=E[n].length;f<a;f++)if(r.from===E[n][f].square&&D[n]&E[n][f].flag){D[n]^=E[n][f].flag;break}if(D[t])for(f=0,a=E[t].length;f<a;f++)if(r.to===E[t][f].square&&D[t]&E[t][f].flag){D[t]^=E[t][f].flag;break}K=r.flags&I.BIG_PAWN?"b"===q?r.to-16:r.to+16:l,r.piece===_||r.flags&(I.CAPTURE|I.EP_CAPTURE)?d=0:d++,q===u&&b++,q=ar(q)}function nr(){var r=Q.pop();if(null==r)return null;var e=r.move;k=r.kings,q=r.turn,D=r.castling,K=r.ep_square,d=r.half_moves,b=r.move_number;var n,t,o=q,i=ar(q);if(O[e.from]=O[e.to],O[e.from].type=e.piece,O[e.to]=null,e.flags&I.CAPTURE)O[e.to]={type:e.captured,color:i};else if(e.flags&I.EP_CAPTURE){var f;f=o===u?e.to-16:e.to+16,O[f]={type:_,color:i}}e.flags&(I.KSIDE_CASTLE|I.QSIDE_CASTLE)&&(e.flags&I.KSIDE_CASTLE?(n=e.to+1,t=e.to-1):e.flags&I.QSIDE_CASTLE&&(n=e.to-2,t=e.to+1),O[n]=O[t],O[t]=null);return e}function tr(r,e){var n=J(r);if(e){var t=n.match(/([pnbrqkPNBRQK])?([a-h][1-8])x?-?([a-h][1-8])([qrbnQRBN])?/);if(t)var o=t[1],i=t[2],f=t[3],a=t[4]}for(var l=Z(),u=0,s=l.length;u<s;u++){if(n===J(z(l[u]))||e&&n===J(z(l[u],!0)))return l[u];if(t&&(!o||o.toLowerCase()==l[u].piece)&&N[i]==l[u].from&&N[f]==l[u].to&&(!a||a.toLowerCase()==l[u].promotion))return l[u]}return null}function or(r){return r>>4}function ir(r){return 15&r}function fr(r){var e=ir(r),n=or(r);return"abcdefgh".substring(e,e+1)+"87654321".substring(n,n+1)}function ar(r){return r===s?u:s}function lr(r){var e=function r(e){var n=e instanceof Array?[]:{};for(var t in e)n[t]="object"==typeof t?r(e[t]):e[t];return n}(r);e.san=z(e,!1),e.to=fr(e.to),e.from=fr(e.from);var n="";for(var t in I)I[t]&e.flags&&(n+=o[t]);return e.flags=n,e}function ur(r){return r.replace(/^\s+|\s+$/g,"")}return B(void 0===r?e:r),{WHITE:s,BLACK:u,PAWN:_,KNIGHT:A,BISHOP:S,ROOK:m,QUEEN:y,KING:p,SQUARES:function(){for(var r=[],e=N.a8;e<=N.h1;e++)136&e?e+=7:r.push(fr(e));return r}(),FLAGS:o,load:function(r){return B(r)},reset:function(){return j()},moves:function(r){for(var e=Z(r),n=[],t=0,o=e.length;t<o;t++)void 0!==r&&"verbose"in r&&r.verbose?n.push(lr(e[t])):n.push(z(e[t],!1));return n},in_check:function(){return f()},in_checkmate:function(){return a()},in_stalemate:function(){return n()},in_draw:function(){return 100<=d||n()||Y()||rr()},insufficient_material:function(){return Y()},in_threefold_repetition:function(){return rr()},game_over:function(){return 100<=d||a()||n()||Y()||rr()},validate_fen:function(r){return $(r)},fen:function(){return M()},board:function(){for(var r=[],e=[],n=N.a8;n<=N.h1;n++)null==O[n]?e.push(null):e.push({type:O[n].type,color:O[n].color}),n+1&136&&(r.push(e),e=[],n+=8);return r},pgn:function(r){var e="object"==typeof r&&"string"==typeof r.newline_char?r.newline_char:"\n",n="object"==typeof r&&"number"==typeof r.max_width?r.max_width:0,t=[],o=!1;for(var i in U)t.push("["+i+' "'+U[i]+'"]'+e),o=!0;o&&Q.length&&t.push(e);for(var f=[];0<Q.length;)f.push(nr());for(var a=[],l="";0<f.length;){var u=f.pop();Q.length||"b"!==u.color?"w"===u.color&&(l.length&&a.push(l),l=b+"."):l=b+". ...",l=l+" "+z(u,!1),er(u)}if(l.length&&a.push(l),void 0!==U.Result&&a.push(U.Result),0===n)return t.join("")+a.join(" ");var s=0;for(i=0;i<a.length;i++)s+a[i].length>n&&0!==i?(" "===t[t.length-1]&&t.pop(),t.push(e),s=0):0!==i&&(t.push(" "),s++),t.push(a[i]),s+=a[i].length;return t.join("")},load_pgn:function(r,e){var n=void 0!==e&&"sloppy"in e&&e.sloppy;function l(r){return r.replace(/\\/g,"\\")}var t="object"==typeof e&&"string"==typeof e.newline_char?e.newline_char:"\r?\n",o=new RegExp("^(\\[((?:"+l(t)+")|.)*\\])(?:"+l(t)+"){2}"),i=o.test(r)?o.exec(r)[1]:"";j();var f=function(r,e){for(var n="object"==typeof e&&"string"==typeof e.newline_char?e.newline_char:"\r?\n",t={},o=r.split(new RegExp(l(n))),i="",f="",a=0;a<o.length;a++)i=o[a].replace(/^\[([A-Z][A-Za-z]*)\s.*\]$/,"$1"),f=o[a].replace(/^\[[A-Za-z]+\s"(.*)"\]$/,"$1"),0<ur(i).length&&(t[i]=f);return t}(i,e);for(var a in f)G([a,f[a]]);if("1"===f.SetUp&&!("FEN"in f&&B(f.FEN,!0)))return!1;var u=r.replace(i,"").replace(new RegExp(l(t),"g")," ");u=u.replace(/(\{[^}]+\})+?/g,"");for(var s=/(\([^\(\)]+\))+?/g;s.test(u);)u=u.replace(s,"");var p=ur(u=(u=(u=u.replace(/\d+\.(\.\.)?/g,"")).replace(/\.\.\./g,"")).replace(/\$\d+/g,"")).split(new RegExp(/\s+/));p=p.join(",").replace(/,,+/g,",").split(",");for(var c="",v=0;v<p.length-1;v++){if(null==(c=tr(p[v],n)))return!1;er(c)}if(c=p[p.length-1],-1<g.indexOf(c))!function(r){for(var e in r)return 1}(U)||void 0!==U.Result||G(["Result",c]);else{if(null==(c=tr(c,n)))return!1;er(c)}return!0},header:function(){return G(arguments)},ascii:function(){return function(){for(var r="   +------------------------+\n",e=N.a8;e<=N.h1;e++){if(0===ir(e)&&(r+=" "+"87654321"[or(e)]+" |"),null==O[e])r+=" . ";else{var n=O[e].type;r+=" "+(O[e].color===s?n.toUpperCase():n.toLowerCase())+" "}e+1&136&&(r+="|\n",e+=8)}return r+="   +------------------------+\n",r+="     a  b  c  d  e  f  g  h\n"}()},turn:function(){return q},move:function(r,e){var n=void 0!==e&&"sloppy"in e&&e.sloppy,t=null;if("string"==typeof r)t=tr(r,n);else if("object"==typeof r)for(var o=Z(),i=0,f=o.length;i<f;i++)if(!(r.from!==fr(o[i].from)||r.to!==fr(o[i].to)||"promotion"in o[i]&&r.promotion!==o[i].promotion)){t=o[i];break}if(!t)return null;var a=lr(t);return er(t),a},undo:function(){var r=nr();return r?lr(r):null},clear:function(){return x()},put:function(r,e){return W(r,e)},get:function(r){return i(r)},remove:function(r){return n=i(e=r),O[N[e]]=null,n&&n.type===p&&(k[n.color]=l),F(M()),n;var e,n},perft:function(r){return function r(e){for(var n=Z({legal:!1}),t=0,o=q,i=0,f=n.length;i<f;i++)er(n[i]),X(o)||(0<e-1?t+=r(e-1):t++),nr();return t}(r)},square_color:function(r){if(r in N){var e=N[r];return(or(e)+ir(e))%2==0?"light":"dark"}return null},history:function(r){for(var e=[],n=[],t=(void 0!==r&&"verbose"in r&&r.verbose);0<Q.length;)e.push(nr());for(;0<e.length;){var o=e.pop();t?n.push(lr(o)):n.push(z(o)),er(o)}return n}}};"undefined"!=typeof exports&&(exports.Chess=Chess),"undefined"!=typeof define&&define(function(){return Chess});
+
+    // =========================================================================
+    // ROYAL CHESS ENGINE & ELO-TIERED AI BOT SYSTEM (DEVELOPER 2 SPECIALIST)
+    // =========================================================================
+    const CHESS_PIECE_SYMBOLS = {
+      w: { k: '♔', q: '♕', r: '♖', b: '♗', n: '♘', p: '♙' },
+      b: { k: '♚', q: '♛', r: '♜', b: '♝', n: '♞', p: '♟' }
+    };
+
+    const CHESS_PIECE_NAMES = {
+      p: 'Tốt', n: 'Mã', b: 'Tượng', r: 'Xe', q: 'Hậu', k: 'Vua'
+    };
+
+    const CHESS_BOT_TIERS = {
+      800: {
+        elo: 800,
+        name: 'Tập Sự (Gà Mới Nhập Môn)',
+        title: '🐣 Gà Mới 800 Elo',
+        avatar: '🐣',
+        cardTitle: 'Tập Sự - Gà Mới Nhập Môn',
+        desc: 'Cấp độ cọ xát cơ bản. Nước đi ngây thơ, thỉnh thoảng sơ hở để bạn dễ dàng tập luyện bắt quân và chiếu tướng.',
+        depth: 1,
+        randomness: 0.35,
+        delay: 350
+      },
+      1200: {
+        elo: 1200,
+        name: 'Kỳ Thủ (Cáo Chiến Thuật)',
+        title: '🦊 Cáo Chiến Thuật 1200 Elo',
+        avatar: '🦊',
+        cardTitle: 'Kỳ Thủ - Cáo Chiến Thuật',
+        desc: 'Kỳ thủ phong trào vững vàng. Phát triển quân bài bản, luôn ăn quân miễn phí và không bao giờ bỏ sót cơ hội bắt quân sơ hở của bạn.',
+        depth: 2,
+        randomness: 0.05,
+        delay: 550
+      },
+      1600: {
+        elo: 1600,
+        name: 'Kiện Tướng (Sói Đầu Đàn)',
+        title: '🐺 Sói Đầu Đàn 1600 Elo',
+        avatar: '🐺',
+        cardTitle: 'Kiện Tướng - Sói Đầu Đàn',
+        desc: 'Kiểm soát chặt chẽ trung tâm bàn cờ, phối hợp Mã và Tượng biến hóa. Biết giăng bẫy chiến thuật, ghim quân và tấn công Vua quyết liệt.',
+        depth: 3,
+        randomness: 0,
+        delay: 800
+      },
+      2000: {
+        elo: 2000,
+        name: 'Đại Kiện Tướng (Vua Bàn Cờ)',
+        title: '👑 Vua Bàn Cờ 2000+ Elo',
+        avatar: '👑',
+        cardTitle: 'Đại Kiện Tướng - Vua Bàn Cờ',
+        desc: 'Trí tuệ nhân tạo tính toán sâu với thuật toán Minimax Alpha-Beta và Quiescence search. Sát thủ khai cuộc, trung cuộc sắc bén và tàn cuộc chuẩn xác.',
+        depth: 3,
+        quiescence: true,
+        randomness: 0,
+        delay: 1000
+      }
+    };
+
+    // Piece-Square Tables (PST) for AI positional evaluation
+    const CHESS_PST = {
+      p: [
+        0,  0,  0,  0,  0,  0,  0,  0,
+       50, 50, 50, 50, 50, 50, 50, 50,
+       10, 10, 20, 30, 30, 20, 10, 10,
+        5,  5, 10, 25, 25, 10,  5,  5,
+        0,  0,  0, 20, 20,  0,  0,  0,
+        5, -5,-10,  0,  0,-10, -5,  5,
+        5, 10, 10,-20,-20, 10, 10,  5,
+        0,  0,  0,  0,  0,  0,  0,  0
+      ],
+      n: [
+       -50,-40,-30,-30,-30,-30,-40,-50,
+       -40,-20,  0,  0,  0,  0,-20,-40,
+       -30,  0, 10, 15, 15, 10,  0,-30,
+       -30,  5, 15, 20, 20, 15,  5,-30,
+       -30,  0, 15, 20, 20, 15,  0,-30,
+       -30,  5, 10, 15, 15, 10,  5,-30,
+       -40,-20,  0,  5,  5,  0,-20,-40,
+       -50,-40,-30,-30,-30,-30,-40,-50
+      ],
+      b: [
+       -20,-10,-10,-10,-10,-10,-10,-20,
+       -10,  0,  0,  0,  0,  0,  0,-10,
+       -10,  0,  5, 10, 10,  5,  0,-10,
+       -10,  5,  5, 10, 10,  5,  5,-10,
+       -10,  0, 10, 10, 10, 10,  0,-10,
+       -10, 10, 10, 10, 10, 10, 10,-10,
+       -10,  5,  0,  0,  0,  0,  5,-10,
+       -20,-10,-10,-10,-10,-10,-10,-20
+      ],
+      r: [
+        0,  0,  0,  0,  0,  0,  0,  0,
+        5, 10, 10, 10, 10, 10, 10,  5,
+       -5,  0,  0,  0,  0,  0,  0, -5,
+       -5,  0,  0,  0,  0,  0,  0, -5,
+       -5,  0,  0,  0,  0,  0,  0, -5,
+       -5,  0,  0,  0,  0,  0,  0, -5,
+       -5,  0,  0,  0,  0,  0,  0, -5,
+        0,  0,  0,  5,  5,  0,  0,  0
+      ],
+      q: [
+       -20,-10,-10, -5, -5,-10,-10,-20,
+       -10,  0,  0,  0,  0,  0,  0,-10,
+       -10,  0,  5,  5,  5,  5,  0,-10,
+        -5,  0,  5,  5,  5,  5,  0, -5,
+         0,  0,  5,  5,  5,  5,  0, -5,
+       -10,  5,  5,  5,  5,  5,  0,-10,
+       -10,  0,  5,  0,  0,  0,  0,-10,
+       -20,-10,-10, -5, -5,-10,-10,-20
+      ],
+      k: [
+       -30,-40,-40,-50,-50,-40,-40,-30,
+       -30,-40,-40,-50,-50,-40,-40,-30,
+       -30,-40,-40,-50,-50,-40,-40,-30,
+       -30,-40,-40,-50,-50,-40,-40,-30,
+       -20,-30,-30,-40,-40,-30,-30,-20,
+       -10,-20,-20,-20,-20,-20,-20,-10,
+        20, 20,  0,  0,  0,  0, 20, 20,
+        20, 30, 10,  0,  0, 10, 30, 20
+      ]
+    };
+
+    const CHESS_PIECE_VALUES = { p: 100, n: 320, b: 330, r: 500, q: 900, k: 20000 };
+
+    let chessGame = null;
+    let chessMode = 'bot'; // 'bot' | 'local' | 'online'
+    let chessBotElo = 1600;
+    let chessPlayerColor = 'w';
+    let chessFlipped = false;
+    let chessSelectedSquare = null;
+    let chessLegalMoves = [];
+    let chessLastMove = null;
+    let chessPendingPromotion = null;
+    let chessIsBotThinking = false;
+    let chessMoveHistory = [];
+    let chessTimerInterval = null;
+    let chessClocks = { w: 600, b: 600 }; // 10 minutes each
+    let chessCaptured = { w: [], b: [] };
+
+    function initChessGame() {
+      if (!chessGame) {
+        chessGame = new Chess();
+      }
+      renderChessBoard();
+      updateChessUI();
+      startChessTimer();
+    }
+
+    function resetChessGame() {
+      chessGame = new Chess();
+      chessSelectedSquare = null;
+      chessLegalMoves = [];
+      chessLastMove = null;
+      chessPendingPromotion = null;
+      chessIsBotThinking = false;
+      chessMoveHistory = [];
+      chessCaptured = { w: [], b: [] };
+      chessClocks = { w: 600, b: 600 };
+      chessFlipped = (chessPlayerColor === 'b');
+
+      renderChessBoard();
+      updateChessUI();
+      startChessTimer();
+      showToast('🔄 Đã khởi tạo ván Cờ Vua Hoàng Gia mới!');
+      soundTone(523, 'triangle', 0.15, 0.12);
+
+      // If playing with Bot and player is Black, Bot moves first as White
+      if (chessMode === 'bot' && chessPlayerColor === 'b') {
+        triggerChessBotTurn();
+      }
+    }
+
+    function renderChessBoard() {
+      const grid = document.getElementById('chessboardGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const ranks = chessFlipped ? [1, 2, 3, 4, 5, 6, 7, 8] : [8, 7, 6, 5, 4, 3, 2, 1];
+      const files = chessFlipped ? ['h', 'g', 'f', 'e', 'd', 'c', 'b', 'a'] : ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+
+      const boardState = chessGame.board();
+      const inCheck = chessGame.in_check();
+      const turn = chessGame.turn();
+
+      // Find King square if in check
+      let checkedKingSquare = null;
+      if (inCheck) {
+        for (let r = 0; r < 8; r++) {
+          for (let c = 0; c < 8; c++) {
+            const p = boardState[r][c];
+            if (p && p.type === 'k' && p.color === turn) {
+              const f = String.fromCharCode('a'.charCodeAt(0) + c);
+              const rankNum = 8 - r;
+              checkedKingSquare = f + rankNum;
+            }
+          }
+        }
+      }
+
+      for (let rIdx = 0; rIdx < 8; rIdx++) {
+        for (let cIdx = 0; cIdx < 8; cIdx++) {
+          const rank = ranks[rIdx];
+          const file = files[cIdx];
+          const sq = file + rank;
+
+          const isLight = (rIdx + cIdx) % 2 === 0;
+          const piece = chessGame.get(sq);
+
+          const cell = document.createElement('div');
+          cell.dataset.square = sq;
+          cell.className = `relative flex items-center justify-center cursor-pointer select-none transition-colors duration-150 ${
+            isLight ? 'bg-[#E5D4B8] hover:bg-[#F0E4D0]' : 'bg-[#4B6282] hover:bg-[#59759B]'
+          }`;
+
+          // Selected Square Highlight
+          if (chessSelectedSquare === sq) {
+            cell.classList.add('!bg-amber-400', 'ring-4', 'ring-amber-300', 'ring-inset');
+          }
+          // Last Move Highlight
+          else if (chessLastMove && (chessLastMove.from === sq || chessLastMove.to === sq)) {
+            cell.classList.add('!bg-amber-300/40');
+          }
+
+          // Check Glow
+          if (checkedKingSquare === sq) {
+            cell.classList.add('!bg-rose-600', 'animate-pulse', 'ring-4', 'ring-rose-400', 'ring-inset');
+          }
+
+          // Coordinates indicator (on bottom and left edges)
+          if (rIdx === 7) {
+            const fileLabel = document.createElement('span');
+            fileLabel.className = `absolute bottom-0.5 right-1 text-[9px] font-mono font-bold ${isLight ? 'text-slate-600' : 'text-slate-300'} pointer-events-none`;
+            fileLabel.textContent = file;
+            cell.appendChild(fileLabel);
+          }
+          if (cIdx === 0) {
+            const rankLabel = document.createElement('span');
+            rankLabel.className = `absolute top-0.5 left-1 text-[9px] font-mono font-bold ${isLight ? 'text-slate-600' : 'text-slate-300'} pointer-events-none`;
+            rankLabel.textContent = rank;
+            cell.appendChild(rankLabel);
+          }
+
+          // Render Piece
+          if (piece) {
+            const span = document.createElement('span');
+            span.className = `chess-piece text-3xl sm:text-4xl md:text-5xl transition-transform hover:scale-110 font-serif leading-none select-none ${
+              piece.color === 'w' ? 'white-piece' : 'black-piece'
+            }`;
+            span.textContent = CHESS_PIECE_SYMBOLS[piece.color][piece.type];
+            cell.appendChild(span);
+          }
+
+          // Target Move Dot / Ring
+          const isTargetMove = chessLegalMoves.some(m => m.to === sq);
+          if (isTargetMove) {
+            const marker = document.createElement('div');
+            if (piece) {
+              // Capture ring
+              marker.className = 'absolute inset-1 rounded-full border-4 border-rose-500/80 animate-pulse pointer-events-none';
+            } else {
+              // Move dot
+              marker.className = 'w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-cyan-400/80 shadow-md pointer-events-none';
+            }
+            cell.appendChild(marker);
+          }
+
+          cell.addEventListener('click', () => handleChessSquareClick(sq));
+          grid.appendChild(cell);
+        }
+      }
+    }
+
+    function handleChessSquareClick(sq) {
+      if (chessIsBotThinking) return;
+
+      const turn = chessGame.turn();
+      const isPlayerTurn = (chessMode === 'local') || (chessMode === 'bot' && turn === chessPlayerColor);
+
+      if (!isPlayerTurn) return;
+
+      const piece = chessGame.get(sq);
+
+      // If a piece is already selected
+      if (chessSelectedSquare) {
+        // Check if clicked on a valid destination
+        const move = chessLegalMoves.find(m => m.to === sq);
+        if (move) {
+          // Check for pawn promotion
+          if (move.flags.includes('p') || (move.piece === 'p' && (sq.endsWith('8') || sq.endsWith('1')))) {
+            chessPendingPromotion = { from: chessSelectedSquare, to: sq };
+            openModal('chessPromoModal');
+            return;
+          } else {
+            executeChessMove(chessSelectedSquare, sq);
+            chessSelectedSquare = null;
+            chessLegalMoves = [];
+            return;
+          }
+        } else if (piece && piece.color === turn) {
+          // Switch selection to another piece of same color
+          selectChessPiece(sq);
+          return;
+        } else {
+          // Deselect
+          chessSelectedSquare = null;
+          chessLegalMoves = [];
+          renderChessBoard();
+          return;
+        }
+      }
+
+      // If clicking to select a piece
+      if (piece && piece.color === turn) {
+        selectChessPiece(sq);
+      }
+    }
+
+    function selectChessPiece(sq) {
+      chessSelectedSquare = sq;
+      chessLegalMoves = chessGame.moves({ square: sq, verbose: true });
+      soundTone(350, 'sine', 0.04, 0.06);
+      renderChessBoard();
+    }
+
+    function handlePromotionSelect(promotedTo) {
+      closeModal('chessPromoModal');
+      if (chessPendingPromotion) {
+        executeChessMove(chessPendingPromotion.from, chessPendingPromotion.to, promotedTo);
+        chessPendingPromotion = null;
+        chessSelectedSquare = null;
+        chessLegalMoves = [];
+      }
+    }
+
+    function executeChessMove(from, to, promotion = 'q') {
+      const targetPiece = chessGame.get(to);
+      const move = chessGame.move({ from, to, promotion });
+
+      if (!move) return;
+
+      chessLastMove = { from, to };
+
+      // Sound design
+      if (targetPiece) {
+        // Capture sound
+        soundTone(620, 'sawtooth', 0.12, 0.15);
+        const capturedColor = targetPiece.color;
+        chessCaptured[capturedColor === 'w' ? 'b' : 'w'].push(targetPiece.type);
+      } else if (move.flags.includes('k') || move.flags.includes('q')) {
+        // Castling sound
+        soundTone(440, 'triangle', 0.18, 0.14);
+      } else {
+        // Normal move sound
+        soundTone(520, 'sine', 0.08, 0.1);
+      }
+
+      // Check sound
+      if (chessGame.in_check()) {
+        setTimeout(() => soundTone(880, 'square', 0.2, 0.16), 100);
+      }
+
+      // Record Move History
+      recordChessMoveNotation(move);
+
+      // Render board & update UI
+      renderChessBoard();
+      updateChessUI();
+
+      // Check Game Over
+      if (chessGame.game_over()) {
+        handleChessGameOver();
+        return;
+      }
+
+      // Trigger Bot turn if in Bot mode
+      if (chessMode === 'bot' && chessGame.turn() !== chessPlayerColor) {
+        triggerChessBotTurn();
+      } else if (chessMode === 'local' && chessFlipped) {
+        // Auto flip for local 2-player
+        // chessFlipped = !chessFlipped;
+        // renderChessBoard();
+      }
+    }
+
+    function recordChessMoveNotation(move) {
+      const moveNum = Math.ceil(chessGame.history().length / 2);
+      const isWhiteMove = (move.color === 'w');
+      const san = move.san;
+
+      const log = document.getElementById('chessMoveHistoryLog');
+      const countEl = document.getElementById('chessMoveCount');
+
+      if (log) {
+        if (chessGame.history().length === 1) log.innerHTML = '';
+        if (isWhiteMove) {
+          const row = document.createElement('div');
+          row.id = `chess-pgn-row-${moveNum}`;
+          row.className = 'flex items-center justify-between py-0.5 px-2 rounded hover:bg-white/[0.03] transition';
+          row.innerHTML = `
+            <span class="text-slate-500 w-8">${moveNum}.</span>
+            <span class="text-amber-300 font-bold flex-1 text-left">${san}</span>
+            <span class="text-slate-400 flex-1 text-right" id="chess-pgn-b-${moveNum}">-</span>
+          `;
+          log.appendChild(row);
+        } else {
+          const bCell = document.getElementById(`chess-pgn-b-${moveNum}`);
+          if (bCell) {
+            bCell.textContent = san;
+            bCell.className = 'text-cyan-300 font-bold flex-1 text-right';
+          }
+        }
+        log.scrollTop = log.scrollHeight;
+      }
+
+      if (countEl) {
+        countEl.textContent = `${chessGame.history().length} nước`;
+      }
+    }
+
+    function triggerChessBotTurn() {
+      chessIsBotThinking = true;
+      const thinkingEl = document.getElementById('chessBotThinking');
+      if (thinkingEl) thinkingEl.classList.remove('hidden');
+
+      const tier = CHESS_BOT_TIERS[chessBotElo] || CHESS_BOT_TIERS[1600];
+      const botDelay = tier.delay + Math.floor(Math.random() * 200);
+
+      setTimeout(() => {
+        const isWhite = (chessGame.turn() === 'w');
+        const bestMoveSan = calculateBestChessMove(chessGame, tier, isWhite);
+
+        if (bestMoveSan) {
+          chessGame.move(bestMoveSan);
+          const history = chessGame.history({ verbose: true });
+          const lastM = history[history.length - 1];
+          if (lastM) {
+            chessLastMove = { from: lastM.from, to: lastM.to };
+            recordChessMoveNotation(lastM);
+            soundTone(520, 'sine', 0.08, 0.1);
+          }
+        }
+
+        chessIsBotThinking = false;
+        if (thinkingEl) thinkingEl.classList.add('hidden');
+
+        renderChessBoard();
+        updateChessUI();
+
+        if (chessGame.game_over()) {
+          handleChessGameOver();
+        }
+      }, botDelay);
+    }
+
+    function calculateBestChessMove(game, tier, isWhite) {
+      const moves = game.moves();
+      if (moves.length === 0) return null;
+
+      // Randomness for low elo
+      if (tier.randomness && Math.random() < tier.randomness) {
+        return moves[Math.floor(Math.random() * moves.length)];
+      }
+
+      const depth = tier.depth || 2;
+      let bestMove = null;
+      let bestScore = isWhite ? -Infinity : Infinity;
+
+      // Shuffle moves to add variety to opening lines
+      const shuffled = [...moves].sort(() => Math.random() - 0.5);
+
+      for (const m of shuffled) {
+        game.move(m);
+        const score = minimaxChess(game, depth - 1, -Infinity, Infinity, !isWhite, tier.quiescence);
+        game.undo();
+
+        if (isWhite) {
+          if (score > bestScore) {
+            bestScore = score;
+            bestMove = m;
+          }
+        } else {
+          if (score < bestScore) {
+            bestScore = score;
+            bestMove = m;
+          }
+        }
+      }
+      return bestMove || moves[0];
+    }
+
+    function minimaxChess(game, depth, alpha, beta, isMaximizing, useQuiescence = false) {
+      if (depth === 0 || game.game_over()) {
+        if (game.in_checkmate()) return isMaximizing ? -99999 : 99999;
+        if (game.in_draw()) return 0;
+        return useQuiescence ? quiescenceSearch(game, alpha, beta, isMaximizing, 2) : evaluateChessPosition(game);
+      }
+
+      const moves = game.moves();
+      if (isMaximizing) {
+        let maxEval = -Infinity;
+        for (const m of moves) {
+          game.move(m);
+          const ev = minimaxChess(game, depth - 1, alpha, beta, false, useQuiescence);
+          game.undo();
+          maxEval = Math.max(maxEval, ev);
+          alpha = Math.max(alpha, ev);
+          if (beta <= alpha) break;
+        }
+        return maxEval;
+      } else {
+        let minEval = Infinity;
+        for (const m of moves) {
+          game.move(m);
+          const ev = minimaxChess(game, depth - 1, alpha, beta, true, useQuiescence);
+          game.undo();
+          minEval = Math.min(minEval, ev);
+          beta = Math.min(beta, ev);
+          if (beta <= alpha) break;
+        }
+        return minEval;
+      }
+    }
+
+    function quiescenceSearch(game, alpha, beta, isMaximizing, qDepth) {
+      const standPat = evaluateChessPosition(game);
+      if (qDepth === 0) return standPat;
+
+      if (isMaximizing) {
+        if (standPat >= beta) return beta;
+        if (standPat > alpha) alpha = standPat;
+
+        const captureMoves = game.moves({ verbose: true }).filter(m => m.captured);
+        for (const m of captureMoves) {
+          game.move(m);
+          const score = quiescenceSearch(game, alpha, beta, false, qDepth - 1);
+          game.undo();
+          if (score >= beta) return beta;
+          if (score > alpha) alpha = score;
+        }
+        return alpha;
+      } else {
+        if (standPat <= alpha) return alpha;
+        if (standPat < beta) beta = standPat;
+
+        const captureMoves = game.moves({ verbose: true }).filter(m => m.captured);
+        for (const m of captureMoves) {
+          game.move(m);
+          const score = quiescenceSearch(game, alpha, beta, true, qDepth - 1);
+          game.undo();
+          if (score <= alpha) return alpha;
+          if (score < beta) beta = score;
+        }
+        return beta;
+      }
+    }
+
+    function evaluateChessPosition(game) {
+      let score = 0;
+      const b = game.board();
+      for (let r = 0; r < 8; r++) {
+        for (let c = 0; c < 8; c++) {
+          const p = b[r][c];
+          if (!p) continue;
+          const val = CHESS_PIECE_VALUES[p.type] || 0;
+          const idx = p.color === 'w' ? r * 8 + c : (7 - r) * 8 + c;
+          const pstVal = (CHESS_PST[p.type] && CHESS_PST[p.type][idx]) || 0;
+          const total = val + pstVal;
+          score += (p.color === 'w' ? total : -total);
+        }
+      }
+      return score;
+    }
+
+    function updateChessUI() {
+      const turn = chessGame.turn();
+      const turnDot = document.getElementById('chessTurnDot');
+      const turnText = document.getElementById('chessTurnText');
+      const checkAlert = document.getElementById('chessCheckAlert');
+
+      if (turnDot) {
+        turnDot.className = `w-2.5 h-2.5 rounded-full border shadow-sm ${
+          turn === 'w' ? 'bg-white border-slate-300' : 'bg-slate-900 border-slate-600'
+        }`;
+      }
+      if (turnText) {
+        turnText.textContent = (turn === 'w') ? 'Trắng Đi' : 'Đen Đi';
+      }
+
+      if (checkAlert) {
+        checkAlert.classList.toggle('hidden', !chessGame.in_check());
+      }
+
+      // Update captured pieces & material evaluation
+      const mat = evaluateChessMaterial();
+      const diffEl = document.getElementById('chessMaterialDiff');
+      const barW = document.getElementById('chessAdvantageWhite');
+      const barB = document.getElementById('chessAdvantageBlack');
+
+      if (diffEl) {
+        if (mat.diff === 0) diffEl.textContent = 'Cân bằng (+0)';
+        else if (mat.diff > 0) diffEl.textContent = `Trắng +${mat.diff}`;
+        else diffEl.textContent = `Đen +${Math.abs(mat.diff)}`;
+      }
+
+      const pctW = Math.max(10, Math.min(90, 50 + (mat.diff * 4)));
+      if (barW) barW.style.width = pctW + '%';
+      if (barB) barB.style.width = (100 - pctW) + '%';
+
+      // Update Top & Bottom Player Info
+      const tier = CHESS_BOT_TIERS[chessBotElo] || CHESS_BOT_TIERS[1600];
+      const isTopBot = (chessMode === 'bot');
+
+      const topName = document.getElementById('chessTopName');
+      const topElo = document.getElementById('chessTopElo');
+      const topAvatar = document.getElementById('chessTopAvatar');
+      const botCardTitle = document.getElementById('chessBotCardTitle');
+      const botCardElo = document.getElementById('chessBotCardElo');
+      const botCardDesc = document.getElementById('chessBotCardDesc');
+      const botCardIcon = document.getElementById('chessBotCardIcon');
+
+      if (isTopBot) {
+        if (topName) topName.textContent = tier.name;
+        if (topElo) topElo.textContent = `${tier.elo} Elo`;
+        if (topAvatar) topAvatar.textContent = tier.avatar;
+        if (botCardTitle) botCardTitle.textContent = tier.cardTitle;
+        if (botCardElo) botCardElo.textContent = `${tier.elo} Elo • AI Minimax`;
+        if (botCardDesc) botCardDesc.textContent = tier.desc;
+        if (botCardIcon) botCardIcon.textContent = tier.avatar;
+      } else {
+        if (topName) topName.textContent = 'Kỳ Thủ 2 (Đen)';
+        if (topElo) topElo.textContent = '1500 Elo';
+        if (topAvatar) topAvatar.textContent = '♟️';
+        if (botCardTitle) botCardTitle.textContent = 'Chế Độ 2 Người Chơi';
+        if (botCardElo) botCardElo.textContent = 'PvP Đối Kháng';
+        if (botCardDesc) botCardDesc.textContent = 'Hai kỳ thủ trực tiếp so tài trên cùng thiết bị. Lần lượt điều khiển quân Trắng và Đen.';
+        if (botCardIcon) botCardIcon.textContent = '👥';
+      }
+    }
+
+    function evaluateChessMaterial() {
+      let scoreW = 0, scoreB = 0;
+      const b = chessGame.board();
+      for (let r = 0; r < 8; r++) {
+        for (let c = 0; c < 8; c++) {
+          const p = b[r][c];
+          if (!p || p.type === 'k') continue;
+          const val = CHESS_PIECE_VALUES[p.type] || 0;
+          if (p.color === 'w') scoreW += val;
+          else scoreB += val;
+        }
+      }
+      const diff = Math.round((scoreW - scoreB) / 100);
+      return { scoreW, scoreB, diff };
+    }
+
+    function handleChessGameOver() {
+      stopChessTimer();
+      if (chessGame.in_checkmate()) {
+        const winner = (chessGame.turn() === 'w') ? 'Đen (Black)' : 'Trắng (White)';
+        const title = `${winner} Chiếu Bí Toàn Thắng! 👑`;
+        const desc = `Một thế cờ xuất sắc đã kết liễu trận đấu sau ${chessGame.history().length} nước đi!`;
+        showVictory(winner);
+        soundTone(659, 'triangle', 0.2, 0.2);
+        setTimeout(() => soundTone(880, 'triangle', 0.35, 0.25), 150);
+      } else if (chessGame.in_draw()) {
+        showVictory('Hòa Cờ (Draw)');
+      }
+    }
+
+    function setChessMode(mode) {
+      chessMode = mode;
+      const bBot = document.getElementById('chessModeBtnBot');
+      const bLocal = document.getElementById('chessModeBtnLocal');
+      const bOnline = document.getElementById('chessModeBtnOnline');
+      const botWrapper = document.getElementById('chessBotTierWrapper');
+      const colorWrapper = document.getElementById('chessColorWrapper');
+
+      [bBot, bLocal, bOnline].forEach(b => {
+        if (b) b.className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition';
+      });
+
+      if (mode === 'bot') {
+        if (bBot) bBot.className = 'px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition shadow-sm';
+        if (botWrapper) botWrapper.classList.remove('hidden');
+        if (colorWrapper) colorWrapper.classList.remove('hidden');
+        showToast('🤖 Đã chuyển sang Chế độ Đấu với BOT AI.');
+      } else if (mode === 'local') {
+        if (bLocal) bLocal.className = 'px-2.5 py-1 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-700 text-white font-bold transition shadow-sm';
+        if (botWrapper) botWrapper.classList.add('hidden');
+        if (colorWrapper) colorWrapper.classList.add('hidden');
+        showToast('👥 Chế độ 2 Người Chơi (Pass & Play) trên cùng thiết bị.');
+      } else if (mode === 'online') {
+        if (bOnline) bOnline.className = 'px-2.5 py-1 rounded-lg bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold transition shadow-sm';
+        if (botWrapper) botWrapper.classList.add('hidden');
+        if (colorWrapper) colorWrapper.classList.add('hidden');
+        const code = prompt('Nhập mã phòng cờ vua để kết nối, hoặc để trống để tạo phòng mới:', 'CHESS-' + Math.floor(1000 + Math.random() * 9000));
+        if (code) {
+          showToast(`🌐 Đã tham gia phòng trực tuyến: ${code}! Đang chờ đối thủ...`);
+        }
+      }
+      resetChessGame();
+    }
+
+    function setChessBotElo(elo) {
+      chessBotElo = elo;
+      const elos = [800, 1200, 1600, 2000];
+      elos.forEach(e => {
+        const b = document.getElementById('chessEloBtn' + e);
+        if (b) {
+          if (e === elo) b.className = 'px-2 py-0.5 rounded-md bg-gradient-to-r from-cyan-600 to-cyan-700 text-white font-bold transition shadow-sm font-mono text-[11px]';
+          else b.className = 'px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition font-mono text-[11px]';
+        }
+      });
+      updateChessUI();
+      const tier = CHESS_BOT_TIERS[elo];
+      showToast(`⚡ Đã chọn đối thủ: ${tier.title}`);
+    }
+
+    function setChessPlayerColor(col) {
+      chessPlayerColor = col;
+      const btnW = document.getElementById('chessColorBtnW');
+      const btnB = document.getElementById('chessColorBtnB');
+      if (col === 'w') {
+        if (btnW) btnW.className = 'px-2 py-0.5 rounded-md bg-white text-slate-950 font-bold transition text-[11px]';
+        if (btnB) btnB.className = 'px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition text-[11px]';
+        chessFlipped = false;
+      } else {
+        if (btnW) btnW.className = 'px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition text-[11px]';
+        if (btnB) btnB.className = 'px-2 py-0.5 rounded-md bg-slate-900 text-white font-bold border border-slate-600 transition text-[11px]';
+        chessFlipped = true;
+      }
+      resetChessGame();
+    }
+
+    function flipChessBoard() {
+      chessFlipped = !chessFlipped;
+      renderChessBoard();
+      showToast('🔄 Đã xoay góc nhìn bàn cờ!');
+    }
+
+    function undoChessMove() {
+      if (chessGame.history().length === 0) return;
+      if (chessMode === 'bot') {
+        chessGame.undo();
+        chessGame.undo();
+      } else {
+        chessGame.undo();
+      }
+      chessSelectedSquare = null;
+      chessLegalMoves = [];
+      const history = chessGame.history({ verbose: true });
+      chessLastMove = history.length > 0 ? { from: history[history.length - 1].from, to: history[history.length - 1].to } : null;
+
+      renderChessBoard();
+      updateChessUI();
+      showToast('↩️ Đã lùi lại nước đi!');
+    }
+
+    function resignChessGame() {
+      if (chessGame.game_over()) return;
+      const loser = chessGame.turn() === 'w' ? 'Trắng' : 'Đen';
+      const winner = chessGame.turn() === 'w' ? 'Đen' : 'Trắng';
+      showVictory(`${winner} Thắng (Đối phương đầu hàng)`);
+      soundTone(250, 'sawtooth', 0.25, 0.15);
+    }
+
+    function startChessTimer() {
+      stopChessTimer();
+      chessTimerInterval = setInterval(() => {
+        if (!chessGame || chessGame.game_over()) return;
+        const turn = chessGame.turn();
+        if (chessClocks[turn] > 0) {
+          chessClocks[turn]--;
+          const m = String(Math.floor(chessClocks[turn] / 60)).padStart(2, '0');
+          const s = String(chessClocks[turn] % 60).padStart(2, '0');
+          const el = document.getElementById(turn === 'w' ? (chessFlipped ? 'chessTopTimer' : 'chessBottomTimer') : (chessFlipped ? 'chessBottomTimer' : 'chessTopTimer'));
+          if (el) el.textContent = `${m}:${s}`;
+        } else {
+          handleChessGameOver();
+        }
+      }, 1000);
+    }
+
+    function stopChessTimer() {
+      if (chessTimerInterval) clearInterval(chessTimerInterval);
+    }
+
+    // =========================================================================
     // LOGIC ENGINE: TỰ ĐỘNG THEO DÕI PHIÊN BẢN & ĐÓNG GÓP CỦA LẬP TRÌNH VIÊN
     // (Developer 2: Game Logic, Engine & Data Specialist)
     // =========================================================================
@@ -3594,7 +4668,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v2.6.0'
+      currentVersion: 'v2.7.0'
     };
 
     let allChangelogItems = [];
@@ -3603,10 +4677,19 @@
     // Curated fallback updates in case of offline or GitHub API rate limiting
     const CURATED_CHANGELOG = [
       {
+        sha: 'a4b7f8c',
+        roleType: 'dev2',
+        author: 'thaitraicau123-pixel (Anh)',
+        version: 'v2.7.0',
+        title: 'Ra mắt Đấu Trường Cờ Vua Hoàng Gia (FIDE 8x8) & 4 Cấp Độ Bot Elo (800 - 2000+)',
+        details: 'Tích hợp chuẩn luật FIDE (nhập thành, bắt tốt qua đường, tấn cấp tốt), hệ thống 4 cấp độ Bot Elo (800, 1200, 1600, 2000+) với thuật toán Minimax Alpha-Beta & Quiescence search, chế độ chơi 2 người (Local Pass & Play / Online) và bộ giao diện bàn cờ nỉ hoàng gia cao cấp.',
+        date: '2026-10-26T01:30:00Z'
+      },
+      {
         sha: '6fe116d',
         roleType: 'dev1',
         author: 'cuongcuca111-web (Bạn anh)',
-        version: 'v2.6.0',
+        version: 'v2.7.0',
         title: 'Ra mắt Đa BOT (1-3 Bots), Tùy biến Điểm Cán Đích & Chế độ Khán Giả Tự Động',
         details: 'Tùy chọn 1-3 BOT AI (Cáo Lửa 🦊, Sói Băng 🐺, Gấu Trúc 🐼); tùy biến điểm thắng (30đ, 50đ, 100đ, tùy chọn); chế độ Khán Giả quan sát tự động với tốc độ từ 1x đến 5x siêu tốc và tự động sang ván mới.',
         date: '2026-10-25T17:49:22Z'

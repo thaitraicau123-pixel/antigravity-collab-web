@@ -1,303 +1,272 @@
 /**
  * ============================================================================
- * [Collab-Acc2]: MODULE DỮ LIỆU & STORAGE (Phụ trách bởi Tài Khoản 2)
+ * [Collab-Acc2]: ENGINE BOARD GAME & DATA LOGIC (Phụ trách bởi Tài Khoản 2)
  * ============================================================================
- * Tệp này chứa toàn bộ logic dữ liệu, tương tác LocalStorage và API mock.
- * Tài khoản 1 (UI) chỉ việc gọi các hàm tại đây, không can thiệp logic nội tại.
+ * Chứa toàn bộ thuật toán luật chơi Cờ Caro 5 ô, tính điểm, lượt đánh,
+ * lưu trữ điểm số LocalStorage và quản lý trạng thái bàn cờ.
  */
 
 const STORAGE_KEYS = {
-  TASKS: 'antigravity_duo_tasks',
-  ACTIVITY: 'antigravity_duo_activity',
-  SETTINGS: 'antigravity_duo_settings'
+  SCORES: 'boardgame_scores',
+  TASKS: 'boardgame_dev_tasks',
+  ACTIVITY: 'boardgame_activity'
 };
 
-// Dữ liệu mẫu ban đầu cho 2 bạn khi mới mở app
+const BOARD_SIZE = 12; // 12x12 grid
+
+// Dữ liệu lộ trình tính năng phát triển Board Game cho 2 bạn
 const DEFAULT_TASKS = [
   {
     id: 'task-1',
-    title: 'Dựng khung layout và cấu trúc Header / Sidebar',
+    title: 'Dựng bàn cờ Caro 12x12 và hiệu ứng Neon quân cờ X/O',
     assignee: 'Acc 1 (UI/UX)',
     priority: 'Cao',
     status: 'done',
-    createdAt: new Date(Date.now() - 3600000 * 5).toISOString(),
-    branch: 'feat/ui-layout'
+    branch: 'feat/board-ui'
   },
   {
     id: 'task-2',
-    title: 'Thiết kế cấu trúc dữ liệu LocalStorage & API Mock',
+    title: 'Viết thuật toán kiểm tra 5 quân liên tiếp thắng thua',
     assignee: 'Acc 2 (Logic)',
     priority: 'Cao',
     status: 'done',
-    createdAt: new Date(Date.now() - 3600000 * 4).toISOString(),
-    branch: 'feat/logic-storage'
+    branch: 'feat/game-logic'
   },
   {
     id: 'task-3',
-    title: 'Tạo component Kanban kéo thả & thẻ nhiệm vụ đẹp mắt',
+    title: 'Thêm âm thanh click khi đánh cờ & nhạc nền retro',
     assignee: 'Acc 1 (UI/UX)',
     priority: 'Trung bình',
     status: 'inProgress',
-    createdAt: new Date(Date.now() - 3600000 * 2).toISOString(),
-    branch: 'feat/ui-kanban'
+    branch: 'feat/sound-fx'
   },
   {
     id: 'task-4',
-    title: 'Viết logic chuyển trạng thái task và ghi nhận Activity Feed',
+    title: 'Thêm đồng hồ đếm ngược 30 giây cho mỗi lượt đánh',
     assignee: 'Acc 2 (Logic)',
     priority: 'Trung bình',
     status: 'inProgress',
-    createdAt: new Date(Date.now() - 3600000 * 1).toISOString(),
-    branch: 'feat/logic-feed'
+    branch: 'feat/turn-timer'
   },
   {
     id: 'task-5',
-    title: 'Kết nối backend thật (Firebase / Supabase) khi cần mở rộng',
+    title: 'Tích hợp kết nối WebRTC / Socket để 2 máy khác nhau chơi online',
     assignee: 'Acc 2 (Logic)',
-    priority: 'Thấp',
+    priority: 'Cao',
     status: 'todo',
-    createdAt: new Date().toISOString(),
-    branch: 'feat/backend-connect'
+    branch: 'feat/online-multiplayer'
   },
   {
     id: 'task-6',
-    title: 'Tinh chỉnh Responsive trên điện thoại và hiệu ứng Dark Mode',
+    title: 'Thêm mini game thứ 2: Cờ Vua hoặc Cờ Cá Ngựa (Ludo)',
     assignee: 'Acc 1 (UI/UX)',
-    priority: 'Trung bình',
+    priority: 'Thấp',
     status: 'todo',
-    createdAt: new Date().toISOString(),
-    branch: 'feat/ui-responsive'
+    branch: 'feat/game-chess'
   }
 ];
 
-const DEFAULT_ACTIVITY = [
-  {
-    id: 'act-1',
-    author: 'Acc 1 (UI/UX)',
-    action: 'Khởi tạo giao diện chuẩn Antigravity DuoHub',
-    time: '5 giờ trước',
-    hash: 'a7f9c2d'
-  },
-  {
-    id: 'act-2',
-    author: 'Acc 2 (Logic)',
-    action: 'Tích hợp tệp AGENTS.md và thiết lập bộ storage an toàn',
-    time: '4 giờ trước',
-    hash: '3e1b04a'
-  },
-  {
-    id: 'act-3',
-    author: 'Hệ thống Antigravity',
-    action: 'Xác thực không có conflict giữa 2 nhánh mã nguồn',
-    time: '1 giờ trước',
-    hash: '8c94e10'
+class BoardGameEngine {
+  constructor() {
+    this.board = Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill(null));
+    this.currentPlayer = 'X'; // X đi trước
+    this.isGameOver = false;
+    this.winner = null;
+    this.winningLine = [];
+    this.moveHistory = [];
+    this.timeLeft = 30;
+    this.timerInterval = null;
   }
-];
 
-const TeamAPI = {
   /**
-   * Lấy danh sách nhiệm vụ từ LocalStorage
-   * @returns {Promise<Array>}
+   * Khởi tạo bàn cờ mới
    */
+  resetGame() {
+    this.board = Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill(null));
+    this.currentPlayer = 'X';
+    this.isGameOver = false;
+    this.winner = null;
+    this.winningLine = [];
+    this.moveHistory = [];
+    this.timeLeft = 30;
+    return this.getState();
+  }
+
+  /**
+   * Đánh một nước cờ
+   * @param {number} row
+   * @param {number} col
+   * @returns {Object} {success, state, win}
+   */
+  makeMove(row, col) {
+    if (this.isGameOver) return { success: false, message: 'Trò chơi đã kết thúc' };
+    if (row < 0 || row >= BOARD_SIZE || col < 0 || col >= BOARD_SIZE) return { success: false };
+    if (this.board[row][col] !== null) return { success: false, message: 'Ô này đã có người đánh' };
+
+    // Đặt quân cờ
+    this.board[row][col] = this.currentPlayer;
+    const move = { row, col, player: this.currentPlayer, time: new Date().toLocaleTimeString() };
+    this.moveHistory.push(move);
+
+    // Kiểm tra thắng thua 5 ô liên tiếp
+    const winResult = this.checkWin(row, col, this.currentPlayer);
+
+    if (winResult.won) {
+      this.isGameOver = true;
+      this.winner = this.currentPlayer;
+      this.winningLine = winResult.line;
+      this.updateScore(this.currentPlayer);
+    } else if (this.moveHistory.length === BOARD_SIZE * BOARD_SIZE) {
+      this.isGameOver = true;
+      this.winner = 'DRAW';
+      this.updateScore('DRAW');
+    } else {
+      // Đổi lượt
+      this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
+      this.timeLeft = 30;
+    }
+
+    return {
+      success: true,
+      lastMove: move,
+      isGameOver: this.isGameOver,
+      winner: this.winner,
+      winningLine: this.winningLine,
+      currentPlayer: this.currentPlayer
+    };
+  }
+
+  /**
+   * Đi lại nước trước (Undo)
+   */
+  undoMove() {
+    if (this.moveHistory.length === 0 || this.isGameOver) return false;
+    const last = this.moveHistory.pop();
+    this.board[last.row][last.col] = null;
+    this.currentPlayer = last.player;
+    this.timeLeft = 30;
+    return true;
+  }
+
+  /**
+   * Thuật toán kiểm tra 5 quân cờ liên tiếp (Ngang, Dọc, 2 Chéo)
+   */
+  checkWin(row, col, player) {
+    const directions = [
+      [0, 1],   // Ngang
+      [1, 0],   // Dọc
+      [1, 1],   // Chéo chính (\)
+      [1, -1]   // Chéo phụ (/)
+    ];
+
+    for (const [dx, dy] of directions) {
+      const line = [{ row, col }];
+
+      // Đi về phía trước
+      let r = row + dx;
+      let c = col + dy;
+      while (r >= 0 && r < BOARD_SIZE && c >= 0 && c < BOARD_SIZE && this.board[r][c] === player) {
+        line.push({ row: r, col: c });
+        r += dx;
+        c += dy;
+      }
+
+      // Đi về phía sau
+      r = row - dx;
+      c = col - dy;
+      while (r >= 0 && r < BOARD_SIZE && c >= 0 && c < BOARD_SIZE && this.board[r][c] === player) {
+        line.push({ row: r, col: c });
+        r -= dx;
+        c -= dy;
+      }
+
+      // Nếu đủ 5 quân trở lên -> Thắng!
+      if (line.length >= 5) {
+        return { won: true, line };
+      }
+    }
+
+    return { won: false, line: [] };
+  }
+
+  /**
+   * Lấy trạng thái hiện tại
+   */
+  getState() {
+    return {
+      board: this.board,
+      currentPlayer: this.currentPlayer,
+      isGameOver: this.isGameOver,
+      winner: this.winner,
+      winningLine: this.winningLine,
+      moveCount: this.moveHistory.length,
+      scores: this.getScores()
+    };
+  }
+
+  /**
+   * Lấy tỉ số từ LocalStorage
+   */
+  getScores() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEYS.SCORES);
+      if (data) return JSON.parse(data);
+    } catch (e) {}
+    return { xWins: 0, oWins: 0, draws: 0 };
+  }
+
+  /**
+   * Cập nhật tỉ số
+   */
+  updateScore(winner) {
+    const scores = this.getScores();
+    if (winner === 'X') scores.xWins++;
+    else if (winner === 'O') scores.oWins++;
+    else if (winner === 'DRAW') scores.draws++;
+
+    localStorage.setItem(STORAGE_KEYS.SCORES, JSON.stringify(scores));
+    return scores;
+  }
+
+  resetScores() {
+    const defaultScores = { xWins: 0, oWins: 0, draws: 0 };
+    localStorage.setItem(STORAGE_KEYS.SCORES, JSON.stringify(defaultScores));
+    return defaultScores;
+  }
+}
+
+// Bộ API Task & Quản lý nhóm (để 2 bạn cùng theo dõi tiến độ)
+const TeamAPI = {
   async getTasks() {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.TASKS);
-      if (!data) {
-        this.saveTasks(DEFAULT_TASKS);
-        return [...DEFAULT_TASKS];
-      }
-      return JSON.parse(data);
-    } catch (e) {
-      console.error('Lỗi khi đọc tasks:', e);
-      return [...DEFAULT_TASKS];
-    }
+      if (data) return JSON.parse(data);
+    } catch (e) {}
+    localStorage.setItem(STORAGE_KEYS.TASKS, JSON.stringify(DEFAULT_TASKS));
+    return [...DEFAULT_TASKS];
   },
 
-  /**
-   * Lưu toàn bộ danh sách nhiệm vụ
-   * @param {Array} tasks
-   */
-  saveTasks(tasks) {
-    try {
-      localStorage.setItem(STORAGE_KEYS.TASKS, JSON.stringify(tasks));
-      return true;
-    } catch (e) {
-      console.error('Lỗi khi lưu tasks:', e);
-      return false;
-    }
-  },
-
-  /**
-   * Thêm một nhiệm vụ mới
-   * @param {Object} taskData
-   * @returns {Promise<Object>}
-   */
-  async addTask(taskData) {
-    const tasks = await this.getTasks();
-    const newTask = {
-      id: 'task-' + Date.now(),
-      title: taskData.title,
-      assignee: taskData.assignee || 'Cả 2 người',
-      priority: taskData.priority || 'Trung bình',
-      status: 'todo',
-      createdAt: new Date().toISOString(),
-      branch: taskData.assignee.includes('UI') ? 'feat/ui-' + Date.now() : 'feat/logic-' + Date.now()
-    };
-    tasks.unshift(newTask);
-    this.saveTasks(tasks);
-
-    // Ghi nhận hoạt động
-    await this.logActivity(
-      taskData.assignee || 'Thành viên',
-      `Thêm nhiệm vụ mới: "${newTask.title}"`
-    );
-
-    return newTask;
-  },
-
-  /**
-   * Cập nhật trạng thái nhiệm vụ (todo, inProgress, done)
-   * @param {string} taskId
-   * @param {string} newStatus
-   */
   async updateTaskStatus(taskId, newStatus) {
     const tasks = await this.getTasks();
     const task = tasks.find(t => t.id === taskId);
     if (task) {
       task.status = newStatus;
-      this.saveTasks(tasks);
-
-      const statusMap = {
-        todo: 'Cần làm',
-        inProgress: 'Đang code',
-        done: 'Đã hoàn thành & Merge'
-      };
-
-      await this.logActivity(
-        task.assignee,
-        `Chuyển "${task.title}" sang trạng thái [${statusMap[newStatus] || newStatus}]`
-      );
+      localStorage.setItem(STORAGE_KEYS.TASKS, JSON.stringify(tasks));
       return true;
     }
     return false;
   },
 
-  /**
-   * Xóa một nhiệm vụ
-   */
-  async deleteTask(taskId) {
-    let tasks = await this.getTasks();
-    const taskToDelete = tasks.find(t => t.id === taskId);
-    tasks = tasks.filter(t => t.id !== taskId);
-    this.saveTasks(tasks);
-
-    if (taskToDelete) {
-      await this.logActivity('Team', `Xóa nhiệm vụ: "${taskToDelete.title}"`);
-    }
-    return true;
-  },
-
-  /**
-   * Lấy lịch sử hoạt động
-   */
-  async getActivityLogs() {
-    try {
-      const data = localStorage.getItem(STORAGE_KEYS.ACTIVITY);
-      if (!data) {
-        localStorage.setItem(STORAGE_KEYS.ACTIVITY, JSON.stringify(DEFAULT_ACTIVITY));
-        return [...DEFAULT_ACTIVITY];
-      }
-      return JSON.parse(data);
-    } catch (e) {
-      return [...DEFAULT_ACTIVITY];
-    }
-  },
-
-  /**
-   * Ghi nhận một hành động mới vào feed
-   */
-  async logActivity(author, action) {
-    const logs = await this.getActivityLogs();
-    const randomHash = Math.random().toString(36).substring(2, 9);
-    const newLog = {
-      id: 'act-' + Date.now(),
-      author: author,
-      action: action,
-      time: 'Vừa xong',
-      hash: randomHash
-    };
-    logs.unshift(newLog);
-    if (logs.length > 20) logs.pop(); // Giữ tối đa 20 logs
-    localStorage.setItem(STORAGE_KEYS.ACTIVITY, JSON.stringify(logs));
-    return newLog;
-  },
-
-  /**
-   * [Collab-Acc2]: Tính toán số liệu thống kê tiến độ dự án
-   * @returns {Promise<{total: number, done: number, inProgress: number, todo: number, percentage: number, acc1Done: number, acc2Done: number}>}
-   */
   async getProgressStats() {
     const tasks = await this.getTasks();
     const total = tasks.length;
-    if (total === 0) {
-      return {
-        total: 0,
-        done: 0,
-        inProgress: 0,
-        todo: 0,
-        percentage: 0,
-        acc1Done: 0,
-        acc2Done: 0
-      };
-    }
-
-    const doneTasks = tasks.filter(t => t.status === 'done');
-    const inProgressTasks = tasks.filter(t => t.status === 'inProgress');
-    const todoTasks = tasks.filter(t => t.status === 'todo');
-
-    const done = doneTasks.length;
-    const inProgress = inProgressTasks.length;
-    const todo = todoTasks.length;
-    const percentage = Math.round((done / total) * 100);
-
-    const acc1Done = doneTasks.filter(t => t.assignee.includes('1') || t.assignee.includes('UI')).length;
-    const acc2Done = doneTasks.filter(t => t.assignee.includes('2') || t.assignee.includes('Logic')).length;
-
-    return {
-      total,
-      done,
-      inProgress,
-      todo,
-      percentage,
-      acc1Done,
-      acc2Done
-    };
-  },
-
-  /**
-   * Reset lại dữ liệu ban đầu
-   */
-  resetData() {
-    localStorage.setItem(STORAGE_KEYS.TASKS, JSON.stringify(DEFAULT_TASKS));
-    localStorage.setItem(STORAGE_KEYS.ACTIVITY, JSON.stringify(DEFAULT_ACTIVITY));
-    return true;
-  },
-
-  /**
-   * Xuất dữ liệu ra file JSON
-   */
-  async exportJSON() {
-    const tasks = await this.getTasks();
-    const activities = await this.getActivityLogs();
-    const exportObject = {
-      exportedAt: new Date().toISOString(),
-      project: 'Antigravity DuoHub Web Collaboration',
-      tasks,
-      activities
-    };
-    return JSON.stringify(exportObject, null, 2);
+    const done = tasks.filter(t => t.status === 'done').length;
+    const inProgress = tasks.filter(t => t.status === 'inProgress').length;
+    const todo = tasks.filter(t => t.status === 'todo').length;
+    const percentage = total === 0 ? 0 : Math.round((done / total) * 100);
+    return { total, done, inProgress, todo, percentage };
   }
 };
 
-// Đưa ra scope window
+window.gameEngine = new BoardGameEngine();
 window.TeamAPI = TeamAPI;

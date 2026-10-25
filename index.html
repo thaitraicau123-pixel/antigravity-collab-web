@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Antigravity Team Hub - Web Collaboration</title>
-  <!-- Google Fonts: Inter -->
+  <title>BoardGame Duo Arena - Nền Tảng Chơi Cờ Online</title>
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -18,21 +18,6 @@
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
-          },
-          colors: {
-            brand: {
-              50: '#f0f7ff',
-              100: '#e0effe',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-            },
-            gemini: {
-              blue: '#4285F4',
-              purple: '#9B51E0',
-              pink: '#EA4335',
-              green: '#34A853',
-            }
           }
         }
       }
@@ -40,442 +25,240 @@
   </script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti for victory celebration -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-blue-600 selection:text-white">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-cyan-500 selection:text-black">
 
   <!-- Background decorative glows -->
   <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-    <div class="absolute -top-40 -left-40 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl"></div>
-    <div class="absolute top-1/3 -right-40 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl"></div>
-    <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-emerald-600/15 rounded-full blur-3xl"></div>
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-600/15 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/3 -right-40 w-96 h-96 bg-pink-600/15 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl"></div>
   </div>
 
   <!-- Header -->
   <header class="sticky top-0 z-40 backdrop-blur-md bg-slate-950/80 border-b border-slate-800/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <!-- Logo & Brand -->
+      <!-- Logo -->
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
-          <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-pink-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+          <i data-lucide="gamepad-2" class="w-5 h-5 text-white"></i>
         </div>
         <div>
           <div class="flex items-center space-x-2">
-            <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">Antigravity DuoHub</span>
-            <span class="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium">2 Accounts Collab</span>
+            <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-cyan-400 via-sky-300 to-pink-400 bg-clip-text text-transparent">BoardGame Duo</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold uppercase">Online Arena</span>
           </div>
-          <p class="text-xs text-slate-400">Không gian lập trình web song song cho 2 người</p>
+          <p class="text-xs text-slate-400">Dự án Web Board Game 2 người cùng phát triển</p>
         </div>
       </div>
 
-      <!-- Quick Actions & Status -->
+      <!-- Quick Status -->
       <div class="flex items-center space-x-3">
-        <div class="hidden md:flex items-center space-x-2 text-xs bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg">
+        <div class="flex items-center space-x-2 text-xs bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span class="text-slate-300">Đồng bộ: Sẵn sàng</span>
+          <span class="text-slate-300 font-mono">Phòng: #CARO-DUO-01</span>
         </div>
-
-        <!-- Role Badge Switcher for testing UI -->
-        <div class="flex items-center bg-slate-900 border border-slate-800 p-1 rounded-xl">
-          <button id="btnRoleAcc1" class="px-3 py-1 text-xs font-semibold rounded-lg bg-blue-600 text-white transition-all flex items-center gap-1.5 shadow-sm">
-            <i data-lucide="palette" class="w-3.5 h-3.5"></i>
-            <span>Acc 1 (UI/UX)</span>
-          </button>
-          <button id="btnRoleAcc2" class="px-3 py-1 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition-all flex items-center gap-1.5">
-            <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
-            <span>Acc 2 (Logic/API)</span>
-          </button>
-        </div>
-
-        <!-- Guide Modal Button -->
-        <button id="btnOpenGuide" class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition" title="Xem hướng dẫn 2 người làm">
-          <i data-lucide="book-open" class="w-4 h-4"></i>
-        </button>
+        <a href="https://github.com/thaitraicau123-pixel/antigravity-collab-web123" target="_blank" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white transition flex items-center gap-1.5 text-xs font-semibold">
+          <i data-lucide="github" class="w-4 h-4"></i>
+          <span>GitHub Repo</span>
+        </a>
       </div>
     </div>
   </header>
 
-  <!-- Main Content Container -->
+  <!-- Main Content -->
   <main class="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
     
-    <!-- Top Welcome & Team Overview Banner -->
-    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-indigo-950/60 border border-slate-800 p-6 sm:p-8 shadow-xl">
-      <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+    <!-- Top Game Banner & Welcome -->
+    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-cyan-950/40 border border-slate-800 p-6 sm:p-8 shadow-xl">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
         <div class="space-y-2 max-w-2xl">
-          <div class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
-            <i data-lucide="users" class="w-3.5 h-3.5"></i> Dự án nhóm 2 tài khoản
+          <div class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">
+            <i data-lucide="swords" class="w-3.5 h-3.5"></i> Mini Game 1: Cờ Caro 5 Ô (Gomoku)
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-            Cùng làm Web với 2 tài khoản Antigravity
+            Đấu Trường Board Game Online Cùng Bạn Bè
           </h1>
           <p class="text-slate-300 text-sm leading-relaxed">
-            Dự án đã được thiết lập sẵn bộ file cấu hình <code class="text-blue-400 bg-slate-800/80 px-1.5 py-0.5 rounded font-mono text-xs">AGENTS.md</code> và <code class="text-blue-400 bg-slate-800/80 px-1.5 py-0.5 rounded font-mono text-xs">.agents/rules</code>. Cả hai bạn chỉ cần mở folder này trong Antigravity là AI tự động hiểu vai trò và không bao giờ xung đột code!
+            Luật chơi: Đạt <strong class="text-yellow-400 font-bold">5 quân cờ liên tiếp</strong> (ngang, dọc hoặc chéo) để chiến thắng! Hai bạn có thể bấm chơi trực tiếp trên bàn cờ bên dưới ngay bây giờ.
           </p>
         </div>
 
-        <div class="flex flex-wrap items-center gap-3">
-          <button id="btnOpenPromptModal" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-sm shadow-lg shadow-blue-600/30 flex items-center gap-2 transition transform active:scale-95">
-            <i data-lucide="terminal" class="w-4 h-4"></i>
-            <span>Lấy Prompt mẫu cho Antigravity</span>
-          </button>
-          <button id="btnQuickExport" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-medium text-sm flex items-center gap-2 transition">
-            <i data-lucide="download" class="w-4 h-4"></i>
-            <span>Tải file dữ liệu (.JSON)</span>
-          </button>
+        <!-- Role Badges -->
+        <div class="flex flex-col sm:flex-row items-center gap-3">
+          <div class="flex items-center gap-2 px-3 py-2 rounded-xl bg-cyan-950/50 border border-cyan-500/30 text-xs">
+            <span class="w-3 h-3 rounded-full bg-cyan-400"></span>
+            <div>
+              <p class="font-bold text-cyan-300">Player X (Anh)</p>
+              <p class="text-[10px] text-slate-400">Phụ trách: Game Logic</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 px-3 py-2 rounded-xl bg-pink-950/50 border border-pink-500/30 text-xs">
+            <span class="w-3 h-3 rounded-full bg-pink-400"></span>
+            <div>
+              <p class="font-bold text-pink-300">Player O (Bạn anh)</p>
+              <p class="text-[10px] text-slate-400">Phụ trách: Game UI/UX</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Live Project Progress Bar & Statistics Widget (Powered by feat/logic) -->
-    <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 shadow-xl space-y-4">
+    <!-- The Playable Board Game Arena -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left: Interactive Caro Board (7 Cols) -->
+      <div class="lg:col-span-7 bg-slate-900/70 border border-slate-800 rounded-2xl p-5 shadow-2xl flex flex-col items-center">
+        <!-- Turn Status Bar -->
+        <div class="w-full flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <div id="turnIndicatorBadge" class="px-3 py-1 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs font-bold flex items-center gap-1.5 shadow-sm">
+              <span id="turnPlayerIcon" class="font-mono text-sm">X</span>
+              <span id="turnPlayerText">Lượt của Người chơi X</span>
+            </div>
+            <span id="gameStatusText" class="text-xs text-slate-400 font-medium">Bấm vào ô để đánh cờ</span>
+          </div>
+
+          <!-- Turn Countdown Timer -->
+          <div class="flex items-center gap-1.5 bg-slate-950 px-3 py-1 rounded-lg border border-slate-800 text-xs font-mono">
+            <i data-lucide="timer" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span id="timerCount" class="text-amber-400 font-bold">30s</span>
+          </div>
+        </div>
+
+        <!-- 12x12 Grid Container -->
+        <div class="w-full max-w-[500px]">
+          <div id="caroBoard" class="board-grid">
+            <!-- Dynamically populated 144 cells -->
+          </div>
+        </div>
+
+        <!-- Game Controls -->
+        <div class="w-full flex flex-wrap items-center justify-between gap-3 mt-5 pt-4 border-t border-slate-800">
+          <div class="flex items-center gap-2">
+            <button id="btnNewGame" class="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-cyan-600/30 transition transform active:scale-95">
+              <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Ván Mới
+            </button>
+            <button id="btnUndoMove" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs flex items-center gap-1.5 transition">
+              <i data-lucide="undo-2" class="w-3.5 h-3.5"></i> Đi Lại
+            </button>
+          </div>
+          <button id="btnResetScore" class="text-xs text-slate-500 hover:text-rose-400 font-medium transition">
+            Đặt lại tỉ số
+          </button>
+        </div>
+      </div>
+
+      <!-- Right: Game Control, Scoreboard & Match Stats (5 Cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        
+        <!-- Scoreboard Card -->
+        <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-white text-base flex items-center gap-2">
+              <i data-lucide="trophy" class="w-5 h-5 text-yellow-400"></i>
+              Bảng Tỉ Số Đối Đầu
+            </h3>
+            <span class="text-xs text-slate-400 font-mono">Tự động lưu</span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div class="bg-slate-950/80 border border-cyan-500/30 rounded-xl p-3">
+              <span class="text-xs font-bold text-cyan-400">Player X</span>
+              <p id="scoreX" class="text-2xl font-black text-white font-mono mt-1">0</p>
+              <span class="text-[10px] text-slate-400">Thắng</span>
+            </div>
+            <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-3">
+              <span class="text-xs font-bold text-slate-400">Hòa</span>
+              <p id="scoreDraw" class="text-2xl font-black text-slate-300 font-mono mt-1">0</p>
+              <span class="text-[10px] text-slate-500">Trận</span>
+            </div>
+            <div class="bg-slate-950/80 border border-pink-500/30 rounded-xl p-3">
+              <span class="text-xs font-bold text-pink-400">Player O</span>
+              <p id="scoreO" class="text-2xl font-black text-white font-mono mt-1">0</p>
+              <span class="text-[10px] text-slate-400">Thắng</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Move History -->
+        <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2">
+              <i data-lucide="history" class="w-4 h-4 text-slate-400"></i>
+              Lịch Sử Nước Cờ
+            </h3>
+            <span id="moveCountBadge" class="text-xs font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">0 nước</span>
+          </div>
+
+          <div id="moveHistoryList" class="space-y-1.5 font-mono text-xs max-h-48 overflow-y-auto pr-1">
+            <p class="text-slate-500 text-center py-4 text-xs italic">Chưa có nước cờ nào. Hãy đánh ô đầu tiên!</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Progress & Feature Development Roadmap for the 2 Friends -->
+    <div class="rounded-2xl bg-slate-900/60 border border-slate-800 p-6 shadow-xl space-y-4">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-            <i data-lucide="activity" class="w-5 h-5"></i>
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500/20 to-pink-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+            <i data-lucide="kanban" class="w-5 h-5"></i>
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h3 class="text-base font-bold text-white tracking-tight">Tiến Độ Dự Án (Live Progress)</h3>
-              <span id="progressBadge" class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold font-mono">0%</span>
+              <h3 class="text-base font-bold text-white tracking-tight">Lộ Trình Phát Triển Board Game Online Của 2 Bạn</h3>
+              <span id="progressBadge" class="text-xs px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold font-mono">0%</span>
             </div>
-            <p class="text-xs text-slate-400">Tính năng tính toán tự động qua module logic <code class="font-mono text-purple-400 text-[11px]">js/api.js</code> (nhánh feat/logic)</p>
-          </div>
-        </div>
-
-        <div class="flex flex-wrap items-center gap-4 text-xs font-medium text-slate-300">
-          <div class="flex items-center gap-1.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-            <span>Hoàn thành: <strong id="statDoneCount" class="text-emerald-400 font-mono font-bold">0</strong>/<span id="statTotalCount" class="font-mono">0</span></span>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
-            <span>Đang code: <strong id="statInProgressCount" class="text-blue-400 font-mono font-bold">0</strong></span>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-            <span>Cần làm: <strong id="statTodoCount" class="text-amber-400 font-mono font-bold">0</strong></span>
+            <p class="text-xs text-slate-400">Cả 2 bạn cùng xem trang web này để biết ai đang làm tính năng nào tiếp theo</p>
           </div>
         </div>
       </div>
 
-      <!-- Animated Progress Bar -->
+      <!-- Live Progress Bar -->
       <div class="space-y-1.5">
         <div class="w-full bg-slate-950 rounded-full h-3.5 p-0.5 border border-slate-800 overflow-hidden">
-          <div id="progressBarFill" class="bg-gradient-to-r from-blue-600 via-indigo-500 to-emerald-500 h-full rounded-full transition-all duration-700 ease-out shadow-sm" style="width: 0%;"></div>
+          <div id="progressBarFill" class="bg-gradient-to-r from-cyan-500 via-sky-500 to-pink-500 h-full rounded-full transition-all duration-700 ease-out shadow-sm" style="width: 0%;"></div>
         </div>
         <div class="flex items-center justify-between text-[11px] text-slate-500 font-mono">
-          <span>0%</span>
-          <span id="progressSummaryText" class="text-slate-300 font-sans">Đang đồng bộ số liệu tiến độ...</span>
-          <span>100% Hoàn tất</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2 Roles Info Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Acc 1 Card -->
-      <div class="rounded-xl bg-slate-900/70 border border-blue-500/30 p-6 relative group hover:border-blue-500/60 transition shadow-lg">
-        <div class="flex items-start justify-between">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
-              <i data-lucide="palette" class="w-6 h-6"></i>
-            </div>
-            <div>
-              <span class="text-xs font-bold uppercase text-blue-400 tracking-wider">Tài khoản 1 (Bạn)</span>
-              <h2 class="text-lg font-bold text-white">Frontend & UI/UX Master</h2>
-            </div>
-          </div>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 font-mono">Nhánh: feat/ui</span>
-        </div>
-        <div class="mt-4 text-xs text-slate-300 space-y-2">
-          <p><strong class="text-slate-100">Khu vực phụ trách:</strong> <code class="font-mono text-blue-300">index.html</code>, <code class="font-mono text-blue-300">css/style.css</code>, layout, animation, responsive.</p>
-          <p><strong class="text-slate-100">Nhiệm vụ:</strong> Thiết kế giao diện, phối màu, tạo component đẹp, chỉnh sửa trải nghiệm người dùng.</p>
-        </div>
-        <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between">
-          <span class="text-xs text-slate-400">AI Role: Chuyên gia thiết kế UI</span>
-          <button onclick="copyRolePrompt('acc1')" class="text-xs text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-1">
-            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Prompt Acc 1
-          </button>
+          <span>Khởi tạo</span>
+          <span id="progressSummaryText" class="text-slate-300 font-sans">Đang đồng bộ tiến độ...</span>
+          <span>Hoàn tất 100%</span>
         </div>
       </div>
 
-      <!-- Acc 2 Card -->
-      <div class="rounded-xl bg-slate-900/70 border border-purple-500/30 p-6 relative group hover:border-purple-500/60 transition shadow-lg">
-        <div class="flex items-start justify-between">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
-              <i data-lucide="cpu" class="w-6 h-6"></i>
-            </div>
-            <div>
-              <span class="text-xs font-bold uppercase text-purple-400 tracking-wider">Tài khoản 2 (Bạn của anh)</span>
-              <h2 class="text-lg font-bold text-white">Logic, API & Feature Specialist</h2>
-            </div>
-          </div>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300 font-mono">Nhánh: feat/logic</span>
-        </div>
-        <div class="mt-4 text-xs text-slate-300 space-y-2">
-          <p><strong class="text-slate-100">Khu vực phụ trách:</strong> <code class="font-mono text-purple-300">js/api.js</code>, <code class="font-mono text-purple-300">js/app.js</code>, state, database, xử lý dữ liệu.</p>
-          <p><strong class="text-slate-100">Nhiệm vụ:</strong> Viết hàm xử lý nghiệp vụ, lưu trữ LocalStorage/API, tính toán dữ liệu, validate form.</p>
-        </div>
-        <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between">
-          <span class="text-xs text-slate-400">AI Role: Kỹ sư tính năng & Data</span>
-          <button onclick="copyRolePrompt('acc2')" class="text-xs text-purple-400 hover:text-purple-300 font-semibold flex items-center gap-1">
-            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Prompt Acc 2
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Live Collaborative Task Board (Kanban) -->
-    <div class="space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h2 class="text-xl font-bold text-white flex items-center gap-2">
-            <i data-lucide="kanban-square" class="w-5 h-5 text-indigo-400"></i>
-            Bảng Quản Lý Tính Năng & Phân Chia Việc
-          </h2>
-          <p class="text-xs text-slate-400">Thêm và cập nhật tính năng trực tiếp - cả 2 bạn cùng theo dõi tiến độ</p>
-        </div>
-        
-        <div class="flex items-center gap-2">
-          <button id="btnAddTaskModal" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs flex items-center gap-1.5 shadow">
-            <i data-lucide="plus" class="w-4 h-4"></i> Thêm Nhiệm Vụ Mới
-          </button>
-          <button id="btnResetTasks" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs">
-            Khôi phục mặc định
-          </button>
-        </div>
-      </div>
-
-      <!-- Kanban Columns -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Col 1: Cần làm (Todo) -->
-        <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex flex-col h-full min-h-[360px]">
-          <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-              <h3 class="font-semibold text-sm text-slate-200">Cần làm (Backlog)</h3>
-            </div>
-            <span id="countTodo" class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-mono">0</span>
-          </div>
-          <div id="todoContainer" class="space-y-3 flex-1 overflow-y-auto">
-            <!-- Dynamically populated -->
-          </div>
-        </div>
-
-        <!-- Col 2: Đang thực hiện (In Progress) -->
-        <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex flex-col h-full min-h-[360px]">
-          <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
-              <h3 class="font-semibold text-sm text-slate-200">Đang code (In Progress)</h3>
-            </div>
-            <span id="countInProgress" class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-mono">0</span>
-          </div>
-          <div id="inProgressContainer" class="space-y-3 flex-1 overflow-y-auto">
-            <!-- Dynamically populated -->
-          </div>
-        </div>
-
-        <!-- Col 3: Đã hoàn thành (Done) -->
-        <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex flex-col h-full min-h-[360px]">
-          <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-              <h3 class="font-semibold text-sm text-slate-200">Đã xong & Merge</h3>
-            </div>
-            <span id="countDone" class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-mono">0</span>
-          </div>
-          <div id="doneContainer" class="space-y-3 flex-1 overflow-y-auto">
-            <!-- Dynamically populated -->
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Realtime Git Activity / Collab Log -->
-    <div class="rounded-xl bg-slate-900/60 border border-slate-800 p-6 space-y-4">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <i data-lucide="git-commit" class="w-5 h-5 text-emerald-400"></i>
-          <h3 class="font-bold text-white text-base">Nhật Ký Phối Hợp & Git Activity Giữa 2 Bạn</h3>
-        </div>
-        <span class="text-xs text-slate-400 font-mono">Tự động ghi nhận khi 2 bên cập nhật</span>
-      </div>
-
-      <div id="activityLogContainer" class="space-y-2.5 font-mono text-xs max-h-48 overflow-y-auto pr-2">
-        <!-- Dynamically rendered activity items -->
+      <!-- Tasks List for Board Game Features -->
+      <div id="devTasksContainer" class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+        <!-- Dynamically rendered -->
       </div>
     </div>
 
   </main>
 
-  <!-- Footer -->
-  <footer class="border-t border-slate-800/80 bg-slate-950/80 py-6 text-center text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p>Dự án thiết kế chuẩn cho Google Antigravity & Antigravity IDE</p>
-      <div class="flex items-center space-x-4">
-        <span>File: <code class="text-slate-400">AGENTS.md</code> đã nạp</span>
-        <span>•</span>
-        <span>2 Accounts Active</span>
+  <!-- Winner Celebration Modal -->
+  <div id="winModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl transform transition-all">
+      <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-yellow-400 to-amber-500 flex items-center justify-center mx-auto shadow-lg shadow-yellow-500/20">
+        <i data-lucide="crown" class="w-8 h-8 text-slate-950"></i>
       </div>
-    </div>
-  </footer>
-
-  <!-- Modal: Hướng Dẫn 2 Người Làm (Full Guide) -->
-  <div id="guideModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
-      <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/90">
-        <div class="flex items-center gap-2">
-          <i data-lucide="help-circle" class="w-5 h-5 text-blue-400"></i>
-          <h3 class="font-bold text-white text-base">3 Cách để 2 người cùng code trên Antigravity</h3>
-        </div>
-        <button id="btnCloseGuide" class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
+      <div>
+        <h3 id="winTitle" class="text-xl font-extrabold text-white">CHIẾN THẮNG!</h3>
+        <p id="winDescription" class="text-xs text-slate-300 mt-1">Người chơi X đã xếp đủ 5 quân liên tiếp!</p>
       </div>
-
-      <div class="p-6 overflow-y-auto space-y-6 text-sm text-slate-300">
-        <!-- Cách 1 -->
-        <div class="space-y-2 bg-slate-950/50 p-4 rounded-xl border border-slate-800">
-          <div class="flex items-center gap-2 text-blue-400 font-bold">
-            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs">1</span>
-            <span>Cách 1: Realtime Live Share (Lập trình trực tiếp thời gian thực)</span>
-          </div>
-          <p class="text-xs text-slate-400">Thích hợp nhất khi 2 bạn muốn nhìn thấy con trỏ chuột của nhau, cùng chat với AI và cùng sửa file.</p>
-          <ul class="text-xs list-disc list-inside space-y-1 text-slate-300">
-            <li>Người 1 mở Antigravity IDE -> Cài extension <strong>Live Share</strong> -> Bấm nút <strong>Share</strong> ở thanh dưới.</li>
-            <li>Copy link gửi cho Người 2.</li>
-            <li>Người 2 mở Antigravity IDE -> Bấm <strong>Join</strong> và dán link vào. Xong! Cả 2 cùng thao tác và chia sẻ server localhost!</li>
-          </ul>
-        </div>
-
-        <!-- Cách 2 -->
-        <div class="space-y-2 bg-slate-950/50 p-4 rounded-xl border border-slate-800">
-          <div class="flex items-center gap-2 text-indigo-400 font-bold">
-            <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xs">2</span>
-            <span>Cách 2: GitHub Repository (Chuẩn chuyên nghiệp cho dự án lâu dài)</span>
-          </div>
-          <p class="text-xs text-slate-400">Thích hợp khi mỗi người làm ở thời gian rảnh riêng, không cần online cùng lúc.</p>
-          <ul class="text-xs list-disc list-inside space-y-1 text-slate-300">
-            <li>Tạo một repository trên GitHub và đẩy toàn bộ thư mục này lên (bao gồm cả file <code class="font-mono text-indigo-300">AGENTS.md</code>).</li>
-            <li>Add bạn của anh làm Collaborator trên GitHub.</li>
-            <li>Bạn của anh clone về máy và mở bằng Antigravity. Cả 2 người bảo AI của mình commit theo đúng nhánh: <code class="font-mono text-indigo-300">feat/ui</code> và <code class="font-mono text-indigo-300">feat/logic</code>.</li>
-          </ul>
-        </div>
-
-        <!-- Cách 3 -->
-        <div class="space-y-2 bg-slate-950/50 p-4 rounded-xl border border-slate-800">
-          <div class="flex items-center gap-2 text-emerald-400 font-bold">
-            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs">3</span>
-            <span>Cách 3: Gửi thẳng File Zip đã nén sẵn (Nhanh nhất trong hôm nay)</span>
-          </div>
-          <p class="text-xs text-slate-400">Em đã nén sẵn file <code class="text-emerald-300 font-mono">antigravity-collab-web.zip</code> cho anh.</p>
-          <ul class="text-xs list-disc list-inside space-y-1 text-slate-300">
-            <li>Anh chỉ cần gửi file zip đó qua Zalo / Telegram / Drive cho bạn.</li>
-            <li>Bạn giải nén ra, mở thư mục bằng Antigravity IDE hoặc Antigravity 2.0.</li>
-            <li>Mở file <code class="text-emerald-300 font-mono">HUONG_DAN_CHO_BAN.md</code> là bạn anh biết chính xác cần làm gì ngay lập tức!</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="px-6 py-4 border-t border-slate-800 flex justify-end bg-slate-900/90">
-        <button id="btnGotIt" class="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs rounded-xl shadow-md transition">
-          Đã hiểu, đóng hướng dẫn
-        </button>
-      </div>
+      <button id="btnModalPlayAgain" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold text-xs shadow-lg shadow-cyan-500/30 transition transform active:scale-95">
+        Chơi Ván Tiếp Theo
+      </button>
     </div>
   </div>
-
-  <!-- Modal: Prompt Mẫu Cho Antigravity -->
-  <div id="promptModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-xl w-full flex flex-col shadow-2xl overflow-hidden">
-      <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
-        <h3 class="font-bold text-white text-base flex items-center gap-2">
-          <i data-lucide="terminal" class="w-4 h-4 text-blue-400"></i>
-          Prompt chuẩn gửi cho Antigravity AI
-        </h3>
-        <button id="btnClosePromptModal" class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <div class="p-6 space-y-4">
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Chọn vai trò của bạn:</label>
-          <select id="selectPromptRole" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-500">
-            <option value="acc1">Acc 1: Tôi phụ trách Giao diện (UI/UX)</option>
-            <option value="acc2">Acc 2: Tôi phụ trách Logic & API</option>
-            <option value="sync">Đồng bộ: Nhờ AI kiểm tra và giải quyết conflict</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Nội dung câu lệnh (Prompt):</label>
-          <textarea id="promptTextarea" rows="6" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-300 font-mono focus:outline-none resize-none"></textarea>
-        </div>
-
-        <div class="flex justify-end gap-2">
-          <button id="btnCopyPrompt" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs rounded-xl flex items-center gap-1.5 shadow">
-            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-            <span>Sao chép Prompt</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal: Thêm Task Mới -->
-  <div id="addTaskModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full shadow-2xl overflow-hidden">
-      <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
-        <h3 class="font-bold text-white text-base">Thêm tính năng / nhiệm vụ mới</h3>
-        <button id="btnCloseAddTask" class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <form id="formAddTask" class="p-6 space-y-4">
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Tiêu đề tính năng:</label>
-          <input type="text" id="inputTaskTitle" required placeholder="Ví dụ: Thêm tính năng chat 1-1, Dark mode..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-500">
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Người làm:</label>
-            <select id="inputTaskAssignee" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-500">
-              <option value="Acc 1 (UI/UX)">Acc 1 (UI/UX)</option>
-              <option value="Acc 2 (Logic)">Acc 2 (Logic)</option>
-              <option value="Cả 2 người">Cả 2 người</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Mức ưu tiên:</label>
-            <select id="inputTaskPriority" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-500">
-              <option value="Cao">Cao 🔥</option>
-              <option value="Trung bình" selected>Trung bình</option>
-              <option value="Thấp">Thấp</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="flex justify-end gap-2 pt-2">
-          <button type="button" id="btnCancelAddTask" class="px-4 py-2 bg-slate-800 text-slate-300 text-xs rounded-xl hover:bg-slate-700">Hủy</button>
-          <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs rounded-xl shadow">Lưu nhiệm vụ</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Toast Notification Container -->
-  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
 
   <!-- Scripts -->
   <script src="js/api.js"></script>
   <script src="js/app.js"></script>
   <script>
-    // Initialize Lucide Icons
     lucide.createIcons();
   </script>
 </body>

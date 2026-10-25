@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDevTasks();
   bindGameEvents();
   initFirebaseEvents();
+  initDevChangelog();
   updateScoresUI();
   startTurnTimer();
 
@@ -531,5 +532,84 @@ function bindOnlineRoomListener() {
         }
       }
     }
+  });
+}
+
+
+/**
+ * Quản lý & Hiển thị nhật ký cập nhật của 2 lập trình viên
+ */
+async function initDevChangelog() {
+  const container = document.getElementById('changelogListContainer');
+  const btnAll = document.getElementById('btnFilterAll');
+  const btnDev2 = document.getElementById('btnFilterDev2');
+  const btnDev1 = document.getElementById('btnFilterDev1');
+
+  if (!container) return;
+
+  const updates = await TeamAPI.getDevUpdates();
+
+  const renderChangelog = (filter) => {
+    container.innerHTML = '';
+    const filtered = filter === 'all' ? updates : updates.filter(u => u.roleType === filter);
+
+    if (filtered.length === 0) {
+      container.innerHTML = '<p class="text-xs text-slate-500 italic py-3 text-center">Chưa có ghi chú cập nhật nào.</p>';
+      return;
+    }
+
+    filtered.forEach(item => {
+      const isDev2 = item.roleType === 'dev2';
+      const borderCol = isDev2 ? 'border-cyan-500/30' : 'border-pink-500/30';
+      const badgeBg = isDev2 ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' : 'bg-pink-500/10 text-pink-400 border-pink-500/20';
+
+      const card = document.createElement('div');
+      card.className = `p-4 rounded-xl bg-slate-950/80 border ${borderCol} space-y-2 hover:border-slate-700 transition`;
+      card.innerHTML = `
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${badgeBg}">
+              ${item.author}
+            </span>
+            <span class="text-[10px] font-mono text-amber-400 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded font-bold">
+              ${item.version}
+            </span>
+            <strong class="text-xs text-white">${item.title}</strong>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-500 font-mono">
+            <span>[#${item.commit}]</span>
+            <span>•</span>
+            <span>${item.time}</span>
+          </div>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed pl-1">${item.details}</p>
+      `;
+      container.appendChild(card);
+    });
+
+    if (window.lucide) lucide.createIcons();
+  };
+
+  renderChangelog('all');
+
+  btnAll?.addEventListener('click', () => {
+    btnAll.className = 'px-3 py-1 text-xs font-semibold rounded-lg bg-cyan-600 text-white transition';
+    btnDev2.className = 'px-3 py-1 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition';
+    btnDev1.className = 'px-3 py-1 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition';
+    renderChangelog('all');
+  });
+
+  btnDev2?.addEventListener('click', () => {
+    btnDev2.className = 'px-3 py-1 text-xs font-semibold rounded-lg bg-cyan-600 text-white transition';
+    btnAll.className = 'px-3 py-1 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition';
+    btnDev1.className = 'px-3 py-1 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition';
+    renderChangelog('dev2');
+  });
+
+  btnDev1?.addEventListener('click', () => {
+    btnDev1.className = 'px-3 py-1 text-xs font-semibold rounded-lg bg-pink-600 text-white transition';
+    btnAll.className = 'px-3 py-1 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition';
+    btnDev2.className = 'px-3 py-1 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition';
+    renderChangelog('dev1');
   });
 }

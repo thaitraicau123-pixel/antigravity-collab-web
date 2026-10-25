@@ -76,6 +76,13 @@ class BoardGameEngine {
     this.moveHistory = [];
     this.timeLeft = 30;
     this.timerInterval = null;
+    this.gameMode = 'BOT'; // 'BOT' (Chơi với máy) hoặc 'PVP' (2 người)
+    this.isBotThinking = false;
+  }
+
+  setGameMode(mode) {
+    this.gameMode = mode;
+    return this.gameMode;
   }
 
   /**
@@ -89,6 +96,7 @@ class BoardGameEngine {
     this.winningLine = [];
     this.moveHistory = [];
     this.timeLeft = 30;
+    this.isBotThinking = false;
     return this.getState();
   }
 
@@ -187,6 +195,127 @@ class BoardGameEngine {
     }
 
     return { won: false, line: [] };
+  }
+
+  /**
+   * [Collab-Acc2]: Thuật toán Bot AI Heuristic đánh cờ Caro thông minh
+   * Tự động tính toán điểm tấn công và phòng thủ chặn đối thủ
+   * @returns {{row: number, col: number}}
+   */
+  calculateBestBotMove() {
+    if (this.moveHistory.length === 0) {
+      return { row: Math.floor(BOARD_SIZE / 2), col: Math.floor(BOARD_SIZE / 2) };
+    }
+
+    const botPlayer = 'O';
+    const humanPlayer = 'X';
+
+    let bestScore = -Infinity;
+    let candidateMoves = [];
+
+    const directions = [
+      [0, 1],   // Ngang
+      [1, 0],   // Dọc
+      [1, 1],   // Chéo chính
+      [1, -1]   // Chéo phụ
+    ];
+
+    const evaluatePoint = (r, c, player) => {
+      let score = 0;
+      for (const [dx, dy] of directions) {
+        let count = 1;
+        let openEnds = 0;
+
+        // Tiến
+        let step = 1;
+        while (true) {
+          const nr = r + dx * step;
+          const nc = c + dy * step;
+          if (nr < 0 || nr >= BOARD_SIZE || nc < 0 || nc >= BOARD_SIZE) break;
+          if (this.board[nr][nc] === player) {
+            count++;
+            step++;
+          } else if (this.board[nr][nc] === null) {
+            openEnds++;
+            break;
+          } else {
+            break;
+          }
+        }
+
+        // Lùi
+        step = 1;
+        while (true) {
+          const nr = r - dx * step;
+          const nc = c - dy * step;
+          if (nr < 0 || nr >= BOARD_SIZE || nc < 0 || nc >= BOARD_SIZE) break;
+          if (this.board[nr][nc] === player) {
+            count++;
+            step++;
+          } else if (this.board[nr][nc] === null) {
+            openEnds++;
+            break;
+          } else {
+            break;
+          }
+        }
+
+        if (count >= 5) score += 100000;
+        else if (count === 4) {
+          if (openEnds === 2) score += 20000;
+          else if (openEnds === 1) score += 5000;
+        } else if (count === 3) {
+          if (openEnds === 2) score += 3000;
+          else if (openEnds === 1) score += 500;
+        } else if (count === 2) {
+          if (openEnds === 2) score += 200;
+          else if (openEnds === 1) score += 50;
+        }
+      }
+      return score;
+    };
+
+    for (let r = 0; r < BOARD_SIZE; r++) {
+      for (let c = 0; c < BOARD_SIZE; c++) {
+        if (this.board[r][c] !== null) continue;
+
+        let hasNeighbor = false;
+        for (let dr = -2; dr <= 2 && !hasNeighbor; dr++) {
+          for (let dc = -2; dc <= 2; dc++) {
+            const nr = r + dr;
+            const nc = c + dc;
+            if (nr >= 0 && nr < BOARD_SIZE && nc >= 0 && nc < BOARD_SIZE && this.board[nr][nc] !== null) {
+              hasNeighbor = true;
+              break;
+            }
+          }
+        }
+        if (!hasNeighbor) continue;
+
+        const attackScore = evaluatePoint(r, c, botPlayer);
+        const defenseScore = evaluatePoint(r, c, humanPlayer);
+
+        let totalScore = attackScore + Math.floor(defenseScore * 1.3);
+        totalScore += (12 - Math.abs(r - 5.5) - Math.abs(c - 5.5));
+
+        if (totalScore > bestScore) {
+          bestScore = totalScore;
+          candidateMoves = [{ row: r, col: c }];
+        } else if (totalScore === bestScore) {
+          candidateMoves.push({ row: r, col: c });
+        }
+      }
+    }
+
+    if (candidateMoves.length === 0) {
+      for (let r = 0; r < BOARD_SIZE; r++) {
+        for (let c = 0; c < BOARD_SIZE; c++) {
+          if (this.board[r][c] === null) return { row: r, col: c };
+        }
+      }
+    }
+
+    return candidateMoves[Math.floor(Math.random() * candidateMoves.length)];
   }
 
   /**

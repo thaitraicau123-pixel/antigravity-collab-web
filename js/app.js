@@ -45,6 +45,8 @@ function initBoard() {
  * Xử lý khi người chơi bấm vào 1 ô cờ
  */
 function handleCellClick(row, col) {
+  if (window.gameEngine.isBotThinking) return;
+
   const result = window.gameEngine.makeMove(row, col);
   if (!result.success) return;
 
@@ -62,7 +64,6 @@ function handleCellClick(row, col) {
     if (result.winner === 'DRAW') {
       showWinModal('HÒA CỜ!', 'Hai bên đã hòa nhau sau trận đấu căng thẳng!');
     } else {
-      // Highlight 5 ô thắng
       if (result.winningLine) {
         result.winningLine.forEach(pos => {
           const winCell = document.getElementById(`cell-${pos.row}-${pos.col}`);
@@ -70,7 +71,6 @@ function handleCellClick(row, col) {
         });
       }
 
-      // Bắn pháo hoa ăn mừng
       if (window.confetti) {
         confetti({
           particleCount: 100,
@@ -79,12 +79,49 @@ function handleCellClick(row, col) {
         });
       }
 
-      const winnerName = result.winner === 'X' ? 'Player X (Anh)' : 'Player O (Bạn anh)';
+      const winnerName = result.winner === 'X' ? 'Player X (Anh)' : (window.gameEngine.gameMode === 'BOT' ? 'Bot AI 🤖' : 'Player O (Bạn anh)');
       showWinModal(`CHIẾN THẮNG! 🏆`, `${winnerName} đã hoàn thành 5 quân liên tiếp!`);
     }
   } else {
-    // Đổi lượt và reset đồng hồ
     resetTurnTimer();
+
+    // Nếu đang ở chế độ Đấu với Bot AI và đến lượt O
+    if (window.gameEngine.gameMode === 'BOT' && window.gameEngine.currentPlayer === 'O') {
+      window.gameEngine.isBotThinking = true;
+      const gameStatus = document.getElementById('gameStatusText');
+      if (gameStatus) gameStatus.innerHTML = '<span class="text-pink-400 font-bold animate-pulse">🤖 Bot AI đang tính toán nước đi...</span>';
+
+      setTimeout(() => {
+        const botMove = window.gameEngine.calculateBestBotMove();
+        const botResult = window.gameEngine.makeMove(botMove.row, botMove.col);
+        window.gameEngine.isBotThinking = false;
+        if (gameStatus) gameStatus.innerText = 'Bấm vào ô để đánh cờ';
+
+        if (botResult.success) {
+          updateBoardUI(botResult.lastMove);
+          addMoveToHistory(botResult.lastMove);
+
+          if (botResult.isGameOver) {
+            stopTurnTimer();
+            updateScoresUI();
+
+            if (botResult.winner === 'DRAW') {
+              showWinModal('HÒA CỜ!', 'Trận đấu bất phân thắng bại!');
+            } else {
+              if (botResult.winningLine) {
+                botResult.winningLine.forEach(pos => {
+                  const winCell = document.getElementById(`cell-${pos.row}-${pos.col}`);
+                  if (winCell) winCell.classList.add('win-cell');
+                });
+              }
+              showWinModal('BOT AI THẮNG! 🤖', 'Bot AI đã xếp đủ 5 quân liên tiếp! Hãy bấm Ván Mới để phục thù.');
+            }
+          } else {
+            resetTurnTimer();
+          }
+        }
+      }, 400);
+    }
   }
 }
 
@@ -129,11 +166,11 @@ function updateBoardUI(lastMove = null) {
     if (state.currentPlayer === 'X') {
       turnBadge.className = 'px-3 py-1 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs font-bold flex items-center gap-1.5 shadow-sm';
       turnPlayerIcon.innerText = 'X';
-      turnPlayerText.innerText = 'Lượt của Player X (Anh)';
+      turnPlayerText.innerText = 'Lượt của Bạn (X)';
     } else {
       turnBadge.className = 'px-3 py-1 rounded-xl bg-pink-500/20 text-pink-400 border border-pink-500/30 text-xs font-bold flex items-center gap-1.5 shadow-sm';
       turnPlayerIcon.innerText = 'O';
-      turnPlayerText.innerText = 'Lượt của Player O (Bạn anh)';
+      turnPlayerText.innerText = window.gameEngine.gameMode === 'BOT' ? 'Lượt của Bot AI (O)' : 'Lượt của Player O (Bạn anh)';
     }
   }
 }
@@ -231,6 +268,24 @@ function showWinModal(title, desc) {
  * Gắn các sự kiện điều khiển
  */
 function bindGameEvents() {
+  // Chuyển đổi chế độ chơi (Bot AI vs 2 Người)
+  const btnModeBot = document.getElementById('btnModeBot');
+  const btnModePvP = document.getElementById('btnModePvP');
+
+  btnModeBot?.addEventListener('click', () => {
+    btnModeBot.className = 'px-2.5 py-1 text-xs font-semibold rounded-lg bg-cyan-600 text-white transition flex items-center gap-1.5 shadow-sm';
+    btnModePvP.className = 'px-2.5 py-1 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1.5';
+    window.gameEngine.setGameMode('BOT');
+    document.getElementById('btnNewGame')?.click();
+  });
+
+  btnModePvP?.addEventListener('click', () => {
+    btnModePvP.className = 'px-2.5 py-1 text-xs font-semibold rounded-lg bg-pink-600 text-white transition flex items-center gap-1.5 shadow-sm';
+    btnModeBot.className = 'px-2.5 py-1 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1.5';
+    window.gameEngine.setGameMode('PVP');
+    document.getElementById('btnNewGame')?.click();
+  });
+
   // Nút ván mới
   document.getElementById('btnNewGame')?.addEventListener('click', () => {
     window.gameEngine.resetGame();

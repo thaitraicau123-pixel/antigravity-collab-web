@@ -1,37 +1,34 @@
-# SPECIFICATION: SCIENTIFIC LAYOUT RESTRUCTURING & UNIFIED ARENA DASHBOARD
+# SPECIFICATION: MULTI-BOT SYSTEM, CUSTOM GOAL SCORE & SPECTATOR (OBSERVER) MODE
 
-## 1. Mục tiêu Cốt lõi (Core Vision)
-- **Tái cấu trúc bố cục khoa học, hợp lý và tối ưu hóa không gian (Scientific Layout Overhaul):**
-  - Khắc phục tình trạng các tính năng bị phân mảnh, rời rạc (Sub-header riêng biệt, chọn chế độ chơi một nơi, chọn đối thủ một nẻo, nút ván mới nằm tách biệt).
-  - Tích hợp toàn bộ quyền điều khiển trận đấu vào **Unified Match Console** (Bảng điều khiển tập trung ngay trên đỉnh bàn cờ).
-  - Tinh gọn Header: Gộp trạng thái máy chủ `Máy Chủ: Trực Tuyến 🟢` lên thanh điều hướng chính, giải phóng thanh phụ (Sub-header) để tối đa hóa chiều cao bàn cờ.
-- **Kiến trúc Tab Đa Tầng Khoa Học (Multi-Tier Tab Architecture):**
-  - **Tầng 1 (Main Navigation Tabs trên Header):**
-    - `🎮 Bàn Đấu (Arena)`: Khu vực chơi cờ chính (Xúc xắc 12 ô & Ca-rô Neon).
-    - `🏆 Bảng Phong Thần (Leaderboard)`: Xem bảng xếp hạng kỳ thủ trực tiếp trong view chuyên sâu.
-    - `⚡ Hội Viên VIP (VIP Club)`: Xem quyền lợi và nâng cấp gói thành viên.
-    - `📜 Bí Kíp & Luật Chơi (Rules)`: Cẩm nang quy tắc bàn cờ chi tiết.
-  - **Tầng 2 (Arena Game Switcher bên trong Bàn Đấu):**
-    - `🎲 Cờ Xúc Xắc 12 Ô` | `⭕❌ Cờ Ca-rô Hoàng Gia`.
-  - **Tầng 3 (Tactical Intel Tabs bên trong cột HUD tác chiến):**
-    - `⚔️ Nhật Ký Trận Đấu` | `💡 Mẹo Chiến Thuật` | `📊 Thống Kê Ván Đấu`.
-- **Bố cục 2 Cột Vàng (Golden Ratio Split 65% : 35%):**
-  - Cột chính (65%): Bàn cờ thi đấu trung tâm, hiệu ứng nỉ nhung Tabletop sang trọng, khay xúc xắc 3D / lưới ca-rô neon.
-  - Cột phụ (35% - Bento HUD): Thẻ đối kháng VS trực quan, thanh tiến độ cán mích 50 điểm (Race to 50 Bar), và Deck thông tin tác chiến đa tab.
-- **Bảo toàn 100% Logic & Secret Portals:**
-  - Giữ nguyên toàn bộ logic chơi game, AI Bot, tích lũy điểm, xúc xắc, âm thanh Web Audio, Firebase Auth, và 4 Cổng Bí Mật (Logo Triple-click, `Ctrl+Shift+A`, `#admin`, `©` Triple-click).
+## 1. Yêu cầu Cốt lõi (Core Requirements)
+1. **Tùy chỉnh số lượng BOT tham chiến (Multi-Bot Support):**
+   - Cho phép người chơi tự do lựa chọn số lượng đối thủ máy: 1 BOT, 2 BOT, hoặc 3 BOT (tối đa bàn đấu 4 người chơi: P1 + 3 BOT, hoặc toàn bộ 4 BOT tự đấu).
+   - Mỗi BOT có tên gọi, avatar linh thú (Cáo Lửa 🦊, Sói Băng 🐺, Gấu Trúc Thần Bí 🐼), màu sắc nhận diện và token riêng biệt trên bàn cờ.
+2. **Tùy biến Mục tiêu Cán Đích (Custom Win Target Score):**
+   - Thay vì cố định 50 điểm, người chơi có thể tùy chọn nhanh:
+     - ⚡ Tốc Chiến: 30 Điểm (Ván nhanh 2-3 phút)
+     - 🎯 Tiêu Chuẩn: 50 Điểm (Ván chuẩn 5-7 phút)
+     - 👑 Trường Kỳ: 100 Điểm (Đại chiến gay cấn)
+     - ✏️ Nhập số điểm tùy ý (10 - 200 điểm).
+   - Thanh tiến độ Race-to-Goal tự động co giãn tỷ lệ phần trăm theo điểm số đã chọn.
+3. **Chế độ Khán Giả Quan Sát (Spectator / Auto-Play Observer Mode):**
+   - Cho phép người dùng chuyển sang vai trò **Khán Giả (Spectator)**:
+     - Toàn bộ ván cờ diễn ra tự động 100% giữa Người chơi mô phỏng hoặc Các BOT với nhau.
+     - Người dùng chỉ ngồi theo dõi, thư giãn xem AI thi triển chiến thuật.
+     - Có nút điều khiển khán giả: **▶️ Tiếp tục / ⏸️ Tạm dừng**, và **Tốc độ ván cờ (1x Bình thường • 2x Nhanh • 3x Siêu tốc)**.
+     - Huy hiệu "CHẾ ĐỘ KHÁN GIẢ ĐANG BẬT 👁️" tỏa sáng.
+     - Có thể bấm nút "🎮 Tham Gia Vào Chơi" bất kỳ lúc nào để lấy lại quyền điều khiển P1.
 
-## 2. Kế hoạch Triển khai (Execution Blueprint)
-1. **Khâu 1 (Architect):** Hoàn thiện đặc tả SPEC.md và phân bổ cấu trúc layout.
-2. **Khâu 2 (Builder):**
-   - Tái cấu trúc DOM HTML trong `index.html`:
-     - Nâng cấp Navbar: Thêm active tab indicators cho `Arena`, `Leaderboard`, `VIP`, `Rules`. Gộp Server status lên góc phải.
-     - Xây dựng `Unified Match Header` gắn liền với Arena.
-     - Thiết kế lại `Cột Tác Chiến (Tactical HUD)` với Versus Battle Card và Race Progress Bar.
-     - Triển khai các In-Place Content Views cho Leaderboard, VIP và Rules bên cạnh các Modal cũ.
-     - Cập nhật JS điều khiển chuyển Tab mượt mà (`switchMainTab('arena' | 'leaderboard' | 'vip' | 'rules')`).
-   - Kiểm tra font chữ tiếng Việt, responsiveness trên màn hình di động và máy tính.
-   - Commit & push lên nhánh `feat/ui`.
-3. **Khâu 3 (QA):**
-   - Kích hoạt và kiểm tra GitHub Pages build.
-   - Xác thực các thao tác chuyển tab, chuyển game, đấu bot / 2 người, và 4 Cổng Bí Mật hoạt động chính xác 100%.
+## 2. Kế hoạch Triển khai (Architect -> Builder -> QA)
+- **Khâu 1 (Architect):** Lập đặc tả SPEC.md chi tiết.
+- **Khâu 2 (Builder):**
+  - Mở rộng cấu trúc dữ liệu người chơi trong `index.html` từ 2 người thành đa người chơi linh hoạt (`players: [{ id: 1, name, isBot, score, pos, color, icon }]`).
+  - Nâng cấp **Unified Match Console**: Thêm dropdown/pill chọn số BOT (1-3 BOT), chọn Mục Tiêu Thắng (30 / 50 / 100 / Tùy chỉnh), và nút bật tắt "👁️ Khán Giả (Spectator)".
+  - Triển khai vòng lặp tự động (Auto-play game loop) cho chế độ quan sát với bộ điều tốc (Speed 1x, 2x, 3x).
+  - Nâng cấp Bento HUD bên phải: Hiển thị bảng đối đầu đa người chơi, thanh đua điểm đa sắc màu, và thanh điều khiển khán giả.
+  - Cập nhật bản sao ngoại tuyến trong Downloads và commit lên nhánh `feat/ui`.
+- **Khâu 3 (QA):**
+  - Kiểm thử chơi 1 BOT, 2 BOT, 3 BOT.
+  - Kiểm thử đổi điểm thắng (30đ, 75đ, 100đ).
+  - Kiểm thử chế độ Khán Giả (Tự động gieo xúc xắc, tạm dừng, đổi tốc độ).
+  - Xác thực GitHub Pages build thành công 100%.

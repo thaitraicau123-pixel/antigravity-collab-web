@@ -291,48 +291,106 @@
     <div id="mainViewArena" class="w-full flex flex-col items-center">
 
       <!-- UNIFIED ARENA MATCH CONSOLE (BẢNG ĐIỀU KHIỂN TRẬN ĐẤU TẬP TRUNG) -->
-      <div class="w-full max-w-5xl mb-4 p-2.5 sm:p-3 rounded-2xl bg-[#0B101E]/90 border border-amber-500/30 shadow-xl backdrop-blur-md flex flex-wrap items-center justify-between gap-3">
+      <div class="w-full max-w-5xl mb-3 p-2.5 sm:p-3 rounded-2xl bg-[#0B101E]/90 border border-amber-500/30 shadow-xl backdrop-blur-md flex flex-wrap items-center justify-between gap-2.5">
         
         <!-- Left: Game Mode Selector & Matchmaker -->
-        <div class="flex flex-wrap items-center gap-2.5">
+        <div class="flex flex-wrap items-center gap-2">
           <!-- Game Mode Pill Switcher -->
           <div class="relative bg-board-tray p-1 rounded-xl border border-board-border flex items-center shadow-inner">
-            <div id="gameTabPill" class="absolute top-1 bottom-1 w-[120px] bg-gradient-to-r from-amber-600 to-amber-700 rounded-lg transition-all duration-200 ease-out left-1 shadow-md shadow-amber-600/30"></div>
-            <button onclick="switchGameView('dice')" class="relative z-10 px-3 py-1.5 text-xs font-bold rounded-lg text-white w-[120px] text-center transition-colors">
-              🎲 Cờ Xúc Xắc 12 Ô
+            <div id="gameTabPill" class="absolute top-1 bottom-1 w-[115px] bg-gradient-to-r from-amber-600 to-amber-700 rounded-lg transition-all duration-200 ease-out left-1 shadow-md shadow-amber-600/30"></div>
+            <button onclick="switchGameView('dice')" class="relative z-10 px-2.5 py-1.5 text-xs font-bold rounded-lg text-white w-[115px] text-center transition-colors">
+              🎲 Xúc Xắc 12 Ô
             </button>
-            <button onclick="switchGameView('tictactoe')" class="relative z-10 px-3 py-1.5 text-xs font-bold rounded-lg text-slate-400 hover:text-white w-[120px] text-center transition-colors">
+            <button onclick="switchGameView('tictactoe')" class="relative z-10 px-2.5 py-1.5 text-xs font-bold rounded-lg text-slate-400 hover:text-white w-[115px] text-center transition-colors">
               ⭕❌ Ca-rô Neon
             </button>
           </div>
 
           <!-- Opponent Selector -->
           <div class="flex items-center bg-board-tray p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
-            <span class="text-[11px] text-slate-400 px-2 flex items-center gap-1 font-semibold">
+            <span class="text-[11px] text-slate-400 px-1.5 flex items-center gap-1 font-semibold">
               <i data-lucide="swords" class="w-3.5 h-3.5 text-amber-400"></i> Đấu Thủ:
             </span>
-            <button onclick="setOpponent('bot')" id="btnBot" class="px-3 py-1 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition-all shadow-sm">
+            <button onclick="setOpponent('bot')" id="btnBot" class="px-2.5 py-1 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition-all shadow-sm">
               Đấu BOT
             </button>
-            <button onclick="setOpponent('human')" id="btnHuman" class="px-3 py-1 rounded-md text-slate-400 hover:text-white font-semibold transition-all">
+            <button onclick="setOpponent('human')" id="btnHuman" class="px-2.5 py-1 rounded-md text-slate-400 hover:text-white font-semibold transition-all">
               2 Người
             </button>
           </div>
+
+          <!-- Bot Count Selector (Only in Bot Mode) -->
+          <div id="botCountWrapper" class="flex items-center bg-board-tray p-1 rounded-xl border border-rose-500/30 text-xs font-bold shadow-inner">
+            <span class="text-[11px] text-rose-400 px-1.5 flex items-center gap-1 font-semibold">
+              🤖 Số BOT:
+            </span>
+            <button onclick="setBotCount(1)" id="botCountBtn1" class="px-2 py-0.5 rounded-md bg-gradient-to-r from-rose-600 to-rose-700 text-white font-bold shadow-sm transition-all">1</button>
+            <button onclick="setBotCount(2)" id="botCountBtn2" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">2</button>
+            <button onclick="setBotCount(3)" id="botCountBtn3" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">3</button>
+          </div>
         </div>
 
-        <!-- Right: Target Score & Match Reset -->
-        <div class="flex items-center gap-2.5">
-          <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold">
-            <i data-lucide="target" class="w-4 h-4 text-amber-400"></i>
-            <span>Cán Đích: <b class="font-mono text-white" id="boardTargetScoreDisplay">50 ĐIỂM</b></span>
+        <!-- Right: Custom Goal Score, Spectator Toggle & Reset -->
+        <div class="flex flex-wrap items-center gap-2">
+          
+          <!-- Custom Goal Score Selector -->
+          <div class="flex items-center bg-board-tray p-1 rounded-xl border border-amber-500/30 text-xs font-bold shadow-inner">
+            <span class="text-[11px] text-amber-400 px-1.5 flex items-center gap-1 font-semibold">
+              <i data-lucide="target" class="w-3.5 h-3.5"></i> Đích:
+            </span>
+            <button onclick="setGoalScore(30)" id="goalBtn30" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">30đ</button>
+            <button onclick="setGoalScore(50)" id="goalBtn50" class="px-2 py-0.5 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-sm font-bold transition-all">50đ</button>
+            <button onclick="setGoalScore(100)" id="goalBtn100" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">100đ</button>
+            <button onclick="promptCustomGoalScore()" id="goalBtnCustom" class="px-1.5 py-0.5 rounded-md text-amber-300/80 hover:text-amber-200 font-mono text-[10px]" title="Nhập điểm tùy biến">✏️ Khác</button>
           </div>
 
-          <button onclick="handleReset()" class="btn-spring px-3.5 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-200 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm">
+          <!-- Spectator Mode Toggle -->
+          <button onclick="toggleSpectatorMode()" id="btnSpectator" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-cyan-300 border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm">
+            <i data-lucide="eye" class="w-3.5 h-3.5 text-cyan-400"></i>
+            <span id="spectatorBtnText">👁️ Quan Sát</span>
+          </button>
+
+          <!-- New Match Reset -->
+          <button onclick="handleReset()" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-200 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm">
             <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-amber-400"></i>
             <span>Ván Mới</span>
           </button>
         </div>
 
+      </div>
+
+      <!-- SPECTATOR LIVE FLOATING HUD (CHẾ ĐỘ QUAN SÁT TỰ ĐỘNG) -->
+      <div id="spectatorControlBar" class="hidden w-full max-w-5xl mb-3 p-3 rounded-2xl bg-gradient-to-r from-cyan-950/60 via-slate-900/90 to-cyan-950/60 border border-cyan-500/50 flex flex-wrap items-center justify-between gap-3 backdrop-blur-md shadow-xl animate-fade-in">
+        <div class="flex items-center gap-2.5">
+          <span class="w-3 h-3 rounded-full bg-cyan-400 animate-ping"></span>
+          <div>
+            <div class="font-bold text-white text-xs flex items-center gap-1.5 font-cinzel">
+              👁️ CHẾ ĐỘ QUAN SÁT TỰ ĐỘNG (SPECTATOR MODE)
+            </div>
+            <div class="text-[11px] text-cyan-300 font-mono">Các đấu thủ AI đang tự động thi đấu • Hãy thư giãn theo dõi diễn biến</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Play / Pause Button -->
+          <button onclick="toggleSpectatorPause()" id="specPauseBtn" class="btn-spring px-3 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
+            <span id="specPauseIcon">⏸️</span>
+            <span id="specPauseText">Tạm Dừng</span>
+          </button>
+
+          <!-- Speed Controls -->
+          <div class="flex items-center bg-black/60 p-1 rounded-xl border border-cyan-500/30 text-xs font-bold">
+            <span class="text-[10px] text-slate-400 px-1.5">Tốc độ:</span>
+            <button onclick="setSpectatorSpeed(1)" id="specSpd1" class="px-2 py-0.5 rounded-md bg-cyan-600 text-white font-bold">1x</button>
+            <button onclick="setSpectatorSpeed(2)" id="specSpd2" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white">2x</button>
+            <button onclick="setSpectatorSpeed(3)" id="specSpd3" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white">3x</button>
+          </div>
+
+          <!-- Exit Spectator Button -->
+          <button onclick="exitSpectatorMode()" class="btn-spring px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 text-xs font-semibold flex items-center gap-1">
+            <span>🎮 Lấy Lại Quyền Chơi</span>
+          </button>
+        </div>
       </div>
 
       <!-- VIEW 1: DICE QUEST (12 Ô LỚN) -->
@@ -421,7 +479,7 @@
                     </div>
                     <div>
                       <div class="text-xs font-bold text-white flex items-center gap-1.5" id="p2Title">
-                        AI Bot <span class="text-[9px] px-1 rounded bg-rose-500/20 text-rose-300">BOT</span>
+                        Cáo Lửa <span class="text-[9px] px-1 rounded bg-rose-500/20 text-rose-300">BOT 1</span>
                       </div>
                       <div class="text-[10px] text-rose-400 font-medium">Chiến Binh Hồng Ngọc</div>
                     </div>
@@ -436,19 +494,101 @@
                   <span id="posP2Text" class="font-bold text-amber-300 text-[10px] truncate max-w-[170px]">Ô 0: Khởi hành 🚀</span>
                 </div>
               </div>
+
+              <!-- Player 3 / BOT 2 Card -->
+              <div id="cardP3" class="hidden rounded-xl p-3 bg-black/40 border-l-4 border-l-indigo-500 opacity-70 transition-all shadow-md">
+                <div class="flex items-center justify-between mb-1.5">
+                  <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-base shadow-inner">
+                      🐺
+                    </div>
+                    <div>
+                      <div class="text-xs font-bold text-white flex items-center gap-1.5" id="p3Title">
+                        Sói Băng <span class="text-[9px] px-1 rounded bg-indigo-500/20 text-indigo-300">BOT 2</span>
+                      </div>
+                      <div class="text-[10px] text-indigo-400 font-medium">Chiến Binh Hàn Băng</div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-[9px] text-slate-400 uppercase font-mono">ĐIỂM</div>
+                    <div id="scoreP3" class="text-xl font-black text-indigo-400 font-mono">0</div>
+                  </div>
+                </div>
+                <div class="text-[11px] text-slate-300 flex items-center justify-between bg-black/30 px-2.5 py-1 rounded-lg">
+                  <span class="text-slate-400 text-[10px]">Vị trí:</span>
+                  <span id="posP3Text" class="font-bold text-amber-300 text-[10px] truncate max-w-[170px]">Ô 0: Khởi hành 🚀</span>
+                </div>
+              </div>
+
+              <!-- Player 4 / BOT 3 Card -->
+              <div id="cardP4" class="hidden rounded-xl p-3 bg-black/40 border-l-4 border-l-emerald-500 opacity-70 transition-all shadow-md">
+                <div class="flex items-center justify-between mb-1.5">
+                  <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-base shadow-inner">
+                      🐼
+                    </div>
+                    <div>
+                      <div class="text-xs font-bold text-white flex items-center gap-1.5" id="p4Title">
+                        Gấu Trúc <span class="text-[9px] px-1 rounded bg-emerald-500/20 text-emerald-300">BOT 3</span>
+                      </div>
+                      <div class="text-[10px] text-emerald-400 font-medium">Đại Sư Rừng Trúc</div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-[9px] text-slate-400 uppercase font-mono">ĐIỂM</div>
+                    <div id="scoreP4" class="text-xl font-black text-emerald-400 font-mono">0</div>
+                  </div>
+                </div>
+                <div class="text-[11px] text-slate-300 flex items-center justify-between bg-black/30 px-2.5 py-1 rounded-lg">
+                  <span class="text-slate-400 text-[10px]">Vị trí:</span>
+                  <span id="posP4Text" class="font-bold text-amber-300 text-[10px] truncate max-w-[170px]">Ô 0: Khởi hành 🚀</span>
+                </div>
+              </div>
             </div>
 
-            <!-- Race to 50 Progress Tracker -->
-            <div class="mt-3 pt-3 border-t border-board-border/60">
+            <!-- Race to Goal Multi-Player Progress Tracker -->
+            <div class="mt-3 pt-3 border-t border-board-border/60 space-y-1.5">
               <div class="flex items-center justify-between text-[10px] font-bold text-slate-400 mb-1 font-mono">
-                <span class="text-cyan-400">P1: <span id="racePctP1">0%</span></span>
-                <span class="text-amber-300 flex items-center gap-1">🏁 CÁN ĐÍCH (50đ)</span>
-                <span class="text-rose-400">P2: <span id="racePctP2">0%</span></span>
+                <span class="text-amber-400 flex items-center gap-1 font-cinzel">
+                  <i data-lucide="flag" class="w-3.5 h-3.5"></i> ĐUA CÁN ĐÍCH <span id="raceTargetText">(50đ)</span>
+                </span>
+                <span id="raceLeaderBadge" class="text-emerald-400 text-[9px] font-bold">CHƯA DẪN ĐẦU</span>
               </div>
-              <div class="w-full h-2 rounded-full bg-slate-900 border border-board-border overflow-hidden flex relative">
-                <div id="raceBarP1" class="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 transition-all duration-300" style="width: 0%"></div>
-                <div class="flex-1"></div>
-                <div id="raceBarP2" class="h-full bg-gradient-to-l from-rose-600 to-rose-400 transition-all duration-300" style="width: 0%"></div>
+
+              <!-- P1 Bar -->
+              <div class="flex items-center gap-2 text-[10px] font-mono">
+                <span class="w-16 truncate text-cyan-400 font-bold" id="raceLabelP1">Bạn (P1)</span>
+                <div class="flex-1 h-1.5 rounded-full bg-slate-900 border border-board-border overflow-hidden">
+                  <div id="raceBarP1" class="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <span class="w-8 text-right text-slate-400" id="racePctP1">0%</span>
+              </div>
+
+              <!-- P2 Bar -->
+              <div class="flex items-center gap-2 text-[10px] font-mono">
+                <span class="w-16 truncate text-rose-400 font-bold" id="raceLabelP2">BOT 1</span>
+                <div class="flex-1 h-1.5 rounded-full bg-slate-900 border border-board-border overflow-hidden">
+                  <div id="raceBarP2" class="h-full bg-gradient-to-r from-rose-600 to-rose-400 transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <span class="w-8 text-right text-slate-400" id="racePctP2">0%</span>
+              </div>
+
+              <!-- P3 Bar -->
+              <div id="raceRowP3" class="hidden flex items-center gap-2 text-[10px] font-mono">
+                <span class="w-16 truncate text-indigo-400 font-bold">BOT 2</span>
+                <div class="flex-1 h-1.5 rounded-full bg-slate-900 border border-board-border overflow-hidden">
+                  <div id="raceBarP3" class="h-full bg-gradient-to-r from-indigo-600 to-indigo-400 transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <span class="w-8 text-right text-slate-400" id="racePctP3">0%</span>
+              </div>
+
+              <!-- P4 Bar -->
+              <div id="raceRowP4" class="hidden flex items-center gap-2 text-[10px] font-mono">
+                <span class="w-16 truncate text-emerald-400 font-bold">BOT 3</span>
+                <div class="flex-1 h-1.5 rounded-full bg-slate-900 border border-board-border overflow-hidden">
+                  <div id="raceBarP4" class="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <span class="w-8 text-right text-slate-400" id="racePctP4">0%</span>
               </div>
             </div>
 
@@ -2049,11 +2189,35 @@
     ];
 
     let currentOpponent = 'bot';
+    let botCount = 1; // 1, 2, or 3
     let currentTurn = 1;
-    let scores = { 1: 0, 2: 0 };
-    let positions = { 1: 0, 2: 0 };
+    let scores = { 1: 0, 2: 0, 3: 0, 4: 0 };
+    let positions = { 1: 0, 2: 0, 3: 0, 4: 0 };
     let isDiceRolling = false;
     let GOAL_SCORE = 50;
+
+    let isSpectatorMode = false;
+    let spectatorPaused = false;
+    let spectatorSpeed = 1; // 1x, 2x, 3x
+
+    function getTotalPlayers() {
+      if (currentOpponent === 'human') return 2;
+      return 1 + botCount;
+    }
+
+    function getPlayerName(p) {
+      if (p === 1) {
+        const u = window.currentFirebaseUser;
+        const name = u ? u.displayName : 'Bạn (Hiệp Sĩ)';
+        return isSpectatorMode ? `${name} (AI)` : name;
+      }
+      if (p === 2) {
+        return currentOpponent === 'bot' ? 'Cáo Lửa (BOT 1)' : 'Người chơi 2';
+      }
+      if (p === 3) return 'Sói Băng (BOT 2)';
+      if (p === 4) return 'Gấu Trúc (BOT 3)';
+      return `Người chơi ${p}`;
+    }
 
     function renderCircuitBoard() {
       const grid = document.getElementById('circuitGrid');
@@ -2086,7 +2250,7 @@
           </div>
           <div class="text-2xl sm:text-3xl my-1 filter drop-shadow">${t.icon}</div>
           <div class="text-[11px] sm:text-xs font-bold text-slate-200 tracking-tight">${t.name}</div>
-          <div id="token-box-${i}" class="absolute -bottom-1 -right-1 flex gap-1 z-20"></div>
+          <div id="token-box-${i}" class="absolute -bottom-1 -right-1 flex gap-0.5 z-20"></div>
         `;
         grid.appendChild(el);
       });
@@ -2100,45 +2264,50 @@
         if (box) box.innerHTML = '';
       }
 
-      const b1 = document.getElementById(`token-box-${positions[1]}`);
-      if (b1) {
-        const m1 = document.createElement('div');
-        m1.id = 'meeple-p1';
-        m1.className = 'w-6 h-6 rounded-full bg-gradient-to-tr from-cyan-600 to-cyan-400 border-2 border-white flex items-center justify-center text-xs shadow-lg shadow-cyan-500/60 font-bold';
-        m1.textContent = '🤖';
-        b1.appendChild(m1);
-      }
+      const total = getTotalPlayers();
+      const playerTokens = [
+        { id: 1, icon: '🤖', bg: 'from-cyan-600 to-cyan-400 border-white shadow-cyan-500/60' },
+        { id: 2, icon: currentOpponent === 'bot' ? '🦊' : '👤', bg: 'from-rose-600 to-rose-400 border-white shadow-rose-500/60' },
+        { id: 3, icon: '🐺', bg: 'from-indigo-600 to-indigo-400 border-white shadow-indigo-500/60' },
+        { id: 4, icon: '🐼', bg: 'from-emerald-600 to-emerald-400 border-white shadow-emerald-500/60' }
+      ];
 
-      const b2 = document.getElementById(`token-box-${positions[2]}`);
-      if (b2) {
-        const m2 = document.createElement('div');
-        m2.id = 'meeple-p2';
-        m2.className = 'w-6 h-6 rounded-full bg-gradient-to-tr from-rose-600 to-rose-400 border-2 border-white flex items-center justify-center text-xs shadow-lg shadow-rose-500/60 font-bold';
-        m2.textContent = '🦊';
-        b2.appendChild(m2);
+      for (let p = 1; p <= total; p++) {
+        const pos = positions[p] || 0;
+        const box = document.getElementById(`token-box-${pos}`);
+        if (box) {
+          const cfg = playerTokens[p - 1];
+          const m = document.createElement('div');
+          m.id = `meeple-p${p}`;
+          m.className = `w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gradient-to-tr ${cfg.bg} border-2 flex items-center justify-center text-[10px] sm:text-xs shadow-lg font-bold`;
+          m.textContent = cfg.icon;
+          box.appendChild(m);
+        }
       }
     }
 
     async function rollDiceQuest() {
       if (isDiceRolling) return;
-      if (currentOpponent === 'bot' && currentTurn === 2) return;
+      if (!isSpectatorMode && currentOpponent === 'bot' && currentTurn !== 1) return;
 
       isDiceRolling = true;
       const dice = document.getElementById('diceButton');
       const face = document.getElementById('diceFaceDisplay');
       const hint = document.getElementById('diceActionHint');
+      const pName = getPlayerName(currentTurn);
 
-      dice.classList.add('rolling-dice');
-      hint.textContent = '🎲 Đang xoay xúc xắc trong khay...';
+      if (dice) dice.classList.add('rolling-dice');
+      if (hint) hint.textContent = `🎲 ${pName} đang gieo xúc xắc...`;
       soundTone(440, 'square', 0.08, 0.06);
 
+      const rollDuration = Math.max(250, Math.floor(650 / spectatorSpeed));
       const roll = Math.floor(Math.random() * 6) + 1;
-      await new Promise(r => setTimeout(r, 650));
-      dice.classList.remove('rolling-dice');
+      await new Promise(r => setTimeout(r, rollDuration));
+      if (dice) dice.classList.remove('rolling-dice');
 
       const emojis = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-      face.textContent = emojis[roll - 1];
-      hint.textContent = `Kết quả gieo: ${roll} nút!`;
+      if (face) face.textContent = emojis[roll - 1];
+      if (hint) hint.textContent = `${pName} gieo được: ${roll} nút!`;
 
       // Update Dice Stats
       recordDiceRoll(roll);
@@ -2148,10 +2317,11 @@
     }
 
     async function moveMeepleSteps(player, steps) {
+      const stepDuration = Math.max(60, Math.floor(220 / spectatorSpeed));
       for (let s = 1; s <= steps; s++) {
         positions[player] = (positions[player] + 1) % TILES.length;
         renderTokens();
-        soundTone(580, 'sine', 0.06, 0.12);
+        soundTone(580, 'sine', 0.05, 0.1);
 
         const m = document.getElementById(`meeple-p${player}`);
         if (m) {
@@ -2159,12 +2329,11 @@
           void m.offsetWidth;
           m.classList.add('meeple-hop');
         }
-        await new Promise(r => setTimeout(r, 220));
+        await new Promise(r => setTimeout(r, stepDuration));
       }
 
       const tile = TILES[positions[player]];
-      const displayName = window.currentFirebaseUser ? window.currentFirebaseUser.displayName : 'Người chơi 1';
-      const label = player === 1 ? displayName : (currentOpponent === 'bot' ? 'AI Bot' : 'Người chơi 2');
+      const label = getPlayerName(player);
 
       if (tile.type === 'plus') {
         scores[player] += tile.pts;
@@ -2189,50 +2358,61 @@
     }
 
     function switchTurn() {
-      currentTurn = currentTurn === 1 ? 2 : 1;
-      const c1 = document.getElementById('cardP1');
-      const c2 = document.getElementById('cardP2');
+      const total = getTotalPlayers();
+      currentTurn = (currentTurn % total) + 1;
+      highlightTurnCard(currentTurn);
+
+      const pName = getPlayerName(currentTurn);
       const badge = document.getElementById('diceTurnBadge');
       const text = document.getElementById('diceTurnText');
-      const displayName = window.currentFirebaseUser ? window.currentFirebaseUser.displayName : 'Bạn (Hiệp Sĩ)';
-
-      if (currentTurn === 1) {
-        c1.classList.remove('opacity-70');
-        c1.classList.add('ring-2', 'ring-cyan-500/40');
-        c2.classList.add('opacity-70');
-        c2.classList.remove('ring-2', 'ring-rose-500/40');
-
-        badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-bold mb-3 shadow-inner';
-        text.textContent = `Lượt của ${displayName}`;
-        document.getElementById('diceActionHint').textContent = 'Chạm vào xúc xắc để gieo';
-      } else {
-        c2.classList.remove('opacity-70');
-        c2.classList.add('ring-2', 'ring-rose-500/40');
-        c1.classList.add('opacity-70');
-        c1.classList.remove('ring-2', 'ring-cyan-500/40');
-
-        badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-bold mb-3 shadow-inner';
-        text.textContent = currentOpponent === 'bot' ? 'Lượt của AI Bot...' : 'Lượt của Người chơi 2';
-
-        if (currentOpponent === 'bot') {
-          document.getElementById('diceActionHint').textContent = 'AI Bot đang tính toán thế cờ...';
-          setTimeout(botPlayDice, 800);
-        } else {
-          document.getElementById('diceActionHint').textContent = 'Người chơi 2 chạm xúc xắc';
-        }
-      }
-
-      // Update Versus Indicator Badge
+      const hint = document.getElementById('diceActionHint');
       const vInd = document.getElementById('versusTurnIndicator');
+
       if (vInd) {
-        if (currentTurn === 1) {
-          vInd.className = 'px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-[9px] font-mono animate-pulse';
-          vInd.textContent = 'LƯỢT BẠN (P1)';
-        } else {
-          vInd.className = 'px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 text-[9px] font-mono animate-pulse';
-          vInd.textContent = currentOpponent === 'bot' ? 'LƯỢT AI BOT' : 'LƯỢT P2';
+        vInd.textContent = `LƯỢT: ${pName.toUpperCase()}`;
+      }
+
+      if (currentTurn === 1 && !isSpectatorMode) {
+        if (badge) {
+          badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-bold mb-3 shadow-inner';
+        }
+        if (text) text.textContent = `Lượt của ${pName}`;
+        if (hint) hint.textContent = 'Chạm vào xúc xắc để gieo';
+      } else {
+        if (badge) {
+          badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold mb-3 shadow-inner';
+        }
+        if (text) text.textContent = `Lượt của ${pName}...`;
+        if (hint) hint.textContent = `${pName} đang tính toán...`;
+
+        const botDelay = Math.max(250, Math.floor(900 / spectatorSpeed));
+        setTimeout(() => {
+          if (!spectatorPaused && ((currentTurn > 1) || isSpectatorMode)) {
+            triggerAutoRoll(currentTurn);
+          }
+        }, botDelay);
+      }
+    }
+
+    function highlightTurnCard(turn) {
+      for (let p = 1; p <= 4; p++) {
+        const c = document.getElementById(`cardP${p}`);
+        if (c) {
+          if (p === turn) {
+            c.classList.remove('opacity-70');
+            c.classList.add('ring-2', 'ring-amber-400', 'border-amber-400');
+          } else {
+            c.classList.add('opacity-70');
+            c.classList.remove('ring-2', 'ring-amber-400', 'border-amber-400');
+          }
         }
       }
+    }
+
+    async function triggerAutoRoll(player) {
+      if (isDiceRolling || spectatorPaused) return;
+      if (player === 1 && !isSpectatorMode) return;
+      await rollDiceQuest();
     }
 
     let diceStats = { totalRolls: 0, highestRoll: 0 };
@@ -2245,49 +2425,179 @@
       if (highR) highR.textContent = `${diceStats.highestRoll} nút 🎲`;
     }
 
-    async function botPlayDice() {
-      if (currentTurn !== 2) return;
-      isDiceRolling = true;
-      const dice = document.getElementById('diceButton');
-      const face = document.getElementById('diceFaceDisplay');
-      const hint = document.getElementById('diceActionHint');
+    function updateDiceUI() {
+      for (let p = 1; p <= 4; p++) {
+        const scEl = document.getElementById(`scoreP${p}`);
+        const posEl = document.getElementById(`posP${p}Text`);
+        if (scEl) scEl.textContent = scores[p] || 0;
+        if (posEl) {
+          const pos = positions[p] || 0;
+          posEl.textContent = `Ô ${pos}: ${TILES[pos].name} ${TILES[pos].icon}`;
+        }
 
-      dice.classList.add('rolling-dice');
-      hint.textContent = '🤖 AI Bot đang gieo xúc xắc...';
-      soundTone(440, 'square', 0.08, 0.06);
+        // Race bar
+        const bar = document.getElementById(`raceBarP${p}`);
+        const pctEl = document.getElementById(`racePctP${p}`);
+        const pct = Math.min(100, Math.round(((scores[p] || 0) / GOAL_SCORE) * 100));
+        if (bar) bar.style.width = pct + '%';
+        if (pctEl) pctEl.textContent = pct + '%';
+      }
 
-      const roll = Math.floor(Math.random() * 6) + 1;
-      await new Promise(r => setTimeout(r, 650));
-      dice.classList.remove('rolling-dice');
-
-      const emojis = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-      face.textContent = emojis[roll - 1];
-      hint.textContent = `Bot gieo được: ${roll} nút!`;
-
-      // Update Dice Stats
-      recordDiceRoll(roll);
-
-      await moveMeepleSteps(2, roll);
-      isDiceRolling = false;
+      // Race Leader Determination
+      const total = getTotalPlayers();
+      let maxSc = -1;
+      let leaderId = 1;
+      for (let p = 1; p <= total; p++) {
+        if (scores[p] > maxSc) {
+          maxSc = scores[p];
+          leaderId = p;
+        }
+      }
+      const leaderBadge = document.getElementById('raceLeaderBadge');
+      if (leaderBadge) {
+        if (maxSc > 0) {
+          leaderBadge.textContent = `👑 ${getPlayerName(leaderId)} DẪN ĐẦU (${maxSc}đ)`;
+        } else {
+          leaderBadge.textContent = 'CHƯA DẪN ĐẦU';
+        }
+      }
     }
 
-    function updateDiceUI() {
-      document.getElementById('scoreP1').textContent = scores[1];
-      document.getElementById('scoreP2').textContent = scores[2];
-      document.getElementById('posP1Text').textContent = `Ô ${positions[1]}: ${TILES[positions[1]].name} ${TILES[positions[1]].icon}`;
-      document.getElementById('posP2Text').textContent = `Ô ${positions[2]}: ${TILES[positions[2]].name} ${TILES[positions[2]].icon}`;
+    // ================= CUSTOM BOT COUNT & GOAL SCORE HANDLERS =================
+    function setBotCount(count) {
+      botCount = Math.max(1, Math.min(3, parseInt(count, 10) || 1));
+      [1, 2, 3].forEach(c => {
+        const btn = document.getElementById('botCountBtn' + c);
+        if (btn) {
+          if (c === botCount) {
+            btn.className = 'px-2 py-0.5 rounded-md bg-gradient-to-r from-rose-600 to-rose-700 text-white font-bold shadow-sm transition-all';
+          } else {
+            btn.className = 'px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all';
+          }
+        }
+      });
 
-      // Update Race to 50 Progress Tracker
-      const p1Pct = Math.min(100, Math.round((scores[1] / GOAL_SCORE) * 100));
-      const p2Pct = Math.min(100, Math.round((scores[2] / GOAL_SCORE) * 100));
-      const barP1 = document.getElementById('raceBarP1');
-      const barP2 = document.getElementById('raceBarP2');
-      const pctP1 = document.getElementById('racePctP1');
-      const pctP2 = document.getElementById('racePctP2');
-      if (barP1) barP1.style.width = p1Pct + '%';
-      if (barP2) barP2.style.width = p2Pct + '%';
-      if (pctP1) pctP1.textContent = p1Pct + '%';
-      if (pctP2) pctP2.textContent = p2Pct + '%';
+      const c3 = document.getElementById('cardP3');
+      const c4 = document.getElementById('cardP4');
+      const r3 = document.getElementById('raceRowP3');
+      const r4 = document.getElementById('raceRowP4');
+
+      if (c3) c3.classList.toggle('hidden', botCount < 2 || currentOpponent !== 'bot');
+      if (r3) r3.classList.toggle('hidden', botCount < 2 || currentOpponent !== 'bot');
+      if (c4) c4.classList.toggle('hidden', botCount < 3 || currentOpponent !== 'bot');
+      if (r4) r4.classList.toggle('hidden', botCount < 3 || currentOpponent !== 'bot');
+
+      handleReset();
+      showToast(`🤖 Đã chuyển sang chế độ: ${botCount} Đối Thủ BOT!`);
+    }
+
+    function setGoalScore(score) {
+      GOAL_SCORE = parseInt(score, 10) || 50;
+      const presets = [30, 50, 100];
+      presets.forEach(p => {
+        const btn = document.getElementById('goalBtn' + p);
+        if (btn) {
+          if (p === GOAL_SCORE) {
+            btn.className = 'px-2 py-0.5 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-sm font-bold transition-all';
+          } else {
+            btn.className = 'px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all';
+          }
+        }
+      });
+
+      const customBtn = document.getElementById('goalBtnCustom');
+      if (customBtn) {
+        if (!presets.includes(GOAL_SCORE)) {
+          customBtn.className = 'px-2 py-0.5 rounded-md bg-amber-600 text-white font-bold text-[10px]';
+          customBtn.textContent = `✏️ ${GOAL_SCORE}đ`;
+        } else {
+          customBtn.className = 'px-1.5 py-0.5 rounded-md text-amber-300/80 hover:text-amber-200 font-mono text-[10px]';
+          customBtn.textContent = '✏️ Khác';
+        }
+      }
+
+      const disp = document.getElementById('boardTargetScoreDisplay');
+      if (disp) disp.textContent = `${GOAL_SCORE} ĐIỂM`;
+
+      const raceT = document.getElementById('raceTargetText');
+      if (raceT) raceT.textContent = `(${GOAL_SCORE}đ)`;
+
+      updateDiceUI();
+      showToast(`🎯 Mục tiêu cán đích mới: ${GOAL_SCORE} Điểm!`);
+    }
+
+    function promptCustomGoalScore() {
+      const val = prompt('Nhập số điểm cán đích mong muốn (10 - 200 điểm):', GOAL_SCORE);
+      if (val !== null) {
+        const num = parseInt(val, 10);
+        if (!isNaN(num) && num >= 10 && num <= 500) {
+          setGoalScore(num);
+        } else {
+          showToast('⚠️ Vui lòng nhập số điểm hợp lệ từ 10 đến 500.');
+        }
+      }
+    }
+
+    // ================= SPECTATOR AUTO-PLAY CONTROLS =================
+    function toggleSpectatorMode() {
+      isSpectatorMode = !isSpectatorMode;
+      const bar = document.getElementById('spectatorControlBar');
+      const btn = document.getElementById('btnSpectator');
+      const btnText = document.getElementById('spectatorBtnText');
+
+      if (isSpectatorMode) {
+        if (bar) bar.classList.remove('hidden');
+        if (btn) btn.className = 'btn-spring px-3 py-1.5 rounded-xl bg-cyan-600 text-white border border-cyan-400 text-xs font-bold flex items-center gap-1.5 shadow-md shadow-cyan-600/30';
+        if (btnText) btnText.textContent = '👁️ Đang Quan Sát';
+        showToast('👁️ Đã kích hoạt Chế độ Khán Giả! Bạn chỉ việc theo dõi các BOT tự thi đấu.');
+        if (currentTurn === 1) {
+          setTimeout(() => triggerAutoRoll(1), 600);
+        }
+      } else {
+        exitSpectatorMode();
+      }
+    }
+
+    function exitSpectatorMode() {
+      isSpectatorMode = false;
+      spectatorPaused = false;
+      const bar = document.getElementById('spectatorControlBar');
+      const btn = document.getElementById('btnSpectator');
+      const btnText = document.getElementById('spectatorBtnText');
+      if (bar) bar.classList.add('hidden');
+      if (btn) btn.className = 'btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-cyan-300 border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm';
+      if (btnText) btnText.textContent = '👁️ Quan Sát';
+      showToast('🎮 Đã thoát Chế độ Khán Giả. Bạn đã lấy lại quyền điều khiển!');
+      const hint = document.getElementById('diceActionHint');
+      if (currentTurn === 1 && hint) hint.textContent = 'Chạm vào xúc xắc để gieo';
+    }
+
+    function toggleSpectatorPause() {
+      spectatorPaused = !spectatorPaused;
+      const icon = document.getElementById('specPauseIcon');
+      const txt = document.getElementById('specPauseText');
+      if (spectatorPaused) {
+        if (icon) icon.textContent = '▶️';
+        if (txt) txt.textContent = 'Tiếp Tục';
+        showToast('⏸️ Đã tạm dừng ván cờ quan sát.');
+      } else {
+        if (icon) icon.textContent = '⏸️';
+        if (txt) txt.textContent = 'Tạm Dừng';
+        showToast('▶️ Đang tiếp tục ván cờ quan sát.');
+        triggerAutoRoll(currentTurn);
+      }
+    }
+
+    function setSpectatorSpeed(spd) {
+      spectatorSpeed = spd;
+      [1, 2, 3].forEach(s => {
+        const b = document.getElementById('specSpd' + s);
+        if (b) {
+          if (s === spd) b.className = 'px-2 py-0.5 rounded-md bg-cyan-600 text-white font-bold';
+          else b.className = 'px-2 py-0.5 rounded-md text-slate-400 hover:text-white';
+        }
+      });
+      showToast(`⚡ Tốc độ quan sát: ${spd}x`);
     }
 
     function setOpponent(mode) {
@@ -2295,15 +2605,30 @@
       const btnB = document.getElementById('btnBot');
       const btnH = document.getElementById('btnHuman');
       const title = document.getElementById('p2Title');
+      const botWrapper = document.getElementById('botCountWrapper');
+      const c3 = document.getElementById('cardP3');
+      const c4 = document.getElementById('cardP4');
+      const r3 = document.getElementById('raceRowP3');
+      const r4 = document.getElementById('raceRowP4');
 
       if (mode === 'bot') {
-        btnB.className = 'px-3 py-1 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition-all shadow-sm';
-        btnH.className = 'px-3 py-1 rounded-md text-slate-400 hover:text-white font-semibold transition-all';
-        title.innerHTML = 'AI Bot <span class="text-[9px] px-1 rounded bg-rose-500/20 text-rose-300">BOT</span>';
+        btnB.className = 'px-2.5 py-1 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition-all shadow-sm';
+        btnH.className = 'px-2.5 py-1 rounded-md text-slate-400 hover:text-white font-semibold transition-all';
+        title.innerHTML = 'Cáo Lửa <span class="text-[9px] px-1 rounded bg-rose-500/20 text-rose-300">BOT 1</span>';
+        if (botWrapper) botWrapper.classList.remove('hidden');
+        if (c3) c3.classList.toggle('hidden', botCount < 2);
+        if (r3) r3.classList.toggle('hidden', botCount < 2);
+        if (c4) c4.classList.toggle('hidden', botCount < 3);
+        if (r4) r4.classList.toggle('hidden', botCount < 3);
       } else {
-        btnH.className = 'px-3 py-1 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition-all shadow-sm';
-        btnB.className = 'px-3 py-1 rounded-md text-slate-400 hover:text-white font-semibold transition-all';
+        btnH.className = 'px-2.5 py-1 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition-all shadow-sm';
+        btnB.className = 'px-2.5 py-1 rounded-md text-slate-400 hover:text-white font-semibold transition-all';
         title.innerHTML = 'Người chơi 2 <span class="text-[9px] px-1 rounded bg-rose-500/20 text-rose-300">P2</span>';
+        if (botWrapper) botWrapper.classList.add('hidden');
+        if (c3) c3.classList.add('hidden');
+        if (r3) r3.classList.add('hidden');
+        if (c4) c4.classList.add('hidden');
+        if (r4) r4.classList.add('hidden');
       }
       handleReset();
     }
@@ -2523,17 +2848,25 @@
       closeModal('victoryModal');
 
       if (activeTab === 'dice') {
-        scores = { 1: 0, 2: 0 };
-        positions = { 1: 0, 2: 0 };
+        scores = { 1: 0, 2: 0, 3: 0, 4: 0 };
+        positions = { 1: 0, 2: 0, 3: 0, 4: 0 };
         currentTurn = 1;
         isDiceRolling = false;
         document.getElementById('diceFaceDisplay').textContent = '🎲';
-        document.getElementById('diceActionHint').textContent = 'Chạm vào xúc xắc để gieo';
         document.getElementById('miniLog').textContent = '⚔️ Đấu trường khai màn! Hãy gieo xúc xắc để xuất quân.';
         updateDiceUI();
         renderCircuitBoard();
-        switchTurn();
-        currentTurn = 1;
+        highlightTurnCard(1);
+        if (isSpectatorMode) {
+          const hint = document.getElementById('diceActionHint');
+          if (hint) hint.textContent = '👁️ Chế độ Quan Sát đang tự động khởi chạy...';
+          setTimeout(() => {
+            if (isSpectatorMode && !spectatorPaused) triggerAutoRoll(1);
+          }, 800);
+        } else {
+          const hint = document.getElementById('diceActionHint');
+          if (hint) hint.textContent = 'Chạm vào xúc xắc để gieo';
+        }
       } else {
         tttBoard = Array(9).fill(null);
         tttTurn = 'X';

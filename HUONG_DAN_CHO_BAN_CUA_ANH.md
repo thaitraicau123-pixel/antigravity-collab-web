@@ -1,61 +1,97 @@
-# 🚀 HƯỚNG DẪN 2 BẠN CÙNG DÙNG ANTIGRAVITY ĐỂ CODE WEB
+# 🚀 HƯỚNG DẪN 2 BẠN CÙNG CODE WEB TRÊN GITHUB VỚI ANTIGRAVITY
 
-Chào bạn! Đây là dự án web được thiết kế để **2 người (2 tài khoản Antigravity)** cùng nhau lập trình song song mà không bao giờ bị đè code hay lỗi hệ thống.
-
----
-
-## ⚡ BƯỚC 1: MỞ DỰ ÁN TRÊN MÁY BẠN
-1. Tải thư mục này về máy và giải nén.
-2. Mở ứng dụng **Antigravity IDE** hoặc **Antigravity 2.0**.
-3. Chọn **File -> Open Folder** (Mở thư mục) và chọn thư mục `antigravity-collab-web`.
-4. Khi mở lên, Antigravity sẽ tự động đọc file `AGENTS.md` và `.agents/rules/` để hiểu cấu trúc toàn bộ dự án!
+Dự án này sử dụng quy trình chuẩn chuyên nghiệp: **GitHub Repository + Cấu hình Agent (`AGENTS.md`)**.
+Mỗi bạn phụ trách một nhánh riêng, Antigravity AI trên máy của cả 2 bạn sẽ tự động phân chia công việc và không bao giờ sửa đè code của nhau.
 
 ---
 
-## 👥 BƯỚC 2: PHÂN CHIA VAI TRÒ GIỮA 2 BẠN
+## 📌 PHÂN CHIA VAI TRÒ & NHÁNH GIT
 
-| Vai Trò | Người Phụ Trách | File Chính | Nhiệm Vụ |
+| Người thực hiện | Vai trò | Nhánh Git riêng | Thư mục & File chính |
 | :--- | :--- | :--- | :--- |
-| **Tài Khoản 1** | **Bạn 1 (Lead UI/UX)** | `index.html`<br>`css/style.css` | Thiết kế giao diện, màu sắc, bố cục, responsive điện thoại, thêm component đẹp mắt. |
-| **Tài Khoản 2** | **Bạn 2 (Logic & Data)** | `js/api.js`<br>`js/app.js` | Viết hàm xử lý logic, lưu trữ dữ liệu, kết nối Backend/API, tính toán nghiệp vụ. |
+| **Bạn 1 (Anh)** | **Frontend & UI/UX** | `feat/ui` | `index.html`, `css/style.css`, giao diện, animation, responsive. |
+| **Bạn 2 (Bạn của anh)** | **Logic & Backend API** | `feat/logic` | `js/api.js`, `js/app.js`, xử lý dữ liệu, LocalStorage, mock API. |
+| **Hệ thống chung** | **Nhánh chính** | `main` | Nhánh ổn định sau khi cả 2 đã hoàn thành và gộp (Merge). |
 
 ---
 
-## 🎯 BƯỚC 3: CÁCH RA LỆNH CHO ANTIGRAVITY AI
+## 🛠️ DÀNH CHO BẠN CỦA ANH (BƯỚC BẮT ĐẦU)
 
-Mỗi khi mở khung chat với Antigravity, bạn chỉ cần copy hoặc gõ theo mẫu sau:
+Khi nhận được link GitHub từ anh:
 
-### 👉 Nếu bạn là Người 1 (Frontend):
-> *"Tôi là Bạn 1 (phụ trách Frontend theo AGENTS.md). Hãy giúp tôi làm đẹp thêm giao diện, bổ sung component mới và tối ưu hiển thị trên di động. Giữ nguyên các hàm dữ liệu trong js/api.js."*
-
-### 👉 Nếu bạn là Người 2 (Backend / Logic):
-> *"Tôi là Bạn 2 (phụ trách Logic theo AGENTS.md). Hãy giúp tôi viết thêm hàm xử lý dữ liệu và lưu trữ trong js/api.js, sau đó kết nối sang js/app.js. Không thay đổi layout hay style của Bạn 1."*
-
----
-
-## 🤝 3 CÁCH KẾT NỐI ĐỂ 2 NGƯỜI CÙNG LÀM
-
-### Cách 1: Real-time Live Share (Cùng nhìn thấy chuột của nhau - Cực phê!)
-- **Người 1**: Mở Antigravity IDE -> Bấm vào biểu tượng **Live Share** ở góc dưới bên trái -> Bấm **Share** -> Copy đường link gửi cho Người 2.
-- **Người 2**: Mở Antigravity IDE -> Bấm vào biểu tượng Live Share -> Bấm **Join** -> Dán link vào.
-- 👉 **Kết quả**: Cả 2 cùng sửa code trực tiếp trên 1 màn hình, cùng chat với AI và cùng xem web chạy tại `http://localhost:3000`!
-
-### Cách 2: Qua GitHub Repository (Cách chuẩn chuyên nghiệp)
-- Đẩy thư mục này lên GitHub (Private repo).
-- Thêm bạn bè làm Collaborator.
-- Mỗi người tạo 1 nhánh Git:
-  - Người 1: `git checkout -b feat/ui`
-  - Người 2: `git checkout -b feat/logic`
-- Khi code xong, bảo Antigravity: *"Tạo git commit và merge cho tôi"*.
-
-### Cách 3: Nén gửi qua lại
-- Sau khi Người 1 hoặc Người 2 hoàn thành 1 phần, nén folder gửi lại cho bạn mình.
-- Mở lên bảo Antigravity: *"Kiểm tra xem bạn tôi vừa thêm gì mới và tích hợp tiếp phần của tôi nhé."*
+1. **Bước 1: Chấp nhận lời mời trên GitHub**
+   - Kiểm tra email hoặc thông báo GitHub để accept lời mời làm **Collaborator**.
+2. **Bước 2: Clone dự án về máy**
+   - Mở Terminal / PowerShell trên máy bạn và chạy:
+     ```bash
+     git clone <link-repo-github>
+     cd antigravity-collab-web
+     ```
+3. **Bước 3: Mở trong Antigravity**
+   - Mở **Antigravity IDE** hoặc **Antigravity 2.0**.
+   - Chọn **File $\rightarrow$ Open Folder** và chọn thư mục dự án vừa clone.
+   - Antigravity sẽ tự động đọc `AGENTS.md` và `.agents/rules/` để hiểu quy tắc dự án.
+4. **Bước 4: Chuyển sang nhánh của mình**
+   - Bạn 2 chuyển sang nhánh logic:
+     ```bash
+     git checkout feat/logic
+     ```
+   *(Nếu là Bạn 1 thì làm việc trên nhánh `feat/ui`)*
 
 ---
 
-## 🌐 XEM THỬ GIAO DIỆN WEB NGAY BÂY GIỜ
-- Cách nhanh nhất: Double click chuột vào file `index.html` để mở trực tiếp trên trình duyệt Chrome / Edge.
-- Hoặc mở terminal gõ: `python server.py` rồi truy cập `http://localhost:8000`.
+## 💬 CÁCH RA LỆNH HÀNG NGÀY CHO ANTIGRAVITY
 
-Chúc 2 bạn hợp tác vui vẻ và tạo ra sản phẩm web thật xịn sò! 🔥
+Mỗi khi muốn thêm tính năng, chỉ cần mở khung chat của Antigravity và gõ:
+
+### 👉 Bạn 1 (Làm Giao Diện - nhánh `feat/ui`):
+> *"Tôi là Bạn 1 (Frontend). Tôi đang làm việc trên nhánh feat/ui. Hãy giúp tôi tạo một bảng Dashboard thống kê và cải tiến giao diện trong index.html và css/style.css. Tuân thủ theo AGENTS.md, không can thiệp vào logic dữ liệu trong js/api.js."*
+
+### 👉 Bạn 2 (Làm Tính Năng / API - nhánh `feat/logic`):
+> *"Tôi là Bạn 2 (Logic). Tôi đang làm việc trên nhánh feat/logic. Hãy giúp tôi viết thêm hàm tìm kiếm và lọc dữ liệu trong js/api.js, sau đó kết nối vào js/app.js. Tuân thủ theo AGENTS.md, không thay đổi layout và class styling của Bạn 1."*
+
+---
+
+## 🔄 QUY TRÌNH ĐỒNG BỘ MÃ NGUỒN (KHÔNG BAO GIỜ CONFLICT)
+
+Sau khi code xong mỗi tính năng:
+
+### 1. Đẩy code lên nhánh của mình:
+Bảo Antigravity:
+> *"Tạo Git commit và đẩy code lên nhánh của tôi nhé."*
+
+*(Hoặc tự gõ lệnh:)*
+```bash
+git add .
+git commit -m "feat: mo ta tinh nang vua lam"
+git push origin feat/ui      # (nếu là Bạn 1)
+# hoặc
+git push origin feat/logic   # (nếu là Bạn 2)
+```
+
+### 2. Gộp code (Pull Request trên GitHub):
+1. Vào trang GitHub của dự án $\rightarrow$ Bấm **New Pull Request**.
+2. Chọn gộp từ nhánh của mình (`feat/ui` hoặc `feat/logic`) vào nhánh `main`.
+3. GitHub sẽ tự động điền Checklist kiểm tra theo mẫu có sẵn trong `.github/pull_request_template.md`.
+4. Bấm **Merge Pull Request**.
+
+### 3. Cập nhật code mới nhất về máy:
+Trước khi bắt đầu làm tính năng tiếp theo, cả 2 bạn chỉ cần bảo Antigravity:
+> *"Kéo code mới nhất từ nhánh main về nhánh của tôi và giải quyết nếu có xung đột nhé."*
+
+*(Hoặc tự gõ lệnh:)*
+```bash
+git checkout main
+git pull origin main
+git checkout feat/ui       # (hoặc feat/logic)
+git merge main
+```
+
+---
+
+## 🌐 XEM WEB CHẠY THỬ
+Chỉ cần double-click vào `index.html` hoặc gõ:
+```bash
+python server.py
+```
+Trình duyệt sẽ tự động mở trang web tại `http://localhost:8000`!

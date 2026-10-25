@@ -127,3 +127,21 @@ Thay thế toàn bộ emoji thô sơ bằng hệ thống icon SVG vector tinh x�
    - Thêm lựa chọn độ khó: Cơ Bản (45% đi ngẫu nhiên) hoặc Bất Bại Minimax (setTTTDifficulty).
    - Thêm nút xóa tỉ số X/O/Hòa (
 esetTTTScores).
+
+
+---
+
+## ⚡ PHẦN 9: TINH GỌN BỐ CỤC MATCH CONSOLE (SINGLE-ROW BENTO BAR)
+1. **Loại Bỏ Hoàn Toàn Pill Switcher Trùng Lặp**:
+   - Khử bỏ cụm nút [Xúc Xắc 12 Ô | Ca-rô Neon | Cờ Vua FIDE] ở thanh điều khiển bàn đấu.
+   - Nhường trọn vẹn diện tích ngang cho các phím điều khiển nghiệp vụ của từng game.
+   - Người chơi chuyển đổi trò chơi thông qua nút [← Sảnh Game] hoặc Thanh điều hướng chính.
+2. **Huy Hiệu Định Danh Game Động (Dynamic Arena Title Badge)**:
+   - Tích hợp huy hiệu sang trọng #arenaGameTitle bên cạnh nút Sảnh Game.
+   - Tự động hiển thị tên và icon game đang mở:
+     * 🎲 XÚC XẮC 12 Ô HOÀNG KIM (Amber)
+     * ♟️ CỜ VUA HOÀNG GIA (8x8 FIDE) (Indigo)
+     * ⭕❌ CỜ CA-RÔ NEON (3x3) (Cyan)
+3. **Bố Cục 1 Hàng Ngang Liền Mạch (Ergonomic Single-Row)**:
+   - Các nút chức năng xếp thẳng hàng tinh tế, cân đối 2 bên (Bên trái: Điều hướng & Tên game; Bên phải: Các nút tính năng nghiệp vụ của game đó).
+   - Triệt tiêu hoàn toàn hiện tượng vỡ dòng hoặc khoảng trống thừa.

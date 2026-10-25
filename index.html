@@ -3,682 +3,684 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Code-Collab | Nền Tảng Soạn Thảo Code Cộng Tác Thời Gian Thực</title>
+  <title>Cyber Board Quest - Animate UI Board Game</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- PeerJS for WebRTC P2P Realtime Sync -->
-  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
-  <!-- Monaco Editor AMD Loader -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
-
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            ide: {
-              bg: '#0B0F19',
-              surface: '#111827',
-              panel: '#161F30',
-              border: '#1F293D',
-              borderHover: '#374151',
-              editor: '#1E1E1E',
-            },
             brand: {
-              400: '#60a5fa',
-              500: '#3b82f6',
-              600: '#2563eb',
+              50: '#eef2ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+            },
+            amber: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+            },
+            emerald: {
+              400: '#34d399',
+              500: '#10b981',
+            },
+            rose: {
+              400: '#fb7185',
+              500: '#f43f5e',
             }
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-            mono: ['JetBrains Mono', 'Fira Code', 'monospace']
           }
         }
       }
     }
   </script>
-
   <style>
-    /* Custom Scrollbar for IDE */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #0B0F19;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #1F293D;
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #374151;
+    /* Animate UI Physics & Token Definitions */
+    :root {
+      /* Tokens from @animate-ui/react/utils/motion */
+      --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out: cubic-bezier(0, 0, 0.2, 1);
+      --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+      --spring-press-scale: 0.97;
     }
 
-    /* Spring Button Effect */
+    /* Spring press physics */
     .btn-spring {
-      transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s, background-color 0.15s;
+      transition: transform 0.14s var(--ease-soft), box-shadow 0.14s var(--ease-soft), background-color 0.2s;
+      transform-origin: center center;
+    }
+    .btn-spring:hover {
+      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.35);
     }
     .btn-spring:active {
-      transform: scale(0.97);
+      transform: scale(var(--spring-press-scale));
     }
 
-    /* Cursor animation */
-    .remote-cursor {
-      position: absolute;
-      width: 2px;
-      pointer-events: none;
-      z-index: 100;
-      transition: top 0.1s ease-out, left 0.1s ease-out;
+    /* Tile Hover & Active Spring */
+    .tile-card {
+      transition: transform 0.22s var(--ease-soft), border-color 0.2s, box-shadow 0.22s var(--ease-soft);
     }
-    .remote-cursor-flag {
-      position: absolute;
-      top: -18px;
-      left: 0;
-      font-size: 10px;
-      padding: 1px 4px;
-      border-radius: 3px;
-      color: white;
-      white-space: nowrap;
-      pointer-events: none;
+    .tile-card:hover {
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    /* 3D Dice Flip Animation */
+    .dice-cube {
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .rolling {
+      animation: diceRoll 0.65s cubic-bezier(0.2, 0.8, 0.2, 1.2) infinite;
+    }
+    @keyframes diceRoll {
+      0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(0.9); }
+      25% { transform: rotateX(180deg) rotateY(90deg) rotateZ(45deg) scale(1.1); }
+      50% { transform: rotateX(360deg) rotateY(270deg) rotateZ(180deg) scale(0.95); }
+      75% { transform: rotateX(540deg) rotateY(450deg) rotateZ(270deg) scale(1.08); }
+      100% { transform: rotateX(720deg) rotateY(720deg) rotateZ(360deg) scale(1); }
+    }
+
+    /* Meeple Token Bounce */
+    .meeple-bounce {
+      animation: meepleHop 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes meepleHop {
+      0% { transform: scale(1) translateY(0); }
+      40% { transform: scale(1.25) translateY(-16px); }
+      75% { transform: scale(0.92) translateY(2px); }
+      100% { transform: scale(1) translateY(0); }
+    }
+
+    /* Glassmorphism background */
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-tile {
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
   </style>
 </head>
-<body class="bg-ide-bg text-slate-100 min-h-screen font-sans antialiased overflow-hidden select-none">
+<body class="bg-[#090D16] text-slate-100 min-h-screen flex flex-col items-center justify-center p-3 sm:p-6 font-sans select-none antialiased selection:bg-brand-500 selection:text-white">
 
-  <!-- ================= LOBBY SCREEN (Giao diện sảnh chờ) ================= -->
-  <div id="lobbyScreen" class="min-h-screen w-screen flex flex-col items-center justify-center p-4 relative overflow-hidden bg-[#080D1A]">
-    <!-- Ambient Glow Orbs -->
-    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none"></div>
+  <!-- Ambient Glow Effects -->
+  <div class="fixed top-[-10%] left-[-10%] w-[40vw] h-[40vw] rounded-full bg-brand-600/15 blur-[120px] pointer-events-none"></div>
+  <div class="fixed bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-emerald-600/15 blur-[120px] pointer-events-none"></div>
 
-    <!-- Header Brand -->
-    <div class="relative z-10 flex flex-col items-center text-center max-w-2xl mb-8">
-      <div class="flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700/80 mb-5 shadow-lg backdrop-blur">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="text-xs font-semibold tracking-wide text-slate-300 uppercase">
-          Realtime Web Collaboration V1.0
-        </span>
+  <!-- Header & Control Bar -->
+  <header class="w-full max-w-5xl flex flex-wrap items-center justify-between gap-4 mb-5 px-2">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center shadow-lg shadow-brand-500/30">
+        <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
       </div>
-
-      <div class="flex items-center justify-center gap-3 mb-3">
-        <div class="p-3 bg-blue-600/20 border border-blue-500/30 rounded-2xl text-blue-400 shadow-inner">
-          <i data-lucide="code-2" class="w-9 h-9"></i>
-        </div>
-        <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-white">
-          Code<span class="text-blue-500">-Collab</span>
+      <div>
+        <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+          Cyber Quest <span class="text-xs uppercase font-semibold px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30">Animate UI</span>
         </h1>
-      </div>
-
-      <p class="text-slate-400 text-sm sm:text-base max-w-lg mt-2">
-        Nền tảng soạn thảo mã nguồn cộng tác thời gian thực với Monaco Editor chuẩn VS Code,
-        đồng bộ con trỏ và cú pháp đa ngôn ngữ tức thì.
-      </p>
-    </div>
-
-    <!-- Join / Create Room Card -->
-    <div class="relative z-10 w-full max-w-md bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl">
-      <div class="space-y-5">
-        <!-- Display Name Input -->
-        <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
-            Tên hiển thị của bạn
-          </label>
-          <input
-            id="inputUserName"
-            type="text"
-            placeholder="Nhập tên của bạn (VD: Minh Dev)"
-            class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
-          />
-        </div>
-
-        <div class="border-t border-slate-800/80 pt-5">
-          <!-- Quick Create Room Button -->
-          <button
-            onclick="handleCreateRoom()"
-            class="btn-spring w-full py-3.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2"
-          >
-            <i data-lucide="sparkles" class="w-4 h-4"></i>
-            Tạo phòng làm việc mới
-          </button>
-        </div>
-
-        <div class="flex items-center gap-3">
-          <div class="h-px bg-slate-800 flex-1"></div>
-          <span class="text-xs text-slate-500 uppercase font-medium">Hoặc tham gia phòng</span>
-          <div class="h-px bg-slate-800 flex-1"></div>
-        </div>
-
-        <!-- Join Existing Room -->
-        <div class="flex gap-2">
-          <input
-            id="inputRoomId"
-            type="text"
-            placeholder="Nhập mã phòng (VD: room-8888)"
-            class="flex-1 px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500"
-          />
-          <button
-            onclick="handleJoinRoom()"
-            class="btn-spring px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-semibold text-sm border border-slate-700 flex items-center gap-1.5"
-          >
-            Vào
-            <i data-lucide="arrow-right" class="w-4 h-4"></i>
-          </button>
-        </div>
+        <p class="text-xs text-slate-400">Board game chiến thuật nảy xúc xắc với chuyển động Spring vật lý 60fps</p>
       </div>
     </div>
-  </div>
 
-  <!-- ================= IDE SCREEN (Giao diện soạn thảo & cộng tác) ================= -->
-  <div id="ideScreen" class="h-screen w-screen flex flex-col overflow-hidden hidden">
-    
-    <!-- Top Navigation Bar -->
-    <header class="h-14 bg-ide-surface border-b border-ide-border px-4 flex items-center justify-between z-30 select-none">
-      
-      <!-- Left: Logo & Room info -->
-      <div class="flex items-center gap-3">
-        <button onclick="toggleSidebar()" class="btn-spring p-2 rounded-lg bg-ide-panel hover:bg-ide-border text-slate-300 hover:text-white border border-ide-border" title="Bật/Tắt thanh bên">
-          <i data-lucide="panel-left" class="w-4 h-4"></i>
+    <!-- Mode Selector & Reset -->
+    <div class="flex items-center gap-2">
+      <div class="relative bg-slate-900/80 p-1 rounded-xl border border-slate-800 flex items-center">
+        <!-- Gliding Highlight Pill -->
+        <div id="modePill" class="absolute top-1 bottom-1 w-[80px] bg-brand-600 rounded-lg transition-all duration-200 ease-out left-1 shadow-md shadow-brand-600/40"></div>
+        <button onclick="setGameMode('pve')" class="relative z-10 px-3 py-1.5 text-xs font-medium rounded-lg text-white w-[80px] text-center transition-colors">
+          Vs BOT
         </button>
+        <button onclick="setGameMode('pvp')" class="relative z-10 px-3 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-white w-[80px] text-center transition-colors">
+          2 Người
+        </button>
+      </div>
 
-        <div class="flex items-center gap-2">
-          <div class="w-7 h-7 rounded-lg bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400">
-            <i data-lucide="code-2" class="w-4 h-4"></i>
+      <button onclick="resetGame()" class="btn-spring p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/80" title="Chơi lại">
+        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+      </button>
+
+      <button id="soundToggle" onclick="toggleSound()" class="btn-spring p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/80" title="Bật/Tắt âm thanh">
+        <i data-lucide="volume-2" id="soundIcon" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Arena Layout -->
+  <main class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+
+    <!-- Left & Center: Board Map (20 Tiles Circuit) -->
+    <div class="lg:col-span-8 glass-panel rounded-3xl p-4 sm:p-6 shadow-2xl relative overflow-hidden">
+      
+      <!-- Center Arena Dashboard (Inside the perimeter circuit) -->
+      <div class="grid grid-cols-6 grid-rows-6 gap-2 sm:gap-2.5 aspect-square max-w-[560px] mx-auto relative" id="boardGrid">
+        <!-- Center Arena Content -->
+        <div class="col-start-2 col-end-6 row-start-2 row-end-6 rounded-2xl bg-slate-900/60 border border-slate-800/80 p-4 sm:p-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
+          
+          <!-- Inner Glow -->
+          <div class="absolute inset-0 bg-gradient-to-b from-brand-500/5 via-transparent to-transparent pointer-events-none"></div>
+
+          <!-- Turn Status Badge -->
+          <div id="turnBadge" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold mb-4 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span>
+            <span id="turnText">Lượt của Người chơi 1</span>
           </div>
-          <span class="font-bold text-sm text-white hidden sm:inline">Code<span class="text-blue-500">-Collab</span></span>
+
+          <!-- 3D Interactive Dice -->
+          <div class="my-3 flex flex-col items-center">
+            <div id="diceWrapper" onclick="rollDice()" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-brand-500/40 shadow-xl shadow-brand-500/20 flex items-center justify-center cursor-pointer select-none transition-all duration-200 hover:border-brand-400 hover:scale-105 active:scale-95 group">
+              <span id="diceFace" class="text-3xl sm:text-4xl font-extrabold text-white group-hover:text-brand-300 transition-colors">🎲</span>
+            </div>
+            <span id="diceHint" class="text-[11px] text-slate-400 mt-2 font-medium">Bấm vào xúc xắc để gieo</span>
+          </div>
+
+          <!-- Action Status Message -->
+          <div id="actionStatus" class="text-xs sm:text-sm text-slate-300 font-medium h-6 flex items-center justify-center text-center px-4">
+            Chào mừng bạn đến với Cyber Quest!
+          </div>
+
         </div>
 
-        <div class="h-4 w-px bg-ide-border hidden sm:block"></div>
-
-        <!-- Room Badge & Copy Link -->
-        <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-ide-panel border border-ide-border text-xs">
-          <span class="text-slate-400">Phòng:</span>
-          <span id="displayRoomId" class="font-mono font-semibold text-blue-400">general</span>
-          <button onclick="copyInviteLink()" class="ml-1 p-1 rounded hover:bg-ide-border text-slate-400 hover:text-white" title="Sao chép liên kết mời bạn bè">
-            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-          </button>
-        </div>
+        <!-- 20 Circuit Tiles will be populated via JavaScript around perimeter -->
       </div>
+    </div>
 
-      <!-- Center: Language Switcher & Run Code -->
-      <div class="flex items-center gap-2">
-        <div class="flex items-center bg-ide-panel border border-ide-border rounded-lg px-2 py-1">
-          <i data-lucide="file-code-2" class="w-3.5 h-3.5 text-blue-400 mr-1.5"></i>
-          <select id="selectLanguage" onchange="changeLanguage(this.value)" class="bg-transparent text-xs text-slate-200 font-medium focus:outline-none cursor-pointer">
-            <option value="javascript">JavaScript (.js)</option>
-            <option value="typescript">TypeScript (.ts)</option>
-            <option value="python">Python (.py)</option>
-            <option value="html">HTML (.html)</option>
-            <option value="css">CSS (.css)</option>
-            <option value="json">JSON (.json)</option>
-            <option value="sql">SQL (.sql)</option>
-            <option value="markdown">Markdown (.md)</option>
-            <option value="cpp">C++ (.cpp)</option>
-            <option value="java">Java (.java)</option>
-          </select>
-        </div>
-
-        <button onclick="runCode()" class="btn-spring px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center gap-1.5 shadow-md shadow-emerald-600/20">
-          <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
-          <span>Run</span>
-        </button>
-      </div>
-
-      <!-- Right: Status, Export, Leave -->
-      <div class="flex items-center gap-2">
-        <!-- Connection Status -->
-        <div id="connStatus" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span id="connText">Trực tuyến</span>
-        </div>
-
-        <!-- Export File -->
-        <button onclick="downloadCode()" class="btn-spring p-2 rounded-lg bg-ide-panel hover:bg-ide-border text-slate-300 hover:text-white border border-ide-border" title="Tải file code về máy">
-          <i data-lucide="download" class="w-4 h-4"></i>
-        </button>
-
-        <!-- Leave Room -->
-        <button onclick="leaveRoom()" class="btn-spring p-2 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30" title="Rời phòng">
-          <i data-lucide="log-out" class="w-4 h-4"></i>
-        </button>
-      </div>
-    </header>
-
-    <!-- Main Workspace Area -->
-    <div class="flex-1 flex overflow-hidden relative">
+    <!-- Right Column: Player Cards, Inventory, Logs -->
+    <div class="lg:col-span-4 flex flex-col gap-4">
       
-      <!-- Left Sidebar: Online Members & File Info -->
-      <aside id="sidebar" class="w-64 bg-ide-surface border-r border-ide-border flex flex-col shrink-0 transition-all duration-200">
-        <!-- Sidebar Header -->
-        <div class="p-3 border-b border-ide-border flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-            <i data-lucide="users" class="w-3.5 h-3.5 text-blue-400"></i>
-            Thành viên (<span id="peerCount">1</span>)
+      <!-- Player 1 Card (Blue) -->
+      <div id="p1Card" class="glass-panel rounded-2xl p-4 border-l-4 border-l-brand-500 transition-all duration-300 ring-2 ring-brand-500/50">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-lg shadow-sm">
+              🤖
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
+                Player 1 <span class="text-[10px] px-1.5 py-0.5 rounded bg-brand-500/30 text-brand-300">P1</span>
+              </h3>
+              <p class="text-[11px] text-slate-400">Cyber Knight</p>
+            </div>
+          </div>
+          <!-- Score -->
+          <div class="text-right">
+            <span class="text-[10px] uppercase font-semibold text-slate-400">Điểm số</span>
+            <div id="p1Score" class="text-xl font-black text-brand-400">0</div>
+          </div>
+        </div>
+
+        <!-- Position & Progress -->
+        <div class="bg-slate-900/60 rounded-xl p-2.5 flex items-center justify-between text-xs">
+          <span class="text-slate-400 flex items-center gap-1.5">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-400"></i> Vị trí:
           </span>
+          <span id="p1TileName" class="font-semibold text-slate-200">Ô 0: Khởi hành 🚀</span>
         </div>
+      </div>
 
-        <!-- Peer List -->
-        <div id="peerList" class="flex-1 overflow-y-auto p-2 space-y-1.5">
-          <!-- Active Current User -->
-          <div class="flex items-center gap-2.5 p-2 rounded-xl bg-ide-panel/80 border border-ide-border">
-            <div id="myAvatar" class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-sm">
-              MD
+      <!-- Player 2 / BOT Card (Rose / Red) -->
+      <div id="p2Card" class="glass-panel rounded-2xl p-4 border-l-4 border-l-rose-500 transition-all duration-300 opacity-70">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-lg shadow-sm">
+              🦊
             </div>
-            <div class="flex-1 truncate">
-              <div class="text-xs font-semibold text-white flex items-center gap-1">
-                <span id="myDisplayName">Minh Dev</span>
-                <span class="text-[9px] px-1 rounded bg-blue-500/20 text-blue-400">Bạn</span>
-              </div>
-              <div class="text-[10px] text-slate-400 truncate" id="myCursorPos">Dòng: 1, Cột: 1</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Quick Tips Footer -->
-        <div class="p-3 border-t border-ide-border bg-ide-bg/50 text-[11px] text-slate-400">
-          <div class="flex items-center gap-1.5 text-blue-400 font-semibold mb-1">
-            <i data-lucide="zap" class="w-3.5 h-3.5"></i> Mẹo kết nối:
-          </div>
-          Chia sẻ đường link URL phòng cho bạn bè để cùng gõ code trực tiếp trên trình duyệt!
-        </div>
-      </aside>
-
-      <!-- Center: Editor Area & Terminal Panel -->
-      <main class="flex-1 flex flex-col overflow-hidden relative">
-        <!-- Monaco Editor Container -->
-        <div id="editorContainer" class="flex-1 w-full h-full relative">
-          <!-- Monaco will attach here -->
-        </div>
-
-        <!-- Bottom Terminal / Output Console -->
-        <div id="terminalPanel" class="h-44 bg-ide-surface border-t border-ide-border flex flex-col shrink-0 transition-all duration-200">
-          <div class="h-8 bg-ide-panel border-b border-ide-border px-3 flex items-center justify-between text-xs font-mono">
-            <span class="text-slate-300 font-semibold flex items-center gap-1.5">
-              <i data-lucide="terminal" class="w-3.5 h-3.5 text-emerald-400"></i>
-              Bảng điều khiển / Kết quả thực thi
-            </span>
-            <div class="flex items-center gap-2">
-              <button onclick="clearTerminal()" class="text-[10px] text-slate-400 hover:text-slate-200">Xóa log</button>
-              <button onclick="toggleTerminal()" class="text-slate-400 hover:text-white">
-                <i data-lucide="chevron-down" id="termToggleIcon" class="w-3.5 h-3.5"></i>
-              </button>
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-1.5" id="p2Name">
+                AI Bot <span class="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/30 text-rose-300">BOT</span>
+              </h3>
+              <p class="text-[11px] text-slate-400">Neon Phoenix</p>
             </div>
           </div>
-          <div id="terminalLogs" class="flex-1 p-3 font-mono text-xs text-slate-300 overflow-y-auto space-y-1">
-            <div class="text-slate-500">// Bấm nút "Run" ở thanh trên để chạy thử code JavaScript hoặc xem log...</div>
+          <!-- Score -->
+          <div class="text-right">
+            <span class="text-[10px] uppercase font-semibold text-slate-400">Điểm số</span>
+            <div id="p2Score" class="text-xl font-black text-rose-400">0</div>
           </div>
         </div>
 
-        <!-- Bottom Status Bar -->
-        <footer class="h-6 bg-blue-600 text-white px-3 flex items-center justify-between text-[11px] font-mono select-none z-20">
-          <div class="flex items-center gap-3">
-            <span class="flex items-center gap-1"><i data-lucide="git-branch" class="w-3 h-3"></i> main</span>
-            <span id="footerErrors" class="flex items-center gap-1"><i data-lucide="check" class="w-3 h-3"></i> 0 errors</span>
-          </div>
-          <div class="flex items-center gap-4">
-            <span id="footerPos">Ln 1, Col 1</span>
-            <span>Spaces: 2</span>
-            <span>UTF-8</span>
-            <span id="footerLang">JavaScript</span>
-          </div>
-        </footer>
-      </main>
+        <!-- Position & Progress -->
+        <div class="bg-slate-900/60 rounded-xl p-2.5 flex items-center justify-between text-xs">
+          <span class="text-slate-400 flex items-center gap-1.5">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-rose-400"></i> Vị trí:
+          </span>
+          <span id="p2TileName" class="font-semibold text-slate-200">Ô 0: Khởi hành 🚀</span>
+        </div>
+      </div>
 
+      <!-- Game History & Log Panel -->
+      <div class="glass-panel rounded-2xl p-4 flex-1 flex flex-col">
+        <h4 class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+          <i data-lucide="scroll-text" class="w-3.5 h-3.5 text-brand-400"></i> Nhật ký trận đấu
+        </h4>
+        <div id="logList" class="flex-1 overflow-y-auto max-h-[180px] space-y-1.5 pr-1 text-[11px] text-slate-400 font-mono">
+          <div class="p-1.5 rounded bg-slate-900/40 border border-slate-800 text-slate-300">
+            Trận đấu bắt đầu! Mục tiêu: Đạt 100 điểm trước.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Winner Modal (Animate UI Dialog Spring) -->
+  <div id="winnerModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div id="winnerCard" class="w-full max-w-sm glass-panel rounded-3xl p-6 text-center shadow-2xl border border-brand-500/30 transform scale-90 transition-transform duration-300">
+      <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-3xl mx-auto mb-3 shadow-lg shadow-amber-500/20 animate-bounce">
+        🏆
+      </div>
+      <h3 class="text-xl font-extrabold text-white mb-1" id="winnerTitle">Chiến Thắng!</h3>
+      <p class="text-xs text-slate-400 mb-5" id="winnerDesc">Chúc mừng bạn đã giành chiến thắng chung cuộc!</p>
+      
+      <button onclick="resetGame()" class="btn-spring w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 text-white font-semibold text-sm shadow-lg shadow-brand-600/30 hover:opacity-95">
+        Chơi lại ván mới 🎮
+      </button>
     </div>
   </div>
 
-  <!-- Toast Notification Container -->
-  <div id="toast" class="fixed bottom-10 right-10 z-50 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs font-semibold shadow-2xl flex items-center gap-2 transform translate-y-10 opacity-0 pointer-events-none transition-all duration-300">
-    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
-    <span id="toastMsg">Đã sao chép link phòng!</span>
-  </div>
-
-  <!-- Main JavaScript App Logic -->
+  <!-- Game Engine JavaScript -->
   <script>
-    // State
-    let monacoEditor = null;
-    let currentRoomId = '';
-    let currentUser = {
-      id: 'usr_' + Math.random().toString(36).substring(2, 9),
-      name: 'Minh Dev',
-      color: '#3b82f6',
-      cursor: { lineNumber: 1, column: 1 }
-    };
-    let currentLanguage = 'javascript';
-    let peers = {};
-    let peerInstance = null;
-    let broadcastChannel = null;
-    let isRemoteUpdate = false;
-    let isTerminalOpen = true;
+    // Audio Context Synthesizer (Zero external dependencies)
+    let audioCtx = null;
+    let soundEnabled = true;
 
-    const AVATAR_COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6', '#06b6d4', '#f97316'];
-
-    const DEFAULT_CODE_TEMPLATES = {
-      javascript: `// Chào mừng đến với Code-Collab!
-// Hãy bắt đầu viết mã cùng đồng nghiệp thời gian thực.
-
-function calculateTeamSpeed(tasks, devCount) {
-  const velocity = (tasks * 1.5) / devCount;
-  return \`Tốc độ dự án: \${velocity.toFixed(1)} story points/ngày\`;
-}
-
-console.log(calculateTeamSpeed(24, 4));
-console.log("Sẵn sàng cộng tác cùng đồng đội!");`,
-      typescript: `// TypeScript Collaborative Workspace
-interface Developer {
-  name: string;
-  role: string;
-  skills: string[];
-}
-
-const teamLead: Developer = {
-  name: "Minh Dev",
-  role: "Fullstack Architect",
-  skills: ["Next.js", "WebRTC", "Socket.io", "Monaco"]
-};
-
-console.log(\`Xin chào \${teamLead.name} - Vai trò: \${teamLead.role}\`);`,
-      python: `# Python Workspace
-def fibonacci(n):
-    sequence = [0, 1]
-    while len(sequence) < n:
-        sequence.append(sequence[-1] + sequence[-2])
-    return sequence
-
-print("Dãy 10 số Fibonacci đầu tiên:")
-print(fibonacci(10))`,
-      html: `<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    body { font-family: sans-serif; background: #0f172a; color: white; text-align: center; padding-top: 50px; }
-    h1 { color: #38bdf8; }
-  </style>
-</head>
-<body>
-  <h1>Chào mừng đến với Code-Collab! 🚀</h1>
-  <p>Chỉnh sửa code trực tiếp và chia sẻ cho bạn bè.</p>
-</body>
-</html>`
-    };
-
-    // Initialize User
-    function initUser() {
-      let saved = localStorage.getItem('code_collab_username');
-      if (!saved) {
-        const sampleNames = ['Minh Coder', 'Alex Dev', 'Sarah Tech', 'Lan Developer', 'Quang Hacker'];
-        saved = sampleNames[Math.floor(Math.random() * sampleNames.length)];
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       }
-      currentUser.name = saved;
-      currentUser.color = AVATAR_COLORS[Math.floor(Math.random() * AVATAR_COLORS.length)];
-      document.getElementById('inputUserName').value = saved;
     }
 
-    // Initialize Monaco
-    function initMonaco(initialCode = DEFAULT_CODE_TEMPLATES.javascript, lang = 'javascript') {
-      require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' } });
-      require(['vs/editor/editor.main'], function () {
-        monacoEditor = monaco.editor.create(document.getElementById('editorContainer'), {
-          value: initialCode,
-          language: lang,
-          theme: 'vs-dark',
-          automaticLayout: true,
-          fontSize: 14,
-          fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
-          lineNumbers: 'on',
-          minimap: { enabled: true },
-          scrollBeyondLastLine: false,
-          smoothScrolling: true,
-          cursorBlinking: 'smooth',
-          cursorSmoothCaretAnimation: 'on',
-          tabSize: 2,
-        });
-
-        // Listen for user edits
-        monacoEditor.onDidChangeModelContent(() => {
-          if (isRemoteUpdate) return;
-          const code = monacoEditor.getValue();
-          broadcastMessage({ type: 'code-change', code, senderId: currentUser.id });
-        });
-
-        // Listen for cursor position moves
-        monacoEditor.onDidChangeCursorPosition((e) => {
-          currentUser.cursor = { lineNumber: e.position.lineNumber, column: e.position.column };
-          document.getElementById('myCursorPos').textContent = `Dòng: ${e.position.lineNumber}, Cột: ${e.position.column}`;
-          document.getElementById('footerPos').textContent = `Ln ${e.position.lineNumber}, Col ${e.position.column}`;
-          broadcastMessage({ type: 'cursor-move', cursor: currentUser.cursor, senderId: currentUser.id, user: currentUser });
-        });
-      });
-    }
-
-    // Realtime Synchronization via BroadcastChannel + WebRTC PeerJS
-    function setupSync(roomId) {
-      // 1. BroadcastChannel for same-browser multi-tab sync
+    function playTone(freq, type = 'sine', duration = 0.12, gainVal = 0.1) {
+      if (!soundEnabled) return;
       try {
-        if (broadcastChannel) broadcastChannel.close();
-        broadcastChannel = new BroadcastChannel('code-collab-' + roomId);
-        broadcastChannel.onmessage = (event) => {
-          handleIncomingSync(event.data);
-        };
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
       } catch (e) {}
-
-      // 2. Announce presence
-      broadcastMessage({ type: 'peer-join', user: currentUser });
     }
 
-    function broadcastMessage(msg) {
-      if (broadcastChannel) {
-        broadcastChannel.postMessage(msg);
+    function playDiceRollSound() {
+      if (!soundEnabled) return;
+      for (let i = 0; i < 4; i++) {
+        setTimeout(() => playTone(300 + Math.random() * 200, 'square', 0.05, 0.05), i * 90);
       }
     }
 
-    function handleIncomingSync(data) {
-      if (!data || data.senderId === currentUser.id) return;
-
-      if (data.type === 'code-change') {
-        if (monacoEditor && monacoEditor.getValue() !== data.code) {
-          isRemoteUpdate = true;
-          const pos = monacoEditor.getPosition();
-          monacoEditor.setValue(data.code);
-          if (pos) monacoEditor.setPosition(pos);
-          isRemoteUpdate = false;
-        }
-      } else if (data.type === 'cursor-move') {
-        peers[data.senderId] = data.user;
-        renderPeers();
-      } else if (data.type === 'peer-join') {
-        peers[data.user.id] = data.user;
-        renderPeers();
-        // Respond with current code
-        if (monacoEditor) {
-          broadcastMessage({ type: 'code-change', code: monacoEditor.getValue(), senderId: currentUser.id });
-        }
-      } else if (data.type === 'language-change') {
-        if (monacoEditor && monaco.editor) {
-          monaco.editor.setModelLanguage(monacoEditor.getModel(), data.language);
-          document.getElementById('selectLanguage').value = data.language;
-          document.getElementById('footerLang').textContent = data.language.toUpperCase();
-        }
-      }
+    function playHopSound() {
+      playTone(520, 'sine', 0.08, 0.12);
     }
 
-    function renderPeers() {
-      const list = document.getElementById('peerList');
-      const count = document.getElementById('peerCount');
-      const peerKeys = Object.keys(peers);
-      count.textContent = peerKeys.length + 1;
+    function playBonusSound() {
+      playTone(659, 'triangle', 0.15, 0.15);
+      setTimeout(() => playTone(880, 'triangle', 0.25, 0.2), 120);
+    }
 
-      // Keep current user element, append or update other peers
-      const existing = list.querySelectorAll('.remote-peer-item');
-      existing.forEach(e => e.remove());
+    function playTrapSound() {
+      playTone(220, 'sawtooth', 0.2, 0.12);
+      setTimeout(() => playTone(160, 'sawtooth', 0.3, 0.15), 100);
+    }
 
-      peerKeys.forEach(id => {
-        const p = peers[id];
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundIcon').setAttribute('data-lucide', soundEnabled ? 'volume-2' : 'volume-x');
+      lucide.createIcons();
+    }
+
+    // Board Tiles Definition (20 tiles along 6x6 grid perimeter)
+    const TILE_DATA = [
+      { id: 0, name: 'Khởi hành', icon: '🚀', type: 'start', value: 0, desc: 'Điểm bắt đầu' },
+      { id: 1, name: 'Đá Năng Lượng', icon: '💎', type: 'point', value: 10, desc: '+10 điểm' },
+      { id: 2, name: 'Hố Đen Bẫy', icon: '💣', type: 'trap', value: -10, desc: '-10 điểm' },
+      { id: 3, name: 'Kho Báu Cổ', icon: '👑', type: 'point', value: 15, desc: '+15 điểm' },
+      { id: 4, name: 'Trạm Tiếp Liệu', icon: '⚡', type: 'point', value: 10, desc: '+10 điểm' },
+      { id: 5, name: 'Góc Thiên Hà', icon: '🌌', type: 'neutral', value: 0, desc: 'Nghỉ chân' },
+      { id: 6, name: 'Sao Băng', icon: '⭐', type: 'point', value: 20, desc: '+20 điểm' },
+      { id: 7, name: 'Bão Điện Từ', icon: '🌩️', type: 'trap', value: -15, desc: '-15 điểm' },
+      { id: 8, name: 'Rương Vàng', icon: '📦', type: 'point', value: 25, desc: '+25 điểm' },
+      { id: 9, name: 'Vòng Xoáy Lượng Tử', icon: '🌀', type: 'trap', value: -10, desc: '-10 điểm' },
+      { id: 10, name: 'Trạm Không Gian', icon: '🛰️', type: 'neutral', value: 0, desc: 'Khu an toàn' },
+      { id: 11, name: 'Kim Cương Xanh', icon: '💠', type: 'point', value: 15, desc: '+15 điểm' },
+      { id: 12, name: 'Mìn Laze', icon: '⚠️', type: 'trap', value: -15, desc: '-15 điểm' },
+      { id: 13, name: 'Tinh Vân Bí Ẩn', icon: '🔮', type: 'point', value: 30, desc: '+30 điểm' },
+      { id: 14, name: 'Hộp Quà May Mắn', icon: '🎁', type: 'point', value: 15, desc: '+15 điểm' },
+      { id: 15, name: 'Cổng Warp', icon: '🛸', type: 'neutral', value: 0, desc: 'Điểm chuyển tiếp' },
+      { id: 16, name: 'Trường Trọng Lực', icon: '🧲', type: 'trap', value: -10, desc: '-10 điểm' },
+      { id: 17, name: 'Lõi Năng Lượng', icon: '🔥', type: 'point', value: 20, desc: '+20 điểm' },
+      { id: 18, name: 'Quái Vật Không Gian', icon: '👾', type: 'trap', value: -20, desc: '-20 điểm' },
+      { id: 19, name: 'Chìa Khóa Thần', icon: '🗝️', type: 'point', value: 35, desc: '+35 điểm JACKPOT' }
+    ];
+
+    // Grid coordinates for 6x6 perimeter (Top: 0..5, Right: 5..10, Bottom: 10..15, Left: 15..19)
+    const GRID_COORDS = [
+      { r: 1, c: 1 }, { r: 1, c: 2 }, { r: 1, c: 3 }, { r: 1, c: 4 }, { r: 1, c: 5 }, { r: 1, c: 6 },
+      { r: 2, c: 6 }, { r: 3, c: 6 }, { r: 4, c: 6 }, { r: 5, c: 6 }, { r: 6, c: 6 },
+      { r: 6, c: 5 }, { r: 6, c: 4 }, { r: 6, c: 3 }, { r: 6, c: 2 }, { r: 6, c: 1 },
+      { r: 5, c: 1 }, { r: 4, c: 1 }, { r: 3, c: 1 }, { r: 2, c: 1 }
+    ];
+
+    // Game State
+    let gameMode = 'pve'; // 'pve' or 'pvp'
+    let currentTurn = 1; // 1 = P1, 2 = P2 / BOT
+    let isRolling = false;
+    let scores = { 1: 0, 2: 0 };
+    let positions = { 1: 0, 2: 0 };
+    const WINNING_SCORE = 100;
+
+    // Render 20 Perimeter Tiles into Grid
+    function renderBoard() {
+      const grid = document.getElementById('boardGrid');
+      // Remove any previously rendered tile elements
+      const oldTiles = grid.querySelectorAll('.tile-cell');
+      oldTiles.forEach(t => t.remove());
+
+      TILE_DATA.forEach((tile, index) => {
+        const coord = GRID_COORDS[index];
         const el = document.createElement('div');
-        el.className = 'remote-peer-item flex items-center gap-2.5 p-2 rounded-xl bg-ide-panel/80 border border-ide-border';
-        const initials = p.name ? p.name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase() : 'DV';
-        el.innerHTML = `
-          <div class="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-xs shadow-sm" style="background-color: ${p.color || '#10b981'}">
-            ${initials}
-          </div>
-          <div class="flex-1 truncate">
-            <div class="text-xs font-semibold text-white truncate">${p.name}</div>
-            <div class="text-[10px] text-slate-400 truncate">Dòng: ${p.cursor ? p.cursor.lineNumber : 1}, Cột: ${p.cursor ? p.cursor.column : 1}</div>
-          </div>
-        `;
-        list.appendChild(el);
-      });
-    }
+        el.className = `tile-cell tile-card glass-tile rounded-xl sm:rounded-2xl p-1 sm:p-2 flex flex-col items-center justify-between text-center border relative cursor-default select-none transition-all duration-200`;
+        el.id = `tile-${index}`;
+        el.style.gridRow = coord.r;
+        el.style.gridColumn = coord.c;
 
-    // UI Navigation: Enter Room
-    function enterRoom(roomId) {
-      currentRoomId = roomId;
-      const url = new URL(window.location);
-      url.searchParams.set('room', roomId);
-      window.history.pushState({}, '', url);
-
-      document.getElementById('lobbyScreen').classList.add('hidden');
-      document.getElementById('ideScreen').classList.remove('hidden');
-
-      document.getElementById('displayRoomId').textContent = roomId;
-      document.getElementById('myDisplayName').textContent = currentUser.name;
-      const initials = currentUser.name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
-      document.getElementById('myAvatar').textContent = initials;
-      document.getElementById('myAvatar').style.backgroundColor = currentUser.color;
-
-      lucide.createIcons();
-      if (!monacoEditor) {
-        initMonaco();
-      }
-      setupSync(roomId);
-    }
-
-    function handleCreateRoom() {
-      const name = document.getElementById('inputUserName').value.trim() || 'Minh Dev';
-      currentUser.name = name;
-      localStorage.setItem('code_collab_username', name);
-
-      const randomId = 'room-' + Math.floor(1000 + Math.random() * 9000);
-      enterRoom(randomId);
-    }
-
-    function handleJoinRoom() {
-      const name = document.getElementById('inputUserName').value.trim() || 'Minh Dev';
-      currentUser.name = name;
-      localStorage.setItem('code_collab_username', name);
-
-      const r = document.getElementById('inputRoomId').value.trim();
-      const roomId = r ? r.toLowerCase().replace(/\s+/g, '-') : 'general';
-      enterRoom(roomId);
-    }
-
-    function leaveRoom() {
-      const url = new URL(window.location);
-      url.searchParams.delete('room');
-      window.history.pushState({}, '', url);
-      document.getElementById('ideScreen').classList.add('hidden');
-      document.getElementById('lobbyScreen').classList.remove('hidden');
-    }
-
-    // Actions
-    function changeLanguage(lang) {
-      currentLanguage = lang;
-      if (monacoEditor && monaco.editor) {
-        monaco.editor.setModelLanguage(monacoEditor.getModel(), lang);
-        document.getElementById('footerLang').textContent = lang.toUpperCase();
-      }
-      broadcastMessage({ type: 'language-change', language: lang, senderId: currentUser.id });
-    }
-
-    function copyInviteLink() {
-      const url = window.location.href;
-      navigator.clipboard.writeText(url).then(() => {
-        showToast('Đã sao chép link phòng làm việc!');
-      });
-    }
-
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      const toastMsg = document.getElementById('toastMsg');
-      toastMsg.textContent = msg;
-      toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-      setTimeout(() => {
-        toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
-      }, 2500);
-    }
-
-    function toggleSidebar() {
-      const sb = document.getElementById('sidebar');
-      sb.classList.toggle('hidden');
-    }
-
-    function toggleTerminal() {
-      const panel = document.getElementById('terminalPanel');
-      isTerminalOpen = !isTerminalOpen;
-      panel.style.height = isTerminalOpen ? '11rem' : '2rem';
-      document.getElementById('termToggleIcon').setAttribute('data-lucide', isTerminalOpen ? 'chevron-down' : 'chevron-up');
-      lucide.createIcons();
-    }
-
-    function clearTerminal() {
-      document.getElementById('terminalLogs').innerHTML = '<div class="text-slate-500">// Đã xóa lịch sử log.</div>';
-    }
-
-    function runCode() {
-      if (!monacoEditor) return;
-      const code = monacoEditor.getValue();
-      const logBox = document.getElementById('terminalLogs');
-
-      if (!isTerminalOpen) toggleTerminal();
-
-      logBox.innerHTML += `<div class="text-emerald-400 font-semibold">[Chạy lúc ${new Date().toLocaleTimeString()}]:</div>`;
-
-      if (currentLanguage === 'javascript') {
-        const originalLog = console.log;
-        try {
-          console.log = function (...args) {
-            logBox.innerHTML += `<div class="text-slate-200">❯ ${args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ')}</div>`;
-            originalLog.apply(console, args);
-          };
-          const fn = new Function(code);
-          fn();
-        } catch (err) {
-          logBox.innerHTML += `<div class="text-rose-400">❌ Lỗi thực thi: ${err.message}</div>`;
-        } finally {
-          console.log = originalLog;
+        // Custom borders depending on type
+        if (tile.type === 'start') {
+          el.classList.add('border-brand-500/60', 'bg-brand-500/10');
+        } else if (tile.type === 'point') {
+          el.classList.add('border-emerald-500/30', 'hover:border-emerald-400');
+        } else if (tile.type === 'trap') {
+          el.classList.add('border-rose-500/30', 'hover:border-rose-400');
+        } else {
+          el.classList.add('border-slate-700/60');
         }
-      } else {
-        logBox.innerHTML += `<div class="text-amber-400">ℹ️ Mô phỏng ngôn ngữ ${currentLanguage.toUpperCase()}: cú pháp hợp lệ!</div>`;
+
+        el.innerHTML = `
+          <div class="text-[10px] text-slate-400 font-mono flex items-center justify-between w-full px-0.5">
+            <span>#${index}</span>
+            <span class="text-[8px] opacity-75">${tile.value > 0 ? '+' + tile.value : (tile.value < 0 ? tile.value : '')}</span>
+          </div>
+          <div class="text-base sm:text-2xl my-0.5">${tile.icon}</div>
+          <div class="text-[9px] sm:text-[10px] font-semibold truncate w-full text-slate-300">${tile.name}</div>
+          <!-- Token Container -->
+          <div id="tile-tokens-${index}" class="absolute -bottom-1 -right-1 flex gap-0.5 z-20"></div>
+        `;
+        grid.appendChild(el);
+      });
+
+      updateMeeples();
+    }
+
+    // Render Meeples on their current tiles
+    function updateMeeples() {
+      // Clear all token containers
+      for (let i = 0; i < TILE_DATA.length; i++) {
+        const container = document.getElementById(`tile-tokens-${i}`);
+        if (container) container.innerHTML = '';
       }
-      logBox.scrollTop = logBox.scrollHeight;
+
+      // Player 1 Meeple (Blue Robot)
+      const p1Container = document.getElementById(`tile-tokens-${positions[1]}`);
+      if (p1Container) {
+        const m1 = document.createElement('div');
+        m1.id = 'meeple-1';
+        m1.className = 'w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-brand-500 border-2 border-white flex items-center justify-center text-[11px] shadow-lg shadow-brand-500/50';
+        m1.textContent = '🤖';
+        p1Container.appendChild(m1);
+      }
+
+      // Player 2 Meeple (Rose Fox)
+      const p2Container = document.getElementById(`tile-tokens-${positions[2]}`);
+      if (p2Container) {
+        const m2 = document.createElement('div');
+        m2.id = 'meeple-2';
+        m2.className = 'w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-rose-500 border-2 border-white flex items-center justify-center text-[11px] shadow-lg shadow-rose-500/50';
+        m2.textContent = '🦊';
+        p2Container.appendChild(m2);
+      }
     }
 
-    function downloadCode() {
-      if (!monacoEditor) return;
-      const code = monacoEditor.getValue();
-      const extensions = { javascript: 'js', typescript: 'ts', python: 'py', html: 'html', css: 'css', json: 'json', sql: 'sql', markdown: 'md', cpp: 'cpp', java: 'java' };
-      const ext = extensions[currentLanguage] || 'txt';
-      const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `${currentRoomId || 'main'}.${ext}`;
-      a.click();
-      showToast(`Đã xuất file ${currentRoomId || 'main'}.${ext}!`);
+    // Animate Hop Step by Step
+    async function movePlayer(player, steps) {
+      for (let s = 1; s <= steps; s++) {
+        positions[player] = (positions[player] + 1) % TILE_DATA.length;
+        updateMeeples();
+        playHopSound();
+        const meeple = document.getElementById(`meeple-${player}`);
+        if (meeple) {
+          meeple.classList.remove('meeple-bounce');
+          void meeple.offsetWidth; // trigger reflow
+          meeple.classList.add('meeple-bounce');
+        }
+        await new Promise(r => setTimeout(r, 220)); // spring timing
+      }
+
+      // Process Landed Tile
+      const landedTile = TILE_DATA[positions[player]];
+      const playerLabel = player === 1 ? 'Player 1' : (gameMode === 'pve' ? 'AI Bot' : 'Player 2');
+
+      if (landedTile.type === 'point') {
+        scores[player] += landedTile.value;
+        playBonusSound();
+        logMessage(`<span class="${player === 1 ? 'text-brand-400' : 'text-rose-400'} font-semibold">${playerLabel}</span> đáp vào <b>${landedTile.name}</b>: +${landedTile.value} điểm!`);
+      } else if (landedTile.type === 'trap') {
+        scores[player] = Math.max(0, scores[player] + landedTile.value);
+        playTrapSound();
+        logMessage(`<span class="${player === 1 ? 'text-brand-400' : 'text-rose-400'} font-semibold">${playerLabel}</span> vướng vào <b>${landedTile.name}</b>: ${landedTile.value} điểm!`);
+      } else {
+        logMessage(`<span class="${player === 1 ? 'text-brand-400' : 'text-rose-400'} font-semibold">${playerLabel}</span> dừng ở <b>${landedTile.name}</b>.`);
+      }
+
+      // Update UI Stats
+      updateUI();
+
+      // Check Winner
+      if (scores[player] >= WINNING_SCORE) {
+        showWinner(player);
+        return;
+      }
+
+      // Switch Turn
+      switchTurn();
     }
 
-    // Auto-check URL query on load
+    // Roll Dice Action
+    async function rollDice() {
+      if (isRolling) return;
+      if (gameMode === 'pve' && currentTurn === 2) return; // Prevent clicking during Bot's turn
+
+      isRolling = true;
+      const dice = document.getElementById('diceWrapper');
+      const diceFace = document.getElementById('diceFace');
+      const hint = document.getElementById('diceHint');
+
+      dice.classList.add('rolling');
+      hint.textContent = 'Đang xoay xúc xắc...';
+      playDiceRollSound();
+
+      const rollVal = Math.floor(Math.random() * 6) + 1;
+
+      // Animate roll duration 600ms
+      await new Promise(r => setTimeout(r, 650));
+      dice.classList.remove('rolling');
+
+      const diceEmojis = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+      diceFace.textContent = diceEmojis[rollVal - 1];
+      hint.textContent = `Kết quả: ${rollVal} nút!`;
+
+      const playerLabel = currentTurn === 1 ? 'Player 1' : (gameMode === 'pve' ? 'AI Bot' : 'Player 2');
+      document.getElementById('actionStatus').innerHTML = `<b>${playerLabel}</b> gieo được <span class="text-amber-400 font-bold">${rollVal}</span> bước!`;
+
+      // Move Meeple
+      await movePlayer(currentTurn, rollVal);
+      isRolling = false;
+    }
+
+    // Switch Turn Function
+    function switchTurn() {
+      currentTurn = currentTurn === 1 ? 2 : 1;
+      const p1Card = document.getElementById('p1Card');
+      const p2Card = document.getElementById('p2Card');
+      const turnBadge = document.getElementById('turnBadge');
+      const turnText = document.getElementById('turnText');
+
+      if (currentTurn === 1) {
+        p1Card.classList.remove('opacity-70');
+        p1Card.classList.add('ring-2', 'ring-brand-500/50');
+        p2Card.classList.add('opacity-70');
+        p2Card.classList.remove('ring-2', 'ring-rose-500/50');
+
+        turnBadge.className = 'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold mb-4 shadow-sm';
+        turnText.textContent = 'Lượt của Player 1';
+        document.getElementById('diceHint').textContent = 'Bấm vào xúc xắc để gieo';
+      } else {
+        p2Card.classList.remove('opacity-70');
+        p2Card.classList.add('ring-2', 'ring-rose-500/50');
+        p1Card.classList.add('opacity-70');
+        p1Card.classList.remove('ring-2', 'ring-brand-500/50');
+
+        turnBadge.className = 'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold mb-4 shadow-sm';
+        turnText.textContent = gameMode === 'pve' ? 'Lượt của AI Bot...' : 'Lượt của Player 2';
+
+        if (gameMode === 'pve') {
+          document.getElementById('diceHint').textContent = 'AI Bot đang tính toán...';
+          setTimeout(() => {
+            botPlay();
+          }, 800);
+        } else {
+          document.getElementById('diceHint').textContent = 'Player 2 bấm vào xúc xắc';
+        }
+      }
+    }
+
+    // Simple AI Bot Logic
+    async function botPlay() {
+      if (currentTurn !== 2) return;
+      isRolling = true;
+      const dice = document.getElementById('diceWrapper');
+      const diceFace = document.getElementById('diceFace');
+      const hint = document.getElementById('diceHint');
+
+      dice.classList.add('rolling');
+      hint.textContent = 'AI Bot đang gieo xúc xắc...';
+      playDiceRollSound();
+
+      const rollVal = Math.floor(Math.random() * 6) + 1;
+      await new Promise(r => setTimeout(r, 650));
+      dice.classList.remove('rolling');
+
+      const diceEmojis = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+      diceFace.textContent = diceEmojis[rollVal - 1];
+      hint.textContent = `Bot gieo được: ${rollVal} nút!`;
+      document.getElementById('actionStatus').innerHTML = `<b>AI Bot</b> gieo được <span class="text-rose-400 font-bold">${rollVal}</span> bước!`;
+
+      await movePlayer(2, rollVal);
+      isRolling = false;
+    }
+
+    // Update Score and Position in UI
+    function updateUI() {
+      document.getElementById('p1Score').textContent = scores[1];
+      document.getElementById('p2Score').textContent = scores[2];
+      document.getElementById('p1TileName').textContent = `Ô ${positions[1]}: ${TILE_DATA[positions[1]].name} ${TILE_DATA[positions[1]].icon}`;
+      document.getElementById('p2TileName').textContent = `Ô ${positions[2]}: ${TILE_DATA[positions[2]].name} ${TILE_DATA[positions[2]].icon}`;
+    }
+
+    // Log messages to panel
+    function logMessage(html) {
+      const list = document.getElementById('logList');
+      const item = document.createElement('div');
+      item.className = 'p-1.5 rounded bg-slate-900/40 border border-slate-800 text-slate-300 animate-fadeIn';
+      item.innerHTML = html;
+      list.appendChild(item);
+      list.scrollTop = list.scrollHeight;
+    }
+
+    // Set Game Mode (PvE or PvP)
+    function setGameMode(mode) {
+      gameMode = mode;
+      const pill = document.getElementById('modePill');
+      const p2Name = document.getElementById('p2Name');
+
+      if (mode === 'pve') {
+        pill.style.left = '4px';
+        p2Name.innerHTML = 'AI Bot <span class="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/30 text-rose-300">BOT</span>';
+      } else {
+        pill.style.left = '84px';
+        p2Name.innerHTML = 'Player 2 <span class="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/30 text-rose-300">P2</span>';
+      }
+      resetGame();
+    }
+
+    // Show Winner Modal
+    function showWinner(player) {
+      const modal = document.getElementById('winnerModal');
+      const card = document.getElementById('winnerCard');
+      const title = document.getElementById('winnerTitle');
+      const desc = document.getElementById('winnerDesc');
+
+      const isBot = gameMode === 'pve' && player === 2;
+      title.textContent = isBot ? 'AI Bot Đã Thắng!' : `Player ${player} Chiến Thắng!`;
+      desc.textContent = `Đạt mốc ${scores[player]} điểm với lối chơi xuất sắc!`;
+
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        card.classList.remove('scale-90');
+        card.classList.add('scale-100');
+      }, 20);
+
+      playBonusSound();
+    }
+
+    // Reset Game
+    function resetGame() {
+      scores = { 1: 0, 2: 0 };
+      positions = { 1: 0, 2: 0 };
+      currentTurn = 1;
+      isRolling = false;
+
+      const modal = document.getElementById('winnerModal');
+      const card = document.getElementById('winnerCard');
+      modal.classList.add('opacity-0');
+      card.classList.add('scale-90');
+      setTimeout(() => modal.classList.add('hidden'), 250);
+
+      document.getElementById('diceFace').textContent = '🎲';
+      document.getElementById('diceHint').textContent = 'Bấm vào xúc xắc để gieo';
+      document.getElementById('actionStatus').textContent = 'Ván mới đã bắt đầu!';
+      document.getElementById('logList').innerHTML = '<div class="p-1.5 rounded bg-slate-900/40 border border-slate-800 text-slate-300">Ván mới sẵn sàng! Mục tiêu: 100 điểm.</div>';
+
+      updateUI();
+      renderBoard();
+      
+      const p1Card = document.getElementById('p1Card');
+      const p2Card = document.getElementById('p2Card');
+      p1Card.classList.remove('opacity-70');
+      p1Card.classList.add('ring-2', 'ring-brand-500/50');
+      p2Card.classList.add('opacity-70');
+      p2Card.classList.remove('ring-2', 'ring-rose-500/50');
+      document.getElementById('turnText').textContent = 'Lượt của Player 1';
+    }
+
+    // Init App
     window.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
-      initUser();
-      const params = new URLSearchParams(window.location.search);
-      const roomParam = params.get('room');
-      if (roomParam) {
-        enterRoom(roomParam);
-      }
+      renderBoard();
+      updateUI();
     });
   </script>
 </body>

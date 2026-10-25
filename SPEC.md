@@ -1,23 +1,37 @@
-# SPECIFICATION: PRODUCTION-GRADE IMMERSIVE GAMING UI (HIDE TECHNICAL & DEV INTERNALS)
+# SPECIFICATION: SCIENTIFIC LAYOUT RESTRUCTURING & UNIFIED ARENA DASHBOARD
 
-## 1. Mục tiêu Cốt lõi
-- **Ẩn toàn bộ các thông tin nhạy cảm / kỹ thuật nội bộ (Sanitize Production Web UI):**
-  - Loại bỏ hoàn toàn các thuật ngữ dev, tên cơ sở dữ liệu (`Firebase`, `Cloud Firestore`, `Firestore Synced`), link nhánh Git (`Nhánh feat/ui GitHub`), thông số build/phiên bản (`v3.3.0-AdminPortal`), và nút Admin lộ thiên khỏi mắt người dùng công chúng.
-  - Chuyển đổi ngôn ngữ hiển thị sang chuẩn **Web Game Thương Mại Đẳng Cấp**:
-    - Header: `Grandmaster Board Club • Trực Tuyến`
-    - Sub-header: `Trạng Thái: Trực Tuyến 🟢`
-    - Footer: Chân trang chuẩn thương mại gồm 4 cột (Giới thiệu, Chế độ chơi, Tài khoản kỳ thủ, Hỗ trợ & Điều khoản).
-    - Modal Đăng nhập / Hồ sơ: Ẩn box cấu hình JSON Firebase, thay thế bằng giao diện đăng ký tài khoản kỳ thủ tự nhiên.
-- **Bảo toàn 4 Cổng Bí Mật (Secret Portals) dành riêng cho Quản Trị Viên:**
-  1. Triple-Click Logo Vương Miện.
-  2. Phím tắt `Ctrl + Shift + A`.
-  3. URL Hash `#admin`.
-  4. Triple-Click ký tự `©` ở chân trang.
-- **Bảo toàn 100% Logic Cũ & Typography:** Giữ trọn vẹn game Xúc xắc 12 ô, Ca-rô Neon 3x3, Firebase Auth ngầm, font Playfair Display & Be Vietnam Pro.
+## 1. Mục tiêu Cốt lõi (Core Vision)
+- **Tái cấu trúc bố cục khoa học, hợp lý và tối ưu hóa không gian (Scientific Layout Overhaul):**
+  - Khắc phục tình trạng các tính năng bị phân mảnh, rời rạc (Sub-header riêng biệt, chọn chế độ chơi một nơi, chọn đối thủ một nẻo, nút ván mới nằm tách biệt).
+  - Tích hợp toàn bộ quyền điều khiển trận đấu vào **Unified Match Console** (Bảng điều khiển tập trung ngay trên đỉnh bàn cờ).
+  - Tinh gọn Header: Gộp trạng thái máy chủ `Máy Chủ: Trực Tuyến 🟢` lên thanh điều hướng chính, giải phóng thanh phụ (Sub-header) để tối đa hóa chiều cao bàn cờ.
+- **Kiến trúc Tab Đa Tầng Khoa Học (Multi-Tier Tab Architecture):**
+  - **Tầng 1 (Main Navigation Tabs trên Header):**
+    - `🎮 Bàn Đấu (Arena)`: Khu vực chơi cờ chính (Xúc xắc 12 ô & Ca-rô Neon).
+    - `🏆 Bảng Phong Thần (Leaderboard)`: Xem bảng xếp hạng kỳ thủ trực tiếp trong view chuyên sâu.
+    - `⚡ Hội Viên VIP (VIP Club)`: Xem quyền lợi và nâng cấp gói thành viên.
+    - `📜 Bí Kíp & Luật Chơi (Rules)`: Cẩm nang quy tắc bàn cờ chi tiết.
+  - **Tầng 2 (Arena Game Switcher bên trong Bàn Đấu):**
+    - `🎲 Cờ Xúc Xắc 12 Ô` | `⭕❌ Cờ Ca-rô Hoàng Gia`.
+  - **Tầng 3 (Tactical Intel Tabs bên trong cột HUD tác chiến):**
+    - `⚔️ Nhật Ký Trận Đấu` | `💡 Mẹo Chiến Thuật` | `📊 Thống Kê Ván Đấu`.
+- **Bố cục 2 Cột Vàng (Golden Ratio Split 65% : 35%):**
+  - Cột chính (65%): Bàn cờ thi đấu trung tâm, hiệu ứng nỉ nhung Tabletop sang trọng, khay xúc xắc 3D / lưới ca-rô neon.
+  - Cột phụ (35% - Bento HUD): Thẻ đối kháng VS trực quan, thanh tiến độ cán mích 50 điểm (Race to 50 Bar), và Deck thông tin tác chiến đa tab.
+- **Bảo toàn 100% Logic & Secret Portals:**
+  - Giữ nguyên toàn bộ logic chơi game, AI Bot, tích lũy điểm, xúc xắc, âm thanh Web Audio, Firebase Auth, và 4 Cổng Bí Mật (Logo Triple-click, `Ctrl+Shift+A`, `#admin`, `©` Triple-click).
 
-## 2. Acceptance Criteria (Tiêu chuẩn Nghiệm thu)
-- [ ] Footer không còn bất kỳ đường link nào về: Admin, Nhánh feat/ui GitHub, Phiên bản nội bộ v3.3.0, hay tên cơ sở dữ liệu Firebase.
-- [ ] Chân trang được cấu trúc 4 cột chuyên nghiệp, sang trọng, mang phong cách cổng game thượng hạng.
-- [ ] Thanh Header và Sub-header không còn các nhãn kỹ thuật lộ thiên (`Firebase Live`, `Firestore Sync`).
-- [ ] 4 Cổng Bí Mật (Logo Triple-click, Hotkey `Ctrl+Shift+A`, `#admin`, Footer `©`) vẫn hoạt động hoàn hảo 100%.
-- [ ] Thực hiện commit và push thành công lên nhánh `feat/ui`.
+## 2. Kế hoạch Triển khai (Execution Blueprint)
+1. **Khâu 1 (Architect):** Hoàn thiện đặc tả SPEC.md và phân bổ cấu trúc layout.
+2. **Khâu 2 (Builder):**
+   - Tái cấu trúc DOM HTML trong `index.html`:
+     - Nâng cấp Navbar: Thêm active tab indicators cho `Arena`, `Leaderboard`, `VIP`, `Rules`. Gộp Server status lên góc phải.
+     - Xây dựng `Unified Match Header` gắn liền với Arena.
+     - Thiết kế lại `Cột Tác Chiến (Tactical HUD)` với Versus Battle Card và Race Progress Bar.
+     - Triển khai các In-Place Content Views cho Leaderboard, VIP và Rules bên cạnh các Modal cũ.
+     - Cập nhật JS điều khiển chuyển Tab mượt mà (`switchMainTab('arena' | 'leaderboard' | 'vip' | 'rules')`).
+   - Kiểm tra font chữ tiếng Việt, responsiveness trên màn hình di động và máy tính.
+   - Commit & push lên nhánh `feat/ui`.
+3. **Khâu 3 (QA):**
+   - Kích hoạt và kiểm tra GitHub Pages build.
+   - Xác thực các thao tác chuyển tab, chuyển game, đấu bot / 2 người, và 4 Cổng Bí Mật hoạt động chính xác 100%.

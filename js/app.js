@@ -11,8 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
   initBoard();
   initDevTasks();
   bindGameEvents();
+  initFirebaseEvents();
   updateScoresUI();
   startTurnTimer();
+
+  // Thử khởi tạo Firebase nếu đã có config
+  if (window.firebaseService) {
+    window.firebaseService.init();
+  }
 });
 
 /**
@@ -47,8 +53,28 @@ function initBoard() {
 function handleCellClick(row, col) {
   if (window.gameEngine.isBotThinking) return;
 
+  // Nếu đang chơi Online qua Firebase: kiểm tra xem có đúng lượt của mình không
+  if (window.firebaseService && window.firebaseService.currentRoomId) {
+    if (window.gameEngine.currentPlayer !== window.firebaseService.playerRole) {
+      alert('Chưa đến lượt của bạn! Hãy đợi đối thủ đi cờ.');
+      return;
+    }
+  }
+
   const result = window.gameEngine.makeMove(row, col);
   if (!result.success) return;
+
+  // Gửi nước cờ lên Firebase nếu đang ở phòng Online
+  if (window.firebaseService && window.firebaseService.currentRoomId) {
+    window.firebaseService.sendMove(
+      row,
+      col,
+      result.lastMove.player,
+      result.currentPlayer,
+      result.winner,
+      result.winningLine
+    );
+  }
 
   // Cập nhật giao diện bàn cờ
   updateBoardUI(result.lastMove);
@@ -363,4 +389,147 @@ async function initDevTasks() {
   }
 
   if (window.lucide) lucide.createIcons();
+}
+
+/**
+ * Quản lý sự kiện Firebase Realtime Online
+ */
+function initFirebaseEvents() {
+  const firebaseModal = document.getElementById('firebaseModal');
+  const btnOpenConfig = document.getElementById('btnOpenFirebaseConfig');
+  const btnCloseConfig = document.getElementById('btnCloseFirebaseModal');
+  const btnCancelConfig = document.getElementById('btnCancelFirebaseModal');
+  const btnSaveConfig = document.getElementById('btnSaveFirebaseConfig');
+  const configInput = document.getElementById('firebaseConfigInput');
+
+  const savedConfig = window.firebaseService?.getConfig();
+  if (savedConfig && configInput) {
+    configInput.value = JSON.stringify(savedConfig, null, 2);
+  }
+
+  const toggleModal = (show) => {
+    if (firebaseModal) {
+      if (show) firebaseModal.classList.remove('hidden');
+      else firebaseModal.classList.add('hidden');
+    }
+  };
+
+  btnOpenConfig?.addEventListener('click', () => toggleModal(true));
+  btnCloseConfig?.addEventListener('click', () => toggleModal(false));
+  btnCancelConfig?.addEventListener('click', () => toggleModal(false));
+
+  btnSaveConfig?.addEventListener('click', () => {
+    const raw = configInput.value.trim();
+    if (!raw) {
+      alert('Vui lòng dán đoạn mã cấu hình Firebase Config!');
+      return;
+    }
+    try {
+      const config = JSON.parse(raw);
+      if (window.firebaseService.saveConfig(config)) {
+        alert('🎉 Đã kết nối Firebase Realtime Database thành công!');
+        toggleModal(false);
+      } else {
+        alert('Có lỗi khi khởi tạo Firebase! Vui lòng kiểm tra lại cấu hình.');
+      }
+    } catch (e) {
+      alert('Cấu hình JSON không hợp lệ! Vui lòng kiểm tra lại định dạng JSON.');
+    }
+  });
+
+  // Tạo phòng Online
+  document.getElementById('btnCreateRoom')?.addEventListener('click', async () => {
+    if (!window.firebaseService || !window.firebaseService.isOnline) {
+      toggleModal(true);
+      return;
+    }
+
+    const roomId = await window.firebaseService.createRoom();
+    if (roomId) {
+      setupOnlineRoomUI(roomId, 'Player X (Chủ phòng)');
+      bindOnlineRoomListener();
+      window.gameEngine.resetGame();
+      initBoard();
+      alert(`🎉 Đã tạo phòng thành công! Mã phòng là: ${roomId}\nHãy gửi mã này cho bạn của anh nhé.`);
+    }
+  });
+
+  // Vào phòng Online
+  document.getElementById('btnJoinRoom')?.addEventListener('click', async () => {
+    if (!window.firebaseService || !window.firebaseService.isOnline) {
+      toggleModal(true);
+      return;
+    }
+
+    const input = document.getElementById('inputRoomId');
+    const roomId = input?.value.trim().toUpperCase();
+    if (!roomId) {
+      alert('Vui lòng nhập mã phòng!');
+      return;
+    }
+
+    const ok = await window.firebaseService.joinRoom(roomId);
+    if (ok) {
+      setupOnlineRoomUI(roomId, 'Player O (Khách)');
+      bindOnlineRoomListener();
+      window.gameEngine.resetGame();
+      initBoard();
+      alert(`🎉 Đã vào phòng ${roomId} thành công! Bắt đầu thi đấu.`);
+    }
+  });
+}
+
+function setupOnlineRoomUI(roomId, roleText) {
+  const banner = document.getElementById('roomActiveBanner');
+  const displayId = document.getElementById('displayRoomId');
+  const displayRole = document.getElementById('displayPlayerRole');
+
+  if (banner) banner.classList.remove('hidden');
+  if (displayId) displayId.innerText = roomId;
+  if (displayRole) displayRole.innerText = roleText;
+
+  document.getElementById('btnModePvP')?.click();
+}
+
+function bindOnlineRoomListener() {
+  window.firebaseService.listenToRoom((roomData, myRole) => {
+    if (!roomData) return;
+
+    if (roomData.guest && roomData.status === 'playing') {
+      const statusText = document.getElementById('gameStatusText');
+      if (statusText) statusText.innerText = '🟢 Đối thủ đã vào phòng! Đang thi đấu...';
+    }
+
+    if (roomData.lastMove) {
+      const last = roomData.lastMove;
+      const currentCell = window.gameEngine.board[last.row][last.col];
+
+      if (currentCell === null) {
+        window.gameEngine.board[last.row][last.col] = last.player;
+        window.gameEngine.moveHistory.push(last);
+        window.gameEngine.currentPlayer = roomData.turn;
+
+        updateBoardUI(last);
+        addMoveToHistory(last);
+
+        if (roomData.winner) {
+          stopTurnTimer();
+          updateScoresUI();
+          if (roomData.winningLine) {
+            roomData.winningLine.forEach(pos => {
+              const winCell = document.getElementById(`cell-${pos.row}-${pos.col}`);
+              if (winCell) winCell.classList.add('win-cell');
+            });
+          }
+          const isWinner = roomData.winner === myRole;
+          showWinModal(
+            isWinner ? 'CHIẾN THẮNG! 🏆' : 'THUA CUỘC! 😢',
+            isWinner ? 'Bạn đã đánh bại đối thủ!' : 'Đối thủ đã xếp đủ 5 quân liên tiếp!'
+          );
+        } else {
+          resetTurnTimer();
+        }
+      }
+    }
+  });
 }

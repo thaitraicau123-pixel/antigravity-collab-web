@@ -27,6 +27,9 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Canvas Confetti for victory celebration -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Firebase SDK v10 (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-cyan-500 selection:text-black">
@@ -169,6 +172,46 @@
       <!-- Right: Game Control, Scoreboard & Match Stats (5 Cols) -->
       <div class="lg:col-span-5 space-y-6">
         
+        <!-- Online Multiplayer Room Card (Firebase Realtime) -->
+        <div class="bg-slate-900/70 border border-cyan-500/30 rounded-2xl p-6 shadow-xl space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-white text-base flex items-center gap-2">
+              <i data-lucide="wifi" class="w-5 h-5 text-cyan-400"></i>
+              Chơi Online Qua Mạng (Firebase)
+            </h3>
+            <button id="btnOpenFirebaseConfig" class="text-xs text-slate-400 hover:text-cyan-400 transition flex items-center gap-1 font-medium">
+              <i data-lucide="settings" class="w-3.5 h-3.5"></i> Cài đặt Firebase
+            </button>
+          </div>
+
+          <!-- Room Controls -->
+          <div class="space-y-3">
+            <button id="btnCreateRoom" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-600/20 transition transform active:scale-95">
+              <i data-lucide="plus-circle" class="w-4 h-4"></i> Tạo Phòng Online Mới
+            </button>
+
+            <div class="flex items-center gap-2">
+              <input type="text" id="inputRoomId" placeholder="Nhập mã phòng (vd: CARO-1234)..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 uppercase font-mono tracking-wider focus:outline-none focus:border-cyan-500">
+              <button id="btnJoinRoom" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition">
+                Vào Phòng
+              </button>
+            </div>
+
+            <!-- Current Room Status Display -->
+            <div id="roomActiveBanner" class="hidden p-3.5 rounded-xl bg-cyan-950/40 border border-cyan-500/30 space-y-1.5 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="text-slate-400">Mã phòng của bạn:</span>
+                <strong id="displayRoomId" class="text-cyan-400 font-mono text-sm tracking-wider">CARO-XXXX</strong>
+              </div>
+              <div class="flex items-center justify-between text-[11px]">
+                <span class="text-slate-500">Vai trò:</span>
+                <span id="displayPlayerRole" class="text-pink-400 font-bold">Player X (Chủ phòng)</span>
+              </div>
+              <p class="text-[10px] text-slate-400 pt-1 border-t border-slate-800/80">👉 Gửi mã phòng này cho bạn của anh để cùng vào chơi qua mạng!</p>
+            </div>
+          </div>
+        </div>
+
         <!-- Scoreboard Card -->
         <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
           <div class="flex items-center justify-between">
@@ -269,7 +312,50 @@
     </div>
   </div>
 
+  <!-- Modal Cài Đặt Firebase Config -->
+  <div id="firebaseModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <i data-lucide="database" class="w-4 h-4 text-amber-400"></i>
+          Cài Đặt Firebase Realtime Database
+        </h3>
+        <button id="btnCloseFirebaseModal" class="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs text-slate-300">
+        <p class="leading-relaxed">
+          Dán đoạn mã <code class="text-amber-400 font-mono bg-slate-950 px-1 py-0.5 rounded">firebaseConfig</code> từ bảng điều khiển Firebase của bạn vào đây:
+        </p>
+        <textarea id="firebaseConfigInput" rows="7" placeholder='{
+  "apiKey": "AIzaSy...",
+  "authDomain": "your-app.firebaseapp.com",
+  "databaseURL": "https://your-app-default-rtdb.firebaseio.com",
+  "projectId": "your-app",
+  "storageBucket": "your-app.appspot.com",
+  "messagingSenderId": "...",
+  "appId": "..."
+}' class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 font-mono focus:outline-none focus:border-amber-400 resize-none"></textarea>
+        
+        <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 text-[11px] text-slate-400 space-y-1">
+          <p class="font-semibold text-slate-300">💡 Cách lấy config trong 1 phút (Miễn phí 100%):</p>
+          <p>1. Vào <a href="https://console.firebase.google.com" target="_blank" class="text-cyan-400 underline">console.firebase.google.com</a> $\rightarrow$ Thêm dự án.</p>
+          <p>2. Chọn **Build $\rightarrow$ Realtime Database** $\rightarrow$ Tạo database (chọn Test mode).</p>
+          <p>3. Vào **Project settings (Bánh răng)** $\rightarrow$ cuộn xuống chọn biểu tượng Web `</>` để copy `firebaseConfig`.</p>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-800">
+        <button id="btnCancelFirebaseModal" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl transition">Hủy</button>
+        <button id="btnSaveFirebaseConfig" class="px-5 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold text-xs rounded-xl shadow-md transition">Lưu & Kết Nối</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
+  <script src="js/firebase.js"></script>
   <script src="js/api.js"></script>
   <script src="js/app.js"></script>
   <script>

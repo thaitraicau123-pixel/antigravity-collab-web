@@ -1,47 +1,41 @@
-# SPECIFICATION: CYBER TABLETOP BOARD GAME VIBE & VIETNAMESE TYPOGRAPHY EXCELLENCE
+# SPECIFICATION: CYBER TABLETOP BOARD GAME VIBE & ADMIN MANAGEMENT PORTAL
 
 ## 1. Mục tiêu Cốt lõi
-- **Khắc phục triệt để lỗi hiển thị font tiếng Việt:** Thay thế các font không hỗ trợ dấu tiếng Việt (như Cinzel gốc) bằng bộ Typography cao cấp hỗ trợ 100% Native Vietnamese Characters (`Playfair Display` & `Be Vietnam Pro`), giữ trọn vẹn vibe Board Game sang trọng, cổ điển quý phái.
-- Tích hợp **Firebase Authentication & Cloud Firestore**:
-  - Cho phép người chơi Đăng Ký (Sign Up) tài khoản thật với Email & Password.
-  - Đăng nhập (Sign In) bằng Email/Password hoặc Google Provider (`signInWithPopup`).
-  - Đẩy dữ liệu người dùng thật (UID, Email, Tên hiển thị, Số dư Xu, Kim Cương, Điểm ELO, Cấp độ, Kho đồ) lên bảng `users/{uid}` trên Firebase Firestore.
-  - Tự động duy trì phiên đăng nhập thông qua `onAuthStateChanged`.
-  - Cung cấp giao diện cấu hình Firebase Config linh hoạt (cho phép kết nối Firebase project cá nhân).
-- Bảo toàn 100% giao diện Tabletop Board Game (Xúc xắc 12 ô, Ca-rô Neon 3x3) và thực hiện commit chỉ trên nhánh `feat/ui`.
+- **Giao diện Quản Trị Viên Toàn Diện (Grandmaster Admin Portal):**
+  - Cung cấp bảng điều khiển trung tâm dành cho Quản trị viên (Admin) để quản lý toàn bộ hệ sinh thái game.
+  - **4 Phân hệ chức năng chính:**
+    1. **📊 Tổng Quan Hệ Thống (Analytics & KPIs):** Thống kê số lượng kỳ thủ, tổng số trận đấu, lượng Xu/Gems lưu hành, trạng thái đồng bộ Firebase & độ trễ thời gian thực.
+    2. **👥 Quản Lý Kỳ Thủ (Player Management):** Danh sách người dùng, tìm kiếm & lọc theo vai trò, thao tác tặng Xu/Kim cương, thăng cấp VIP/Admin, khóa/mở khóa tài khoản (Ban/Unban).
+    3. **⚙️ Cân Bằng Bàn Cờ & Kinh Tế (Game Balancer & Rules):** Tùy chỉnh điểm cán đích (30 - 100 điểm), điểm số các ô đặc biệt (Kho báu, Chìa khóa, Hố đen, Ngôi sao), phần thưởng Xu chiến thắng và công tắc chế độ Bảo trì Đấu trường.
+    4. **📜 Nhật Ký Hoạt Động (Live Audit Logs):** Giám sát theo thời gian thực các sự kiện đăng ký, giao dịch, trận đấu và thao tác quản trị.
+  - Phân quyền an toàn: Truy cập qua nút Quản Trị trên Nav Bar hoặc Profile với bảo mật xác thực (Passcode mặc định: `admin123` hoặc tài khoản có role `Admin`).
+- **Bảo toàn 100% Typography tiếng Việt:** Tiếp tục áp dụng chuẩn font Playfair Display & Be Vietnam Pro, không vỡ font, không lỗi dấu.
+- **Bảo toàn 100% Logic Cũ:** Toàn bộ trò chơi Xúc xắc 12 ô, Ca-rô Neon 3x3, Firebase Auth/Firestore và chỉ đẩy code lên nhánh `feat/ui`.
 
-## 2. Design Tokens & Vibe Typography
-- **Header & Title Display Font:** `'Playfair Display', 'Cinzel', Georgia, serif`
-  - Nạp Google Fonts với `family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,700` hỗ trợ đầy đủ subset Tiếng Việt (`ă, â, đ, ê, ô, ơ, ư, dấu thanh`).
-  - Mang phong cách quý tộc bàn cờ cổ điển, tương phản cao, nét chân sắc lẹm, uy nghi.
-- **Body & UI Controls Font:** `'Be Vietnam Pro', 'Inter', system-ui, sans-serif`
-  - Nạp Google Fonts với `family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400`
-  - Font chuẩn mực quốc gia được thiết kế riêng tối ưu cho dấu tiếng Việt, không bị cắt dấu (clipping), khoảng cách thanh điệu tự nhiên, đọc êm mắt và rõ nét ở mọi kích cỡ màn hình.
-- **Code & Stats Monospace Font:** `'JetBrains Mono', monospace`
-- **Tông màu Board Game:**
-  - Vàng kim Hoàng Gia (`#D97706`, `#F59E0B`), Nền nỉ xanh đen bàn cờ (`#0A0F1D`, `#060911`), Viền khung đồng thau (`#2A364F`, `#B45309`).
+## 2. Design Tokens Admin Portal
+- **Phong cách:** Royal Dark Glassmorphism kết hợp Luxury Boardgame (Bento Grid hiện đại, viền vàng kim `#D97706`, nền nỉ xanh đen `#0A0F1D`).
+- **Typography:**
+  - Tiêu đề modal & bảng: `'Playfair Display', 'Cinzel', Georgia, serif` (100% tiếng Việt).
+  - Bảng dữ liệu, nhãn & nút bấm: `'Be Vietnam Pro', system-ui, sans-serif`.
+  - Chỉ số số liệu, ELO, mã UID: `'JetBrains Mono', monospace`.
+- **Hiệu ứng:** Spring Press mượt mà, Badge trạng thái phát sáng (Active: Emerald, VIP: Amber, Admin: Indigo, Banned: Rose).
 
-## 3. Kiến trúc Firebase & Luồng Dữ Liệu
-- SDK: Firebase Web SDK v10 (ES Modules via CDN gstatic):
-  - `firebase/app`: `initializeApp`
-  - `firebase/auth`: `getAuth`, `createUserWithEmailAndPassword`, `signInWithEmailAndPassword`, `signInWithPopup`, `GoogleAuthProvider`, `signOut`, `onAuthStateChanged`, `updateProfile`
-  - `firebase/firestore`: `getFirestore`, `doc`, `setDoc`, `getDoc`, `updateDoc`
-- Luồng Đăng Ký:
-  1. Người dùng nhập: Tên, Email, Mật khẩu.
-  2. Gọi `createUserWithEmailAndPassword(auth, email, password)`.
-  3. Cập nhật `updateProfile(user, { displayName })`.
-  4. Ghi tài liệu người dùng lên Firestore `setDoc(doc(db, "users", user.uid), {...})`.
-  5. Đồng bộ giao diện thanh Nav và Bàn cờ với tên và điểm số thật.
+## 3. Kiến trúc Dữ liệu & State Quản Trị
+- **Cấu hình Bàn Cờ (`adminGameConfig`):**
+  - `targetScore`: Điểm số cán đích (mặc định 50).
+  - `tileRewards`: Điểm cộng/trừ của các ô sự kiện (Ngôi sao, Kho báu, Chìa khóa, Hố đen).
+  - `winCoinReward`: Số Xu thưởng khi chiến thắng.
+  - `isMaintenance`: Trạng thái bảo trì game.
+- **Danh sách Kỳ thủ Quản trị (`adminPlayersList`):**
+  - Mảng dữ liệu người chơi thật từ Firestore + Kỳ thủ mẫu tiêu biểu.
+  - Các hàm điều phối: `adminAddCoins(uid, amount)`, `adminSetRole(uid, role)`, `adminToggleBan(uid)`.
 
 ## 4. Acceptance Criteria (Tiêu chuẩn Nghiệm thu)
-- [ ] Nạp Google Fonts chính thức chứa subset Vietnamese: `Playfair Display` và `Be Vietnam Pro`.
-- [ ] Không còn bất kỳ ký tự tiếng Việt nào bị vỡ font, nhảy kích thước (font fallback mismatch) hay mất dấu trên toàn bộ trang web.
-- [ ] Tất cả các tiêu đề mang vibe Boardgame quý tộc, chân phương, hoa lệ.
-- [ ] Toàn bộ body text, nhãn nút bấm, bảng điểm, form đăng ký/đăng nhập hiển thị tiếng Việt sắc sảo, êm ái.
-- [ ] Tab Đăng ký (Sign Up) và Đăng nhập (Sign In) tách biệt, trực quan.
-- [ ] Đăng ký tài khoản thật với Email & Password hợp lệ.
-- [ ] Dữ liệu tài khoản được lưu trữ và đồng bộ lên Firebase Firestore (`users/{uid}`).
-- [ ] Hỗ trợ cấu hình Firebase Project linh hoạt với nút Cài đặt kết nối.
-- [ ] Giữ nguyên phiên đăng nhập khi F5 trang nhờ `onAuthStateChanged`.
-- [ ] Nút Đăng xuất đưa giao diện về trạng thái Khách sạch sẽ.
-- [ ] Thực hiện 100% và push thành công trên nhánh `feat/ui`.
+- [ ] Có nút mở **Đại Sảnh Quản Trị (Admin Portal)** rõ ràng trên thanh Navigation và Menu Tài khoản.
+- [ ] Hỗ trợ xác thực mở quyền Admin nhanh chóng (Passcode hoặc tài khoản Admin) để người dùng dễ dàng kiểm thử ngay.
+- [ ] Phân hệ **Tổng Quan (KPIs):** Hiển thị 4 thẻ số liệu thống kê sinh động kèm tỷ lệ thắng cờ bàn.
+- [ ] Phân hệ **Quản Lý Kỳ Thủ:** Bảng danh sách kỳ thủ với tính năng tìm kiếm, xem UID/ELO, cộng Xu/Gem, đổi role và Ban/Unban hoạt động tức thì.
+- [ ] Phân hệ **Cân Bằng Bàn Cờ:** Form chỉnh sửa điểm mục tiêu, phần thưởng các ô và lưu trực tiếp vào luật chơi đang chạy.
+- [ ] Phân hệ **Nhật Ký (Audit Logs):** Bảng feed hiển thị các hành động đăng nhập, ván cờ, thao tác admin.
+- [ ] Giữ nguyên 100% bộ font Playfair Display & Be Vietnam Pro không lỗi tiếng Việt.
+- [ ] Toàn bộ code được commit và đẩy trực tiếp lên nhánh `feat/ui`.

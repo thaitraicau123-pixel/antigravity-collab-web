@@ -1,0 +1,11 @@
+============================================================
+🎉 CHÚC MỪNG! HỆ THỐNG ĐỒNG BỘ GIT TỰ ĐỘNG ĐÃ HOẠT ĐỘNG!
+============================================================
+
+- Dự án: Antigravity DuoHub (Board Game Online)
+- Trạng thái: Kết nối thành công 100% giữa 2 tài khoản Antigravity
+- Thời gian tạo: 26/10/2026
+- Ghi chú: File này được tạo tự động từ máy 1 và đẩy lên GitHub.
+  Khi bạn nhìn thấy file này trên máy của bạn, nghĩa là từ nay
+  hai anh em có thể thoải mái code mà không sợ bị đè mất bài của nhau nữa!
+============================================================

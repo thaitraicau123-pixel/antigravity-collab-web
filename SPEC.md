@@ -1,81 +1,36 @@
-# SPEC.md — Đặc Tả Dự Án Code-Collab
+# SPECIFICATION: CYBER TABLETOP BOARD GAME VIBE UPGRADE
 
-## 1. Mục Tiêu Cốt Lõi (Core Objectives)
-Xây dựng nền tảng trình soạn thảo mã nguồn cộng tác thời gian thực (**Code-Collab**) chuẩn phong cách IDE hiện đại:
-- Soạn thảo code đa người dùng (Multi-user real-time collaboration) với Monaco Editor chuẩn VS Code.
-- Đồng bộ hóa nội dung code tức thời qua WebSocket (Socket.io).
-- Hiển thị vị trí con trỏ (remote cursors), vùng chọn (selections) và tên/màu sắc của từng người dùng đang tham gia cùng phòng.
-- Hệ thống phòng (Room-based sessions) cho phép tạo hoặc tham gia phòng bằng Room ID / liên kết chia sẻ.
-- Hỗ trợ đổi ngôn ngữ lập trình linh hoạt (JavaScript, TypeScript, Python, HTML, CSS, C++, Java, JSON, Markdown...) với syntax highlighting.
-- Bảng điều khiển người dùng trực tuyến (Active Peers list) và trạng thái kết nối (Connected / Disconnected / Latency).
+## 1. Mục tiêu Cốt lõi
+Nâng cấp toàn diện giao diện web hiện tại từ phong cách dashboard công nghệ thông thường sang phong cách **Đấu trường Board Game Thượng Hạng (Tabletop / Classic Board Game Vibe)**:
+- Tái hiện cảm giác bàn cờ nỉ nhung cao cấp viền gỗ mun chạm khắc đồng.
+- Xúc xắc 3D chân thực đặt trong Khay gieo xúc xắc (Dice Tray Arena).
+- Quân cờ Meeple 3D có bóng đổ chân thực, thẻ bài bốc thăm sự kiện.
+- Bảo toàn 100% logic trò chơi (12 ô xúc xắc, Cờ ca-rô 3x3, Đăng nhập, Hồ sơ, Nâng cấp VIP, Bảng xếp hạng, Luật chơi).
+- Thực hiện và đẩy commit duy nhất trên nhánh `feat/ui`.
 
----
-
-## 2. Design Tokens (Giao diện Dark IDE chuẩn cao cấp)
-- **Backgrounds:**
-  - Base Background: `#0B0F19` (Deep Slate / Dark canvas)
-  - Surface Panel / Sidebar: `#111827` (Gray 900)
-  - Editor Container: `#1E1E1E` (VS Code Dark+ standard)
-  - Header / Toolbar: `#161F30` (Navy Dark)
-- **Borders & Dividers:**
-  - Border Subtles: `#2D3748`
-  - Border Active / Accent: `#3B82F6` (Electric Blue)
-- **Colors & Accents:**
-  - Primary Accent: `#3B82F6` (Blue 500)
-  - Success / Online: `#10B981` (Emerald 500)
-  - Warning / Syncing: `#F59E0B` (Amber 500)
-  - Peer Color Palette: `['#EF4444', '#F59E0B', '#10B981', '#3B82F6', '#8B5CF6', '#EC4899', '#06B6D4', '#84CC16']`
+## 2. Design Tokens & Vibe Aesthetic
+- **Chủ đề:** Luxury Tabletop & Cyber Fantasy Board Game.
+- **Bảng màu (60-30-10):**
+  - **60% Dominant Background:** Nền nỉ đêm sâu thẳm `#0A0E17` kết hợp hoa văn bàn cờ tinh xảo.
+  - **30% Structural Frame:** Khay bàn cờ gỗ chạm viền vàng Champagne `#161F30` với viền quang học `rgba(245, 158, 11, 0.25)`.
+  - **10% Accent Gold & Jewel:** Vàng Hoàng Gia (`#F59E0B`, `#FBBF24`), Ngọc Lục Bảo (`#10B981`), Hồng Ngọc (`#F43F5E`), Lam Ngọc (`#06B6D4`).
 - **Typography:**
-  - UI Font: `Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`
-  - Code Font: `"JetBrains Mono", "Fira Code", Consolas, monospace`
-- **Layout:**
-  - Header bar: Logo, Room Info, Share Button, Language Selector, Run/Copy Code, Active Users Avatars.
-  - Sidebar: Active Participants list, Room ID badge, Quick settings.
-  - Main: Full-height Monaco Editor with real-time cursor widgets & selection decorations.
-  - Status Bar: Connection status indicator, Current Cursor Line/Col, Language, Peer count.
+  - Tiêu đề & Logo: Google Fonts `Cinzel` / `Cinzel Decorative` (Phong cách cờ bàn thần thoại, sắc sảo, vương giả).
+  - Thân bài & Chỉ số: `Inter` / `JetBrains Mono` tối ưu độ dễ đọc 60-75 ký tự/dòng.
+- **Chuyển động (Animate UI Tokens):**
+  - `spring.press`: scale 0.97, ~120ms.
+  - `spring.pop` & `spring.bounce`: Xúc xắc nảy vật lý và quân cờ nhảy từng bước (hop-by-hop).
+  - `spring.dialog`: Modal mở êm với backdrop-filter blur 16px.
 
----
+## 3. Kiến trúc File & Giao diện
+- `index.html`: Chứa toàn bộ giao diện Board Game Tabletop, tích hợp Tailwind CSS, Google Fonts, Lucide Icons, Web Audio API, và logic game hoàn chỉnh.
+- `SPEC.md`: Tài liệu đặc tả chuẩn teamworkweb.
 
-## 3. Kiến Trúc File & Logic
-```
-code-collab/
-├── SPEC.md                      # Đặc tả kỹ thuật và tiêu chuẩn nghiệm thu
-├── server.js                    # Custom Node.js HTTP + Socket.io Server tích hợp Next.js
-├── package.json                 # Cấu hình dependencies (next, react, socket.io, @monaco-editor/react, tailwindcss)
-├── tsconfig.json                # TypeScript compiler config
-├── tailwind.config.ts           # Tailwind CSS configuration
-├── postcss.config.js            # PostCSS configuration
-├── src/
-│   ├── app/
-│   │   ├── layout.tsx           # Global HTML layout & metadata
-│   │   ├── page.tsx             # Lobby (Trang chủ tạo hoặc nhập mã phòng)
-│   │   ├── room/
-│   │   │   └── [roomId]/
-│   │   │       └── page.tsx     # Workspace phòng soạn thảo cộng tác chính
-│   │   └── globals.css          # Global styles & Design Tokens
-│   ├── components/
-│   │   ├── Editor/
-│   │   │   └── CollaborativeEditor.tsx  # Monaco Editor tích hợp con trỏ và broadcast socket
-│   │   ├── Header/
-│   │   │   └── TopNavigation.tsx       # Toolbar điều khiển, chọn ngôn ngữ, sao chép link
-│   │   └── Sidebar/
-│   │       └── PeerList.tsx            # Danh sách người dùng trong phòng
-│   ├── hooks/
-│   │   └── useSocket.ts                # Hook quản lý kết nối Socket.io và event listeners
-│   └── types/
-│       └── collaboration.ts            # Định nghĩa types: Peer, RoomData, CursorPosition
-```
-
----
-
-## 4. Acceptance Criteria (Tiêu Chuẩn Nghiệm Thu Dành Cho QA)
-- [x] AC-1: Khởi tạo thành công cấu trúc dự án `code-collab` với đầy đủ dependencies (`next`, `react`, `@monaco-editor/react`, `socket.io`, `socket.io-client`, `tailwindcss`).
-- [x] AC-2: Server Socket.io chạy ổn định, tiếp nhận các sự kiện: `join-room`, `code-change`, `cursor-move`, `language-change`, `disconnect`.
-- [x] AC-3: Trang Lobby (`/`) cho phép người dùng nhập tên, tạo phòng mới ngẫu nhiên hoặc nhập mã phòng có sẵn để tham gia.
-- [x] AC-4: Trang Workspace (`/room/[roomId]`) tích hợp Monaco Editor giao diện Dark (vs-dark) với đầy đủ syntax highlighting.
-- [x] AC-5: Hỗ trợ chuyển đổi đa ngôn ngữ (JavaScript, TypeScript, Python, HTML, CSS, C++, JSON, Markdown) và đồng bộ cho tất cả thành viên trong phòng.
-- [x] AC-6: Đồng bộ hóa nội dung gõ code thời gian thực giữa 2 trình duyệt/tab không bị giật lag hoặc mất focus.
-- [x] AC-7: Hiển thị con trỏ (remote cursor) và vị trí dòng/cột kèm nhãn tên và màu đại diện của từng peer theo thời gian thực.
-- [x] AC-8: Danh sách thành viên trực tuyến (Active Peers) cập nhật tự động khi có người vào/rời phòng.
-- [x] AC-9: Nút "Copy Link" / "Share Room" hoạt động mượt mà, có thông báo toast phản hồi thành công.
-- [x] AC-10: Kiểm thử build / lint không phát sinh lỗi cú pháp hay runtime crash.
+## 4. Acceptance Criteria (Tiêu chuẩn Nghiệm thu)
+- [ ] Bàn cờ mang đậm chất Tabletop Board Game (có khay nỉ, viền đồng, ô cờ acrylic bóng nổi).
+- [ ] Xúc xắc 3D to bản nằm trong Khay nỉ gieo xúc xắc trung tâm (Dice Tray).
+- [ ] Quân cờ Meeple 3D có bóng đổ chân thực nhảy nảy từng bước theo token `spring.bounce`.
+- [ ] Thanh điều hướng trên (Navbar) và Chân trang (Footer) đầy đủ tính năng: Đăng nhập, Hồ sơ cá nhân, Nâng cấp VIP, Bảng xếp hạng, Luật chơi.
+- [ ] Hỗ trợ 2 chế độ: Xúc xắc 12 ô thoáng đãng & Cờ Ca-rô Neon 3x3.
+- [ ] Hoạt động mượt mà không lỗi Console, âm thanh Web Audio API sống động.
+- [ ] Commit và push 100% trên nhánh `feat/ui`.

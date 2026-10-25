@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minimal Board Game Arena - Animate UI</title>
+  <title>Cyber Arena - Nền Tảng Board Game & Đấu Trí Trực Tuyến</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
@@ -45,7 +45,7 @@
 
     /* Spring press physics */
     .btn-spring {
-      transition: transform 0.12s var(--ease-soft), box-shadow 0.15s, background-color 0.15s;
+      transition: transform 0.12s var(--ease-soft), box-shadow 0.15s, background-color 0.15s, border-color 0.15s;
     }
     .btn-spring:active {
       transform: scale(var(--spring-press-scale));
@@ -53,7 +53,7 @@
 
     /* Tile Hover & Spring */
     .tile-box {
-      transition: transform 0.2s var(--ease-soft), border-color 0.2s, background-color 0.2s;
+      transition: transform 0.2s var(--ease-soft), border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
     }
     .tile-box:hover {
       transform: translateY(-2px);
@@ -84,205 +84,645 @@
 
     /* Glass Panels */
     .glass-card {
-      background: rgba(15, 23, 42, 0.7);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-navbar {
+      background: rgba(8, 12, 22, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     }
   </style>
 </head>
-<body class="bg-[#080C16] text-slate-100 min-h-screen flex flex-col items-center justify-between p-4 sm:p-6 font-sans antialiased selection:bg-brand-500 selection:text-white">
+<body class="bg-[#080C16] text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-brand-500 selection:text-white">
 
   <!-- Ambient Light Orbs -->
   <div class="fixed top-0 left-1/4 w-[35vw] h-[35vw] rounded-full bg-brand-600/10 blur-[130px] pointer-events-none"></div>
   <div class="fixed bottom-0 right-1/4 w-[35vw] h-[35vw] rounded-full bg-accent-cyan/10 blur-[130px] pointer-events-none"></div>
 
-  <!-- Top Navigation Header -->
-  <header class="w-full max-w-4xl flex flex-wrap items-center justify-between gap-4 py-2">
-    <!-- Brand -->
-    <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-brand-500/25">
-        <i data-lucide="gamepad-2" class="w-5 h-5"></i>
+  <!-- ================= TOP NAVIGATION BAR (THANH CÔNG CỤ HOÀN CHỈNH) ================= -->
+  <header class="glass-navbar sticky top-0 z-40 w-full px-4 sm:px-8 py-3 flex items-center justify-between">
+    <!-- Left: Brand Logo & Navigation Links -->
+    <div class="flex items-center gap-6 sm:gap-8">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="switchGameView('dice')">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-brand-500/30">
+          <i data-lucide="gamepad-2" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="text-lg font-black tracking-tight text-white flex items-center gap-1.5">
+            CYBER<span class="text-brand-400">ARENA</span>
+          </span>
+          <span class="text-[10px] uppercase font-semibold text-brand-300 tracking-wider block">Board Game Hub</span>
+        </div>
       </div>
-      <div>
-        <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-          Board Game <span class="text-xs uppercase font-semibold px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30">Minimal UI</span>
-        </h1>
-        <p class="text-xs text-slate-400">Giao diện tối giản, ô cờ thoáng rộng & chuyển động Animate UI</p>
-      </div>
+
+      <!-- Main Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-1 text-xs font-semibold">
+        <button onclick="switchGameView('dice')" class="btn-spring px-3.5 py-2 rounded-xl text-white bg-slate-800/80 hover:bg-slate-700/80 flex items-center gap-2">
+          <i data-lucide="dices" class="w-4 h-4 text-brand-400"></i>
+          Đấu Trường
+        </button>
+        <button onclick="openModal('leaderboardModal')" class="btn-spring px-3.5 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/50 flex items-center gap-2">
+          <i data-lucide="trophy" class="w-4 h-4 text-amber-400"></i>
+          Bảng Xếp Hạng
+        </button>
+        <button onclick="openModal('upgradeModal')" class="btn-spring px-3.5 py-2 rounded-xl text-amber-300 hover:text-amber-200 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 flex items-center gap-1.5 shadow-sm">
+          <i data-lucide="zap" class="w-4 h-4 text-amber-400 fill-amber-400/20"></i>
+          Nâng Cấp VIP
+        </button>
+        <button onclick="openModal('rulesModal')" class="btn-spring px-3.5 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/50 flex items-center gap-2">
+          <i data-lucide="book-open" class="w-4 h-4 text-cyan-400"></i>
+          Luật Chơi
+        </button>
+      </nav>
     </div>
 
-    <!-- Game Tabs & Controls -->
+    <!-- Right: Currency, Sound & User Profile / Login -->
     <div class="flex items-center gap-3">
-      <!-- Game Mode Pill (Dice Quest vs Tic-Tac-Toe) -->
-      <div class="relative bg-slate-900/90 p-1 rounded-xl border border-slate-800 flex items-center">
-        <div id="gameTabPill" class="absolute top-1 bottom-1 w-[90px] bg-brand-600 rounded-lg transition-all duration-200 ease-out left-1 shadow-md shadow-brand-600/30"></div>
-        <button onclick="switchGameView('dice')" class="relative z-10 px-3 py-1.5 text-xs font-medium rounded-lg text-white w-[90px] text-center transition-colors">
-          🎲 Xúc Xắc
-        </button>
-        <button onclick="switchGameView('tictactoe')" class="relative z-10 px-3 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-white w-[90px] text-center transition-colors">
-          ⭕❌ Cờ Ca-rô
-        </button>
+      <!-- Balance Widgets (Coins & Gems) -->
+      <div class="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs font-semibold">
+        <div class="flex items-center gap-1 text-amber-400" title="Xu Thưởng">
+          <span>🪙</span> <span id="userCoins">2,450</span>
+        </div>
+        <div class="h-3 w-px bg-slate-700"></div>
+        <div class="flex items-center gap-1 text-cyan-400" title="Kim Cương">
+          <span>💎</span> <span id="userGems">150</span>
+        </div>
       </div>
 
-      <!-- Reset & Sound -->
-      <button onclick="handleReset()" class="btn-spring p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/80" title="Chơi lại">
-        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
-      </button>
-      <button onclick="toggleSound()" class="btn-spring p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/80" title="Bật/Tắt âm">
+      <!-- Sound Toggle -->
+      <button onclick="toggleSound()" class="btn-spring p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/80" title="Bật/Tắt âm thanh">
         <i data-lucide="volume-2" id="soundIcon" class="w-4 h-4"></i>
       </button>
+
+      <!-- Auth State: Guest or Logged In -->
+      <div id="authArea">
+        <!-- Guest Button (Default) -->
+        <button id="btnLoginTrigger" onclick="openModal('authModal')" class="btn-spring px-4 py-2 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 text-white font-semibold text-xs shadow-md shadow-brand-600/30 hover:opacity-95 flex items-center gap-1.5">
+          <i data-lucide="user" class="w-4 h-4"></i>
+          <span>Đăng nhập</span>
+        </button>
+
+        <!-- Logged In User Avatar & Dropdown -->
+        <div id="userProfileWidget" class="hidden relative">
+          <button onclick="toggleProfileDropdown()" class="btn-spring flex items-center gap-2 p-1.5 pr-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 text-xs">
+            <div id="userAvatarSmall" class="w-7 h-7 rounded-lg bg-brand-500 text-white font-bold flex items-center justify-center text-xs shadow-sm">
+              MD
+            </div>
+            <span id="navUserName" class="font-bold text-white max-w-[90px] truncate">Minh Dev</span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">VIP</span>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-48 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl p-1.5 z-50 text-xs space-y-1">
+            <button onclick="openModal('profileModal')" class="w-full px-3 py-2 rounded-xl hover:bg-slate-800 text-left flex items-center gap-2 text-slate-200">
+              <i data-lucide="user-check" class="w-4 h-4 text-brand-400"></i>
+              Hồ Sơ Cá Nhân
+            </button>
+            <button onclick="openModal('upgradeModal')" class="w-full px-3 py-2 rounded-xl hover:bg-slate-800 text-left flex items-center gap-2 text-amber-300">
+              <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
+              Gói Hội Viên VIP
+            </button>
+            <div class="h-px bg-slate-800 my-1"></div>
+            <button onclick="handleLogout()" class="w-full px-3 py-2 rounded-xl hover:bg-rose-500/10 text-left flex items-center gap-2 text-rose-400">
+              <i data-lucide="log-out" class="w-4 h-4"></i>
+              Đăng Xuất
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </header>
 
-  <!-- ================= VIEW 1: DICE QUEST (12 Ô LỚN THOÁNG ĐÃNG) ================= -->
-  <main id="diceView" class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-12 gap-5 my-auto items-stretch">
-    
-    <!-- Left: 4x4 Perimeter Board (12 Tiles Total) -->
-    <div class="md:col-span-8 glass-card rounded-3xl p-5 shadow-2xl flex flex-col justify-center">
-      <div class="grid grid-cols-4 grid-rows-4 gap-2.5 sm:gap-3 aspect-square max-w-[500px] w-full mx-auto" id="circuitGrid">
-        
-        <!-- Center Arena: Dice & Status (Col 2..3, Row 2..3) -->
-        <div class="col-start-2 col-end-4 row-start-2 row-end-4 rounded-2xl bg-slate-900/80 border border-slate-800 p-4 flex flex-col items-center justify-center text-center shadow-inner relative">
-          <!-- Turn Indicator -->
-          <div id="diceTurnBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold mb-3">
-            <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span>
-            <span id="diceTurnText">Lượt của Người chơi 1</span>
-          </div>
-
-          <!-- Big Interactive Dice -->
-          <div onclick="rollDiceQuest()" id="diceButton" class="btn-spring w-20 h-20 sm:w-22 sm:h-22 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-brand-500/40 shadow-xl shadow-brand-500/20 flex items-center justify-center text-4xl sm:text-5xl cursor-pointer hover:border-brand-400 select-none group">
-            <span id="diceFaceDisplay" class="group-hover:scale-110 transition-transform">🎲</span>
-          </div>
-
-          <p id="diceActionHint" class="text-xs text-slate-400 mt-3 font-medium">Bấm xúc xắc để gieo bước</p>
-        </div>
-
-        <!-- 12 Tiles will be placed around perimeter -->
+  <!-- ================= SUB-HEADER: GAME MODE SELECTOR ================= -->
+  <div class="w-full max-w-4xl mx-auto px-4 pt-4 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2">
+      <!-- Game Mode Pill (Dice Quest vs Tic-Tac-Toe) -->
+      <div class="relative bg-slate-900/90 p-1 rounded-xl border border-slate-800 flex items-center">
+        <div id="gameTabPill" class="absolute top-1 bottom-1 w-[100px] bg-brand-600 rounded-lg transition-all duration-200 ease-out left-1 shadow-md shadow-brand-600/30"></div>
+        <button onclick="switchGameView('dice')" class="relative z-10 px-3 py-1.5 text-xs font-semibold rounded-lg text-white w-[100px] text-center transition-colors">
+          🎲 Xúc Xắc 12 Ô
+        </button>
+        <button onclick="switchGameView('tictactoe')" class="relative z-10 px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white w-[100px] text-center transition-colors">
+          ⭕❌ Cờ Ca-rô
+        </button>
       </div>
-    </div>
-
-    <!-- Right: Minimal Stats & Controls -->
-    <div class="md:col-span-4 flex flex-col gap-3.5">
       
-      <!-- Opponent Selector -->
-      <div class="glass-card rounded-2xl p-3 flex items-center justify-between">
-        <span class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-          <i data-lucide="cpu" class="w-3.5 h-3.5 text-brand-400"></i> Đối thủ:
-        </span>
-        <div class="flex bg-slate-900 p-0.5 rounded-lg border border-slate-800 text-xs">
-          <button onclick="setOpponent('bot')" id="btnBot" class="px-3 py-1 rounded-md bg-brand-600 text-white font-medium transition-all">
-            Máy (BOT)
-          </button>
-          <button onclick="setOpponent('human')" id="btnHuman" class="px-3 py-1 rounded-md text-slate-400 hover:text-white font-medium transition-all">
-            2 Người
-          </button>
-        </div>
-      </div>
-
-      <!-- Player 1 Card -->
-      <div id="cardP1" class="glass-card rounded-2xl p-4 border-l-4 border-l-indigo-500 ring-2 ring-indigo-500/50 transition-all">
-        <div class="flex items-center justify-between mb-2">
-          <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-base">
-              🤖
-            </div>
-            <div>
-              <div class="text-sm font-bold text-white">Người chơi 1</div>
-              <div class="text-[11px] text-slate-400">Hiệp sĩ Xanh</div>
-            </div>
-          </div>
-          <div class="text-right">
-            <div class="text-[10px] text-slate-400 font-semibold">ĐIỂM</div>
-            <div id="scoreP1" class="text-2xl font-black text-indigo-400">0</div>
-          </div>
-        </div>
-        <div class="text-xs text-slate-400 flex items-center justify-between bg-slate-900/60 px-2.5 py-1.5 rounded-lg">
-          <span>Vị trí:</span>
-          <span id="posP1Text" class="font-semibold text-slate-200">Ô 0: Khởi hành 🚀</span>
-        </div>
-      </div>
-
-      <!-- Player 2 / BOT Card -->
-      <div id="cardP2" class="glass-card rounded-2xl p-4 border-l-4 border-l-rose-500 opacity-70 transition-all">
-        <div class="flex items-center justify-between mb-2">
-          <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-base">
-              🦊
-            </div>
-            <div>
-              <div class="text-sm font-bold text-white" id="p2Title">AI Bot</div>
-              <div class="text-[11px] text-slate-400">Chiến binh Đỏ</div>
-            </div>
-          </div>
-          <div class="text-right">
-            <div class="text-[10px] text-slate-400 font-semibold">ĐIỂM</div>
-            <div id="scoreP2" class="text-2xl font-black text-rose-400">0</div>
-          </div>
-        </div>
-        <div class="text-xs text-slate-400 flex items-center justify-between bg-slate-900/60 px-2.5 py-1.5 rounded-lg">
-          <span>Vị trí:</span>
-          <span id="posP2Text" class="font-semibold text-slate-200">Ô 0: Khởi hành 🚀</span>
-        </div>
-      </div>
-
-      <!-- Game Goal & Log -->
-      <div class="glass-card rounded-2xl p-3.5 flex-1 flex flex-col justify-between">
-        <div class="text-xs font-semibold text-slate-300 flex items-center justify-between border-b border-slate-800 pb-2">
-          <span class="flex items-center gap-1.5"><i data-lucide="target" class="w-3.5 h-3.5 text-accent-emerald"></i> Mục tiêu:</span>
-          <span class="text-amber-400 font-bold">50 Điểm</span>
-        </div>
-        <div id="miniLog" class="text-xs text-slate-300 my-2.5 font-mono min-h-[32px] flex items-center">
-          Chào mừng! Hãy gieo xúc xắc để bắt đầu.
-        </div>
-        <div class="text-[11px] text-slate-400 bg-slate-900/40 p-2 rounded-lg border border-slate-800/80">
-          💡 Mẹo: Ô ⭐ và 👑 cho điểm cao; tránh xa ô 💣 và 🌩️ nhé!
-        </div>
-      </div>
-
+      <button onclick="handleReset()" class="btn-spring px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/80 text-xs font-medium flex items-center gap-1.5" title="Chơi lại">
+        <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+        <span>Ván Mới</span>
+      </button>
     </div>
-  </main>
 
-  <!-- ================= VIEW 2: TIC-TAC-TOE NEON (CỜ CA-RÔ TỐI GIẢN) ================= -->
-  <main id="tictactoeView" class="w-full max-w-xl mx-auto my-auto glass-card rounded-3xl p-6 sm:p-8 shadow-2xl hidden flex-col items-center">
-    <!-- Header of Tic-Tac-Toe -->
-    <div class="w-full flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
+    <!-- Active Room Badge -->
+    <div class="flex items-center gap-2 text-xs text-slate-400">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span>Đang kết nối: <b class="text-slate-200">Đấu Trường Toàn Cầu #1</b></span>
+    </div>
+  </div>
+
+  <!-- ================= GAME CONTAINER ================= -->
+  <div class="flex-1 flex flex-col justify-center items-center p-4">
+
+    <!-- VIEW 1: DICE QUEST (12 Ô LỚN THOÁNG ĐÃNG) -->
+    <main id="diceView" class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
+      <!-- Left: 4x4 Perimeter Board (12 Tiles Total) -->
+      <div class="md:col-span-8 glass-card rounded-3xl p-5 shadow-2xl flex flex-col justify-center">
+        <div class="grid grid-cols-4 grid-rows-4 gap-2.5 sm:gap-3 aspect-square max-w-[480px] w-full mx-auto" id="circuitGrid">
+          
+          <!-- Center Arena: Dice & Status (Col 2..3, Row 2..3) -->
+          <div class="col-start-2 col-end-4 row-start-2 row-end-4 rounded-2xl bg-slate-900/85 border border-slate-800 p-4 flex flex-col items-center justify-center text-center shadow-inner relative">
+            <!-- Turn Indicator -->
+            <div id="diceTurnBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold mb-3">
+              <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span>
+              <span id="diceTurnText">Lượt của Bạn (P1)</span>
+            </div>
+
+            <!-- Big Interactive Dice -->
+            <div onclick="rollDiceQuest()" id="diceButton" class="btn-spring w-20 h-20 sm:w-22 sm:h-22 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-brand-500/40 shadow-xl shadow-brand-500/20 flex items-center justify-center text-4xl sm:text-5xl cursor-pointer hover:border-brand-400 select-none group">
+              <span id="diceFaceDisplay" class="group-hover:scale-110 transition-transform">🎲</span>
+            </div>
+
+            <p id="diceActionHint" class="text-xs text-slate-400 mt-3 font-medium">Bấm xúc xắc để gieo bước</p>
+          </div>
+
+          <!-- 12 Tiles will be placed around perimeter -->
+        </div>
+      </div>
+
+      <!-- Right: Minimal Stats & Controls -->
+      <div class="md:col-span-4 flex flex-col gap-3.5">
+        <!-- Opponent Selector -->
+        <div class="glass-card rounded-2xl p-3 flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+            <i data-lucide="cpu" class="w-3.5 h-3.5 text-brand-400"></i> Chế độ:
+          </span>
+          <div class="flex bg-slate-900 p-0.5 rounded-lg border border-slate-800 text-xs">
+            <button onclick="setOpponent('bot')" id="btnBot" class="px-3 py-1 rounded-md bg-brand-600 text-white font-medium transition-all">
+              Đấu BOT
+            </button>
+            <button onclick="setOpponent('human')" id="btnHuman" class="px-3 py-1 rounded-md text-slate-400 hover:text-white font-medium transition-all">
+              2 Người
+            </button>
+          </div>
+        </div>
+
+        <!-- Player 1 Card -->
+        <div id="cardP1" class="glass-card rounded-2xl p-4 border-l-4 border-l-indigo-500 ring-2 ring-indigo-500/50 transition-all">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-base">
+                🤖
+              </div>
+              <div>
+                <div class="text-sm font-bold text-white" id="p1CardName">Người chơi 1</div>
+                <div class="text-[11px] text-slate-400">Hiệp Sĩ Xanh</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-[10px] text-slate-400 font-semibold">ĐIỂM SỐ</div>
+              <div id="scoreP1" class="text-2xl font-black text-indigo-400">0</div>
+            </div>
+          </div>
+          <div class="text-xs text-slate-400 flex items-center justify-between bg-slate-900/60 px-2.5 py-1.5 rounded-lg">
+            <span>Vị trí:</span>
+            <span id="posP1Text" class="font-semibold text-slate-200">Ô 0: Khởi hành 🚀</span>
+          </div>
+        </div>
+
+        <!-- Player 2 / BOT Card -->
+        <div id="cardP2" class="glass-card rounded-2xl p-4 border-l-4 border-l-rose-500 opacity-70 transition-all">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-base">
+                🦊
+              </div>
+              <div>
+                <div class="text-sm font-bold text-white" id="p2Title">AI Bot (Máy)</div>
+                <div class="text-[11px] text-slate-400">Chiến Binh Đỏ</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-[10px] text-slate-400 font-semibold">ĐIỂM SỐ</div>
+              <div id="scoreP2" class="text-2xl font-black text-rose-400">0</div>
+            </div>
+          </div>
+          <div class="text-xs text-slate-400 flex items-center justify-between bg-slate-900/60 px-2.5 py-1.5 rounded-lg">
+            <span>Vị trí:</span>
+            <span id="posP2Text" class="font-semibold text-slate-200">Ô 0: Khởi hành 🚀</span>
+          </div>
+        </div>
+
+        <!-- Game Goal & Mini Log -->
+        <div class="glass-card rounded-2xl p-3.5 flex-1 flex flex-col justify-between">
+          <div class="text-xs font-semibold text-slate-300 flex items-center justify-between border-b border-slate-800 pb-2">
+            <span class="flex items-center gap-1.5"><i data-lucide="target" class="w-3.5 h-3.5 text-accent-emerald"></i> Mục tiêu:</span>
+            <span class="text-amber-400 font-bold">50 Điểm</span>
+          </div>
+          <div id="miniLog" class="text-xs text-slate-300 my-2.5 font-mono min-h-[32px] flex items-center">
+            Chào mừng! Hãy gieo xúc xắc để bắt đầu.
+          </div>
+          <div class="text-[11px] text-slate-400 bg-slate-900/40 p-2 rounded-lg border border-slate-800/80">
+            💡 Mẹo: Ô ⭐ và 👑 cho điểm cao; tránh xa ô 💣 và 🌩️ nhé!
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- VIEW 2: TIC-TAC-TOE NEON (CỜ CA-RÔ TỐI GIẢN) -->
+    <main id="tictactoeView" class="w-full max-w-xl mx-auto glass-card rounded-3xl p-6 sm:p-8 shadow-2xl hidden flex-col items-center">
+      <!-- Header of Tic-Tac-Toe -->
+      <div class="w-full flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            Cờ Ca-rô Neon <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-accent-cyan/20 text-accent-cyan border border-accent-cyan/30">3x3 Grid</span>
+          </h2>
+          <p class="text-xs text-slate-400">Đấu trí với AI Bot hoặc bạn bè trên cùng máy</p>
+        </div>
+
+        <div id="tttTurnBadge" class="px-3 py-1.5 rounded-xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-xs font-bold flex items-center gap-1.5">
+          <span>Lượt:</span> <span id="tttTurnSign" class="text-base text-cyan-400">X</span>
+        </div>
+      </div>
+
+      <!-- 3x3 Grid Matrix -->
+      <div class="grid grid-cols-3 gap-3 w-full max-w-[340px] aspect-square mx-auto mb-6" id="tttGrid">
+        <!-- 9 Interactive Tiles -->
+      </div>
+
+      <!-- Score Bar -->
+      <div class="w-full grid grid-cols-3 gap-3 text-center text-xs font-medium">
+        <div class="bg-cyan-500/10 border border-cyan-500/30 p-2.5 rounded-xl">
+          <div class="text-cyan-400 font-bold">Người chơi X</div>
+          <div class="text-xl font-black text-white mt-0.5" id="tttScoreX">0</div>
+        </div>
+        <div class="bg-slate-800/60 border border-slate-700/60 p-2.5 rounded-xl">
+          <div class="text-slate-400 font-bold">Hòa</div>
+          <div class="text-xl font-black text-white mt-0.5" id="tttScoreDraw">0</div>
+        </div>
+        <div class="bg-rose-500/10 border border-rose-500/30 p-2.5 rounded-xl">
+          <div class="text-rose-400 font-bold">Máy (O)</div>
+          <div class="text-xl font-black text-white mt-0.5" id="tttScoreO">0</div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- ================= FOOTER (CHÂN TRANG WEB CHUẨN) ================= -->
+  <footer class="glass-navbar w-full mt-auto border-t border-slate-800/80 px-4 sm:px-8 py-6 text-xs text-slate-400">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-6">
       <div>
-        <h2 class="text-xl font-bold text-white flex items-center gap-2">
-          Cờ Ca-rô Neon <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-accent-cyan/20 text-accent-cyan border border-accent-cyan/30">3x3 Grid</span>
-        </h2>
-        <p class="text-xs text-slate-400">Tối giản, thông minh, đấu trí với AI hoặc bạn bè</p>
+        <div class="flex items-center gap-2 text-white font-bold text-sm mb-2">
+          <i data-lucide="gamepad-2" class="w-4 h-4 text-brand-400"></i>
+          CYBER ARENA
+        </div>
+        <p class="text-[11px] text-slate-400 leading-relaxed">
+          Nền tảng Board Game trực tuyến thế hệ mới, tối ưu hóa 60 FPS Spring Motion và trải nghiệm chơi tức thì.
+        </p>
       </div>
 
-      <!-- Turn badge -->
-      <div id="tttTurnBadge" class="px-3 py-1.5 rounded-xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-xs font-bold flex items-center gap-1.5">
-        <span>Lượt:</span> <span id="tttTurnSign" class="text-base text-cyan-400">X</span>
+      <div>
+        <h4 class="font-bold text-slate-200 mb-2 uppercase text-[10px] tracking-wider">Trò Chơi</h4>
+        <ul class="space-y-1 text-[11px]">
+          <li><button onclick="switchGameView('dice')" class="hover:text-white transition-colors">🎲 Xúc Xắc 12 Ô Lớn</button></li>
+          <li><button onclick="switchGameView('tictactoe')" class="hover:text-white transition-colors">⭕❌ Cờ Ca-rô Neon 3x3</button></li>
+          <li><button onclick="openModal('leaderboardModal')" class="hover:text-white transition-colors">🏆 Đấu Hạng Mùa 1</button></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-slate-200 mb-2 uppercase text-[10px] tracking-wider">Tài Khoản & Dịch Vụ</h4>
+        <ul class="space-y-1 text-[11px]">
+          <li><button onclick="openModal('authModal')" class="hover:text-white transition-colors">🔐 Đăng Ký / Đăng Nhập</button></li>
+          <li><button onclick="openModal('upgradeModal')" class="hover:text-white transition-colors">⚡ Nâng Cấp VIP Hội Viên</button></li>
+          <li><button onclick="openModal('profileModal')" class="hover:text-white transition-colors">👤 Hồ Sơ & Kho Skin</button></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-slate-200 mb-2 uppercase text-[10px] tracking-wider">Thông Tin & Hỗ Trợ</h4>
+        <ul class="space-y-1 text-[11px]">
+          <li><button onclick="openModal('rulesModal')" class="hover:text-white transition-colors">📖 Quy Tắc & Thể Lệ</button></li>
+          <li><a href="https://github.com/thaitraicau123-pixel/antigravity-collab-web" target="_blank" class="hover:text-white transition-colors flex items-center gap-1">💻 GitHub Repository</a></li>
+          <li><span class="text-slate-500">Phiên bản: v2.5.0-AnimateUI</span></li>
+        </ul>
       </div>
     </div>
 
-    <!-- 3x3 Grid Matrix -->
-    <div class="grid grid-cols-3 gap-3 w-full max-w-[340px] aspect-square mx-auto mb-6" id="tttGrid">
-      <!-- 9 Interactive Tiles -->
-    </div>
-
-    <!-- Score Bar -->
-    <div class="w-full grid grid-cols-3 gap-3 text-center text-xs font-medium">
-      <div class="bg-cyan-500/10 border border-cyan-500/30 p-2.5 rounded-xl">
-        <div class="text-cyan-400 font-bold">Người chơi X</div>
-        <div class="text-xl font-black text-white mt-0.5" id="tttScoreX">0</div>
-      </div>
-      <div class="bg-slate-800/60 border border-slate-700/60 p-2.5 rounded-xl">
-        <div class="text-slate-400 font-bold">Hòa</div>
-        <div class="text-xl font-black text-white mt-0.5" id="tttScoreDraw">0</div>
-      </div>
-      <div class="bg-rose-500/10 border border-rose-500/30 p-2.5 rounded-xl">
-        <div class="text-rose-400 font-bold">Máy (O)</div>
-        <div class="text-xl font-black text-white mt-0.5" id="tttScoreO">0</div>
+    <div class="max-w-6xl mx-auto pt-4 border-t border-slate-800/60 flex flex-wrap items-center justify-between gap-3 text-[11px]">
+      <div>© 2026 Cyber Arena. Bảo lưu mọi quyền.</div>
+      <div class="flex gap-4 text-slate-400">
+        <a href="#" class="hover:text-slate-200">Điều khoản sử dụng</a>
+        <a href="#" class="hover:text-slate-200">Chính sách bảo mật</a>
       </div>
     </div>
-  </main>
+  </footer>
 
-  <!-- Winner Modal -->
+  <!-- ================= MODAL 1: AUTH (ĐĂNG NHẬP / ĐĂNG KÝ) ================= -->
+  <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div id="authCard" class="w-full max-w-md glass-card rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-800 transform scale-90 transition-transform duration-300 relative">
+      <button onclick="closeModal('authModal')" class="absolute top-5 right-5 p-1.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 rounded-2xl bg-brand-500/20 border border-brand-500/40 flex items-center justify-center text-brand-400 mx-auto mb-3">
+          <i data-lucide="lock" class="w-6 h-6"></i>
+        </div>
+        <h3 class="text-xl font-bold text-white" id="authTitle">Đăng Nhập Tài Khoản</h3>
+        <p class="text-xs text-slate-400 mt-1">Lưu trữ điểm thưởng, cấp độ VIP và kho skin của bạn</p>
+      </div>
+
+      <!-- Quick 1-Click Social Sign-in -->
+      <div class="grid grid-cols-2 gap-3 mb-5">
+        <button onclick="quickSocialLogin('Google')" class="btn-spring p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 flex items-center justify-center gap-2 text-xs font-semibold text-slate-200">
+          <span>🌐</span> Google
+        </button>
+        <button onclick="quickSocialLogin('GitHub')" class="btn-spring p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 flex items-center justify-center gap-2 text-xs font-semibold text-slate-200">
+          <i data-lucide="github" class="w-4 h-4"></i> GitHub
+        </button>
+      </div>
+
+      <div class="flex items-center gap-3 my-4">
+        <div class="h-px bg-slate-800 flex-1"></div>
+        <span class="text-[10px] uppercase font-semibold text-slate-500">Hoặc dùng Email</span>
+        <div class="h-px bg-slate-800 flex-1"></div>
+      </div>
+
+      <!-- Email Form -->
+      <form onsubmit="handleAuthSubmit(event)" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Tên Hiển Thị</label>
+          <input type="text" id="authNameInput" required placeholder="Nhập tên của bạn (VD: Minh Pro)" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-brand-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Email</label>
+          <input type="email" id="authEmailInput" required placeholder="name@example.com" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-brand-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Mật khẩu</label>
+          <input type="password" required value="••••••••" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-brand-500">
+        </div>
+
+        <button type="submit" class="btn-spring w-full py-3 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 text-white font-semibold text-xs shadow-lg shadow-brand-600/30 hover:opacity-95 mt-2">
+          Xác Nhận Đăng Nhập
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 2: USER PROFILE (TÀI KHOẢN & KHO ĐỒ) ================= -->
+  <div id="profileModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div id="profileCard" class="w-full max-w-lg glass-card rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-800 transform scale-90 transition-transform duration-300 relative">
+      <button onclick="closeModal('profileModal')" class="absolute top-5 right-5 p-1.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="flex items-center gap-4 mb-6 pb-5 border-b border-slate-800">
+        <div id="profileAvatarBig" class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-brand-500/30">
+          MD
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-xl font-bold text-white" id="profileFullName">Minh Dev</h3>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">VIP MASTER</span>
+          </div>
+          <p class="text-xs text-slate-400" id="profileEmailDisplay">minh.dev@cyberarena.io</p>
+          <div class="flex items-center gap-2 text-[11px] text-brand-400 font-semibold mt-1">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Cấp độ 15 • Đấu Thủ Huyền Thoại
+          </div>
+        </div>
+      </div>
+
+      <!-- Match Stats -->
+      <div class="grid grid-cols-3 gap-3 mb-6">
+        <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800 text-center">
+          <div class="text-[10px] text-slate-400 uppercase font-semibold">Trận Đấu</div>
+          <div class="text-lg font-black text-white mt-0.5">58</div>
+        </div>
+        <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800 text-center">
+          <div class="text-[10px] text-slate-400 uppercase font-semibold">Tỷ Lệ Thắng</div>
+          <div class="text-lg font-black text-emerald-400 mt-0.5">72.4%</div>
+        </div>
+        <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800 text-center">
+          <div class="text-[10px] text-slate-400 uppercase font-semibold">Điểm ELO</div>
+          <div class="text-lg font-black text-amber-400 mt-0.5">1,840</div>
+        </div>
+      </div>
+
+      <!-- Inventory / Skins Section -->
+      <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+        <i data-lucide="package" class="w-4 h-4 text-brand-400"></i> Kho Trang Bị Đã Kích Hoạt
+      </h4>
+      <div class="grid grid-cols-2 gap-3 mb-6">
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-brand-500/30 flex items-center gap-2.5">
+          <span class="text-2xl">🎲</span>
+          <div>
+            <div class="text-xs font-bold text-white">Xúc Xắc Hoàng Kim</div>
+            <div class="text-[10px] text-emerald-400">Đang sử dụng</div>
+          </div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center gap-2.5">
+          <span class="text-2xl">🤖</span>
+          <div>
+            <div class="text-xs font-bold text-white">Hiệp Sĩ Cyber</div>
+            <div class="text-[10px] text-emerald-400">Đang sử dụng</div>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="closeModal('profileModal')" class="btn-spring w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold">
+        Đóng Cửa Sổ
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 3: UPGRADE VIP (NÂNG CẤP HỘI VIÊN) ================= -->
+  <div id="upgradeModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div id="upgradeCard" class="w-full max-w-2xl glass-card rounded-3xl p-6 sm:p-8 shadow-2xl border border-amber-500/30 transform scale-90 transition-transform duration-300 relative">
+      <button onclick="closeModal('upgradeModal')" class="absolute top-5 right-5 p-1.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="text-center mb-8">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold mb-2">
+          ⚡ NÂNG CẤP ĐẶC QUYỀN VIP
+        </span>
+        <h3 class="text-2xl font-black text-white">Mở Khóa Toàn Bộ Đấu Trường</h3>
+        <p class="text-xs text-slate-400 mt-1">Nhận ngay x2 Xu thưởng, huy hiệu VIP tỏa sáng và trọn bộ Skin độc quyền</p>
+      </div>
+
+      <!-- 3 Tier Pricing Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <!-- Tier 1: Free -->
+        <div class="rounded-2xl p-4 bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-slate-400 uppercase">Tân Thủ</div>
+            <div class="text-xl font-black text-white my-2">0đ</div>
+            <ul class="text-[11px] text-slate-300 space-y-2 mb-4">
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Chơi Xúc xắc 12 ô</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Cờ Ca-rô Neon</li>
+              <li class="flex items-center gap-1.5 text-slate-500"><i data-lucide="minus" class="w-3.5 h-3.5"></i> Không có x2 Thưởng</li>
+            </ul>
+          </div>
+          <button class="w-full py-2 rounded-xl bg-slate-800 text-slate-400 text-xs font-semibold cursor-default">
+            Đang Dùng
+          </button>
+        </div>
+
+        <!-- Tier 2: Cyber PRO (Popular) -->
+        <div class="rounded-2xl p-4 bg-gradient-to-b from-brand-950/80 to-slate-900 border-2 border-brand-500 shadow-xl shadow-brand-500/20 flex flex-col justify-between relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-brand-500 text-white font-bold text-[9px] uppercase tracking-wider">
+            Phổ Biến Nhất
+          </div>
+          <div>
+            <div class="text-xs font-bold text-brand-400 uppercase">Cyber PRO</div>
+            <div class="text-xl font-black text-white my-2">49.000đ<span class="text-xs font-normal text-slate-400">/tháng</span></div>
+            <ul class="text-[11px] text-slate-200 space-y-2 mb-4">
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> x2 Xu & Kim cương</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Huy hiệu PRO phát sáng</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Mở khóa 5 Skin xúc xắc</li>
+            </ul>
+          </div>
+          <button onclick="confirmUpgrade('Cyber PRO')" class="btn-spring w-full py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold shadow-md shadow-brand-600/30">
+            Nâng Cấp Ngay
+          </button>
+        </div>
+
+        <!-- Tier 3: Huyền Thoại VIP -->
+        <div class="rounded-2xl p-4 bg-slate-900/60 border border-amber-500/40 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-amber-400 uppercase">Huyền Thoại VIP</div>
+            <div class="text-xl font-black text-white my-2">99.000đ<span class="text-xs font-normal text-slate-400">/tháng</span></div>
+            <ul class="text-[11px] text-slate-300 space-y-2 mb-4">
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> x3 Toàn bộ phần thưởng</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Toàn bộ Skin Độc Bản</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Ưu tiên Đấu Rank VIP</li>
+            </ul>
+          </div>
+          <button onclick="confirmUpgrade('Huyền Thoại VIP')" class="btn-spring w-full py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold">
+            Mở Gói VIP
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center text-[11px] text-slate-400">
+        🛡️ Hoàn tiền 100% trong 7 ngày nếu không hài lòng. Hủy gia hạn bất kỳ lúc nào.
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 4: LEADERBOARD (BẢNG XẾP HẠNG) ================= -->
+  <div id="leaderboardModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div id="leaderboardCard" class="w-full max-w-md glass-card rounded-3xl p-6 shadow-2xl border border-slate-800 transform scale-90 transition-transform duration-300 relative">
+      <button onclick="closeModal('leaderboardModal')" class="absolute top-5 right-5 p-1.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="flex items-center gap-2.5 mb-5 pb-4 border-b border-slate-800">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-lg">
+          🏆
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white">Bảng Xếp Hạng Mùa 1</h3>
+          <p class="text-[11px] text-slate-400">Cập nhật theo thời gian thực</p>
+        </div>
+      </div>
+
+      <div class="space-y-2 max-h-[300px] overflow-y-auto pr-1 text-xs">
+        <!-- Rank 1 -->
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30">
+          <div class="flex items-center gap-3">
+            <span class="text-base font-black text-amber-400">🥇 #1</span>
+            <div>
+              <div class="font-bold text-white flex items-center gap-1.5">Shadow Ninja <span class="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/30 text-amber-300">VIP</span></div>
+              <div class="text-[10px] text-slate-400">Tỷ lệ thắng 89% • 120 trận</div>
+            </div>
+          </div>
+          <span class="font-black text-amber-400 font-mono">2,450 ELO</span>
+        </div>
+
+        <!-- Rank 2 -->
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60">
+          <div class="flex items-center gap-3">
+            <span class="text-base font-black text-slate-300">🥈 #2</span>
+            <div>
+              <div class="font-bold text-white">Cyber Phoenix</div>
+              <div class="text-[10px] text-slate-400">Tỷ lệ thắng 84% • 98 trận</div>
+            </div>
+          </div>
+          <span class="font-black text-slate-200 font-mono">2,180 ELO</span>
+        </div>
+
+        <!-- Rank 3 -->
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-amber-700/10 border border-amber-700/30">
+          <div class="flex items-center gap-3">
+            <span class="text-base font-black text-amber-600">🥉 #3</span>
+            <div>
+              <div class="font-bold text-white">Minh Dev (Bạn)</div>
+              <div class="text-[10px] text-slate-400">Tỷ lệ thắng 72% • 58 trận</div>
+            </div>
+          </div>
+          <span class="font-black text-amber-500 font-mono">1,840 ELO</span>
+        </div>
+
+        <!-- Rank 4 -->
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="text-sm font-bold text-slate-500">#4</span>
+            <div>
+              <div class="font-bold text-slate-300">Lan Hacker</div>
+              <div class="text-[10px] text-slate-400">Tỷ lệ thắng 68% • 75 trận</div>
+            </div>
+          </div>
+          <span class="font-bold text-slate-400 font-mono">1,720 ELO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 5: RULES (LUẬT CHƠI) ================= -->
+  <div id="rulesModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div id="rulesCard" class="w-full max-w-md glass-card rounded-3xl p-6 shadow-2xl border border-slate-800 transform scale-90 transition-transform duration-300 relative">
+      <button onclick="closeModal('rulesModal')" class="absolute top-5 right-5 p-1.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="flex items-center gap-2.5 mb-5 pb-4 border-b border-slate-800">
+        <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400">
+          <i data-lucide="book-open" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white">Quy Tắc Đấu Trường</h3>
+          <p class="text-[11px] text-slate-400">Luật chơi đơn giản, công bằng, chuẩn xác</p>
+        </div>
+      </div>
+
+      <div class="space-y-3.5 text-xs text-slate-300">
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+          <div class="font-bold text-white mb-1 flex items-center gap-1.5">
+            <span class="text-base">🎲</span> Chế độ Xúc Xắc 12 Ô:
+          </div>
+          Mỗi lượt gieo xúc xắc từ 1 đến 6 nút. Quân cờ nhảy theo chu vi. Đáp trúng ô ⭐ hoặc 👑 được cộng điểm; vướng ô 💣 hoặc 🌩️ bị trừ điểm. Ai đạt <b>50 điểm</b> trước sẽ thắng cuộc!
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+          <div class="font-bold text-white mb-1 flex items-center gap-1.5">
+            <span class="text-base">⭕❌</span> Chế độ Cờ Ca-rô Neon 3x3:
+          </div>
+          Xếp thẳng hàng 3 quân cờ (ngang, dọc hoặc chéo) để giành chiến thắng tức thì.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL VICTORY ================= -->
   <div id="victoryModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
     <div id="victoryCard" class="w-full max-w-sm glass-card rounded-3xl p-6 text-center shadow-2xl border border-brand-500/30 transform scale-90 transition-transform duration-300">
       <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-3xl mx-auto mb-3 shadow-lg shadow-amber-500/20 animate-bounce">
@@ -297,12 +737,13 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="w-full max-w-4xl text-center py-2 text-[11px] text-slate-400 border-t border-slate-800/60">
-    Được thiết kế theo tiêu chuẩn <span class="text-slate-300 font-medium">Animate UI</span> • Web Audio API • 60 FPS Spring Motion
-  </footer>
+  <!-- Toast Notification -->
+  <div id="siteToast" class="fixed bottom-8 right-8 z-50 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs font-semibold shadow-2xl flex items-center gap-2 transform translate-y-10 opacity-0 pointer-events-none transition-all duration-300">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+    <span id="siteToastMsg">Thông báo</span>
+  </div>
 
-  <!-- Application Logic -->
+  <!-- ================= LOGIC & JAVASCRIPT ================= -->
   <script>
     // Audio Synthesizer
     let audioCtx = null;
@@ -335,7 +776,113 @@
       lucide.createIcons();
     }
 
-    // 12 Spacious Tiles (4x4 Perimeter Circuit)
+    // Modal Control Helper
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      const card = modal.querySelector('div');
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        if (card) {
+          card.classList.remove('scale-90');
+          card.classList.add('scale-100');
+        }
+      }, 20);
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      const card = modal.querySelector('div');
+      modal.classList.add('opacity-0');
+      if (card) {
+        card.classList.remove('scale-100');
+        card.classList.add('scale-90');
+      }
+      setTimeout(() => modal.classList.add('hidden'), 250);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('siteToast');
+      const text = document.getElementById('siteToastMsg');
+      text.textContent = msg;
+      toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+      }, 2500);
+    }
+
+    // User State & Auth
+    let currentUser = null;
+
+    function checkSavedUser() {
+      const saved = localStorage.getItem('cyber_arena_user');
+      if (saved) {
+        currentUser = JSON.parse(saved);
+        applyUserUI();
+      }
+    }
+
+    function applyUserUI() {
+      if (!currentUser) return;
+      document.getElementById('btnLoginTrigger').classList.add('hidden');
+      document.getElementById('userProfileWidget').classList.remove('hidden');
+      document.getElementById('navUserName').textContent = currentUser.name;
+      document.getElementById('p1CardName').textContent = currentUser.name;
+      document.getElementById('profileFullName').textContent = currentUser.name;
+      document.getElementById('profileEmailDisplay').textContent = currentUser.email || 'user@cyberarena.io';
+
+      const initials = currentUser.name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+      document.getElementById('userAvatarSmall').textContent = initials;
+      document.getElementById('profileAvatarBig').textContent = initials;
+    }
+
+    function toggleProfileDropdown() {
+      const menu = document.getElementById('profileDropdown');
+      menu.classList.toggle('hidden');
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('authNameInput').value.trim() || 'Minh Dev';
+      const email = document.getElementById('authEmailInput').value.trim() || 'minh@cyberarena.io';
+
+      currentUser = { name, email, coins: 2450, gems: 150, vip: true };
+      localStorage.setItem('cyber_arena_user', JSON.stringify(currentUser));
+
+      applyUserUI();
+      closeModal('authModal');
+      showToast(`Chào mừng ${name} trở lại đấu trường!`);
+      soundTone(659, 'triangle', 0.2, 0.15);
+    }
+
+    function quickSocialLogin(provider) {
+      const randomNames = ['Minh Hacker', 'Alex Master', 'Sarah Cyber', 'Dev Pro'];
+      const name = randomNames[Math.floor(Math.random() * randomNames.length)];
+      currentUser = { name, email: `${name.toLowerCase().replace(/\s+/g, '')}@${provider.toLowerCase()}.com`, coins: 3000, gems: 200, vip: true };
+      localStorage.setItem('cyber_arena_user', JSON.stringify(currentUser));
+      applyUserUI();
+      closeModal('authModal');
+      showToast(`Đăng nhập thành công qua ${provider}!`);
+      soundTone(659, 'triangle', 0.2, 0.15);
+    }
+
+    function handleLogout() {
+      localStorage.removeItem('cyber_arena_user');
+      currentUser = null;
+      document.getElementById('btnLoginTrigger').classList.remove('hidden');
+      document.getElementById('userProfileWidget').classList.add('hidden');
+      document.getElementById('profileDropdown').classList.add('hidden');
+      document.getElementById('p1CardName').textContent = 'Người chơi 1';
+      showToast('Đã đăng xuất tài khoản.');
+    }
+
+    function confirmUpgrade(tier) {
+      closeModal('upgradeModal');
+      showToast(`Đã kích hoạt thành công gói ${tier}! ⚡`);
+      soundTone(880, 'triangle', 0.3, 0.2);
+    }
+
+    // ================= BOARD GAME: 12 TILES LOGIC =================
     const TILES = [
       { id: 0, name: 'Khởi hành', icon: '🚀', pts: 0, type: 'start' },
       { id: 1, name: 'Đá Quý', icon: '💎', pts: 10, type: 'plus' },
@@ -351,7 +898,6 @@
       { id: 11, name: 'Chìa Khóa', icon: '🗝️', pts: 30, type: 'plus' }
     ];
 
-    // Grid coordinates for 4x4 circuit (Top: 0..3, Right: 3..6, Bottom: 6..9, Left: 9..11)
     const COORDS_12 = [
       { r: 1, c: 1 }, { r: 1, c: 2 }, { r: 1, c: 3 }, { r: 1, c: 4 },
       { r: 2, c: 4 }, { r: 3, c: 4 }, { r: 4, c: 4 },
@@ -359,8 +905,7 @@
       { r: 3, c: 1 }, { r: 2, c: 1 }
     ];
 
-    // Game 1: Dice Quest State
-    let currentOpponent = 'bot'; // 'bot' or 'human'
+    let currentOpponent = 'bot';
     let currentTurn = 1;
     let scores = { 1: 0, 2: 0 };
     let positions = { 1: 0, 2: 0 };
@@ -412,7 +957,6 @@
         if (box) box.innerHTML = '';
       }
 
-      // P1 Meeple
       const b1 = document.getElementById(`token-box-${positions[1]}`);
       if (b1) {
         const m1 = document.createElement('div');
@@ -422,7 +966,6 @@
         b1.appendChild(m1);
       }
 
-      // P2 Meeple
       const b2 = document.getElementById(`token-box-${positions[2]}`);
       if (b2) {
         const m2 = document.createElement('div');
@@ -473,9 +1016,8 @@
         await new Promise(r => setTimeout(r, 220));
       }
 
-      // Tile trigger
       const tile = TILES[positions[player]];
-      const label = player === 1 ? 'Người chơi 1' : (currentOpponent === 'bot' ? 'AI Bot' : 'Người chơi 2');
+      const label = player === 1 ? (currentUser ? currentUser.name : 'Người chơi 1') : (currentOpponent === 'bot' ? 'AI Bot' : 'Người chơi 2');
 
       if (tile.type === 'plus') {
         scores[player] += tile.pts;
@@ -513,7 +1055,7 @@
         c2.classList.remove('ring-2', 'ring-rose-500/50');
 
         badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold mb-3';
-        text.textContent = 'Lượt của Người chơi 1';
+        text.textContent = `Lượt của ${currentUser ? currentUser.name : 'Bạn (P1)'}`;
         document.getElementById('diceActionHint').textContent = 'Bấm xúc xắc để gieo bước';
       } else {
         c2.classList.remove('opacity-70');
@@ -572,7 +1114,7 @@
       if (mode === 'bot') {
         btnB.className = 'px-3 py-1 rounded-md bg-brand-600 text-white font-medium transition-all';
         btnH.className = 'px-3 py-1 rounded-md text-slate-400 hover:text-white font-medium transition-all';
-        title.textContent = 'AI Bot';
+        title.textContent = 'AI Bot (Máy)';
       } else {
         btnH.className = 'px-3 py-1 rounded-md bg-brand-600 text-white font-medium transition-all';
         btnB.className = 'px-3 py-1 rounded-md text-slate-400 hover:text-white font-medium transition-all';
@@ -581,7 +1123,7 @@
       handleReset();
     }
 
-    // ================= GAME 2: TIC-TAC-TOE LOGIC =================
+    // ================= TIC-TAC-TOE LOGIC =================
     let tttBoard = Array(9).fill(null);
     let tttTurn = 'X';
     let tttScores = { X: 0, O: 0, draw: 0 };
@@ -616,7 +1158,7 @@
       if (checkTTTWinner(tttTurn)) {
         tttScores[tttTurn]++;
         updateTTTScores();
-        showVictory(tttTurn === 'X' ? 'Người chơi X' : 'Máy (O)');
+        showVictory(tttTurn === 'X' ? (currentUser ? currentUser.name : 'Người chơi X') : 'Máy (O)');
         tttGameOver = true;
         return;
       }
@@ -629,7 +1171,6 @@
         return;
       }
 
-      // Switch turn
       tttTurn = tttTurn === 'X' ? 'O' : 'X';
       document.getElementById('tttTurnSign').textContent = tttTurn;
       document.getElementById('tttTurnSign').className = tttTurn === 'X' ? 'text-base text-cyan-400' : 'text-base text-rose-400';
@@ -684,7 +1225,7 @@
         vTTT.classList.add('hidden');
         vTTT.classList.remove('flex');
       } else {
-        pill.style.left = '94px';
+        pill.style.left = '104px';
         vDice.classList.add('hidden');
         vDice.classList.remove('grid');
         vTTT.classList.remove('hidden');
@@ -693,7 +1234,6 @@
       }
     }
 
-    // Victory Modal
     function showVictory(winnerName) {
       const modal = document.getElementById('victoryModal');
       const card = document.getElementById('victoryCard');
@@ -714,13 +1254,8 @@
       setTimeout(() => soundTone(880, 'triangle', 0.3, 0.2), 120);
     }
 
-    // Reset Function
     function handleReset() {
-      const modal = document.getElementById('victoryModal');
-      const card = document.getElementById('victoryCard');
-      modal.classList.add('opacity-0');
-      card.classList.add('scale-90');
-      setTimeout(() => modal.classList.add('hidden'), 250);
+      closeModal('victoryModal');
 
       if (activeTab === 'dice') {
         scores = { 1: 0, 2: 0 };
@@ -747,6 +1282,7 @@
     // App Initialization
     window.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
+      checkSavedUser();
       renderCircuitBoard();
       updateDiceUI();
     });

@@ -1012,6 +1012,32 @@
             <button onclick="setBotCount(3)" id="botCountBtn3" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">3</button>
           </div>
 
+          <!-- Map Selector (4 Bản Đồ Chiến Thuật) -->
+          <div class="flex items-center bg-board-tray p-1 rounded-xl border border-cyan-500/40 text-xs font-bold shadow-inner">
+            <span class="text-[11px] text-cyan-400 px-1.5 flex items-center gap-1 font-semibold">
+              <i data-lucide="map" class="w-3.5 h-3.5"></i> Map:
+            </span>
+            <select id="mapSelector" onchange="switchGameMap(this.value)" class="bg-black/60 text-cyan-300 text-xs font-bold rounded-lg px-2 py-0.5 border border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-400 cursor-pointer">
+              <option value="nebula">🌌 Tinh Vân Hoàng Kim</option>
+              <option value="volcano">🌋 Đấu Trường Dung Nham</option>
+              <option value="cyber">🏙️ Thành Phố Neon Heist</option>
+              <option value="chrono">⏳ Mê Cung Thời Không</option>
+            </select>
+          </div>
+
+          <!-- Hero Class Selector (Chọn Hệ Nhân Vật) -->
+          <div class="flex items-center bg-board-tray p-1 rounded-xl border border-purple-500/40 text-xs font-bold shadow-inner">
+            <span class="text-[11px] text-purple-400 px-1.5 flex items-center gap-1 font-semibold">
+              <i data-lucide="shield" class="w-3.5 h-3.5"></i> Hệ:
+            </span>
+            <select id="heroSelector" onchange="switchHeroClass(1, this.value)" class="bg-black/60 text-purple-300 text-xs font-bold rounded-lg px-2 py-0.5 border border-purple-500/40 focus:outline-none focus:ring-1 focus:ring-purple-400 cursor-pointer">
+              <option value="guardian">🛡️ Hiệp Sĩ (Giảm Sát Thương)</option>
+              <option value="assassin">🦊 Cáo Lửa (Sát Thủ Mìn Rẻ)</option>
+              <option value="chronomancer">🔮 Pháp Sư (5⚡ Warp Tự Do)</option>
+              <option value="hunter">💎 Thợ Săn (+20% Điểm Ngọc)</option>
+            </select>
+          </div>
+
           <!-- Custom Goal Score Selector (Nâng độ khó: 50đ, 100đ Chuẩn, 150đ Thách Thức) -->
           <div class="flex items-center bg-board-tray p-1 rounded-xl border border-amber-500/30 text-xs font-bold shadow-inner">
             <span class="text-[11px] text-amber-400 px-1.5 flex items-center gap-1 font-semibold">
@@ -1170,31 +1196,135 @@
 
           <div class="grid grid-cols-6 grid-rows-6 gap-2 sm:gap-2.5 aspect-square max-w-[620px] w-full mx-auto" id="circuitGrid">
             
-            <!-- Center Arena: Leather & Felt Dice Tray (4x4 Center Core) -->
-            <div class="col-start-2 col-end-6 row-start-2 row-end-6 rounded-3xl dice-tray p-4 sm:p-6 flex flex-col items-center justify-center text-center relative select-none shadow-2xl">
+            <!-- Center Arena: Leather & Felt Tactical Core with Timing Bar & Skills -->
+            <div class="col-start-2 col-end-6 row-start-2 row-end-6 rounded-3xl dice-tray p-3 sm:p-5 flex flex-col items-center justify-between text-center relative select-none shadow-2xl overflow-hidden border border-amber-500/30">
               
-              <div id="diceTurnBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold mb-3 shadow-inner">
-                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-                <span id="diceTurnText">Lượt của Bạn (Hiệp Sĩ)</span>
+              <!-- Subtle Background Scanlines -->
+              <div class="absolute inset-0 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none"></div>
+
+              <!-- Top: Turn Badge & Energy Bar -->
+              <div class="w-full flex items-center justify-between gap-1 z-10">
+                <div id="diceTurnBadge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-bold shadow-inner">
+                  <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                  <span id="diceTurnText">Lượt của Bạn (Hiệp Sĩ)</span>
+                </div>
+
+                <!-- Energy Battery Indicator -->
+                <div id="turnEnergyBar" class="flex items-center gap-1 bg-black/60 px-2 py-1 rounded-full border border-amber-500/30 text-[10px] font-mono text-amber-300 font-bold shadow-inner">
+                  <span class="text-amber-400">⚡</span>
+                  <span id="pEnergyDots" class="tracking-widest">⚡⚡⚡○○</span>
+                  <span id="pEnergyNum" class="text-white ml-0.5 font-bold">3/5</span>
+                </div>
+              </div>
+
+              <!-- Active Timing & Power Gauge (Thanh Canh Lực Xúc Xắc) -->
+              <div class="w-full max-w-[280px] my-1 z-10">
+                <div class="flex items-center justify-between text-[9px] font-mono font-bold mb-1">
+                  <span class="text-emerald-400">1-2 (NGẮN)</span>
+                  <span id="timingGaugeStatus" class="text-amber-300 font-extrabold uppercase animate-pulse">CANH LỰC GIEO</span>
+                  <span class="text-amber-400">5-6 (DÀI)</span>
+                </div>
+                <div id="timingGaugeTrack" class="w-full h-3.5 rounded-full bg-black/80 border border-slate-700 relative overflow-hidden shadow-inner p-0.5 cursor-pointer" onclick="handleGaugeClick()">
+                  <!-- Zones gradient -->
+                  <div class="w-full h-full rounded-full bg-gradient-to-r from-emerald-500 via-cyan-400 to-amber-500 opacity-80"></div>
+                  <!-- Center Perfect Notch -->
+                  <div class="absolute top-0 bottom-0 left-1/2 w-2 -translate-x-1/2 bg-yellow-300/80 shadow-[0_0_8px_#fde047]"></div>
+                  <!-- Oscillating Needle -->
+                  <div id="timingNeedle" class="absolute top-0 bottom-0 w-2.5 -translate-x-1/2 bg-white rounded-full shadow-[0_0_10px_#ffffff] transition-none" style="left: 50%;"></div>
+                </div>
               </div>
 
               <!-- 3D Cubic Dice in Tray -->
-              <div onclick="rollDiceQuest()" id="diceButton" class="btn-spring w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-300 border-4 border-amber-500/50 shadow-2xl shadow-black/80 flex items-center justify-center text-5xl cursor-pointer hover:border-amber-400 select-none group relative">
+              <div onclick="handleDiceClickWithTiming()" id="diceButton" class="btn-spring w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-300 border-4 border-amber-500/60 shadow-2xl shadow-black/80 flex items-center justify-center text-4xl sm:text-5xl cursor-pointer hover:border-amber-400 select-none group relative my-0.5 z-10">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent rounded-xl pointer-events-none"></div>
-                <div id="diceFaceDisplay" class="group-hover:scale-110 transition-transform filter drop-shadow flex items-center justify-center"><svg viewBox="0 0 64 64" class="w-12 h-12 sm:w-14 sm:h-14 filter drop-shadow">
-                  <rect x="6" y="6" width="52" height="52" rx="14" fill="#1E293B" stroke="#F59E0B" stroke-width="3"/>
-                  <circle cx="32" cy="32" r="7" fill="#F59E0B" opacity="0.25"/>
-                  <path d="M32 16 L34 24 L42 26 L34 28 L32 36 L30 28 L22 26 L30 24 Z" fill="#FDE68A"/>
-                  <circle cx="20" cy="20" r="3" fill="#D97706"/>
-                  <circle cx="44" cy="44" r="3" fill="#D97706"/>
-                </svg></div>
+                <div id="diceFaceDisplay" class="group-hover:scale-110 transition-transform filter drop-shadow flex items-center justify-center">
+                  <svg viewBox="0 0 64 64" class="w-10 h-10 sm:w-12 sm:h-12 filter drop-shadow">
+                    <rect x="6" y="6" width="52" height="52" rx="14" fill="#1E293B" stroke="#F59E0B" stroke-width="3"/>
+                    <circle cx="32" cy="32" r="7" fill="#F59E0B" opacity="0.25"/>
+                    <path d="M32 16 L34 24 L42 26 L34 28 L32 36 L30 28 L22 26 L30 24 Z" fill="#FDE68A"/>
+                    <circle cx="20" cy="20" r="3" fill="#D97706"/>
+                    <circle cx="44" cy="44" r="3" fill="#D97706"/>
+                  </svg>
+                </div>
               </div>
 
-              <p id="diceActionHint" class="text-xs text-amber-200/80 mt-3 font-semibold tracking-wide">
-                Chạm vào xúc xắc để gieo
-              </p>
+              <!-- Action Hint or Nudge Row -->
+              <div id="diceCenterActionArea" class="w-full flex flex-col items-center justify-center min-h-[30px] z-10">
+                <!-- Nudge Action Strip (Hidden by default, shows after roll if energy >= 1) -->
+                <div id="diceNudgeRow" class="hidden items-center justify-center gap-1.5 w-full animate-scale-up">
+                  <button onclick="applyDiceNudge(-1)" class="btn-spring px-2 py-1 rounded-lg bg-rose-600/90 hover:bg-rose-500 text-white font-black text-[10px] border border-rose-400 shadow flex items-center gap-1">
+                    <span>⏪ Lùi 1</span> <span class="text-[9px] text-amber-200">(1⚡)</span>
+                  </button>
+                  <button onclick="confirmNormalMove()" class="btn-spring px-2.5 py-1 rounded-lg bg-emerald-600/90 hover:bg-emerald-500 text-white font-black text-[10px] border border-emerald-400 shadow">
+                    <span>Đi Thường ➔</span>
+                  </button>
+                  <button onclick="applyDiceNudge(1)" class="btn-spring px-2 py-1 rounded-lg bg-cyan-600/90 hover:bg-cyan-500 text-white font-black text-[10px] border border-cyan-400 shadow flex items-center gap-1">
+                    <span>Tiến 1 ⏩</span> <span class="text-[9px] text-amber-200">(1⚡)</span>
+                  </button>
+                </div>
+
+                <p id="diceActionHint" class="text-[11px] text-amber-200/90 font-semibold tracking-wide">
+                  Chạm vào xúc xắc để gieo hoặc canh lực
+                </p>
+              </div>
+
+              <!-- 3 Tactical Active Skills Strip (Đặt Mìn, Bật Khiên, Tinh Chỉnh Bước) -->
+              <div class="w-full pt-1.5 border-t border-slate-700/60 flex items-center justify-around gap-1 z-10">
+                <button onclick="triggerSkillTrap()" id="btnSkillTrap" class="btn-spring flex-1 py-1 px-1 rounded-xl bg-slate-800 hover:bg-rose-600/30 text-rose-300 border border-rose-500/40 text-[9px] sm:text-[10px] font-bold flex items-center justify-center gap-1 shadow transition-all cursor-pointer" title="Đặt mìn tại ô hiện tại: Kẻ dẫm trúng bị -20đ chuyển cho bạn">
+                  <span>💣 Mìn</span> <span class="text-[8px] px-1 py-0.2 rounded bg-rose-500/20 text-rose-300 font-mono" id="btnSkillTrapCost">2⚡</span>
+                </button>
+                <button onclick="triggerSkillShield()" id="btnSkillShield" class="btn-spring flex-1 py-1 px-1 rounded-xl bg-slate-800 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/40 text-[9px] sm:text-[10px] font-bold flex items-center justify-center gap-1 shadow transition-all cursor-pointer" title="Bật khiên miễn nhiễm 100% sát thương bẫy và đòn đá lùi trong 1 lượt">
+                  <span>🛡️ Khiên</span> <span class="text-[8px] px-1 py-0.2 rounded bg-cyan-500/20 text-cyan-300 font-mono">1⚡</span>
+                </button>
+                <button onclick="triggerSkillEnergyBurst()" id="btnSkillNudge" class="btn-spring flex-1 py-1 px-1 rounded-xl bg-slate-800 hover:bg-amber-600/30 text-amber-300 border border-amber-500/40 text-[9px] sm:text-[10px] font-bold flex items-center justify-center gap-1 shadow transition-all cursor-pointer" title="Tích tụ xung năng lượng: Hồi 1⚡ khi hoàn thành vòng">
+                  <span>⚡ Nạp Lõi</span> <span class="text-[8px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono">HỒI</span>
+                </button>
+              </div>
+
             </div>
 
+          </div>
+
+          <!-- ================= SKILL DUEL MODAL (5-SECOND PVP ARENA) ================= -->
+          <div id="skillDuelModal" class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-md z-40 flex items-center justify-center p-3 animate-fade-in rounded-3xl">
+            <div class="w-full max-w-sm bg-[#0C1524]/95 border-2 border-rose-500/60 rounded-2xl shadow-2xl p-4 sm:p-5 flex flex-col items-center text-center relative animate-scale-up">
+              <!-- Top Duel Banner -->
+              <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 font-cinzel text-xs font-black tracking-wider mb-2">
+                <span>⚔️</span> <span>SÀN ĐẤU QUYẾT ĐẤU (5 GIÂY)</span>
+              </div>
+              <h3 id="duelTitle" class="text-white text-base sm:text-lg font-black mb-1 drop-shadow">
+                Đụng Độ Đỉnh Cao!
+              </h3>
+              <p id="duelDesc" class="text-slate-300 text-xs mb-3 font-semibold">
+                Cạnh tranh khốc liệt! Kẻ chiến thắng sẽ đoạt <b class="text-amber-400">+20 ĐIỂM</b> từ đối phương!
+              </p>
+
+              <!-- Reflex Target Zone -->
+              <div id="duelReflexArena" class="w-full h-32 bg-black/60 rounded-xl border border-slate-700/80 relative flex items-center justify-center overflow-hidden mb-3">
+                <button onclick="handleDuelReflexHit()" id="duelReflexTarget" class="absolute w-12 h-12 rounded-full bg-gradient-to-tr from-amber-400 to-rose-500 border-2 border-white flex items-center justify-center text-xl shadow-[0_0_20px_#f59e0b] animate-ping cursor-pointer active:scale-90 transition-transform">
+                  🎯
+                </button>
+                <span id="duelReflexHint" class="text-slate-400 text-[10px] font-mono">BẤM VÀO MỤC TIÊU PHÁT SÁNG CÀNG NHANH CÀNG TỐT!</span>
+              </div>
+
+              <!-- RPS Tactical Choices Row -->
+              <div id="duelRpsRow" class="hidden grid-cols-3 gap-2 w-full mb-3">
+                <button onclick="handleDuelRpsChoice('rock')" class="btn-spring py-2 rounded-xl bg-slate-800 hover:bg-amber-600/40 text-amber-300 border border-amber-500/40 text-xs font-bold flex flex-col items-center">
+                  <span class="text-lg">✊</span> <span>Tấn Công</span>
+                </button>
+                <button onclick="handleDuelRpsChoice('paper')" class="btn-spring py-2 rounded-xl bg-slate-800 hover:bg-cyan-600/40 text-cyan-300 border border-cyan-500/40 text-xs font-bold flex flex-col items-center">
+                  <span class="text-lg">🖐️</span> <span>Phòng Thủ</span>
+                </button>
+                <button onclick="handleDuelRpsChoice('scissors')" class="btn-spring py-2 rounded-xl bg-slate-800 hover:bg-rose-600/40 text-rose-300 border border-rose-500/40 text-xs font-bold flex flex-col items-center">
+                  <span class="text-lg">✌️</span> <span>Đột Kích</span>
+                </button>
+              </div>
+
+              <!-- Timer countdown bar -->
+              <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden border border-slate-700">
+                <div id="duelTimerBar" class="h-full bg-gradient-to-r from-emerald-500 via-amber-400 to-rose-500 transition-all duration-100" style="width: 100%;"></div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -4253,29 +4383,128 @@
       </svg>`;
     }
 
-    // ================= TABLETOP BOARD: 20 GRAND ARENA TILES (MAP 6x6) =================
-    const TILES = [
-      { id: 0, name: 'Khởi Hành', icon: '🚀', pts: 0, type: 'start', desc: 'Nhận +15đ mỗi khi hoàn thành vòng đua' },
-      { id: 1, name: 'Đá Lam Ngọc', icon: '💎', pts: 10, type: 'plus', desc: 'Khai thác ngọc lam' },
-      { id: 2, name: 'Bẫy Laser', icon: '⚠️', pts: -10, type: 'minus', desc: 'Tia laser thiêu đốt năng lượng' },
-      { id: 3, name: 'Trạm Tiếp Liệu', icon: '⚡', pts: 15, type: 'plus', desc: 'Bơm nạp plasma cao thế' },
-      { id: 4, name: 'Cổng Warp Alpha', icon: '🌀', pts: 0, type: 'warp', target: 14, desc: 'Dịch chuyển tức thời tới Cổng Omega #14' },
-      { id: 5, name: 'Băng Ngục Kìm Chân', icon: '❄️', pts: -5, type: 'freeze', desc: 'Đóng băng kìm chân! Gieo chẵn mới thoát' },
-      { id: 6, name: 'Quặng Hồng Ngọc', icon: '♦️', pts: 20, type: 'plus', desc: 'Khoáng thạch hồng ngọc quý' },
-      { id: 7, name: 'Rương Vận Mệnh I', icon: '🎁', pts: 0, type: 'fortune', desc: 'Rút thẻ cơ hội may rủi bất ngờ' },
-      { id: 8, name: 'Bão Điện Từ', icon: '🌩️', pts: -15, type: 'minus', desc: 'Sấm sét triệt tiêu điểm số' },
-      { id: 9, name: 'Kho Báu Cổ', icon: '👑', pts: 25, type: 'plus', desc: 'Báu vật hoàng gia cổ đại' },
-      { id: 10, name: 'Đấu Trường Quyết Đấu', icon: '⚔️', pts: 0, type: 'duel', desc: 'Kích hoạt thử thách đối kháng' },
-      { id: 11, name: 'Sao Siêu Tân Tinh', icon: '⭐', pts: 20, type: 'plus', desc: 'Hào quang bức xạ ngôi sao' },
-      { id: 12, name: 'Hố Đen Tử Thần', icon: '💣', pts: -25, type: 'minus', desc: 'Lực hấp dẫn cực đại hút cạn điểm' },
-      { id: 13, name: 'Trạm Tiếp Tế', icon: '🔋', pts: 15, type: 'plus', desc: 'Tiếp đạn dược và điểm thưởng' },
-      { id: 14, name: 'Cổng Warp Omega', icon: '🌀', pts: 0, type: 'warp', target: 4, desc: 'Cổng không gian nhảy ngược về Cổng Alpha #4' },
-      { id: 15, name: 'Vành Đai Thiên Thạch', icon: '☄️', pts: -15, type: 'minus', desc: 'Va quẹt mảnh thiên thạch' },
-      { id: 16, name: 'Kim Cương Vĩnh Cửu', icon: '💎', pts: 30, type: 'plus', desc: 'Viên kim cương vô giá tối thượng' },
-      { id: 17, name: 'Rương Vận Mệnh II', icon: '🎁', pts: 0, type: 'fortune', desc: 'Rút thẻ đột biến chiến thuật' },
-      { id: 18, name: 'Trạm Thu Phí Không Gian', icon: '🛑', pts: -10, type: 'minus', desc: 'Đóng thuế giao thông vũ trụ' },
-      { id: 19, name: 'Chìa Khóa Thần', icon: '🗝️', pts: 35, type: 'plus', desc: 'Chìa khóa khai mở vinh quang +35đ' }
-    ];
+    // ================= TABLETOP BOARD: 20 GRAND ARENA TILES & 4 TACTICAL MAPS =================
+    const MAPS = {
+      nebula: {
+        id: 'nebula',
+        name: 'Tinh Vân Hoàng Kim',
+        themeCls: 'map-nebula',
+        accentColor: '#F59E0B',
+        desc: 'Bản đồ kinh điển không gian với Cổng Warp Alpha/Omega và Kho Báu Cổ.',
+        tiles: [
+          { id: 0, name: 'Khởi Hành', icon: '🚀', pts: 0, type: 'start', desc: 'Nhận +15đ mỗi khi hoàn thành vòng đua' },
+          { id: 1, name: 'Đá Lam Ngọc', icon: '💎', pts: 10, type: 'plus', desc: 'Khai thác ngọc lam' },
+          { id: 2, name: 'Bẫy Laser', icon: '⚠️', pts: -10, type: 'minus', desc: 'Tia laser thiêu đốt năng lượng' },
+          { id: 3, name: 'Trạm Tiếp Liệu', icon: '⚡', pts: 15, type: 'plus', desc: 'Bơm nạp plasma cao thế' },
+          { id: 4, name: 'Cổng Warp Alpha', icon: '🌀', pts: 0, type: 'warp', target: 14, desc: 'Dịch chuyển tức thời tới Cổng Omega #14' },
+          { id: 5, name: 'Băng Ngục Kìm Chân', icon: '❄️', pts: -5, type: 'freeze', desc: 'Đóng băng kìm chân! Gieo chẵn mới thoát' },
+          { id: 6, name: 'Quặng Hồng Ngọc', icon: '♦️', pts: 20, type: 'plus', desc: 'Khoáng thạch hồng ngọc quý' },
+          { id: 7, name: 'Rương Vận Mệnh I', icon: '🎁', pts: 0, type: 'fortune', desc: 'Rút thẻ cơ hội may rủi bất ngờ' },
+          { id: 8, name: 'Bão Điện Từ', icon: '🌩️', pts: -15, type: 'minus', desc: 'Sấm sét triệt tiêu điểm số' },
+          { id: 9, name: 'Kho Báu Cổ', icon: '👑', pts: 25, type: 'plus', desc: 'Báu vật hoàng gia cổ đại' },
+          { id: 10, name: 'Đấu Trường Quyết Đấu', icon: '⚔️', pts: 0, type: 'duel', desc: 'Kích hoạt thử thách đối kháng 5 giây' },
+          { id: 11, name: 'Sao Siêu Tân Tinh', icon: '⭐', pts: 20, type: 'plus', desc: 'Hào quang bức xạ ngôi sao' },
+          { id: 12, name: 'Hố Đen Tử Thần', icon: '💣', pts: -25, type: 'minus', desc: 'Lực hấp dẫn cực đại hút cạn điểm' },
+          { id: 13, name: 'Trạm Tiếp Tế', icon: '🔋', pts: 15, type: 'plus', desc: 'Tiếp đạn dược và hồi phục năng lượng' },
+          { id: 14, name: 'Cổng Warp Omega', icon: '🌀', pts: 0, type: 'warp', target: 4, desc: 'Cổng không gian nhảy ngược về Cổng Alpha #4' },
+          { id: 15, name: 'Vành Đai Thiên Thạch', icon: '☄️', pts: -15, type: 'minus', desc: 'Va quẹt mảnh thiên thạch' },
+          { id: 16, name: 'Kim Cương Vĩnh Cửu', icon: '💎', pts: 30, type: 'plus', desc: 'Viên kim cương vô giá tối thượng' },
+          { id: 17, name: 'Rương Vận Mệnh II', icon: '🎁', pts: 0, type: 'fortune', desc: 'Rút thẻ đột biến chiến thuật' },
+          { id: 18, name: 'Trạm Thu Phí Không Gian', icon: '🛑', pts: -10, type: 'minus', desc: 'Đóng thuế giao thông vũ trụ' },
+          { id: 19, name: 'Chìa Khóa Thần', icon: '🗝️', pts: 35, type: 'plus', desc: 'Chìa khóa khai mở vinh quang +35đ' }
+        ]
+      },
+      volcano: {
+        id: 'volcano',
+        name: 'Đấu Trường Dung Nham',
+        themeCls: 'map-volcano',
+        accentColor: '#EF4444',
+        desc: 'Hỏa ngục rực lửa: Ô Bão Lửa, Suối Khoáng Bất Tử và Dung Nham nóng chảy.',
+        tiles: [
+          { id: 0, name: 'Cổng Dung Nham', icon: '🌋', pts: 0, type: 'start', desc: 'Hồi phục +15đ khi hoàn thành vòng' },
+          { id: 1, name: 'Quặng Hắc Diệu', icon: '🖤', pts: 10, type: 'plus', desc: 'Khai thác hắc diệu thạch' },
+          { id: 2, name: 'Hố Nham Thạch', icon: '🔥', pts: -15, type: 'minus', desc: 'Bỏng dung nham thiêu đốt' },
+          { id: 3, name: 'Suối Khoáng Nóng', icon: '♨️', pts: 20, type: 'plus', desc: 'Ngâm suối khoáng hồi phục' },
+          { id: 4, name: 'Cột Dung Nham 1', icon: '🌪️', pts: 0, type: 'warp', target: 14, desc: 'Dòng nhiệt phun trào tới Cột 2 #14' },
+          { id: 5, name: 'Đầm Lầy Tro Bụi', icon: '🌫️', pts: -5, type: 'freeze', desc: 'Kẹt trong bùn tro! Gieo chẵn mới thoát' },
+          { id: 6, name: 'Hạt Lửa Thiêng', icon: '🔮', pts: 20, type: 'plus', desc: 'Bảo vật linh hỏa ngàn năm' },
+          { id: 7, name: 'Rương Hỏa Ngục I', icon: '🎁', pts: 0, type: 'fortune', desc: 'Rút thẻ vận mệnh dung nham' },
+          { id: 8, name: 'Mưa Thiên Thạch', icon: '☄️', pts: -20, type: 'minus', desc: 'Đá trời giáng xuống trừ điểm' },
+          { id: 9, name: 'Ngai Vàng Hỏa Long', icon: '🐉', pts: 25, type: 'plus', desc: 'Long ấn rực rỡ +25đ' },
+          { id: 10, name: 'Sàn Quyết Đấu', icon: '⚔️', pts: 0, type: 'duel', desc: 'Đấu trường sinh tử 5 giây' },
+          { id: 11, name: 'Lõi Lửa Thái Dương', icon: '☀️', pts: 20, type: 'plus', desc: 'Hấp thụ dương khí +20đ' },
+          { id: 12, name: 'Vực Thẳm Magma', icon: '💀', pts: -25, type: 'minus', desc: 'Sụp đổ hố sâu Magma' },
+          { id: 13, name: 'Lò Rèn Cổ Đại', icon: '⚒️', pts: 15, type: 'plus', desc: 'Đúc khiên giáp và nhận điểm' },
+          { id: 14, name: 'Cột Dung Nham 2', icon: '🌪️', pts: 0, type: 'warp', target: 4, desc: 'Dòng nhiệt kéo ngược về Cột 1 #4' },
+          { id: 15, name: 'Bão Khói Độc', icon: '☣️', pts: -15, type: 'minus', desc: 'Ngạt khói lưu huỳnh -15đ' },
+          { id: 16, name: 'Tim Rồng Rực Lửa', icon: '💖', pts: 30, type: 'plus', desc: 'Trái tim rồng bất diệt +30đ' },
+          { id: 17, name: 'Rương Hỏa Ngục II', icon: '🎁', pts: 0, type: 'fortune', desc: 'Rút thẻ biến dị dung nham' },
+          { id: 18, name: 'Trạm Thu Phí Quỷ', icon: '👹', pts: -10, type: 'minus', desc: 'Cống nạp chúa quỷ dung nham' },
+          { id: 19, name: 'Vương Miện Lửa', icon: '👑', pts: 35, type: 'plus', desc: 'Đăng quang hoàng đế hỏa diệm +35đ' }
+        ]
+      },
+      cyber: {
+        id: 'cyber',
+        name: 'Thành Phố Neon Heist',
+        themeCls: 'map-cyber',
+        accentColor: '#06B6D4',
+        desc: 'Thành phố tương lai Cyberpunk: Hack dữ liệu, né Cảnh sát AI, trộm quỹ tiền.',
+        tiles: [
+          { id: 0, name: 'Trạm Hacker', icon: '💻', pts: 0, type: 'start', desc: 'Bảo mật dữ liệu +15đ mỗi vòng' },
+          { id: 1, name: 'Ví Tiền Mã Hóa', icon: '🪙', pts: 10, type: 'plus', desc: 'Hack ví crypto vô chủ' },
+          { id: 2, name: 'Bẫy Tường Lửa', icon: '🛑', pts: -10, type: 'minus', desc: 'Firewall phản mã độc' },
+          { id: 3, name: 'Trạm Máy Chủ', icon: '🖥️', pts: 15, type: 'plus', desc: 'Đột nhập server ngầm' },
+          { id: 4, name: 'Cổng Mạng Alpha', icon: '🌐', pts: 0, type: 'warp', target: 14, desc: 'VPN siêu tốc tới Cổng Omega #14' },
+          { id: 5, name: 'Nhà Lao Mã Lệnh', icon: '⛓️', pts: -5, type: 'freeze', desc: 'Bị khóa MAC! Gieo chẵn mới giải mã' },
+          { id: 6, name: 'Chip Lượng Tử', icon: '💾', pts: 20, type: 'plus', desc: 'Khai thác vi xử lý thế hệ mới' },
+          { id: 7, name: 'Rương Dữ Liệu I', icon: '🎁', pts: 0, type: 'fortune', desc: 'Mở gói mã độc may rủi' },
+          { id: 8, name: 'Cúp Điện Lưới', icon: '⚡', pts: -15, type: 'minus', desc: 'Sập nguồn hệ thống' },
+          { id: 9, name: 'Kho Bạc Trung Ương', icon: '🏦', pts: 25, type: 'plus', desc: 'Đột nhập kho bạc ngầm +25đ' },
+          { id: 10, name: 'Sàn Đấu Hacker', icon: '⚔️', pts: 0, type: 'duel', desc: 'Cuộc chiến công phá dữ liệu 5 giây' },
+          { id: 11, name: 'Trí Tuệ Nhân Tạo', icon: '🤖', pts: 20, type: 'plus', desc: 'Đồng bộ hóa siêu trí tuệ' },
+          { id: 12, name: 'Blackhole Virus', icon: '👾', pts: -25, type: 'minus', desc: 'Virus nuốt trọn điểm số' },
+          { id: 13, name: 'Trạm Nạp Pin Lõi', icon: '🔋', pts: 15, type: 'plus', desc: 'Hồi phục năng lượng và điểm' },
+          { id: 14, name: 'Cổng Mạng Omega', icon: '🌐', pts: 0, type: 'warp', target: 4, desc: 'Dẫn truyền ngược về Cổng Alpha #4' },
+          { id: 15, name: 'Drone Tuần Tra', icon: '🚁', pts: -15, type: 'minus', desc: 'Bị drone cảnh sát bắn phá' },
+          { id: 16, name: 'Dữ Liệu Vô Giá', icon: '💎', pts: 30, type: 'plus', desc: 'Bản thiết kế mật tối thượng +30đ' },
+          { id: 17, name: 'Rương Dữ Liệu II', icon: '🎁', pts: 0, type: 'fortune', desc: 'Rút thẻ đột biến công nghệ' },
+          { id: 18, name: 'Trạm Phí Băng Thông', icon: '📶', pts: -10, type: 'minus', desc: 'Đóng cước viễn thông ngầm' },
+          { id: 19, name: 'Mật Mã Tối Thượng', icon: '🔑', pts: 35, type: 'plus', desc: 'Mở khóa quyền quản trị máy chủ +35đ' }
+        ]
+      },
+      chrono: {
+        id: 'chrono',
+        name: 'Mê Cung Thời Không',
+        themeCls: 'map-chrono',
+        accentColor: '#10B981',
+        desc: 'Lượng tử kỳ ảo: Đồng hồ cát đảo chiều, đứt gãy thời gian, gia tốc lượng tử.',
+        tiles: [
+          { id: 0, name: 'Khởi Hành Không Gian', icon: '⏳', pts: 0, type: 'start', desc: 'Nạp năng lượng thời gian +15đ mỗi vòng' },
+          { id: 1, name: 'Pha Lê Thời Gian', icon: '🔮', pts: 10, type: 'plus', desc: 'Hút tinh chất dòng thời gian' },
+          { id: 2, name: 'Vết Rách Không Gian', icon: '🌀', pts: -10, type: 'minus', desc: 'Hút ngược vào quá khứ' },
+          { id: 3, name: 'Gia Tốc Lượng Tử', icon: '⚡', pts: 15, type: 'plus', desc: 'Tăng tốc photon ánh sáng' },
+          { id: 4, name: 'Cổng Chrono 1', icon: '🚪', pts: 0, type: 'warp', target: 14, desc: 'Bước qua cánh cửa tới Cổng 2 #14' },
+          { id: 5, name: 'Ngưng Đọng Thời Gian', icon: '🧊', pts: -5, type: 'freeze', desc: 'Dòng thời gian đóng băng! Gieo chẵn mới thoát' },
+          { id: 6, name: 'Cát Vàng Vĩnh Cửu', icon: '⌛', pts: 20, type: 'plus', desc: 'Thu gom cát thời gian' },
+          { id: 7, name: 'Rương Nghịch Lý I', icon: '🎁', pts: 0, type: 'fortune', desc: 'Mở nghịch lý thời không' },
+          { id: 8, name: 'Bão Đứt Gãy', icon: '🌩️', pts: -15, type: 'minus', desc: 'Sóng xung kích thời gian' },
+          { id: 9, name: 'Tháp Đồng Hồ Cổ', icon: '🕰️', pts: 25, type: 'plus', desc: 'Kích hoạt kim giờ hoàng kim +25đ' },
+          { id: 10, name: 'Sàn Đấu Thời Không', icon: '⚔️', pts: 0, type: 'duel', desc: 'Quyết đấu vượt thời gian 5 giây' },
+          { id: 11, name: 'Ngôi Sao Sơ Khai', icon: '🌟', pts: 20, type: 'plus', desc: 'Hào quang thời điểm khai sinh' },
+          { id: 12, name: 'Hố Đen Hủy Diệt', icon: '🕳️', pts: -25, type: 'minus', desc: 'Điểm kỳ dị xé toạc không gian' },
+          { id: 13, name: 'Trạm Tiếp Năng Lượng', icon: '🔋', pts: 15, type: 'plus', desc: 'Nạp pin lượng tử' },
+          { id: 14, name: 'Cổng Chrono 2', icon: '🚪', pts: 0, type: 'warp', target: 4, desc: 'Dẫn ngược về Cổng 1 #4' },
+          { id: 15, name: 'Vòng Lặp Vô Tận', icon: '🔄', pts: -15, type: 'minus', desc: 'Mắc kẹt trong vòng lặp thời gian' },
+          { id: 16, name: 'Kim Cương Thực Tại', icon: '💎', pts: 30, type: 'plus', desc: 'Viên ngọc định hình thực tại +30đ' },
+          { id: 17, name: 'Rương Nghịch Lý II', icon: '🎁', pts: 0, type: 'fortune', desc: 'Rút thẻ xáo trộn thời không' },
+          { id: 18, name: 'Trạm Thu Phí Quá Cảnh', icon: '🚧', pts: -10, type: 'minus', desc: 'Phí dịch chuyển chiều không gian' },
+          { id: 19, name: 'Chìa Khóa Vô Cực', icon: '🗝️', pts: 35, type: 'plus', desc: 'Mở toang cánh cổng thời không +35đ' }
+        ]
+      }
+    };
+
+    let currentMapId = 'nebula';
+    let TILES = MAPS.nebula.tiles;
 
     // Perimeter coordinates for 6x6 Grid (20 cells around the perimeter)
     const COORDS_20 = [
@@ -4289,6 +4518,47 @@
       { r: 5, c: 1 }, { r: 4, c: 1 }, { r: 3, c: 1 }, { r: 2, c: 1 }
     ];
 
+    // ================= HERO CLASSES (HỆ NHÂN VẬT & NỘI TẠI) =================
+    const HERO_CLASSES = {
+      guardian: {
+        id: 'guardian',
+        name: 'Hiệp Sĩ Lam Ngọc',
+        icon: '🛡️',
+        color: '#06B6D4',
+        trapCost: 2,
+        desc: 'Giảm 40% sát thương bẫy; khởi đầu trận với 1 Khiên.'
+      },
+      assassin: {
+        id: 'assassin',
+        name: 'Cáo Lửa Hồng Ngọc',
+        icon: '🦊',
+        color: '#F43F5E',
+        trapCost: 1,
+        desc: 'Hút 5đ khi chạy vượt mặt đối thủ; Kỹ năng Đặt Bẫy chỉ tốn 1⚡.'
+      },
+      chronomancer: {
+        id: 'chronomancer',
+        name: 'Pháp Sư Tinh Tú',
+        icon: '🔮',
+        color: '#8B5CF6',
+        trapCost: 2,
+        desc: 'Khởi đầu với 5⚡ năng lượng; tự do chọn Cổng Warp.'
+      },
+      hunter: {
+        id: 'hunter',
+        name: 'Thợ Săn Kho Báu',
+        icon: '💎',
+        color: '#F59E0B',
+        trapCost: 2,
+        desc: '+20% điểm số nhận được từ các ô Ngọc, Kho Báu và Kim Cương.'
+      }
+    };
+
+    let playerHeroes = { 1: 'guardian', 2: 'assassin', 3: 'chronomancer', 4: 'hunter' };
+    let playerEnergy = { 1: 3, 2: 3, 3: 3, 4: 3 };
+    let boardTraps = {}; // { tileId: { owner: 1, damage: 20 } }
+    let pendingNudge = null; // { player, baseRoll, timer }
+
     let currentOpponent = 'bot';
     let botCount = 1; // 1, 2, or 3
     let currentTurn = 1;
@@ -4297,14 +4567,449 @@
     let isDiceRolling = false;
     let GOAL_SCORE = 100;
 
-    
     // Tactical State Extensions
     let playerShields = { 1: false, 2: false, 3: false, 4: false };
     let playerFrozen = { 1: 0, 2: 0, 3: 0, 4: 0 }; // number of turns frozen
+        playerEnergy = {
+          1: playerHeroes[1] === 'chronomancer' ? 5 : 3,
+          2: playerHeroes[2] === 'chronomancer' ? 5 : 3,
+          3: playerHeroes[3] === 'chronomancer' ? 5 : 3,
+          4: playerHeroes[4] === 'chronomancer' ? 5 : 3
+        };
+        boardTraps = {};
+        if (playerHeroes[1] === 'guardian') playerShields[1] = true;
+        stopTimingGauge();
+        if (!isSpectatorMode) startTimingGauge();
+        updateEnergyUI();
 
     let isSpectatorMode = false;
     let spectatorPaused = false;
     let spectatorSpeed = 1; // 1x, 2x, 3x
+
+    // ================= TIMING GAUGE ENGINE (CANH LỰC XÚC XẮC) =================
+    let timingAnimId = null;
+    let timingPos = 50; // 0 to 100
+    let timingDir = 1.6; // step velocity
+    let isTimingActive = false;
+
+    function startTimingGauge() {
+      if (timingAnimId) cancelAnimationFrame(timingAnimId);
+      isTimingActive = true;
+      const needle = document.getElementById('timingNeedle');
+      const status = document.getElementById('timingGaugeStatus');
+
+      function step() {
+        if (!isTimingActive) return;
+        timingPos += timingDir;
+        if (timingPos >= 98) { timingPos = 98; timingDir = -Math.abs(timingDir); }
+        else if (timingPos <= 2) { timingPos = 2; timingDir = Math.abs(timingDir); }
+
+        if (needle) needle.style.left = timingPos + '%';
+
+        if (status) {
+          if (timingPos >= 46 && timingPos <= 54) {
+            status.textContent = '⭐ PERFECT (6)';
+            status.className = 'text-yellow-300 font-black uppercase drop-shadow-[0_0_8px_#fde047]';
+          } else if (timingPos < 34) {
+            status.textContent = 'BƯỚC 1 - 2';
+            status.className = 'text-emerald-400 font-extrabold uppercase';
+          } else if (timingPos > 66) {
+            status.textContent = 'BƯỚC 5 - 6';
+            status.className = 'text-amber-400 font-extrabold uppercase';
+          } else {
+            status.textContent = 'BƯỚC 3 - 4';
+            status.className = 'text-cyan-400 font-extrabold uppercase';
+          }
+        }
+        timingAnimId = requestAnimationFrame(step);
+      }
+      timingAnimId = requestAnimationFrame(step);
+    }
+
+    function stopTimingGauge() {
+      isTimingActive = false;
+      if (timingAnimId) cancelAnimationFrame(timingAnimId);
+      timingAnimId = null;
+    }
+
+    function getRollFromTiming(pos) {
+      // 46% - 54%: Perfect Spot -> 6 (Hoặc Crit)
+      if (pos >= 46 && pos <= 54) return { roll: 6, isCrit: true };
+      if (pos < 34) {
+        // Vùng ngắn (1 - 2)
+        return { roll: (pos < 17 ? 1 : 2), isCrit: false };
+      }
+      if (pos > 66) {
+        // Vùng dài (5 - 6)
+        return { roll: (pos > 83 ? 6 : 5), isCrit: false };
+      }
+      // Vùng giữa (3 - 4)
+      return { roll: (pos < 50 ? 3 : 4), isCrit: false };
+    }
+
+    function handleGaugeClick() {
+      if (currentTurn === 1 && !isDiceRolling && !isSpectatorMode) {
+        handleDiceClickWithTiming();
+      }
+    }
+
+    function handleDiceClickWithTiming() {
+      if (isDiceRolling) return;
+      if (currentTurn !== 1 && !isSpectatorMode) return;
+      
+      const res = getRollFromTiming(timingPos);
+      rollDiceQuest(res.roll, res.isCrit);
+    }
+
+    // ================= ACTIVE SKILLS (MÌN, KHIÊN, NĂNG LƯỢNG) =================
+    function updateEnergyUI() {
+      const curP = currentTurn;
+      const energy = playerEnergy[curP] || 0;
+      const numEl = document.getElementById('pEnergyNum');
+      const dotsEl = document.getElementById('pEnergyDots');
+      if (numEl) numEl.textContent = energy + '/5';
+      if (dotsEl) {
+        let s = '';
+        for (let i = 1; i <= 5; i++) {
+          s += (i <= energy) ? '⚡' : '○';
+        }
+        dotsEl.textContent = s;
+      }
+
+      // Update button costs & states
+      const hero = HERO_CLASSES[playerHeroes[curP]] || HERO_CLASSES.guardian;
+      const trapCost = hero.trapCost || 2;
+      const btnTrap = document.getElementById('btnSkillTrap');
+      const btnShield = document.getElementById('btnSkillShield');
+      const trapCostEl = document.getElementById('btnSkillTrapCost');
+      if (trapCostEl) trapCostEl.textContent = trapCost + '⚡';
+
+      if (btnTrap) {
+        btnTrap.disabled = (energy < trapCost) || isDiceRolling;
+        btnTrap.classList.toggle('opacity-50', energy < trapCost || isDiceRolling);
+      }
+      if (btnShield) {
+        btnShield.disabled = (energy < 1) || isDiceRolling || playerShields[curP];
+        btnShield.classList.toggle('opacity-50', energy < 1 || isDiceRolling || playerShields[curP]);
+      }
+    }
+
+    function triggerSkillTrap() {
+      const p = currentTurn;
+      if (p !== 1 && !isSpectatorMode) return;
+      const hero = HERO_CLASSES[playerHeroes[p]] || HERO_CLASSES.guardian;
+      const cost = hero.trapCost || 2;
+      if (playerEnergy[p] < cost) {
+        showToast('⚠️ Không đủ Năng Lượng ⚡ để gài bẫy!');
+        return;
+      }
+      const curPos = positions[p];
+      playerEnergy[p] -= cost;
+      boardTraps[curPos] = { owner: p, damage: 20 };
+      soundTone(240, 'square', 0.2, 0.2);
+      showToast(`💣 ${getPlayerName(p)} đã gài MÌN LƯỢNG TỬ tại Ô #${curPos} (${TILES[curPos].name})!`);
+      renderCircuitBoard();
+      updateEnergyUI();
+    }
+
+    function triggerSkillShield() {
+      const p = currentTurn;
+      if (p !== 1 && !isSpectatorMode) return;
+      if (playerEnergy[p] < 1) {
+        showToast('⚠️ Không đủ Năng Lượng ⚡ để bật khiên!');
+        return;
+      }
+      if (playerShields[p]) {
+        showToast('🛡️ Bạn đã có Khiên bảo hộ rồi!');
+        return;
+      }
+      playerEnergy[p] -= 1;
+      playerShields[p] = true;
+      soundTone(880, 'sine', 0.25, 0.2);
+      showToast(`🛡️ ${getPlayerName(p)} đã kích hoạt KHIÊN BẢO HỘ! Miễn nhiễm 100% sát thương bẫy lượt này.`);
+      updateEnergyUI();
+      renderCircuitBoard();
+    }
+
+    function triggerSkillEnergyBurst() {
+      showToast('⚡ Mẹo: Đi qua ô #0 Khởi Hành hoặc dẫm vào Trạm Nạp/Tiếp Tế để hồi +1⚡ Năng Lượng!');
+    }
+
+    // ================= MAP SWITCHER & HERO CLASS SWITCHER =================
+    function switchGameMap(mapId) {
+      if (!MAPS[mapId]) return;
+      currentMapId = mapId;
+      TILES = MAPS[mapId].tiles;
+      const sel = document.getElementById('mapSelector');
+      if (sel) sel.value = mapId;
+
+      const titleEl = document.getElementById('arenaGameTitle');
+      if (titleEl) {
+        titleEl.innerHTML = `<span class="text-base">🎲</span><span class="tracking-wider uppercase">${MAPS[mapId].name} (20 Ô)</span>`;
+      }
+
+      handleReset();
+      showToast(`🗺️ Đã đổi sang bản đồ: ${MAPS[mapId].name}!`);
+    }
+
+    function switchHeroClass(playerId, classId) {
+      if (!HERO_CLASSES[classId]) return;
+      playerHeroes[playerId] = classId;
+      const hero = HERO_CLASSES[classId];
+
+      if (playerId === 1) {
+        const sel = document.getElementById('heroSelector');
+        if (sel) sel.value = classId;
+      }
+
+      // Initial passives
+      if (classId === 'chronomancer') {
+        playerEnergy[playerId] = 5;
+      }
+      if (classId === 'guardian') {
+        playerShields[playerId] = true;
+      }
+
+      updateEnergyUI();
+      showToast(`🦸 ${getPlayerName(playerId)} chọn Hệ: ${hero.name} (${hero.desc})`);
+    }
+
+    // ================= PVP DUEL ARENA (Ô #10 & CLASH) =================
+    let duelState = {
+      active: false,
+      p1: 1,
+      p2: 2,
+      mode: 'reflex', // 'reflex' or 'rps'
+      timer: null,
+      winner: null
+    };
+
+    function triggerDuel(challenger, defender) {
+      if (duelState.active) return;
+      duelState.active = true;
+      duelState.p1 = challenger;
+      duelState.p2 = defender;
+      duelState.mode = Math.random() > 0.5 ? 'reflex' : 'rps';
+      duelState.winner = null;
+
+      const modal = document.getElementById('skillDuelModal');
+      const title = document.getElementById('duelTitle');
+      const desc = document.getElementById('duelDesc');
+      const reflexZone = document.getElementById('duelReflexArena');
+      const rpsRow = document.getElementById('duelRpsRow');
+      const timerBar = document.getElementById('duelTimerBar');
+
+      if (!modal) return;
+      modal.classList.remove('hidden');
+
+      if (title) title.innerHTML = `⚔️ ${getPlayerName(challenger)} <span class="text-rose-400">QUYẾT ĐẤU</span> ${getPlayerName(defender)}!`;
+      if (desc) desc.textContent = 'Kẻ thắng cuộc sẽ cướp ngay +20 ĐIỂM từ đối thủ!';
+
+      if (duelState.mode === 'reflex') {
+        if (reflexZone) reflexZone.classList.remove('hidden');
+        if (rpsRow) rpsRow.classList.add('hidden');
+        // Random position for reflex target
+        const btn = document.getElementById('duelReflexTarget');
+        if (btn) {
+          const rx = Math.floor(Math.random() * 70) + 10;
+          const ry = Math.floor(Math.random() * 60) + 15;
+          btn.style.left = rx + '%';
+          btn.style.top = ry + '%';
+        }
+      } else {
+        if (reflexZone) reflexZone.classList.add('hidden');
+        if (rpsRow) rpsRow.classList.remove('hidden');
+        if (rpsRow) rpsRow.classList.add('grid');
+      }
+
+      // 5s Countdown Timer
+      let timeLeft = 100;
+      if (timerBar) timerBar.style.width = '100%';
+      soundTone(550, 'sawtooth', 0.2, 0.2);
+
+      clearInterval(duelState.timer);
+      duelState.timer = setInterval(() => {
+        timeLeft -= 2;
+        if (timerBar) timerBar.style.width = Math.max(0, timeLeft) + '%';
+        if (timeLeft <= 0) {
+          clearInterval(duelState.timer);
+          resolveDuelTimeout();
+        }
+      }, 100);
+
+      // If Challenger or Defender is Bot, schedule bot action
+      if (defender > 1 || isSpectatorMode) {
+        const botReactionDelay = isSpectatorMode ? Math.max(50, Math.floor(1200 / spectatorSpeed)) : 1400;
+        setTimeout(() => {
+          if (duelState.active && !duelState.winner) {
+            // Bot reaction hit
+            if (duelState.mode === 'reflex') {
+              // 65% chance bot hits successfully
+              if (Math.random() < 0.75) {
+                resolveDuelWinner(defender);
+              }
+            } else {
+              // Bot plays RPS
+              const choices = ['rock', 'paper', 'scissors'];
+              const botChoice = choices[Math.floor(Math.random() * choices.length)];
+              handleDuelRpsChoice(botChoice, defender);
+            }
+          }
+        }, botReactionDelay);
+      }
+    }
+
+    function handleDuelReflexHit() {
+      if (!duelState.active || duelState.winner) return;
+      resolveDuelWinner(1);
+    }
+
+    function handleDuelRpsChoice(playerChoice, actor = 1) {
+      if (!duelState.active || duelState.winner) return;
+      const choices = ['rock', 'paper', 'scissors'];
+      const botChoice = choices[Math.floor(Math.random() * choices.length)];
+      
+      const opponent = (actor === duelState.p1) ? duelState.p2 : duelState.p1;
+      let winner = actor;
+      if (playerChoice === botChoice) {
+        winner = Math.random() > 0.5 ? actor : opponent;
+      } else if (
+        (playerChoice === 'rock' && botChoice === 'scissors') ||
+        (playerChoice === 'paper' && botChoice === 'rock') ||
+        (playerChoice === 'scissors' && botChoice === 'paper')
+      ) {
+        winner = actor;
+      } else {
+        winner = opponent;
+      }
+      resolveDuelWinner(winner);
+    }
+
+    function resolveDuelWinner(winnerId) {
+      if (!duelState.active || duelState.winner) return;
+      duelState.winner = winnerId;
+      clearInterval(duelState.timer);
+
+      const loserId = (winnerId === duelState.p1) ? duelState.p2 : duelState.p1;
+      const stealPts = Math.min(20, scores[loserId]);
+      scores[loserId] = Math.max(0, scores[loserId] - stealPts);
+      scores[winnerId] += 20;
+
+      soundTone(880, 'triangle', 0.3, 0.3);
+      showToast(`🏆 ${getPlayerName(winnerId)} CHIẾN THẮNG QUYẾT ĐẤU! Cướp +20đ từ ${getPlayerName(loserId)}!`);
+      updateDiceUI();
+
+      setTimeout(() => {
+        const modal = document.getElementById('skillDuelModal');
+        if (modal) modal.classList.add('hidden');
+        duelState.active = false;
+      }, 1000);
+    }
+
+    function resolveDuelTimeout() {
+      if (!duelState.active || duelState.winner) return;
+      showToast('⌛ Hết giờ quyết đấu! Bất phân thắng bại.');
+      const modal = document.getElementById('skillDuelModal');
+      if (modal) modal.classList.add('hidden');
+      duelState.active = false;
+    }
+
+    // ================= BOT REASONING & ADAPTIVE META LEARNING =================
+    let botAdaptiveMemories = {}; // { botId: { losses: 0, lastLossAgainstHero: 'assassin' } }
+
+    function getBotDecisionThought(botId) {
+      const curPos = positions[botId];
+      const botHero = playerHeroes[botId] || 'assassin';
+      const energy = playerEnergy[botId] || 0;
+
+      // 1. Find who is leading
+      let leaderId = 1;
+      let maxScore = -1;
+      for (let p = 1; p <= getTotalPlayers(); p++) {
+        if (scores[p] > maxScore) {
+          maxScore = scores[p];
+          leaderId = p;
+        }
+      }
+
+      // 2. Scan next 6 tiles for traps and prizes
+      let bestStep = 4;
+      let minPenalty = 999;
+      for (let s = 1; s <= 6; s++) {
+        const tIdx = (curPos + s) % TILES.length;
+        const tile = TILES[tIdx];
+        if (tile.pts < 0 && tile.pts < minPenalty) {
+          minPenalty = tile.pts;
+        }
+        if (tile.pts >= 20) {
+          bestStep = s;
+        }
+      }
+
+      // Threat target badge
+      const badge = document.getElementById('botThreatTargetBadge');
+      if (badge) {
+        badge.textContent = `TARGET: ${getPlayerName(leaderId)}`;
+      }
+
+      // Check if bot should shield
+      if (energy >= 1 && minPenalty <= -15 && !playerShields[botId]) {
+        playerEnergy[botId] -= 1;
+        playerShields[botId] = true;
+        return `"Phát hiện ô nguy hiểm phía trước (${minPenalty}đ)! Quyết định tiêu tốn 1⚡ kích hoạt KHIÊN BẢO HỘ né sát thương!"`;
+      }
+
+      // Check if bot should trap
+      const heroConfig = HERO_CLASSES[botHero] || HERO_CLASSES.assassin;
+      if (energy >= heroConfig.trapCost && !boardTraps[curPos]) {
+        playerEnergy[botId] -= heroConfig.trapCost;
+        boardTraps[curPos] = { owner: botId, damage: 20 };
+        return `"Đang dẫn đầu hoặc phục kích: Gài MÌN tại Ô #${curPos} (${TILES[curPos].name}) để gài bẫy ${getPlayerName(leaderId)}!"`;
+      }
+
+      return `"Đang ngắm vào Ô #${(curPos + bestStep) % TILES.length} (${TILES[(curPos + bestStep) % TILES.length].name}). Canh lực xúc xắc bước ${bestStep} để tối ưu hóa điểm số!"`;
+    }
+
+    function recordMatchDefeatAndAdapt(winnerId) {
+      const winnerHero = playerHeroes[winnerId] || 'guardian';
+      const total = getTotalPlayers();
+
+      for (let p = 2; p <= total; p++) {
+        if (p !== winnerId) {
+          if (!botAdaptiveMemories[p]) botAdaptiveMemories[p] = { losses: 0, lastLossAgainstHero: null };
+          botAdaptiveMemories[p].losses++;
+          botAdaptiveMemories[p].lastLossAgainstHero = winnerHero;
+
+          // Counter-pick logic:
+          // Guardian counters Assassin; Assassin counters Hunter; Chronomancer counters Guardian; Hunter counters Chronomancer
+          let newHero = 'guardian';
+          if (winnerHero === 'assassin') newHero = 'guardian'; // Guardian resists traps
+          else if (winnerHero === 'guardian') newHero = 'chronomancer'; // Chronomancer mobility outplays tank
+          else if (winnerHero === 'chronomancer') newHero = 'hunter'; // Hunter bursts gems
+          else newHero = 'assassin'; // Assassin traps hunter
+
+          playerHeroes[p] = newHero;
+          const thoughtEl = document.getElementById('botThoughtText');
+          if (thoughtEl) {
+            thoughtEl.innerHTML = `<span class="text-amber-400">💡 [Học Thích Nghi]:</span> ${getPlayerName(p)} vừa thua trước ${HERO_CLASSES[winnerHero].name}. Ván sau tự động đổi sang <b>${HERO_CLASSES[newHero].name}</b> để khắc chế!`;
+          }
+        }
+      }
+    }
+
+    function resetBotWinStats() {
+      botWinStats = { totalMatches: 0, wins: { 1: 0, 2: 0, 3: 0, 4: 0 } };
+      botAdaptiveMemories = {};
+      try {
+        localStorage.removeItem('tabletop_bot_win_stats');
+      } catch (e) {}
+      updateBotWinStatsUI();
+      const thoughtEl = document.getElementById('botThoughtText');
+      if (thoughtEl) {
+        thoughtEl.textContent = '"Đã đặt lại toàn bộ thống kê và bộ nhớ thích nghi của AI Bot về 0."';
+      }
+      showToast('🧹 Đã reset toàn bộ tỷ lệ thắng & trí nhớ thích nghi của Bot!');
+    }
 
     function getTotalPlayers() {
       if (currentOpponent === 'human') return 2;
@@ -4314,26 +5019,35 @@
     function getPlayerName(p) {
       if (p === 1) {
         const u = window.currentFirebaseUser;
-        const name = u ? u.displayName : 'Bạn (Hiệp Sĩ)';
-        return isSpectatorMode ? `${name} (AI)` : name;
+        const name = u ? u.displayName : 'Bạn';
+        const hero = HERO_CLASSES[playerHeroes[1]] || HERO_CLASSES.guardian;
+        return isSpectatorMode ? `${name} (${hero.name} AI)` : `${name} (${hero.name})`;
       }
       if (p === 2) {
-        return currentOpponent === 'bot' ? 'Cáo Lửa (BOT 1)' : 'Người chơi 2';
+        const hero = HERO_CLASSES[playerHeroes[2]] || HERO_CLASSES.assassin;
+        return currentOpponent === 'bot' ? `Cáo Lửa (${hero.name})` : 'Người chơi 2';
       }
-      if (p === 3) return 'Sói Băng (BOT 2)';
-      if (p === 4) return 'Gấu Trúc (BOT 3)';
+      if (p === 3) {
+        const hero = HERO_CLASSES[playerHeroes[3]] || HERO_CLASSES.chronomancer;
+        return `Sói Băng (${hero.name})`;
+      }
+      if (p === 4) {
+        const hero = HERO_CLASSES[playerHeroes[4]] || HERO_CLASSES.hunter;
+        return `Gấu Trúc (${hero.name})`;
+      }
       return `Người chơi ${p}`;
     }
 
     function renderCircuitBoard() {
       const grid = document.getElementById('circuitGrid');
+      if (!grid) return;
       const old = grid.querySelectorAll('.board-tile-cell');
       old.forEach(o => o.remove());
 
       TILES.forEach((t, i) => {
         const coord = COORDS_20[i];
         const el = document.createElement('div');
-        el.className = `board-tile-cell game-tile rounded-2xl p-2 sm:p-2.5 flex flex-col items-center justify-between text-center relative select-none cursor-default`;
+        el.className = `board-tile-cell game-tile rounded-2xl p-1.5 sm:p-2.5 flex flex-col items-center justify-between text-center relative select-none cursor-default`;
         el.style.gridRow = coord.r;
         el.style.gridColumn = coord.c;
 
@@ -4355,21 +5069,26 @@
           el.classList.add('border-slate-700/60');
         }
 
+        // Trap indicator
+        const trapBadge = boardTraps[i] ? `<span class="absolute -top-1.5 -left-1.5 w-5 h-5 rounded-full bg-rose-600 border border-white text-xs flex items-center justify-center animate-bounce shadow-lg z-20" title="Ô có MÌN LƯỢNG TỬ!">💣</span>` : '';
+
         const badge = t.pts > 0 ? `+${t.pts}` : (t.pts < 0 ? `${t.pts}` : '');
 
         el.innerHTML = `
+          ${trapBadge}
           <div class="w-full flex items-center justify-between text-[11px] font-mono text-slate-400">
             <span class="text-amber-500/80 font-bold">#${i}</span>
             <span class="${t.pts > 0 ? 'text-emerald-400 font-bold' : (t.pts < 0 ? 'text-rose-400 font-bold' : '')}">${badge}</span>
           </div>
-          <div class="my-1 filter drop-shadow flex items-center justify-center">${getTileSvgIcon(t.id)}</div>
-          <div class="text-[11px] sm:text-xs font-bold text-slate-200 tracking-tight">${t.name}</div>
+          <div class="my-0.5 sm:my-1 filter drop-shadow flex items-center justify-center">${getTileSvgIcon(i)}</div>
+          <div class="text-[10px] sm:text-xs font-bold text-slate-200 tracking-tight truncate max-w-full">${t.name}</div>
           <div id="token-box-${i}" class="absolute -bottom-1 -right-1 flex gap-0.5 z-20"></div>
         `;
         grid.appendChild(el);
       });
 
       renderTokens();
+      updateEnergyUI();
     }
 
     function renderTokens() {
@@ -4381,7 +5100,6 @@
         { id: 4, bg: 'from-emerald-600 to-emerald-400 border-white shadow-emerald-500/60' }
       ];
 
-      // Gỡ token của những người chơi không tham gia nếu giảm số lượng bot
       for (let p = total + 1; p <= 4; p++) {
         const inactiveMeeple = document.getElementById(`meeple-p${p}`);
         if (inactiveMeeple) inactiveMeeple.remove();
@@ -4396,21 +5114,54 @@
         if (!m) {
           m = document.createElement('div');
           m.id = `meeple-p${p}`;
-          m.className = `w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-tr ${playerTokens[p - 1].bg} border-2 flex items-center justify-center shadow-lg transition-transform duration-150`;
-          m.innerHTML = getPlayerTokenSvg(p);
+          m.className = `w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gradient-to-tr ${playerTokens[p-1].bg} border-2 flex items-center justify-center text-[10px] sm:text-xs font-black text-white shadow-md transition-all duration-200`;
+          m.textContent = p === 1 ? '👤' : (p === 2 ? '🦊' : (p === 3 ? '🐺' : '🐼'));
         }
-        // Di chuyển phần tử meeple hiện có sang ô mới - Không xóa/tạo lại DOM giúp triệt tiêu giật lag 100%
         if (m.parentElement !== box) {
           box.appendChild(m);
         }
       }
     }
 
-    async function rollDiceQuest() {
+    function confirmNormalMove() {
+      if (!pendingNudge) return;
+      const { player, baseRoll } = pendingNudge;
+      clearTimeout(pendingNudge.timer);
+      pendingNudge = null;
+      const row = document.getElementById('diceNudgeRow');
+      if (row) { row.classList.add('hidden'); row.classList.remove('flex'); }
+      moveMeepleSteps(player, baseRoll);
+    }
+
+    function applyDiceNudge(delta) {
+      if (!pendingNudge) return;
+      const { player, baseRoll } = pendingNudge;
+      if (playerEnergy[player] < 1) {
+        showToast('⚠️ Không đủ 1⚡ để tinh chỉnh bước!');
+        return;
+      }
+      playerEnergy[player] -= 1;
+      clearTimeout(pendingNudge.timer);
+      const newRoll = Math.max(1, baseRoll + delta);
+      pendingNudge = null;
+
+      const row = document.getElementById('diceNudgeRow');
+      if (row) { row.classList.add('hidden'); row.classList.remove('flex'); }
+
+      soundTone(700, 'triangle', 0.15, 0.2);
+      showToast(`⏩ Tinh chỉnh bước đi: ${baseRoll} ${delta > 0 ? '+1' : '-1'} = ${newRoll} Bước!`);
+      updateEnergyUI();
+      moveMeepleSteps(player, newRoll);
+    }
+
+    async function rollDiceQuest(fixedRoll = null, isCrit = false) {
       if (isDiceRolling) return;
       if (!isSpectatorMode && currentOpponent === 'bot' && currentTurn !== 1) return;
 
       const pName = getPlayerName(currentTurn);
+
+      // Stop timing bar
+      stopTimingGauge();
 
       // Kiểm tra nếu đấu thủ đang bị Đóng Băng tại Băng Ngục
       if (playerFrozen[currentTurn] > 0) {
@@ -4421,7 +5172,7 @@
         if (hint) hint.textContent = `❄️ ${pName} đang gieo xúc xắc để PHÁ BĂNG...`;
         
         const rollDuration = isSpectatorMode ? Math.max(12, Math.floor(600 / spectatorSpeed)) : 500;
-        const roll = Math.floor(Math.random() * 6) + 1;
+        const roll = fixedRoll || (Math.floor(Math.random() * 6) + 1);
         if (dice) dice.classList.add('rolling-dice');
         await new Promise(r => setTimeout(r, rollDuration));
         if (dice) dice.classList.remove('rolling-dice');
@@ -4437,7 +5188,7 @@
         } else {
           soundTone(220, 'sawtooth', 0.25, 0.2);
           document.getElementById('miniLog').innerHTML = `❄️ <b class="text-blue-400">${pName}</b> gieo ${roll} nút: <b class="text-rose-400">PHÁ BĂNG THẤT BẠI!</b> Bị giữ lại 1 lượt!`;
-          playerFrozen[currentTurn] = 0; // tha sau 1 lượt
+          playerFrozen[currentTurn] = 0;
           await new Promise(r => setTimeout(r, isSpectatorMode ? Math.max(40, Math.floor(300 / spectatorSpeed)) : 400));
           switchTurn();
         }
@@ -4450,13 +5201,12 @@
       const face = document.getElementById('diceFaceDisplay');
       const hint = document.getElementById('diceActionHint');
 
-      if (dice) dice.classList.add('rolling-dice');
       if (hint) hint.textContent = `🎲 ${pName} đang gieo xúc xắc...`;
       soundTone(440, 'square', 0.08, 0.06);
 
-      const rollDuration = isSpectatorMode ? Math.max(15, Math.floor(450 / spectatorSpeed)) : 650;
-      const roll = Math.floor(Math.random() * 6) + 1;
-      // Ở tốc độ quan sát cao (>= 5x), tắt hiệu ứng rung lắc 3D nặng nề để giao diện êm dịu không giật
+      const rollDuration = isSpectatorMode ? Math.max(15, Math.floor(450 / spectatorSpeed)) : 600;
+      let roll = fixedRoll || (Math.floor(Math.random() * 6) + 1);
+
       if (dice && (!isSpectatorMode || spectatorSpeed <= 5)) {
         dice.classList.add('rolling-dice');
       }
@@ -4464,10 +5214,35 @@
       if (dice) dice.classList.remove('rolling-dice');
 
       if (face) face.innerHTML = getDiceFaceSvg(roll);
-      if (hint) hint.textContent = `${pName} gieo được: ${roll} nút!`;
+      
+      if (isCrit) {
+        soundTone(960, 'triangle', 0.2, 0.25);
+        scores[currentTurn] += 5;
+        showToast(`⭐ CANH LỰC HOÀN HẢO! ${pName} gieo 6 nút + Thưởng Kỹ Năng +5đ!`);
+      }
 
-      // Update Dice Stats
+      if (hint) hint.textContent = `${pName} gieo được: ${roll} nút!`;
       recordDiceRoll(roll);
+
+      // Offer Nudge if Human player has energy >= 1 and not spectator
+      if (currentTurn === 1 && !isSpectatorMode && playerEnergy[1] >= 1) {
+        const nudgeRow = document.getElementById('diceNudgeRow');
+        if (nudgeRow) {
+          nudgeRow.classList.remove('hidden');
+          nudgeRow.classList.add('flex');
+          if (hint) hint.textContent = '⚡ Bạn có 1⚡ để đổi bước đi (hoặc bấm Đi Thường):';
+          
+          pendingNudge = {
+            player: 1,
+            baseRoll: roll,
+            timer: setTimeout(() => {
+              confirmNormalMove();
+            }, 3500)
+          };
+          isDiceRolling = false;
+          return;
+        }
+      }
 
       await moveMeepleSteps(currentTurn, roll);
       isDiceRolling = false;
@@ -4517,7 +5292,42 @@
       const tile = TILES[currentPos];
       const label = getPlayerName(player);
 
-      // ================= CƠ CHẾ 1: ĐÁ QUÂN (KNOCKBACK CLASH) =================
+      // ================= CƠ CHẾ BẪY MÌN LƯỢNG TỬ (MINE TRAP) =================
+      if (boardTraps[currentPos]) {
+        const trap = boardTraps[currentPos];
+        if (trap.owner !== player) {
+          const trapOwner = trap.owner;
+          delete boardTraps[currentPos];
+          renderCircuitBoard();
+
+          if (playerShields[player]) {
+            playerShields[player] = false;
+            soundTone(600, 'sine', 0.2, 0.2);
+            showToast(`🛡️ KHIÊN ĐÃ ĐỠ MÌN! ${label} dẫm phải bẫy của ${getPlayerName(trapOwner)} nhưng miễn nhiễm 100% sát thương!`);
+          } else {
+            let dmg = trap.damage || 20;
+            // Guardian passive: -40% damage
+            if (playerHeroes[player] === 'guardian') {
+              dmg = Math.round(dmg * 0.6);
+            }
+            scores[player] = Math.max(0, scores[player] - dmg);
+            scores[trapOwner] += dmg;
+            soundTone(180, 'sawtooth', 0.3, 0.3);
+            showToast(`💥 BÙM! ${label} dẫm phải MÌN của ${getPlayerName(trapOwner)}! Bị trừ -${dmg}đ và chuyển cho đối thủ!`);
+            updateDiceUI();
+          }
+        }
+      }
+
+      // ================= CƠ CHẾ SÀN ĐẤU QUYẾT ĐẤU (Ô #10) =================
+      if (tile.type === 'duel') {
+        const total = getTotalPlayers();
+        // Opponent is leader or next player
+        let opponent = (player % total) + 1;
+        triggerDuel(player, opponent);
+      }
+
+      // ================= CƠ CHẾ 1: ĐÁ QUÂN & QUYẾT ĐẤU (KNOCKBACK CLASH) =================
       const totalP = getTotalPlayers();
       for (let otherP = 1; otherP <= totalP; otherP++) {
         if (otherP !== player && positions[otherP] === currentPos) {
@@ -4543,18 +5353,28 @@
 
       // ================= CƠ CHẾ 2: XỬ LÝ Ô TƯƠNG TÁC ĐẶC BIỆT =================
       if (tile.type === 'plus') {
-        scores[player] += tile.pts;
+        let gain = tile.pts;
+        if (playerHeroes[player] === 'hunter' && (tile.name.includes('Ngọc') || tile.name.includes('Kim Cương') || tile.name.includes('Kho Báu') || tile.name.includes('Pha Lê') || tile.name.includes('Chip') || tile.name.includes('Dữ Liệu'))) {
+          gain = Math.round(gain * 1.2);
+        }
+        scores[player] += gain;
+        if (tile.name.includes('Trạm') || tile.name.includes('Lò Rèn') || tile.name.includes('Pin')) {
+          playerEnergy[player] = Math.min(5, (playerEnergy[player] || 0) + 1);
+          updateEnergyUI();
+        }
         soundTone(880, 'triangle', 0.2, 0.18);
-        document.getElementById('miniLog').innerHTML = `✨ <b class="text-amber-400">${label}</b> đáp vào <b>${tile.name}</b> (+${tile.pts}đ)!`;
+        document.getElementById('miniLog').innerHTML = `✨ <b class="text-amber-400">${label}</b> đáp vào <b>${tile.name}</b> (+${gain}đ)!`;
       } else if (tile.type === 'minus') {
         if (playerShields[player]) {
           playerShields[player] = false;
           soundTone(950, 'sine', 0.2, 0.2);
           document.getElementById('miniLog').innerHTML = `🛡️ <b class="text-cyan-400">${label}</b> dùng Khiên đỡ trọn cạm bẫy <b>${tile.name}</b>!`;
         } else {
-          scores[player] = Math.max(0, scores[player] + tile.pts);
+          let penalty = tile.pts;
+          if (playerHeroes[player] === 'guardian') penalty = Math.round(penalty * 0.6);
+          scores[player] = Math.max(0, scores[player] + penalty);
           soundTone(200, 'sawtooth', 0.25, 0.14);
-          document.getElementById('miniLog').innerHTML = `💥 <b class="text-rose-400">${label}</b> dính <b>${tile.name}</b>: ${tile.pts} điểm!`;
+          document.getElementById('miniLog').innerHTML = `💥 <b class="text-rose-400">${label}</b> dính <b>${tile.name}</b>: ${penalty} điểm!`;
         }
       } else if (tile.type === 'warp') {
         // CỔNG WARP DỊCH CHUYỂN
@@ -4626,6 +5446,7 @@
     }
 
     function switchTurn() {
+      updateEnergyUI();
       const total = getTotalPlayers();
       currentTurn = (currentTurn % total) + 1;
       highlightTurnCard(currentTurn);
@@ -4642,11 +5463,16 @@
 
       if (currentTurn === 1 && !isSpectatorMode) {
         if (badge) {
-          badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-bold mb-3 shadow-inner';
+          badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] font-bold shadow-inner';
         }
         if (text) text.textContent = `Lượt của ${pName}`;
-        if (hint) hint.textContent = 'Chạm vào xúc xắc để gieo';
+        if (hint) hint.textContent = 'Chạm vào xúc xắc để gieo hoặc canh lực';
+        startTimingGauge();
       } else {
+        stopTimingGauge();
+        const thought = getBotDecisionThought(currentTurn);
+        const thoughtEl = document.getElementById('botThoughtText');
+        if (thoughtEl) thoughtEl.textContent = thought;
         if (badge) {
           badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold mb-3 shadow-inner';
         }
@@ -6274,8 +7100,23 @@
     window.closeMonoEventModal = closeMonoEventModal;
     window.monoState = monoState;
     window.MONOPOLY_2D_TILES = MONOPOLY_2D_TILES;
+    window.switchGameMap = switchGameMap;
+    window.switchHeroClass = switchHeroClass;
+    window.handleGaugeClick = handleGaugeClick;
+    window.handleDiceClickWithTiming = handleDiceClickWithTiming;
+    window.triggerSkillTrap = triggerSkillTrap;
+    window.triggerSkillShield = triggerSkillShield;
+    window.triggerSkillEnergyBurst = triggerSkillEnergyBurst;
+    window.confirmNormalMove = confirmNormalMove;
+    window.applyDiceNudge = applyDiceNudge;
+    window.handleDuelReflexHit = handleDuelReflexHit;
+    window.handleDuelRpsChoice = handleDuelRpsChoice;
+    window.resetBotWinStats = resetBotWinStats;
+    window.startTimingGauge = startTimingGauge;
+    window.stopTimingGauge = stopTimingGauge;
 
     function switchGameView(tab) {
+      stopTimingGauge();
       activeTab = tab;
       const vDice = document.getElementById('diceView');
       const vTTT = document.getElementById('tictactoeView');
@@ -6305,6 +7146,7 @@
 
 
       if (tab === 'dice') {
+        if (!isSpectatorMode) startTimingGauge();
         if (vDice) {
           vDice.classList.remove('hidden');
           vDice.classList.remove('view-fade-slide');
@@ -6392,6 +7234,8 @@
     }
 
     function showVictory(winnerName, winnerPlayerId = 1) {
+      recordBotMatchWin(winnerPlayerId);
+      recordMatchDefeatAndAdapt(winnerPlayerId);
       // 1. CHẾ ĐỘ QUAN SÁT (SPECTATOR MODE): BỎ HOÀN TOÀN POPUP KẾT THÚC VÁN (ẢNH 3)
       if (isSpectatorMode) {
         const miniLog = document.getElementById('miniLog');

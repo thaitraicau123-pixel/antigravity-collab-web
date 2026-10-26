@@ -398,3 +398,62 @@ esetTTTScores).
    - **Khiên Hộ Thân (Divine Shield)**: Nhận từ Rương Vận Mệnh để miễn nhiễm 1 lần sát thương hoặc đòn đá lùi.
    - **Băng Ngục (Freeze)**: Gây kìm chân, tạo cơ hội cho đối thủ bứt phá.
    - **Mục tiêu điểm nâng cao**: Mặc định 100 điểm (thay vì 50 điểm dễ dãi trước đây), kéo dài vòng đua và gia tăng sự cạnh tranh kịch tính giữa các BOT và người chơi.
+
+
+---
+
+## 🌟 PHẦN 20: ĐẠI TU TOÀN DIỆN ALL-IN-ONE THÀNH GAME KỸ NĂNG & CHIẾN THUẬT ĐỐI KHÁNG (V4.0.0)
+
+### 1. Bối Cảnh & Đột Phá Thiết Kế
+Chuyển đổi triệt để trò chơi từ một game gieo xúc xắc may rủi thuần túy (`pure RNG`) sang một **Đấu Trường Chiến Thuật & Kỹ Năng Đỉnh Cao (Tactical Skill Arena)**, nơi thắng bại được định đoạt bởi:
+- Kỹ năng phản xạ canh nhịp xúc xắc của người chơi.
+- Trí tuệ quản lý tài nguyên năng lượng `⚡` và thời điểm tung kỹ năng (Khiên, Mìn, Tinh chỉnh bước).
+- Bản lĩnh thi đấu trong các màn Mini-game Quyết Đấu phản xạ 5 giây.
+- Khả năng đọc vị bản đồ và lựa chọn Hệ Nhân Vật khắc chế.
+- Sự đối đầu căng thẳng với hệ thống AI Bot có IQ ngang bằng, biết suy luận thời gian thực và tự động đổi Role sau mỗi trận thua.
+
+### 2. Các Trụ Cột Tính Năng All-In-One
+
+#### 2.1. Thanh Canh Lực Xúc Xắc (Active Timing & Skill Roll Bar)
+- **Cơ chế hoạt động:**
+  - Trong khay xúc xắc trung tâm, xuất hiện một **Thanh Đo Lực Dao Động (Oscillating Power Gauge)** chạy nhịp nhàng với tần số điều chỉnh được.
+  - Thước đo chia làm 3 phân vùng màu sắc trực quan:
+    * **Vùng Xanh Lục (Bước Ngắn 1–2):** Góc trái (0% - 33%).
+    * **Vùng Xanh Dương (Bước Vừa 3–4):** Ở giữa (34% - 66%).
+    * **Vùng Vàng Hổ Phách (Bước Dài 5–6):** Góc phải (67% - 100%).
+    * **Vạch Hoàng Kim (Perfect Zone):** Điểm tâm chuẩn xác, bấm trúng sẽ gieo ra 6 nút hoặc kích hoạt hiệu ứng "Critical Roll" (+5đ thưởng kỹ năng).
+  - Người chơi chạm/bấm nút **`[DỪNG KIM / KHÓA LỰC]`** để quyết định số bước đi, chủ động né tránh hố đen và đáp trúng các ô ngọc quý.
+  - Với chế độ Bot hoặc Khán Giả, Bot sẽ mô phỏng phản xạ thông minh để canh vùng tối ưu nhất.
+
+#### 2.2. Hệ Thống Năng Lượng `⚡` & 3 Kỹ Năng Chủ Động (Active Skill Arsenal)
+- **Tài nguyên Năng Lượng:** Mỗi người chơi/Bot khởi đầu với `3⚡` (tối đa `5⚡`), hồi `+1⚡` khi vượt qua ô Khởi Hành hoặc ghé thăm Trạm Tiếp Liệu/Trạm Tiếp Tế.
+- **Thanh 3 Kỹ Năng Tác Chiến (Tích hợp ngay dưới khay xúc xắc):**
+  1. 💣 **Đặt Bẫy Mìn Lượng Tử (`Tốn 2⚡`):** Đặt mìn tại ô hiện tại. Khi đối thủ dẫm vào, bẫy kích nổ làm đối thủ mất `-20 điểm`, số điểm này chuyển thẳng về túi người đặt bẫy!
+  2. 🛡️ **Khiên Bảo Hộ Lực Trường (`Tốn 1⚡`):** Tạo hào quang phòng thủ trong 1 lượt; miễn nhiễm 100% sát thương bẫy, hố đen, bão điện từ và đòn đá lùi của đối thủ.
+  3. ⏩ **Tinh Chỉnh Bước Đi Bước Nhảy (`Tốn 1⚡`):** Sau khi xúc xắc dừng, hiển thị 2 nút bấm nhanh `[-1 Bước]` và `[+1 Bước]` trong 3 giây cho phép người chơi bẻ lái bước chân để né tử địa hoặc ăn báu vật.
+
+#### 2.3. Sàn Đấu Mini-Game Quyết Đấu (PvP Skill Duel)
+- **Kích hoạt:** Khi đấu thủ rơi vào ô **#10 Đấu Trường Quyết Đấu** hoặc xảy ra **Đụng Độ Quân Cờ (Collision)** trên cùng 1 ô.
+- **Giao diện:** Pop-up Modal 5 giây hiện lên giữa màn hình với 2 thể thức luân phiên:
+  - *Thể thức A — Phản Xạ Chớp Nhoáng (Reflex Strike):* Một biểu tượng năng lượng nhấp nháy ngẫu nhiên trên màn hình, ai chạm/bấm trúng trước sẽ thắng cuộc!
+  - *Thể thức B — Tâm Lý Chiến Đoạt Mệnh (Tactical RPS):* Ba nút Tấn Công (Búa), Phòng Thủ (Bao), Đột Kích (Kéo) có thời gian đếm ngược 3 giây để người chơi và Bot chọn chiêu.
+- **Phần thưởng:** Kẻ chiến thắng cướp ngay `20 điểm` từ kẻ bại trận!
+
+#### 2.4. Bộ Chọn 4 Map Đa Vũ Trụ (Multi-Map Dynamic Environments)
+Hệ thống chuyển đổi Map ngay trên thanh điều khiển với 4 phong cách và hiệu ứng riêng biệt:
+1. 🌌 **Map 1: Tinh Vân Hoàng Kim (Cyber Gold):** Chuẩn mực 20 ô cân bằng, Cổng Warp Alpha (#4) ↔ Omega (#14).
+2. 🌋 **Map 2: Đấu Trường Dung Nham (Volcanic Inferno):** Các ô Hỏa Ngục lửa đỏ thiêu đốt (-20đ), Trạm Suối Khoáng hồi phục (+25đ), nhạc nền và hiệu ứng nham thạch rực sáng.
+3. 🏙️ **Map 3: Thành Phố Ngầm Neon Heist (Cyberpunk):** Luật cướp kho bạc — ô Ngân Hàng Lượng Tử, ô Cảnh Sát Truy Nã, viền neon Cyan & Magenta.
+4. ⏳ **Map 4: Mê Cung Thời Không (Chrono Quantum):** Ô Đồng Hồ Cát Đảo Chiều di chuyển toàn bàn cờ, ô Hố Sâu Không Gian kéo giật lùi.
+
+#### 2.5. Hệ Thống 4 Lớp Nhân Vật Bất Đối Xứng (Hero Classes)
+Cho phép người chơi chọn Hero trước trận hoặc chuyển đổi linh hoạt:
+- 🛡️ **Hiệp Sĩ Lam Ngọc (Guardian):** Giảm 40% mọi sát thương trừ điểm; khởi đầu trận với 1 Khiên miễn phí.
+- 🦊 **Cáo Lửa Hồng Ngọc (Assassin):** Hút ngay `5 điểm` của đối thủ mỗi khi chạy vượt mặt; đặt bẫy chỉ tốn `1⚡` thay vì 2⚡.
+- 🔮 **Pháp Sư Tinh Tú (Chronomancer):** Khởi đầu với `5⚡` năng lượng tối đa; tùy ý chọn đi qua hay ở lại khi gặp Cổng Warp.
+- 💎 **Thợ Săn Kho Báu (Treasure Hunter):** Tăng +20% điểm số nhận được từ tất cả các ô Ngọc, Kho Báu và Kim Cương.
+
+#### 2.6. Trí Tuệ AI Suy Luận, Tự Đổi Role Sau Trận Thua & Reset Thống Kê
+- **Bong bóng suy luận Bot (Live Thought Inspector):** Hiển thị rõ ràng: Mục tiêu săn đuổi, Tính toán rủi ro/lợi nhuận, Quyết định kỹ năng và Lời bình luận thời gian thực.
+- **Hệ thống Học Thích Nghi (Adaptive Counter-Pick):** Sau mỗi trận thua, Bot phân tích kẻ vừa thắng dùng Role gì và nguyên nhân thua, từ đó tự động đổi sang Role khắc chế ở ván tiếp theo.
+- **Bảng Hồ Sơ Bot & Nút Reset Thống Kê:** Lưu trữ `localStorage` toàn bộ số trận Thắng/Thua, Tỷ lệ Winrate %, Chuỗi trận và nút `[🔄 Reset Dữ Liệu Bot]` để xóa trắng làm lại từ đầu.

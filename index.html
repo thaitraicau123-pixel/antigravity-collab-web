@@ -404,7 +404,7 @@
         <!-- Version & Contributor Changelog Pill -->
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v2.8.2</span>
+          <span id="headerVersionPill" class="font-bold">v2.9.0</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -1690,20 +1690,35 @@
       </form>
 
       <!-- Custom Firebase Config (Hidden for clean commercial UI) -->
-      <div id="customConfigWrapper" class="hidden mt-4 pt-3 border-t border-board-border/60 text-center">
-        <button onclick="toggleFirebaseConfigBox()" class="text-[11px] text-amber-400/80 hover:text-amber-300 font-mono flex items-center justify-center gap-1.5 mx-auto">
-          <i data-lucide="settings" class="w-3.5 h-3.5"></i>
-          <span>Cấu hình kết nối</span>
+      <div id="customConfigWrapper" class="mt-4 pt-3 border-t border-board-border/60 text-center">
+        <button type="button" onclick="toggleFirebaseConfigBox()" class="text-[11px] text-amber-400 hover:text-amber-300 font-mono flex items-center justify-center gap-1.5 mx-auto bg-amber-500/10 hover:bg-amber-500/20 px-3 py-1.5 rounded-lg border border-amber-500/30 transition shadow-sm">
+          <i data-lucide="database" class="w-3.5 h-3.5 text-amber-400"></i>
+          <span>⚙️ Kết nối Firebase Project (colap-c2e9c)</span>
         </button>
 
-        <div id="firebaseConfigBox" class="hidden mt-2 p-3 bg-black/70 rounded-xl border border-board-border text-left">
-          <p class="text-[10px] text-slate-400 mb-1">Cấu hình hệ thống (JSON format):</p>
-          <textarea id="customConfigInput" rows="3" class="w-full p-2 bg-slate-950 border border-board-border rounded-lg text-[10px] font-mono text-slate-200 focus:outline-none focus:border-amber-500"></textarea>
-          <button onclick="saveCustomFirebaseConfig()" class="mt-1.5 px-3 py-1 bg-amber-600 hover:bg-amber-500 text-white text-[10px] font-bold rounded-lg">
-            Áp Dụng
-          </button>
+        <div id="firebaseConfigBox" class="hidden mt-2.5 p-3.5 bg-slate-950/95 rounded-xl border border-amber-500/40 text-left shadow-2xl">
+          <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-white/10">
+            <span class="text-[11px] font-bold text-amber-300 flex items-center gap-1.5">
+              <i data-lucide="key" class="w-3 h-3 text-amber-400"></i>
+              Nhập Firebase API Key / Config
+            </span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">colap-c2e9c</span>
+          </div>
+          <p class="text-[10px] text-slate-300 mb-1.5 leading-relaxed">
+            Dán đoạn mã <code>firebaseConfig</code> từ mục <b>⚙️ Project Settings</b> trên Firebase Console vào đây:
+          </p>
+          <textarea id="customConfigInput" rows="4" placeholder='{\n  "apiKey": "AIzaSy...",\n  "authDomain": "colap-c2e9c.firebaseapp.com",\n  "projectId": "colap-c2e9c"\n}' class="w-full p-2 bg-black/90 border border-slate-700 rounded-lg text-[10px] font-mono text-amber-200 placeholder-slate-600 focus:outline-none focus:border-amber-500"></textarea>
+          <div class="flex items-center justify-between mt-2">
+            <button type="button" onclick="saveCustomFirebaseConfig()" class="px-3.5 py-1.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white text-[11px] font-bold rounded-lg shadow-md border border-amber-400/30 transition flex items-center gap-1">
+              <i data-lucide="check-circle" class="w-3 h-3"></i>
+              Lưu & Kết Nối Ngay
+            </button>
+            <button type="button" onclick="toggleFirebaseConfigBox()" class="text-[10px] text-slate-400 hover:text-white">
+              Đóng
+            </button>
+          </div>
         </div>
-      </div>
+      </div></div>
 
     </div>
   </div>
@@ -2355,7 +2370,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v2.8.2</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v2.9.0</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -2497,12 +2512,12 @@
 
     // Default or Custom Firebase Config
     const DEFAULT_CONFIG = {
-      apiKey: "AIzaSyDummyKeyForLiveTabletopClient12345",
-      authDomain: "cyber-tabletop-arena.firebaseapp.com",
-      projectId: "cyber-tabletop-arena",
-      storageBucket: "cyber-tabletop-arena.appspot.com",
-      messagingSenderId: "109827364521",
-      appId: "1:109827364521:web:9876543210abcdef"
+      apiKey: "", // Dán API Key từ Project colap-c2e9c
+      authDomain: "colap-c2e9c.firebaseapp.com",
+      projectId: "colap-c2e9c",
+      storageBucket: "colap-c2e9c.appspot.com",
+      messagingSenderId: "389201948210",
+      appId: "1:389201948210:web:colapc2e9capp"
     };
 
     let activeConfig = DEFAULT_CONFIG;
@@ -2885,14 +2900,58 @@
     }
 
     function saveCustomFirebaseConfig() {
-      const val = document.getElementById('customConfigInput').value.trim();
-      try {
-        const parsed = JSON.parse(val);
-        localStorage.setItem('tabletop_custom_firebase_config', JSON.stringify(parsed));
-        showToast('Đã lưu cấu hình Firebase mới! Trang sẽ làm mới...');
+      let val = document.getElementById('customConfigInput').value.trim();
+      if (!val) {
+        alert('Vui lòng nhập apiKey hoặc dán toàn bộ đoạn mã firebaseConfig!');
+        return;
+      }
+
+      let parsedConfig = null;
+
+      // Case 1: User pasted plain API Key (AIzaSy...)
+      if (val.startsWith('AIzaSy') && !val.includes('{')) {
+        parsedConfig = {
+          apiKey: val,
+          authDomain: "colap-c2e9c.firebaseapp.com",
+          projectId: "colap-c2e9c",
+          storageBucket: "colap-c2e9c.appspot.com",
+          messagingSenderId: "389201948210",
+          appId: "1:389201948210:web:colapc2e9capp"
+        };
+      }
+      // Case 2: User pasted JavaScript code snippet (const firebaseConfig = { ... };)
+      else if (val.includes('firebaseConfig') || val.includes('apiKey')) {
+        try {
+          const startIdx = val.indexOf('{');
+          const endIdx = val.lastIndexOf('}');
+          if (startIdx !== -1 && endIdx !== -1) {
+            const objStr = val.substring(startIdx, endIdx + 1);
+            const jsonStr = objStr
+              .replace(/([a-zA-Z0-9_]+)\s*:/g, '"$1":')
+              .replace(/'/g, '"')
+              .replace(/,\s*}/g, '}');
+            parsedConfig = JSON.parse(jsonStr);
+          }
+        } catch (err) {
+          console.warn("Regex JSON parse fallback:", err);
+        }
+      }
+      // Case 3: Valid JSON format
+      if (!parsedConfig) {
+        try {
+          parsedConfig = JSON.parse(val);
+        } catch (e) {}
+      }
+
+      if (parsedConfig && parsedConfig.apiKey) {
+        if (!parsedConfig.projectId) parsedConfig.projectId = "colap-c2e9c";
+        if (!parsedConfig.authDomain) parsedConfig.authDomain = "colap-c2e9c.firebaseapp.com";
+
+        localStorage.setItem('tabletop_custom_firebase_config', JSON.stringify(parsedConfig));
+        showToast('✅ Đã kết nối Firebase colap-c2e9c thành công! Đang tải lại...');
         setTimeout(() => window.location.reload(), 1200);
-      } catch (e) {
-        alert('Cấu hình JSON không hợp lệ! Vui lòng kiểm tra lại cú pháp.');
+      } else {
+        alert('Không thể nhận diện cấu hình Firebase. Vui lòng kiểm tra lại hoặc chỉ cần dán mã apiKey (bắt đầu bằng AIzaSy...)!');
       }
     }
 
@@ -5911,7 +5970,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v2.8.2'
+      currentVersion: 'v2.9.0'
     };
 
     let allChangelogItems = [];
@@ -5923,7 +5982,7 @@
         sha: '7c3e91f',
         roleType: 'dev2',
         author: 'thaitraicau123-pixel (Anh)',
-        version: 'v2.8.2',
+        version: 'v2.9.0',
         title: 'Hiệu ứng Tua Chậm (Slow-Mo), Nhấc Đập Quân & Làm Mờ Spotlight Điện Ảnh',
         details: 'Tích hợp visual edit cờ vua phong cách TikTok/Reels: tự động kích hoạt tua chậm khi ăn quân hoặc chiếu tướng; nhấc bổng quân cờ lên cao với bóng đổ 3D, lướt chậm qua bàn cờ rồi dộng mạnh xuống; làm mờ tối toàn bộ xung quanh với hiệu ứng Radial Spotlight; rung lắc màn hình (screen shake), sóng xung kích (shockwave) và âm thanh va đập dội bàn cờ chân thực.',
         date: '2026-10-26T10:05:00Z'
@@ -5932,7 +5991,7 @@
         sha: 'a4b7f8c',
         roleType: 'dev2',
         author: 'thaitraicau123-pixel (Anh)',
-        version: 'v2.8.2',
+        version: 'v2.9.0',
         title: 'Ra mắt Đấu Trường Cờ Vua Hoàng Gia (FIDE 8x8) & 4 Cấp Độ Bot Elo (800 - 2000+)',
         details: 'Tích hợp chuẩn luật FIDE (nhập thành, bắt tốt qua đường, tấn cấp tốt), hệ thống 4 cấp độ Bot Elo (800, 1200, 1600, 2000+) với thuật toán Minimax Alpha-Beta & Quiescence search, chế độ chơi 2 người (Local Pass & Play / Online) và bộ giao diện bàn cờ nỉ hoàng gia cao cấp.',
         date: '2026-10-26T01:30:00Z'
@@ -5941,7 +6000,7 @@
         sha: '6fe116d',
         roleType: 'dev1',
         author: 'cuongcuca111-web (Bạn anh)',
-        version: 'v2.8.2',
+        version: 'v2.9.0',
         title: 'Ra mắt Đa BOT (1-3 Bots), Tùy biến Điểm Cán Đích & Chế độ Khán Giả Tự Động',
         details: 'Tùy chọn 1-3 BOT AI (Cáo Lửa 🦊, Sói Băng 🐺, Gấu Trúc 🐼); tùy biến điểm thắng (30đ, 50đ, 100đ, tùy chọn); chế độ Khán Giả quan sát tự động với tốc độ từ 1x đến 5x siêu tốc và tự động sang ván mới.',
         date: '2026-10-25T17:49:22Z'

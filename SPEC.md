@@ -506,3 +506,34 @@ Cho phép người chơi chọn Hero trước trận hoặc chuyển đổi linh
    - Tự động luân chuyển lượt thông minh: 'turn = (turn + 1) % players.length', tự động bỏ qua người chơi đã phá sản ('isBankrupt').
    - Khi còn lại đúng 1 người chơi cuối cùng chưa phá sản, hệ thống tự động công bố danh hiệu **👑 VÔ ĐỊCH CỜ TỶ PHÚ HOÀNG GIA!** với cúp vàng và pháo hoa ăn mừng.
    - Nút **ĐỔ XÚC XẮC** tự động khóa ('disabled') khi đang đến lượt của Bot AI để tránh người chơi bấm nhầm, và tự động mở lại ngay khi đến lượt của người chơi.
+
+
+---
+
+## ⚡ PHẦN 23: PHỐI CẢNH KIM CƯƠNG ISOMETRIC 2.5D (LINE LET'S GET RICH STYLE) - MÔ HÌNH NHÀ 3D NỔI THẲNG ĐỨNG, HUY HIỆU CẤP ĐỘ RÕ RÀNG & ĐÈN HÀO QUANG ĐỊNH VỊ NGƯỜI CHƠI (V3.7.0)
+1. **Bàn Cờ Phối Cảnh Kim Cương 2.5D Xoay 45° (Line Let's Get Rich Isometric Diamond Grid)**:
+   - Tái thiết kế toàn bộ hệ thống tọa độ bàn cờ thành lưới vuông 10x10 ô đối xứng hoàn hảo xoay nghiêng 45° (`perspective(1400px) rotateX(44deg) rotateZ(45deg) scale(0.85)`).
+   - Bố cục 4 đỉnh kim cương theo chuẩn tự nhiên và trực quan nhất:
+     * **Đỉnh Dưới Cùng (Bottom Vertex)**: Ô **XUẤT PHÁT** (Start - Tile 0) hướng thẳng đối diện người chơi với góc nhìn bao quát toàn bàn.
+     * **Đỉnh Bên Trái (Left Vertex)**: Ô **TRẠI GIAM** (Jail - Tile 9).
+     * **Đỉnh Trên Cùng (Top Vertex)**: Ô **TÂN AN / SÂN BAY** (Airport - Tile 18).
+     * **Đỉnh Bên Phải (Right Vertex)**: Ô **VÔ TÙ** (Go to Jail - Tile 27).
+   - 36 ô đất đại diện cho các thành phố danh lam thắng cảnh Việt Nam trải đều trên 4 cạnh của hình kim cương.
+
+2. **Mô Hình Nhà 3D Đứng Thẳng & Huy Hiệu Cấp Độ Nổi Bật (Upright 3D Buildings & Level Badges)**:
+   - Ứng dụng kỹ thuật Triệt Tiêu Biến Dạng Góc Phối Cảnh (Perspective Counter-Rotation): Tất cả mô hình nhà, huy hiệu và quân cờ đều mang lớp style `.mono-upright-3d` với công thức `transform: rotateZ(-45deg) rotateX(-44deg) translateZ(28px)`, giúp các kiến trúc dựng đứng 100% vuông góc với mặt bàn cờ và hướng thẳng vào tầm mắt người xem.
+   - Nhận diện cấp độ nhà ngay lập tức mà không cần bấm vào xem chi tiết:
+     * **Cấp 1 (Nhà Phố / Cottage)**: Huy hiệu hình con nhộng `[ ⭐ LV.1 ]` màu Cyan kèm mô hình nhà 3D ngói dốc.
+     * **Cấp 2 (Biệt Thự Tầng / Luxury Villa)**: Huy hiệu `[ ⭐⭐ LV.2 ]` màu Vàng Hổ Phách kèm biệt thự 3D 2 tầng có ban công phát sáng.
+     * **Cấp 3 MAX (Tòa Tháp Hoàng Gia / Landmark Skyscraper)**: Huy hiệu vương miện `[ 👑 MAX LV.3 ]` ánh vàng kim rực rỡ với hiệu ứng nhịp thở `animate-pulse` cùng mô hình chọc trời có đỉnh tháp vàng óng.
+   - Đế ô đất đổi màu viền và màu nền theo bảng màu nhận diện của chủ sở hữu, hiển thị rõ ràng giá thuê hiện tại tương ứng với cấp độ nhà.
+
+3. **Hệ Thống Đèn Chiếu Sàn & Hào Quang Định Vị Người Chơi Hiện Tại (Spotlight & Overhead Location Beacon)**:
+   - Giải quyết triệt để vấn đề "khó nhìn biết người chơi đang ở đâu":
+     * **Đèn Chiếu Sàn (Tile Floor Spotlight)**: Ô đất mà người chơi hiện tại đang đứng sẽ phát hào quang vàng rực `.mono-tile-spotlight` bao bọc toàn bộ ô cờ với hiệu ứng nhịp thở phát sáng rực rỡ.
+     * **Hào Quang Định Vị Trên Đỉnh Đầu (3D Overhead Beacon)**: Trên đầu quân cờ của người đang có lượt sẽ xuất hiện bảng định danh lơ lửng `[ 👑 LƯỢT TIÊN ]` với mũi tên neon vàng nhấp nháy chỉ thẳng xuống đỉnh đầu quân cờ, không bao giờ bị che khuất bởi các tòa nhà xung quanh.
+     * **Đế Chân Quân Cờ 3D**: Mỗi quân cờ sở hữu avatar hình tròn nổi với hiệu ứng đổ bóng rơi ('drop-shadow') và vầng sáng mờ cùng màu dưới chân.
+
+4. **Bố Cục 4 Góc Màn Hình (4-Corner Framing HUD Pods) & Sân Đấu Trung Tâm**:
+   - 4 Bento Pod của 4 người chơi được ghim cố định tại 4 góc màn hình (`top-left`, `top-right`, `bottom-left`, `bottom-right`), tận dụng triệt để khoảng trống sinh ra khi xoay bàn cờ hình kim cương, không che chắn bất kỳ ô cờ nào.
+   - Khu vực sân cỏ điện tử trung tâm (Central Cyber-Turf) chứa hộp xúc xắc 3D nằm ngang tầm mắt người xem (`[ 🎲 5 ] [ 🎲 4 ] = 9`) và nút bấm lớn màu vàng kim mạ ánh sáng **[ 🎲 ĐỔ XÚC XẮC ]** cực kỳ mãn nhãn.

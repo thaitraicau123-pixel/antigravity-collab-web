@@ -376,6 +376,7 @@ esetTTTScores).
    - Tinh chỉnh góc nghiêng 2.5D nhẹ nhàng `rotateX(32deg) rotateZ(-4deg) scale(1.02)` kết hợp đệm khoảng cách (`padding: 2rem 1rem 3.5rem 1rem`), giúp toàn bộ 36 ô chu vi từ hàng đỉnh (Hà Nội, Nhà Ga, Tân An...) đến hàng đáy (Hội An, Quy Nhơn, Trại Giam, Xuất Phát...) hiển thị rõ nét 100%, không bị cắt mất bất kỳ góc cạnh nào.
 
 
+
 ---
 
 ## ⚡ PHẦN 11: BẢN ĐỒ MỞ RỘNG GRAND MAP 6x6 (20 Ô) & CƠ CHẾ CHIẾN THUẬT ĐA TẦNG
@@ -468,3 +469,40 @@ Cho phép người chơi chọn Hero trước trận hoặc chuyển đổi linh
   * Điểm mối quan hệ từ 0% đến 100% giữa từng cặp đấu thủ.
   * **Quy tắc "Ghim":** Mối quan hệ càng thấp (<35%) thì mức độ thù hận càng cao. Bot sẽ ưu tiên tối đa việc **gài mìn chặn đường**, **tinh chỉnh bước xúc xắc để đá văng** và **nhắm tới kẻ bị ghim** để trả thù.
   * Hiển thị thanh đo trực quan: Đỏ rực (💢 CỰC GHIM / Thù Địch), Vàng (Cảnh giác), Xanh (Hòa hoãn) kèm tên đối tượng đang bị ghim nhiều nhất.
+
+
+
+---
+
+## ⚡ PHẦN 22: HỖ TRỢ ĐẾN 4 NGƯỜI CHƠI & ĐẾN 3 BOT AI CÙNG LÚC - HỆ THỐNG QUÂN CỜ 4 GÓC & BENTO HUD ĐA NĂNG (V3.6.0)
+1. **Mở Rộng Chế Độ Chơi Đa Người (2 đến 4 Người Chơi Đồng Thời)**:
+   - **Chế Độ Chơi Đơn (1 Người vs Tối Đa 3 Bot AI)**:
+     * Người chơi 1 (Tiên / User) thi đấu với 1, 2 hoặc 3 Bot AI tự động.
+     * Cấu hình linh hoạt thông qua bộ chọn **[ 2P ] [ 3P ] [ 4P ]** tại thanh điều khiển đỉnh trang và ngay trong bàn cờ trung tâm.
+     * Cả 3 Bot AI (Cáo AI 🦊, Hổ AI 🐯, Gấu Trúc AI 🐼) sở hữu tính cách, avatar, bảng màu neon và mô hình mái nhà 3D riêng biệt (Hồng Ruby, Vàng Hổ Phách, Xanh Ngọc Lục Bảo).
+   - **Chế Độ Nhiều Người (Pass & Play / 2 Đến 4 Người Cùng Thiết Bị)**:
+     * Cho phép từ 2, 3 đến 4 người chơi luân phiên nhau đổ xúc xắc, mua đất, nâng cấp nhà và trả tiền thuê trên cùng một thiết bị.
+     * Mỗi lượt đi hiển thị rõ tên, avatar và hiệu ứng viền vàng phát sáng pulsating ('ring-2 ring-amber-400') trên Bento Pod của người đang đến lượt.
+
+2. **Hệ Thống Quân Cờ 4 Góc Phối Cảnh Độc Lập (Zero-Overlap Quadrant Clustering)**:
+   - Khắc phục triệt để lỗi quân cờ đè lên nhau khi ở cùng ô (đặc biệt tại ô XUẤT PHÁT khi mở đầu ván cờ):
+     * **P1 (Tiên 👩‍🏫)**: Góc trên - trái ('translate(-15px, -15px)'), hiệu ứng viền phát sáng Cyan.
+     * **P2 (Cáo AI 🦊)**: Góc trên - phải ('translate(15px, -15px)'), hiệu ứng viền Rose.
+     * **P3 (Hổ AI 🐯)**: Góc dưới - trái ('translate(-15px, 15px)'), hiệu ứng viền Amber.
+     * **P4 (Gấu Trúc AI 🐼)**: Góc dưới - phải ('translate(15px, 15px)'), hiệu ứng viền Emerald.
+   - Khi ở phối cảnh 2.5D Isometric, từng quân cờ tự động dựng góc nghiêng 'rotateZ(4deg) rotateX(-32deg) translateZ(24px)' với đổ bóng rơi 'drop-shadow' chân thực; chỉ quân cờ của người đang có lượt mới kích hoạt hoạt ảnh nhún nhảy 'animate-bounce'.
+
+3. **Giao Diện Bento Pods Động (Dynamic Glassmorphism HUD)**:
+   - Tự động co giãn theo số lượng người tham gia ('grid-cols-2 lg:grid-cols-4').
+   - Từng Bento Pod hiển thị:
+     * Avatar hình tròn với vòng hào quang phát quang neon tương ứng.
+     * Huy hiệu số thứ tự người chơi (1, 2, 3, 4).
+     * Tên người chơi kèm nhãn định danh ('P1', 'P2', 'P3', 'P4' hoặc 'BOT').
+     * Nhãn '[ LƯỢT ]' phát sáng vàng khi đến lượt đi.
+     * Số tiền mặt hiện có ('$19,760' khởi điểm) kèm container tiền bay lơ lửng riêng biệt ('#monoFloatCashContainer_X').
+     * Tổng số lượng bất động sản sở hữu.
+
+4. **Vòng Lặp Điều Khiển & Tự Động Hóa Ván Đấu Thông Minh**:
+   - Tự động luân chuyển lượt thông minh: 'turn = (turn + 1) % players.length', tự động bỏ qua người chơi đã phá sản ('isBankrupt').
+   - Khi còn lại đúng 1 người chơi cuối cùng chưa phá sản, hệ thống tự động công bố danh hiệu **👑 VÔ ĐỊCH CỜ TỶ PHÚ HOÀNG GIA!** với cúp vàng và pháo hoa ăn mừng.
+   - Nút **ĐỔ XÚC XẮC** tự động khóa ('disabled') khi đang đến lượt của Bot AI để tránh người chơi bấm nhầm, và tự động mở lại ngay khi đến lượt của người chơi.

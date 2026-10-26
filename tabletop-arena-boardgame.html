@@ -454,15 +454,25 @@
       transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.6s ease;
     }
 
+    /* Dedicated 4-Quadrant Offsets to Prevent Any Pawns from Overlapping */
+    #pawnP1 { transform: translate(-15px, -15px); }
+    #pawnP2 { transform: translate(15px, -15px); }
+    #pawnP3 { transform: translate(-15px, 15px); }
+    #pawnP4 { transform: translate(15px, 15px); }
+
     .mono-board-25d #pawnP1 > div,
-    .mono-board-25d #pawnP2 > div {
-      transform: rotateZ(4deg) rotateX(-32deg) translateZ(20px);
-      filter: drop-shadow(0 14px 10px rgba(0, 0, 0, 0.85));
-      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    .mono-board-25d #pawnP2 > div,
+    .mono-board-25d #pawnP3 > div,
+    .mono-board-25d #pawnP4 > div {
+      transform: rotateZ(4deg) rotateX(-32deg) translateZ(24px);
+      filter: drop-shadow(0 12px 8px rgba(0, 0, 0, 0.9));
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .mono-board-2d #pawnP1 > div,
-    .mono-board-2d #pawnP2 > div {
+    .mono-board-2d #pawnP2 > div,
+    .mono-board-2d #pawnP3 > div,
+    .mono-board-2d #pawnP4 > div {
       transform: rotateZ(0deg) rotateX(0deg) translateZ(0px);
       transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
@@ -602,7 +612,7 @@
         <!-- Version & Contributor Changelog Pill -->
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v3.5.0</span>
+          <span id="headerVersionPill" class="font-bold">v3.6.0</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -1119,8 +1129,16 @@
               🤖 Đấu Với Bot
             </button>
             <button onclick="setMonopolyMode('local')" id="btnMonoModeLocal" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition-all">
-              👥 2 Người (Pass & Play)
+              👥 Pass & Play
             </button>
+          </div>
+
+          <!-- Player Count Selector (2P, 3P, 4P) -->
+          <div class="flex items-center bg-black/60 p-0.5 rounded-xl border border-board-border text-xs font-semibold">
+            <span class="px-2 text-slate-400 text-[11px]">Số người:</span>
+            <button onclick="setMonopolyPlayerCount(2)" id="btnMonoCount2" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition-all font-bold">2P</button>
+            <button onclick="setMonopolyPlayerCount(3)" id="btnMonoCount3" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition-all font-bold">3P</button>
+            <button onclick="setMonopolyPlayerCount(4)" id="btnMonoCount4" class="px-2 py-1 rounded-lg bg-emerald-600 text-white font-bold transition-all shadow-sm">4P</button>
           </div>
 
           <!-- Quick Reset -->
@@ -1129,33 +1147,6 @@
             <span>Ván Mới</span>
           </button>
         </div>
-
-        <div id="spectatorControlBar" class="hidden flex flex-wrap items-center gap-2">
-          <!-- Play / Pause Button -->
-          <button onclick="toggleSpectatorPause()" id="specPauseBtn" class="btn-spring px-3 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
-            <i data-lucide="pause" id="specPauseIcon" class="w-3.5 h-3.5"></i>
-            <span id="specPauseText">Tạm Dừng</span>
-          </button>
-
-          <!-- Speed Controls (1x up to 100x Max) -->
-          <div class="flex items-center bg-black/70 p-1 rounded-xl border border-cyan-500/40 text-xs font-bold gap-0.5">
-            <span class="text-[10px] text-cyan-300/80 px-1 font-mono">⚡ Tốc độ:</span>
-            <button onclick="setSpectatorSpeed(1)" id="specSpd1" class="px-1.5 py-0.5 rounded-md bg-cyan-500 text-black font-black text-[11px] transition-all">1x</button>
-            <button onclick="setSpectatorSpeed(2)" id="specSpd2" class="px-1.5 py-0.5 rounded-md text-slate-400 hover:text-white text-[11px] transition-all font-mono">2x</button>
-            <button onclick="setSpectatorSpeed(5)" id="specSpd5" class="px-1.5 py-0.5 rounded-md text-slate-400 hover:text-white text-[11px] transition-all font-mono">5x</button>
-            <button onclick="setSpectatorSpeed(10)" id="specSpd10" class="px-1.5 py-0.5 rounded-md text-slate-400 hover:text-white text-[11px] transition-all font-mono">10x</button>
-            <button onclick="setSpectatorSpeed(25)" id="specSpd25" class="px-1.5 py-0.5 rounded-md text-slate-400 hover:text-white text-[11px] transition-all font-mono">25x</button>
-            <button onclick="setSpectatorSpeed(50)" id="specSpd50" class="px-1.5 py-0.5 rounded-md text-slate-400 hover:text-white text-[11px] transition-all font-mono">50x</button>
-            <button onclick="setSpectatorSpeed(100)" id="specSpd100" class="px-2 py-0.5 rounded-md bg-gradient-to-r from-amber-400 to-rose-500 text-black font-extrabold text-[11px] shadow-sm shadow-rose-500/40 hover:brightness-110 transition-all font-mono" title="Tốc độ tối đa 100x">100x 🔥</button>
-          </div>
-
-          <!-- Exit Spectator Button -->
-          <button onclick="exitSpectatorMode()" class="btn-spring px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 text-xs font-semibold flex items-center gap-1">
-            <span class="flex items-center gap-1.5"><i data-lucide="play" class="w-3.5 h-3.5 text-cyan-400"></i> Lấy Lại Quyền Chơi</span>
-          </button>
-        </div>
-
-      </div>
 
       <!-- VIEW 1: DICE QUEST (12 Ô LỚN) -->
       <main id="diceView" class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
@@ -1829,87 +1820,42 @@
             <!-- Subtle Cyber Grid Background -->
             <div class="absolute inset-0 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:20px_20px] opacity-10 pointer-events-none"></div>
 
-            <!-- TOP HUD: PLAYER AVATAR & BANK (GLASSMORPHISM BENTO PODS) -->
-            <div class="w-full flex items-center justify-between z-10 gap-2">
-              
-              <!-- Left Bento Pod: Player 1 (Tiên / User) -->
-              <div class="flex items-center gap-2 sm:gap-3 bg-[#0D1829]/90 border border-emerald-500/30 rounded-xl px-2.5 py-1.5 sm:px-3.5 sm:py-2 backdrop-blur-sm shadow-md relative">
-                <!-- FLOATING CASH CONTAINER FOR P1 -->
-                <div id="monoP1FloatCashContainer" class="absolute -top-4 sm:-top-6 left-0 w-full pointer-events-none"></div>
-
-                <!-- Avatar with Emerald Glow Ring -->
-                <div class="relative shrink-0">
-                  <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 p-[2px] shadow-[0_0_12px_rgba(16,185,129,0.4)]">
-                    <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-xl sm:text-3xl overflow-hidden">
-                      <span id="monoP1AvatarIcon">👩‍🏫</span>
-                    </div>
+            <!-- TOP HUD: CONTROL STRIP & DYNAMIC PLAYER BENTO PODS (2 to 4 Players) -->
+            <div class="w-full flex flex-col gap-2 z-10">
+              <!-- Command Strip: Mode, Player Count, 2.5D View, Speed, Restart -->
+              <div class="w-full flex items-center justify-between bg-[#0A1220]/80 border border-slate-700/60 rounded-xl px-2.5 py-1 backdrop-blur-sm">
+                <!-- Mode & Count Badges -->
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <div class="flex items-center bg-black/50 p-0.5 rounded-lg border border-slate-700/60 text-[10px] font-bold">
+                    <button onclick="setMonopolyMode('bot')" id="btnMonoArenaModeBot" class="px-2 py-0.5 rounded bg-emerald-600 text-white shadow-sm transition-all">🤖 Đấu Bot</button>
+                    <button onclick="setMonopolyMode('local')" id="btnMonoArenaModeLocal" class="px-2 py-0.5 rounded text-slate-400 hover:text-white transition-all">👥 Pass & Play</button>
                   </div>
-                  <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-slate-900 rounded-full flex items-center justify-center text-[9px] text-slate-950 font-black">1</span>
+                  <!-- 2P / 3P / 4P Selector -->
+                  <div class="flex items-center bg-black/50 p-0.5 rounded-lg border border-slate-700/60 text-[10px] font-bold">
+                    <button onclick="setMonopolyPlayerCount(2)" id="btnMonoInCount2" class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 hover:text-white transition-all">2P</button>
+                    <button onclick="setMonopolyPlayerCount(3)" id="btnMonoInCount3" class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 hover:text-white transition-all">3P</button>
+                    <button onclick="setMonopolyPlayerCount(4)" id="btnMonoInCount4" class="px-2 py-0.5 rounded bg-emerald-600 text-white font-black shadow-sm transition-all">4P</button>
+                  </div>
                 </div>
 
-                <!-- Info Column -->
-                <div class="flex flex-col">
-                  <div class="flex items-center gap-1.5">
-                    <span class="text-amber-300 font-black text-sm sm:text-base md:text-lg tracking-wide drop-shadow truncate max-w-[90px] sm:max-w-[130px]" id="monoP1NameText">Tiên</span>
-                    <span class="px-1.5 py-0.2 rounded text-[7px] sm:text-[8px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">P1</span>
-                  </div>
-                  <div class="flex items-center gap-1 mt-0.5">
-                    <span class="text-amber-400 text-xs sm:text-sm">🪙</span>
-                    <span class="text-emerald-300 font-chakra text-base sm:text-2xl md:text-3xl font-black tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" id="monoP1CashText">$19760</span>
-                  </div>
-                  <span class="text-slate-400 text-[8px] sm:text-[10px] font-bold uppercase tracking-wider" id="monoP1AssetsText">0 BẤT ĐỘNG SẢN</span>
-                </div>
-              </div>
-
-              <!-- Center Command Pod (Restart, Mode Toggle, Speed) -->
-              <div class="flex flex-col items-center gap-1 shrink-0">
-                <div class="flex items-center gap-1 sm:gap-1.5 bg-[#0A1220]/90 border border-slate-700/60 rounded-xl px-2 py-1 shadow-inner backdrop-blur-sm">
-                  <button onclick="handleMonoPowerBtn()" class="btn-spring w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-amber-400 hover:text-amber-300 flex items-center justify-center text-xs sm:text-sm font-bold shadow cursor-pointer" title="Khởi động lại ván cờ">
-                    ⏻
+                <!-- Utilities: Restart, 2.5D Toggle, Speed -->
+                <div class="flex items-center gap-1">
+                  <button onclick="handleMonoPowerBtn()" class="btn-spring px-2 py-0.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-amber-400 text-xs font-bold shadow cursor-pointer" title="Khởi động lại ván cờ">
+                    ⏻ Ván Mới
                   </button>
-                  <button onclick="handleMonoSettingsBtn()" class="btn-spring w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-cyan-400 hover:text-cyan-300 flex items-center justify-center text-xs sm:text-sm font-bold shadow cursor-pointer" title="Đổi chế độ: Đấu Bot / 2 Người">
-                    ⚙️
+                  <button onclick="toggleMono25DView()" id="btnMono25DToggle" class="btn-spring px-2 py-0.5 rounded-lg bg-emerald-600/80 hover:bg-emerald-500 border border-emerald-400/60 text-white text-[10px] font-black shadow cursor-pointer" title="Chuyển góc nhìn 2.5D Isometric / 2D Phẳng">
+                    📐 2.5D
                   </button>
-                  <button onclick="toggleMono25DView()" id="btnMono25DToggle" class="btn-spring px-2 py-1 sm:px-2.5 sm:py-1 rounded-lg bg-emerald-600/80 hover:bg-emerald-500 border border-emerald-400/60 text-white flex items-center justify-center text-[8px] sm:text-[10px] font-black shadow cursor-pointer" title="Chuyển góc nhìn 2.5D Isometric / 2D Phẳng">
-                  📐 2.5D
-                </button>
-                <button onclick="toggleMonoSpeedBtn()" id="btnMonoSpeed" class="btn-spring px-2 h-7 sm:h-8 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-emerald-400 hover:text-emerald-300 flex items-center justify-center text-[10px] sm:text-xs font-black shadow cursor-pointer" title="Tốc độ trận đấu">
+                  <button onclick="toggleMonoSpeedBtn()" id="btnMonoSpeed" class="btn-spring px-2 py-0.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-emerald-400 text-[10px] font-black shadow cursor-pointer" title="Tốc độ trận đấu">
                     1X
                   </button>
                 </div>
-                <div class="px-2.5 py-0.5 rounded-full bg-slate-900/80 border border-slate-800 text-[8px] sm:text-[9px] font-bold text-slate-400 uppercase tracking-widest">
-                  VÁN CỜ TỶ PHÚ
-                </div>
               </div>
 
-              <!-- Right Bento Pod: Player 2 / AI Bot / Bank -->
-              <div class="flex items-center gap-2 sm:gap-3 bg-[#0D1829]/90 border border-rose-500/30 rounded-xl px-2.5 py-1.5 sm:px-3.5 sm:py-2 backdrop-blur-sm shadow-md relative">
-                <!-- FLOATING CASH CONTAINER FOR P2 -->
-                <div id="monoP2FloatCashContainer" class="absolute -top-4 sm:-top-6 right-0 w-full flex justify-end pointer-events-none"></div>
-
-                <!-- Info Column -->
-                <div class="flex flex-col items-end">
-                  <div class="flex items-center gap-1.5">
-                    <span class="px-1.5 py-0.2 rounded text-[7px] sm:text-[8px] font-black uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/30" id="monoBankOrP2Label">KỲ THỦ AI</span>
-                  </div>
-                  <div class="flex items-center gap-1 mt-0.5">
-                    <span class="text-rose-300 font-chakra text-base sm:text-2xl md:text-3xl font-black tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" id="monoBankOrP2CashText">$19760</span>
-                    <span class="text-amber-400 text-xs sm:text-sm">🪙</span>
-                  </div>
-                  <span class="text-slate-400 text-[8px] sm:text-[10px] font-bold uppercase tracking-wider" id="monoP2AssetsText">0 BẤT ĐỘNG SẢN</span>
-                </div>
-
-                <!-- Avatar with Rose Glow Ring -->
-                <div class="relative shrink-0 cursor-pointer" onclick="handleMonoSettingsBtn()" title="Bấm để đổi chế độ Đấu Bot / 2 Người">
-                  <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-rose-500 to-amber-500 p-[2px] shadow-[0_0_12px_rgba(244,63,94,0.4)]">
-                    <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-xl sm:text-3xl overflow-hidden">
-                      <span id="monoP2AvatarIcon">🦊</span>
-                    </div>
-                  </div>
-                  <span class="absolute -bottom-1 -left-1 w-4 h-4 bg-rose-500 border-2 border-slate-900 rounded-full flex items-center justify-center text-[9px] text-white font-black">2</span>
-                </div>
+              <!-- Dynamic Player Pods Container (Rendered by renderMonopolyHUDPods) -->
+              <div id="monoPlayerPodsContainer" class="w-full grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-2.5 z-10">
+                <!-- Dynamically populated -->
               </div>
-
             </div>
 
             <!-- ================= CENTER INTERACTIVE DIALOG (Clean, Modal on demand) ================= -->
@@ -1992,17 +1938,31 @@
 
           </div>
 
-          <!-- PAWN 1 (P1: Tiên) - Positioned dynamically on CSS Grid -->
+          <!-- PAWN 1 (P1: Tiên) - Top-Left Quadrant -->
           <div id="pawnP1" class="pointer-events-none z-30 flex items-center justify-center transition-all duration-300" style="grid-column: 12; grid-row: 8;">
-            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-cyan-400 to-teal-300 border-2 border-white flex items-center justify-center text-xs sm:text-base shadow-[0_0_12px_rgba(6,182,212,0.8)] -translate-x-1.5 -translate-y-1.5 animate-bounce">
+            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-teal-300 border-2 border-white flex items-center justify-center text-xs sm:text-sm shadow-[0_0_12px_rgba(6,182,212,0.95)] animate-bounce cursor-default">
               👩‍🏫
             </div>
           </div>
 
-          <!-- PAWN 2 (P2: Bot / Đối thủ) - Positioned dynamically on CSS Grid -->
+          <!-- PAWN 2 (P2: Cáo AI / Người 2) - Top-Right Quadrant -->
           <div id="pawnP2" class="pointer-events-none z-30 flex items-center justify-center transition-all duration-300" style="grid-column: 12; grid-row: 8;">
-            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-rose-500 to-pink-400 border-2 border-white flex items-center justify-center text-xs sm:text-base shadow-[0_0_12px_rgba(244,63,94,0.8)] translate-x-1.5 translate-y-1.5">
+            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-rose-500 to-pink-400 border-2 border-white flex items-center justify-center text-xs sm:text-sm shadow-[0_0_12px_rgba(244,63,94,0.95)] cursor-default">
               🦊
+            </div>
+          </div>
+
+          <!-- PAWN 3 (P3: Hổ AI / Người 3) - Bottom-Left Quadrant -->
+          <div id="pawnP3" class="pointer-events-none z-30 flex items-center justify-center transition-all duration-300" style="grid-column: 12; grid-row: 8;">
+            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-400 border-2 border-white flex items-center justify-center text-xs sm:text-sm shadow-[0_0_12px_rgba(245,158,11,0.95)] cursor-default">
+              🐯
+            </div>
+          </div>
+
+          <!-- PAWN 4 (P4: Gấu Trúc AI / Người 4) - Bottom-Right Quadrant -->
+          <div id="pawnP4" class="pointer-events-none z-30 flex items-center justify-center transition-all duration-300" style="grid-column: 12; grid-row: 8;">
+            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 border-2 border-white flex items-center justify-center text-xs sm:text-sm shadow-[0_0_12px_rgba(16,185,129,0.95)] cursor-default">
+              🐼
             </div>
           </div>
 
@@ -3242,7 +3202,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.5.0</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.6.0</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -5334,7 +5294,9 @@
     // CỜ TỶ PHÚ 2.5D ISOMETRIC TABLETOP ARENA (V3.3.0 - AUTHENTIC RULES & 2.5D)
     // =========================================================================
     // =========================================================================
-    // CỜ TỶ PHÚ 2.5D ISOMETRIC ARENA ENGINE (V3.5.0 - UNIFIED & FULLY PLAYABLE)
+    // CỜ TỶ PHÚ 2.5D ISOMETRIC ARENA ENGINE (V3.6.0 - UNIFIED & FULLY PLAYABLE)
+    // =========================================================================
+    // CỜ TỶ PHÚ 2.5D ARENA ENGINE (V3.6.0 - 4 PLAYERS & 3 BOTS MULTIPLAYER)
     // =========================================================================
     const MONOPOLY_2D_TILES = [
       // BOTTOM ROW: cols 12 down to 1 (row 8) - STARTING CORNER IS (row 8, col 12)
@@ -5382,6 +5344,13 @@
       { id: 35, r: 7, c: 12, name: 'HÀ NAM', type: 'city', price: 1000, rent: [200, 500, 1000], color: '#16a34a' }
     ];
 
+    const MONOPOLY_PRESET_CONFIGS = [
+      { id: 0, defaultName: 'Tiên', avatar: '👩‍🏫', color: '#06b6d4', border: 'border-cyan-500/40', glow: 'shadow-[0_0_12px_rgba(6,182,212,0.4)]', badgeBg: 'bg-cyan-500', roof: '#0284c7', bright: '#38bdf8' },
+      { id: 1, defaultName: 'Cáo AI', avatar: '🦊', color: '#f43f5e', border: 'border-rose-500/40', glow: 'shadow-[0_0_12px_rgba(244,63,94,0.4)]', badgeBg: 'bg-rose-500', roof: '#e11d48', bright: '#fb7185' },
+      { id: 2, defaultName: 'Hổ AI', avatar: '🐯', color: '#f59e0b', border: 'border-amber-500/40', glow: 'shadow-[0_0_12px_rgba(245,158,11,0.4)]', badgeBg: 'bg-amber-500', roof: '#d97706', bright: '#fbbf24' },
+      { id: 3, defaultName: 'Gấu Trúc AI', avatar: '🐼', color: '#10b981', border: 'border-emerald-500/40', glow: 'shadow-[0_0_12px_rgba(16,185,129,0.4)]', badgeBg: 'bg-emerald-500', roof: '#059669', bright: '#34d399' }
+    ];
+
     let monoState = {
       turn: 0,
       round: 1,
@@ -5389,19 +5358,18 @@
       speed: 1,
       is25D: true, // Default to 2.5D Isometric mode
       mode: 'bot', // 'bot' | 'local'
+      playerCount: 4, // 2, 3, or 4 players (defaults to 4: 1 Human + 3 Bots or 4 Humans)
       pendingAction: null,
       eventCallback: null,
-      players: [
-        { id: 0, name: 'Tiên', avatar: '👩‍🏫', cash: 19760, pos: 0, inJail: 0, properties: [] },
-        { id: 1, name: 'Kỳ Thủ AI', avatar: '🦊', cash: 19760, pos: 0, inJail: 0, properties: [] }
-      ],
+      players: [],
       tiles: []
     };
 
     // Helper: 3D Mini House Isometric SVG Generator
     function get3DHouseSVG(level, ownerId) {
-      const roofColor = ownerId === 0 ? '#0284c7' : '#e11d48';
-      const roofBright = ownerId === 0 ? '#38bdf8' : '#fb7185';
+      const cfg = MONOPOLY_PRESET_CONFIGS[ownerId % MONOPOLY_PRESET_CONFIGS.length];
+      const roofColor = cfg.roof;
+      const roofBright = cfg.bright;
       const wallLeft = '#cbd5e1';
       const wallRight = '#f8fafc';
       
@@ -5463,11 +5431,11 @@
 
     // Helper: Trigger Floating Cash Animation
     function triggerMonoFloatingCash(playerId, amount) {
-      const container = document.getElementById(playerId === 0 ? 'monoP1FloatCashContainer' : 'monoP2FloatCashContainer');
+      const container = document.getElementById(`monoFloatCashContainer_${playerId}`);
       if (!container) return;
       const isPos = amount > 0;
       const el = document.createElement('div');
-      el.className = `font-chakra font-black text-sm sm:text-2xl md:text-3xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] animate-float-cash select-none ${isPos ? 'text-emerald-400' : 'text-rose-400'}`;
+      el.className = `font-chakra font-black text-sm sm:text-xl md:text-2xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] animate-float-cash select-none ${isPos ? 'text-emerald-400' : 'text-rose-400'}`;
       el.textContent = `${isPos ? '+' : ''}$${Math.abs(amount)}`;
       container.appendChild(el);
       setTimeout(() => { if (el && el.parentNode) el.parentNode.removeChild(el); }, 1300);
@@ -5562,11 +5530,14 @@
       showToast(monoState.is25D ? '📐 Đã chuyển sang góc nhìn 2.5D Isometric!' : '📏 Đã chuyển sang góc nhìn 2D Phẳng!');
     }
 
-    // Set Game Mode (Bot vs 2 Players)
+    // Set Game Mode (Bot vs Local Multiplayer)
     function setMonopolyMode(mode) {
       monoState.mode = mode;
       const btnBot = document.getElementById('btnMonoModeBot');
       const btnLocal = document.getElementById('btnMonoModeLocal');
+      const inBtnBot = document.getElementById('btnMonoArenaModeBot');
+      const inBtnLocal = document.getElementById('btnMonoArenaModeLocal');
+
       if (btnBot && btnLocal) {
         if (mode === 'bot') {
           btnBot.className = 'px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold transition-all shadow-sm';
@@ -5576,8 +5547,48 @@
           btnBot.className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition-all';
         }
       }
-      showToast(mode === 'bot' ? '🤖 Đã chọn chế độ: Đấu với Kỳ Thủ AI' : '👥 Đã chọn chế độ: 2 Người chơi (Pass & Play)');
-      updateMonopolyHUD();
+      if (inBtnBot && inBtnLocal) {
+        if (mode === 'bot') {
+          inBtnBot.className = 'px-2 py-0.5 rounded bg-emerald-600 text-white shadow-sm transition-all';
+          inBtnLocal.className = 'px-2 py-0.5 rounded text-slate-400 hover:text-white transition-all';
+        } else {
+          inBtnLocal.className = 'px-2 py-0.5 rounded bg-emerald-600 text-white shadow-sm transition-all';
+          inBtnBot.className = 'px-2 py-0.5 rounded text-slate-400 hover:text-white transition-all';
+        }
+      }
+      initMonopolyGame();
+      const botCount = monoState.playerCount - 1;
+      showToast(mode === 'bot' ? `🤖 Chế độ: Đấu với ${botCount} Kỳ Thủ AI!` : `👥 Chế độ: ${monoState.playerCount} Người chơi (Pass & Play)!`);
+    }
+
+    // Set Player Count (2, 3, or 4 players)
+    function setMonopolyPlayerCount(count) {
+      monoState.playerCount = Math.max(2, Math.min(4, count));
+      [2, 3, 4].forEach(c => {
+        const btn = document.getElementById(`btnMonoCount${c}`);
+        if (btn) {
+          if (c === monoState.playerCount) {
+            btn.className = 'px-2 py-1 rounded-lg bg-emerald-600 text-white font-bold transition-all shadow-sm';
+          } else {
+            btn.className = 'px-2 py-1 rounded-lg text-slate-400 hover:text-white transition-all font-bold';
+          }
+        }
+        const inBtn = document.getElementById(`btnMonoInCount${c}`);
+        if (inBtn) {
+          if (c === monoState.playerCount) {
+            inBtn.className = 'px-2 py-0.5 rounded bg-emerald-600 text-white font-black shadow-sm transition-all';
+          } else {
+            inBtn.className = 'px-2 py-0.5 rounded bg-slate-800 text-slate-400 hover:text-white transition-all';
+          }
+        }
+      });
+
+      initMonopolyGame();
+      if (monoState.mode === 'bot') {
+        showToast(`🎮 Ván mới: 1 Người đấu với ${monoState.playerCount - 1} Bot AI!`);
+      } else {
+        showToast(`👥 Ván mới: ${monoState.playerCount} Người chơi cùng một lúc!`);
+      }
     }
 
     // Restart Monopoly Game
@@ -5587,8 +5598,48 @@
     }
 
     function initMonopolyGame() {
-      if (window.currentFirebaseUser) {
-        monoState.players[0].name = window.currentFirebaseUser.displayName || 'Tiên';
+      const pCount = Math.max(2, Math.min(4, monoState.playerCount || 4));
+      monoState.playerCount = pCount;
+
+      // Initialize players
+      monoState.players = [];
+      for (let i = 0; i < pCount; i++) {
+        const cfg = MONOPOLY_PRESET_CONFIGS[i];
+        let name = cfg.defaultName;
+        let isBot = false;
+
+        if (i === 0) {
+          if (window.currentFirebaseUser) {
+            name = window.currentFirebaseUser.displayName || 'Tiên';
+          }
+          isBot = false;
+        } else {
+          if (monoState.mode === 'bot') {
+            isBot = true;
+            name = i === 1 ? 'Cáo AI 🦊' : (i === 2 ? 'Hổ AI 🐯' : 'Gấu Trúc AI 🐼');
+          } else {
+            isBot = false;
+            name = `Người Chơi ${i + 1}`;
+          }
+        }
+
+        monoState.players.push({
+          id: i,
+          name: name,
+          avatar: cfg.avatar,
+          color: cfg.color,
+          border: cfg.border,
+          glow: cfg.glow,
+          badgeBg: cfg.badgeBg,
+          roof: cfg.roof,
+          bright: cfg.bright,
+          isBot: isBot,
+          cash: 19760,
+          pos: 0, // Starts at XUẤT PHÁT
+          inJail: 0,
+          isBankrupt: false,
+          properties: []
+        });
       }
 
       // Re-map 36 tiles in authentic perimeter order (index 0 = XUẤT PHÁT)
@@ -5603,17 +5654,6 @@
       monoState.isRolling = false;
       monoState.pendingAction = null;
       monoState.eventCallback = null;
-
-      // Both players start exactly at XUẤT PHÁT (pos = 0)
-      monoState.players[0].cash = 19760;
-      monoState.players[0].pos = 0;
-      monoState.players[0].inJail = 0;
-      monoState.players[0].properties = [];
-
-      monoState.players[1].cash = 19760;
-      monoState.players[1].pos = 0;
-      monoState.players[1].inJail = 0;
-      monoState.players[1].properties = [];
 
       // Apply 2.5D state
       const board = document.getElementById('mono2dBoardWrapper');
@@ -5633,8 +5673,58 @@
 
       renderMonopolyBoard();
       updateMonopolyPawns();
+      renderMonopolyHUDPods();
       updateMonopolyHUD();
       setMonoDialogMode('ready');
+    }
+
+    function renderMonopolyHUDPods() {
+      const container = document.getElementById('monoPlayerPodsContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const pCount = monoState.players.length;
+      container.className = `w-full grid grid-cols-2 ${pCount > 2 ? 'lg:grid-cols-4' : 'sm:grid-cols-2'} gap-2 sm:gap-3 z-10`;
+
+      monoState.players.forEach((p, idx) => {
+        const pod = document.createElement('div');
+        pod.id = `monoPlayerPod_${idx}`;
+        const isCurTurn = (monoState.turn === idx);
+        pod.className = `flex items-center gap-2 sm:gap-2.5 bg-[#0D1829]/90 border rounded-xl px-2.5 py-1.5 sm:px-3 sm:py-2 backdrop-blur-sm shadow-md relative transition-all duration-300 ${isCurTurn ? 'border-amber-400 ring-2 ring-amber-400/80 shadow-[0_0_15px_rgba(245,158,11,0.4)]' : p.border}`;
+
+        pod.innerHTML = `
+          <!-- Floating Cash Container -->
+          <div id="monoFloatCashContainer_${idx}" class="absolute -top-5 left-0 w-full flex justify-center pointer-events-none z-30"></div>
+
+          <!-- Avatar with Glow Ring -->
+          <div class="relative shrink-0">
+            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full p-[2px] ${p.glow}" style="background: ${p.color}">
+              <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-base sm:text-xl overflow-hidden">
+                <span>${p.avatar}</span>
+              </div>
+            </div>
+            <span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 ${p.badgeBg} border border-slate-900 rounded-full flex items-center justify-center text-[8px] text-slate-950 font-black">${idx + 1}</span>
+          </div>
+
+          <!-- Info Column -->
+          <div class="flex flex-col min-w-0 flex-1 overflow-hidden">
+            <div class="flex items-center justify-between gap-1 w-full">
+              <div class="flex items-center gap-1 min-w-0">
+                <span class="text-white font-bold text-xs sm:text-sm tracking-wide truncate" id="monoPodName_${idx}">${p.name}</span>
+                <span class="px-1 py-0.2 rounded text-[7px] font-black uppercase tracking-wider shrink-0 ${p.isBot ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'}">${p.isBot ? 'BOT' : `P${idx + 1}`}</span>
+              </div>
+              <span id="monoPodTurnBadge_${idx}" class="shrink-0 px-1 py-0.2 rounded text-[7px] font-black uppercase tracking-wider bg-amber-400 text-slate-950 animate-pulse ${isCurTurn ? '' : 'hidden'}">LƯỢT</span>
+            </div>
+            <div class="flex items-center gap-1 mt-0.5">
+              <span class="text-amber-400 text-xs">🪙</span>
+              <span class="font-chakra text-sm sm:text-base md:text-lg font-black tracking-wider text-emerald-300 drop-shadow" id="monoPodCash_${idx}">${p.cash}</span>
+            </div>
+            <span class="text-slate-400 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider truncate" id="monoPodAssets_${idx}">${p.properties.length} BẤT ĐỘNG SẢN</span>
+          </div>
+        `;
+
+        container.appendChild(pod);
+      });
     }
 
     function renderMonopolyBoard() {
@@ -5674,15 +5764,17 @@
           body.className = 'flex-1 flex flex-col items-center justify-center p-0.5 relative';
 
           if (t.owner !== null && t.type === 'city') {
-            // Render 3D Mini House Model
+            // Render 3D Mini House Model with Owner Color
             const houseWrapper = document.createElement('div');
             houseWrapper.innerHTML = get3DHouseSVG(t.level || 1, t.owner);
             body.appendChild(houseWrapper);
           } else if (t.owner !== null) {
             // Station owned badge
+            const ownerCfg = MONOPOLY_PRESET_CONFIGS[t.owner % MONOPOLY_PRESET_CONFIGS.length];
             const badge = document.createElement('div');
-            badge.className = `w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center text-[9px] sm:text-[11px] font-bold shadow-md ${t.owner === 0 ? 'bg-cyan-400 text-black' : 'bg-rose-500 text-white'}`;
-            badge.textContent = t.owner === 0 ? '🤖' : '🦊';
+            badge.className = 'w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center text-[9px] sm:text-[11px] font-bold shadow-md text-white';
+            badge.style.backgroundColor = ownerCfg.color;
+            badge.textContent = ownerCfg.avatar;
             body.appendChild(badge);
           } else if (t.type === 'station') {
             const stationIcon = document.createElement('span');
@@ -5701,8 +5793,9 @@
           const bottomBar = document.createElement('div');
           bottomBar.className = 'w-full h-1 sm:h-1.5 bg-black/60';
           if (t.owner !== null) {
-            bottomBar.style.backgroundColor = t.owner === 0 ? '#06b6d4' : '#f43f5e';
-            bottomBar.style.boxShadow = `0 0 6px ${t.owner === 0 ? '#06b6d4' : '#f43f5e'}`;
+            const ownerCfg = MONOPOLY_PRESET_CONFIGS[t.owner % MONOPOLY_PRESET_CONFIGS.length];
+            bottomBar.style.backgroundColor = ownerCfg.color;
+            bottomBar.style.boxShadow = `0 0 6px ${ownerCfg.color}`;
           }
 
           tile.appendChild(topHeader);
@@ -5715,53 +5808,67 @@
     }
 
     function updateMonopolyPawns() {
-      const p1 = monoState.players[0];
-      const p2 = monoState.players[1];
-      const t1 = monoState.tiles[p1.pos];
-      const t2 = monoState.tiles[p2.pos];
-
-      const pawn1 = document.getElementById('pawnP1');
-      const pawn2 = document.getElementById('pawnP2');
-
-      if (pawn1 && t1) {
-        pawn1.style.gridColumnStart = t1.c;
-        pawn1.style.gridRowStart = t1.r;
-      }
-      if (pawn2 && t2) {
-        pawn2.style.gridColumnStart = t2.c;
-        pawn2.style.gridRowStart = t2.r;
-      }
+      const pawnIds = ['pawnP1', 'pawnP2', 'pawnP3', 'pawnP4'];
+      pawnIds.forEach((id, idx) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const innerDiv = el.querySelector('div');
+        if (idx < monoState.players.length && !monoState.players[idx].isBankrupt) {
+          el.style.display = 'flex';
+          const player = monoState.players[idx];
+          const tile = monoState.tiles[player.pos];
+          if (tile) {
+            el.style.gridColumn = `${tile.c} / span 1`;
+            el.style.gridRow = `${tile.r} / span 1`;
+          }
+          if (innerDiv) {
+            if (monoState.turn === idx) {
+              innerDiv.classList.add('animate-bounce');
+            } else {
+              innerDiv.classList.remove('animate-bounce');
+            }
+          }
+        } else {
+          el.style.display = 'none';
+        }
+      });
     }
 
     function updateMonopolyHUD() {
-      const p1 = monoState.players[0];
-      const p2 = monoState.players[1];
+      monoState.players.forEach((p, idx) => {
+        const nameEl = document.getElementById(`monoPodName_${idx}`);
+        const cashEl = document.getElementById(`monoPodCash_${idx}`);
+        const assetsEl = document.getElementById(`monoPodAssets_${idx}`);
+        const pod = document.getElementById(`monoPlayerPod_${idx}`);
+        const turnBadge = document.getElementById(`monoPodTurnBadge_${idx}`);
 
-      const p1Name = document.getElementById('monoP1NameText');
-      const p1Cash = document.getElementById('monoP1CashText');
-      const p1Assets = document.getElementById('monoP1AssetsText');
+        if (nameEl) nameEl.textContent = p.name;
+        if (cashEl) cashEl.textContent = `$${p.cash}`;
+        if (assetsEl) assetsEl.textContent = `${p.properties.length} BẤT ĐỘNG SẢN`;
 
-      if (p1Name) p1Name.textContent = p1.name;
-      if (p1Cash) p1Cash.textContent = `$${p1.cash}`;
-      if (p1Assets) p1Assets.textContent = `${p1.properties.length} BẤT ĐỘNG SẢN`;
+        const isCurTurn = (monoState.turn === idx);
+        if (pod) {
+          if (isCurTurn) {
+            pod.className = `flex items-center gap-2 sm:gap-2.5 bg-[#0D1829]/95 border border-amber-400 ring-2 ring-amber-400/80 shadow-[0_0_15px_rgba(245,158,11,0.4)] rounded-xl px-2.5 py-1.5 sm:px-3 sm:py-2 backdrop-blur-sm relative transition-all duration-300`;
+          } else {
+            pod.className = `flex items-center gap-2 sm:gap-2.5 bg-[#0D1829]/80 border ${p.border} rounded-xl px-2.5 py-1.5 sm:px-3 sm:py-2 backdrop-blur-sm shadow-md relative transition-all duration-300`;
+          }
+        }
+        if (turnBadge) {
+          if (isCurTurn) turnBadge.classList.remove('hidden');
+          else turnBadge.classList.add('hidden');
+        }
+      });
 
-      const p2Cash = document.getElementById('monoBankOrP2CashText');
-      const p2Label = document.getElementById('monoBankOrP2Label');
-
-      if (p2Cash) p2Cash.textContent = `$${p2.cash}`;
-      if (p2Label) {
-        p2Label.textContent = monoState.mode === 'bot' ? `KỲ THỦ AI (${p2.properties.length} BĐS)` : `${p2.name} (${p2.properties.length} BĐS)`;
-      }
-
+      const curPlayer = monoState.players[monoState.turn];
       const statusEl = document.getElementById('monoTurnStatusText');
-      if (statusEl) {
-        statusEl.textContent = `Lượt ${monoState.round}: ${monoState.players[monoState.turn].name} chuẩn bị gieo xúc xắc...`;
+      if (statusEl && curPlayer) {
+        statusEl.textContent = `Lượt ${monoState.round}: ${curPlayer.name} chuẩn bị gieo xúc xắc...`;
       }
 
       const rollBtn = document.getElementById('btnMono2dRoll');
-      if (rollBtn) {
-        const isHumanTurn = (monoState.turn === 0 || monoState.mode === 'local');
-        rollBtn.disabled = monoState.isRolling || !isHumanTurn;
+      if (rollBtn && curPlayer) {
+        rollBtn.disabled = monoState.isRolling || curPlayer.isBot;
       }
     }
 
@@ -5774,8 +5881,8 @@
 
       if (mode === 'ready') {
         const curPlayer = monoState.players[monoState.turn];
-        if (curPlayer.inJail > 0) {
-          // In jail: Show choices
+        if (curPlayer && curPlayer.inJail > 0 && !curPlayer.isBot) {
+          // In jail: Show choices for human
           box.classList.remove('hidden');
           box.classList.add('flex');
           box.classList.remove('animate-mono-popup');
@@ -5791,7 +5898,7 @@
           btnYes.className = 'btn-spring px-6 sm:px-10 py-2 sm:py-3.5 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs sm:text-lg font-black shadow-lg transition-transform active:scale-95 cursor-pointer';
           monoState.pendingAction = { type: 'jail_choice' };
         } else {
-          // Ready mode: Hide central dialog so arena is clear!
+          // Ready mode: Hide central dialog so arena is clean!
           box.classList.add('hidden');
           box.classList.remove('flex');
           monoState.pendingAction = { type: 'roll' };
@@ -6018,7 +6125,7 @@
 
       // Handle Tile Landing
       const landedTile = monoState.tiles[player.pos];
-      const isBotTurn = (monoState.turn === 1 && monoState.mode === 'bot');
+      const isBotTurn = player.isBot;
 
       if (landedTile.type === 'city' || landedTile.type === 'station') {
         if (landedTile.owner === null) {
@@ -6034,9 +6141,9 @@
               triggerMonoFloatingCash(player.id, -landedTile.price);
               renderMonopolyBoard();
               updateMonopolyHUD();
-              showToast(`🤖 Bot AI đã mua ${landedTile.name} ($${landedTile.price}) và xây nhà!`);
+              showToast(`🤖 ${player.name} đã mua ${landedTile.name} ($${landedTile.price}) và xây nhà!`);
             } else {
-              showToast(`🤖 Bot AI không đủ tiền mua ${landedTile.name}.`);
+              showToast(`🤖 ${player.name} không đủ tiền mua ${landedTile.name}.`);
             }
             setTimeout(() => finishMonoTurn(), 1200);
           }
@@ -6054,13 +6161,13 @@
                 triggerMonoFloatingCash(player.id, -cost);
                 renderMonopolyBoard();
                 updateMonopolyHUD();
-                showToast(`🤖 Bot AI đã nâng cấp ${landedTile.name} lên Cấp ${landedTile.level}!`);
+                showToast(`🤖 ${player.name} đã nâng cấp ${landedTile.name} lên Cấp ${landedTile.level}!`);
               }
               setTimeout(() => finishMonoTurn(), 1200);
             }
           } else {
             if (!isBotTurn) {
-              showToast(`🏰 ${player.name} nghỉ ngơi tại bất động sản tối tân ${landedTile.name}!`);
+              showToast(`🏰 ${player.name} nghỉ ngơi tại bất động sản ${landedTile.name}!`);
               setTimeout(() => finishMonoTurn(), 1000);
             } else {
               setTimeout(() => finishMonoTurn(), 800);
@@ -6090,14 +6197,14 @@
               type: 'rent',
               badge: '💸 NỘP TIỀN THUÊ ĐẤT!',
               title: `Dừng Chân Tại Đất Của ${owner.name}`,
-              desc: `${player.name} phải trả tiền thuê cho ${owner.name} khi ghé thăm ${landedTile.name} (Cấp ${lvl})!`,
+              desc: `${player.name} phải trả $${rent} tiền thuê cho ${owner.name} khi ghé thăm ${landedTile.name} (Cấp ${lvl})!`,
               visualIcon: '💸',
               amountLabel: 'Khoản tiền thuê:',
               amountVal: -rent,
               onConfirm: () => finishMonoTurn()
             });
           } else {
-            showToast(`💸 Bot AI trả $${rent} tiền thuê ${landedTile.name} cho bạn!`);
+            showToast(`💸 ${player.name} trả $${rent} tiền thuê ${landedTile.name} cho ${owner.name}!`);
             setTimeout(() => finishMonoTurn(), 1200);
           }
         }
@@ -6123,7 +6230,7 @@
             onConfirm: () => finishMonoTurn()
           });
         } else {
-          showToast(`🤖 Bot AI: ${card.badge} (${card.val > 0 ? '+' : ''}$${card.val})`);
+          showToast(`🤖 ${player.name}: ${card.badge} (${card.val > 0 ? '+' : ''}$${card.val})`);
           setTimeout(() => finishMonoTurn(), 1200);
         }
       } else if (landedTile.type === 'fate') {
@@ -6148,7 +6255,7 @@
             onConfirm: () => finishMonoTurn()
           });
         } else {
-          showToast(`🤖 Bot AI: ${card.badge} (${card.val > 0 ? '+' : ''}$${card.val})`);
+          showToast(`🤖 ${player.name}: ${card.badge} (${card.val > 0 ? '+' : ''}$${card.val})`);
           setTimeout(() => finishMonoTurn(), 1200);
         }
       } else if (landedTile.type === 'goto_jail') {
@@ -6166,7 +6273,7 @@
             onConfirm: () => finishMonoTurn()
           });
         } else {
-          showToast(`🤖 Bot AI bị bắt vào Trại Giam (3 lượt)!`);
+          showToast(`🤖 ${player.name} bị bắt vào Trại Giam (3 lượt)!`);
           setTimeout(() => finishMonoTurn(), 1200);
         }
       } else if (landedTile.type === 'airport') {
@@ -6182,7 +6289,7 @@
             onConfirm: () => finishMonoTurn()
           });
         } else {
-          showToast(`🤖 Bot AI bay từ Tân An đến Hà Nội!`);
+          showToast(`🤖 ${player.name} bay từ Tân An đến Hà Nội!`);
           setTimeout(() => finishMonoTurn(), 1200);
         }
       } else if (landedTile.type === 'jail') {
@@ -6195,38 +6302,51 @@
     }
 
     function finishMonoTurn() {
-      // Check bankruptcy
+      // Check bankruptcy for current player
       const curPlayer = monoState.players[monoState.turn];
-      const otherPlayer = monoState.players[1 - monoState.turn];
-
       if (curPlayer.cash <= 0) {
+        curPlayer.isBankrupt = true;
+        showToast(`💀 ${curPlayer.name} đã phá sản và rời cuộc chơi!`);
+      }
+
+      // Check remaining active players
+      const activePlayers = monoState.players.filter(p => !p.isBankrupt);
+      if (activePlayers.length <= 1) {
+        const winner = activePlayers[0] || monoState.players[0];
         showMonoEventPopup({
           type: 'gameover',
-          badge: '💀 PHÁ SẢN TOÀN TẬP!',
-          title: `${curPlayer.name} Đã Cạn Tiền!`,
-          desc: `Chiến thắng chung cuộc thuộc về ${otherPlayer.name}! Hãy bắt đầu ván mới để phục thù.`,
+          badge: '👑 VÔ ĐỊCH CỜ TỶ PHÚ!',
+          title: `${winner.name} Đã Giành Chiến Thắng!`,
+          desc: `Tất cả đối thủ đã phá sản! ${winner.name} chính thức trở thành Tỷ Phú Hoàng Gia!`,
           visualIcon: '🏆',
           onConfirm: () => initMonopolyGame()
         });
         return;
       }
 
-      // Switch turn
-      monoState.turn = 1 - monoState.turn;
-      if (monoState.turn === 0) {
+      // Advance turn to next active player
+      let nextTurn = (monoState.turn + 1) % monoState.players.length;
+      let count = 0;
+      while (monoState.players[nextTurn].isBankrupt && count < monoState.players.length) {
+        nextTurn = (nextTurn + 1) % monoState.players.length;
+        count++;
+      }
+
+      if (nextTurn === 0) {
         monoState.round++;
       }
+      monoState.turn = nextTurn;
 
       updateMonopolyHUD();
       setMonoDialogMode('ready');
 
-      // If Bot turn, schedule auto roll
-      if (monoState.turn === 1 && monoState.mode === 'bot') {
+      // If next player is Bot, schedule autonomous turn
+      const nextPlayer = monoState.players[monoState.turn];
+      if (nextPlayer.isBot) {
         const botDelay = monoState.speed === 2 ? 600 : 1200;
         setTimeout(() => {
-          if (monoState.players[1].inJail > 0) {
-            // Bot AI jail choice: If rich, pays $500 bail; else rolls for double
-            if (monoState.players[1].cash >= 3000) {
+          if (nextPlayer.inJail > 0) {
+            if (nextPlayer.cash >= 3000) {
               handleMonoDialogChoice(true); // Pay bail
             } else {
               handleMonoDialogChoice(false); // Roll doubles
@@ -6245,8 +6365,8 @@
     }
 
     function handleMonoSettingsBtn() {
-      const newMode = monoState.mode === 'bot' ? 'local' : 'bot';
-      setMonopolyMode(newMode);
+      const nextCount = (monoState.playerCount % 4) + 1; // 2 -> 3 -> 4 -> 2
+      setMonopolyPlayerCount(nextCount < 2 ? 2 : nextCount);
     }
 
     function toggleMonoSpeedBtn() {
@@ -6258,6 +6378,7 @@
 
     window.initMonopolyGame = initMonopolyGame;
     window.renderMonopolyBoard = renderMonopolyBoard;
+    window.renderMonopolyHUDPods = renderMonopolyHUDPods;
     window.updateMonopolyPawns = updateMonopolyPawns;
     window.updateMonopolyHUD = updateMonopolyHUD;
     window.setMonoDialogMode = setMonoDialogMode;
@@ -6269,9 +6390,11 @@
     window.toggleMonoSpeedBtn = toggleMonoSpeedBtn;
     window.toggleMono25DView = toggleMono25DView;
     window.setMonopolyMode = setMonopolyMode;
+    window.setMonopolyPlayerCount = setMonopolyPlayerCount;
     window.restartMonopolyGame = restartMonopolyGame;
     window.showMonoEventPopup = showMonoEventPopup;
     window.closeMonoEventModal = closeMonoEventModal;
+
     window.monoState = monoState;
     window.MONOPOLY_2D_TILES = MONOPOLY_2D_TILES;
 
@@ -8183,7 +8306,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v3.5.0'
+      currentVersion: 'v3.6.0'
     };
 
     let allChangelogItems = [];

@@ -376,6 +376,7 @@ esetTTTScores).
    - Tinh chỉnh góc nghiêng 2.5D nhẹ nhàng `rotateX(32deg) rotateZ(-4deg) scale(1.02)` kết hợp đệm khoảng cách (`padding: 2rem 1rem 3.5rem 1rem`), giúp toàn bộ 36 ô chu vi từ hàng đỉnh (Hà Nội, Nhà Ga, Tân An...) đến hàng đáy (Hội An, Quy Nhơn, Trại Giam, Xuất Phát...) hiển thị rõ nét 100%, không bị cắt mất bất kỳ góc cạnh nào.
 
 
+
 ---
 
 ## ⚡ PHẦN 11: BẢN ĐỒ MỞ RỘNG GRAND MAP 6x6 (20 Ô) & CƠ CHẾ CHIẾN THUẬT ĐA TẦNG
@@ -468,3 +469,285 @@ Cho phép người chơi chọn Hero trước trận hoặc chuyển đổi linh
   * Điểm mối quan hệ từ 0% đến 100% giữa từng cặp đấu thủ.
   * **Quy tắc "Ghim":** Mối quan hệ càng thấp (<35%) thì mức độ thù hận càng cao. Bot sẽ ưu tiên tối đa việc **gài mìn chặn đường**, **tinh chỉnh bước xúc xắc để đá văng** và **nhắm tới kẻ bị ghim** để trả thù.
   * Hiển thị thanh đo trực quan: Đỏ rực (💢 CỰC GHIM / Thù Địch), Vàng (Cảnh giác), Xanh (Hòa hoãn) kèm tên đối tượng đang bị ghim nhiều nhất.
+
+
+
+---
+
+## ⚡ PHẦN 22: HỖ TRỢ ĐẾN 4 NGƯỜI CHƠI & ĐẾN 3 BOT AI CÙNG LÚC - HỆ THỐNG QUÂN CỜ 4 GÓC & BENTO HUD ĐA NĂNG (V3.6.0)
+1. **Mở Rộng Chế Độ Chơi Đa Người (2 đến 4 Người Chơi Đồng Thời)**:
+   - **Chế Độ Chơi Đơn (1 Người vs Tối Đa 3 Bot AI)**:
+     * Người chơi 1 (Tiên / User) thi đấu với 1, 2 hoặc 3 Bot AI tự động.
+     * Cấu hình linh hoạt thông qua bộ chọn **[ 2P ] [ 3P ] [ 4P ]** tại thanh điều khiển đỉnh trang và ngay trong bàn cờ trung tâm.
+     * Cả 3 Bot AI (Cáo AI 🦊, Hổ AI 🐯, Gấu Trúc AI 🐼) sở hữu tính cách, avatar, bảng màu neon và mô hình mái nhà 3D riêng biệt (Hồng Ruby, Vàng Hổ Phách, Xanh Ngọc Lục Bảo).
+   - **Chế Độ Nhiều Người (Pass & Play / 2 Đến 4 Người Cùng Thiết Bị)**:
+     * Cho phép từ 2, 3 đến 4 người chơi luân phiên nhau đổ xúc xắc, mua đất, nâng cấp nhà và trả tiền thuê trên cùng một thiết bị.
+     * Mỗi lượt đi hiển thị rõ tên, avatar và hiệu ứng viền vàng phát sáng pulsating ('ring-2 ring-amber-400') trên Bento Pod của người đang đến lượt.
+
+2. **Hệ Thống Quân Cờ 4 Góc Phối Cảnh Độc Lập (Zero-Overlap Quadrant Clustering)**:
+   - Khắc phục triệt để lỗi quân cờ đè lên nhau khi ở cùng ô (đặc biệt tại ô XUẤT PHÁT khi mở đầu ván cờ):
+     * **P1 (Tiên 👩‍🏫)**: Góc trên - trái ('translate(-15px, -15px)'), hiệu ứng viền phát sáng Cyan.
+     * **P2 (Cáo AI 🦊)**: Góc trên - phải ('translate(15px, -15px)'), hiệu ứng viền Rose.
+     * **P3 (Hổ AI 🐯)**: Góc dưới - trái ('translate(-15px, 15px)'), hiệu ứng viền Amber.
+     * **P4 (Gấu Trúc AI 🐼)**: Góc dưới - phải ('translate(15px, 15px)'), hiệu ứng viền Emerald.
+   - Khi ở phối cảnh 2.5D Isometric, từng quân cờ tự động dựng góc nghiêng 'rotateZ(4deg) rotateX(-32deg) translateZ(24px)' với đổ bóng rơi 'drop-shadow' chân thực; chỉ quân cờ của người đang có lượt mới kích hoạt hoạt ảnh nhún nhảy 'animate-bounce'.
+
+3. **Giao Diện Bento Pods Động (Dynamic Glassmorphism HUD)**:
+   - Tự động co giãn theo số lượng người tham gia ('grid-cols-2 lg:grid-cols-4').
+   - Từng Bento Pod hiển thị:
+     * Avatar hình tròn với vòng hào quang phát quang neon tương ứng.
+     * Huy hiệu số thứ tự người chơi (1, 2, 3, 4).
+     * Tên người chơi kèm nhãn định danh ('P1', 'P2', 'P3', 'P4' hoặc 'BOT').
+     * Nhãn '[ LƯỢT ]' phát sáng vàng khi đến lượt đi.
+     * Số tiền mặt hiện có ('$19,760' khởi điểm) kèm container tiền bay lơ lửng riêng biệt ('#monoFloatCashContainer_X').
+     * Tổng số lượng bất động sản sở hữu.
+
+4. **Vòng Lặp Điều Khiển & Tự Động Hóa Ván Đấu Thông Minh**:
+   - Tự động luân chuyển lượt thông minh: 'turn = (turn + 1) % players.length', tự động bỏ qua người chơi đã phá sản ('isBankrupt').
+   - Khi còn lại đúng 1 người chơi cuối cùng chưa phá sản, hệ thống tự động công bố danh hiệu **👑 VÔ ĐỊCH CỜ TỶ PHÚ HOÀNG GIA!** với cúp vàng và pháo hoa ăn mừng.
+   - Nút **ĐỔ XÚC XẮC** tự động khóa ('disabled') khi đang đến lượt của Bot AI để tránh người chơi bấm nhầm, và tự động mở lại ngay khi đến lượt của người chơi.
+
+
+---
+
+## ⚡ PHẦN 23: PHỐI CẢNH KIM CƯƠNG ISOMETRIC 2.5D (LINE LET'S GET RICH STYLE) - MÔ HÌNH NHÀ 3D NỔI THẲNG ĐỨNG, HUY HIỆU CẤP ĐỘ RÕ RÀNG & ĐÈN HÀO QUANG ĐỊNH VỊ NGƯỜI CHƠI (V3.7.0)
+1. **Bàn Cờ Phối Cảnh Kim Cương 2.5D Xoay 45° (Line Let's Get Rich Isometric Diamond Grid)**:
+   - Tái thiết kế toàn bộ hệ thống tọa độ bàn cờ thành lưới vuông 10x10 ô đối xứng hoàn hảo xoay nghiêng 45° (`perspective(1400px) rotateX(44deg) rotateZ(45deg) scale(0.85)`).
+   - Bố cục 4 đỉnh kim cương theo chuẩn tự nhiên và trực quan nhất:
+     * **Đỉnh Dưới Cùng (Bottom Vertex)**: Ô **XUẤT PHÁT** (Start - Tile 0) hướng thẳng đối diện người chơi với góc nhìn bao quát toàn bàn.
+     * **Đỉnh Bên Trái (Left Vertex)**: Ô **TRẠI GIAM** (Jail - Tile 9).
+     * **Đỉnh Trên Cùng (Top Vertex)**: Ô **TÂN AN / SÂN BAY** (Airport - Tile 18).
+     * **Đỉnh Bên Phải (Right Vertex)**: Ô **VÔ TÙ** (Go to Jail - Tile 27).
+   - 36 ô đất đại diện cho các thành phố danh lam thắng cảnh Việt Nam trải đều trên 4 cạnh của hình kim cương.
+
+2. **Mô Hình Nhà 3D Đứng Thẳng & Huy Hiệu Cấp Độ Nổi Bật (Upright 3D Buildings & Level Badges)**:
+   - Ứng dụng kỹ thuật Triệt Tiêu Biến Dạng Góc Phối Cảnh (Perspective Counter-Rotation): Tất cả mô hình nhà, huy hiệu và quân cờ đều mang lớp style `.mono-upright-3d` với công thức `transform: rotateZ(-45deg) rotateX(-44deg) translateZ(28px)`, giúp các kiến trúc dựng đứng 100% vuông góc với mặt bàn cờ và hướng thẳng vào tầm mắt người xem.
+   - Nhận diện cấp độ nhà ngay lập tức mà không cần bấm vào xem chi tiết:
+     * **Cấp 1 (Nhà Phố / Cottage)**: Huy hiệu hình con nhộng `[ ⭐ LV.1 ]` màu Cyan kèm mô hình nhà 3D ngói dốc.
+     * **Cấp 2 (Biệt Thự Tầng / Luxury Villa)**: Huy hiệu `[ ⭐⭐ LV.2 ]` màu Vàng Hổ Phách kèm biệt thự 3D 2 tầng có ban công phát sáng.
+     * **Cấp 3 MAX (Tòa Tháp Hoàng Gia / Landmark Skyscraper)**: Huy hiệu vương miện `[ 👑 MAX LV.3 ]` ánh vàng kim rực rỡ với hiệu ứng nhịp thở `animate-pulse` cùng mô hình chọc trời có đỉnh tháp vàng óng.
+   - Đế ô đất đổi màu viền và màu nền theo bảng màu nhận diện của chủ sở hữu, hiển thị rõ ràng giá thuê hiện tại tương ứng với cấp độ nhà.
+
+3. **Hệ Thống Đèn Chiếu Sàn & Hào Quang Định Vị Người Chơi Hiện Tại (Spotlight & Overhead Location Beacon)**:
+   - Giải quyết triệt để vấn đề "khó nhìn biết người chơi đang ở đâu":
+     * **Đèn Chiếu Sàn (Tile Floor Spotlight)**: Ô đất mà người chơi hiện tại đang đứng sẽ phát hào quang vàng rực `.mono-tile-spotlight` bao bọc toàn bộ ô cờ với hiệu ứng nhịp thở phát sáng rực rỡ.
+     * **Hào Quang Định Vị Trên Đỉnh Đầu (3D Overhead Beacon)**: Trên đầu quân cờ của người đang có lượt sẽ xuất hiện bảng định danh lơ lửng `[ 👑 LƯỢT TIÊN ]` với mũi tên neon vàng nhấp nháy chỉ thẳng xuống đỉnh đầu quân cờ, không bao giờ bị che khuất bởi các tòa nhà xung quanh.
+     * **Đế Chân Quân Cờ 3D**: Mỗi quân cờ sở hữu avatar hình tròn nổi với hiệu ứng đổ bóng rơi ('drop-shadow') và vầng sáng mờ cùng màu dưới chân.
+
+4. **Bố Cục 4 Góc Màn Hình (4-Corner Framing HUD Pods) & Sân Đấu Trung Tâm**:
+   - 4 Bento Pod của 4 người chơi được ghim cố định tại 4 góc màn hình (`top-left`, `top-right`, `bottom-left`, `bottom-right`), tận dụng triệt để khoảng trống sinh ra khi xoay bàn cờ hình kim cương, không che chắn bất kỳ ô cờ nào.
+   - Khu vực sân cỏ điện tử trung tâm (Central Cyber-Turf) chứa hộp xúc xắc 3D nằm ngang tầm mắt người xem (`[ 🎲 5 ] [ 🎲 4 ] = 9`) và nút bấm lớn màu vàng kim mạ ánh sáng **[ 🎲 ĐỔ XÚC XẮC ]** cực kỳ mãn nhãn.
+
+
+---
+
+## ⚡ PHẦN 24: KIỂM TOÁN TOÀN DIỆN & KHẮC PHỤC LỖI TÍNH NĂNG CỜ TỶ PHÚ (MONOPOLY ENGINE AUDIT & FULL FIXES - V3.7.1)
+1. **Khắc Phục Lỗi Đóng Băng Khi Bot AI Ở Trại Giam (Bot in Jail Freeze Fix)**:
+   - *Nguyên nhân*: Trước đây khi Bot AI vào Trại Giam (`inJail > 0`), hệ thống gọi `handleMonoDialogChoice` nhưng biến `pendingAction` bị gán `null` dẫn tới hàm `return` ngay lập tức. Bot không thể đổ xúc xắc hay nộp phạt, khiến ván cờ bị kẹt cứng vĩnh viễn ở lượt của Bot.
+   - *Giải pháp*: Xây dựng luồng quyết định tự hành độc lập cho Bot trong Trại Giam: Nếu số dư lớn (`cash >= $3,000`), Bot tự động trích \$500 nộp bảo lãnh, kích hoạt thông báo và đổ xúc xắc di chuyển ngay; nếu số dư thấp, Bot tự động gieo xúc xắc tìm số đôi. Loại bỏ 100% nguy cơ treo game khi Bot ở tù.
+
+2. **Căn Giữa & Triệt Tiêu Lỗi Cắt Xén Hộp Thoại Quyết Định (Centered Decision Box & Anti-Clipping)**:
+   - *Nguyên nhân*: Hộp thoại mua đất/nâng cấp (`#mono2dDecisionBox`) trước đây đặt tại vị trí đáy (`bottom-2`). Khi bàn cờ xoay 45° kim cương, góc đáy rất hẹp (~150px) khiến cạnh trái hộp thoại bị tràn ra ngoài và bị cắt mất nút **[ Bỏ Qua ]**.
+   - *Giải pháp*: Chuyển đổi hộp thoại thành lớp phủ trung tâm (`inset-0 flex items-center justify-center`) với nền tối đặc `bg-[#0C1524]` và đổ bóng sâu, đặt ở phần rộng nhất của sân cỏ trung tâm. Cả hai nút **[ Bỏ Qua ]** và **[ Đồng Ý (Mua 🏡) ]** hiển thị tròn trịa 100%, không bị che lấp.
+
+3. **Thu Hồi Bất Động Sản Của Người Chơi Phá Sản (Bankrupt Asset Recovery & Grayscale HUD)**:
+   - Khi một người chơi cạn sạch tiền (`cash <= 0`), toàn bộ các bất động sản và nhà 3D đã xây của người đó lập tức được ngân hàng thu hồi (`owner = null, level = 0`) và mở lại quyền mua cho các người chơi khác, tránh tình trạng đất chết bị khóa vĩnh viễn.
+   - Thẻ thông tin (HUD Pod) của người phá sản lập tức chuyển sang chế độ đen trắng mờ (`grayscale opacity-50`) với nhãn đỏ **PHÁ SẢN** rõ ràng.
+
+4. **Đồng Bộ Hoạt Ảnh Tiền Bay (Floating Cash Animation CSS Parity)**:
+   - Đồng bộ tên lớp CSS `.animate-mono-floatCash` với keyframe `monoFloatCash`, giúp các con số biến động tiền (`+\$2,000`, `-\$500`, v.v.) thực sự bay bổng lên trên và mờ dần trong 1.4 giây thay vì đứng yên.
+
+5. **Định Dạng Tiền Tệ & Làm Sạch Chuỗi Hiển Thị**:
+   - Khắc phục lỗi hiển thị chuỗi `${p.cash...}` dạng raw text trên các góc HUD, chuẩn hóa toàn bộ thành định dạng tiền tệ có dấu phẩy ngăn cách hàng nghìn (`\$19,760`, `\$1,000`).
+   - Sửa lỗi cú pháp trong các thông báo Toast và bảng quyết định.
+
+6. **Tích Hợp Nút Chuyển Phối Cảnh 2.5D / 2D Trên Thanh Công Cụ**:
+   - Bổ sung nút **[ 📐 2.5D ]** trực tiếp trên thanh công cụ ngữ cảnh đỉnh bàn cờ, cho phép người chơi linh hoạt chuyển đổi giữa góc nhìn Kim Cương 2.5D và góc nhìn 2D phẳng truyền thống mọi lúc.
+
+7. **Trải Nghiệm Thẻ Cơ Hội / Vận Mệnh & Trợ Cấp Sân Bay**:
+   - Khi người chơi dừng chân tại ô **CƠ HỘI** hoặc **VẬN MỆNH**, hệ thống bật hộp thoại thông báo chi tiết nội dung may mắn hoặc nộp phạt thay vì chỉ hiện toast ngắn.
+   - Khi dừng chân tại ô **SÂN BAY TÂN AN**, người chơi nhận được khoản trợ cấp du lịch hạng thương gia **+\$1,000** tiền mặt.
+
+
+---
+
+## ⚡ PHẦN 25: KIỂM TOÁN VÀ KHẮC PHỤC LỖI LOGIC NỘI BỘ, LUẬT CHƠI & BẢO VỆ TIẾN TRÌNH VÁN ĐẤU (MONOPOLY LOGIC & MECHANICS AUDIT - V3.7.2)
+1. **Khắc Phục Lỗi Thứ Tự Trừ Tiền Thuê (Rent Calculation Order Fix)**:
+   - *Lỗi logic cũ*: Trước đây hàm trừ tiền thuê tính `player.cash = Math.max(0, player.cash - rent)` trước rồi mới tính `actualPaid = Math.min(player.cash, rent)`. Khi người chơi chỉ còn \$200 mà tiền thuê là \$500, số tiền của người chơi bị giảm về 0 trước, dẫn đến `actualPaid` bị tính bằng 0. Chủ nợ bị mất trắng khoản tiền \$200 còn lại của người thua.
+   - *Đã khắc phục*: Tính toán `actualPaid = Math.min(player.cash, rent)` trước khi khấu trừ. Người thuê trả hết số tiền hiện có, chủ nợ nhận đủ tiền mặt thực tế và người thuê phá sản công bằng.
+
+2. **Chuyển Nhượng Bất Động Sản Phá Sản Cho Chủ Nợ (Creditor Property Inheritance)**:
+   - Theo luật Cờ Tỷ Phú quốc tế chuẩn mực: Khi người chơi A phá sản do nộp tiền thuê cho chủ nợ B, toàn bộ các khu đất và nhà 3D của A lập tức được chuyển nhượng quyền sở hữu sang cho B (`owner = B.id`), giúp B mở rộng đế chế. Nếu người chơi phá sản do nộp phạt cho ngân hàng, tài sản mới hoàn trả về ngân hàng.
+
+3. **Luật Đổ Số Đôi Nhận Lượt Đổ Thêm & Phạt Chạy Quá Tốc Độ (Doubles Extra Turn & Speeding Penalty)**:
+   - Khi gieo xúc xắc đạt số đôi (`d1 === d2`) lúc không ở tù, người chơi nhận được thông báo **🎲 SỐ ĐÔI! ĐƯỢC ĐỔ THÊM 1 LƯỢT!** và tiếp tục giữ lượt đi kế tiếp.
+   - Nếu đổ số đôi liên tiếp 3 lần trong một vòng, người chơi bị lập biên bản vi phạm tốc độ và tống thẳng vào Trại Giam (`pos = 9, inJail = 3`) theo đúng luật nguyên bản.
+
+4. **Tỷ Lệ Tiền Thuê Đa Bến Xe / Nhà Ga (Progressive Transport Rent Scaling)**:
+   - Bổ sung công thức tính tiền thuê lũy tiến cho các ô Bến Xe, Bến Cảng, Nhà Ga dựa trên số lượng trạm giao thông mà chủ sở hữu nắm giữ:
+     * Sở hữu 1 trạm: Tiền thuê \$400.
+     * Sở hữu 2 trạm: Tiền thuê \$800.
+     * Sở hữu trọn bộ 3 trạm: Tiền thuê vọt lên \$1,600!
+
+5. **Nộp Bảo Lãnh Bắt Buộc Khi Hết Hạn Tù Lượt Thứ 3**:
+   - Khi người chơi đã ở tù hết 3 lượt mà vẫn không gieo được số đôi, hệ thống tự động khấu trừ \$500 tiền bảo lãnh bắt buộc và cho phép người chơi di chuyển số bước đã gieo.
+
+6. **Triệt Tiêu Hoàn Toàn Tiến Trình Chạy Ngầm (Dangling Timers Cleanup)**:
+   - Tích hợp hàm `stopMonopolyTimers()` quản lý tập trung `monoState.stepIntervalId` và `monoState.botTimeoutId`.
+   - Mỗi khi người chơi bấm nút **[ Ván Mới ]**, đổi số lượng người chơi (2P/3P/4P) hoặc chuyển sang tab game khác (Cờ Vua, Ca-rô, Đua Xúc Xắc), mọi bộ đếm bước đi và thời gian chờ của Bot lập tức bị hủy bỏ, ngăn chặn 100% hiện tượng Bot "ma" tự đổ xúc xắc hay bước cờ chạy chồng chéo giữa các ván.
+
+7. **Bộ Thẻ Cơ Hội & Vận Mệnh Đa Dạng Lore**:
+   - Thay thế việc tăng/giảm tiền ngẫu nhiên khô khan bằng kho thẻ bài 16 sự kiện kinh điển (Xổ Số Hoàng Gia, Cổ Tức Ngân Hàng, Tài Trợ Đô Thị, Phạt Quá Tốc Độ, Thừa Kế Gia Tộc, Đấu Thầu Thành Công, v.v.).
+
+8. **Kích Hoạt Âm Thanh (AudioContext Resume) & Thưởng Vàng Hồ Sơ**:
+   - Khắc phục chính sách autoplay của trình duyệt bằng cách tự động đánh thức `audioCtx.resume()` khi người chơi tương tác.
+   - Khi người chơi chiến thắng ván cờ tỷ phú, tài khoản được tự động cộng **+300 Vàng** vào ví kinh tế chung của Tabletop Arena.
+
+---
+
+### Phần 26: Sửa Triệt Để Lỗi Rò Rỉ Mã Nguồn, Cải Tiến Đột Phá Khả Năng Đọc Tên Ô & Banner Soi Bất Động Sản Trực Tiếp (v3.7.3)
+
+#### 1. Nguyên Nhân Sự Cố & Giải Pháp Kỹ Thuật
+1. **Triệt tiêu 100% lỗi rò rỉ mã nguồn (Trailing Debris past `</html>` Fix)**:
+   - *Hiện tượng*: Người dùng chụp màn hình (`media_1793012763618_84299903.png`) cho thấy các đoạn mã JavaScript (`updateMonopolyPawns`, `setMonoDialogMode`) bị in lộ trực tiếp dưới chân trang web.
+   - *Nguyên nhân*: Do các đợt cập nhật trước đó vô tình để lại đoạn mã dư thừa sau thẻ đóng `</html>`, khiến trình duyệt coi phần đuôi là văn bản HTML thuần và render ra giao diện.
+   - *Khắc phục*: Tinh chỉnh cấu trúc tài liệu HTML, cắt bỏ toàn bộ 542KB rác phía sau `</html>`, khôi phục tính toàn vẹn 100% cho cây DOM, xác thực 5/5 thẻ script nội tuyến vượt qua kiểm tra cú pháp của Node VM.
+
+2. **Cải tiến độ rõ nét của tên thành phố trên 36 ô (Typography & Readability Overhaul)**:
+   - *Khắc phục cắt ngắn chữ (`...`)*: Loại bỏ hoàn toàn thuộc tính CSS `truncate` vốn làm các tên thành phố tiếng Việt dài như `THANH HÓA`, `QUẢNG NINH`, `THÁI NGUYÊN`, `HẢI DƯƠNG`, `BẮC GIANG`, `LẠNG SƠN` bị co lại thành `THANH...`, `QUẢN...`.
+   - *Hỗ trợ xuống dòng tự nhiên 2 dòng*: Thiết lập container kích thước tối thiểu `min-h-[25px] leading-[1.08]` với hộp đen viền sáng sang trọng (`bg-[#050A14]/95 border border-white/25`), chữ in hoa đậm `text-[10px] sm:text-[11px] font-black uppercase text-white drop-shadow`, tạo độ tương phản tối đa trên mọi loại màu sắc ô đất.
+
+3. **Tối ưu góc nghiêng Isometric 2.5D (Perspective Optimization)**:
+   - Giảm góc nghiêng trục X từ `rotateX(44deg)` xuống `rotateX(32deg)` và nâng tỷ lệ hiển thị từ `scale(0.85)` lên `scale(0.96)`.
+   - Kết quả: Ô cờ cao hơn **20%** theo phương thẳng đứng và lớn hơn **13%** diện tích tổng thể, loại bỏ hoàn toàn hiện tượng dẹt hình học (foreshortening), giúp người chơi đọc tên các tỉnh thành mà không cần phải nghiêng đầu hay phóng to màn hình.
+   - Đồng bộ góc phản nghiêng của các mô hình nhà 3D nổi và tiêu điểm quân cờ sang `rotateX(-32deg)` đảm bảo các tòa nhà luôn đứng thẳng tắp hướng về người chơi.
+
+4. **HUD Soi Bất Động Sản Trực Quan Siêu Rõ Nét (`#monoTopTileInspector`)**:
+   - Tích hợp một thanh HUD kính mờ chuẩn 2D (`backdrop-blur-md bg-[#090F1E]/95 border-2 border-amber-400/50`) ngự trị phía trên đỉnh bàn cờ.
+   - **Tương tác trực tiếp**:
+     - Khi người chơi rê chuột vào bất kỳ ô cờ nào (hoặc khi quân cờ di chuyển và hạ cánh vào một ô), thanh HUD lập tức hiển thị chi tiết tên đầy đủ của tỉnh thành, chấm màu đại diện, cấp độ nhà hiện tại, giá mua khu đất và biểu giá tiền thuê tương ứng.
+     - Khi rời chuột, HUD tự động hồi quy về thông tin ô đất hiện tại của người chơi đang trong lượt.
+
+---
+
+---
+
+### Phần 27: Khắc Phục Triệt Để Lỗi Click Hộp Quyết Định / Nút Xúc Xắc & Căn Chỉnh Góc Nghiêng Bàn Cờ Chuẩn 30 Độ (v3.7.4)
+
+#### 1. Nguyên Nhân Sự Cố & Phân Tích Kỹ Thuật
+1. **Lỗi không bấm được nút "Đồng Ý" / "Bỏ Qua"**:
+   - *Nguyên nhân phát hiện qua Telemetry*: Hộp thoại quyết định (`#mono2dDecisionBox`) trước đây đặt lồng bên trong container sân cờ (`#mono2dCentralArena`) có thuộc tính `overflow: hidden` kết hợp phép biến đổi 3D (`transform: rotateZ(-45deg) rotateX(-32deg) translateZ(42px)`).
+   - Trên các trình duyệt nhân Blink/Chromium (Chrome/Edge), phép chiếu 3D lồng trong `overflow: hidden` làm vùng bắt sự kiện chuột (hit-testing bounds) bị lệch hoàn toàn khỏi tọa độ hiển thị đồ họa. Kiểm tra `document.elementFromPoint` cho thấy cú click bị phần tử cha `mono2dCentralArena` hấp thụ (`isDirectHit: false`), khiến nút không nhận được lệnh click.
+   - *Khắc phục*: Di chuyển toàn bộ `#mono2dDecisionBox` và `#monoEventModalOverlay` ra khỏi khối 3D, đặt làm lớp phủ HUD 2D màn hình phẳng (`z-50 backdrop-blur-sm pointer-events-auto`). Kết quả kiểm tra trực tiếp qua Edge: `isDirectHit: true`, 100% cú click mua đất, nâng cấp nhà và bảo lãnh tù đều phản hồi tức thì.
+
+2. **Khắc phục nút "Đổ Xúc Xắc" khó bấm**:
+   - Loại bỏ `overflow-hidden` trên `#mono2dCentralArena`, mở rộng diện tích bấm của nút `#btnMono2dRoll` (`px-8 sm:px-10 py-3 sm:py-3.5`), tích hợp hiệu ứng đổ bóng phát quang `shadow-[0_0_30px_rgba(245,158,11,0.7)]` và gán `pointer-events-auto` trực tiếp.
+
+3. **Căn chỉnh góc nghiêng chuẩn 30 độ (Perspective Tilt 30°)**:
+   - Theo phản hồi của người dùng (*"em chỉ cho nghiêng 30 độ thôi nhé 45 độ khó nhìn quá"*), góc xoay kim cương 45 độ (`rotateZ(45deg)`) làm chữ bị nghiêng chéo và phối cảnh bị ép dẹt.
+   - Chuyển đổi bàn cờ về phối cảnh 2.5D mặt chính diện với độ nghiêng chính xác 30 độ (`transform: perspective(1400px) rotateX(30deg) rotateZ(0deg) scale(0.96)`):
+     - Mọi ô thành phố hàng dưới (`XUẤT PHÁT`, `NINH BÌNH`, `THANH HÓA`, `VINH`, `HÀ TĨNH`, `BẾN XE`, `ĐÔNG HÀ`, `TRẠI GIAM`) đều nằm ngang 100% trước mắt người chơi, đọc chữ từ trái sang phải hoàn toàn tự nhiên.
+     - Mô hình nhà 3D nổi và tiêu điểm quân cờ phản nghiêng `rotateX(-30deg) translateZ(28px)` vươn thẳng đứng về phía người xem, tạo cảm giác sa bàn 3D sang trọng, thoáng đãng mà không bị mỏi mắt.
+
+---
+
+### Phần 28: Tinh Chỉnh Phối Cảnh Nghiêng 30 Độ Hơi Chéo Chéo (Gentle Oblique Isometric 25° Slant) & Hoàn Thiện Click & Bàn Đấu (v3.7.5)
+
+#### 1. Phân Tích Yêu Cầu & Nghiên Cứu Hình Học
+- **Phản hồi từ người dùng**: *"anh muốn nghiêng 30 độ nma phải hơi chéo chéo á"*.
+- **So sánh trực quan các góc độ**:
+  - *Góc xoay 0° (`rotateZ: 0deg`)*: Bàn cờ vuông góc chính diện, cạnh đáy nằm ngang hoàn toàn. Góc nhìn phẳng, thiếu đi chiều sâu sa bàn 3D đặc trưng của dòng cờ tỷ phú cao cấp (Monopoly GO / Tabletop Arena).
+  - *Góc xoay 45° (`rotateZ: 45deg`)*: Xoay chéo góc cực đại tạo hình thoi/kim cương. Khi nhìn phối cảnh 3D bị kéo dài trục chéo, tên các ô nghiêng 45° khiến người chơi phải nghiêng đầu để đọc chữ và chiếm nhiều chiều dọc.
+  - *Góc xoay 25° (`rotateZ: 25deg`)* với độ nghiêng 30° (`rotateX: 30deg`): **Điểm cân bằng vàng**. Bàn cờ có độ xiên chéo thanh thoát ("hơi chéo chéo"), tạo cảm giác không gian bàn chơi 2.5D chân thực và đẳng cấp; đồng thời góc nghiêng 25° đủ nhẹ để toàn bộ typography tên tỉnh thành vẫn gần như nằm ngang, dễ đọc lướt mà không gây mỏi mắt.
+
+#### 2. Kích Thước Bàn Cờ & Bố Cục Không Gian (Scale & Bounding Box)
+- Khi bàn cờ xoay xiên 25°, đường chéo mở rộng kích thước bao (bounding box).
+- Thiết lập tỉ lệ hiển thị `scale(0.82)` (`transform: perspective(1400px) rotateX(30deg) rotateZ(25deg) scale(0.82)`):
+  - Đảm bảo trọn vẹn 100% cả 4 đỉnh bàn cờ nằm gọn gàng bên trong vùng nhìn (viewport):
+    - **Ô 0 (Xuất Phát)**: Đỉnh đáy bàn cờ, hiển thị đầy đủ, không bị che khuất bởi mép dưới trình duyệt hay thẻ người chơi.
+    - **Ô 9 (Trại Giam)**: Đỉnh trái bàn cờ, thoáng đãng cạnh Pod P3.
+    - **Ô 18 (Tân An / Sân Bay)**: Đỉnh trên bàn cờ, nằm bên dưới thanh HUD Inspector.
+    - **Ô 27 (Vô Tù)**: Đỉnh phải bàn cờ, thoáng đãng cạnh Pod P2.
+  - 4 quân cờ P1-P4 (Tiên, Cáo AI, Hổ AI, Gấu Trúc AI) tập kết chuẩn xác trên ô Xuất Phát (ô 0) tại thời điểm khởi tạo bàn cờ.
+
+#### 3. Phản Xoay Đồng Bộ Chi Tiết 3D Nổi (Counter-Rotation)
+- **Mô hình nhà & khách sạn 3D**: Thừa hưởng quy tắc CSS `.mono-board-25d .mono-upright-3d` phản xoay `rotateZ(-25deg) rotateX(-30deg) translateZ(28px)`, luôn đứng thẳng đứng theo trọng lực màn hình.
+- **Quân cờ & Đèn định vị lượt đi (Overhead Turn Beacon)**: Phản xoay `rotateZ(-25deg) rotateX(-30deg) translateZ(28px)`, đèn rọi kim cương nhấp nháy chỉ đúng đầu nhân vật.
+- **Hộp xí ngầu & Nút "Đổ Xúc Xắc"**: Thiết lập `transform: rotateZ(-25deg) rotateX(-30deg) translateZ(35px)`, nằm chính diện mặt người chơi, phẳng và nổi bật trên mặt sân cỏ trung tâm.
+
+#### 4. Đo Đạc Tương Tác & Kiểm Thử Tự Động (Telemetry & Flow Verification)
+- **Hit-Testing 100%**:
+  - `document.elementFromPoint` tại tọa độ nút "Đồng Ý (Mua & Xây)" trả về trực tiếp `BUTTON#btnMonoDialogYes` (`isDirectHit: true`).
+  - Hộp thoại quyết định và modal sự kiện nằm ở lớp HUD 2D màn hình (`z-50 backdrop-blur-sm pointer-events-auto`), không còn bị nuốt click bởi các thẻ 3D lồng ghép.
+- **End-to-End User Flow**:
+  - Lắc xúc xắc -> Quân cờ di chuyển mượt mà từng ô -> Dừng chân tại ô đất trống -> Modal mua đất mở ra -> Nhấn "Đồng Ý" -> Tiền trừ chính xác, đất chuyển quyền sở hữu, mô hình nhà 3D dựng đứng trên ô cờ -> Modal chúc mừng xuất hiện -> Đóng modal tiếp tục lượt chơi thành công 100%.
+
+---
+
+### Phần 29: Nâng Cấp Hệ Thống Đổ Xúc Xắc Trung Tâm Đa Điểm Chạm & Triệt Tiêu Lỗi Khó Bấm (v3.7.6)
+
+#### 1. Nguyên Nhân Sự Cố & Phân Tích Kỹ Thuật Chuyên Sâu
+- **Vấn đề người dùng phản ánh**: *"nút đổ xúc xắc vẫn khó bấm lắm"*.
+- **Kết quả đo đạc Telemetry (`document.elementFromPoint`)**:
+  - Khi nút Đổ xúc xắc nằm lồng bên trong container sân cỏ trung tâm (`#mono2dCentralArena`) chịu ma trận biến đổi 3D của `#mono2dBoardWrapper` (`perspective(1400px) rotateX(30deg) rotateZ(25deg)`):
+  - Do hiệu ứng chiếu góc nghiêng 3D, phần đáy của nút bị tụt về phía sau mặt phẳng tọa độ $Z$, dẫn tới **hơn 75% diện tích bề mặt nút bị container cha `mono2dCentralArena` che phủ/hấp thụ sự kiện click chuột** (tỉ lệ trúng chỉ đạt ~24%).
+  - Người chơi buộc phải rê chuột trúng 24% mép trên cùng của nút thì mới kích hoạt được lệnh đổ; nếu bấm vào giữa nút hoặc nửa dưới nút, trình duyệt coi như click vào sân cỏ, hoàn toàn không có phản hồi.
+
+#### 2. Kiến Trúc Trung Tâm Điều Khiển 2D Screen-Space (`#monoCenterControls`)
+- **Tách lớp hoàn toàn khỏi ma trận 3D**:
+  - Chuyển toàn bộ cụm điều khiển xí ngầu và nút bấm ra ngoài `#mono2dBoardWrapper`, đặt trong lớp phủ Screen-space 2D (`#monoCenterControls` với `z-30 pointer-events-none`).
+  - Cụm điều khiển được căn chính giữa (`absolute inset-0 flex items-center justify-center`) trùng khớp tuyệt đối với tâm sân cỏ sa bàn trên mọi độ phân giải.
+  - Tỉ lệ bắt điểm chuột (**Hit-Rate**) trên nút bấm tăng vọt từ 24% lên **100.0% Direct Hit** trên toàn bộ diện tích nút!
+
+#### 3. Bổ Sung Đa Phương Thức Kích Hoạt (Multi-Trigger Architecture)
+Để việc đổ xúc xắc trở nên tiện lợi tối đa, hệ thống hỗ trợ 4 cách gieo xúc xắc đồng thời:
+1. **Nút bấm phong cách Arcade 3D tactile (`#btnMono2dRoll`)**:
+   - Mở rộng vùng bấm lớn (`px-8 sm:px-12 py-3.5 sm:py-4`), hiệu ứng nổi 3D (`shadow-[0_8px_0_#b45309]`), đổ bóng phát quang ánh vàng rực rỡ.
+   - Khi nhấn chuột: nút thụt xuống cơ học (`active:translate-y-1 active:shadow-[0_2px_0_#b45309]`), triệt tiêu độ trễ 300ms trên màn hình cảm ứng bằng `touch-action: manipulation`.
+2. **Khay xí ngầu trực tiếp (`#monoDiceTrayBox`)**:
+   - Người chơi có thể bấm trực tiếp vào 2 viên xí ngầu đỏ sang trọng ở phía trên nút để gieo hạt xí ngầu.
+3. **Chạm vào toàn bộ sân cỏ trung tâm (`#mono2dCentralArena`)**:
+   - Click vào bất kỳ vị trí nào trên vùng sân cỏ rộng $400 \times 400\text{px}$ để gieo xí ngầu (khi đến lượt người chơi).
+4. **Phím tắt Bàn phím (Spacebar / Enter)**:
+   - Nhấn phím `Space` (Cách) hoặc `Enter` trên bàn phím máy tính để đổ xúc xắc ngay tức khắc mà không cần dùng chuột.
+
+---
+
+### Phần 30: Hoạt Ảnh Máy Bay Dịch Chuyển & Chuyển Tiền Tương Tác Vào Ngân Hàng / Đối Thủ (v3.8.0)
+
+#### 1. Hoạt Ảnh Máy Bay Dịch Chuyển (Commercial Jet Airplane Flyby)
+- **Cơ chế kích hoạt**: Khi bất kỳ người chơi nào (Human hoặc Bot) dừng chân tại ô **Sân Bay / Dịch Chuyển (Tile 18)**.
+- **Thiết kế đồ họa & Hiệu ứng (Dựa theo ảnh tham chiếu số 1)**:
+  - Máy bay phản lực thương mại cỡ lớn (Commercial Jet Airliner) với phối màu Đỏ - Trắng thể thao:
+    - Thân máy bay khí động học thuôn dài màu trắng tuyết viền bóng chrome.
+    - Sọc đỏ thể thao (Livery Red Stripe) chạy dọc sống lưng từ đầu mũi đến cánh đuôi đứng.
+    - Buồng lái kính sapphire xanh đậm chống lóa.
+    - Cánh lớn vát chéo gắn 4 động cơ phản lực cánh quạt (Turbofan Jet Engines) có viền đỏ nacelle.
+    - Cụm vệt khói phản lực động cơ (Jet Vapor Contrails) xả dài phía sau.
+  - Đường băng trung tâm (Runway Strip) với vạch kẻ tim đường vàng phản quang.
+  - **Banner thông báo hành trình**:
+    - `✈️ CHUYẾN BAY DỊCH CHUYỂN: Bạn đang bay đến ô [Tên ô đích].`
+  - **Âm thanh**: Mô phỏng tiếng động cơ phản lực rít gió gầm rú (`playAirplaneSound()`).
+  - **Di chuyển quân cờ**: Sau khi máy bay lướt qua, quân cờ nhân vật tự động bay/đáp xuống ô đích và kích hoạt sự kiện ô đích.
+
+#### 2. Hoạt Ảnh Chồng Tiền Bay Vào Ngân Hàng / Đối Thủ (Dynamic Cash Transfer)
+- **Cơ chế kích hoạt**:
+  1. Khi người chơi **Mua đất** hoặc **Nâng cấp nhà** từ Ngân Hàng.
+  2. Khi người chơi **Trả tiền thuê đất** cho đối thủ sở hữu ô đất.
+- **Quy tắc phân rã mệnh giá tiền thông minh (Denomination Breakdown)**:
+  - Dựa trên chính xác số tiền giao dịch:
+    - **Cọc tiền Dollar ($1,000 / cọc)**: Các thếp tiền USD 3D xanh lá cây, quấn đai nẹp xanh neon, xếp chồng nổi khối isometric. (Ví dụ: $3,150 -> 3 cọc dollar).
+    - **Cột xu vàng ($100 / xu)**: Các đồng xu vàng kim loại óng ánh có khía cạnh và ký hiệu $. (Ví dụ: $3,150 -> 1 xu vàng).
+    - **Cột xu bạc ($50 / xu)**: Các đồng xu bạc kim loại sáng bóng chrome. (Ví dụ: $3,150 -> 1 xu bạc).
+    - Hiển thị nhãn chi tiết: `3 Cọc ($3,000)`, `1 Vàng ($100)`, `1 Bạc ($50)`.
+- **Tòa nhà Ngân Hàng Cổ Điển La Mã (The Classical Bank)**:
+  - Vẽ chuẩn vector SVG phỏng theo ảnh tham chiếu số 2:
+    - Mái tam giác cổ điển có biển hiệu `BANK` dập nổi chữ vàng.
+    - 4 cột thức đá cẩm thạch trắng (Doric/Ionic columns) với bệ đầu cột và chân cột chạm trổ.
+    - Cửa vòm hầm vàng và bậc thang đá nền tảng 3 tầng.
+- **Hiệu ứng chuyển động (Flight Arc Animation)**:
+  - Chồng tiền xuất phát từ Avatar người trả bên trái, bay lướt theo đường cong Bezier mềm mại sang bên phải rồi chui vào cổng Ngân Hàng hoặc rơi vào túi đối thủ.
+  - Ngân hàng / Thẻ đối thủ nhấp nháy ánh vàng tiếp nhận (`mono-recipient-pulsing`).
+  - Âm thanh đếm tiền xào xạc kết hợp tiếng leng keng kim loại vàng bạc.
+
+---

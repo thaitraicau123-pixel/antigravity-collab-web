@@ -386,12 +386,13 @@
     /* === 2.5D ISOMETRIC MONOPOLY BOARDGAME ARENA === */
     .mono-viewport {
       perspective: 1200px;
-      perspective-origin: 50% 38%;
+      perspective-origin: 50% 40%;
+      transform-style: preserve-3d;
     }
     .mono-board {
-      transform: rotateX(54deg) rotateZ(-45deg);
+      transform: rotateX(52deg) rotateZ(-45deg);
       transform-style: preserve-3d;
-      box-shadow: -25px 25px 50px rgba(0,0,0,0.7), 0 0 60px rgba(16, 185, 129, 0.25);
+      box-shadow: -25px 25px 55px rgba(0,0,0,0.75), 0 0 60px rgba(16, 185, 129, 0.22);
       transition: transform 0.4s ease;
     }
     .mono-tile {
@@ -403,20 +404,20 @@
     }
     /* Billboard 3D upright elements (face camera) */
     .mono-billboard {
-      transform: rotateZ(45deg) rotateX(-54deg) translateZ(12px);
+      transform: rotateZ(45deg) rotateX(-52deg) translateZ(14px);
       transform-style: preserve-3d;
       will-change: transform;
     }
     .mono-pawn {
-      transform: rotateZ(45deg) rotateX(-54deg) translateZ(16px);
-      filter: drop-shadow(0 14px 10px rgba(0,0,0,0.8));
+      transform: rotateZ(45deg) rotateX(-52deg) translateZ(20px);
+      filter: drop-shadow(0 16px 10px rgba(0,0,0,0.8));
       transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .mono-building-1 {
-      transform: rotateZ(45deg) rotateX(-54deg) translateZ(8px);
+      transform: rotateZ(45deg) rotateX(-52deg) translateZ(10px);
     }
     .mono-building-landmark {
-      transform: rotateZ(45deg) rotateX(-54deg) translateZ(16px);
+      transform: rotateZ(45deg) rotateX(-52deg) translateZ(18px);
       filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.9));
       animation: landmarkGlow 2s infinite alternate;
     }
@@ -521,7 +522,7 @@
         <!-- Version & Contributor Changelog Pill -->
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v3.0.2</span>
+          <span id="headerVersionPill" class="font-bold">v3.0.3</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -1793,53 +1794,58 @@
           </div>
 
           <!-- THE 3D ISOMETRIC DIAMOND BOARD (5x5 Perimeter Grid = 16 Tiles) -->
-          <div id="monopolyBoardIso" class="mono-board relative w-[340px] h-[340px] sm:w-[480px] sm:h-[480px] md:w-[520px] md:h-[520px] bg-[#6B8E23] rounded-3xl p-2.5 sm:p-3.5 border-4 sm:border-8 border-[#3A5311]">
+          <div id="monopolyBoardIso" class="mono-board relative w-[340px] h-[340px] sm:w-[480px] sm:h-[480px] md:w-[500px] md:h-[500px] bg-[#557A18] rounded-[2.5rem] p-2.5 sm:p-3 border-4 sm:border-[6px] border-[#314A0C]">
             
             <!-- Perimeter Tiles Grid (Absolute Layout for 16 Tiles) -->
-            <div id="monoTilesContainer" class="w-full h-full relative">
+            <div id="monoTilesContainer" class="w-full h-full relative" style="transform-style: preserve-3d;">
               <!-- Dynamically rendered 16 Tiles via JS -->
             </div>
 
             <!-- Central Lush Lawn Arena with 3D Dice -->
-            <div class="absolute inset-[21%] bg-gradient-to-br from-[#7FA632] to-[#5C801E] rounded-2xl border-2 sm:border-4 border-[#3A5311]/80 shadow-inner flex flex-col items-center justify-center p-3 text-center">
+            <div class="mono-center-arena absolute inset-[20.5%] bg-gradient-to-br from-[#729A26] to-[#4C6D14] rounded-2xl border-2 sm:border-4 border-[#314A0C]/90 shadow-inner flex flex-col items-center justify-between p-3 sm:p-4 text-center select-none" style="transform-style: preserve-3d;">
               
-              <!-- Mini Stadium / Billboard Header -->
-              <div class="mono-billboard flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/40 border border-emerald-400/40 text-[9px] sm:text-[10px] font-mono text-emerald-200 font-bold mb-1 shadow">
+              <!-- Top Stadium / Billboard Header -->
+              <div class="mono-billboard flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/70 border border-emerald-400/50 text-[9px] sm:text-[10px] font-mono text-emerald-300 font-bold shadow-md">
                 <span>🏰 ĐẤU TRƯỜNG TỶ PHÚ</span>
               </div>
 
-              <!-- Big Dice Sum Box (Matching Screenshot: 9) -->
-              <div id="monoDiceSumBox" class="mono-billboard px-3 py-0.5 rounded-lg bg-slate-950/90 border-2 border-white/80 text-white font-mono font-black text-sm sm:text-base shadow-xl mb-1.5">
-                <span id="monoDiceSumText">9</span>
-              </div>
-
-              <!-- 3D Rolling Dice Pair -->
-              <div class="mono-billboard flex items-center gap-3 sm:gap-4 my-1">
-                <!-- Die 1 -->
-                <div id="monoDie1" class="w-9 h-9 sm:w-12 sm:h-12 bg-gradient-to-br from-red-500 to-rose-700 rounded-xl shadow-2xl border-2 border-red-300 flex items-center justify-center text-white font-black text-xl sm:text-2xl shadow-rose-900/50">
-                  5
+              <!-- Center: 3D Rolling Dice Pair & Sum -->
+              <div class="flex flex-col items-center justify-center my-auto" style="transform-style: preserve-3d;">
+                <!-- Big Dice Sum Box -->
+                <div id="monoDiceSumBox" class="mono-billboard px-3 py-0.5 rounded-lg bg-slate-950/90 border border-amber-400/80 text-amber-300 font-mono font-black text-xs sm:text-sm shadow-xl mb-1.5">
+                  <span>🎲 TỔNG: </span><span id="monoDiceSumText">9</span>
                 </div>
-                <!-- Die 2 -->
-                <div id="monoDie2" class="w-9 h-9 sm:w-12 sm:h-12 bg-gradient-to-br from-red-500 to-rose-700 rounded-xl shadow-2xl border-2 border-red-300 flex items-center justify-center text-white font-black text-xl sm:text-2xl shadow-rose-900/50">
-                  4
+
+                <!-- 3D Rolling Dice Pair -->
+                <div class="mono-billboard flex items-center gap-2.5 sm:gap-3.5 my-0.5">
+                  <!-- Die 1 -->
+                  <div id="monoDie1" class="w-9 h-9 sm:w-11 sm:h-11 bg-gradient-to-br from-rose-500 to-red-700 rounded-xl shadow-2xl border-2 border-rose-300 flex items-center justify-center text-white font-black text-xl sm:text-2xl shadow-rose-900/60">
+                    5
+                  </div>
+                  <!-- Die 2 -->
+                  <div id="monoDie2" class="w-9 h-9 sm:w-11 sm:h-11 bg-gradient-to-br from-rose-500 to-red-700 rounded-xl shadow-2xl border-2 border-rose-300 flex items-center justify-center text-white font-black text-xl sm:text-2xl shadow-rose-900/60">
+                    4
+                  </div>
+                </div>
+
+                <!-- Double Again Badge -->
+                <div id="monoDoubleBadge" class="mono-billboard hidden px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-black text-[9px] sm:text-[10px] tracking-wide shadow-md my-0.5 animate-bounce">
+                  🎲 DOUBLE! ĐỔ TIẾP
+                </div>
+
+                <!-- Current Action Prompt -->
+                <div class="mono-billboard text-[10px] sm:text-xs font-bold text-amber-200 mt-1 mb-1 font-mono" id="monoStatusPrompt">
+                  Sẵn sàng gieo xúc xắc...
                 </div>
               </div>
 
-              <!-- Double Again Badge -->
-              <div id="monoDoubleBadge" class="mono-billboard hidden px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-black text-[9px] sm:text-[10px] tracking-wide shadow-md my-0.5 animate-bounce">
-                🎲 DOUBLE! ĐỔ TIẾP
+              <!-- Bottom: Big Action Roll Button -->
+              <div style="transform-style: preserve-3d;" class="w-full flex justify-center">
+                <button onclick="handleMonopolyRollClick()" id="btnMonoRoll" class="mono-billboard btn-spring px-5 sm:px-7 py-2 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-blue-500 text-white font-black text-xs sm:text-sm tracking-wide shadow-xl shadow-blue-600/50 border border-cyan-300/70 flex items-center gap-2 cursor-pointer transition-transform active:scale-95">
+                  <i data-lucide="dices" class="w-4 h-4 text-cyan-200"></i>
+                  <span id="btnMonoRollText">ĐỔ XÚC XẮC</span>
+                </button>
               </div>
-
-              <!-- Current Action Prompt -->
-              <div class="mono-billboard text-[10px] sm:text-xs font-bold text-amber-200 mt-1 mb-2 font-mono" id="monoStatusPrompt">
-                Sẵn sàng gieo xúc xắc...
-              </div>
-
-              <!-- Big Action Roll Button -->
-              <button onclick="handleMonopolyRollClick()" id="btnMonoRoll" class="mono-billboard btn-spring px-5 sm:px-7 py-2 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-blue-500 text-white font-black text-xs sm:text-sm tracking-wide shadow-xl shadow-blue-600/40 border border-cyan-300/60 flex items-center gap-2">
-                <i data-lucide="dices" class="w-4 h-4 text-cyan-200"></i>
-                <span id="btnMonoRollText">ĐỔ XÚC XẮC</span>
-              </button>
 
             </div>
 
@@ -3154,7 +3160,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.0.2</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.0.3</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -3579,655 +3585,6 @@
     // CLOUD FIRESTORE REALTIME SYNC ENGINE (colap-c2e9c)
     // =========================================================================
     
-    // =========================================================================
-    // 2.5D ISOMETRIC MONOPOLY (CỜ TỶ PHÚ HOÀNG GIA) ENGINE
-    // =========================================================================
-    const MONOPOLY_TILES_DATA = [
-      // Bottom edge (Row 4): 0 -> 4
-      { id: 0, name: 'KHỞI HÀNH', type: 'start', icon: '🏁', r: 4, c: 0, desc: 'Nhận lương +200k khi qua' },
-      { id: 1, name: 'Bangkok', type: 'city', icon: '🛕', r: 4, c: 1, color: '#10B981', price: 120000, rent: [30000, 80000, 180000, 360000, 750000] },
-      { id: 2, name: 'CƠ HỘI', type: 'chance', icon: '🎡', r: 4, c: 2, desc: 'Rút thẻ may mắn ngẫu nhiên' },
-      { id: 3, name: 'Singapore', type: 'city', icon: '🦁', r: 4, c: 3, color: '#10B981', price: 160000, rent: [40000, 100000, 240000, 480000, 950000] },
-      
-      // Right edge (Col 4, moving up): 4 -> 8
-      { id: 4, name: 'CÔN ĐẢO', type: 'jail', icon: '🏝️', r: 4, c: 4, desc: 'Mắc kẹt đảo hoang' },
-      { id: 5, name: 'Tokyo', type: 'city', icon: '🗼', r: 3, c: 4, color: '#F59E0B', price: 220000, rent: [55000, 140000, 320000, 650000, 1300000] },
-      { id: 6, name: 'THUẾ', type: 'tax', icon: '🏛️', r: 2, c: 4, desc: 'Nộp 10% ngân khố' },
-      { id: 7, name: 'Seoul', type: 'city', icon: '🏯', r: 1, c: 4, color: '#F59E0B', price: 260000, rent: [65000, 160000, 380000, 780000, 1550000] },
-      
-      // Top edge (Row 0, moving left): 8 -> 12
-      { id: 8, name: 'LỄ HỘI', type: 'festival', icon: '🏆', r: 0, c: 4, desc: 'Nhân đôi x2 tiền thuê' },
-      { id: 9, name: 'London', type: 'city', icon: '🎡', r: 0, c: 3, color: '#EC4899', price: 340000, rent: [85000, 220000, 520000, 1050000, 2100000] },
-      { id: 10, name: 'CƠ HỘI', type: 'chance', icon: '🎡', r: 0, c: 2, desc: 'Vận may bất ngờ' },
-      { id: 11, name: 'Paris', type: 'city', icon: '🗼', r: 0, c: 1, color: '#EC4899', price: 380000, rent: [95000, 250000, 580000, 1200000, 2400000] },
-      
-      // Left edge (Col 0, moving down): 12 -> 15
-      { id: 12, name: 'SÂN BAY', type: 'travel', icon: '✈️', r: 0, c: 0, desc: 'Bay đến bất kỳ ô nào' },
-      { id: 13, name: 'New York', type: 'city', icon: '🗽', r: 1, c: 0, color: '#3B82F6', price: 440000, rent: [110000, 290000, 680000, 1400000, 2800000] },
-      { id: 14, name: 'VẬN MAY', type: 'jackpot', icon: '💎', r: 2, c: 0, desc: 'Thưởng hũ vàng hoàng gia' },
-      { id: 15, name: 'Hà Nội', type: 'city', icon: '⭐', r: 3, c: 0, color: '#3B82F6', price: 500000, rent: [130000, 350000, 800000, 1650000, 3300000] }
-    ];
-
-    let monoState = {
-      mode: 'bot',
-      turn: 0,
-      round: 1,
-      isRolling: false,
-      festivalCityId: null,
-      jackpotPool: 300000,
-      pendingPropertyAction: null,
-      players: [
-        { id: 0, name: 'Bùi Thái', avatar: '🤠', cash: 2000000, pos: 0, inJail: 0, properties: [] },
-        { id: 1, name: 'Kỳ Thủ AI', avatar: '🦊', cash: 2000000, pos: 0, inJail: 0, properties: [] }
-      ],
-      tiles: []
-    };
-
-    function initMonopolyGame() {
-      // Sync P1 name with logged in user if available
-      if (window.currentFirebaseUser) {
-        monoState.players[0].name = window.currentFirebaseUser.displayName || 'Bùi Thái';
-      }
-
-      monoState.tiles = MONOPOLY_TILES_DATA.map(t => ({
-        ...t,
-        owner: null,
-        level: 0 // 0: unowned/empty, 1: house 1, 2: house 2, 3: hotel, 4: landmark
-      }));
-
-      monoState.turn = 0;
-      monoState.round = 1;
-      monoState.isRolling = false;
-      monoState.festivalCityId = null;
-      monoState.players[0].cash = 2000000;
-      monoState.players[0].pos = 0;
-      monoState.players[0].inJail = 0;
-      monoState.players[0].properties = [];
-
-      monoState.players[1].cash = 2000000;
-      monoState.players[1].pos = 0;
-      monoState.players[1].inJail = 0;
-      monoState.players[1].properties = [];
-
-      renderMonopolyBoard();
-      updateMonopolyHUD();
-    }
-
-    function renderMonopolyBoard() {
-      const container = document.getElementById('monoTilesContainer');
-      if (!container) return;
-      container.innerHTML = '';
-
-      monoState.tiles.forEach((t) => {
-        const tileEl = document.createElement('div');
-        tileEl.className = 'mono-tile absolute rounded-xl border border-black/40 flex flex-col justify-between p-1 cursor-pointer overflow-hidden';
-        tileEl.style.left = (t.c * 20) + '%';
-        tileEl.style.top = (t.r * 20) + '%';
-        tileEl.style.width = '20%';
-        tileEl.style.height = '20%';
-
-        // Base styling based on tile type
-        if (t.type === 'start') {
-          tileEl.classList.add('bg-gradient-to-br', 'from-amber-200', 'to-yellow-400');
-        } else if (t.type === 'jail') {
-          tileEl.classList.add('bg-gradient-to-br', 'from-sky-200', 'to-cyan-400');
-        } else if (t.type === 'festival') {
-          tileEl.classList.add('bg-gradient-to-br', 'from-amber-300', 'to-orange-400');
-        } else if (t.type === 'travel') {
-          tileEl.classList.add('bg-gradient-to-br', 'from-indigo-200', 'to-blue-400');
-        } else if (t.type === 'chance' || t.type === 'jackpot') {
-          tileEl.classList.add('bg-gradient-to-br', 'from-purple-200', 'to-pink-300');
-        } else if (t.type === 'tax') {
-          tileEl.classList.add('bg-gradient-to-br', 'from-slate-200', 'to-slate-400');
-        } else {
-          // City Tile
-          tileEl.classList.add('bg-slate-100');
-        }
-
-        // City colored top header
-        if (t.type === 'city') {
-          const header = document.createElement('div');
-          header.className = 'w-full py-0.5 px-1 rounded text-[8px] sm:text-[9px] font-black text-white text-center font-cinzel truncate flex items-center justify-between';
-          header.style.backgroundColor = t.color;
-          header.innerHTML = `<span>${t.name}</span><span>${t.icon}</span>`;
-          tileEl.appendChild(header);
-
-          // Center: Buildings or Landmark
-          const centerArea = document.createElement('div');
-          centerArea.className = 'flex-1 flex items-center justify-center relative';
-
-          if (t.owner !== null) {
-            const ownerColor = t.owner === 0 ? 'border-cyan-500 bg-cyan-500/20' : 'border-rose-500 bg-rose-500/20';
-            tileEl.classList.add('ring-2', t.owner === 0 ? 'ring-cyan-500' : 'ring-rose-500');
-
-            if (t.level === 4) {
-              centerArea.innerHTML = `<span class="mono-building-landmark text-lg sm:text-2xl" title="LANDMARK KỲ QUAN">🏰</span>`;
-            } else if (t.level === 3) {
-              centerArea.innerHTML = `<span class="mono-building-1 text-base sm:text-xl" title="Khách Sạn 3 Sao">🏨</span>`;
-            } else if (t.level === 2) {
-              centerArea.innerHTML = `<span class="mono-building-1 text-sm sm:text-lg" title="Biệt Thự 2 Tầng">🏡</span>`;
-            } else {
-              centerArea.innerHTML = `<span class="mono-building-1 text-xs sm:text-base" title="Nhà Cấp 1">🏠</span>`;
-            }
-
-            // Owner Flag Pin
-            const flag = document.createElement('span');
-            flag.className = `absolute top-0 right-0 text-[10px] mono-billboard`;
-            flag.textContent = t.owner === 0 ? '🚩' : '🏴';
-            centerArea.appendChild(flag);
-          } else {
-            centerArea.innerHTML = `<span class="text-slate-400 text-xs sm:text-sm opacity-60">🏷️</span>`;
-          }
-
-          // If festival x2 active
-          if (monoState.festivalCityId === t.id) {
-            const festBadge = document.createElement('div');
-            festBadge.className = 'absolute bottom-3 px-1 rounded bg-amber-400 text-black font-mono font-black text-[7px] animate-pulse mono-billboard';
-            festBadge.textContent = 'x2 VÉ';
-            centerArea.appendChild(festBadge);
-          }
-
-          tileEl.appendChild(centerArea);
-
-          // Bottom: Price Tag
-          const priceTag = document.createElement('div');
-          priceTag.className = 'w-full text-center text-[7px] sm:text-[9px] font-mono font-bold text-slate-800 bg-black/10 rounded py-0.2';
-          priceTag.textContent = (t.price / 1000) + 'k ₫';
-          tileEl.appendChild(priceTag);
-
-        } else {
-          // Special Tile Content
-          const specialCenter = document.createElement('div');
-          specialCenter.className = 'flex-1 flex flex-col items-center justify-center text-center p-0.5';
-          specialCenter.innerHTML = `
-            <span class="text-base sm:text-2xl mono-billboard">${t.icon}</span>
-            <span class="text-[7px] sm:text-[9px] font-black text-slate-900 font-cinzel leading-tight mt-0.5">${t.name}</span>
-          `;
-          tileEl.appendChild(specialCenter);
-        }
-
-        container.appendChild(tileEl);
-      });
-
-      // Render Player Pawns on their tiles
-      renderMonopolyPawns();
-    }
-
-    function renderMonopolyPawns() {
-      // Remove old pawns
-      document.querySelectorAll('.mono-pawn-token').forEach(el => el.remove());
-
-      const container = document.getElementById('monoTilesContainer');
-      if (!container) return;
-
-      monoState.players.forEach((p, pIdx) => {
-        const tileData = monoState.tiles[p.pos];
-        if (!tileData) return;
-
-        const pawn = document.createElement('div');
-        pawn.className = `mono-pawn mono-pawn-token absolute z-40 flex items-center justify-center pointer-events-none`;
-        
-        // Offset P1 and P2 slightly so they don't block each other
-        const xOffset = pIdx === 0 ? 2 : 11;
-        const yOffset = pIdx === 0 ? 2 : 11;
-        
-        pawn.style.left = `calc(${tileData.c * 20}% + ${xOffset}px)`;
-        pawn.style.top = `calc(${tileData.r * 20}% + ${yOffset}px)`;
-        pawn.style.width = '28px';
-        pawn.style.height = '28px';
-
-        const colorBg = pIdx === 0 ? 'from-cyan-500 to-blue-600 border-cyan-300' : 'from-amber-500 to-rose-600 border-amber-300';
-        pawn.innerHTML = `
-          <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr ${colorBg} border-2 flex items-center justify-center text-sm sm:text-base shadow-xl">
-            ${p.avatar}
-          </div>
-        `;
-
-        container.appendChild(pawn);
-      });
-    }
-
-    function updateMonopolyHUD() {
-      const p1 = monoState.players[0];
-      const p2 = monoState.players[1];
-
-      document.getElementById('monoNameP1').textContent = p1.name;
-      document.getElementById('monoCashP1').textContent = `💵 ${Number(p1.cash).toLocaleString()} ₫`;
-      document.getElementById('monoAssetsP1').textContent = `🏛️ ${p1.properties.length} BĐS`;
-
-      document.getElementById('monoNameP2').textContent = p2.name;
-      document.getElementById('monoCashP2').textContent = `💵 ${Number(p2.cash).toLocaleString()} ₫`;
-      document.getElementById('monoAssetsP2').textContent = `🏛️ ${p2.properties.length} BĐS`;
-
-      const turnP1 = monoState.turn === 0;
-      document.getElementById('monoTurnBadgeP1').classList.toggle('hidden', !turnP1);
-      document.getElementById('monoTurnBadgeP2').classList.toggle('hidden', turnP1);
-
-      document.getElementById('monoCardP1').classList.toggle('ring-2', turnP1);
-      document.getElementById('monoCardP1').classList.toggle('ring-cyan-400', turnP1);
-      document.getElementById('monoCardP2').classList.toggle('ring-2', !turnP1);
-      document.getElementById('monoCardP2').classList.toggle('ring-amber-400', !turnP1);
-
-      const rollBtn = document.getElementById('btnMonoRoll');
-      if (rollBtn) {
-        rollBtn.disabled = monoState.isRolling || (!turnP1 && monoState.mode === 'bot');
-        rollBtn.classList.toggle('opacity-50', rollBtn.disabled);
-      }
-
-      document.getElementById('monoRoundCount').textContent = `VÒNG ${monoState.round}`;
-    }
-
-    // Roll Dice Action
-    async function handleMonopolyRollClick() {
-      if (monoState.isRolling) return;
-      if (monoState.turn !== 0 && monoState.mode === 'bot') return;
-
-      await executeMonopolyTurn();
-    }
-
-    async function executeMonopolyTurn() {
-      monoState.isRolling = true;
-      updateMonopolyHUD();
-
-      const player = monoState.players[monoState.turn];
-      const statusPrompt = document.getElementById('monoStatusPrompt');
-      if (statusPrompt) statusPrompt.textContent = `${player.name} đang đổ xúc xắc...`;
-
-      // 1. Shake animation on 3D dice
-      const d1 = document.getElementById('monoDie1');
-      const d2 = document.getElementById('monoDie2');
-      if (d1) d1.classList.add('mono-dice-rolling');
-      if (d2) d2.classList.add('mono-dice-rolling');
-
-      try { soundTone(280, 'triangle', 0.1, 0.15); } catch(e) {}
-      await new Promise(r => setTimeout(r, 650));
-
-      // 2. Generate Roll Values
-      const die1 = Math.floor(Math.random() * 6) + 1;
-      const die2 = Math.floor(Math.random() * 6) + 1;
-      const totalSteps = die1 + die2;
-      const isDouble = (die1 === die2);
-
-      if (d1) { d1.classList.remove('mono-dice-rolling'); d1.textContent = die1; }
-      if (d2) { d2.classList.remove('mono-dice-rolling'); d2.textContent = die2; }
-
-      const sumText = document.getElementById('monoDiceSumText');
-      if (sumText) sumText.textContent = totalSteps;
-
-      const doubleBadge = document.getElementById('monoDoubleBadge');
-      if (doubleBadge) doubleBadge.classList.toggle('hidden', !isDouble);
-
-      try { soundTone(isDouble ? 660 : 440, 'sine', 0.15, 0.2); } catch(e) {}
-
-      // Handle Jail escape if in jail
-      if (player.inJail > 0) {
-        if (isDouble) {
-          player.inJail = 0;
-          showToast(`🔓 ${player.name} đổ số ĐÔI! Thoát khỏi Đảo Hoang tự do.`);
-        } else {
-          player.inJail--;
-          showToast(`🏝️ ${player.name} vẫn kẹt ở Đảo Hoang (còn ${player.inJail} lượt).`);
-          finishMonopolyTurn(false);
-          return;
-        }
-      }
-
-      if (statusPrompt) statusPrompt.textContent = `${player.name} di chuyển ${totalSteps} ô!`;
-
-      // 3. Step-by-step movement animation
-      let currentPos = player.pos;
-      for (let s = 1; s <= totalSteps; s++) {
-        currentPos = (currentPos + 1) % 16;
-        player.pos = currentPos;
-        renderMonopolyPawns();
-        try { soundTone(520 + s * 20, 'sine', 0.04, 0.05); } catch(e) {}
-        await new Promise(r => setTimeout(r, 160));
-
-        // Salary when passing start
-        if (currentPos === 0) {
-          player.cash += 200000;
-          showToast(`🏁 ${player.name} qua ô BẮT ĐẦU: Nhận lương +200.000 ₫!`);
-          try { soundTone(880, 'triangle', 0.2, 0.2); } catch(e) {}
-          updateMonopolyHUD();
-        }
-      }
-
-      // 4. Landed on Final Tile - Trigger Action
-      await handleMonopolyTileLanding(player, isDouble);
-    }
-
-    async function handleMonopolyTileLanding(player, isDouble) {
-      const tile = monoState.tiles[player.pos];
-      const isHuman = (player.id === 0);
-
-      if (tile.type === 'start') {
-        player.cash += 100000;
-        showToast(`🏁 Nghỉ chân tại Khởi Hành: Thưởng nóng +100.000 ₫!`);
-        finishMonopolyTurn(isDouble);
-
-      } else if (tile.type === 'jail') {
-        player.inJail = 2;
-        showToast(`🏝️ ${player.name} lạc vào Đảo Hoang! Tạm giam 2 lượt.`);
-        finishMonopolyTurn(false); // Double doesn't grant turn in jail
-
-      } else if (tile.type === 'festival') {
-        // Double rent on one of player's properties
-        if (player.properties.length > 0) {
-          const targetProp = player.properties[player.properties.length - 1];
-          monoState.festivalCityId = targetProp.id;
-          renderMonopolyBoard();
-          showToast(`🏆 ${player.name} tổ chức LỄ HỘI THẾ GIỚI tại ${targetProp.name} (x2 tiền thuê)!`);
-        } else {
-          showToast(`🏆 Thăm quan Lễ Hội Thế Giới sôi động!`);
-        }
-        finishMonopolyTurn(isDouble);
-
-      } else if (tile.type === 'travel') {
-        showToast(`✈️ ${player.name} đặt chân đến SÂN BAY QUỐC TẾ!`);
-        finishMonopolyTurn(isDouble);
-
-      } else if (tile.type === 'tax') {
-        const taxAmount = Math.floor(player.cash * 0.1);
-        player.cash = Math.max(0, player.cash - taxAmount);
-        monoState.jackpotPool += taxAmount;
-        showToast(`🏛️ ${player.name} đóng 10% thuế tài sản: -${taxAmount.toLocaleString()} ₫.`);
-        updateMonopolyHUD();
-        finishMonopolyTurn(isDouble);
-
-      } else if (tile.type === 'jackpot') {
-        const winPool = monoState.jackpotPool;
-        player.cash += winPool;
-        monoState.jackpotPool = 100000;
-        showToast(`💎 NỔ HŨ VẬN MAY! ${player.name} nhận toàn bộ +${winPool.toLocaleString()} ₫!`);
-        updateMonopolyHUD();
-        finishMonopolyTurn(isDouble);
-
-      } else if (tile.type === 'chance') {
-        handleMonopolyChanceCard(player, isDouble);
-
-      } else if (tile.type === 'city') {
-        // City Property Logic
-        if (tile.owner === null) {
-          // Unowned - Offer to Buy
-          if (isHuman) {
-            openMonopolyPropertyModal(tile, 'buy', isDouble);
-          } else {
-            // Bot decision: Buy if cash > price
-            if (player.cash >= tile.price) {
-              buyMonopolyProperty(player, tile);
-              showToast(`🤖 ${player.name} đã mua thành phố ${tile.name}!`);
-            }
-            finishMonopolyTurn(isDouble);
-          }
-
-        } else if (tile.owner === player.id) {
-          // Upgrade own property
-          if (tile.level < 4) {
-            if (isHuman) {
-              openMonopolyPropertyModal(tile, 'upgrade', isDouble);
-            } else {
-              // Bot upgrades if rich
-              const upgradeCost = Math.floor(tile.price * 0.8);
-              if (player.cash >= upgradeCost + 300000) {
-                upgradeMonopolyProperty(player, tile);
-                showToast(`🤖 ${player.name} nâng cấp ${tile.name} lên cấp ${tile.level}!`);
-              }
-              finishMonopolyTurn(isDouble);
-            }
-          } else {
-            showToast(`🏰 ${tile.name} đã là LANDMARK tối cao!`);
-            finishMonopolyTurn(isDouble);
-          }
-
-        } else {
-          // Opponent Property - Pay Rent
-          const owner = monoState.players[tile.owner];
-          let rent = tile.rent[tile.level];
-          if (monoState.festivalCityId === tile.id) rent *= 2;
-
-          player.cash -= rent;
-          owner.cash += rent;
-
-          showToast(`💸 ${player.name} trả tiền thuê tại ${tile.name} cho ${owner.name}: -${rent.toLocaleString()} ₫!`);
-          try { soundTone(320, 'sawtooth', 0.15, 0.2); } catch(e) {}
-          updateMonopolyHUD();
-
-          // Check Bankruptcy
-          if (player.cash <= 0) {
-            handleMonopolyBankruptcy(player, owner);
-            return;
-          }
-
-          // Buyout check for human
-          const buyoutCost = tile.price * 2;
-          if (isHuman && player.cash >= buyoutCost && tile.level < 4) {
-            openMonopolyPropertyModal(tile, 'buyout', isDouble);
-          } else {
-            finishMonopolyTurn(isDouble);
-          }
-        }
-      }
-    }
-
-    function openMonopolyPropertyModal(tile, actionType, isDouble) {
-      monoState.pendingPropertyAction = { tile, actionType, isDouble };
-
-      const modal = document.getElementById('monoPropertyModal');
-      const headerColor = document.getElementById('monoModalHeaderColor');
-      const titleEl = document.getElementById('monoModalTitle');
-      const descEl = document.getElementById('monoModalDesc');
-      const priceEl = document.getElementById('monoModalPrice');
-      const rentEl = document.getElementById('monoModalRent');
-      const confirmBtn = document.getElementById('monoModalConfirmBtn');
-
-      headerColor.style.backgroundColor = tile.color;
-      headerColor.textContent = `${tile.name.toUpperCase()} (Ô SỐ ${tile.id})`;
-
-      if (actionType === 'buy') {
-        titleEl.textContent = 'Mua Đất Thành Phố?';
-        descEl.textContent = 'Đất trống chưa có chủ. Hãy mua ngay để bắt đầu xây dựng đế chế!';
-        priceEl.textContent = `${tile.price.toLocaleString()} ₫`;
-        rentEl.textContent = `${tile.rent[0].toLocaleString()} ₫/lượt`;
-        confirmBtn.textContent = 'Mua Đất Ngay';
-      } else if (actionType === 'upgrade') {
-        const nextLevel = tile.level + 1;
-        const upgradeCost = Math.floor(tile.price * 0.8);
-        titleEl.textContent = nextLevel === 4 ? 'XÂY LANDMARK KỲ QUAN?' : `Nâng Cấp Nhà Cấp ${nextLevel}?`;
-        descEl.textContent = nextLevel === 4 
-          ? 'Landmark là bất động sản vĩnh cửu! Không ai có thể thâu tóm được.' 
-          : 'Tăng gấp đôi tiền thuê bất kỳ ai dẫm chân vào!';
-        priceEl.textContent = `${upgradeCost.toLocaleString()} ₫`;
-        rentEl.textContent = `${tile.rent[nextLevel].toLocaleString()} ₫/lượt`;
-        confirmBtn.textContent = nextLevel === 4 ? 'Xây Landmark' : 'Nâng Cấp';
-      } else if (actionType === 'buyout') {
-        const buyoutCost = tile.price * 2;
-        titleEl.textContent = 'THÂU TÓM BẤT ĐỘNG SẢN?';
-        descEl.textContent = 'Cướp lại thành phố này từ đối thủ với giá gấp đôi!';
-        priceEl.textContent = `${buyoutCost.toLocaleString()} ₫`;
-        rentEl.textContent = `${tile.rent[tile.level].toLocaleString()} ₫/lượt`;
-        confirmBtn.textContent = 'Thâu Tóm Ngay';
-      }
-
-      openModal('monoPropertyModal');
-    }
-
-    function confirmMonopolyPropertyAction() {
-      if (!monoState.pendingPropertyAction) return;
-      const { tile, actionType, isDouble } = monoState.pendingPropertyAction;
-      const player = monoState.players[monoState.turn];
-
-      if (actionType === 'buy') {
-        if (player.cash >= tile.price) {
-          buyMonopolyProperty(player, tile);
-          showToast(`🎉 Chúc mừng bạn đã sở hữu thành phố ${tile.name}!`);
-        } else {
-          showToast(`❌ Bạn không đủ tiền để mua thành phố này.`);
-        }
-      } else if (actionType === 'upgrade') {
-        const cost = Math.floor(tile.price * 0.8);
-        if (player.cash >= cost) {
-          upgradeMonopolyProperty(player, tile);
-          showToast(`🏗️ Đã nâng cấp ${tile.name} lên cấp ${tile.level}!`);
-        } else {
-          showToast(`❌ Không đủ tiền nâng cấp.`);
-        }
-      } else if (actionType === 'buyout') {
-        const cost = tile.price * 2;
-        if (player.cash >= cost) {
-          const prevOwner = monoState.players[tile.owner];
-          player.cash -= cost;
-          prevOwner.cash += cost;
-          prevOwner.properties = prevOwner.properties.filter(p => p.id !== tile.id);
-
-          tile.owner = player.id;
-          player.properties.push(tile);
-          renderMonopolyBoard();
-          updateMonopolyHUD();
-          showToast(`🔥 THÂU TÓM THÀNH CÔNG! ${tile.name} nay đã thuộc về bạn.`);
-        }
-      }
-
-      closeModal('monoPropertyModal');
-      monoState.pendingPropertyAction = null;
-      finishMonopolyTurn(isDouble);
-    }
-
-    function closeMonopolyPropertyModal() {
-      closeModal('monoPropertyModal');
-      const isDouble = monoState.pendingPropertyAction ? monoState.pendingPropertyAction.isDouble : false;
-      monoState.pendingPropertyAction = null;
-      finishMonopolyTurn(isDouble);
-    }
-
-    function buyMonopolyProperty(player, tile) {
-      player.cash -= tile.price;
-      tile.owner = player.id;
-      tile.level = 0;
-      player.properties.push(tile);
-      renderMonopolyBoard();
-      updateMonopolyHUD();
-      try { soundTone(780, 'triangle', 0.2, 0.2); } catch(e) {}
-    }
-
-    function upgradeMonopolyProperty(player, tile) {
-      const cost = Math.floor(tile.price * 0.8);
-      player.cash -= cost;
-      tile.level = Math.min(4, tile.level + 1);
-      renderMonopolyBoard();
-      updateMonopolyHUD();
-      try { soundTone(880, 'triangle', 0.25, 0.25); } catch(e) {}
-    }
-
-    function handleMonopolyChanceCard(player, isDouble) {
-      const cards = [
-        { text: 'Trúng thưởng Xổ Số Hoàng Gia: +$250.000 ₫!', amount: 250000 },
-        { text: 'Tài trợ xây dựng cơ sở hạ tầng: +$180.000 ₫!', amount: 180000 },
-        { text: 'Bảo trì sửa chữa biệt thự: -$120.000 ₫.', amount: -120000 },
-        { text: 'Thưởng du lịch khám phá đảo: +$100.000 ₫!', amount: 100000 }
-      ];
-      const card = cards[Math.floor(Math.random() * cards.length)];
-      player.cash = Math.max(0, player.cash + card.amount);
-
-      document.getElementById('monoChanceDesc').textContent = `${player.name}: ${card.text}`;
-      openModal('monoChanceModal');
-
-      monoState.pendingPropertyAction = { isDouble };
-    }
-
-    function closeMonopolyChanceModal() {
-      closeModal('monoChanceModal');
-      const isDouble = monoState.pendingPropertyAction ? monoState.pendingPropertyAction.isDouble : false;
-      monoState.pendingPropertyAction = null;
-      finishMonopolyTurn(isDouble);
-    }
-
-    function finishMonopolyTurn(isDouble) {
-      monoState.isRolling = false;
-      updateMonopolyHUD();
-
-      if (isDouble) {
-        showToast(`🎲 Số đôi! ${monoState.players[monoState.turn].name} được đổ tiếp lượt nữa.`);
-        if (monoState.turn === 1 && monoState.mode === 'bot') {
-          setTimeout(triggerMonopolyBotTurn, 1000);
-        }
-      } else {
-        // Switch turn
-        monoState.turn = 1 - monoState.turn;
-        if (monoState.turn === 0) {
-          monoState.round++;
-        }
-        updateMonopolyHUD();
-
-        if (monoState.turn === 1 && monoState.mode === 'bot') {
-          setTimeout(triggerMonopolyBotTurn, 900);
-        }
-      }
-    }
-
-    function triggerMonopolyBotTurn() {
-      if (monoState.turn !== 1 || monoState.mode !== 'bot') return;
-      executeMonopolyTurn();
-    }
-
-    function handleMonopolyBankruptcy(loser, winner) {
-      alert(`💥 PHÁ SẢN! ${loser.name} đã cạn kiệt tài chính. ${winner.name} ĐOẠT DANH HIỆU ĐẠI TỶ PHÚ HOÀNG GIA!`);
-      
-      // Save record to Firestore if live
-      if (window.saveMatchRecordToFirestore) {
-        window.saveMatchRecordToFirestore({
-          gameType: 'monopoly',
-          winner: winner.name,
-          loser: loser.name,
-          rounds: monoState.round,
-          finalCash: winner.cash
-        });
-      }
-
-      initMonopolyGame();
-    }
-
-    function setMonopolyMode(mode) {
-      monoState.mode = mode;
-      document.getElementById('btnMonoModeBot').className = mode === 'bot' 
-        ? 'px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold transition-all shadow-sm'
-        : 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition-all';
-      document.getElementById('btnMonoModeLocal').className = mode === 'local'
-        ? 'px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold transition-all shadow-sm'
-        : 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition-all';
-
-      monoState.players[1].name = mode === 'bot' ? 'Kỳ Thủ AI' : 'Người Chơi 2';
-      document.getElementById('monoBadgeP2').textContent = mode === 'bot' ? 'BOT' : 'P2';
-      initMonopolyGame();
-      showToast(`🔄 Đã đổi sang chế độ: ${mode === 'bot' ? 'Đấu Với Bot AI' : 'Chơi 2 Người Cục Bộ'}`);
-    }
-
-    function restartMonopolyGame() {
-      initMonopolyGame();
-      showToast('🔄 Đã khởi động ván Cờ Tỷ Phú mới!');
-    }
-
-    // Emoji reaction drawer
-    function toggleMonopolyEmojiMenu() {
-      const menu = document.getElementById('monoEmojiMenu');
-      if (menu) menu.classList.toggle('hidden');
-    }
-
-    function sendMonopolyEmoji(emoji) {
-      toggleMonopolyEmojiMenu();
-      const area = document.getElementById('monoEmojiFloatArea');
-      if (!area) return;
-
-      const bubble = document.createElement('div');
-      bubble.className = 'absolute z-50 text-3xl sm:text-4xl animate-bounce pointer-events-none select-none drop-shadow-2xl';
-      bubble.style.left = '50%';
-      bubble.style.top = '45%';
-      bubble.textContent = emoji;
-      area.appendChild(bubble);
-
-      try { soundTone(600, 'sine', 0.08, 0.1); } catch(e) {}
-      setTimeout(() => bubble.remove(), 1800);
-    }
-
     window.syncUserStatsToFirestore = async function(statsUpdates = {}) {
       if (!window.currentFirebaseUser || !fbDb) return;
       try {
@@ -5826,6 +5183,677 @@
 
     // Switch Views with Context-Aware Toolbars
     let activeTab = 'dice';
+    
+
+    // =========================================================================
+    // 2.5D ISOMETRIC MONOPOLY (CỜ TỶ PHÚ HOÀNG GIA) ENGINE
+    // =========================================================================
+    const MONOPOLY_TILES_DATA = [
+      // Bottom edge (Row 4): 0 -> 4
+      { id: 0, name: 'KHỞI HÀNH', type: 'start', icon: '🏁', r: 4, c: 0, desc: 'Nhận lương +200k khi qua' },
+      { id: 1, name: 'Bangkok', type: 'city', icon: '🛕', r: 4, c: 1, color: '#10B981', price: 120000, rent: [30000, 80000, 180000, 360000, 750000] },
+      { id: 2, name: 'CƠ HỘI', type: 'chance', icon: '🎡', r: 4, c: 2, desc: 'Rút thẻ may mắn ngẫu nhiên' },
+      { id: 3, name: 'Singapore', type: 'city', icon: '🦁', r: 4, c: 3, color: '#10B981', price: 160000, rent: [40000, 100000, 240000, 480000, 950000] },
+      
+      // Right edge (Col 4, moving up): 4 -> 8
+      { id: 4, name: 'CÔN ĐẢO', type: 'jail', icon: '🏝️', r: 4, c: 4, desc: 'Mắc kẹt đảo hoang' },
+      { id: 5, name: 'Tokyo', type: 'city', icon: '🗼', r: 3, c: 4, color: '#F59E0B', price: 220000, rent: [55000, 140000, 320000, 650000, 1300000] },
+      { id: 6, name: 'THUẾ', type: 'tax', icon: '🏛️', r: 2, c: 4, desc: 'Nộp 10% ngân khố' },
+      { id: 7, name: 'Seoul', type: 'city', icon: '🏯', r: 1, c: 4, color: '#F59E0B', price: 260000, rent: [65000, 160000, 380000, 780000, 1550000] },
+      
+      // Top edge (Row 0, moving left): 8 -> 12
+      { id: 8, name: 'LỄ HỘI', type: 'festival', icon: '🏆', r: 0, c: 4, desc: 'Nhân đôi x2 tiền thuê' },
+      { id: 9, name: 'London', type: 'city', icon: '🎡', r: 0, c: 3, color: '#EC4899', price: 340000, rent: [85000, 220000, 520000, 1050000, 2100000] },
+      { id: 10, name: 'CƠ HỘI', type: 'chance', icon: '🎡', r: 0, c: 2, desc: 'Vận may bất ngờ' },
+      { id: 11, name: 'Paris', type: 'city', icon: '🗼', r: 0, c: 1, color: '#EC4899', price: 380000, rent: [95000, 250000, 580000, 1200000, 2400000] },
+      
+      // Left edge (Col 0, moving down): 12 -> 15
+      { id: 12, name: 'SÂN BAY', type: 'travel', icon: '✈️', r: 0, c: 0, desc: 'Bay đến bất kỳ ô nào' },
+      { id: 13, name: 'New York', type: 'city', icon: '🗽', r: 1, c: 0, color: '#3B82F6', price: 440000, rent: [110000, 290000, 680000, 1400000, 2800000] },
+      { id: 14, name: 'VẬN MAY', type: 'jackpot', icon: '💎', r: 2, c: 0, desc: 'Thưởng hũ vàng hoàng gia' },
+      { id: 15, name: 'Hà Nội', type: 'city', icon: '⭐', r: 3, c: 0, color: '#3B82F6', price: 500000, rent: [130000, 350000, 800000, 1650000, 3300000] }
+    ];
+
+    let monoState = {
+      mode: 'bot',
+      turn: 0,
+      round: 1,
+      isRolling: false,
+      festivalCityId: null,
+      jackpotPool: 300000,
+      pendingPropertyAction: null,
+      players: [
+        { id: 0, name: 'Bùi Thái', avatar: '🤠', cash: 2000000, pos: 0, inJail: 0, properties: [] },
+        { id: 1, name: 'Kỳ Thủ AI', avatar: '🦊', cash: 2000000, pos: 0, inJail: 0, properties: [] }
+      ],
+      tiles: []
+    };
+
+    function initMonopolyGame() {
+      // Sync P1 name with logged in user if available
+      if (window.currentFirebaseUser) {
+        monoState.players[0].name = window.currentFirebaseUser.displayName || 'Bùi Thái';
+      }
+
+      monoState.tiles = MONOPOLY_TILES_DATA.map(t => ({
+        ...t,
+        owner: null,
+        level: 0 // 0: unowned/empty, 1: house 1, 2: house 2, 3: hotel, 4: landmark
+      }));
+
+      monoState.turn = 0;
+      monoState.round = 1;
+      monoState.isRolling = false;
+      monoState.festivalCityId = null;
+      monoState.players[0].cash = 2000000;
+      monoState.players[0].pos = 0;
+      monoState.players[0].inJail = 0;
+      monoState.players[0].properties = [];
+
+      monoState.players[1].cash = 2000000;
+      monoState.players[1].pos = 0;
+      monoState.players[1].inJail = 0;
+      monoState.players[1].properties = [];
+
+      renderMonopolyBoard();
+      updateMonopolyHUD();
+    }
+
+    function renderMonopolyBoard() {
+      const container = document.getElementById('monoTilesContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      monoState.tiles.forEach((t) => {
+        const tileEl = document.createElement('div');
+        tileEl.className = 'mono-tile absolute rounded-xl border border-black/40 flex flex-col justify-between p-1 cursor-pointer shadow-sm';
+        tileEl.style.transformStyle = 'preserve-3d';
+        tileEl.style.left = (t.c * 20) + '%';
+        tileEl.style.top = (t.r * 20) + '%';
+        tileEl.style.width = '20%';
+        tileEl.style.height = '20%';
+
+        // Base styling based on tile type
+        if (t.type === 'start') {
+          tileEl.classList.add('bg-gradient-to-br', 'from-amber-200', 'to-yellow-400');
+        } else if (t.type === 'jail') {
+          tileEl.classList.add('bg-gradient-to-br', 'from-sky-200', 'to-cyan-400');
+        } else if (t.type === 'festival') {
+          tileEl.classList.add('bg-gradient-to-br', 'from-amber-300', 'to-orange-400');
+        } else if (t.type === 'travel') {
+          tileEl.classList.add('bg-gradient-to-br', 'from-indigo-200', 'to-blue-400');
+        } else if (t.type === 'chance' || t.type === 'jackpot') {
+          tileEl.classList.add('bg-gradient-to-br', 'from-purple-200', 'to-pink-300');
+        } else if (t.type === 'tax') {
+          tileEl.classList.add('bg-gradient-to-br', 'from-slate-200', 'to-slate-400');
+        } else {
+          // City Tile
+          tileEl.classList.add('bg-slate-100');
+        }
+
+        // City colored top header
+        if (t.type === 'city') {
+          const header = document.createElement('div');
+          header.className = 'w-full py-0.5 px-1 rounded text-[8px] sm:text-[9px] font-black text-white text-center font-cinzel truncate flex items-center justify-between';
+          header.style.backgroundColor = t.color;
+          header.innerHTML = `<span>${t.name}</span><span>${t.icon}</span>`;
+          tileEl.appendChild(header);
+
+          // Center: Buildings or Landmark
+          const centerArea = document.createElement('div');
+          centerArea.className = 'flex-1 flex items-center justify-center relative';
+
+          if (t.owner !== null) {
+            const ownerColor = t.owner === 0 ? 'border-cyan-500 bg-cyan-500/20' : 'border-rose-500 bg-rose-500/20';
+            tileEl.classList.add('ring-2', t.owner === 0 ? 'ring-cyan-500' : 'ring-rose-500');
+
+            if (t.level === 4) {
+              centerArea.innerHTML = `<span class="mono-building-landmark text-lg sm:text-2xl" title="LANDMARK KỲ QUAN">🏰</span>`;
+            } else if (t.level === 3) {
+              centerArea.innerHTML = `<span class="mono-building-1 text-base sm:text-xl" title="Khách Sạn 3 Sao">🏨</span>`;
+            } else if (t.level === 2) {
+              centerArea.innerHTML = `<span class="mono-building-1 text-sm sm:text-lg" title="Biệt Thự 2 Tầng">🏡</span>`;
+            } else {
+              centerArea.innerHTML = `<span class="mono-building-1 text-xs sm:text-base" title="Nhà Cấp 1">🏠</span>`;
+            }
+
+            // Owner Flag Pin
+            const flag = document.createElement('span');
+            flag.className = `absolute top-0 right-0 text-[10px] mono-billboard`;
+            flag.textContent = t.owner === 0 ? '🚩' : '🏴';
+            centerArea.appendChild(flag);
+          } else {
+            centerArea.innerHTML = `<span class="text-slate-400 text-xs sm:text-sm opacity-60">🏷️</span>`;
+          }
+
+          // If festival x2 active
+          if (monoState.festivalCityId === t.id) {
+            const festBadge = document.createElement('div');
+            festBadge.className = 'absolute bottom-3 px-1 rounded bg-amber-400 text-black font-mono font-black text-[7px] animate-pulse mono-billboard';
+            festBadge.textContent = 'x2 VÉ';
+            centerArea.appendChild(festBadge);
+          }
+
+          tileEl.appendChild(centerArea);
+
+          // Bottom: Price Tag
+          const priceTag = document.createElement('div');
+          priceTag.className = 'w-full text-center text-[7px] sm:text-[9px] font-mono font-bold text-slate-800 bg-black/10 rounded py-0.2';
+          priceTag.textContent = (t.price / 1000) + 'k ₫';
+          tileEl.appendChild(priceTag);
+
+        } else {
+          // Special Tile Content
+          const specialCenter = document.createElement('div');
+          specialCenter.className = 'flex-1 flex flex-col items-center justify-center text-center p-0.5';
+          specialCenter.innerHTML = `
+            <span class="text-base sm:text-2xl mono-billboard">${t.icon}</span>
+            <span class="text-[7px] sm:text-[9px] font-black text-slate-900 font-cinzel leading-tight mt-0.5">${t.name}</span>
+          `;
+          tileEl.appendChild(specialCenter);
+        }
+
+        container.appendChild(tileEl);
+      });
+
+      // Render Player Pawns on their tiles
+      renderMonopolyPawns();
+    }
+
+    function renderMonopolyPawns() {
+      // Remove old pawns
+      document.querySelectorAll('.mono-pawn-token').forEach(el => el.remove());
+
+      const container = document.getElementById('monoTilesContainer');
+      if (!container) return;
+
+      monoState.players.forEach((p, pIdx) => {
+        const tileData = monoState.tiles[p.pos];
+        if (!tileData) return;
+
+        const pawn = document.createElement('div');
+        pawn.className = `mono-pawn mono-pawn-token absolute z-40 flex items-center justify-center pointer-events-none`;
+        pawn.style.transformStyle = 'preserve-3d';
+        
+        // Offset P1 and P2 slightly so they don't block each other
+        const xOffset = pIdx === 0 ? 2 : 11;
+        const yOffset = pIdx === 0 ? 2 : 11;
+        
+        pawn.style.left = `calc(${tileData.c * 20}% + ${xOffset}px)`;
+        pawn.style.top = `calc(${tileData.r * 20}% + ${yOffset}px)`;
+        pawn.style.width = '28px';
+        pawn.style.height = '28px';
+
+        const colorBg = pIdx === 0 ? 'from-cyan-500 to-blue-600 border-cyan-300' : 'from-amber-500 to-rose-600 border-amber-300';
+        pawn.innerHTML = `
+          <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr ${colorBg} border-2 flex items-center justify-center text-sm sm:text-base shadow-xl">
+            ${p.avatar}
+          </div>
+        `;
+
+        container.appendChild(pawn);
+      });
+    }
+
+    function updateMonopolyHUD() {
+      const p1 = monoState.players[0];
+      const p2 = monoState.players[1];
+
+      document.getElementById('monoNameP1').textContent = p1.name;
+      document.getElementById('monoCashP1').textContent = `💵 ${Number(p1.cash).toLocaleString()} ₫`;
+      document.getElementById('monoAssetsP1').textContent = `🏛️ ${p1.properties.length} BĐS`;
+
+      document.getElementById('monoNameP2').textContent = p2.name;
+      document.getElementById('monoCashP2').textContent = `💵 ${Number(p2.cash).toLocaleString()} ₫`;
+      document.getElementById('monoAssetsP2').textContent = `🏛️ ${p2.properties.length} BĐS`;
+
+      const turnP1 = monoState.turn === 0;
+      document.getElementById('monoTurnBadgeP1').classList.toggle('hidden', !turnP1);
+      document.getElementById('monoTurnBadgeP2').classList.toggle('hidden', turnP1);
+
+      document.getElementById('monoCardP1').classList.toggle('ring-2', turnP1);
+      document.getElementById('monoCardP1').classList.toggle('ring-cyan-400', turnP1);
+      document.getElementById('monoCardP2').classList.toggle('ring-2', !turnP1);
+      document.getElementById('monoCardP2').classList.toggle('ring-amber-400', !turnP1);
+
+      const rollBtn = document.getElementById('btnMonoRoll');
+      if (rollBtn) {
+        rollBtn.disabled = monoState.isRolling || (!turnP1 && monoState.mode === 'bot');
+        rollBtn.classList.toggle('opacity-50', rollBtn.disabled);
+      }
+
+      document.getElementById('monoRoundCount').textContent = `VÒNG ${monoState.round}`;
+    }
+
+    // Roll Dice Action
+    async function handleMonopolyRollClick() {
+      if (monoState.isRolling) return;
+      if (monoState.turn !== 0 && monoState.mode === 'bot') return;
+
+      await executeMonopolyTurn();
+    }
+
+    async function executeMonopolyTurn() {
+      monoState.isRolling = true;
+      updateMonopolyHUD();
+
+      const player = monoState.players[monoState.turn];
+      const statusPrompt = document.getElementById('monoStatusPrompt');
+      if (statusPrompt) statusPrompt.textContent = `${player.name} đang đổ xúc xắc...`;
+
+      // 1. Shake animation on 3D dice
+      const d1 = document.getElementById('monoDie1');
+      const d2 = document.getElementById('monoDie2');
+      if (d1) d1.classList.add('mono-dice-rolling');
+      if (d2) d2.classList.add('mono-dice-rolling');
+
+      try { soundTone(280, 'triangle', 0.1, 0.15); } catch(e) {}
+      await new Promise(r => setTimeout(r, 650));
+
+      // 2. Generate Roll Values
+      const die1 = Math.floor(Math.random() * 6) + 1;
+      const die2 = Math.floor(Math.random() * 6) + 1;
+      const totalSteps = die1 + die2;
+      const isDouble = (die1 === die2);
+
+      if (d1) { d1.classList.remove('mono-dice-rolling'); d1.textContent = die1; }
+      if (d2) { d2.classList.remove('mono-dice-rolling'); d2.textContent = die2; }
+
+      const sumText = document.getElementById('monoDiceSumText');
+      if (sumText) sumText.textContent = totalSteps;
+
+      const doubleBadge = document.getElementById('monoDoubleBadge');
+      if (doubleBadge) doubleBadge.classList.toggle('hidden', !isDouble);
+
+      try { soundTone(isDouble ? 660 : 440, 'sine', 0.15, 0.2); } catch(e) {}
+
+      // Handle Jail escape if in jail
+      if (player.inJail > 0) {
+        if (isDouble) {
+          player.inJail = 0;
+          showToast(`🔓 ${player.name} đổ số ĐÔI! Thoát khỏi Đảo Hoang tự do.`);
+        } else {
+          player.inJail--;
+          showToast(`🏝️ ${player.name} vẫn kẹt ở Đảo Hoang (còn ${player.inJail} lượt).`);
+          finishMonopolyTurn(false);
+          return;
+        }
+      }
+
+      if (statusPrompt) statusPrompt.textContent = `${player.name} di chuyển ${totalSteps} ô!`;
+
+      // 3. Step-by-step movement animation
+      let currentPos = player.pos;
+      for (let s = 1; s <= totalSteps; s++) {
+        currentPos = (currentPos + 1) % 16;
+        player.pos = currentPos;
+        renderMonopolyPawns();
+        try { soundTone(520 + s * 20, 'sine', 0.04, 0.05); } catch(e) {}
+        await new Promise(r => setTimeout(r, 160));
+
+        // Salary when passing start
+        if (currentPos === 0) {
+          player.cash += 200000;
+          showToast(`🏁 ${player.name} qua ô BẮT ĐẦU: Nhận lương +200.000 ₫!`);
+          try { soundTone(880, 'triangle', 0.2, 0.2); } catch(e) {}
+          updateMonopolyHUD();
+        }
+      }
+
+      // 4. Landed on Final Tile - Trigger Action
+      await handleMonopolyTileLanding(player, isDouble);
+    }
+
+    async function handleMonopolyTileLanding(player, isDouble) {
+      const tile = monoState.tiles[player.pos];
+      const isHuman = (player.id === 0);
+
+      if (tile.type === 'start') {
+        player.cash += 100000;
+        showToast(`🏁 Nghỉ chân tại Khởi Hành: Thưởng nóng +100.000 ₫!`);
+        finishMonopolyTurn(isDouble);
+
+      } else if (tile.type === 'jail') {
+        player.inJail = 2;
+        showToast(`🏝️ ${player.name} lạc vào Đảo Hoang! Tạm giam 2 lượt.`);
+        finishMonopolyTurn(false); // Double doesn't grant turn in jail
+
+      } else if (tile.type === 'festival') {
+        // Double rent on one of player's properties
+        if (player.properties.length > 0) {
+          const targetProp = player.properties[player.properties.length - 1];
+          monoState.festivalCityId = targetProp.id;
+          renderMonopolyBoard();
+          showToast(`🏆 ${player.name} tổ chức LỄ HỘI THẾ GIỚI tại ${targetProp.name} (x2 tiền thuê)!`);
+        } else {
+          showToast(`🏆 Thăm quan Lễ Hội Thế Giới sôi động!`);
+        }
+        finishMonopolyTurn(isDouble);
+
+      } else if (tile.type === 'travel') {
+        showToast(`✈️ ${player.name} đặt chân đến SÂN BAY QUỐC TẾ!`);
+        finishMonopolyTurn(isDouble);
+
+      } else if (tile.type === 'tax') {
+        const taxAmount = Math.floor(player.cash * 0.1);
+        player.cash = Math.max(0, player.cash - taxAmount);
+        monoState.jackpotPool += taxAmount;
+        showToast(`🏛️ ${player.name} đóng 10% thuế tài sản: -${taxAmount.toLocaleString()} ₫.`);
+        updateMonopolyHUD();
+        finishMonopolyTurn(isDouble);
+
+      } else if (tile.type === 'jackpot') {
+        const winPool = monoState.jackpotPool;
+        player.cash += winPool;
+        monoState.jackpotPool = 100000;
+        showToast(`💎 NỔ HŨ VẬN MAY! ${player.name} nhận toàn bộ +${winPool.toLocaleString()} ₫!`);
+        updateMonopolyHUD();
+        finishMonopolyTurn(isDouble);
+
+      } else if (tile.type === 'chance') {
+        handleMonopolyChanceCard(player, isDouble);
+
+      } else if (tile.type === 'city') {
+        // City Property Logic
+        if (tile.owner === null) {
+          // Unowned - Offer to Buy
+          if (isHuman) {
+            openMonopolyPropertyModal(tile, 'buy', isDouble);
+          } else {
+            // Bot decision: Buy if cash > price
+            if (player.cash >= tile.price) {
+              buyMonopolyProperty(player, tile);
+              showToast(`🤖 ${player.name} đã mua thành phố ${tile.name}!`);
+            }
+            finishMonopolyTurn(isDouble);
+          }
+
+        } else if (tile.owner === player.id) {
+          // Upgrade own property
+          if (tile.level < 4) {
+            if (isHuman) {
+              openMonopolyPropertyModal(tile, 'upgrade', isDouble);
+            } else {
+              // Bot upgrades if rich
+              const upgradeCost = Math.floor(tile.price * 0.8);
+              if (player.cash >= upgradeCost + 300000) {
+                upgradeMonopolyProperty(player, tile);
+                showToast(`🤖 ${player.name} nâng cấp ${tile.name} lên cấp ${tile.level}!`);
+              }
+              finishMonopolyTurn(isDouble);
+            }
+          } else {
+            showToast(`🏰 ${tile.name} đã là LANDMARK tối cao!`);
+            finishMonopolyTurn(isDouble);
+          }
+
+        } else {
+          // Opponent Property - Pay Rent
+          const owner = monoState.players[tile.owner];
+          let rent = tile.rent[tile.level];
+          if (monoState.festivalCityId === tile.id) rent *= 2;
+
+          player.cash -= rent;
+          owner.cash += rent;
+
+          showToast(`💸 ${player.name} trả tiền thuê tại ${tile.name} cho ${owner.name}: -${rent.toLocaleString()} ₫!`);
+          try { soundTone(320, 'sawtooth', 0.15, 0.2); } catch(e) {}
+          updateMonopolyHUD();
+
+          // Check Bankruptcy
+          if (player.cash <= 0) {
+            handleMonopolyBankruptcy(player, owner);
+            return;
+          }
+
+          // Buyout check for human
+          const buyoutCost = tile.price * 2;
+          if (isHuman && player.cash >= buyoutCost && tile.level < 4) {
+            openMonopolyPropertyModal(tile, 'buyout', isDouble);
+          } else {
+            finishMonopolyTurn(isDouble);
+          }
+        }
+      }
+    }
+
+    function openMonopolyPropertyModal(tile, actionType, isDouble) {
+      monoState.pendingPropertyAction = { tile, actionType, isDouble };
+
+      const modal = document.getElementById('monoPropertyModal');
+      const headerColor = document.getElementById('monoModalHeaderColor');
+      const titleEl = document.getElementById('monoModalTitle');
+      const descEl = document.getElementById('monoModalDesc');
+      const priceEl = document.getElementById('monoModalPrice');
+      const rentEl = document.getElementById('monoModalRent');
+      const confirmBtn = document.getElementById('monoModalConfirmBtn');
+
+      headerColor.style.backgroundColor = tile.color;
+      headerColor.textContent = `${tile.name.toUpperCase()} (Ô SỐ ${tile.id})`;
+
+      if (actionType === 'buy') {
+        titleEl.textContent = 'Mua Đất Thành Phố?';
+        descEl.textContent = 'Đất trống chưa có chủ. Hãy mua ngay để bắt đầu xây dựng đế chế!';
+        priceEl.textContent = `${tile.price.toLocaleString()} ₫`;
+        rentEl.textContent = `${tile.rent[0].toLocaleString()} ₫/lượt`;
+        confirmBtn.textContent = 'Mua Đất Ngay';
+      } else if (actionType === 'upgrade') {
+        const nextLevel = tile.level + 1;
+        const upgradeCost = Math.floor(tile.price * 0.8);
+        titleEl.textContent = nextLevel === 4 ? 'XÂY LANDMARK KỲ QUAN?' : `Nâng Cấp Nhà Cấp ${nextLevel}?`;
+        descEl.textContent = nextLevel === 4 
+          ? 'Landmark là bất động sản vĩnh cửu! Không ai có thể thâu tóm được.' 
+          : 'Tăng gấp đôi tiền thuê bất kỳ ai dẫm chân vào!';
+        priceEl.textContent = `${upgradeCost.toLocaleString()} ₫`;
+        rentEl.textContent = `${tile.rent[nextLevel].toLocaleString()} ₫/lượt`;
+        confirmBtn.textContent = nextLevel === 4 ? 'Xây Landmark' : 'Nâng Cấp';
+      } else if (actionType === 'buyout') {
+        const buyoutCost = tile.price * 2;
+        titleEl.textContent = 'THÂU TÓM BẤT ĐỘNG SẢN?';
+        descEl.textContent = 'Cướp lại thành phố này từ đối thủ với giá gấp đôi!';
+        priceEl.textContent = `${buyoutCost.toLocaleString()} ₫`;
+        rentEl.textContent = `${tile.rent[tile.level].toLocaleString()} ₫/lượt`;
+        confirmBtn.textContent = 'Thâu Tóm Ngay';
+      }
+
+      openModal('monoPropertyModal');
+    }
+
+    function confirmMonopolyPropertyAction() {
+      if (!monoState.pendingPropertyAction) return;
+      const { tile, actionType, isDouble } = monoState.pendingPropertyAction;
+      const player = monoState.players[monoState.turn];
+
+      if (actionType === 'buy') {
+        if (player.cash >= tile.price) {
+          buyMonopolyProperty(player, tile);
+          showToast(`🎉 Chúc mừng bạn đã sở hữu thành phố ${tile.name}!`);
+        } else {
+          showToast(`❌ Bạn không đủ tiền để mua thành phố này.`);
+        }
+      } else if (actionType === 'upgrade') {
+        const cost = Math.floor(tile.price * 0.8);
+        if (player.cash >= cost) {
+          upgradeMonopolyProperty(player, tile);
+          showToast(`🏗️ Đã nâng cấp ${tile.name} lên cấp ${tile.level}!`);
+        } else {
+          showToast(`❌ Không đủ tiền nâng cấp.`);
+        }
+      } else if (actionType === 'buyout') {
+        const cost = tile.price * 2;
+        if (player.cash >= cost) {
+          const prevOwner = monoState.players[tile.owner];
+          player.cash -= cost;
+          prevOwner.cash += cost;
+          prevOwner.properties = prevOwner.properties.filter(p => p.id !== tile.id);
+
+          tile.owner = player.id;
+          player.properties.push(tile);
+          renderMonopolyBoard();
+          updateMonopolyHUD();
+          showToast(`🔥 THÂU TÓM THÀNH CÔNG! ${tile.name} nay đã thuộc về bạn.`);
+        }
+      }
+
+      closeModal('monoPropertyModal');
+      monoState.pendingPropertyAction = null;
+      finishMonopolyTurn(isDouble);
+    }
+
+    function closeMonopolyPropertyModal() {
+      closeModal('monoPropertyModal');
+      const isDouble = monoState.pendingPropertyAction ? monoState.pendingPropertyAction.isDouble : false;
+      monoState.pendingPropertyAction = null;
+      finishMonopolyTurn(isDouble);
+    }
+
+    function buyMonopolyProperty(player, tile) {
+      player.cash -= tile.price;
+      tile.owner = player.id;
+      tile.level = 0;
+      player.properties.push(tile);
+      renderMonopolyBoard();
+      updateMonopolyHUD();
+      try { soundTone(780, 'triangle', 0.2, 0.2); } catch(e) {}
+    }
+
+    function upgradeMonopolyProperty(player, tile) {
+      const cost = Math.floor(tile.price * 0.8);
+      player.cash -= cost;
+      tile.level = Math.min(4, tile.level + 1);
+      renderMonopolyBoard();
+      updateMonopolyHUD();
+      try { soundTone(880, 'triangle', 0.25, 0.25); } catch(e) {}
+    }
+
+    function handleMonopolyChanceCard(player, isDouble) {
+      const cards = [
+        { text: 'Trúng thưởng Xổ Số Hoàng Gia: +$250.000 ₫!', amount: 250000 },
+        { text: 'Tài trợ xây dựng cơ sở hạ tầng: +$180.000 ₫!', amount: 180000 },
+        { text: 'Bảo trì sửa chữa biệt thự: -$120.000 ₫.', amount: -120000 },
+        { text: 'Thưởng du lịch khám phá đảo: +$100.000 ₫!', amount: 100000 }
+      ];
+      const card = cards[Math.floor(Math.random() * cards.length)];
+      player.cash = Math.max(0, player.cash + card.amount);
+
+      document.getElementById('monoChanceDesc').textContent = `${player.name}: ${card.text}`;
+      openModal('monoChanceModal');
+
+      monoState.pendingPropertyAction = { isDouble };
+    }
+
+    function closeMonopolyChanceModal() {
+      closeModal('monoChanceModal');
+      const isDouble = monoState.pendingPropertyAction ? monoState.pendingPropertyAction.isDouble : false;
+      monoState.pendingPropertyAction = null;
+      finishMonopolyTurn(isDouble);
+    }
+
+    function finishMonopolyTurn(isDouble) {
+      monoState.isRolling = false;
+      updateMonopolyHUD();
+
+      if (isDouble) {
+        showToast(`🎲 Số đôi! ${monoState.players[monoState.turn].name} được đổ tiếp lượt nữa.`);
+        if (monoState.turn === 1 && monoState.mode === 'bot') {
+          setTimeout(triggerMonopolyBotTurn, 1000);
+        }
+      } else {
+        // Switch turn
+        monoState.turn = 1 - monoState.turn;
+        if (monoState.turn === 0) {
+          monoState.round++;
+        }
+        updateMonopolyHUD();
+
+        if (monoState.turn === 1 && monoState.mode === 'bot') {
+          setTimeout(triggerMonopolyBotTurn, 900);
+        }
+      }
+    }
+
+    function triggerMonopolyBotTurn() {
+      if (monoState.turn !== 1 || monoState.mode !== 'bot') return;
+      executeMonopolyTurn();
+    }
+
+    function handleMonopolyBankruptcy(loser, winner) {
+      alert(`💥 PHÁ SẢN! ${loser.name} đã cạn kiệt tài chính. ${winner.name} ĐOẠT DANH HIỆU ĐẠI TỶ PHÚ HOÀNG GIA!`);
+      
+      // Save record to Firestore if live
+      if (window.saveMatchRecordToFirestore) {
+        window.saveMatchRecordToFirestore({
+          gameType: 'monopoly',
+          winner: winner.name,
+          loser: loser.name,
+          rounds: monoState.round,
+          finalCash: winner.cash
+        });
+      }
+
+      initMonopolyGame();
+    }
+
+    function setMonopolyMode(mode) {
+      monoState.mode = mode;
+      document.getElementById('btnMonoModeBot').className = mode === 'bot' 
+        ? 'px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold transition-all shadow-sm'
+        : 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition-all';
+      document.getElementById('btnMonoModeLocal').className = mode === 'local'
+        ? 'px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold transition-all shadow-sm'
+        : 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition-all';
+
+      monoState.players[1].name = mode === 'bot' ? 'Kỳ Thủ AI' : 'Người Chơi 2';
+      document.getElementById('monoBadgeP2').textContent = mode === 'bot' ? 'BOT' : 'P2';
+      initMonopolyGame();
+      showToast(`🔄 Đã đổi sang chế độ: ${mode === 'bot' ? 'Đấu Với Bot AI' : 'Chơi 2 Người Cục Bộ'}`);
+    }
+
+    function restartMonopolyGame() {
+      initMonopolyGame();
+      showToast('🔄 Đã khởi động ván Cờ Tỷ Phú mới!');
+    }
+
+    // Emoji reaction drawer
+    function toggleMonopolyEmojiMenu() {
+      const menu = document.getElementById('monoEmojiMenu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    function sendMonopolyEmoji(emoji) {
+      toggleMonopolyEmojiMenu();
+      const area = document.getElementById('monoEmojiFloatArea');
+      if (!area) return;
+
+      const bubble = document.createElement('div');
+      bubble.className = 'absolute z-50 text-3xl sm:text-4xl animate-bounce pointer-events-none select-none drop-shadow-2xl';
+      bubble.style.left = '50%';
+      bubble.style.top = '45%';
+      bubble.textContent = emoji;
+      area.appendChild(bubble);
+
+      try { soundTone(600, 'sine', 0.08, 0.1); } catch(e) {}
+      setTimeout(() => bubble.remove(), 1800);
+    }
+
+    // Expose all Monopoly methods & variables to global window scope
+    window.initMonopolyGame = initMonopolyGame;
+    window.renderMonopolyBoard = renderMonopolyBoard;
+    window.renderMonopolyPawns = renderMonopolyPawns;
+    window.updateMonopolyHUD = updateMonopolyHUD;
+    window.handleMonopolyRollClick = handleMonopolyRollClick;
+    window.executeMonopolyTurn = executeMonopolyTurn;
+    window.buyMonopolyProperty = buyMonopolyProperty;
+    window.skipMonopolyProperty = skipMonopolyProperty;
+    window.closeMonopolyChanceModal = closeMonopolyChanceModal;
+    window.setMonopolyMode = setMonopolyMode;
+    window.restartMonopolyGame = restartMonopolyGame;
+    window.toggleMonopolyEmojiMenu = toggleMonopolyEmojiMenu;
+    window.sendMonopolyEmoji = sendMonopolyEmoji;
+    window.monoState = monoState;
+    window.MONOPOLY_TILES_DATA = MONOPOLY_TILES_DATA;
+
+
     function switchGameView(tab) {
       activeTab = tab;
       const vDice = document.getElementById('diceView');
@@ -7732,7 +7760,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v3.0.2'
+      currentVersion: 'v3.0.3'
     };
 
     let allChangelogItems = [];

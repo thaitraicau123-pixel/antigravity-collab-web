@@ -256,3 +256,16 @@ esetTTTScores).
    - Cập nhật đúng các đầu việc chủ chốt của 2 Dev trên 2 thẻ tóm tắt đỉnh Modal:
      * Bên Màu Xanh: Cờ Tỷ Phú 2.5D, Cờ Vua FIDE & Bot Minimax, GitHub REST API Engine & WebSocket.
      * Bên Màu Tím: Chuyển cảnh 60fps GPU, Bí kíp Bento 4 bộ môn & SVG độc bản, Đa BOT & Khán giả, Tối ưu Mobile UX.
+
+
+---
+
+## ⚡ PHẦN 16: KHẮC PHỤC TRIỆT ĐỂ LỖI DÍNH GIAO DIỆN CỜ TỶ PHÚ KHI THOÁT VỀ SẢNH GAME
+1. **Chẩn Đoán Nguyên Nhân Gốc Rễ (5 Whys)**:
+   - Thẻ `div#mainViewArena` trước đây bị đóng sớm ngay sau `chessView`, dẫn tới việc `div#monopolyView` (Cờ Tỷ Phú 2.5D) bị văng ra ngoài và trở thành phần tử con trực tiếp của thẻ `<main>`.
+   - Khi người chơi bấm thoát ra (về Sảnh Game, Bảng Phong Thần, VIP, hoặc Luật Chơi), hàm `switchMainTab('lobby')` chỉ ẩn `mainViewArena` mà hoàn toàn không thể ẩn `monopolyView`.
+   - Kết quả: Khi về Sảnh Game, bàn cờ Cờ Tỷ Phú 2.5D và các widget HUD vẫn hiển thị dính bên dưới 4 thẻ game đại sảnh (đúng như Ảnh 1).
+2. **Khắc Phục Tận Gốc (Core Fix & Phòng Thủ 3 Tầng)**:
+   - **Tầng 1 (DOM Tree Hierarchy)**: Di chuyển thẻ đóng `</div>` của `mainViewArena` xuống phía sau `monopolyView`, đưa cả 4 bộ môn (`diceView`, `tictactoeView`, `chessView`, `monopolyView`) về đúng cấu trúc lồng nhau của Đấu Trường.
+   - **Tầng 2 (Defensive Guard)**: Trong `switchMainTab(tab)`, mỗi khi `tab !== 'arena'`, kích hoạt cơ chế phòng thủ tự động gán `.hidden` và gỡ bỏ `.flex`/`.grid` cho toàn bộ 4 view cờ và các context toolbars.
+   - **Tầng 3 (Smooth UX)**: Khi về Sảnh (`tab === 'lobby'`), tự động cuộn mượt mà lên đỉnh trang (`window.scrollTo({ top: 0, behavior: 'smooth' })`), hiển thị giao diện Sảnh Game thanh thoát, sạch đẹp 100% (đúng như Ảnh 2).

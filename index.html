@@ -1719,9 +1719,6 @@
 
       </div>
 
-    </div>
-
-    
       <!-- =========================================================================
            VIEW 4: CỜ TỶ PHÚ HOÀNG GIA (2.5D ISOMETRIC ARENA)
            ========================================================================= -->
@@ -1924,6 +1921,8 @@
         </div>
 
       </div>
+
+    </div> <!-- Close #mainViewArena properly here -->
 
 
     <!-- VIEWPORT 2: LEADERBOARDS (BẢNG PHONG THẦN CHUYÊN BIỆT) -->
@@ -5790,6 +5789,16 @@
 
       if (tab === 'arena') {
         switchGameView(activeTab);
+      } else {
+        // Defensive Guard: Ẩn triệt để toàn bộ 4 view cờ và các context controls khi rời khỏi Arena
+        const vMono = document.getElementById('monopolyView');
+        if (vMono) { vMono.classList.add('hidden'); vMono.classList.remove('flex'); }
+        const vDice = document.getElementById('diceView');
+        if (vDice) { vDice.classList.add('hidden'); vDice.classList.remove('grid'); }
+        const vTTT = document.getElementById('tictactoeView');
+        if (vTTT) { vTTT.classList.add('hidden'); vTTT.classList.remove('flex'); }
+        const vChess = document.getElementById('chessView');
+        if (vChess) { vChess.classList.add('hidden'); vChess.classList.remove('flex'); }
       }
 
       if (window.lucide) {

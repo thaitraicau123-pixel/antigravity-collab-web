@@ -950,7 +950,7 @@
     <div id="mainViewArena" class="hidden w-full flex flex-col items-center">
 
       <!-- UNIFIED ARENA MATCH CONSOLE (BẢNG ĐIỀU KHIỂN TRẬN ĐẤU TẬP TRUNG) -->
-      <div id="arenaMatchConsole" class="w-full max-w-5xl mb-3 p-2.5 sm:p-3 rounded-2xl bg-[#0B101E]/90 border border-amber-500/30 shadow-xl backdrop-blur-md flex flex-wrap items-center justify-between gap-2.5 relative z-50">
+      <div id="arenaMatchConsole" class="w-full max-w-[1600px] mb-3 p-2.5 sm:p-3 rounded-2xl bg-[#0B101E]/90 border border-amber-500/30 shadow-xl backdrop-blur-md flex flex-wrap items-center justify-between gap-2.5 relative z-50">
         
         <!-- Left: Return to Lobby & Direct 4-Game Switcher Pills -->
         <div class="flex items-center gap-2 sm:gap-2.5 shrink-0 flex-wrap">
@@ -1184,735 +1184,686 @@
       </div>
 
       <!-- VIEW 1: DICE QUEST (12 Ô LỚN) -->
-      <main id="diceView" class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
+            <!-- VIEW 1: GAME ARENA - MEDIEVAL TABLETOP DICE QUEST (SPLIT SCREEN 50/50) -->
+      <main id="diceView" class="w-full max-w-[1600px] grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch">
         
-        <!-- Left: 4x4 Perimeter Circuit Board -->
-        <div class="md:col-span-8 tabletop-mat rounded-3xl p-5 sm:p-7 ornate-border flex flex-col justify-center relative overflow-hidden">
+        <!-- =========================================================================
+             CỬA SỔ 1 (BÊN TRÁI - 50% MÀN HÌNH): BÀN CỜ ĐUA XÚC XẮC & HUD ĐẤU THỦ (ẢNH 2)
+             ========================================================================= -->
+        <div class="w-full flex flex-col gap-3">
           
-          <div class="absolute top-2 left-2 text-amber-500/20 font-cinzel text-lg select-none">⚜</div>
-          <div class="absolute top-2 right-2 text-amber-500/20 font-cinzel text-lg select-none">⚜</div>
-          <div class="absolute bottom-2 left-2 text-amber-500/20 font-cinzel text-lg select-none">⚜</div>
-          <div class="absolute bottom-2 right-2 text-amber-500/20 font-cinzel text-lg select-none">⚜</div>
-
-          <div class="grid grid-cols-6 grid-rows-6 gap-2 sm:gap-2.5 aspect-square max-w-[620px] w-full mx-auto" id="circuitGrid">
-            
-            <!-- Center Arena: Leather & Felt Tactical Core with Timing Bar & Skills -->
-            <div class="col-start-2 col-end-6 row-start-2 row-end-6 rounded-3xl dice-tray p-3 sm:p-5 flex flex-col items-center justify-between text-center relative select-none shadow-2xl overflow-hidden border border-amber-500/30">
-              
-              <!-- Subtle Background Scanlines -->
-              <div class="absolute inset-0 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none"></div>
-
-              <!-- Top: Turn Badge & Energy Bar -->
-              <div class="w-full flex items-center justify-between gap-1 z-10">
-                <div id="diceTurnBadge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-bold shadow-inner">
-                  <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-                  <span id="diceTurnText">Lượt của Bạn (Hiệp Sĩ)</span>
-                </div>
-
-                <!-- Energy Battery Indicator -->
-                <div id="turnEnergyBar" class="flex items-center gap-1 bg-black/60 px-2 py-1 rounded-full border border-amber-500/30 text-[10px] font-mono text-amber-300 font-bold shadow-inner">
-                  <span class="text-amber-400">⚡</span>
-                  <span id="pEnergyDots" class="tracking-widest">⚡⚡⚡○○</span>
-                  <span id="pEnergyNum" class="text-white ml-0.5 font-bold">3/5</span>
-                </div>
-              </div>
-
-              <!-- Active Timing & Power Gauge (Thanh Canh Lực Xúc Xắc) -->
-              <div class="w-full max-w-[280px] my-1 z-10">
-                <div class="flex items-center justify-between text-[9px] font-mono font-bold mb-1">
-                  <span class="text-emerald-400">1-2 (NGẮN)</span>
-                  <span id="timingGaugeStatus" class="text-amber-300 font-extrabold uppercase animate-pulse">CANH LỰC GIEO</span>
-                  <span class="text-amber-400">5-6 (DÀI)</span>
-                </div>
-                <div id="timingGaugeTrack" class="w-full h-3.5 rounded-full bg-black/80 border border-slate-700 relative overflow-hidden shadow-inner p-0.5 cursor-pointer" onclick="handleGaugeClick()">
-                  <!-- Zones gradient -->
-                  <div class="w-full h-full rounded-full bg-gradient-to-r from-emerald-500 via-cyan-400 to-amber-500 opacity-80"></div>
-                  <!-- Center Perfect Notch -->
-                  <div class="absolute top-0 bottom-0 left-1/2 w-2 -translate-x-1/2 bg-yellow-300/80 shadow-[0_0_8px_#fde047]"></div>
-                  <!-- Oscillating Needle -->
-                  <div id="timingNeedle" class="absolute top-0 bottom-0 w-2.5 -translate-x-1/2 bg-white rounded-full shadow-[0_0_10px_#ffffff] transition-none" style="left: 50%;"></div>
-                </div>
-              </div>
-
-              <!-- 3D Cubic Dice in Tray -->
-              <div onclick="handleDiceClickWithTiming()" id="diceButton" class="btn-spring w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-300 border-4 border-amber-500/60 shadow-2xl shadow-black/80 flex items-center justify-center text-4xl sm:text-5xl cursor-pointer hover:border-amber-400 select-none group relative my-0.5 z-10">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent rounded-xl pointer-events-none"></div>
-                <div id="diceFaceDisplay" class="group-hover:scale-110 transition-transform filter drop-shadow flex items-center justify-center">
-                  <svg viewBox="0 0 64 64" class="w-10 h-10 sm:w-12 sm:h-12 filter drop-shadow">
-                    <rect x="6" y="6" width="52" height="52" rx="14" fill="#1E293B" stroke="#F59E0B" stroke-width="3"/>
-                    <circle cx="32" cy="32" r="7" fill="#F59E0B" opacity="0.25"/>
-                    <path d="M32 16 L34 24 L42 26 L34 28 L32 36 L30 28 L22 26 L30 24 Z" fill="#FDE68A"/>
-                    <circle cx="20" cy="20" r="3" fill="#D97706"/>
-                    <circle cx="44" cy="44" r="3" fill="#D97706"/>
-                  </svg>
-                </div>
-              </div>
-
-              <!-- Action Hint or Nudge Row -->
-              <div id="diceCenterActionArea" class="w-full flex flex-col items-center justify-center min-h-[30px] z-10">
-                <!-- Nudge Action Strip (Hidden by default, shows after roll if energy >= 1) -->
-                <div id="diceNudgeRow" class="hidden items-center justify-center gap-1.5 w-full animate-scale-up">
-                  <button onclick="applyDiceNudge(-1)" class="btn-spring px-2 py-1 rounded-lg bg-rose-600/90 hover:bg-rose-500 text-white font-black text-[10px] border border-rose-400 shadow flex items-center gap-1">
-                    <span>⏪ Lùi 1</span> <span class="text-[9px] text-amber-200">(1⚡)</span>
-                  </button>
-                  <button onclick="confirmNormalMove()" class="btn-spring px-2.5 py-1 rounded-lg bg-emerald-600/90 hover:bg-emerald-500 text-white font-black text-[10px] border border-emerald-400 shadow">
-                    <span>Đi Thường ➔</span>
-                  </button>
-                  <button onclick="applyDiceNudge(1)" class="btn-spring px-2 py-1 rounded-lg bg-cyan-600/90 hover:bg-cyan-500 text-white font-black text-[10px] border border-cyan-400 shadow flex items-center gap-1">
-                    <span>Tiến 1 ⏩</span> <span class="text-[9px] text-amber-200">(1⚡)</span>
-                  </button>
-                </div>
-
-                <p id="diceActionHint" class="text-[11px] text-amber-200/90 font-semibold tracking-wide">
-                  Chạm vào xúc xắc để gieo hoặc canh lực
-                </p>
-              </div>
-
-              <!-- 3 Tactical Active Skills Strip (Đặt Mìn, Bật Khiên, Tinh Chỉnh Bước) -->
-              <div class="w-full pt-1.5 border-t border-slate-700/60 flex items-center justify-around gap-1 z-10">
-                <button onclick="triggerSkillTrap()" id="btnSkillTrap" class="btn-spring flex-1 py-1 px-1 rounded-xl bg-slate-800 hover:bg-rose-600/30 text-rose-300 border border-rose-500/40 text-[9px] sm:text-[10px] font-bold flex items-center justify-center gap-1 shadow transition-all cursor-pointer" title="Đặt mìn tại ô hiện tại: Kẻ dẫm trúng bị -20đ chuyển cho bạn">
-                  <span>💣 Mìn</span> <span class="text-[8px] px-1 py-0.2 rounded bg-rose-500/20 text-rose-300 font-mono" id="btnSkillTrapCost">2⚡</span>
-                </button>
-                <button onclick="triggerSkillShield()" id="btnSkillShield" class="btn-spring flex-1 py-1 px-1 rounded-xl bg-slate-800 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/40 text-[9px] sm:text-[10px] font-bold flex items-center justify-center gap-1 shadow transition-all cursor-pointer" title="Bật khiên miễn nhiễm 100% sát thương bẫy và đòn đá lùi trong 1 lượt">
-                  <span>🛡️ Khiên</span> <span class="text-[8px] px-1 py-0.2 rounded bg-cyan-500/20 text-cyan-300 font-mono">1⚡</span>
-                </button>
-                <button onclick="triggerSkillEnergyBurst()" id="btnSkillNudge" class="btn-spring flex-1 py-1 px-1 rounded-xl bg-slate-800 hover:bg-amber-600/30 text-amber-300 border border-amber-500/40 text-[9px] sm:text-[10px] font-bold flex items-center justify-center gap-1 shadow transition-all cursor-pointer" title="Tích tụ xung năng lượng: Hồi 1⚡ khi hoàn thành vòng">
-                  <span>⚡ Nạp Lõi</span> <span class="text-[8px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono">HỒI</span>
-                </button>
-              </div>
-
-            </div>
-
-          </div>
-
-          <!-- ================= SKILL DUEL MODAL (5-SECOND PVP ARENA) ================= -->
-          <div id="skillDuelModal" class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-md z-40 flex items-center justify-center p-3 animate-fade-in rounded-3xl">
-            <div class="w-full max-w-sm bg-[#0C1524]/95 border-2 border-rose-500/60 rounded-2xl shadow-2xl p-4 sm:p-5 flex flex-col items-center text-center relative animate-scale-up">
-              <!-- Top Duel Banner -->
-              <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 font-cinzel text-xs font-black tracking-wider mb-2">
-                <span>⚔️</span> <span>SÀN ĐẤU QUYẾT ĐẤU (5 GIÂY)</span>
-              </div>
-              <h3 id="duelTitle" class="text-white text-base sm:text-lg font-black mb-1 drop-shadow">
-                Đụng Độ Đỉnh Cao!
-              </h3>
-              <p id="duelDesc" class="text-slate-300 text-xs mb-3 font-semibold">
-                Cạnh tranh khốc liệt! Kẻ chiến thắng sẽ đoạt <b class="text-amber-400">+20 ĐIỂM</b> từ đối phương!
-              </p>
-
-              <!-- Reflex Target Zone -->
-              <div id="duelReflexArena" class="w-full h-32 bg-black/60 rounded-xl border border-slate-700/80 relative flex items-center justify-center overflow-hidden mb-3">
-                <button onclick="handleDuelReflexHit()" id="duelReflexTarget" class="absolute w-12 h-12 rounded-full bg-gradient-to-tr from-amber-400 to-rose-500 border-2 border-white flex items-center justify-center text-xl shadow-[0_0_20px_#f59e0b] animate-ping cursor-pointer active:scale-90 transition-transform">
-                  🎯
-                </button>
-                <span id="duelReflexHint" class="text-slate-400 text-[10px] font-mono">BẤM VÀO MỤC TIÊU PHÁT SÁNG CÀNG NHANH CÀNG TỐT!</span>
-              </div>
-
-              <!-- RPS Tactical Choices Row -->
-              <div id="duelRpsRow" class="hidden grid-cols-3 gap-2 w-full mb-3">
-                <button onclick="handleDuelRpsChoice('rock')" class="btn-spring py-2 rounded-xl bg-slate-800 hover:bg-amber-600/40 text-amber-300 border border-amber-500/40 text-xs font-bold flex flex-col items-center">
-                  <span class="text-lg">✊</span> <span>Tấn Công</span>
-                </button>
-                <button onclick="handleDuelRpsChoice('paper')" class="btn-spring py-2 rounded-xl bg-slate-800 hover:bg-cyan-600/40 text-cyan-300 border border-cyan-500/40 text-xs font-bold flex flex-col items-center">
-                  <span class="text-lg">🖐️</span> <span>Phòng Thủ</span>
-                </button>
-                <button onclick="handleDuelRpsChoice('scissors')" class="btn-spring py-2 rounded-xl bg-slate-800 hover:bg-rose-600/40 text-rose-300 border border-rose-500/40 text-xs font-bold flex flex-col items-center">
-                  <span class="text-lg">✌️</span> <span>Đột Kích</span>
-                </button>
-              </div>
-
-              <!-- Timer countdown bar -->
-              <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden border border-slate-700">
-                <div id="duelTimerBar" class="h-full bg-gradient-to-r from-emerald-500 via-amber-400 to-rose-500 transition-all duration-100" style="width: 100%;"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Bento Tactical HUD & Versus Deck -->
-        <div class="md:col-span-4 flex flex-col gap-3.5">
-          
-          <!-- 1. VERSUS BATTLE CARD -->
-          <div class="tabletop-mat rounded-2xl p-4 border border-board-border shadow-xl relative overflow-hidden">
-            
-            <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-2.5 flex items-center justify-between">
+          <!-- Compact Versus HUD: 4 Players Status & Turn Indicator -->
+          <div class="tabletop-mat rounded-2xl p-3 border border-board-border shadow-lg relative overflow-hidden">
+            <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
               <span class="flex items-center gap-1.5 text-amber-400 font-cinzel">
-                <i data-lucide="swords" class="w-3.5 h-3.5"></i> Thế Trận Đối Kháng
+                <i data-lucide="swords" class="w-3.5 h-3.5"></i> Thế Trận Đua Điểm (Đích: <span id="hudGoalScoreText" class="text-amber-300 font-bold">100đ</span>)
               </span>
               <span id="versusTurnIndicator" class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-[9px] font-mono animate-pulse">
                 LƯỢT BẠN
               </span>
             </div>
 
-            <!-- Dual Player Confrontation Cards -->
-            <div class="space-y-2.5">
+            <!-- 4 Players Horizontal Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              
               <!-- Player 1 Card -->
-              <div id="cardP1" class="rounded-xl p-3 bg-black/40 border-l-4 border-l-cyan-500 ring-2 ring-cyan-500/40 transition-all shadow-md">
-                <div class="flex items-center justify-between mb-1.5">
-                  <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center shadow-inner"><svg viewBox="0 0 32 32" class="w-6 h-6 filter drop-shadow">
-                      <path d="M16 3 L26 8 L26 18 C26 24 21 28 16 30 C11 28 6 24 6 18 L6 8 Z" fill="#0284C7" stroke="#38BDF8" stroke-width="1.5"/>
-                      <path d="M10 12 L22 12 L19 18 L13 18 Z" fill="#083344" stroke="#67E8F9" stroke-width="1"/>
-                      <circle cx="16" cy="15" r="1.5" fill="#38BDF8"/>
-                      <polygon points="16,6 18,10 14,10" fill="#FDE68A"/>
-                    </svg></div>
-                    <div>
-                      <div class="text-xs font-bold text-white flex items-center gap-1.5" id="p1CardName">
-                        Người chơi 1 <span class="text-[9px] px-1 rounded bg-cyan-500/20 text-cyan-300">P1</span>
-                      </div>
-                      <div class="text-[10px] text-cyan-400 font-medium">Hiệp Sĩ Lam Ngọc</div>
+              <div id="cardP1" class="rounded-xl p-2 bg-black/40 border-l-4 border-l-cyan-500 ring-1 ring-cyan-500/40 transition-all shadow-sm flex flex-col justify-between">
+                <div class="flex items-center justify-between mb-1">
+                  <div class="flex items-center gap-1.5 truncate">
+                    <div class="w-6 h-6 rounded-md bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center shrink-0">
+                      <svg viewBox="0 0 32 32" class="w-4 h-4 filter drop-shadow">
+                        <path d="M16 3 L26 8 L26 18 C26 24 21 28 16 30 C11 28 6 24 6 18 L6 8 Z" fill="#0284C7" stroke="#38BDF8" stroke-width="1.5"/>
+                        <circle cx="16" cy="15" r="1.5" fill="#38BDF8"/>
+                      </svg>
+                    </div>
+                    <div class="truncate">
+                      <div class="text-[11px] font-bold text-white truncate" id="p1CardName">Bạn (P1)</div>
+                      <div class="text-[9px] text-cyan-400 font-mono">Hiệp Sĩ</div>
                     </div>
                   </div>
-                  <div class="text-right">
-                    <div class="text-[9px] text-slate-400 uppercase font-mono">ĐIỂM</div>
-                    <div id="scoreP1" class="text-xl font-black text-cyan-400 font-mono">0</div>
-                  </div>
+                  <div id="scoreP1" class="text-base font-black text-cyan-400 font-mono shrink-0">0</div>
                 </div>
-                <div class="text-[11px] text-slate-300 flex items-center justify-between bg-black/30 px-2.5 py-1 rounded-lg">
-                  <span class="text-slate-400 text-[10px]">Vị trí:</span>
-                  <span id="posP1Text" class="font-bold text-amber-300 text-[10px] truncate max-w-[170px]">Ô 0: Khởi hành 🚀</span>
+                <div class="space-y-1">
+                  <div class="text-[9px] text-slate-300 bg-black/40 px-1.5 py-0.5 rounded flex items-center justify-between">
+                    <span id="posP1Text" class="font-bold text-amber-300 truncate">Ô 0: Khởi hành 🚀</span>
+                  </div>
+                  <!-- Race Bar P1 -->
+                  <div id="raceRowP1" class="flex items-center gap-1 text-[9px] font-mono">
+                    <div class="flex-1 h-1 rounded-full bg-slate-900 border border-board-border overflow-hidden">
+                      <div id="raceBarP1" class="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <span class="text-[8px] text-slate-400" id="racePctP1">0%</span>
+                  </div>
                 </div>
               </div>
 
-              <!-- Player 2 / BOT Card -->
-              <div id="cardP2" class="rounded-xl p-3 bg-black/40 border-l-4 border-l-rose-500 opacity-70 transition-all shadow-md">
-                <div class="flex items-center justify-between mb-1.5">
-                  <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-lg bg-rose-500/20 border border-rose-500/40 flex items-center justify-center shadow-inner"><svg viewBox="0 0 32 32" class="w-6 h-6 filter drop-shadow">
-                      <path d="M16 28 L7 16 L6 6 L14 11 L16 15 L18 11 L26 6 L25 16 Z" fill="#E11D48" stroke="#FDA4AF" stroke-width="1.5"/>
-                      <polygon points="16,18 11,11 14,11 16,15" fill="#F59E0B"/>
-                      <polygon points="16,18 21,11 18,11 16,15" fill="#F59E0B"/>
-                      <circle cx="12" cy="16" r="1.5" fill="#FEF08A"/>
-                      <circle cx="20" cy="16" r="1.5" fill="#FEF08A"/>
-                      <polygon points="16,25 14.5,23 17.5,23" fill="#1C1917"/>
-                    </svg></div>
-                    <div>
-                      <div class="text-xs font-bold text-white flex items-center gap-1.5" id="p2Title">
-                        Cáo Lửa <span class="text-[9px] px-1 rounded bg-rose-500/20 text-rose-300">BOT 1</span>
-                      </div>
-                      <div class="text-[10px] text-rose-400 font-medium">Chiến Binh Hồng Ngọc</div>
+              <!-- Player 2 / BOT 1 Card -->
+              <div id="cardP2" class="rounded-xl p-2 bg-black/40 border-l-4 border-l-rose-500 opacity-80 transition-all shadow-sm flex flex-col justify-between">
+                <div class="flex items-center justify-between mb-1">
+                  <div class="flex items-center gap-1.5 truncate">
+                    <div class="w-6 h-6 rounded-md bg-rose-500/20 border border-rose-500/40 flex items-center justify-center shrink-0">
+                      <svg viewBox="0 0 32 32" class="w-4 h-4 filter drop-shadow">
+                        <path d="M16 28 L7 16 L6 6 L14 11 L16 15 L18 11 L26 6 L25 16 Z" fill="#E11D48" stroke="#FDA4AF" stroke-width="1.5"/>
+                      </svg>
+                    </div>
+                    <div class="truncate">
+                      <div class="text-[11px] font-bold text-white truncate" id="p2Title">Cáo Lửa (B1)</div>
+                      <div class="text-[9px] text-rose-400 font-mono">Sát Thủ</div>
                     </div>
                   </div>
-                  <div class="text-right">
-                    <div class="text-[9px] text-slate-400 uppercase font-mono">ĐIỂM</div>
-                    <div id="scoreP2" class="text-xl font-black text-rose-400 font-mono">0</div>
-                  </div>
+                  <div id="scoreP2" class="text-base font-black text-rose-400 font-mono shrink-0">0</div>
                 </div>
-                <div class="text-[11px] text-slate-300 flex items-center justify-between bg-black/30 px-2.5 py-1 rounded-lg">
-                  <span class="text-slate-400 text-[10px]">Vị trí:</span>
-                  <span id="posP2Text" class="font-bold text-amber-300 text-[10px] truncate max-w-[170px]">Ô 0: Khởi hành 🚀</span>
+                <div class="space-y-1">
+                  <div class="text-[9px] text-slate-300 bg-black/40 px-1.5 py-0.5 rounded flex items-center justify-between">
+                    <span id="posP2Text" class="font-bold text-amber-300 truncate">Ô 0: Khởi hành 🚀</span>
+                  </div>
+                  <!-- Race Bar P2 -->
+                  <div id="raceRowP2" class="flex items-center gap-1 text-[9px] font-mono">
+                    <div class="flex-1 h-1 rounded-full bg-slate-900 border border-board-border overflow-hidden">
+                      <div id="raceBarP2" class="h-full bg-gradient-to-r from-rose-600 to-rose-400 transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <span class="text-[8px] text-slate-400" id="racePctP2">0%</span>
+                  </div>
                 </div>
               </div>
 
               <!-- Player 3 / BOT 2 Card -->
-              <div id="cardP3" class="hidden rounded-xl p-3 bg-black/40 border-l-4 border-l-indigo-500 opacity-70 transition-all shadow-md">
-                <div class="flex items-center justify-between mb-1.5">
-                  <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center shadow-inner"><svg viewBox="0 0 32 32" class="w-6 h-6 filter drop-shadow">
-                      <path d="M16 28 L8 17 L7 7 L13 12 L16 16 L19 12 L25 7 L24 17 Z" fill="#4338CA" stroke="#A5B4FC" stroke-width="1.5"/>
-                      <polygon points="9,13 16,20 23,13" fill="#6366F1" opacity="0.6"/>
-                      <circle cx="12" cy="16" r="1.5" fill="#38BDF8"/>
-                      <circle cx="20" cy="16" r="1.5" fill="#38BDF8"/>
-                      <polygon points="16,24 14.5,22 17.5,22" fill="#1E1B4B"/>
-                    </svg></div>
-                    <div>
-                      <div class="text-xs font-bold text-white flex items-center gap-1.5" id="p3Title">
-                        Sói Băng <span class="text-[9px] px-1 rounded bg-indigo-500/20 text-indigo-300">BOT 2</span>
-                      </div>
-                      <div class="text-[10px] text-indigo-400 font-medium">Chiến Binh Hàn Băng</div>
+              <div id="cardP3" class="hidden rounded-xl p-2 bg-black/40 border-l-4 border-l-indigo-500 opacity-80 transition-all shadow-sm flex flex-col justify-between">
+                <div class="flex items-center justify-between mb-1">
+                  <div class="flex items-center gap-1.5 truncate">
+                    <div class="w-6 h-6 rounded-md bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center shrink-0">
+                      <svg viewBox="0 0 32 32" class="w-4 h-4 filter drop-shadow">
+                        <path d="M16 28 L8 17 L7 7 L13 12 L16 16 L19 12 L25 7 L24 17 Z" fill="#4338CA" stroke="#A5B4FC" stroke-width="1.5"/>
+                      </svg>
+                    </div>
+                    <div class="truncate">
+                      <div class="text-[11px] font-bold text-white truncate" id="p3Title">Sói Băng (B2)</div>
+                      <div class="text-[9px] text-indigo-400 font-mono">Pháp Sư</div>
                     </div>
                   </div>
-                  <div class="text-right">
-                    <div class="text-[9px] text-slate-400 uppercase font-mono">ĐIỂM</div>
-                    <div id="scoreP3" class="text-xl font-black text-indigo-400 font-mono">0</div>
-                  </div>
+                  <div id="scoreP3" class="text-base font-black text-indigo-400 font-mono shrink-0">0</div>
                 </div>
-                <div class="text-[11px] text-slate-300 flex items-center justify-between bg-black/30 px-2.5 py-1 rounded-lg">
-                  <span class="text-slate-400 text-[10px]">Vị trí:</span>
-                  <span id="posP3Text" class="font-bold text-amber-300 text-[10px] truncate max-w-[170px]">Ô 0: Khởi hành 🚀</span>
+                <div class="space-y-1">
+                  <div class="text-[9px] text-slate-300 bg-black/40 px-1.5 py-0.5 rounded flex items-center justify-between">
+                    <span id="posP3Text" class="font-bold text-amber-300 truncate">Ô 0: Khởi hành 🚀</span>
+                  </div>
+                  <!-- Race Bar P3 -->
+                  <div id="raceRowP3" class="flex items-center gap-1 text-[9px] font-mono">
+                    <div class="flex-1 h-1 rounded-full bg-slate-900 border border-board-border overflow-hidden">
+                      <div id="raceBarP3" class="h-full bg-gradient-to-r from-indigo-600 to-indigo-400 transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <span class="text-[8px] text-slate-400" id="racePctP3">0%</span>
+                  </div>
                 </div>
               </div>
 
               <!-- Player 4 / BOT 3 Card -->
-              <div id="cardP4" class="hidden rounded-xl p-3 bg-black/40 border-l-4 border-l-emerald-500 opacity-70 transition-all shadow-md">
-                <div class="flex items-center justify-between mb-1.5">
-                  <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shadow-inner"><svg viewBox="0 0 32 32" class="w-6 h-6 filter drop-shadow">
-                      <circle cx="8" cy="8" r="4.5" fill="#064E3B" stroke="#34D399" stroke-width="1.2"/>
-                      <circle cx="24" cy="8" r="4.5" fill="#064E3B" stroke="#34D399" stroke-width="1.2"/>
-                      <circle cx="16" cy="18" r="10.5" fill="#047857" stroke="#6EE7B7" stroke-width="1.5"/>
-                      <ellipse cx="12" cy="16" rx="2.5" ry="3.2" fill="#064E3B"/>
-                      <ellipse cx="20" cy="16" rx="2.5" ry="3.2" fill="#064E3B"/>
-                      <circle cx="12" cy="16" r="1" fill="#FFFFFF"/>
-                      <circle cx="20" cy="16" r="1" fill="#FFFFFF"/>
-                      <ellipse cx="16" cy="21.5" rx="2" ry="1.4" fill="#022C22"/>
-                    </svg></div>
-                    <div>
-                      <div class="text-xs font-bold text-white flex items-center gap-1.5" id="p4Title">
-                        Gấu Trúc <span class="text-[9px] px-1 rounded bg-emerald-500/20 text-emerald-300">BOT 3</span>
-                      </div>
-                      <div class="text-[10px] text-emerald-400 font-medium">Đại Sư Rừng Trúc</div>
+              <div id="cardP4" class="hidden rounded-xl p-2 bg-black/40 border-l-4 border-l-emerald-500 opacity-80 transition-all shadow-sm flex flex-col justify-between">
+                <div class="flex items-center justify-between mb-1">
+                  <div class="flex items-center gap-1.5 truncate">
+                    <div class="w-6 h-6 rounded-md bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0">
+                      <svg viewBox="0 0 32 32" class="w-4 h-4 filter drop-shadow">
+                        <circle cx="16" cy="18" r="10.5" fill="#047857" stroke="#6EE7B7" stroke-width="1.5"/>
+                      </svg>
+                    </div>
+                    <div class="truncate">
+                      <div class="text-[11px] font-bold text-white truncate" id="p4Title">Gấu Trúc (B3)</div>
+                      <div class="text-[9px] text-emerald-400 font-mono">Thợ Săn</div>
                     </div>
                   </div>
-                  <div class="text-right">
-                    <div class="text-[9px] text-slate-400 uppercase font-mono">ĐIỂM</div>
-                    <div id="scoreP4" class="text-xl font-black text-emerald-400 font-mono">0</div>
+                  <div id="scoreP4" class="text-base font-black text-emerald-400 font-mono shrink-0">0</div>
+                </div>
+                <div class="space-y-1">
+                  <div class="text-[9px] text-slate-300 bg-black/40 px-1.5 py-0.5 rounded flex items-center justify-between">
+                    <span id="posP4Text" class="font-bold text-amber-300 truncate">Ô 0: Khởi hành 🚀</span>
+                  </div>
+                  <!-- Race Bar P4 -->
+                  <div id="raceRowP4" class="flex items-center gap-1 text-[9px] font-mono">
+                    <div class="flex-1 h-1 rounded-full bg-slate-900 border border-board-border overflow-hidden">
+                      <div id="raceBarP4" class="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <span class="text-[8px] text-slate-400" id="racePctP4">0%</span>
                   </div>
                 </div>
-                <div class="text-[11px] text-slate-300 flex items-center justify-between bg-black/30 px-2.5 py-1 rounded-lg">
-                  <span class="text-slate-400 text-[10px]">Vị trí:</span>
-                  <span id="posP4Text" class="font-bold text-amber-300 text-[10px] truncate max-w-[170px]">Ô 0: Khởi hành 🚀</span>
-                </div>
               </div>
+
+            </div>
+          </div>
+
+          <!-- The Game Board Arena (20 Tiles Circuit Grid & Center Felt Tray) -->
+          <div class="tabletop-mat rounded-3xl p-4 sm:p-6 ornate-border flex flex-col justify-center relative overflow-hidden flex-1 shadow-2xl">
+            
+            <div class="absolute top-2 left-2 text-amber-500/20 font-cinzel text-lg select-none">⚜</div>
+            <div class="absolute top-2 right-2 text-amber-500/20 font-cinzel text-lg select-none">⚜</div>
+            <div class="absolute bottom-2 left-2 text-amber-500/20 font-cinzel text-lg select-none">⚜</div>
+            <div class="absolute bottom-2 right-2 text-amber-500/20 font-cinzel text-lg select-none">⚜</div>
+
+            <div class="grid grid-cols-6 grid-rows-6 gap-2 sm:gap-2.5 aspect-square max-w-[620px] w-full mx-auto" id="circuitGrid">
+              
+              <!-- Center Arena: Leather & Felt Tactical Core with Timing Bar & Skills -->
+              <div class="col-start-2 col-end-6 row-start-2 row-end-6 rounded-3xl dice-tray p-3 sm:p-4 flex flex-col items-center justify-between text-center relative select-none shadow-2xl overflow-hidden border border-amber-500/30">
+                
+                <!-- Subtle Background Scanlines -->
+                <div class="absolute inset-0 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none"></div>
+
+                <!-- Top: Turn Badge & Energy Bar -->
+                <div class="w-full flex items-center justify-between gap-1 z-10">
+                  <div id="diceTurnBadge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-bold shadow-inner">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                    <span id="diceTurnText">Lượt của Bạn (Hiệp Sĩ)</span>
+                  </div>
+
+                  <!-- Energy Battery Indicator -->
+                  <div id="turnEnergyBar" class="flex items-center gap-1 bg-black/60 px-2 py-1 rounded-full border border-amber-500/30 text-[10px] font-mono text-amber-300 font-bold shadow-inner">
+                    <span class="text-amber-400">⚡</span>
+                    <span id="pEnergyDots" class="tracking-widest">⚡⚡⚡○○</span>
+                    <span id="pEnergyNum" class="text-white ml-0.5 font-bold">3/5</span>
+                  </div>
+                </div>
+
+                <!-- Active Timing & Power Gauge (Thanh Canh Lực Xúc Xắc) -->
+                <div class="w-full max-w-[280px] my-0.5 z-10">
+                  <div class="flex items-center justify-between text-[9px] font-mono font-bold mb-1">
+                    <span class="text-emerald-400">1-2 (NGẮN)</span>
+                    <span id="timingGaugeStatus" class="text-amber-300 font-extrabold uppercase animate-pulse">CANH LỰC GIEO</span>
+                    <span class="text-amber-400">5-6 (DÀI)</span>
+                  </div>
+                  <div id="timingGaugeTrack" class="w-full h-3.5 rounded-full bg-black/80 border border-slate-700 relative overflow-hidden shadow-inner p-0.5 cursor-pointer" onclick="handleGaugeClick()">
+                    <!-- Zones gradient -->
+                    <div class="w-full h-full rounded-full bg-gradient-to-r from-emerald-500 via-cyan-400 to-amber-500 opacity-80"></div>
+                    <!-- Center Perfect Notch -->
+                    <div class="absolute top-0 bottom-0 left-1/2 w-2 -translate-x-1/2 bg-yellow-300/80 shadow-[0_0_8px_#fde047]"></div>
+                    <!-- Oscillating Needle -->
+                    <div id="timingNeedle" class="absolute top-0 bottom-0 w-2.5 -translate-x-1/2 bg-white rounded-full shadow-[0_0_10px_#ffffff] transition-none" style="left: 50%;"></div>
+                  </div>
+                </div>
+
+                <!-- 3D Cubic Dice in Tray -->
+                <div onclick="handleDiceClickWithTiming()" id="diceButton" class="btn-spring w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-300 border-4 border-amber-500/60 shadow-2xl shadow-black/80 flex items-center justify-center text-4xl sm:text-5xl cursor-pointer hover:border-amber-400 select-none group relative my-0.5 z-10">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent rounded-xl pointer-events-none"></div>
+                  <div id="diceFaceDisplay" class="group-hover:scale-110 transition-transform filter drop-shadow flex items-center justify-center">
+                    <svg viewBox="0 0 64 64" class="w-10 h-10 sm:w-12 sm:h-12 filter drop-shadow">
+                      <rect x="6" y="6" width="52" height="52" rx="14" fill="#1E293B" stroke="#F59E0B" stroke-width="3"/>
+                      <circle cx="32" cy="32" r="7" fill="#F59E0B" opacity="0.25"/>
+                      <path d="M32 16 L34 24 L42 26 L34 28 L32 36 L30 28 L22 26 L30 24 Z" fill="#FDE68A"/>
+                      <circle cx="20" cy="20" r="3" fill="#D97706"/>
+                      <circle cx="44" cy="44" r="3" fill="#D97706"/>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- Action Hint or Nudge Row -->
+                <div id="diceCenterActionArea" class="w-full flex flex-col items-center justify-center min-h-[30px] z-10">
+                  <!-- Nudge Action Strip (Hidden by default, shows after roll if energy >= 1) -->
+                  <div id="diceNudgeRow" class="hidden items-center justify-center gap-1.5 w-full animate-scale-up">
+                    <button onclick="applyDiceNudge(-1)" class="btn-spring px-2 py-1 rounded-lg bg-rose-600/90 hover:bg-rose-500 text-white font-black text-[10px] border border-rose-400 shadow flex items-center gap-1">
+                      <span>⏪ Lùi 1</span> <span class="text-[9px] text-amber-200">(1⚡)</span>
+                    </button>
+                    <button onclick="confirmNormalMove()" class="btn-spring px-2.5 py-1 rounded-lg bg-emerald-600/90 hover:bg-emerald-500 text-white font-black text-[10px] border border-emerald-400 shadow">
+                      <span>Đi Thường ➔</span>
+                    </button>
+                    <button onclick="applyDiceNudge(1)" class="btn-spring px-2 py-1 rounded-lg bg-cyan-600/90 hover:bg-cyan-500 text-white font-black text-[10px] border border-cyan-400 shadow flex items-center gap-1">
+                      <span>Tiến 1 ⏩</span> <span class="text-[9px] text-amber-200">(1⚡)</span>
+                    </button>
+                  </div>
+
+                  <p id="diceActionHint" class="text-[11px] text-amber-200/90 font-semibold tracking-wide">
+                    Chạm vào xúc xắc để gieo hoặc canh lực
+                  </p>
+                </div>
+
+                <!-- 3 Tactical Active Skills Strip (Đặt Mìn, Bật Khiên, Tinh Chỉnh Bước) -->
+                <div class="w-full pt-1.5 border-t border-slate-700/60 flex items-center justify-around gap-1 z-10">
+                  <button onclick="triggerSkillTrap()" id="btnSkillTrap" class="btn-spring flex-1 py-1 px-1 rounded-xl bg-slate-800 hover:bg-rose-600/30 text-rose-300 border border-rose-500/40 text-[9px] sm:text-[10px] font-bold flex items-center justify-center gap-1 shadow transition-all cursor-pointer" title="Đặt mìn tại ô hiện tại: Kẻ dẫm trúng bị -20đ chuyển cho bạn">
+                    <span>💣 Mìn</span> <span class="text-[8px] px-1 py-0.2 rounded bg-rose-500/20 text-rose-300 font-mono" id="btnSkillTrapCost">2⚡</span>
+                  </button>
+                  <button onclick="triggerSkillShield()" id="btnSkillShield" class="btn-spring flex-1 py-1 px-1 rounded-xl bg-slate-800 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/40 text-[9px] sm:text-[10px] font-bold flex items-center justify-center gap-1 shadow transition-all cursor-pointer" title="Bật khiên miễn nhiễm 100% sát thương bẫy và đòn đá lùi trong 1 lượt">
+                    <span>🛡️ Khiên</span> <span class="text-[8px] px-1 py-0.2 rounded bg-cyan-500/20 text-cyan-300 font-mono">1⚡</span>
+                  </button>
+                  <button onclick="triggerSkillEnergyBurst()" id="btnSkillNudge" class="btn-spring flex-1 py-1 px-1 rounded-xl bg-slate-800 hover:bg-amber-600/30 text-amber-300 border border-amber-500/40 text-[9px] sm:text-[10px] font-bold flex items-center justify-center gap-1 shadow transition-all cursor-pointer" title="Tích tụ xung năng lượng: Hồi 1⚡ khi hoàn thành vòng">
+                    <span>⚡ Nạp Lõi</span> <span class="text-[8px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono">HỒI</span>
+                  </button>
+                </div>
+
+              </div>
+
             </div>
 
-            <!-- Race to Goal Multi-Player Progress Tracker -->
-            <div class="mt-3 pt-3 border-t border-board-border/60 space-y-1.5">
-              <div class="flex items-center justify-between text-[10px] font-bold text-slate-400 mb-1 font-mono">
-                <span class="text-amber-400 flex items-center gap-1 font-cinzel">
-                  <i data-lucide="flag" class="w-3.5 h-3.5"></i> ĐUA CÁN ĐÍCH <span id="raceTargetText">(50đ)</span>
-                </span>
-                <span id="raceLeaderBadge" class="text-emerald-400 text-[9px] font-bold">CHƯA DẪN ĐẦU</span>
-              </div>
-
-              <!-- P1 Bar -->
-              <div class="flex items-center gap-2 text-[10px] font-mono">
-                <span class="w-16 truncate text-cyan-400 font-bold" id="raceLabelP1">Bạn (P1)</span>
-                <div class="flex-1 h-1.5 rounded-full bg-slate-900 border border-board-border overflow-hidden">
-                  <div id="raceBarP1" class="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 transition-all duration-300" style="width: 0%"></div>
+            <!-- ================= SKILL DUEL MODAL (5-SECOND PVP ARENA) ================= -->
+            <div id="skillDuelModal" class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-md z-40 flex items-center justify-center p-3 animate-fade-in rounded-3xl">
+              <div class="w-full max-w-sm bg-[#0C1524]/95 border-2 border-rose-500/60 rounded-2xl p-4 shadow-2xl flex flex-col items-center text-center relative overflow-hidden">
+                <!-- Top Duel Banner -->
+                <div class="flex items-center gap-1.5 text-rose-400 font-black font-cinzel text-sm sm:text-base mb-1 tracking-wider">
+                  <span>⚔️ QUYẾT ĐẤU TỐI THƯỢNG ⚔️</span>
                 </div>
-                <span class="w-8 text-right text-slate-400" id="racePctP1">0%</span>
-              </div>
-
-              <!-- P2 Bar -->
-              <div class="flex items-center gap-2 text-[10px] font-mono">
-                <span class="w-16 truncate text-rose-400 font-bold" id="raceLabelP2">BOT 1</span>
-                <div class="flex-1 h-1.5 rounded-full bg-slate-900 border border-board-border overflow-hidden">
-                  <div id="raceBarP2" class="h-full bg-gradient-to-r from-rose-600 to-rose-400 transition-all duration-300" style="width: 0%"></div>
+                <div id="duelMatchupNames" class="text-xs font-mono text-cyan-300 font-bold mb-2">
+                  P1 VS BOT 1
                 </div>
-                <span class="w-8 text-right text-slate-400" id="racePctP2">0%</span>
-              </div>
+                <p id="duelInstructionText" class="text-xs text-slate-300 mb-3 leading-relaxed">
+                  Đánh trúng tâm điểm trong <b>5 giây</b> để đoạt <b class="text-amber-400">+20 ĐIỂM</b> từ đối phương!
+                </p>
 
-              <!-- P3 Bar -->
-              <div id="raceRowP3" class="hidden flex items-center gap-2 text-[10px] font-mono">
-                <span class="w-16 truncate text-indigo-400 font-bold">BOT 2</span>
-                <div class="flex-1 h-1.5 rounded-full bg-slate-900 border border-board-border overflow-hidden">
-                  <div id="raceBarP3" class="h-full bg-gradient-to-r from-indigo-600 to-indigo-400 transition-all duration-300" style="width: 0%"></div>
+                <!-- Reflex Target Zone -->
+                <div id="duelReflexArena" class="w-full h-32 bg-black/60 rounded-xl border border-slate-700/80 relative flex items-center justify-center overflow-hidden mb-3">
+                  <button onclick="handleDuelReflexHit()" id="duelReflexTarget" class="absolute w-12 h-12 rounded-full bg-gradient-to-tr from-amber-400 to-rose-500 border-2 border-white flex items-center justify-center text-xl shadow-[0_0_20px_#f59e0b] animate-ping cursor-pointer active:scale-90 transition-transform">
+                    🎯
+                  </button>
+                  <span id="duelReflexHint" class="text-slate-400 text-[10px] font-mono">BẤM VÀO MỤC TIÊU PHÁT SÁNG CÀNG NHANH CÀNG TỐT!</span>
                 </div>
-                <span class="w-8 text-right text-slate-400" id="racePctP3">0%</span>
-              </div>
 
-              <!-- P4 Bar -->
-              <div id="raceRowP4" class="hidden flex items-center gap-2 text-[10px] font-mono">
-                <span class="w-16 truncate text-emerald-400 font-bold">BOT 3</span>
-                <div class="flex-1 h-1.5 rounded-full bg-slate-900 border border-board-border overflow-hidden">
-                  <div id="raceBarP4" class="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 transition-all duration-300" style="width: 0%"></div>
+                <!-- RPS Tactical Choices Row -->
+                <div id="duelRpsRow" class="hidden grid-cols-3 gap-2 w-full mb-3">
+                  <button onclick="handleDuelRpsChoice('rock')" class="btn-spring py-2 rounded-xl bg-slate-800 hover:bg-amber-600/40 text-amber-300 border border-amber-500/40 text-xs font-bold flex flex-col items-center">
+                    <span class="text-lg">✊</span> <span>Tấn Công</span>
+                  </button>
+                  <button onclick="handleDuelRpsChoice('paper')" class="btn-spring py-2 rounded-xl bg-slate-800 hover:bg-cyan-600/40 text-cyan-300 border border-cyan-500/40 text-xs font-bold flex flex-col items-center">
+                    <span class="text-lg">🖐️</span> <span>Phòng Thủ</span>
+                  </button>
+                  <button onclick="handleDuelRpsChoice('scissors')" class="btn-spring py-2 rounded-xl bg-slate-800 hover:bg-rose-600/40 text-rose-300 border border-rose-500/40 text-xs font-bold flex flex-col items-center">
+                    <span class="text-lg">✌️</span> <span>Đột Kích</span>
+                  </button>
                 </div>
-                <span class="w-8 text-right text-slate-400" id="racePctP4">0%</span>
+
+                <!-- Timer countdown bar -->
+                <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden border border-slate-700">
+                  <div id="duelTimerBar" class="h-full bg-gradient-to-r from-emerald-500 via-amber-400 to-rose-500 transition-all duration-100" style="width: 100%;"></div>
+                </div>
               </div>
             </div>
 
           </div>
 
-          <!-- 2. MULTI-TAB TACTICAL DECK -->
-          <div class="tabletop-mat rounded-2xl p-3.5 flex-1 flex flex-col border border-board-border shadow-lg">
-            <!-- Deck Sub-tabs: 4 Integrated Tabs -->
-            <div class="flex items-center bg-board-tray p-0.5 rounded-xl border border-board-border text-[10px] sm:text-[11px] font-bold mb-3 gap-0.5">
-              <button onclick="switchTacticalSubTab('log')" id="tTabBtnLog" class="flex-1 py-1 rounded-lg bg-amber-600 text-white transition-all shadow-sm">
-                <span class="inline-flex items-center gap-1 justify-center"><i data-lucide="swords" class="w-3 h-3 text-amber-300"></i><span>Nhật Ký</span></span>
-              </button>
-              <button onclick="switchTacticalSubTab('tips')" id="tTabBtnTips" class="flex-1 py-1 rounded-lg text-slate-400 hover:text-white transition-all">
-                <span class="inline-flex items-center gap-1 justify-center"><i data-lucide="lightbulb" class="w-3 h-3 text-amber-300"></i><span>Chiến Thuật</span></span>
-              </button>
-              <button onclick="switchTacticalSubTab('bot')" id="tTabBtnBot" class="flex-1 py-1 rounded-lg text-slate-400 hover:text-white transition-all">
-                <span class="inline-flex items-center gap-1 justify-center"><i data-lucide="brain" class="w-3 h-3 text-purple-400"></i><span>Trí Tuệ</span></span>
-              </button>
-              <button onclick="switchTacticalSubTab('stats')" id="tTabBtnStats" class="flex-1 py-1 rounded-lg text-slate-400 hover:text-white transition-all">
-                <span class="inline-flex items-center gap-1 justify-center"><i data-lucide="bar-chart-2" class="w-3 h-3 text-cyan-300"></i><span>Thống Kê</span></span>
-              </button>
-            </div>
+        </div>
 
-            <!-- Sub-tab 1: Expanded Live Battle Log Stream -->
-            <div id="tTabContentLog" class="flex-1 flex flex-col space-y-2 max-h-[250px]">
-              <!-- Header Bar: Match Status & Turn Counter & Clear Button -->
-              <div class="flex items-center justify-between pb-1 border-b border-board-border/60 text-[10px]">
-                <div class="flex items-center gap-1.5 font-mono">
-                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span class="text-slate-400">Trạng thái:</span>
-                  <span id="matchStatusText" class="text-emerald-400 font-bold font-mono">TRANH TÀI</span>
-                </div>
-                <div class="flex items-center gap-1.5 text-slate-400">
-                  <span class="px-1.5 py-0.5 rounded bg-black/40 border border-board-border text-[9px] font-mono" id="battleLogCountBadge">0 sự kiện</span>
-                  <button onclick="clearBattleLog()" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 text-[9px] font-mono transition-colors" title="Xóa lịch sử nhật ký">Làm mới</button>
-                </div>
+        <!-- =========================================================================
+             CỬA SỔ 2 (BÊN PHẢI - 50% MÀN HÌNH): BẢNG ĐIỀU KHIỂN & THEO DÕI BOT (ẢNH 1)
+             ========================================================================= -->
+        <div class="w-full tabletop-mat rounded-3xl p-4 sm:p-5 flex flex-col border border-board-border shadow-2xl relative overflow-hidden min-h-[640px] lg:h-[720px]">
+          
+          <!-- Deck Sub-tabs: 4 Integrated Tabs (Ảnh 1) -->
+          <div class="flex items-center bg-board-tray p-1 rounded-2xl border border-board-border text-xs sm:text-sm font-bold mb-3.5 gap-1 shrink-0">
+            <button onclick="switchTacticalSubTab('log')" id="tTabBtnLog" class="flex-1 py-1.5 rounded-xl bg-amber-600 text-white transition-all shadow-md">
+              <span class="inline-flex items-center gap-1.5 justify-center"><i data-lucide="swords" class="w-3.5 h-3.5 text-amber-300"></i><span>Nhật Ký</span></span>
+            </button>
+            <button onclick="switchTacticalSubTab('tips')" id="tTabBtnTips" class="flex-1 py-1.5 rounded-xl text-slate-400 hover:text-white transition-all">
+              <span class="inline-flex items-center gap-1.5 justify-center"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-amber-300"></i><span>Chiến Thuật</span></span>
+            </button>
+            <button onclick="switchTacticalSubTab('bot')" id="tTabBtnBot" class="flex-1 py-1.5 rounded-xl text-slate-400 hover:text-white transition-all">
+              <span class="inline-flex items-center gap-1.5 justify-center"><i data-lucide="brain" class="w-3.5 h-3.5 text-purple-400"></i><span>Trí Tuệ</span></span>
+            </button>
+            <button onclick="switchTacticalSubTab('stats')" id="tTabBtnStats" class="flex-1 py-1.5 rounded-xl text-slate-400 hover:text-white transition-all">
+              <span class="inline-flex items-center gap-1.5 justify-center"><i data-lucide="bar-chart-2" class="w-3.5 h-3.5 text-cyan-300"></i><span>Thống Kê</span></span>
+            </button>
+          </div>
+
+          <!-- Sub-tab 1: Expanded Live Battle Log Stream (Ảnh 1) -->
+          <div id="tTabContentLog" class="flex-1 flex flex-col space-y-2.5 overflow-hidden">
+            <!-- Header Bar: Match Status & Turn Counter & Clear Button -->
+            <div class="flex items-center justify-between pb-1.5 border-b border-board-border/60 text-xs shrink-0">
+              <div class="flex items-center gap-2 font-mono">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-slate-400 font-semibold">Trạng thái:</span>
+                <span id="matchStatusText" class="text-emerald-400 font-bold font-mono">TRANH TÀI</span>
               </div>
-
-              <!-- Compact Highlight of Latest Event (miniLog) -->
-              <div id="miniLog" class="text-[11px] text-slate-200 p-2 rounded-xl bg-amber-950/30 border border-amber-500/30 flex items-center gap-2 font-sans shadow-sm leading-snug">
-                <span class="text-base shrink-0">⚔️</span>
-                <span class="flex-1 text-slate-200">Đấu trường khai màn! Hãy gieo xúc xắc để xuất quân.</span>
-              </div>
-
-              <!-- Scrollable Battle Event Stream (Lịch sử các diễn biến mới nhất) -->
-              <div class="flex-1 overflow-y-auto space-y-1.5 pr-0.5 custom-scrollbar min-h-[140px] max-h-[175px]" id="battleLogFeed">
-                <div class="text-[10px] text-slate-500 italic text-center py-4 bg-black/20 rounded-lg border border-white/5">
-                  Ghi nhận trực tiếp mọi pha đá quân, đặt bẫy, mở rương và nhận thưởng theo từng lượt.
-                </div>
+              <div class="flex items-center gap-2 text-slate-400">
+                <span class="px-2 py-0.5 rounded bg-black/40 border border-board-border text-[10px] font-mono text-cyan-300" id="battleLogCountBadge">0 sự kiện</span>
+                <button onclick="clearBattleLog()" class="px-2 py-0.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[10px] font-mono transition-colors flex items-center gap-1" title="Xóa lịch sử nhật ký">
+                  <i data-lucide="rotate-ccw" class="w-3 h-3 text-slate-400"></i> Làm mới
+                </button>
               </div>
             </div>
 
-            <!-- Sub-tab 2: Strategy Tips (Chiến Thuật Bản Đồ Lớn 20 Ô) -->
-            <div id="tTabContentTips" class="hidden flex-1 space-y-2 text-[11px] text-slate-300 overflow-y-auto max-h-[250px]">
-              <!-- Sơ đồ vòng tròn khắc chế Role -->
-              <div class="p-2 rounded-xl bg-purple-950/40 border border-purple-500/30">
-                <div class="font-bold text-purple-300 mb-1 flex items-center gap-1 font-cinzel text-xs">
-                  <span>🔄</span> <span>VÒNG TRÒN KHẮC CHẾ HỆ NHÂN VẬT</span>
-                </div>
-                <div class="grid grid-cols-2 gap-1.5 text-[10px] font-mono">
-                  <div class="p-1 rounded bg-black/40 border border-cyan-500/30 text-cyan-300">
-                    <b>🛡️ Hộ Vệ</b> ➔ Khắc chế <b>🦊 Sát Thủ</b> (Giảm 40% sát thương bẫy)
-                  </div>
-                  <div class="p-1 rounded bg-black/40 border border-rose-500/30 text-rose-300">
-                    <b>🦊 Sát Thủ</b> ➔ Khắc chế <b>💎 Thợ Săn</b> (Mìn rẻ 1⚡ & Hút điểm)
-                  </div>
-                  <div class="p-1 rounded bg-black/40 border border-amber-500/30 text-amber-300">
-                    <b>💎 Thợ Săn</b> ➔ Khắc chế <b>🔮 Pháp Sư</b> (+20% điểm bứt phá)
-                  </div>
-                  <div class="p-1 rounded bg-black/40 border border-purple-500/30 text-purple-300">
-                    <b>🔮 Pháp Sư</b> ➔ Khắc chế <b>🛡️ Hộ Vệ</b> (Khởi đầu 5⚡ & Cổng Warp)
-                  </div>
-                </div>
-              </div>
-
-              <!-- Hướng dẫn 4 Map -->
-              <div class="p-2 rounded-xl bg-cyan-950/30 border border-cyan-500/30 text-[10px]">
-                <div class="font-bold text-cyan-300 mb-0.5 flex items-center gap-1 font-cinzel">🗺️ 4 Bản Đồ Chiến Thuật:</div>
-                <p class="text-slate-300"><b>Tinh Vân</b> (Chuẩn Warp), <b>Dung Nham</b> (Hỏa ngục sát thương cao), <b>Neon Heist</b> (Cướp kho bạc), <b>Thời Không</b> (Đồng hồ cát đảo chiều).</p>
-              </div>
-
-              <!-- Mẹo Canh Lực & Kỹ Năng -->
-              <div class="p-2 rounded-xl bg-amber-950/30 border border-amber-500/30 text-[10px]">
-                <div class="font-bold text-amber-300 mb-0.5 flex items-center gap-1 font-cinzel">🎯 Canh Lực & Tinh Chỉnh Bước:</div>
-                <p class="text-slate-300">Bấm dừng vạch vàng tâm để ra <b>6 nút (Critical +5đ)</b>! Dùng 1⚡ để <b>Lùi 1 hoặc Tiến 1 bước</b> né bẫy.</p>
-              </div>
-
-              <!-- Các Cơ Chế Cốt Lõi Trên Bản Đồ -->
-              <div class="p-2 rounded-xl bg-rose-500/10 border border-rose-500/30">
-                <div class="font-bold text-rose-400 mb-0.5 flex items-center gap-1 font-cinzel">💥 Cơ Chế Đá Quân (Clash):</div>
-                <p class="text-[10px] text-slate-300">Nếu bạn đáp đúng vào ô đối thủ đang đứng: <b>ĐÁ LÙI 3 Ô</b> và <b>CƯỚP 10 ĐIỂM</b>! Cực kỳ khốc liệt!</p>
-              </div>
-              <div class="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30">
-                <div class="font-bold text-cyan-400 mb-0.5 flex items-center gap-1 font-cinzel">🌀 Cổng Warp 2 Chiều:</div>
-                <p class="text-[10px] text-slate-300">Cổng Alpha <b>#4</b> và Cổng Omega <b>#14</b> liên thông tức thì, giúp nhảy cóc 10 ô xuyên bản đồ!</p>
-              </div>
-              <div class="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30">
-                <div class="font-bold text-amber-400 mb-0.5 flex items-center gap-1 font-cinzel">🎁 Rương Vận Mệnh (#7 & #17):</div>
-                <p class="text-[10px] text-slate-300">Rút thẻ ngẫu nhiên: <b>Khiên Hộ Thân</b>, <b>Hoán Đổi Vị Trí</b>, <b>Cướp Điểm</b> hoặc <b>Xúc Xắc Kép</b>!</p>
-              </div>
-              <div class="p-2 rounded-xl bg-indigo-500/10 border border-indigo-500/30">
-                <div class="font-bold text-indigo-400 mb-0.5 flex items-center gap-1 font-cinzel">❄️ Băng Ngục Kìm Chân (#5):</div>
-                <p class="text-[10px] text-slate-300">Bị kìm chân 1 lượt. Phải gieo ra <b>Số Chẵn (2, 4, 6)</b> hoặc <b>>= 4</b> mới được giải thoát!</p>
-              </div>
+            <!-- Compact Highlight of Latest Event (miniLog - Ảnh 1) -->
+            <div id="miniLog" class="text-xs text-slate-200 p-3 rounded-2xl bg-amber-950/40 border border-amber-500/40 flex items-center gap-2.5 font-sans shadow-lg leading-snug shrink-0">
+              <span class="text-lg shrink-0">⚔️</span>
+              <span class="flex-1 text-slate-200 font-medium">Đấu trường khai màn! Hãy gieo xúc xắc để xuất quân.</span>
             </div>
 
-            <!-- Sub-tab 3: Dedicated Bot AI Thought, Intent & Feud Inspector -->
-            <div id="tTabContentBot" class="hidden flex-1 space-y-2.5 text-[11px] text-slate-300 overflow-y-auto max-h-[260px] custom-scrollbar pr-0.5">
-              <!-- Top Bar: Header & Reset All -->
-              <div class="flex items-center justify-between pb-1 border-b border-purple-500/30">
-                <span class="text-purple-300 font-bold font-cinzel text-xs flex items-center gap-1">
-                  <i data-lucide="brain" class="w-3.5 h-3.5 text-purple-400"></i> CHIẾN THUẬT & Ý ĐỊNH BOT
-                </span>
-                <button onclick="resetBotWinStats()" class="btn-spring px-1.5 py-0.5 rounded bg-rose-950/60 hover:bg-rose-800 border border-rose-500/40 text-rose-300 text-[9px] font-mono transition-colors" title="Reset toàn bộ thống kê và bộ nhớ thích nghi của Bot">
-                  🔄 Reset Tất Cả Bot
-                </button>
+            <!-- Scrollable Battle Event Stream (Lịch sử các diễn biến chi tiết - Ảnh 1) -->
+            <div class="flex-1 overflow-y-auto space-y-2 pr-1 custom-scrollbar min-h-[360px] max-h-[560px]" id="battleLogFeed">
+              <div class="text-xs text-slate-500 italic text-center py-8 bg-black/20 rounded-xl border border-white/5">
+                Ghi nhận trực tiếp mọi pha đá quân, đặt bẫy, mở rương và nhận thưởng theo từng lượt.
               </div>
+            </div>
+          </div>
 
-              <!-- Filter Selector: Xem Từng Bot Riêng Biệt -->
-              <div class="flex items-center bg-black/50 p-0.5 rounded-xl border border-purple-500/30 text-[10px] font-mono gap-0.5">
-                <button onclick="filterBotInspector('all')" id="btnFilterBotAll" class="flex-1 py-1 rounded-lg bg-purple-700 text-white font-bold transition-all shadow-sm">
-                  Tất Cả
-                </button>
-                <button onclick="filterBotInspector(2)" id="btnFilterBot2" class="flex-1 py-1 rounded-lg text-slate-400 hover:text-rose-300 transition-all font-medium">
-                  🦊 Cáo Lửa
-                </button>
-                <button onclick="filterBotInspector(3)" id="btnFilterBot3" class="flex-1 py-1 rounded-lg text-slate-400 hover:text-indigo-300 transition-all font-medium">
-                  🔮 Sói Băng
-                </button>
-                <button onclick="filterBotInspector(4)" id="btnFilterBot4" class="flex-1 py-1 rounded-lg text-slate-400 hover:text-emerald-300 transition-all font-medium">
-                  💎 Gấu Trúc
-                </button>
+          <!-- Sub-tab 2: Strategy Tips (Chiến Thuật Bản Đồ Lớn 20 Ô) -->
+          <div id="tTabContentTips" class="hidden flex-1 space-y-3 text-xs text-slate-300 overflow-y-auto pr-1 custom-scrollbar min-h-[360px] max-h-[560px]">
+            <!-- Sơ đồ vòng tròn khắc chế Role -->
+            <div class="p-3 rounded-2xl bg-purple-950/40 border border-purple-500/30">
+              <div class="font-bold text-purple-300 mb-1.5 flex items-center gap-1.5 font-cinzel text-xs">
+                <span>🔄</span> <span>VÒNG TRÒN KHẮC CHẾ HỆ NHÂN VẬT</span>
               </div>
-
-              <!-- BOT 1 Card (Cáo Lửa) -->
-              <div id="botCard2" class="p-2.5 rounded-xl bg-black/40 border border-rose-500/30 space-y-2 transition-all">
-                <div class="flex items-center justify-between text-[10px] font-mono">
-                  <div class="flex items-center gap-1.5">
-                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-sm shadow-rose-500/50"></span>
-                    <strong class="text-rose-300 font-bold">Cáo Lửa (BOT 1)</strong>
-                    <span id="bot1RoleBadge" class="px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 text-[9px] font-bold">🦊 SÁT THỦ</span>
-                  </div>
-                  <div class="flex items-center gap-1">
-                    <span id="botStatusBadge2" class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-bold inline-flex items-center gap-1 shadow-sm">
-                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> ĐANG TIẾN HÀNH
-                    </span>
-                    <button onclick="resetSingleBot(2)" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 text-[8px]" title="Reset riêng Bot 1">↺</button>
-                  </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] font-mono">
+                <div class="p-2 rounded-xl bg-black/40 border border-cyan-500/30 text-cyan-300">
+                  <b>🛡️ Hộ Vệ</b> ➔ Khắc chế <b>🦊 Sát Thủ</b> (Giảm 40% sát thương bẫy)
                 </div>
-
-                <!-- Mục tiêu & Ý định -->
-                <div class="text-[9px] text-slate-200 bg-purple-950/30 p-2 rounded-lg border border-purple-500/20 font-mono space-y-1">
-                  <div class="flex items-center justify-between text-slate-400">
-                    <span>🎯 <b class="text-amber-400">Mục tiêu:</b> <span id="bot2TargetTileName" class="text-slate-200">Ô #10 (Đấu Trường)</span></span>
-                    <span id="bot2DesiredStep" class="text-cyan-300 font-bold">Ước lượng: 3 nút</span>
-                  </div>
-                  <div class="italic text-purple-200" id="bot1LiveThought">
-                    "Đang rình rập đối thủ: Tính toán gài Mìn Lượng Tử chặn đầu P1..."
-                  </div>
+                <div class="p-2 rounded-xl bg-black/40 border border-rose-500/30 text-rose-300">
+                  <b>🦊 Sát Thủ</b> ➔ Khắc chế <b>💎 Thợ Săn</b> (Mìn rẻ 1⚡ & Hút điểm)
                 </div>
-
-                <!-- Thanh Mối Quan Hệ & Mức Độ Ghim -->
-                <div class="p-2 rounded-lg bg-black/60 border border-white/5 space-y-1.5 text-[9px] font-mono">
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-400 font-bold flex items-center gap-1">
-                      <span class="text-rose-400">💢</span> <span>MỨC ĐỘ GHIM:</span>
-                    </span>
-                    <span id="bot2GhimSummary" class="text-amber-300 font-bold">Bình thường (Chưa ghim ai)</span>
-                  </div>
-                  <!-- Thanh Mối Quan Hệ Đa Cực -->
-                  <div class="space-y-1" id="bot2FeudBars">
-                    <div class="flex items-center justify-between text-[8px] text-slate-400">
-                      <span>Với Bạn (P1):</span>
-                      <span id="bot2RelTextP1" class="text-emerald-400 font-bold">50% (Hòa hoãn)</span>
-                    </div>
-                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
-                      <div id="bot2RelBarP1" class="h-full bg-gradient-to-r from-amber-600 to-emerald-400 transition-all duration-300" style="width: 50%"></div>
-                    </div>
-                    <div class="flex items-center justify-between text-[8px] text-slate-400">
-                      <span>Với Sói Băng:</span>
-                      <span id="bot2RelTextP3" class="text-cyan-400 font-bold">50% (Cạnh tranh)</span>
-                    </div>
-                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
-                      <div id="bot2RelBarP3" class="h-full bg-gradient-to-r from-indigo-600 to-cyan-400 transition-all duration-300" style="width: 50%"></div>
-                    </div>
-                    <div class="flex items-center justify-between text-[8px] text-slate-400">
-                      <span>Với Gấu Trúc:</span>
-                      <span id="bot2RelTextP4" class="text-amber-400 font-bold">50% (Bình thường)</span>
-                    </div>
-                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
-                      <div id="bot2RelBarP4" class="h-full bg-gradient-to-r from-amber-600 to-yellow-400 transition-all duration-300" style="width: 50%"></div>
-                    </div>
-                  </div>
+                <div class="p-2 rounded-xl bg-black/40 border border-amber-500/30 text-amber-300">
+                  <b>💎 Thợ Săn</b> ➔ Khắc chế <b>🔮 Pháp Sư</b> (+20% điểm bứt phá)
                 </div>
-              </div>
-
-              <!-- BOT 2 Card (Sói Băng) -->
-              <div id="botCard3" class="p-2.5 rounded-xl bg-black/40 border border-indigo-500/30 space-y-2 transition-all">
-                <div class="flex items-center justify-between text-[10px] font-mono">
-                  <div class="flex items-center gap-1.5">
-                    <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 shadow-sm shadow-indigo-500/50"></span>
-                    <strong class="text-indigo-300 font-bold">Sói Băng (BOT 2)</strong>
-                    <span id="bot2RoleBadge" class="px-1.5 py-0.2 rounded bg-indigo-500/20 text-indigo-300 text-[9px] font-bold">🔮 PHÁP SƯ</span>
-                  </div>
-                  <div class="flex items-center gap-1">
-                    <span id="botStatusBadge3" class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-bold inline-flex items-center gap-1 shadow-sm">
-                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> ĐANG TIẾN HÀNH
-                    </span>
-                    <button onclick="resetSingleBot(3)" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-indigo-500/20 text-slate-400 hover:text-indigo-300 text-[8px]" title="Reset riêng Bot 2">↺</button>
-                  </div>
-                </div>
-
-                <!-- Mục tiêu & Ý định -->
-                <div class="text-[9px] text-slate-200 bg-purple-950/30 p-2 rounded-lg border border-purple-500/20 font-mono space-y-1">
-                  <div class="flex items-center justify-between text-slate-400">
-                    <span>🎯 <b class="text-amber-400">Mục tiêu:</b> <span id="bot3TargetTileName" class="text-slate-200">Cổng Warp Alpha #4</span></span>
-                    <span id="bot3DesiredStep" class="text-indigo-300 font-bold">Ước lượng: 4 nút</span>
-                  </div>
-                  <div class="italic text-purple-200" id="bot2LiveThought">
-                    "Tích trữ 5⚡ năng lượng để nhảy cóc qua Cổng Warp #4 ➔ #14..."
-                  </div>
-                </div>
-
-                <!-- Thanh Mối Quan Hệ & Mức Độ Ghim -->
-                <div class="p-2 rounded-lg bg-black/60 border border-white/5 space-y-1.5 text-[9px] font-mono">
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-400 font-bold flex items-center gap-1">
-                      <span class="text-indigo-400">💢</span> <span>MỨC ĐỘ GHIM:</span>
-                    </span>
-                    <span id="bot3GhimSummary" class="text-indigo-300 font-bold">Bình thường (Chưa ghim ai)</span>
-                  </div>
-                  <!-- Thanh Mối Quan Hệ Đa Cực -->
-                  <div class="space-y-1" id="bot3FeudBars">
-                    <div class="flex items-center justify-between text-[8px] text-slate-400">
-                      <span>Với Bạn (P1):</span>
-                      <span id="bot3RelTextP1" class="text-emerald-400 font-bold">50% (Hòa hoãn)</span>
-                    </div>
-                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
-                      <div id="bot3RelBarP1" class="h-full bg-gradient-to-r from-amber-600 to-emerald-400 transition-all duration-300" style="width: 50%"></div>
-                    </div>
-                    <div class="flex items-center justify-between text-[8px] text-slate-400">
-                      <span>Với Cáo Lửa:</span>
-                      <span id="bot3RelTextP2" class="text-rose-400 font-bold">50% (Cảnh giác)</span>
-                    </div>
-                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
-                      <div id="bot3RelBarP2" class="h-full bg-gradient-to-r from-rose-600 to-amber-400 transition-all duration-300" style="width: 50%"></div>
-                    </div>
-                    <div class="flex items-center justify-between text-[8px] text-slate-400">
-                      <span>Với Gấu Trúc:</span>
-                      <span id="bot3RelTextP4" class="text-amber-400 font-bold">50% (Bình thường)</span>
-                    </div>
-                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
-                      <div id="bot3RelBarP4" class="h-full bg-gradient-to-r from-amber-600 to-yellow-400 transition-all duration-300" style="width: 50%"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- BOT 3 Card (Gấu Trúc) -->
-              <div id="botCard4" class="p-2.5 rounded-xl bg-black/40 border border-emerald-500/30 space-y-2 transition-all">
-                <div class="flex items-center justify-between text-[10px] font-mono">
-                  <div class="flex items-center gap-1.5">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
-                    <strong class="text-emerald-300 font-bold">Gấu Trúc (BOT 3)</strong>
-                    <span id="bot3RoleBadge" class="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">💎 THỢ SĂN</span>
-                  </div>
-                  <div class="flex items-center gap-1">
-                    <span id="botStatusBadge4" class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-bold inline-flex items-center gap-1 shadow-sm">
-                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> ĐANG TIẾN HÀNH
-                    </span>
-                    <button onclick="resetSingleBot(4)" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-emerald-500/20 text-slate-400 hover:text-emerald-300 text-[8px]" title="Reset riêng Bot 3">↺</button>
-                  </div>
-                </div>
-
-                <!-- Mục tiêu & Ý định -->
-                <div class="text-[9px] text-slate-200 bg-purple-950/30 p-2 rounded-lg border border-purple-500/20 font-mono space-y-1">
-                  <div class="flex items-center justify-between text-slate-400">
-                    <span>🎯 <b class="text-amber-400">Mục tiêu:</b> <span id="bot4TargetTileName" class="text-slate-200">Kim Cương Vĩnh Cửu (+30đ)</span></span>
-                    <span id="bot4DesiredStep" class="text-emerald-300 font-bold">Ước lượng: 5 nút</span>
-                  </div>
-                  <div class="italic text-purple-200" id="bot3LiveThought">
-                    "Ưu tiên ăn ô Quặng Hồng Ngọc (+20đ) và Kim Cương Vĩnh Cửu (+30đ)..."
-                  </div>
-                </div>
-
-                <!-- Thanh Mối Quan Hệ & Mức Độ Ghim -->
-                <div class="p-2 rounded-lg bg-black/60 border border-white/5 space-y-1.5 text-[9px] font-mono">
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-400 font-bold flex items-center gap-1">
-                      <span class="text-emerald-400">💢</span> <span>MỨC ĐỘ GHIM:</span>
-                    </span>
-                    <span id="bot4GhimSummary" class="text-emerald-300 font-bold">Bình thường (Chưa ghim ai)</span>
-                  </div>
-                  <!-- Thanh Mối Quan Hệ Đa Cực -->
-                  <div class="space-y-1" id="bot4FeudBars">
-                    <div class="flex items-center justify-between text-[8px] text-slate-400">
-                      <span>Với Bạn (P1):</span>
-                      <span id="bot4RelTextP1" class="text-emerald-400 font-bold">50% (Hòa hoãn)</span>
-                    </div>
-                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
-                      <div id="bot4RelBarP1" class="h-full bg-gradient-to-r from-amber-600 to-emerald-400 transition-all duration-300" style="width: 50%"></div>
-                    </div>
-                    <div class="flex items-center justify-between text-[8px] text-slate-400">
-                      <span>Với Cáo Lửa:</span>
-                      <span id="bot4RelTextP2" class="text-rose-400 font-bold">50% (Cảnh giác)</span>
-                    </div>
-                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
-                      <div id="bot4RelBarP2" class="h-full bg-gradient-to-r from-rose-600 to-amber-400 transition-all duration-300" style="width: 50%"></div>
-                    </div>
-                    <div class="flex items-center justify-between text-[8px] text-slate-400">
-                      <span>Với Sói Băng:</span>
-                      <span id="bot4RelTextP3" class="text-indigo-400 font-bold">50% (Bình thường)</span>
-                    </div>
-                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
-                      <div id="bot4RelBarP3" class="h-full bg-gradient-to-r from-indigo-600 to-purple-400 transition-all duration-300" style="width: 50%"></div>
-                    </div>
-                  </div>
+                <div class="p-2 rounded-xl bg-black/40 border border-purple-500/30 text-purple-300">
+                  <b>🔮 Pháp Sư</b> ➔ Khắc chế <b>🛡️ Hộ Vệ</b> (Khởi đầu 5⚡ & Cổng Warp)
                 </div>
               </div>
             </div>
 
-            <!-- Sub-tab 3: Bot Win Rate & Battle Analytics -->
-            <div id="tTabContentStats" class="hidden flex-1 space-y-2.5 text-xs">
-              <!-- Win Rate Header & Reset Button -->
-              <div class="flex items-center justify-between pb-1.5 border-b border-board-border/60">
-                <div class="flex items-center gap-1.5 text-amber-400 font-cinzel text-[11px] font-bold">
-                  <i data-lucide="trophy" class="w-3.5 h-3.5 text-amber-400"></i>
-                  <span>TỶ LỆ THẮNG ĐẤU THỦ</span>
+            <!-- Hướng dẫn 4 Map -->
+            <div class="p-3 rounded-2xl bg-cyan-950/30 border border-cyan-500/30 text-xs">
+              <div class="font-bold text-cyan-300 mb-1 flex items-center gap-1 font-cinzel">🗺️ 4 Bản Đồ Chiến Thuật:</div>
+              <p class="text-slate-300 leading-relaxed"><b>Tinh Vân</b> (Chuẩn Warp), <b>Dung Nham</b> (Hỏa ngục sát thương cao), <b>Neon Heist</b> (Cướp kho bạc), <b>Thời Không</b> (Đồng hồ cát đảo chiều).</p>
+            </div>
+
+            <!-- Mẹo Canh Lực & Kỹ Năng -->
+            <div class="p-3 rounded-2xl bg-amber-950/30 border border-amber-500/30 text-xs">
+              <div class="font-bold text-amber-300 mb-1 flex items-center gap-1 font-cinzel">🎯 Canh Lực & Tinh Chỉnh Bước:</div>
+              <p class="text-slate-300 leading-relaxed">Bấm dừng vạch vàng tâm để ra <b>6 nút (Critical +5đ)</b>! Dùng 1⚡ để <b>Lùi 1 hoặc Tiến 1 bước</b> né bẫy.</p>
+            </div>
+
+            <!-- Các Cơ Chế Cốt Lõi Trên Bản Đồ -->
+            <div class="p-3 rounded-2xl bg-rose-500/10 border border-rose-500/30">
+              <div class="font-bold text-rose-400 mb-1 flex items-center gap-1 font-cinzel">💥 Cơ Chế Đá Quân (Clash):</div>
+              <p class="text-[11px] text-slate-300 leading-relaxed">Nếu bạn đáp đúng vào ô đối thủ đang đứng: <b>ĐÁ LÙI 3 Ô</b> và <b>CƯỚP 10 ĐIỂM</b>! Cực kỳ khốc liệt!</p>
+            </div>
+            <div class="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/30">
+              <div class="font-bold text-cyan-400 mb-1 flex items-center gap-1 font-cinzel">🌀 Cổng Warp 2 Chiều:</div>
+              <p class="text-[11px] text-slate-300 leading-relaxed">Ô #4 (Cổng Warp Alpha) dịch chuyển tức thời đến Ô #14 (Cổng Warp Beta) và ngược lại!</p>
+            </div>
+          </div>
+
+          <!-- Sub-tab 3: Dedicated Bot AI Thought, Intent & Feud Inspector -->
+          <div id="tTabContentBot" class="hidden flex-1 space-y-3 overflow-y-auto pr-1 custom-scrollbar min-h-[360px] max-h-[560px]">
+            <!-- Top Bar: Header & Reset All -->
+            <div class="flex items-center justify-between pb-1.5 border-b border-purple-500/30 shrink-0">
+              <div class="flex items-center gap-1.5 text-purple-300 font-cinzel text-xs font-bold">
+                <i data-lucide="cpu" class="w-3.5 h-3.5 text-purple-400"></i>
+                <span>SUY LUẬN & ÂN OÁN BOT AI</span>
+              </div>
+              <button onclick="resetAllBotStrategies()" class="px-2 py-0.5 rounded-lg bg-purple-900/40 hover:bg-purple-800/60 border border-purple-500/40 text-purple-200 text-[10px] font-mono transition-all flex items-center gap-1" title="Đặt lại trạng thái và thù hằn của toàn bộ Bot">
+                <span>↺</span> <span>Làm Mới Trí Tuệ</span>
+              </button>
+            </div>
+
+            <!-- Filter Selector: Xem Từng Bot Riêng Biệt -->
+            <div class="flex items-center bg-black/50 p-1 rounded-xl border border-white/5 text-[11px] font-mono gap-1 shrink-0">
+              <span class="text-slate-400 px-1 font-bold">Lọc:</span>
+              <button onclick="filterBotInspector('all')" id="botFilterAll" class="px-2.5 py-0.5 rounded-lg bg-purple-600 text-white font-bold transition">Tất Cả</button>
+              <button onclick="filterBotInspector('2')" id="botFilter2" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">Cáo Lửa (B1)</button>
+              <button onclick="filterBotInspector('3')" id="botFilter3" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">Sói Băng (B2)</button>
+              <button onclick="filterBotInspector('4')" id="botFilter4" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white transition">Gấu Trúc (B3)</button>
+            </div>
+
+            <!-- BOT 1 Card (Cáo Lửa) -->
+            <div id="botCard2" class="p-3 rounded-2xl bg-black/40 border border-rose-500/30 space-y-2.5 transition-all shadow-md">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-sm shadow-rose-500/50"></span>
+                  <strong class="text-rose-300 font-bold">Cáo Lửa (BOT 1)</strong>
+                  <span id="bot1RoleBadge" class="px-2 py-0.5 rounded-md bg-rose-500/20 text-rose-300 text-[10px] font-bold">🦊 SÁT THỦ</span>
                 </div>
                 <div class="flex items-center gap-1.5">
-                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/50 text-cyan-300 border border-cyan-500/30">
-                    <span id="statTotalMatches">0</span> Ván
+                  <span id="botStatusBadge2" class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-bold inline-flex items-center gap-1 shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> ĐANG TIẾN HÀNH
                   </span>
-                  <button onclick="resetBotWinStats()" class="btn-spring px-1.5 py-0.5 rounded bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 text-[10px] font-mono transition-colors" title="Đặt lại toàn bộ tỷ lệ thắng">
-                    Đặt lại
-                  </button>
+                  <button onclick="resetSingleBot(2)" class="px-2 py-0.5 rounded-md bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 text-[10px]" title="Reset riêng Bot 1">↺</button>
                 </div>
               </div>
 
-              <!-- Real-time Bot Win Rate Progress Bars -->
-              <div class="space-y-1.5" id="botWinStatsList">
-                <!-- P1 Win Rate -->
-                <div class="p-1.5 rounded-lg bg-black/30 border border-cyan-500/20 space-y-1">
-                  <div class="flex items-center justify-between text-[10px] font-mono">
-                    <span class="text-cyan-400 font-bold flex items-center gap-1">
-                      <span class="w-2 h-2 rounded-full bg-cyan-400"></span> Bạn (P1)
-                    </span>
-                    <span class="text-slate-200 font-bold" id="statWinTextP1">0 ván (0%)</span>
-                  </div>
-                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
-                    <div id="statWinBarP1" class="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 transition-all duration-300" style="width: 0%"></div>
-                  </div>
+              <!-- Mục tiêu & Ý định -->
+              <div class="text-[11px] text-slate-200 bg-purple-950/30 p-2.5 rounded-xl border border-purple-500/20 font-mono space-y-1">
+                <div class="flex items-center justify-between text-slate-400">
+                  <span>🎯 <b class="text-amber-400">Mục tiêu:</b> <span id="bot2TargetTileName" class="text-slate-200">Ô #10 (Đấu Trường)</span></span>
+                  <span id="bot2DesiredStep" class="text-cyan-300 font-bold">Ước lượng: 3 nút</span>
                 </div>
-
-                <!-- BOT 1 Win Rate -->
-                <div class="p-1.5 rounded-lg bg-black/30 border border-rose-500/20 space-y-1">
-                  <div class="flex items-center justify-between text-[10px] font-mono">
-                    <span class="text-rose-400 font-bold flex items-center gap-1">
-                      <span class="w-2 h-2 rounded-full bg-rose-400"></span> Cáo Lửa (BOT 1)
-                    </span>
-                    <span class="text-slate-200 font-bold" id="statWinTextP2">0 ván (0%)</span>
-                  </div>
-                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
-                    <div id="statWinBarP2" class="h-full bg-gradient-to-r from-rose-600 to-rose-400 transition-all duration-300" style="width: 0%"></div>
-                  </div>
-                </div>
-
-                <!-- BOT 2 Win Rate -->
-                <div id="statWinRowP3" class="p-1.5 rounded-lg bg-black/30 border border-indigo-500/20 space-y-1">
-                  <div class="flex items-center justify-between text-[10px] font-mono">
-                    <span class="text-indigo-400 font-bold flex items-center gap-1">
-                      <span class="w-2 h-2 rounded-full bg-indigo-400"></span> Sói Băng (BOT 2)
-                    </span>
-                    <span class="text-slate-200 font-bold" id="statWinTextP3">0 ván (0%)</span>
-                  </div>
-                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
-                    <div id="statWinBarP3" class="h-full bg-gradient-to-r from-indigo-600 to-indigo-400 transition-all duration-300" style="width: 0%"></div>
-                  </div>
-                </div>
-
-                <!-- BOT 3 Win Rate -->
-                <div id="statWinRowP4" class="p-1.5 rounded-lg bg-black/30 border border-emerald-500/20 space-y-1">
-                  <div class="flex items-center justify-between text-[10px] font-mono">
-                    <span class="text-emerald-400 font-bold flex items-center gap-1">
-                      <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Gấu Trúc (BOT 3)
-                    </span>
-                    <span class="text-slate-200 font-bold" id="statWinTextP4">0 ván (0%)</span>
-                  </div>
-                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
-                    <div id="statWinBarP4" class="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 transition-all duration-300" style="width: 0%"></div>
-                  </div>
+                <div class="italic text-purple-200 leading-relaxed" id="bot1LiveThought">
+                  "Đang rình rập đối thủ: Tính toán gài Mìn Lượng Tử chặn đầu P1..."
                 </div>
               </div>
 
-              <!-- Compact Dice Stats Footer -->
-              <div class="grid grid-cols-2 gap-1.5 pt-1 text-[10px] font-mono">
-                <div class="p-1.5 rounded-lg bg-black/40 border border-board-border text-center">
-                  <span class="text-slate-400">Tổng gieo:</span> <b class="text-white" id="statTotalRolls">0</b>
+              <!-- Thanh Mối Quan Hệ & Mức Độ Ghim -->
+              <div class="p-2.5 rounded-xl bg-black/60 border border-white/5 space-y-2 text-[10px] font-mono">
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-400 font-bold flex items-center gap-1">
+                    <span class="text-rose-400">💢</span> <span>MỨC ĐỘ GHIM:</span>
+                  </span>
+                  <span id="bot2GhimSummary" class="text-amber-300 font-bold">Bình thường (Chưa ghim ai)</span>
                 </div>
-                <div class="p-1.5 rounded-lg bg-black/40 border border-board-border text-center">
-                  <span class="text-slate-400">Cao nhất:</span> <b class="text-amber-400" id="statHighestRoll">-</b>
+                <!-- Thanh Mối Quan Hệ Đa Cực -->
+                <div class="space-y-1.5" id="bot2FeudBars">
+                  <div class="flex items-center justify-between text-[9px] text-slate-400">
+                    <span>Với Bạn (P1):</span>
+                    <span id="bot2RelTextP1" class="text-emerald-400 font-bold">50% (Hòa hoãn)</span>
+                  </div>
+                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                    <div id="bot2RelBarP1" class="h-full bg-gradient-to-r from-amber-600 to-emerald-400 transition-all duration-300" style="width: 50%"></div>
+                  </div>
+                  <div class="flex items-center justify-between text-[9px] text-slate-400">
+                    <span>Với Sói Băng:</span>
+                    <span id="bot2RelTextP3" class="text-cyan-400 font-bold">50% (Cạnh tranh)</span>
+                  </div>
+                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                    <div id="bot2RelBarP3" class="h-full bg-gradient-to-r from-indigo-600 to-cyan-400 transition-all duration-300" style="width: 50%"></div>
+                  </div>
+                  <div class="flex items-center justify-between text-[9px] text-slate-400">
+                    <span>Với Gấu Trúc:</span>
+                    <span id="bot2RelTextP4" class="text-amber-400 font-bold">50% (Bình thường)</span>
+                  </div>
+                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                    <div id="bot2RelBarP4" class="h-full bg-gradient-to-r from-amber-600 to-yellow-400 transition-all duration-300" style="width: 50%"></div>
+                  </div>
                 </div>
               </div>
             </div>
 
+            <!-- BOT 2 Card (Sói Băng) -->
+            <div id="botCard3" class="p-3 rounded-2xl bg-black/40 border border-indigo-500/30 space-y-2.5 transition-all shadow-md">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 shadow-sm shadow-indigo-500/50"></span>
+                  <strong class="text-indigo-300 font-bold">Sói Băng (BOT 2)</strong>
+                  <span id="bot2RoleBadge" class="px-2 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 text-[10px] font-bold">🔮 PHÁP SƯ</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span id="botStatusBadge3" class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-bold inline-flex items-center gap-1 shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> ĐANG TIẾN HÀNH
+                  </span>
+                  <button onclick="resetSingleBot(3)" class="px-2 py-0.5 rounded-md bg-slate-800 hover:bg-indigo-500/20 text-slate-400 hover:text-indigo-300 text-[10px]" title="Reset riêng Bot 2">↺</button>
+                </div>
+              </div>
+
+              <!-- Mục tiêu & Ý định -->
+              <div class="text-[11px] text-slate-200 bg-purple-950/30 p-2.5 rounded-xl border border-purple-500/20 font-mono space-y-1">
+                <div class="flex items-center justify-between text-slate-400">
+                  <span>🎯 <b class="text-amber-400">Mục tiêu:</b> <span id="bot3TargetTileName" class="text-slate-200">Cổng Warp Alpha #4</span></span>
+                  <span id="bot3DesiredStep" class="text-indigo-300 font-bold">Ước lượng: 4 nút</span>
+                </div>
+                <div class="italic text-purple-200 leading-relaxed" id="bot2LiveThought">
+                  "Tích trữ 5⚡ năng lượng để nhảy cóc qua Cổng Warp #4 ➔ #14..."
+                </div>
+              </div>
+
+              <!-- Thanh Mối Quan Hệ & Mức Độ Ghim -->
+              <div class="p-2.5 rounded-xl bg-black/60 border border-white/5 space-y-2 text-[10px] font-mono">
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-400 font-bold flex items-center gap-1">
+                    <span class="text-indigo-400">💢</span> <span>MỨC ĐỘ GHIM:</span>
+                  </span>
+                  <span id="bot3GhimSummary" class="text-indigo-300 font-bold">Bình thường (Chưa ghim ai)</span>
+                </div>
+                <!-- Thanh Mối Quan Hệ Đa Cực -->
+                <div class="space-y-1.5" id="bot3FeudBars">
+                  <div class="flex items-center justify-between text-[9px] text-slate-400">
+                    <span>Với Bạn (P1):</span>
+                    <span id="bot3RelTextP1" class="text-emerald-400 font-bold">50% (Hòa hoãn)</span>
+                  </div>
+                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                    <div id="bot3RelBarP1" class="h-full bg-gradient-to-r from-amber-600 to-emerald-400 transition-all duration-300" style="width: 50%"></div>
+                  </div>
+                  <div class="flex items-center justify-between text-[9px] text-slate-400">
+                    <span>Với Cáo Lửa:</span>
+                    <span id="bot3RelTextP2" class="text-rose-400 font-bold">50% (Cảnh giác)</span>
+                  </div>
+                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                    <div id="bot3RelBarP2" class="h-full bg-gradient-to-r from-rose-600 to-amber-400 transition-all duration-300" style="width: 50%"></div>
+                  </div>
+                  <div class="flex items-center justify-between text-[9px] text-slate-400">
+                    <span>Với Gấu Trúc:</span>
+                    <span id="bot3RelTextP4" class="text-amber-400 font-bold">50% (Bình thường)</span>
+                  </div>
+                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                    <div id="bot3RelBarP4" class="h-full bg-gradient-to-r from-amber-600 to-yellow-400 transition-all duration-300" style="width: 50%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- BOT 3 Card (Gấu Trúc) -->
+            <div id="botCard4" class="p-3 rounded-2xl bg-black/40 border border-emerald-500/30 space-y-2.5 transition-all shadow-md">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
+                  <strong class="text-emerald-300 font-bold">Gấu Trúc (BOT 3)</strong>
+                  <span id="bot3RoleBadge" class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">💎 THỢ SĂN</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span id="botStatusBadge4" class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-bold inline-flex items-center gap-1 shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> ĐANG TIẾN HÀNH
+                  </span>
+                  <button onclick="resetSingleBot(4)" class="px-2 py-0.5 rounded-md bg-slate-800 hover:bg-emerald-500/20 text-slate-400 hover:text-emerald-300 text-[10px]" title="Reset riêng Bot 3">↺</button>
+                </div>
+              </div>
+
+              <!-- Mục tiêu & Ý định -->
+              <div class="text-[11px] text-slate-200 bg-purple-950/30 p-2.5 rounded-xl border border-purple-500/20 font-mono space-y-1">
+                <div class="flex items-center justify-between text-slate-400">
+                  <span>🎯 <b class="text-amber-400">Mục tiêu:</b> <span id="bot4TargetTileName" class="text-slate-200">Kim Cương Vĩnh Cửu (+30đ)</span></span>
+                  <span id="bot4DesiredStep" class="text-emerald-300 font-bold">Ước lượng: 5 nút</span>
+                </div>
+                <div class="italic text-purple-200 leading-relaxed" id="bot3LiveThought">
+                  "Ưu tiên ăn ô Quặng Hồng Ngọc (+20đ) và Kim Cương Vĩnh Cửu (+30đ)..."
+                </div>
+              </div>
+
+              <!-- Thanh Mối Quan Hệ & Mức Độ Ghim -->
+              <div class="p-2.5 rounded-xl bg-black/60 border border-white/5 space-y-2 text-[10px] font-mono">
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-400 font-bold flex items-center gap-1">
+                    <span class="text-emerald-400">💢</span> <span>MỨC ĐỘ GHIM:</span>
+                  </span>
+                  <span id="bot4GhimSummary" class="text-emerald-300 font-bold">Bình thường (Chưa ghim ai)</span>
+                </div>
+                <!-- Thanh Mối Quan Hệ Đa Cực -->
+                <div class="space-y-1.5" id="bot4FeudBars">
+                  <div class="flex items-center justify-between text-[9px] text-slate-400">
+                    <span>Với Bạn (P1):</span>
+                    <span id="bot4RelTextP1" class="text-emerald-400 font-bold">50% (Hòa hoãn)</span>
+                  </div>
+                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                    <div id="bot4RelBarP1" class="h-full bg-gradient-to-r from-amber-600 to-emerald-400 transition-all duration-300" style="width: 50%"></div>
+                  </div>
+                  <div class="flex items-center justify-between text-[9px] text-slate-400">
+                    <span>Với Cáo Lửa:</span>
+                    <span id="bot4RelTextP2" class="text-rose-400 font-bold">50% (Cảnh giác)</span>
+                  </div>
+                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                    <div id="bot4RelBarP2" class="h-full bg-gradient-to-r from-rose-600 to-amber-400 transition-all duration-300" style="width: 50%"></div>
+                  </div>
+                  <div class="flex items-center justify-between text-[9px] text-slate-400">
+                    <span>Với Sói Băng:</span>
+                    <span id="bot4RelTextP3" class="text-indigo-400 font-bold">50% (Bình thường)</span>
+                  </div>
+                  <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                    <div id="bot4RelBarP3" class="h-full bg-gradient-to-r from-indigo-600 to-purple-400 transition-all duration-300" style="width: 50%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sub-tab 4: Bot Win Rate & Battle Analytics -->
+          <div id="tTabContentStats" class="hidden flex-1 space-y-3 text-xs overflow-y-auto pr-1 custom-scrollbar min-h-[360px] max-h-[560px]">
+            <!-- Win Rate Header & Reset Button -->
+            <div class="flex items-center justify-between pb-1.5 border-b border-board-border/60 shrink-0">
+              <div class="flex items-center gap-1.5 text-amber-400 font-cinzel text-xs font-bold">
+                <i data-lucide="trophy" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>TỶ LỆ THẮNG ĐẤU THỦ</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-black/50 text-cyan-300 border border-cyan-500/30">
+                  <span id="statTotalMatches">0</span> Ván
+                </span>
+                <button onclick="resetBotWinStats()" class="btn-spring px-2 py-0.5 rounded-lg bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 text-[11px] font-mono transition-colors" title="Đặt lại toàn bộ tỷ lệ thắng">
+                  Đặt lại
+                </button>
+              </div>
+            </div>
+
+            <!-- Real-time Bot Win Rate Progress Bars -->
+            <div class="space-y-2" id="botWinStatsList">
+              <!-- P1 Win Rate -->
+              <div class="p-2 rounded-xl bg-black/30 border border-cyan-500/20 space-y-1">
+                <div class="flex items-center justify-between text-[11px] font-mono">
+                  <span class="text-cyan-400 font-bold flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400"></span> Bạn (P1)
+                  </span>
+                  <span class="text-slate-200 font-bold" id="statWinTextP1">0 ván (0%)</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-slate-900 overflow-hidden">
+                  <div id="statWinBarP1" class="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 transition-all duration-300" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <!-- BOT 1 Win Rate -->
+              <div class="p-2 rounded-xl bg-black/30 border border-rose-500/20 space-y-1">
+                <div class="flex items-center justify-between text-[11px] font-mono">
+                  <span class="text-rose-400 font-bold flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-rose-400"></span> Cáo Lửa (BOT 1)
+                  </span>
+                  <span class="text-slate-200 font-bold" id="statWinTextP2">0 ván (0%)</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-slate-900 overflow-hidden">
+                  <div id="statWinBarP2" class="h-full bg-gradient-to-r from-rose-600 to-rose-400 transition-all duration-300" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <!-- BOT 2 Win Rate -->
+              <div id="statWinRowP3" class="p-2 rounded-xl bg-black/30 border border-indigo-500/20 space-y-1">
+                <div class="flex items-center justify-between text-[11px] font-mono">
+                  <span class="text-indigo-400 font-bold flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-indigo-400"></span> Sói Băng (BOT 2)
+                  </span>
+                  <span class="text-slate-200 font-bold" id="statWinTextP3">0 ván (0%)</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-slate-900 overflow-hidden">
+                  <div id="statWinBarP3" class="h-full bg-gradient-to-r from-indigo-600 to-indigo-400 transition-all duration-300" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <!-- BOT 3 Win Rate -->
+              <div id="statWinRowP4" class="p-2 rounded-xl bg-black/30 border border-emerald-500/20 space-y-1">
+                <div class="flex items-center justify-between text-[11px] font-mono">
+                  <span class="text-emerald-400 font-bold flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Gấu Trúc (BOT 3)
+                  </span>
+                  <span class="text-slate-200 font-bold" id="statWinTextP4">0 ván (0%)</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-slate-900 overflow-hidden">
+                  <div id="statWinBarP4" class="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 transition-all duration-300" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Compact Dice Stats Footer -->
+            <div class="grid grid-cols-2 gap-2 pt-1 text-[11px] font-mono">
+              <div class="p-2 rounded-xl bg-black/40 border border-board-border text-center">
+                <span class="text-slate-400">Tổng gieo:</span> <b class="text-white" id="statTotalRolls">0</b>
+              </div>
+              <div class="p-2 rounded-xl bg-black/40 border border-board-border text-center">
+                <span class="text-slate-400">Cao nhất:</span> <b class="text-amber-400" id="statHighestRoll">-</b>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -5100,7 +5051,7 @@
         time: timeStr,
         type
       });
-      if (battleLogHistory.length > 25) battleLogHistory.pop();
+      if (battleLogHistory.length > 60) battleLogHistory.pop();
 
       renderBattleLogFeed();
     }
@@ -5132,11 +5083,13 @@
 
       feed.innerHTML = battleLogHistory.map((item, idx) => {
         const isLatest = idx === 0;
-        const borderCls = isLatest ? 'border-amber-500/40 bg-amber-950/30 shadow-sm' : 'border-board-border/40 bg-black/30';
+        const borderCls = isLatest 
+          ? 'border-amber-500/60 bg-gradient-to-r from-amber-950/40 to-slate-950/90 shadow-md ring-1 ring-amber-500/30' 
+          : 'border-slate-800/80 bg-slate-950/60 hover:border-slate-700/80';
         return `
-          <div class="p-1.5 rounded-lg border ${borderCls} text-[11px] text-slate-200 flex items-start justify-between gap-1.5 transition-all">
-            <div class="flex-1 leading-snug">${item.text}</div>
-            <span class="text-[9px] font-mono text-slate-500 shrink-0 mt-0.5">${item.time}</span>
+          <div class="p-2 sm:p-2.5 rounded-xl border ${borderCls} text-xs text-slate-200 flex items-center justify-between gap-3 transition-all shadow-sm">
+            <div class="flex-1 leading-relaxed font-sans">${item.text}</div>
+            <span class="text-[10px] font-mono text-slate-400 shrink-0 font-medium bg-black/40 px-1.5 py-0.5 rounded border border-white/5">${item.time}</span>
           </div>
         `;
       }).join('');
@@ -6747,10 +6700,10 @@
         const btn = document.getElementById('tTabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
         const content = document.getElementById('tTabContent' + t.charAt(0).toUpperCase() + t.slice(1));
         if (t === subTab) {
-          if (btn) btn.className = 'flex-1 py-1 rounded-lg bg-amber-600 text-white transition-all shadow-sm font-bold';
+          if (btn) btn.className = 'flex-1 py-1.5 rounded-xl bg-amber-600 text-white transition-all shadow-md font-bold';
           if (content) content.classList.remove('hidden');
         } else {
-          if (btn) btn.className = 'flex-1 py-1 rounded-lg text-slate-400 hover:text-white transition-all font-medium';
+          if (btn) btn.className = 'flex-1 py-1.5 rounded-xl text-slate-400 hover:text-white transition-all font-medium';
           if (content) content.classList.add('hidden');
         }
       });

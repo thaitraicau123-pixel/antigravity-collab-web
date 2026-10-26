@@ -1540,7 +1540,100 @@
             </div>
 
             <!-- Sub-tab 2: Strategy Tips (Chiến Thuật Bản Đồ Lớn 20 Ô) -->
-            <div id="tTabContentTips" class="hidden flex-1 space-y-2 text-[11px] text-slate-300 overflow-y-auto max-h-[220px]">
+            <div id="tTabContentTips" class="hidden flex-1 space-y-2 text-[11px] text-slate-300 overflow-y-auto max-h-[240px]">
+              <!-- Sơ đồ vòng tròn khắc chế Role -->
+              <div class="p-2 rounded-xl bg-purple-950/40 border border-purple-500/30">
+                <div class="font-bold text-purple-300 mb-1 flex items-center gap-1 font-cinzel text-xs">
+                  <span>🔄</span> <span>VÒNG TRÒN KHẮC CHẾ HỆ NHÂN VẬT</span>
+                </div>
+                <div class="grid grid-cols-2 gap-1.5 text-[10px] font-mono">
+                  <div class="p-1 rounded bg-black/40 border border-cyan-500/30 text-cyan-300">
+                    <b>🛡️ Hộ Vệ</b> ➔ Khắc chế <b>🦊 Sát Thủ</b> (Giảm 40% sát thương bẫy)
+                  </div>
+                  <div class="p-1 rounded bg-black/40 border border-rose-500/30 text-rose-300">
+                    <b>🦊 Sát Thủ</b> ➔ Khắc chế <b>💎 Thợ Săn</b> (Mìn rẻ 1⚡ & Hút điểm)
+                  </div>
+                  <div class="p-1 rounded bg-black/40 border border-amber-500/30 text-amber-300">
+                    <b>💎 Thợ Săn</b> ➔ Khắc chế <b>🔮 Pháp Sư</b> (+20% điểm bứt phá)
+                  </div>
+                  <div class="p-1 rounded bg-black/40 border border-purple-500/30 text-purple-300">
+                    <b>🔮 Pháp Sư</b> ➔ Khắc chế <b>🛡️ Hộ Vệ</b> (Khởi đầu 5⚡ & Cổng Warp)
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hướng dẫn 4 Map -->
+              <div class="p-2 rounded-xl bg-cyan-950/30 border border-cyan-500/30 text-[10px]">
+                <div class="font-bold text-cyan-300 mb-0.5 flex items-center gap-1 font-cinzel">🗺️ 4 Bản Đồ Chiến Thuật:</div>
+                <p class="text-slate-300"><b>Tinh Vân</b> (Chuẩn Warp), <b>Dung Nham</b> (Hỏa ngục sát thương cao), <b>Neon Heist</b> (Cướp kho bạc), <b>Thời Không</b> (Đồng hồ cát đảo chiều).</p>
+              </div>
+
+              <!-- Mẹo Canh Lực & Kỹ Năng -->
+              <div class="p-2 rounded-xl bg-amber-950/30 border border-amber-500/30 text-[10px]">
+                <div class="font-bold text-amber-300 mb-0.5 flex items-center gap-1 font-cinzel">🎯 Canh Lực & Tinh Chỉnh Bước:</div>
+                <p class="text-slate-300">Bấm dừng vạch vàng tâm để ra <b>6 nút (Critical +5đ)</b>! Dùng 1⚡ để <b>Lùi 1 hoặc Tiến 1 bước</b> né bẫy.</p>
+              </div>
+            </div>
+
+            <!-- Sub-tab 3: Dedicated Bot AI Thought Inspector & Adaptation Memory -->
+            <div id="tTabContentBot" class="hidden flex-1 space-y-2 text-[11px] text-slate-300 overflow-y-auto max-h-[250px]">
+              <div class="flex items-center justify-between pb-1 border-b border-purple-500/30">
+                <span class="text-purple-300 font-bold font-cinzel text-xs flex items-center gap-1">
+                  <i data-lucide="brain" class="w-3.5 h-3.5 text-purple-400"></i> TRÍ TUỆ NHÂN TẠO & SUY LUẬN BOT
+                </span>
+                <button onclick="resetBotWinStats()" class="btn-spring px-1.5 py-0.5 rounded bg-rose-950/60 hover:bg-rose-800 border border-rose-500/40 text-rose-300 text-[9px] font-mono" title="Reset toàn bộ thống kê và bộ nhớ thích nghi của Bot">
+                  🔄 Reset Tất Cả Bot
+                </button>
+              </div>
+
+              <!-- BOT 1 Card (Cáo Lửa) -->
+              <div class="p-2 rounded-xl bg-black/40 border border-rose-500/30 space-y-1">
+                <div class="flex items-center justify-between text-[10px] font-mono">
+                  <span class="text-rose-400 font-bold flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-rose-500"></span> Cáo Lửa (BOT 1)
+                  </span>
+                  <div class="flex items-center gap-1">
+                    <span id="bot1RoleBadge" class="px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 text-[9px] font-bold">🦊 SÁT THỦ</span>
+                    <button onclick="resetSingleBot(2)" class="px-1 py-0.2 rounded bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 text-[8px]" title="Reset riêng Bot 1">↺</button>
+                  </div>
+                </div>
+                <div class="text-[9px] text-slate-300 bg-purple-950/30 p-1.5 rounded-lg border border-purple-500/20 font-mono italic" id="bot1LiveThought">
+                  "Đang quan sát bàn cờ: Tính toán gài Mìn Lượng Tử chặn đầu P1..."
+                </div>
+              </div>
+
+              <!-- BOT 2 Card (Sói Băng) -->
+              <div class="p-2 rounded-xl bg-black/40 border border-indigo-500/30 space-y-1">
+                <div class="flex items-center justify-between text-[10px] font-mono">
+                  <span class="text-indigo-400 font-bold flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-indigo-500"></span> Sói Băng (BOT 2)
+                  </span>
+                  <div class="flex items-center gap-1">
+                    <span id="bot2RoleBadge" class="px-1.5 py-0.2 rounded bg-indigo-500/20 text-indigo-300 text-[9px] font-bold">🔮 PHÁP SƯ</span>
+                    <button onclick="resetSingleBot(3)" class="px-1 py-0.2 rounded bg-slate-800 hover:bg-indigo-500/20 text-slate-400 hover:text-indigo-300 text-[8px]" title="Reset riêng Bot 2">↺</button>
+                  </div>
+                </div>
+                <div class="text-[9px] text-slate-300 bg-purple-950/30 p-1.5 rounded-lg border border-purple-500/20 font-mono italic" id="bot2LiveThought">
+                  "Tích trữ 5⚡ năng lượng để nhảy cóc qua Cổng Warp #4 ➔ #14..."
+                </div>
+              </div>
+
+              <!-- BOT 3 Card (Gấu Trúc) -->
+              <div class="p-2 rounded-xl bg-black/40 border border-emerald-500/30 space-y-1">
+                <div class="flex items-center justify-between text-[10px] font-mono">
+                  <span class="text-emerald-400 font-bold flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Gấu Trúc (BOT 3)
+                  </span>
+                  <div class="flex items-center gap-1">
+                    <span id="bot3RoleBadge" class="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">💎 THỢ SĂN</span>
+                    <button onclick="resetSingleBot(4)" class="px-1 py-0.2 rounded bg-slate-800 hover:bg-emerald-500/20 text-slate-400 hover:text-emerald-300 text-[8px]" title="Reset riêng Bot 3">↺</button>
+                  </div>
+                </div>
+                <div class="text-[9px] text-slate-300 bg-purple-950/30 p-1.5 rounded-lg border border-purple-500/20 font-mono italic" id="bot3LiveThought">
+                  "Ưu tiên ăn ô Quặng Hồng Ngọc (+20đ) và Kim Cương Vĩnh Cửu (+30đ)..."
+                </div>
+              </div>
+            </div>
               <div class="p-2 rounded-xl bg-rose-500/10 border border-rose-500/30">
                 <div class="font-bold text-rose-400 mb-0.5 flex items-center gap-1 font-cinzel">💥 Cơ Chế Đá Quân (Clash):</div>
                 <p class="text-[10px] text-slate-300">Nếu bạn đáp đúng vào ô đối thủ đang đứng: <b>ĐÁ LÙI 3 Ô</b> và <b>CƯỚP 10 ĐIỂM</b>! Cực kỳ khốc liệt!</p>
@@ -4154,6 +4247,20 @@
       } catch (e) {}
       updateBotWinStatsUI();
     }
+
+        function resetSingleBot(botId) {
+      if (botAdaptiveMemories[botId]) {
+        botAdaptiveMemories[botId] = { losses: 0, lastLossAgainstHero: null };
+      }
+      if (botWinStats.wins && botWinStats.wins[botId]) {
+        botWinStats.wins[botId] = 0;
+      }
+      updateBotWinStatsUI();
+      const el = document.getElementById(`bot${botId - 1}LiveThought`);
+      if (el) el.textContent = '"Đã đặt lại dữ liệu học của Bot này về vạch xuất phát."';
+      showToast(`↺ Đã reset bộ nhớ và thành tích của ${getPlayerName(botId)}!`);
+    }
+    window.resetSingleBot = resetSingleBot;
 
     function resetBotWinStats() {
       botWinStats = { totalMatches: 0, wins: { 1: 0, 2: 0, 3: 0, 4: 0 } };

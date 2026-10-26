@@ -454,6 +454,6 @@ Cho phép người chơi chọn Hero trước trận hoặc chuyển đổi linh
 - 💎 **Thợ Săn Kho Báu (Treasure Hunter):** Tăng +20% điểm số nhận được từ tất cả các ô Ngọc, Kho Báu và Kim Cương.
 
 #### 2.6. Trí Tuệ AI Suy Luận, Tự Đổi Role Sau Trận Thua & Reset Thống Kê
-- **Bong bóng suy luận Bot (Live Thought Inspector):** Hiển thị rõ ràng: Mục tiêu săn đuổi, Tính toán rủi ro/lợi nhuận, Quyết định kỹ năng và Lời bình luận thời gian thực.
-- **Hệ thống Học Thích Nghi (Adaptive Counter-Pick):** Sau mỗi trận thua, Bot phân tích kẻ vừa thắng dùng Role gì và nguyên nhân thua, từ đó tự động đổi sang Role khắc chế ở ván tiếp theo.
-- **Bảng Hồ Sơ Bot & Nút Reset Thống Kê:** Lưu trữ `localStorage` toàn bộ số trận Thắng/Thua, Tỷ lệ Winrate %, Chuỗi trận và nút `[🔄 Reset Dữ Liệu Bot]` để xóa trắng làm lại từ đầu.
+- **Bong bóng suy luận Bot (Live Thought Inspector):** Tab riêng biệt `[🧠 Trí Tuệ Bot]` trong Tactical Deck hiển thị thời gian thực cho từng Bot: Thẻ hồ sơ cá nhân, chỉ số Thắng/Bại, Role hiện tại, suy luận động mục tiêu/rủi ro/kỹ năng, và nút reset độc lập `[↺ Reset Bot]` cho từng cá thể.
+- **Hệ thống Học Thích Nghi (Adaptive Counter-Pick):** Sau mỗi trận thua, Bot phân tích kẻ vừa thắng dùng Role gì và nguyên nhân thua, từ đó tự động đổi sang Role khắc chế ở ván tiếp theo với sơ đồ khắc chế trực quan tại tab `[Khắc Chế]`.
+- **Bảng Hồ Sơ Bot & Nút Reset Thống Kê:** Lưu trữ `localStorage` toàn bộ số trận Thắng/Thua, Tỷ lệ Winrate %, Chuỗi trận và nút `[🔄 Reset Toàn Bộ]` kết hợp cùng các nút reset từng Bot để xóa trắng làm lại từ đầu.

@@ -537,3 +537,33 @@ Cho phép người chơi chọn Hero trước trận hoặc chuyển đổi linh
 4. **Bố Cục 4 Góc Màn Hình (4-Corner Framing HUD Pods) & Sân Đấu Trung Tâm**:
    - 4 Bento Pod của 4 người chơi được ghim cố định tại 4 góc màn hình (`top-left`, `top-right`, `bottom-left`, `bottom-right`), tận dụng triệt để khoảng trống sinh ra khi xoay bàn cờ hình kim cương, không che chắn bất kỳ ô cờ nào.
    - Khu vực sân cỏ điện tử trung tâm (Central Cyber-Turf) chứa hộp xúc xắc 3D nằm ngang tầm mắt người xem (`[ 🎲 5 ] [ 🎲 4 ] = 9`) và nút bấm lớn màu vàng kim mạ ánh sáng **[ 🎲 ĐỔ XÚC XẮC ]** cực kỳ mãn nhãn.
+
+
+---
+
+## ⚡ PHẦN 24: KIỂM TOÁN TOÀN DIỆN & KHẮC PHỤC LỖI TÍNH NĂNG CỜ TỶ PHÚ (MONOPOLY ENGINE AUDIT & FULL FIXES - V3.7.1)
+1. **Khắc Phục Lỗi Đóng Băng Khi Bot AI Ở Trại Giam (Bot in Jail Freeze Fix)**:
+   - *Nguyên nhân*: Trước đây khi Bot AI vào Trại Giam (`inJail > 0`), hệ thống gọi `handleMonoDialogChoice` nhưng biến `pendingAction` bị gán `null` dẫn tới hàm `return` ngay lập tức. Bot không thể đổ xúc xắc hay nộp phạt, khiến ván cờ bị kẹt cứng vĩnh viễn ở lượt của Bot.
+   - *Giải pháp*: Xây dựng luồng quyết định tự hành độc lập cho Bot trong Trại Giam: Nếu số dư lớn (`cash >= $3,000`), Bot tự động trích \$500 nộp bảo lãnh, kích hoạt thông báo và đổ xúc xắc di chuyển ngay; nếu số dư thấp, Bot tự động gieo xúc xắc tìm số đôi. Loại bỏ 100% nguy cơ treo game khi Bot ở tù.
+
+2. **Căn Giữa & Triệt Tiêu Lỗi Cắt Xén Hộp Thoại Quyết Định (Centered Decision Box & Anti-Clipping)**:
+   - *Nguyên nhân*: Hộp thoại mua đất/nâng cấp (`#mono2dDecisionBox`) trước đây đặt tại vị trí đáy (`bottom-2`). Khi bàn cờ xoay 45° kim cương, góc đáy rất hẹp (~150px) khiến cạnh trái hộp thoại bị tràn ra ngoài và bị cắt mất nút **[ Bỏ Qua ]**.
+   - *Giải pháp*: Chuyển đổi hộp thoại thành lớp phủ trung tâm (`inset-0 flex items-center justify-center`) với nền tối đặc `bg-[#0C1524]` và đổ bóng sâu, đặt ở phần rộng nhất của sân cỏ trung tâm. Cả hai nút **[ Bỏ Qua ]** và **[ Đồng Ý (Mua 🏡) ]** hiển thị tròn trịa 100%, không bị che lấp.
+
+3. **Thu Hồi Bất Động Sản Của Người Chơi Phá Sản (Bankrupt Asset Recovery & Grayscale HUD)**:
+   - Khi một người chơi cạn sạch tiền (`cash <= 0`), toàn bộ các bất động sản và nhà 3D đã xây của người đó lập tức được ngân hàng thu hồi (`owner = null, level = 0`) và mở lại quyền mua cho các người chơi khác, tránh tình trạng đất chết bị khóa vĩnh viễn.
+   - Thẻ thông tin (HUD Pod) của người phá sản lập tức chuyển sang chế độ đen trắng mờ (`grayscale opacity-50`) với nhãn đỏ **PHÁ SẢN** rõ ràng.
+
+4. **Đồng Bộ Hoạt Ảnh Tiền Bay (Floating Cash Animation CSS Parity)**:
+   - Đồng bộ tên lớp CSS `.animate-mono-floatCash` với keyframe `monoFloatCash`, giúp các con số biến động tiền (`+\$2,000`, `-\$500`, v.v.) thực sự bay bổng lên trên và mờ dần trong 1.4 giây thay vì đứng yên.
+
+5. **Định Dạng Tiền Tệ & Làm Sạch Chuỗi Hiển Thị**:
+   - Khắc phục lỗi hiển thị chuỗi `${p.cash...}` dạng raw text trên các góc HUD, chuẩn hóa toàn bộ thành định dạng tiền tệ có dấu phẩy ngăn cách hàng nghìn (`\$19,760`, `\$1,000`).
+   - Sửa lỗi cú pháp trong các thông báo Toast và bảng quyết định.
+
+6. **Tích Hợp Nút Chuyển Phối Cảnh 2.5D / 2D Trên Thanh Công Cụ**:
+   - Bổ sung nút **[ 📐 2.5D ]** trực tiếp trên thanh công cụ ngữ cảnh đỉnh bàn cờ, cho phép người chơi linh hoạt chuyển đổi giữa góc nhìn Kim Cương 2.5D và góc nhìn 2D phẳng truyền thống mọi lúc.
+
+7. **Trải Nghiệm Thẻ Cơ Hội / Vận Mệnh & Trợ Cấp Sân Bay**:
+   - Khi người chơi dừng chân tại ô **CƠ HỘI** hoặc **VẬN MỆNH**, hệ thống bật hộp thoại thông báo chi tiết nội dung may mắn hoặc nộp phạt thay vì chỉ hiện toast ngắn.
+   - Khi dừng chân tại ô **SÂN BAY TÂN AN**, người chơi nhận được khoản trợ cấp du lịch hạng thương gia **+\$1,000** tiền mặt.

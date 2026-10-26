@@ -175,6 +175,144 @@
       text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 0 2px #38BDF8, 0 0 8px rgba(14, 165, 233, 0.4);
       -webkit-text-stroke: 1.2px #94A3B8;
     }
+
+    /* =========================================================================
+       CINEMATIC CHESS EDIT EFFECTS (SLOW-MO, SPOTLIGHT, LIFT & SLAM)
+       ========================================================================= */
+    /* Camera Screen Shake */
+    @keyframes chessScreenShake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      15% { transform: translate(-5px, 4px) rotate(-0.6deg); }
+      30% { transform: translate(5px, -4px) rotate(0.6deg); }
+      45% { transform: translate(-4px, -2px) rotate(-0.3deg); }
+      60% { transform: translate(4px, 3px) rotate(0.3deg); }
+      75% { transform: translate(-2px, 1px) rotate(0deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+    .chess-screen-shake {
+      animation: chessScreenShake 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    /* Shockwave Ripple Ring */
+    @keyframes chessShockwave {
+      0% {
+        transform: translate(-50%, -50%) scale(0.1);
+        opacity: 0.95;
+        border-width: 6px;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(3.5);
+        opacity: 0;
+        border-width: 1px;
+      }
+    }
+    .chess-shockwave-ring {
+      position: absolute;
+      border-radius: 9999px;
+      border-style: solid;
+      pointer-events: none;
+      z-index: 45;
+      animation: chessShockwave 0.55s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+    }
+
+    /* Target Piece Tremble before impact */
+    @keyframes chessTargetTremble {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-2px, 1.5px); }
+      50% { transform: translate(2px, -1.5px); }
+      75% { transform: translate(-1.5px, -1px); }
+    }
+    .chess-target-tremble {
+      animation: chessTargetTremble 0.08s infinite ease-in-out;
+    }
+
+    /* Captured Piece Knockout / Fly-off */
+    @keyframes chessPieceKnockout {
+      0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      35% {
+        transform: scale(1.3) rotate(-20deg) translateY(-20px);
+        opacity: 0.95;
+      }
+      100% {
+        transform: scale(0.2) rotate(95deg) translate(40px, 50px);
+        opacity: 0;
+      }
+    }
+    .chess-piece-knockout {
+      animation: chessPieceKnockout 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+    }
+
+    /* Cinematic Text Banner Flare */
+    @keyframes chessBannerPop {
+      0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+        letter-spacing: -0.05em;
+      }
+      40% {
+        transform: translate(-50%, -50%) scale(1.15);
+        opacity: 1;
+        letter-spacing: 0.08em;
+      }
+      75% {
+        transform: translate(-50%, -50%) scale(1.0);
+        opacity: 1;
+        letter-spacing: 0.05em;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(0.92);
+        opacity: 0;
+      }
+    }
+    .chess-cinematic-banner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 60;
+      animation: chessBannerPop 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      white-space: nowrap;
+    }
+
+    /* Cinematic Spotlight Vignette Overlay */
+    .chess-cinematic-spotlight {
+      position: absolute;
+      inset: -14px;
+      border-radius: 24px;
+      pointer-events: none;
+      z-index: 40;
+      backdrop-filter: blur(6px) brightness(0.4);
+      -webkit-backdrop-filter: blur(6px) brightness(0.4);
+      transition: opacity 0.3s ease;
+    }
+
+    /* Spark Particle */
+    @keyframes chessSparkFly {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.2);
+        opacity: 0;
+      }
+    }
+    .chess-spark {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 9999px;
+      pointer-events: none;
+      z-index: 55;
+      animation: chessSparkFly 0.45s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+    }
 </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black">
@@ -265,7 +403,7 @@
         <!-- Version & Contributor Changelog Pill -->
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v2.7.0</span>
+          <span id="headerVersionPill" class="font-bold">v2.8.0</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -1038,7 +1176,69 @@
           </div>
         </div>
 
-        <!-- Chess Control Toolbar moved to top Contextual Bar -->
+        <!-- Chess Control Toolbar with Cinematic Edit Button -->
+        <div class="w-full bg-[#080D1A]/90 p-3 rounded-2xl border border-board-border/80 flex flex-wrap items-center justify-between gap-3 mb-5 shadow-inner">
+          
+          <!-- Mode, Bot Elo & Color Selectors -->
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Mode Selector -->
+            <div class="flex items-center bg-board-tray p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
+              <span class="text-[11px] text-slate-400 px-2 flex items-center gap-1">
+                <i data-lucide="gamepad-2" class="w-3.5 h-3.5 text-amber-400"></i> Chế Độ:
+              </span>
+              <button onclick="setChessMode('bot')" id="chessModeBtnBot" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition shadow-sm">
+                🤖 Đấu BOT
+              </button>
+              <button onclick="setChessMode('local')" id="chessModeBtnLocal" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">
+                👥 2 Người
+              </button>
+              <button onclick="setChessMode('online')" id="chessModeBtnOnline" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">
+                🌐 Online
+              </button>
+            </div>
+
+            <!-- Bot Elo Tier Selector (Only in Bot Mode) -->
+            <div id="chessBotTierWrapper" class="flex items-center bg-board-tray p-1 rounded-xl border border-cyan-500/30 text-xs font-bold shadow-inner">
+              <span class="text-[11px] text-cyan-400 px-1.5 flex items-center gap-1 font-semibold">
+                <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-400"></i> Bot Elo:
+              </span>
+              <button onclick="setChessBotElo(800)" id="chessEloBtn800" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition font-mono text-[11px]" title="Tập sự - Dễ dàng cho người mới">🐣 800</button>
+              <button onclick="setChessBotElo(1200)" id="chessEloBtn1200" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition font-mono text-[11px]" title="Kỳ thủ - Đòn chiến thuật cơ bản">🦊 1200</button>
+              <button onclick="setChessBotElo(1600)" id="chessEloBtn1600" class="px-2 py-0.5 rounded-md bg-gradient-to-r from-cyan-600 to-cyan-700 text-white font-bold transition shadow-sm font-mono text-[11px]" title="Kiện tướng - Tính toán sâu, kiểm soát trung tâm">🐺 1600</button>
+              <button onclick="setChessBotElo(2000)" id="chessEloBtn2000" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-amber-400 transition font-mono text-[11px]" title="Đại kiện tướng - Sát thủ bàn cờ 2000+">👑 2000+</button>
+            </div>
+
+            <!-- Player Color Picker (When playing with Bot) -->
+            <div id="chessColorWrapper" class="flex items-center bg-board-tray p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
+              <span class="text-[11px] text-slate-400 px-1.5">Bạn Cầm:</span>
+              <button onclick="setChessPlayerColor('w')" id="chessColorBtnW" class="px-2 py-0.5 rounded-md bg-white text-slate-950 font-bold transition text-[11px]">⚪ Trắng</button>
+              <button onclick="setChessPlayerColor('b')" id="chessColorBtnB" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition text-[11px]">⚫ Đen</button>
+            </div>
+          </div>
+
+          <!-- Match Action Buttons & Cinematic Slow-Mo Toggle -->
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Cinematic Slow-Mo Toggle Button -->
+            <button onclick="toggleChessCinematic()" id="btnChessCinematic" class="btn-spring px-2.5 py-1.5 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/50 text-xs font-bold flex items-center gap-1.5 shadow-sm" title="Bật/Tắt hiệu ứng tua chậm & làm mờ chuẩn video edit cờ vua">
+              <span id="chessCinematicIcon">🎬</span>
+              <span id="chessCinematicText">Edit Slow-Mo: BẬT</span>
+            </button>
+            <button onclick="resetChessGame()" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-200 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm" title="Bắt đầu ván mới">
+              <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Ván Mới</span>
+            </button>
+            <button onclick="undoChessMove()" id="btnChessUndo" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm" title="Đi lại 1 nước cờ">
+              <i data-lucide="undo-2" class="w-3.5 h-3.5 text-cyan-400"></i>
+              <span>Đi Lại</span>
+            </button>
+            <button onclick="flipChessBoard()" class="btn-spring p-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white border border-board-border text-xs font-bold shadow-sm" title="Xoay bàn cờ">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-slate-400"></i>
+            </button>
+            <button onclick="resignChessGame()" class="btn-spring p-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs font-bold shadow-sm" title="Đầu hàng ván đấu">
+              <i data-lucide="flag" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
 
         <!-- Main Chess Arena: 2 Columns Layout (Board 65% : Tactical Deck 35%) -->
         <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -2154,7 +2354,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v2.7.0</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v2.8.0</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -4915,53 +5115,318 @@
       }
     }
 
-    function executeChessMove(from, to, promotion = 'q') {
+    // =========================================================================
+    // CINEMATIC SLOW-MO & SPOTLIGHT EDIT ORCHESTRATOR
+    // =========================================================================
+    let chessCinematicEnabled = true;
+    let chessIsCinematicAnimating = false;
+
+    function toggleChessCinematic() {
+      chessCinematicEnabled = !chessCinematicEnabled;
+      const btn = document.getElementById('btnChessCinematic');
+      const text = document.getElementById('chessCinematicText');
+      if (chessCinematicEnabled) {
+        if (btn) btn.className = 'btn-spring px-2.5 py-1.5 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/50 text-xs font-bold flex items-center gap-1.5 shadow-sm';
+        if (text) text.textContent = 'Edit Slow-Mo: BẬT';
+        showToast('🎬 Đã BẬT hiệu ứng tua chậm & làm mờ chuẩn video edit!');
+      } else {
+        if (btn) btn.className = 'btn-spring px-2.5 py-1.5 rounded-xl bg-board-tray text-slate-400 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm';
+        if (text) text.textContent = 'Edit Slow-Mo: TẮT';
+        showToast('⚡ Chuyển sang chế độ nước đi nhanh thông thường.');
+      }
+    }
+
+    function soundChessWhoosh() {
+      if (!isSoundOn) return;
+      initAudio();
+      if (!audioCtx) return;
+      try {
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        const filter = audioCtx.createBiquadFilter();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(140, now);
+        osc.frequency.exponentialRampToValueAtTime(460, now + 0.35);
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(650, now);
+
+        gain.gain.setValueAtTime(0.01, now);
+        gain.gain.linearRampToValueAtTime(0.18, now + 0.15);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.35);
+      } catch (e) {}
+    }
+
+    function soundChessSlam(isCapture = false, isCheck = false) {
+      if (!isSoundOn) return;
+      initAudio();
+      if (!audioCtx) return;
+      try {
+        const now = audioCtx.currentTime;
+
+        // 1. Heavy Bass Sub-Thud (Dộng bàn cờ uy lực)
+        const bassOsc = audioCtx.createOscillator();
+        const bassGain = audioCtx.createGain();
+        bassOsc.type = 'sine';
+        bassOsc.frequency.setValueAtTime(160, now);
+        bassOsc.frequency.exponentialRampToValueAtTime(32, now + 0.28);
+
+        bassGain.gain.setValueAtTime(0.35, now);
+        bassGain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+
+        bassOsc.connect(bassGain);
+        bassGain.connect(audioCtx.destination);
+        bassOsc.start(now);
+        bassOsc.stop(now + 0.28);
+
+        // 2. Crisp Marble/Wood Click (Tiếng va đập quân cờ gắt)
+        const clickOsc = audioCtx.createOscillator();
+        const clickGain = audioCtx.createGain();
+        clickOsc.type = 'triangle';
+        clickOsc.frequency.setValueAtTime(isCapture ? 920 : 680, now);
+        clickOsc.frequency.exponentialRampToValueAtTime(220, now + 0.08);
+
+        clickGain.gain.setValueAtTime(0.28, now);
+        clickGain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+        clickOsc.connect(clickGain);
+        clickGain.connect(audioCtx.destination);
+        clickOsc.start(now);
+        clickOsc.stop(now + 0.08);
+
+        // 3. Tension sting if check / checkmate
+        if (isCheck) {
+          setTimeout(() => {
+            const chordNow = audioCtx.currentTime;
+            [554.37, 830.61, 1108.73].forEach((freq, idx) => {
+              const stingOsc = audioCtx.createOscillator();
+              const stingGain = audioCtx.createGain();
+              stingOsc.type = 'sawtooth';
+              stingOsc.frequency.setValueAtTime(freq, chordNow);
+
+              stingGain.gain.setValueAtTime(0.12 / (idx + 1), chordNow);
+              stingGain.gain.exponentialRampToValueAtTime(0.001, chordNow + 0.4);
+
+              stingOsc.connect(stingGain);
+              stingGain.connect(audioCtx.destination);
+              stingOsc.start(chordNow);
+              stingOsc.stop(chordNow + 0.4);
+            });
+          }, 60);
+        }
+      } catch (e) {}
+    }
+
+    async function playCinematicSlowMoSequence(from, to, movingPiece, targetPiece, isCheck, isCheckmate) {
+      const grid = document.getElementById('chessboardGrid');
+      if (!grid) return;
+
+      const fromCell = grid.querySelector(`[data-square="${from}"]`);
+      const toCell = grid.querySelector(`[data-square="${to}"]`);
+      if (!fromCell || !toCell) return;
+
+      const gridRect = grid.getBoundingClientRect();
+      const fromRect = fromCell.getBoundingClientRect();
+      const toRect = toCell.getBoundingClientRect();
+
+      const cellW = fromRect.width;
+      const cellH = fromRect.height;
+      const x1 = fromRect.left - gridRect.left;
+      const y1 = fromRect.top - gridRect.top;
+      const x2 = toRect.left - gridRect.left;
+      const y2 = toRect.top - gridRect.top;
+      const targetCenterX = x2 + cellW / 2;
+      const targetCenterY = y2 + cellH / 2;
+
+      // 1. Create Cinematic Spotlight Vignette (Blur & dark around)
+      const overlay = document.createElement('div');
+      overlay.className = 'chess-cinematic-spotlight';
+      overlay.style.background = `radial-gradient(circle 85px at ${targetCenterX}px ${targetCenterY}px, rgba(0,0,0,0.1) 0%, rgba(5,8,16,0.85) 60%, rgba(2,4,8,0.96) 100%)`;
+      overlay.style.opacity = '0';
+      grid.parentElement.appendChild(overlay);
+
+      // Fade in overlay
+      requestAnimationFrame(() => {
+        overlay.style.opacity = '1';
+      });
+
+      // Hide original piece in fromCell
+      const originalPieceEl = fromCell.querySelector('.chess-piece');
+      if (originalPieceEl) originalPieceEl.style.visibility = 'hidden';
+
+      // 2. Create Floating Cloned Piece
+      const floating = document.createElement('div');
+      floating.className = 'absolute z-50 flex items-center justify-center pointer-events-none';
+      floating.style.width = cellW + 'px';
+      floating.style.height = cellH + 'px';
+      floating.style.left = x1 + 'px';
+      floating.style.top = y1 + 'px';
+      floating.innerHTML = `<span class="chess-piece text-3xl sm:text-4xl md:text-5xl font-serif ${movingPiece.color === 'w' ? 'white-piece' : 'black-piece'}">${CHESS_PIECE_SYMBOLS[movingPiece.color][movingPiece.type]}</span>`;
+      grid.appendChild(floating);
+
+      // Target piece tremble if capture
+      const victimEl = toCell.querySelector('.chess-piece');
+      if (victimEl) victimEl.classList.add('chess-target-tremble');
+
+      // PHASE 1: LIFT UP (Nhấc quân lên cao với bóng đổ khổng lồ)
+      soundChessWhoosh();
+      floating.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease';
+      floating.style.transform = 'translateY(-28px) scale(1.55)';
+      floating.style.filter = 'drop-shadow(0 32px 24px rgba(0,0,0,0.95)) drop-shadow(0 0 16px rgba(245, 158, 11, 0.6))';
+
+      await new Promise(r => setTimeout(r, 260));
+
+      // PHASE 2: GLIDE IN SLOW-MOTION (Lướt chậm đến ô mục tiêu)
+      floating.style.transition = 'left 0.34s cubic-bezier(0.4, 0, 0.2, 1), top 0.34s cubic-bezier(0.4, 0, 0.2, 1)';
+      floating.style.left = x2 + 'px';
+      floating.style.top = y2 + 'px';
+
+      await new Promise(r => setTimeout(r, 340));
+
+      // PHASE 3: SLAM DOWN & IMPACT (Đập dộng quân cờ xuống bàn cờ)
+      floating.style.transition = 'transform 0.14s cubic-bezier(0.12, 0, 0.39, 0), filter 0.14s ease';
+      floating.style.transform = 'translateY(0) scale(1.0)';
+      floating.style.filter = 'drop-shadow(0 3px 5px rgba(0,0,0,0.9))';
+
+      soundChessSlam(!!targetPiece, isCheck || isCheckmate);
+
+      // Camera Screen Shake
+      grid.classList.remove('chess-screen-shake');
+      void grid.offsetWidth;
+      grid.classList.add('chess-screen-shake');
+
+      // Knockout captured piece
+      if (victimEl) {
+        victimEl.classList.remove('chess-target-tremble');
+        victimEl.classList.add('chess-piece-knockout');
+        createChessSparks(grid, targetCenterX, targetCenterY);
+      }
+
+      // Create Shockwave Ring
+      const ring = document.createElement('div');
+      ring.className = 'chess-shockwave-ring';
+      ring.style.left = targetCenterX + 'px';
+      ring.style.top = targetCenterY + 'px';
+      ring.style.width = (cellW * 1.6) + 'px';
+      ring.style.height = (cellH * 1.6) + 'px';
+      ring.style.borderColor = (isCheck || isCheckmate) ? '#F43F5E' : '#F59E0B';
+      grid.appendChild(ring);
+
+      // Display Cinematic Text Banner Flare
+      const banner = document.createElement('div');
+      let bannerText = '';
+      let bannerClass = '';
+      if (isCheckmate) {
+        bannerText = '👑 CHIẾU BÍ TOÀN THẮNG! 👑';
+        bannerClass = 'text-amber-300 border-2 border-amber-400 bg-black/85 drop-shadow-[0_0_25px_rgba(245,158,11,0.9)]';
+      } else if (isCheck) {
+        bannerText = '⚡ CHIẾU TƯỚNG! ⚡';
+        bannerClass = 'text-rose-400 border-2 border-rose-500 bg-black/85 drop-shadow-[0_0_25px_rgba(244,63,94,0.9)]';
+      } else if (targetPiece) {
+        const pName = CHESS_PIECE_NAMES[targetPiece.type] || 'QUÂN';
+        bannerText = `⚔️ TRẢM ${pName.toUpperCase()}! ⚔️`;
+        bannerClass = 'text-amber-200 border border-amber-500/70 bg-black/80 drop-shadow-[0_0_15px_rgba(251,191,36,0.8)]';
+      }
+      banner.className = `chess-cinematic-banner font-cinzel text-lg sm:text-2xl font-black px-5 py-2 rounded-2xl ${bannerClass}`;
+      banner.textContent = bannerText;
+      grid.parentElement.appendChild(banner);
+
+      await new Promise(r => setTimeout(r, 380));
+
+      // PHASE 4: CLEANUP & DISSOLVE
+      overlay.style.opacity = '0';
+      setTimeout(() => {
+        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+        if (floating.parentNode) floating.parentNode.removeChild(floating);
+        if (ring.parentNode) ring.parentNode.removeChild(ring);
+        if (banner.parentNode) banner.parentNode.removeChild(banner);
+        grid.classList.remove('chess-screen-shake');
+      }, 250);
+    }
+
+    function createChessSparks(parent, x, y) {
+      const colors = ['#F59E0B', '#F43F5E', '#FBBF24', '#38BDF8'];
+      for (let i = 0; i < 12; i++) {
+        const spark = document.createElement('div');
+        spark.className = 'chess-spark';
+        spark.style.left = x + 'px';
+        spark.style.top = y + 'px';
+        spark.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 30 + Math.random() * 45;
+        const tx = Math.cos(angle) * dist + 'px';
+        const ty = Math.sin(angle) * dist + 'px';
+        spark.style.setProperty('--tx', tx);
+        spark.style.setProperty('--ty', ty);
+        parent.appendChild(spark);
+        setTimeout(() => {
+          if (spark.parentNode) spark.parentNode.removeChild(spark);
+        }, 450);
+      }
+    }
+
+    async function executeChessMove(from, to, promotion = 'q') {
+      if (chessIsCinematicAnimating) return;
+
       const targetPiece = chessGame.get(to);
+      const movingPiece = chessGame.get(from);
+      if (!movingPiece) return;
+
+      // Test virtual move to check check/checkmate
+      const testMove = chessGame.move({ from, to, promotion });
+      if (!testMove) return;
+
+      const isCheck = chessGame.in_check();
+      const isCheckmate = chessGame.in_checkmate();
+      const isCapture = !!targetPiece;
+
+      chessGame.undo();
+
+      const shouldPlayCinematic = chessCinematicEnabled && (isCapture || isCheck || isCheckmate);
+
+      if (shouldPlayCinematic) {
+        chessIsCinematicAnimating = true;
+        await playCinematicSlowMoSequence(from, to, movingPiece, targetPiece, isCheck, isCheckmate);
+        chessIsCinematicAnimating = false;
+      }
+
+      // Execute real move
       const move = chessGame.move({ from, to, promotion });
-
-      if (!move) return;
-
       chessLastMove = { from, to };
 
-      // Sound design
       if (targetPiece) {
-        // Capture sound
-        soundTone(620, 'sawtooth', 0.12, 0.15);
         const capturedColor = targetPiece.color;
         chessCaptured[capturedColor === 'w' ? 'b' : 'w'].push(targetPiece.type);
-      } else if (move.flags.includes('k') || move.flags.includes('q')) {
-        // Castling sound
-        soundTone(440, 'triangle', 0.18, 0.14);
-      } else {
-        // Normal move sound
-        soundTone(520, 'sine', 0.08, 0.1);
       }
 
-      // Check sound
-      if (chessGame.in_check()) {
-        setTimeout(() => soundTone(880, 'square', 0.2, 0.16), 100);
+      if (!shouldPlayCinematic) {
+        if (move.flags.includes('k') || move.flags.includes('q')) {
+          soundTone(440, 'triangle', 0.18, 0.14);
+        } else {
+          soundTone(520, 'sine', 0.08, 0.1);
+        }
       }
 
-      // Record Move History
       recordChessMoveNotation(move);
-
-      // Render board & update UI
       renderChessBoard();
       updateChessUI();
 
-      // Check Game Over
       if (chessGame.game_over()) {
         handleChessGameOver();
         return;
       }
 
-      // Trigger Bot turn if in Bot mode
       if (chessMode === 'bot' && chessGame.turn() !== chessPlayerColor) {
         triggerChessBotTurn();
-      } else if (chessMode === 'local' && chessFlipped) {
-        // Auto flip for local 2-player
-        // chessFlipped = !chessFlipped;
-        // renderChessBoard();
       }
     }
 
@@ -5008,29 +5473,22 @@
       const tier = CHESS_BOT_TIERS[chessBotElo] || CHESS_BOT_TIERS[1600];
       const botDelay = tier.delay + Math.floor(Math.random() * 200);
 
-      setTimeout(() => {
+      setTimeout(async () => {
         const isWhite = (chessGame.turn() === 'w');
         const bestMoveSan = calculateBestChessMove(chessGame, tier, isWhite);
-
-        if (bestMoveSan) {
-          chessGame.move(bestMoveSan);
-          const history = chessGame.history({ verbose: true });
-          const lastM = history[history.length - 1];
-          if (lastM) {
-            chessLastMove = { from: lastM.from, to: lastM.to };
-            recordChessMoveNotation(lastM);
-            soundTone(520, 'sine', 0.08, 0.1);
-          }
-        }
 
         chessIsBotThinking = false;
         if (thinkingEl) thinkingEl.classList.add('hidden');
 
-        renderChessBoard();
-        updateChessUI();
-
-        if (chessGame.game_over()) {
-          handleChessGameOver();
+        if (bestMoveSan) {
+          const tempMove = chessGame.move(bestMoveSan);
+          if (tempMove) {
+            const mFrom = tempMove.from;
+            const mTo = tempMove.to;
+            const mPromo = tempMove.promotion || 'q';
+            chessGame.undo();
+            await executeChessMove(mFrom, mTo, mPromo);
+          }
         }
       }, botDelay);
     }
@@ -5376,7 +5834,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v2.7.0'
+      currentVersion: 'v2.8.0'
     };
 
     let allChangelogItems = [];
@@ -5385,10 +5843,19 @@
     // Curated fallback updates in case of offline or GitHub API rate limiting
     const CURATED_CHANGELOG = [
       {
+        sha: '7c3e91f',
+        roleType: 'dev2',
+        author: 'thaitraicau123-pixel (Anh)',
+        version: 'v2.8.0',
+        title: 'Hiệu ứng Tua Chậm (Slow-Mo), Nhấc Đập Quân & Làm Mờ Spotlight Điện Ảnh',
+        details: 'Tích hợp visual edit cờ vua phong cách TikTok/Reels: tự động kích hoạt tua chậm khi ăn quân hoặc chiếu tướng; nhấc bổng quân cờ lên cao với bóng đổ 3D, lướt chậm qua bàn cờ rồi dộng mạnh xuống; làm mờ tối toàn bộ xung quanh với hiệu ứng Radial Spotlight; rung lắc màn hình (screen shake), sóng xung kích (shockwave) và âm thanh va đập dội bàn cờ chân thực.',
+        date: '2026-10-26T10:05:00Z'
+      },
+      {
         sha: 'a4b7f8c',
         roleType: 'dev2',
         author: 'thaitraicau123-pixel (Anh)',
-        version: 'v2.7.0',
+        version: 'v2.8.0',
         title: 'Ra mắt Đấu Trường Cờ Vua Hoàng Gia (FIDE 8x8) & 4 Cấp Độ Bot Elo (800 - 2000+)',
         details: 'Tích hợp chuẩn luật FIDE (nhập thành, bắt tốt qua đường, tấn cấp tốt), hệ thống 4 cấp độ Bot Elo (800, 1200, 1600, 2000+) với thuật toán Minimax Alpha-Beta & Quiescence search, chế độ chơi 2 người (Local Pass & Play / Online) và bộ giao diện bàn cờ nỉ hoàng gia cao cấp.',
         date: '2026-10-26T01:30:00Z'
@@ -5397,7 +5864,7 @@
         sha: '6fe116d',
         roleType: 'dev1',
         author: 'cuongcuca111-web (Bạn anh)',
-        version: 'v2.7.0',
+        version: 'v2.8.0',
         title: 'Ra mắt Đa BOT (1-3 Bots), Tùy biến Điểm Cán Đích & Chế độ Khán Giả Tự Động',
         details: 'Tùy chọn 1-3 BOT AI (Cáo Lửa 🦊, Sói Băng 🐺, Gấu Trúc 🐼); tùy biến điểm thắng (30đ, 50đ, 100đ, tùy chọn); chế độ Khán Giả quan sát tự động với tốc độ từ 1x đến 5x siêu tốc và tự động sang ván mới.',
         date: '2026-10-25T17:49:22Z'

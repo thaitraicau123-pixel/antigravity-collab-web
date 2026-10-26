@@ -289,3 +289,26 @@ esetTTTScores).
    - **Tương Thích Mọi Thiết Bị**: Co giãn hoàn hảo từ màn hình điện thoại nhỏ đến tablet và màn hình máy tính 2K/4K.
    - **Trải Nghiệm Trực Quan**: Tất cả chữ, số tiền, tên tỉnh thành đều to, rõ ràng, dễ đọc, 1 chạm là tương tác ngay.
 
+
+
+---
+
+## ⚡ PHẦN 18: NÂNG CẤP MÔ HÌNH 3D XÂY NHÀ, FONT CHỮ LỚN & HỆ THỐNG HIỆU ỨNG POP-UP (V3.2.0)
+1. **Yêu Cầu & Mong Muốn Từ Người Dùng**:
+   - Thêm các hiệu ứng pop-up sinh động cho các sự kiện (xây nhà, rút thẻ cơ hội, vận mệnh, thu tiền thuê đất, trả lương).
+   - Tăng kích thước tên các ô và số tiền cho thật to, rõ nét, dễ đọc trên cả mobile và desktop.
+   - Mỗi khi mua đất / xây nhà phải có một **mô hình 3D nhỏ** xuất hiện trên ô đất đó.
+2. **Kiến Trúc Mô Hình 3D Isometric Nhỏ (3D Mini House SVG)**:
+   - Sử dụng đồ họa vector Isometric 3D tối ưu không tải nặng GPU:
+     * **Cấp 1 (Nhà Phố 3D)**: Mái ngói vát 3D, ống khói, tường hai sắc độ bóng sáng/tối, cửa gỗ, cửa sổ phát sáng và bóng đổ tiếp đất mềm.
+     * **Cấp 2 (Biệt Thự Song Lập 3D)**: Hai khối nhà 3D kề nhau với hai tầng mái ngói sang trọng.
+     * **Cấp 3 (Khách Sạn Hoàng Gia 3D)**: Tòa cao ốc hoàng gia phát sáng với vương miện vàng 👑 lung linh trên đỉnh.
+     * Hiệu ứng thả rơi `animate-bounce-drop` đàn hồi sống động khi công trình được khánh thành.
+3. **Typography Siêu Rõ Nét (Big Typography & High Contrast)**:
+   - Tên ô tỉnh thành: Tăng kích thước lên `text-[9px] sm:text-[11px] md:text-[12px] font-black uppercase tracking-tight` tương phản cao trên nền màu từng vùng miền.
+   - Giá trị đất & giá thuê: Font số điện tử Chakra Petch `text-[9px] sm:text-[12px] md:text-[13px] font-black text-amber-300 drop-shadow` nổi bật trên nền than chì.
+   - HUD Người chơi: Tên "Tiên" hiển thị to đậm màu vàng kim `text-base sm:text-xl md:text-2xl font-black text-amber-300`, số dư tiền mặt `$19760` màu xanh ngọc bích `text-emerald-300 text-lg sm:text-3xl md:text-4xl font-black font-chakra`.
+4. **Hệ Thống Hiệu Ứng Pop-Up Đa Tầng (Multi-Layer Popups)**:
+   - **Hộp thoại quyết định trung tâm (`#mono2dDecisionBox`)**: Hiệu ứng phóng to đàn hồi `animate-mono-popup` mỗi khi chuyển đổi trạng thái (Gieo xúc xắc, Hỏi mua đất, Hỏi nâng cấp nhà).
+   - **Thẻ tiền trôi nổi (`animate-float-cash`)**: Tự động bắn ra số tiền trôi lên và mờ dần (`+$2000` xanh lục hoặc `-$3200` đỏ cam) ngay trên avatar người chơi.
+   - **Modal Pop-Up Sự Kiện Hoàng Gia (`#monoEventModalOverlay`)**: Khung kính mờ backdrop blur với viền vàng tỏa sáng, hiển thị mô hình 3D thu nhỏ đang xoay/nhún nhảy, huy hiệu sự kiện (Xây nhà, Vận mệnh, Cơ hội, Tiền thuê, Vô tù), số tiền biến động và nút bấm 1 chạm tiếp tục.

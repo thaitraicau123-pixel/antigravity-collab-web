@@ -712,3 +712,42 @@ Cho phép người chơi chọn Hero trước trận hoặc chuyển đổi linh
    - Nhấn phím `Space` (Cách) hoặc `Enter` trên bàn phím máy tính để đổ xúc xắc ngay tức khắc mà không cần dùng chuột.
 
 ---
+
+### Phần 30: Hoạt Ảnh Máy Bay Dịch Chuyển & Chuyển Tiền Tương Tác Vào Ngân Hàng / Đối Thủ (v3.8.0)
+
+#### 1. Hoạt Ảnh Máy Bay Dịch Chuyển (Commercial Jet Airplane Flyby)
+- **Cơ chế kích hoạt**: Khi bất kỳ người chơi nào (Human hoặc Bot) dừng chân tại ô **Sân Bay / Dịch Chuyển (Tile 18)**.
+- **Thiết kế đồ họa & Hiệu ứng (Dựa theo ảnh tham chiếu số 1)**:
+  - Máy bay phản lực thương mại cỡ lớn (Commercial Jet Airliner) với phối màu Đỏ - Trắng thể thao:
+    - Thân máy bay khí động học thuôn dài màu trắng tuyết viền bóng chrome.
+    - Sọc đỏ thể thao (Livery Red Stripe) chạy dọc sống lưng từ đầu mũi đến cánh đuôi đứng.
+    - Buồng lái kính sapphire xanh đậm chống lóa.
+    - Cánh lớn vát chéo gắn 4 động cơ phản lực cánh quạt (Turbofan Jet Engines) có viền đỏ nacelle.
+    - Cụm vệt khói phản lực động cơ (Jet Vapor Contrails) xả dài phía sau.
+  - Đường băng trung tâm (Runway Strip) với vạch kẻ tim đường vàng phản quang.
+  - **Banner thông báo hành trình**:
+    - `✈️ CHUYẾN BAY DỊCH CHUYỂN: Bạn đang bay đến ô [Tên ô đích].`
+  - **Âm thanh**: Mô phỏng tiếng động cơ phản lực rít gió gầm rú (`playAirplaneSound()`).
+  - **Di chuyển quân cờ**: Sau khi máy bay lướt qua, quân cờ nhân vật tự động bay/đáp xuống ô đích và kích hoạt sự kiện ô đích.
+
+#### 2. Hoạt Ảnh Chồng Tiền Bay Vào Ngân Hàng / Đối Thủ (Dynamic Cash Transfer)
+- **Cơ chế kích hoạt**:
+  1. Khi người chơi **Mua đất** hoặc **Nâng cấp nhà** từ Ngân Hàng.
+  2. Khi người chơi **Trả tiền thuê đất** cho đối thủ sở hữu ô đất.
+- **Quy tắc phân rã mệnh giá tiền thông minh (Denomination Breakdown)**:
+  - Dựa trên chính xác số tiền giao dịch:
+    - **Cọc tiền Dollar ($1,000 / cọc)**: Các thếp tiền USD 3D xanh lá cây, quấn đai nẹp xanh neon, xếp chồng nổi khối isometric. (Ví dụ: $3,150 -> 3 cọc dollar).
+    - **Cột xu vàng ($100 / xu)**: Các đồng xu vàng kim loại óng ánh có khía cạnh và ký hiệu $. (Ví dụ: $3,150 -> 1 xu vàng).
+    - **Cột xu bạc ($50 / xu)**: Các đồng xu bạc kim loại sáng bóng chrome. (Ví dụ: $3,150 -> 1 xu bạc).
+    - Hiển thị nhãn chi tiết: `3 Cọc ($3,000)`, `1 Vàng ($100)`, `1 Bạc ($50)`.
+- **Tòa nhà Ngân Hàng Cổ Điển La Mã (The Classical Bank)**:
+  - Vẽ chuẩn vector SVG phỏng theo ảnh tham chiếu số 2:
+    - Mái tam giác cổ điển có biển hiệu `BANK` dập nổi chữ vàng.
+    - 4 cột thức đá cẩm thạch trắng (Doric/Ionic columns) với bệ đầu cột và chân cột chạm trổ.
+    - Cửa vòm hầm vàng và bậc thang đá nền tảng 3 tầng.
+- **Hiệu ứng chuyển động (Flight Arc Animation)**:
+  - Chồng tiền xuất phát từ Avatar người trả bên trái, bay lướt theo đường cong Bezier mềm mại sang bên phải rồi chui vào cổng Ngân Hàng hoặc rơi vào túi đối thủ.
+  - Ngân hàng / Thẻ đối thủ nhấp nháy ánh vàng tiếp nhận (`mono-recipient-pulsing`).
+  - Âm thanh đếm tiền xào xạc kết hợp tiếng leng keng kim loại vàng bạc.
+
+---

@@ -533,6 +533,80 @@
       animation: monoDiceShake 0.45s ease-in-out infinite;
     }
 
+  
+    /* === AIRPLANE FLYBY & CASH TRANSFER ANIMATIONS (v3.8.0) === */
+    @keyframes monoAirplaneFlight {
+      0% {
+        top: 110%;
+        transform: translate(-50%, 0) scale(0.7);
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+      }
+      50% {
+        top: 36%;
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+      }
+      85% {
+        opacity: 1;
+      }
+      100% {
+        top: -40%;
+        transform: translate(-50%, -100%) scale(1.3);
+        opacity: 0;
+      }
+    }
+
+    .mono-airplane-flying {
+      animation: monoAirplaneFlight 2.0s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    }
+
+    @keyframes monoCashFlightArc {
+      0% {
+        left: 22%;
+        transform: translateY(-50%) scale(0.9) rotate(-4deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+        transform: translateY(calc(-50% - 25px)) scale(1.08) rotate(3deg);
+      }
+      65% {
+        opacity: 1;
+        transform: translateY(calc(-50% - 10px)) scale(1) rotate(-1deg);
+      }
+      100% {
+        left: 68%;
+        transform: translateY(-50%) scale(0.6) rotate(6deg);
+        opacity: 0;
+      }
+    }
+
+    .mono-cash-flying {
+      animation: monoCashFlightArc 1.35s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+    }
+
+    @keyframes monoRecipientPulse {
+      0%, 70% {
+        transform: scale(1);
+        filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
+      }
+      85% {
+        transform: scale(1.12);
+        filter: drop-shadow(0 0 35px rgba(245, 158, 11, 0.95));
+      }
+      100% {
+        transform: scale(1);
+        filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
+      }
+    }
+
+    .mono-recipient-pulsing {
+      animation: monoRecipientPulse 1.35s ease-out forwards;
+    }
+
   </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black w-full max-w-full overflow-x-hidden">
@@ -618,7 +692,7 @@
         <!-- Version & Contributor Changelog Pill -->
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v3.7.6</span>
+          <span id="headerVersionPill" class="font-bold">v3.8.0</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -2255,6 +2329,134 @@
           </div>
         </div>
 
+        
+        <!-- ================= SCREEN-SPACE AIRPLANE FLYBY OVERLAY (Tile 18 Sân Bay / Dịch Chuyển) ================= -->
+        <div id="monoAirplaneOverlay" class="hidden absolute inset-0 z-50 flex flex-col items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fade-in pointer-events-none select-none overflow-hidden">
+          
+          <!-- Flight Runway Strip (Matching reference photo 1) -->
+          <div class="relative w-full max-w-xl h-44 bg-gradient-to-b from-[#0F1C33]/90 via-[#162744]/95 to-[#0F1C33]/90 border-2 border-slate-500/60 rounded-3xl flex items-center justify-center p-4 shadow-[0_0_50px_rgba(0,0,0,0.9)] overflow-hidden">
+            <!-- Runway Centerline -->
+            <div class="absolute inset-x-0 h-1 border-t-2 border-dashed border-amber-400/50 top-1/2 -translate-y-1/2 pointer-events-none"></div>
+
+            <!-- Commercial Jet Airplane SVG -->
+            <div id="monoJetPlaneAnim" class="absolute left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+              <svg width="260" height="260" viewBox="0 0 300 300" fill="none" class="filter drop-shadow-[0_25px_30px_rgba(0,0,0,0.95)]">
+                <!-- Jet Contrails / Vapor Trails -->
+                <line x1="108" y1="185" x2="108" y2="290" stroke="rgba(255,255,255,0.45)" stroke-width="4" stroke-dasharray="8 6" />
+                <line x1="126" y1="195" x2="126" y2="280" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-dasharray="6 6" />
+                <line x1="174" y1="195" x2="174" y2="280" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-dasharray="6 6" />
+                <line x1="192" y1="185" x2="192" y2="290" stroke="rgba(255,255,255,0.45)" stroke-width="4" stroke-dasharray="8 6" />
+
+                <!-- Swept-back Wings -->
+                <polygon points="150,110 20,185 30,205 138,155 150,155 162,155 270,205 280,185" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2" />
+                <!-- Wing Red Slats / Leading Edge Accents -->
+                <polygon points="150,112 35,188 55,195 142,145" fill="#dc2626" />
+                <polygon points="150,112 265,188 245,195 158,145" fill="#dc2626" />
+
+                <!-- 4 Turbofan Jet Engines -->
+                <rect x="120" y="150" width="12" height="32" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" />
+                <rect x="120" y="150" width="12" height="7" rx="3" fill="#dc2626" />
+                <rect x="102" y="160" width="12" height="30" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" />
+                <rect x="102" y="160" width="12" height="7" rx="3" fill="#dc2626" />
+                <rect x="168" y="150" width="12" height="32" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" />
+                <rect x="168" y="150" width="12" height="7" rx="3" fill="#dc2626" />
+                <rect x="186" y="160" width="12" height="30" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" />
+                <rect x="186" y="160" width="12" height="7" rx="3" fill="#dc2626" />
+
+                <!-- Tail Stabilizers -->
+                <polygon points="150,225 105,260 115,268 150,250 185,268 195,260" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+                <polygon points="150,227 110,260 120,265 150,248" fill="#dc2626" />
+                <polygon points="150,227 190,260 180,265 150,248" fill="#dc2626" />
+
+                <!-- Aerodynamic Fuselage -->
+                <ellipse cx="150" cy="140" rx="19" ry="105" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" />
+                <!-- Red Spine Stripe -->
+                <path d="M 144,48 Q 150,38 156,48 L 156,238 Q 150,244 144,238 Z" fill="#dc2626" />
+                <!-- Cockpit Glass -->
+                <path d="M 143,58 Q 150,54 157,58 Q 155,68 150,69 Q 145,68 143,58 Z" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
+
+                <!-- Passenger Windows -->
+                <circle cx="140" cy="90" r="1.5" fill="#334155" /><circle cx="140" cy="102" r="1.5" fill="#334155" />
+                <circle cx="140" cy="114" r="1.5" fill="#334155" /><circle cx="140" cy="126" r="1.5" fill="#334155" />
+                <circle cx="140" cy="138" r="1.5" fill="#334155" /><circle cx="140" cy="150" r="1.5" fill="#334155" />
+                <circle cx="140" cy="162" r="1.5" fill="#334155" /><circle cx="140" cy="174" r="1.5" fill="#334155" />
+                <circle cx="140" cy="186" r="1.5" fill="#334155" />
+                <circle cx="160" cy="90" r="1.5" fill="#334155" /><circle cx="160" cy="102" r="1.5" fill="#334155" />
+                <circle cx="160" cy="114" r="1.5" fill="#334155" /><circle cx="160" cy="126" r="1.5" fill="#334155" />
+                <circle cx="160" cy="138" r="1.5" fill="#334155" /><circle cx="160" cy="150" r="1.5" fill="#334155" />
+                <circle cx="160" cy="162" r="1.5" fill="#334155" /><circle cx="160" cy="174" r="1.5" fill="#334155" />
+                <circle cx="160" cy="186" r="1.5" fill="#334155" />
+
+                <!-- Vertical Fin -->
+                <polygon points="148,205 152,205 151,245 149,245" fill="#b91c1c" />
+              </svg>
+            </div>
+
+            <!-- Flight Banner (Matching reference photo 1) -->
+            <div class="relative z-10 text-center bg-[#070D18]/92 px-6 sm:px-8 py-3 rounded-2xl border-2 border-amber-400/60 backdrop-blur-md shadow-[0_0_30px_rgba(0,0,0,0.9)] max-w-md">
+              <div class="text-xs font-black text-amber-400 uppercase tracking-widest mb-1 flex items-center justify-center gap-2">
+                <span>✈️ CHUYẾN BAY DỊCH CHUYỂN</span>
+              </div>
+              <div class="text-sm sm:text-base font-black text-white" id="monoAirplaneBannerText">
+                Bạn đang bay đến ô <span class="text-amber-400 font-black uppercase" id="monoAirplaneDestName">TP. HỒ CHÍ MINH</span>.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ================= SCREEN-SPACE DYNAMIC CASH TRANSFER OVERLAY (Bank / Rent Transfer) ================= -->
+        <div id="monoCashTransferOverlay" class="hidden absolute inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in pointer-events-none select-none">
+          
+          <div class="w-full max-w-xl bg-[#0B132B]/98 border-2 border-amber-400 rounded-3xl p-6 sm:p-7 shadow-[0_0_60px_rgba(0,0,0,0.95)] flex flex-col items-center">
+            
+            <!-- Title -->
+            <div class="flex items-center gap-2 mb-4">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+              <span id="monoCashTransferTitle" class="text-xs sm:text-sm font-black text-amber-300 uppercase tracking-widest font-mono">
+                THANH TOÁN TIỀN MUA ĐẤT
+              </span>
+            </div>
+
+            <!-- Transfer Arena: Payer -> Flying Cash -> Recipient -->
+            <div class="relative w-full flex items-center justify-between px-4 sm:px-6 py-6 bg-[#060B16]/90 rounded-2xl border border-slate-700/80 min-h-[210px] overflow-hidden">
+              
+              <!-- LEFT: Payer Character Pod -->
+              <div id="monoCashPayerPod" class="flex flex-col items-center gap-1.5 z-10 shrink-0 w-24">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 p-[2px] shadow-[0_0_20px_rgba(6,182,212,0.6)]" id="monoCashPayerAvatarBorder">
+                  <div class="w-full h-full rounded-2xl bg-slate-900 flex items-center justify-center text-2xl" id="monoCashPayerAvatar">
+                    👧🏻
+                  </div>
+                </div>
+                <span class="text-xs sm:text-sm font-black text-white truncate max-w-[90px]" id="monoCashPayerName">Tiên</span>
+                <span class="text-[11px] font-chakra font-black text-rose-400" id="monoCashPayerDiff">-$3,150</span>
+              </div>
+
+              <!-- MIDDLE: Dynamic Stacks of Cash (Bundles of Dollars + Gold Coins + Silver Coins) -->
+              <div id="monoCashTransferStack" class="absolute top-1/2 -translate-y-1/2 z-20 flex items-end gap-2.5 filter drop-shadow-[0_15px_25px_rgba(0,0,0,0.95)]">
+                <!-- Rendered dynamically -->
+              </div>
+
+              <!-- RIGHT: Recipient (The Bank or Opponent) -->
+              <div id="monoCashRecipientPod" class="flex flex-col items-center gap-1.5 z-10 shrink-0 w-24">
+                <div id="monoCashRecipientVisual" class="flex flex-col items-center">
+                  <!-- Rendered dynamically -->
+                </div>
+                <span class="text-xs sm:text-sm font-black text-amber-300 truncate max-w-[90px]" id="monoCashRecipientName">NGÂN HÀNG</span>
+                <span class="text-[11px] font-chakra font-black text-emerald-400" id="monoCashRecipientDiff">+$3,150</span>
+              </div>
+
+            </div>
+
+            <!-- Transaction Summary Description -->
+            <div class="mt-4 text-xs sm:text-sm text-slate-300 font-medium text-center" id="monoCashTransferDesc">
+              Đã thanh toán $3,150 vào Ngân Hàng thành công.
+            </div>
+
+          </div>
+
+        </div>
+
         <!-- Screen-Space Event Popup Modal (100% Clickable, Direct Hit-Testing) -->
         <div id="monoEventModalOverlay" class="hidden absolute inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in pointer-events-auto">
           <div class="w-full max-w-sm bg-[#0B132B]/98 border-2 border-amber-400 rounded-3xl p-5 shadow-[0_0_50px_rgba(0,0,0,0.95)] flex flex-col items-center text-center">
@@ -3583,7 +3785,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.7.6</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.8.0</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -7999,6 +8201,269 @@
     window.handleMonoDialogChoice = handleMonoDialogChoice;
     window.executeMono2dRoll = executeMono2dRoll;
 
+    // =========================================================================
+    // DYNAMIC CASH DENOMINATIONS & ANIMATIONS (v3.8.0)
+    // Breakdown: $1,000 bundles, $100 gold coins, $50 silver coins
+    // =========================================================================
+
+    function getCashDenominations(amount) {
+      const thousands = Math.floor(amount / 1000);
+      const rem1000 = amount % 1000;
+      const hundreds = Math.floor(rem1000 / 100);
+      const rem100 = rem1000 % 100;
+      const fifties = Math.floor(rem100 / 50);
+      const tens = Math.floor((rem100 % 50) / 10);
+
+      return {
+        dollarBundles: Math.min(5, Math.max(0, thousands)),
+        goldCoins: Math.min(5, Math.max(0, hundreds)),
+        silverCoins: Math.min(5, Math.max(0, fifties + (tens > 0 ? 1 : 0))),
+        totalAmount: amount
+      };
+    }
+
+    // Roman/Greek Classical Bank Building SVG (Matching Reference Photo 2)
+    function getClassicalBankBuildingSVG() {
+      return `
+        <svg width="74" height="66" viewBox="0 0 120 110" fill="none" class="filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.8)]">
+          <!-- Roof Pediment -->
+          <polygon points="60,6 6,36 114,36" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2" />
+          <polygon points="60,12 16,34 104,34" fill="#e2e8f0" />
+          <!-- "BANK" Plaque -->
+          <rect x="36" y="22" width="48" height="10" rx="2" fill="#0f172a" />
+          <text x="60" y="30" font-size="8" font-weight="900" fill="#f59e0b" font-family="serif" text-anchor="middle" letter-spacing="1.5">BANK</text>
+          <!-- Architrave -->
+          <rect x="10" y="36" width="100" height="8" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5" />
+          <!-- 4 Classical Pillars -->
+          <rect x="18" y="44" width="12" height="42" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
+          <rect x="16" y="44" width="16" height="3" fill="#cbd5e1" /><rect x="16" y="83" width="16" height="3" fill="#cbd5e1" />
+          <rect x="42" y="44" width="12" height="42" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
+          <rect x="40" y="44" width="16" height="3" fill="#cbd5e1" /><rect x="40" y="83" width="16" height="3" fill="#cbd5e1" />
+          <rect x="66" y="44" width="12" height="42" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
+          <rect x="64" y="44" width="16" height="3" fill="#cbd5e1" /><rect x="64" y="83" width="16" height="3" fill="#cbd5e1" />
+          <rect x="90" y="44" width="12" height="42" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
+          <rect x="88" y="44" width="16" height="3" fill="#cbd5e1" /><rect x="88" y="83" width="16" height="3" fill="#cbd5e1" />
+          <!-- Vault Entrance Shadow -->
+          <rect x="56" y="58" width="8" height="28" rx="2" fill="#0f172a" />
+          <!-- Foundation Podium Steps -->
+          <rect x="8" y="86" width="104" height="6" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1" />
+          <rect x="4" y="92" width="112" height="7" fill="#94a3b8" stroke="#64748b" stroke-width="1" />
+          <rect x="0" y="99" width="120" height="8" rx="2" fill="#64748b" stroke="#475569" stroke-width="1" />
+        </svg>
+      `;
+    }
+
+    // Render 3D Stacks of Dollars, Gold Coins & Silver Coins
+    function renderCashStackHTML(amount) {
+      const { dollarBundles, goldCoins, silverCoins } = getCashDenominations(amount);
+      let html = '';
+
+      // 1. Dollar Bundles ($1,000 / bundle)
+      if (dollarBundles > 0) {
+        let bundleSvgs = '';
+        for (let i = 0; i < dollarBundles; i++) {
+          const yOff = (dollarBundles - 1 - i) * 14;
+          bundleSvgs += `
+            <g transform="translate(0, ${yOff})">
+              <polygon points="10,18 45,34 80,18 45,4" fill="#22c55e" stroke="#16a34a" stroke-width="1.2" />
+              <polygon points="10,18 45,34 45,42 10,26" fill="#16a34a" />
+              <polygon points="45,34 80,18 80,26 45,42" fill="#15803d" />
+              <polygon points="34,13 56,23 56,31 34,21" fill="#bef264" opacity="0.9" />
+              <ellipse cx="45" cy="19" rx="6" ry="3" fill="#15803d" opacity="0.6" />
+              <text x="45" y="21" font-size="6" font-weight="900" fill="#ffffff" text-anchor="middle">$</text>
+            </g>
+          `;
+        }
+        const svgHeight = 44 + (dollarBundles - 1) * 14;
+        html += `
+          <div class="flex flex-col items-center">
+            <svg width="70" height="${svgHeight}" viewBox="0 0 90 ${svgHeight + 5}" fill="none">
+              ${bundleSvgs}
+            </svg>
+            <span class="text-[8px] font-black text-emerald-400 font-mono -mt-1 bg-black/70 px-1 rounded border border-emerald-500/30">${dollarBundles} Cọc (${(dollarBundles * 1000).toLocaleString()})</span>
+          </div>
+        `;
+      }
+
+      // 2. Gold Coins ($100 / coin)
+      if (goldCoins > 0) {
+        const coinH = 26 + (goldCoins - 1) * 5;
+        let ridges = '';
+        for (let j = 0; j < goldCoins; j++) {
+          const cy = 12 + j * 5;
+          ridges += `<line x1="2" y1="${cy}" x2="32" y2="${cy}" stroke="#f59e0b" opacity="0.6" />`;
+        }
+        html += `
+          <div class="flex flex-col items-center">
+            <svg width="30" height="${coinH + 16}" viewBox="0 0 36 ${coinH + 20}" fill="none">
+              <path d="M 2,10 L 2,${coinH} A 15 6 0 0 0 32,${coinH} L 32,10 Z" fill="#b45309" stroke="#78350f" stroke-width="1.2" />
+              ${ridges}
+              <ellipse cx="17" cy="10" rx="15" ry="6" fill="#fbbf24" stroke="#fef08a" stroke-width="1.2" />
+              <ellipse cx="17" cy="10" rx="11" ry="4" fill="#f59e0b" stroke="#fef08a" stroke-width="1" />
+              <text x="17" y="12" font-size="7" font-weight="900" fill="#78350f" text-anchor="middle">$</text>
+            </svg>
+            <span class="text-[8px] font-black text-amber-300 font-mono -mt-1 bg-black/70 px-1 rounded border border-amber-500/30">${goldCoins} Vàng (${goldCoins * 100})</span>
+          </div>
+        `;
+      }
+
+      // 3. Silver Coins ($50 / coin)
+      if (silverCoins > 0) {
+        const sCoinH = 22 + (silverCoins - 1) * 4;
+        let sRidges = '';
+        for (let k = 0; k < silverCoins; k++) {
+          const scy = 10 + k * 4;
+          sRidges += `<line x1="2" y1="${scy}" x2="26" y2="${scy}" stroke="#cbd5e1" opacity="0.6" />`;
+        }
+        html += `
+          <div class="flex flex-col items-center">
+            <svg width="26" height="${sCoinH + 14}" viewBox="0 0 30 ${sCoinH + 18}" fill="none">
+              <path d="M 2,8 L 2,${sCoinH} A 12 5 0 0 0 26,${sCoinH} L 26,8 Z" fill="#64748b" stroke="#334155" stroke-width="1.2" />
+              ${sRidges}
+              <ellipse cx="14" cy="8" rx="12" ry="5" fill="#e2e8f0" stroke="#ffffff" stroke-width="1.2" />
+              <ellipse cx="14" cy="8" rx="9" ry="3" fill="#94a3b8" stroke="#ffffff" stroke-width="1" />
+              <text x="14" y="10" font-size="6" font-weight="900" fill="#334155" text-anchor="middle">$</text>
+            </svg>
+            <span class="text-[8px] font-black text-slate-300 font-mono -mt-1 bg-black/70 px-1 rounded border border-slate-500/30">${silverCoins} Bạc (${silverCoins * 50})</span>
+          </div>
+        `;
+      }
+
+      return html;
+    }
+
+    // Trigger Dynamic Cash Transfer Animation
+    function triggerMonoCashTransfer({ payer, recipient, amount, type = 'buy', desc, onComplete }) {
+      const overlay = document.getElementById('monoCashTransferOverlay');
+      if (!overlay) {
+        if (onComplete) onComplete();
+        return;
+      }
+
+      const titleEl = document.getElementById('monoCashTransferTitle');
+      const descEl = document.getElementById('monoCashTransferDesc');
+      const stackContainer = document.getElementById('monoCashTransferStack');
+      const payerName = document.getElementById('monoCashPayerName');
+      const payerAvatar = document.getElementById('monoCashPayerAvatar');
+      const payerDiff = document.getElementById('monoCashPayerDiff');
+      const recipName = document.getElementById('monoCashRecipientName');
+      const recipVisual = document.getElementById('monoCashRecipientVisual');
+      const recipDiff = document.getElementById('monoCashRecipientDiff');
+      const recipPod = document.getElementById('monoCashRecipientPod');
+
+      // 1. Setup Payer
+      if (payerName) payerName.textContent = payer.name;
+      if (payerAvatar) payerAvatar.textContent = payer.avatar || '👧🏻';
+      if (payerDiff) payerDiff.textContent = `-${amount.toLocaleString()}`;
+
+      // 2. Setup Recipient
+      if (recipient === 'bank') {
+        if (titleEl) titleEl.textContent = type === 'buy' ? 'MUA ĐẤT: NỘP TIỀN VÀO NGÂN HÀNG' : 'NÂNG CẤP NHÀ: NỘP TIỀN VÀO NGÂN HÀNG';
+        if (recipName) recipName.textContent = 'NGÂN HÀNG';
+        if (recipVisual) recipVisual.innerHTML = getClassicalBankBuildingSVG();
+        if (recipDiff) recipDiff.textContent = `+${amount.toLocaleString()}`;
+        if (descEl) descEl.textContent = desc || `${payer.name} đã chuyển ${amount.toLocaleString()} vào Ngân Hàng.`;
+      } else {
+        if (titleEl) titleEl.textContent = 'TRẢ TIỀN THUÊ CHO ĐỐI THỦ';
+        if (recipName) recipName.textContent = recipient.name;
+        if (recipVisual) {
+          recipVisual.innerHTML = `
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-400 p-[2px] shadow-[0_0_20px_rgba(245,158,11,0.6)]">
+              <div class="w-full h-full rounded-2xl bg-slate-900 flex items-center justify-center text-2xl">
+                ${recipient.avatar || '🦊'}
+              </div>
+            </div>
+          `;
+        }
+        if (recipDiff) recipDiff.textContent = `+${amount.toLocaleString()}`;
+        if (descEl) descEl.textContent = desc || `${payer.name} đã trả ${amount.toLocaleString()} tiền thuê cho ${recipient.name}.`;
+      }
+
+      // 3. Render Cash Stack
+      if (stackContainer) {
+        stackContainer.innerHTML = renderCashStackHTML(amount);
+        stackContainer.classList.remove('mono-cash-flying');
+        void stackContainer.offsetWidth; // Reflow
+        stackContainer.classList.add('mono-cash-flying');
+      }
+
+      // 4. Pulse Recipient
+      if (recipPod) {
+        recipPod.classList.remove('mono-recipient-pulsing');
+        void recipPod.offsetWidth;
+        recipPod.classList.add('mono-recipient-pulsing');
+      }
+
+      // Play Sound: Cash flutter + Coin Clink
+      try {
+        soundTone(580, 'triangle', 0.1, 0.2);
+        setTimeout(() => soundTone(880, 'sine', 0.15, 0.25), 200);
+        setTimeout(() => soundTone(1320, 'sine', 0.15, 0.3), 500);
+      } catch(e) {}
+
+      // Show Overlay
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+
+      // Auto close after animation finishes
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+        if (onComplete) onComplete();
+      }, 1450);
+    }
+    window.triggerMonoCashTransfer = triggerMonoCashTransfer;
+
+    // Trigger Airplane Flyby Sequence (Tile 18 Sân Bay / Dịch Chuyển)
+    function triggerMonoAirplaneFlyby({ player, destTile, onComplete }) {
+      const overlay = document.getElementById('monoAirplaneOverlay');
+      if (!overlay) {
+        if (onComplete) onComplete();
+        return;
+      }
+
+      const destNameEl = document.getElementById('monoAirplaneDestName');
+      const bannerTextEl = document.getElementById('monoAirplaneBannerText');
+      const jetAnim = document.getElementById('monoJetPlaneAnim');
+
+      if (destNameEl) destNameEl.textContent = destTile.name;
+      if (bannerTextEl) {
+        bannerTextEl.innerHTML = `Bạn đang bay đến ô <span class="text-amber-400 font-black uppercase">${destTile.name}</span>.`;
+      }
+
+      if (jetAnim) {
+        jetAnim.classList.remove('mono-airplane-flying');
+        void jetAnim.offsetWidth;
+        jetAnim.classList.add('mono-airplane-flying');
+      }
+
+      // Synthesized Jet Engine Whoosh Sound
+      try {
+        soundTone(240, 'sawtooth', 0.8, 0.2);
+        setTimeout(() => soundTone(480, 'sine', 0.9, 0.3), 400);
+        setTimeout(() => soundTone(800, 'sine', 0.6, 0.2), 900);
+      } catch(e) {}
+
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+
+      // After 2.0s airplane passes, fly pawn directly to destination tile!
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+
+        // Move pawn directly to destination tile
+        player.pos = destTile.id;
+        updateMonopolyPawns();
+        updateMonopolyHUD();
+        showToast(`✈️ ${player.name} đã hạ cánh an toàn tại ${destTile.name}!`);
+
+        if (onComplete) onComplete();
+      }, 2050);
+    }
+    window.triggerMonoAirplaneFlyby = triggerMonoAirplaneFlyby;
+
+
     // Click on Central Arena Turf to roll (Maximal hit area)
     function handleCentralTurfClick() {
       if (typeof monoState === 'undefined' || monoState.isRolling) return;
@@ -9966,7 +10431,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v3.7.6'
+      currentVersion: 'v3.8.0'
     };
 
     let allChangelogItems = [];

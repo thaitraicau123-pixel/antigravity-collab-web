@@ -629,3 +629,24 @@ Cho phép người chơi chọn Hero trước trận hoặc chuyển đổi linh
      - Khi rời chuột, HUD tự động hồi quy về thông tin ô đất hiện tại của người chơi đang trong lượt.
 
 ---
+
+---
+
+### Phần 27: Khắc Phục Triệt Để Lỗi Click Hộp Quyết Định / Nút Xúc Xắc & Căn Chỉnh Góc Nghiêng Bàn Cờ Chuẩn 30 Độ (v3.7.4)
+
+#### 1. Nguyên Nhân Sự Cố & Phân Tích Kỹ Thuật
+1. **Lỗi không bấm được nút "Đồng Ý" / "Bỏ Qua"**:
+   - *Nguyên nhân phát hiện qua Telemetry*: Hộp thoại quyết định (`#mono2dDecisionBox`) trước đây đặt lồng bên trong container sân cờ (`#mono2dCentralArena`) có thuộc tính `overflow: hidden` kết hợp phép biến đổi 3D (`transform: rotateZ(-45deg) rotateX(-32deg) translateZ(42px)`).
+   - Trên các trình duyệt nhân Blink/Chromium (Chrome/Edge), phép chiếu 3D lồng trong `overflow: hidden` làm vùng bắt sự kiện chuột (hit-testing bounds) bị lệch hoàn toàn khỏi tọa độ hiển thị đồ họa. Kiểm tra `document.elementFromPoint` cho thấy cú click bị phần tử cha `mono2dCentralArena` hấp thụ (`isDirectHit: false`), khiến nút không nhận được lệnh click.
+   - *Khắc phục*: Di chuyển toàn bộ `#mono2dDecisionBox` và `#monoEventModalOverlay` ra khỏi khối 3D, đặt làm lớp phủ HUD 2D màn hình phẳng (`z-50 backdrop-blur-sm pointer-events-auto`). Kết quả kiểm tra trực tiếp qua Edge: `isDirectHit: true`, 100% cú click mua đất, nâng cấp nhà và bảo lãnh tù đều phản hồi tức thì.
+
+2. **Khắc phục nút "Đổ Xúc Xắc" khó bấm**:
+   - Loại bỏ `overflow-hidden` trên `#mono2dCentralArena`, mở rộng diện tích bấm của nút `#btnMono2dRoll` (`px-8 sm:px-10 py-3 sm:py-3.5`), tích hợp hiệu ứng đổ bóng phát quang `shadow-[0_0_30px_rgba(245,158,11,0.7)]` và gán `pointer-events-auto` trực tiếp.
+
+3. **Căn chỉnh góc nghiêng chuẩn 30 độ (Perspective Tilt 30°)**:
+   - Theo phản hồi của người dùng (*"em chỉ cho nghiêng 30 độ thôi nhé 45 độ khó nhìn quá"*), góc xoay kim cương 45 độ (`rotateZ(45deg)`) làm chữ bị nghiêng chéo và phối cảnh bị ép dẹt.
+   - Chuyển đổi bàn cờ về phối cảnh 2.5D mặt chính diện với độ nghiêng chính xác 30 độ (`transform: perspective(1400px) rotateX(30deg) rotateZ(0deg) scale(0.96)`):
+     - Mọi ô thành phố hàng dưới (`XUẤT PHÁT`, `NINH BÌNH`, `THANH HÓA`, `VINH`, `HÀ TĨNH`, `BẾN XE`, `ĐÔNG HÀ`, `TRẠI GIAM`) đều nằm ngang 100% trước mắt người chơi, đọc chữ từ trái sang phải hoàn toàn tự nhiên.
+     - Mô hình nhà 3D nổi và tiêu điểm quân cờ phản nghiêng `rotateX(-30deg) translateZ(28px)` vươn thẳng đứng về phía người xem, tạo cảm giác sa bàn 3D sang trọng, thoáng đãng mà không bị mỏi mắt.
+
+---

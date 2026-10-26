@@ -390,7 +390,7 @@
       transform-style: preserve-3d;
     }
     .mono-board {
-      transform: rotateX(52deg) rotateZ(-45deg);
+      transform: rotateX(52deg) rotateZ(0deg);
       transform-style: preserve-3d;
       box-shadow: -25px 25px 55px rgba(0,0,0,0.75), 0 0 60px rgba(16, 185, 129, 0.22);
       transition: transform 0.4s ease;
@@ -441,7 +441,7 @@
     }
 
     .mono-board-25d {
-      transform: perspective(1400px) rotateX(32deg) rotateZ(45deg) scale(0.96);
+      transform: perspective(1400px) rotateX(30deg) rotateZ(0deg) scale(0.96);
       transform-style: preserve-3d;
       box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.95), 0 0 60px rgba(16, 185, 129, 0.25);
       transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.6s ease;
@@ -460,7 +460,7 @@
     .mono-board-25d #pawnP2 > div,
     .mono-board-25d #pawnP3 > div,
     .mono-board-25d #pawnP4 > div {
-      transform: rotateZ(-45deg) rotateX(-32deg) translateZ(28px);
+      transform: rotateZ(0deg) rotateX(-30deg) translateZ(28px);
       transform-style: preserve-3d;
       filter: drop-shadow(0 16px 12px rgba(0, 0, 0, 0.9));
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -2235,6 +2235,45 @@
         </div>
 
         <!-- ================= DIAMOND ISOMETRIC TABLETOP BOARD (10x10 SQUARE GRID ROTATED 45°) ================= -->
+        
+        <!-- Screen-Space Interactive Decision Modal (100% Clickable, Direct Hit-Testing) -->
+        <div id="mono2dDecisionBox" class="hidden absolute inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm animate-fade-in pointer-events-auto">
+          <div class="w-full max-w-sm bg-[#0B132B]/98 border-2 border-amber-400 rounded-3xl p-5 shadow-[0_0_50px_rgba(0,0,0,0.95)] flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400/20 to-amber-500/10 border-2 border-amber-400/50 flex items-center justify-center text-3xl mb-3 shadow-inner">
+              <span id="monoDialogIcon">🏡</span>
+            </div>
+            <div class="text-sm sm:text-base font-black text-white mb-1.5 uppercase tracking-wide" id="monoDialogTitle">MUA KHU ĐẤT ĐÔNG HÀ</div>
+            <div class="text-xs text-slate-300 mb-4 px-2" id="monoDialogDesc"></div>
+            <div class="flex items-center gap-3 w-full justify-center">
+              <button id="btnMonoDialogNo" onclick="handleMonoDialogChoice(false)" class="flex-1 py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs sm:text-sm border border-slate-600 hover:text-white cursor-pointer active:scale-95 transition-all shadow-md">
+                Bỏ Qua
+              </button>
+              <button id="btnMonoDialogYes" onclick="handleMonoDialogChoice(true)" class="flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs sm:text-sm shadow-[0_0_20px_rgba(16,185,129,0.5)] border-2 border-white cursor-pointer active:scale-95 transition-all">
+                Đồng Ý (Mua & Xây 🏡)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screen-Space Event Popup Modal (100% Clickable, Direct Hit-Testing) -->
+        <div id="monoEventModalOverlay" class="hidden absolute inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in pointer-events-auto">
+          <div class="w-full max-w-sm bg-[#0B132B]/98 border-2 border-amber-400 rounded-3xl p-5 shadow-[0_0_50px_rgba(0,0,0,0.95)] flex flex-col items-center text-center">
+            <div class="w-16 h-16 rounded-2xl bg-amber-400/20 border-2 border-amber-400/50 flex items-center justify-center mb-3" id="monoModalVisualBox">
+              <span class="text-4xl">🎉</span>
+            </div>
+            <span id="monoModalBadge" class="px-3 py-0.5 rounded-full bg-amber-400 text-slate-950 font-black text-[10px] uppercase tracking-wider mb-2">THÔNG BÁO</span>
+            <h3 id="monoModalTitle" class="text-white text-base sm:text-lg font-black mb-1.5 drop-shadow">Xây Nhà Thành Công</h3>
+            <p id="monoModalDesc" class="text-slate-300 text-xs sm:text-sm mb-4 leading-relaxed">Mô tả sự kiện</p>
+            <div id="monoModalAmountBox" class="hidden mb-4 px-4 py-2 rounded-xl bg-slate-900 border border-slate-700/60 w-full flex items-center justify-between text-xs">
+              <span id="monoModalAmountLabel" class="text-slate-400 font-bold">Số tiền:</span>
+              <span id="monoModalAmountVal" class="font-chakra font-black text-sm text-emerald-400">+$0</span>
+            </div>
+            <button onclick="closeMonoEventModal()" class="w-full py-2.5 sm:py-3 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-xs sm:text-sm shadow-[0_0_20px_rgba(245,158,11,0.5)] border-2 border-white cursor-pointer active:scale-95 transition-all">
+              ĐỒNG Ý (TIẾP TỤC)
+            </button>
+          </div>
+        </div>
+
         <div id="monoViewportContainer" class="tabletop-viewport-container w-full flex items-center justify-center overflow-visible py-4 sm:py-6 relative">
         <!-- Floating Crystal-Clear HUD Inspector -->
         <div id="monoTopTileInspector" class="absolute top-1 sm:top-2 left-1/2 -translate-x-1/2 z-40 px-4 py-1.5 rounded-2xl bg-[#090F1E]/95 border-2 border-amber-400/50 shadow-[0_10px_35px_rgba(0,0,0,0.85)] backdrop-blur-md flex items-center gap-3 transition-all duration-200 pointer-events-none min-w-[300px] max-w-lg justify-center">
@@ -2256,7 +2295,7 @@
             <div id="mono2dGridTiles" class="contents"></div>
 
             <!-- ================= CENTRAL TURF ARENA (Cols 2-9, Rows 2-9 = 8x8 Court) ================= -->
-            <div id="mono2dCentralArena" class="col-start-2 col-end-10 row-start-2 row-end-10 bg-gradient-to-br from-[#064e3b]/35 via-[#022c22]/50 to-[#050A14]/90 flex flex-col justify-between p-2.5 sm:p-3 relative rounded-2xl border border-emerald-500/30 overflow-hidden shadow-inner">
+            <div id="mono2dCentralArena" class="col-start-2 col-end-10 row-start-2 row-end-10 bg-gradient-to-br from-[#064e3b]/35 via-[#022c22]/50 to-[#050A14]/90 flex flex-col justify-between p-2.5 sm:p-3 relative rounded-2xl border border-emerald-500/30 shadow-inner">
               
               <!-- Center Cyber-Turf Texture -->
               <div class="absolute inset-0 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px] opacity-15 pointer-events-none"></div>
@@ -2274,7 +2313,7 @@
               </div>
 
               <!-- CENTER 3D DICE & ROLL BUTTON (Level with Screen) -->
-              <div class="my-auto flex flex-col items-center justify-center z-20 gap-2 sm:gap-2.5" style="transform: rotateZ(-45deg) rotateX(-32deg) translateZ(35px);">
+              <div class="my-auto flex flex-col items-center justify-center z-20 gap-2 sm:gap-2.5" style="transform: rotateZ(0deg) rotateX(-30deg) translateZ(35px);">
                 <!-- Dice Box -->
                 <div class="flex items-center gap-2 bg-[#050A14]/95 px-3 py-1.5 rounded-2xl border-2 border-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.4)] backdrop-blur-sm">
                   <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-red-500 to-rose-700 text-white font-black flex items-center justify-center text-base sm:text-lg shadow-inner border border-white/40" id="monoDice1Val">5</div>
@@ -2286,46 +2325,15 @@
                 </div>
 
                 <!-- Big Golden Roll Button -->
-                <button onclick="executeMono2dRoll()" id="btnMono2dRoll" class="btn-spring px-6 sm:px-7 py-2 sm:py-2.5 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-xs sm:text-sm shadow-[0_0_25px_rgba(245,158,11,0.6)] border-2 border-white transition-all active:scale-95 cursor-pointer flex items-center gap-2">
+                <button onclick="executeMono2dRoll()" id="btnMono2dRoll" class="btn-spring px-8 sm:px-10 py-3 sm:py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-sm sm:text-base shadow-[0_0_30px_rgba(245,158,11,0.7)] border-2 border-white transition-all active:scale-95 cursor-pointer flex items-center gap-2 pointer-events-auto select-none">
                   <span class="text-base sm:text-lg">🎲</span>
                   <span class="tracking-wider">ĐỔ XÚC XẮC</span>
                 </button>
               </div>
 
-              <!-- Interactive Decision Box (Buys & Upgrades - Centered in Arena) -->
-              <div id="mono2dDecisionBox" class="hidden absolute inset-0 z-30 flex items-center justify-center p-3 bg-black/60 backdrop-blur-xs" style="transform: rotateZ(-45deg) rotateX(-32deg) translateZ(42px);">
-                <div class="w-full max-w-xs bg-[#0C1524] border-2 border-amber-400 rounded-2xl p-4 shadow-[0_0_35px_rgba(0,0,0,0.95)] flex flex-col items-center text-center">
-                  <div class="w-10 h-10 rounded-full bg-amber-400/20 border border-amber-400/50 flex items-center justify-center text-xl mb-2">
-                    <span id="monoDialogIcon">🏡</span>
-                  </div>
-                  <div class="text-xs sm:text-sm font-bold text-white mb-3" id="monoDialogTitle">Bạn có muốn mua khu đất này?</div>
-                  <div class="flex items-center gap-2.5 w-full justify-center">
-                    <button id="btnMonoDialogNo" onclick="handleMonoDialogChoice(false)" class="flex-1 py-2 px-3 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-slate-600 hover:text-white cursor-pointer active:scale-95 transition-all">Bỏ Qua</button>
-                    <button id="btnMonoDialogYes" onclick="handleMonoDialogChoice(true)" class="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-black text-xs shadow-lg border border-white hover:from-emerald-400 hover:to-teal-400 cursor-pointer active:scale-95 transition-all">Đồng Ý (Mua 🏡)</button>
-                  </div>
-                </div>
-              </div>
+              
 
-              <!-- Event Popup Modal -->
-              <div id="monoEventModalOverlay" class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-md z-40 flex items-center justify-center p-3 animate-fade-in" style="transform: rotateZ(-45deg) rotateX(-32deg) translateZ(50px);">
-                <div class="w-full max-w-sm bg-[#0C1524]/98 border-2 border-amber-500 rounded-2xl shadow-2xl p-4 flex flex-col items-center text-center">
-                  <div class="w-16 h-16 rounded-full bg-amber-400/20 border-2 border-amber-400/50 flex items-center justify-center mb-2" id="monoModalVisualBox">
-                    <span class="text-4xl">🎉</span>
-                  </div>
-                  <span id="monoModalBadge" class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 font-black text-[10px] uppercase tracking-wider mb-1">THÔNG BÁO</span>
-                  <h3 id="monoModalTitle" class="text-white text-base font-black mb-1 drop-shadow">Xây Nhà Thành Công</h3>
-                  <p id="monoModalDesc" class="text-slate-300 text-xs font-semibold mb-2 max-w-xs">Chúc mừng bạn đã sở hữu bất động sản mới!</p>
-                  <div id="monoModalAmountBox" class="w-full py-1 px-3 rounded-lg bg-black/50 border border-white/20 mb-3 flex items-center justify-around font-chakra">
-                    <span id="monoModalAmountLabel" class="text-slate-400 text-xs font-bold">Giá thuê mới:</span>
-                    <span id="monoModalAmountVal" class="text-emerald-400 text-base font-black">$640</span>
-                  </div>
-                  <button onclick="closeMonoEventModal()" class="w-full py-2 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-400 text-slate-950 font-black text-xs sm:text-sm shadow-lg border border-white cursor-pointer">
-                    Tiếp Tục ➔
-                  </button>
-                </div>
-              </div>
-
-            </div>
+              
 
             <!-- PAWNS (Rendered dynamically into separate quadrants with 3D Overhead Beacons) -->
             <div id="pawnP1" class="pointer-events-none z-40 flex items-center justify-center transition-all duration-300" style="grid-column: 10; grid-row: 10;"></div>
@@ -7212,6 +7220,7 @@
     function setMonoDialogMode(mode, data = {}) {
       const box = document.getElementById('mono2dDecisionBox');
       const title = document.getElementById('monoDialogTitle');
+      const desc = document.getElementById('monoDialogDesc');
       const icon = document.getElementById('monoDialogIcon');
       const btnNo = document.getElementById('btnMonoDialogNo');
       const btnYes = document.getElementById('btnMonoDialogYes');
@@ -7223,9 +7232,10 @@
           box.classList.remove('hidden');
           box.classList.add('flex');
           if (icon) icon.textContent = '🔒';
-          title.innerHTML = `<span class="text-rose-400 font-black">🔒 ${curPlayer.name} đang ở Trại Giam!</span><br><span class="text-xs text-slate-300">Nộp <span class="text-amber-300 font-chakra font-black">\$500</span> bảo lãnh hay đổ xúc xắc tìm số đôi?</span>`;
+          title.textContent = curPlayer.name + ' ĐANG Ở TRẠI GIAM!';
+          if (desc) desc.innerHTML = 'Nộp <b class="text-amber-400 font-chakra">$500</b> bảo lãnh để ra ngay, hoặc đổ xúc xắc tìm số đôi.';
           btnNo.textContent = 'Đổ Số Đôi 🎲';
-          btnYes.textContent = 'Nộp \$500 Bảo Lãnh 💸';
+          btnYes.textContent = 'Nộp $500 Bảo Lãnh 💸';
           monoState.pendingAction = { type: 'jail_choice' };
         } else {
           box.classList.add('hidden');
@@ -7237,25 +7247,27 @@
         box.classList.remove('hidden');
         box.classList.add('flex');
         if (icon) icon.textContent = '🏡';
-        title.innerHTML = `Mua khu đất <span class="text-amber-300 font-black">${tile.name}</span><br><span class="text-xs text-slate-300">Giá mua: <span class="text-emerald-400 font-chakra font-black">${tile.price.toLocaleString()}</span> | Giá thuê: <span class="text-cyan-300 font-chakra font-bold">${(tile.rent ? tile.rent[0] : Math.floor(tile.price * 0.2)).toLocaleString()}</span></span>`;
+        title.textContent = 'MUA KHU ĐẤT ' + tile.name;
+        if (desc) desc.innerHTML = 'Giá mua: <b class="text-amber-400 font-chakra">$' + tile.price.toLocaleString() + '</b> | Tiền thuê gốc: <b class="text-emerald-400 font-chakra">$' + (tile.rent ? tile.rent[0] : 0).toLocaleString() + '</b>';
         btnNo.textContent = 'Bỏ Qua';
-        btnYes.textContent = `Đồng Ý (Mua & Xây 🏡)`;
+        btnYes.textContent = 'Đồng Ý (Mua & Xây 🏡)';
         monoState.pendingAction = { type: 'buy', tile: tile };
       } else if (mode === 'upgrade') {
         const tile = data.tile;
         const cost = Math.floor(tile.price * 0.5);
         const nextLvl = (tile.level || 1) + 1;
+        const nextRent = tile.rent ? (tile.rent[nextLvl - 1] || tile.rent[0]) : 0;
         box.classList.remove('hidden');
         box.classList.add('flex');
-        if (icon) icon.textContent = nextLvl === 3 ? '👑' : '🏰';
-        title.innerHTML = `Nâng cấp <span class="text-amber-300 font-black">${tile.name}</span> lên <span class="text-cyan-300 font-black">Cấp ${nextLvl}</span><br><span class="text-xs text-slate-300">Chi phí: <span class="text-emerald-400 font-chakra font-black">${cost.toLocaleString()}</span> | Giá thuê mới: <span class="text-amber-300 font-chakra font-black">${(tile.rent ? (tile.rent[nextLvl - 1] || tile.rent[0]) : Math.floor(tile.price * 0.3)).toLocaleString()}</span></span>`;
-        btnNo.textContent = 'Để Sau';
-        btnYes.textContent = `Nâng Cấp (Cấp ${nextLvl} ${nextLvl === 3 ? '👑' : '🏰'})`;
+        if (icon) icon.textContent = '🏗️';
+        title.textContent = 'NÂNG CẤP ' + tile.name + ' (CẤP ' + nextLvl + ')';
+        if (desc) desc.innerHTML = 'Chi phí: <b class="text-amber-400 font-chakra">$' + cost.toLocaleString() + '</b> | Tiền thuê mới: <b class="text-emerald-400 font-chakra">$' + nextRent.toLocaleString() + '</b>';
+        btnNo.textContent = 'Bỏ Qua';
+        btnYes.textContent = 'Nâng Cấp (Cấp ' + nextLvl + ')';
         monoState.pendingAction = { type: 'upgrade', tile: tile, cost: cost };
       }
     }
 
-    // Handle Decision Choice
     function handleMonoDialogChoice(agreed) {
       const box = document.getElementById('mono2dDecisionBox');
       if (box) {

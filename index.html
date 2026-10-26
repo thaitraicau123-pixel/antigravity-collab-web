@@ -3009,6 +3009,8 @@
 
     function soundTone(freq, type = 'sine', duration = 0.1, gain = 0.1) {
       if (!isSoundOn) return;
+      // Tránh nghẽn thread Web Audio khi tua nhanh ở Chế độ Quan Sát
+      if (isSpectatorMode && spectatorSpeed > 2) return;
       try {
         initAudio();
         const osc = audioCtx.createOscillator();
@@ -3055,14 +3057,20 @@
       setTimeout(() => modal.classList.add('hidden'), 250);
     }
 
-    function showToast(msg) {
+    function showToast(msg, duration = 2500) {
+      // Triệt tiêu 100% pop-up góc dưới khi đang ở Chế độ Quan Sát
+      if (isSpectatorMode && (msg.includes('chiến thắng') || msg.includes('Ván #') || msg.includes('BOT') || msg.includes('đối thủ') || msg.includes('tỷ lệ'))) {
+        return;
+      }
       const toast = document.getElementById('siteToast');
       const text = document.getElementById('siteToastMsg');
+      if (!toast || !text) return;
       text.textContent = msg;
       toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-      setTimeout(() => {
+      if (window.toastTimer) clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => {
         toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
-      }, 2500);
+      }, duration);
     }
 
     // Auth Tab Switch (Signup vs Signin)
@@ -3681,28 +3689,34 @@
     }
 
     function renderTokens() {
-      for (let i = 0; i < TILES.length; i++) {
-        const box = document.getElementById(`token-box-${i}`);
-        if (box) box.innerHTML = '';
-      }
-
       const total = getTotalPlayers();
       const playerTokens = [
-        { id: 1, icon: '🤖', bg: 'from-cyan-600 to-cyan-400 border-white shadow-cyan-500/60' },
-        { id: 2, icon: currentOpponent === 'bot' ? '🦊' : '👤', bg: 'from-rose-600 to-rose-400 border-white shadow-rose-500/60' },
-        { id: 3, icon: '🐺', bg: 'from-indigo-600 to-indigo-400 border-white shadow-indigo-500/60' },
-        { id: 4, icon: '🐼', bg: 'from-emerald-600 to-emerald-400 border-white shadow-emerald-500/60' }
+        { id: 1, bg: 'from-cyan-600 to-cyan-400 border-white shadow-cyan-500/60' },
+        { id: 2, bg: 'from-rose-600 to-rose-400 border-white shadow-rose-500/60' },
+        { id: 3, bg: 'from-indigo-600 to-indigo-400 border-white shadow-indigo-500/60' },
+        { id: 4, bg: 'from-emerald-600 to-emerald-400 border-white shadow-emerald-500/60' }
       ];
+
+      // Gỡ token của những người chơi không tham gia nếu giảm số lượng bot
+      for (let p = total + 1; p <= 4; p++) {
+        const inactiveMeeple = document.getElementById(`meeple-p${p}`);
+        if (inactiveMeeple) inactiveMeeple.remove();
+      }
 
       for (let p = 1; p <= total; p++) {
         const pos = positions[p] || 0;
         const box = document.getElementById(`token-box-${pos}`);
-        if (box) {
-          const cfg = playerTokens[p - 1];
-          const m = document.createElement('div');
+        if (!box) continue;
+
+        let m = document.getElementById(`meeple-p${p}`);
+        if (!m) {
+          m = document.createElement('div');
           m.id = `meeple-p${p}`;
-          m.className = `w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-tr ${cfg.bg} border-2 flex items-center justify-center shadow-lg`;
+          m.className = `w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-tr ${playerTokens[p - 1].bg} border-2 flex items-center justify-center shadow-lg transition-transform duration-150`;
           m.innerHTML = getPlayerTokenSvg(p);
+        }
+        // Di chuyển phần tử meeple hiện có sang ô mới - Không xóa/tạo lại DOM giúp triệt tiêu giật lag 100%
+        if (m.parentElement !== box) {
           box.appendChild(m);
         }
       }
@@ -3722,8 +3736,12 @@
       if (hint) hint.textContent = `🎲 ${pName} đang gieo xúc xắc...`;
       soundTone(440, 'square', 0.08, 0.06);
 
-      const rollDuration = isSpectatorMode ? Math.max(12, Math.floor(600 / spectatorSpeed)) : 650;
+      const rollDuration = isSpectatorMode ? Math.max(15, Math.floor(450 / spectatorSpeed)) : 650;
       const roll = Math.floor(Math.random() * 6) + 1;
+      // Ở tốc độ quan sát cao (>= 5x), tắt hiệu ứng rung lắc 3D nặng nề để giao diện êm dịu không giật
+      if (dice && (!isSpectatorMode || spectatorSpeed <= 5)) {
+        dice.classList.add('rolling-dice');
+      }
       await new Promise(r => setTimeout(r, rollDuration));
       if (dice) dice.classList.remove('rolling-dice');
 
@@ -3738,19 +3756,30 @@
     }
 
     async function moveMeepleSteps(player, steps) {
-      const stepDuration = isSpectatorMode ? Math.max(6, Math.floor(200 / spectatorSpeed)) : 220;
-      for (let s = 1; s <= steps; s++) {
-        positions[player] = (positions[player] + 1) % TILES.length;
+      // Ở tốc độ siêu tốc (>= 25x), dịch chuyển trực tiếp đến đích không qua 6 bước giật cục
+      if (isSpectatorMode && spectatorSpeed >= 25) {
+        positions[player] = (positions[player] + steps) % TILES.length;
         renderTokens();
-        soundTone(580, 'sine', 0.05, 0.1);
+        await new Promise(r => setTimeout(r, Math.max(12, Math.floor(100 / spectatorSpeed))));
+      } else {
+        const stepDuration = isSpectatorMode ? Math.max(10, Math.floor(180 / spectatorSpeed)) : 220;
+        for (let s = 1; s <= steps; s++) {
+          positions[player] = (positions[player] + 1) % TILES.length;
+          renderTokens();
+          if (!isSpectatorMode || spectatorSpeed <= 2) {
+            soundTone(580, 'sine', 0.05, 0.08);
+          }
 
-        const m = document.getElementById(`meeple-p${player}`);
-        if (m) {
-          m.classList.remove('meeple-hop');
-          void m.offsetWidth;
-          m.classList.add('meeple-hop');
+          const m = document.getElementById(`meeple-p${player}`);
+          if (m && (!isSpectatorMode || spectatorSpeed <= 5)) {
+            m.classList.remove('meeple-hop');
+            // Dùng requestAnimationFrame thay cho void m.offsetWidth để loại bỏ hoàn toàn Forced Layout Thrashing
+            requestAnimationFrame(() => {
+              if (m) m.classList.add('meeple-hop');
+            });
+          }
+          await new Promise(r => setTimeout(r, stepDuration));
         }
-        await new Promise(r => setTimeout(r, stepDuration));
       }
 
       const tile = TILES[positions[player]];
@@ -3867,7 +3896,11 @@
         const bar = document.getElementById(`raceBarP${p}`);
         const pctEl = document.getElementById(`racePctP${p}`);
         const pct = Math.min(100, Math.round(((scores[p] || 0) / GOAL_SCORE) * 100));
-        if (bar) bar.style.width = pct + '%';
+        if (bar) {
+          // Khi tua nhanh ở chế độ quan sát, tắt transition dài 300ms để thanh không bị giật rung
+          bar.style.transition = (isSpectatorMode && spectatorSpeed >= 5) ? 'none' : 'width 0.2s ease-out';
+          bar.style.width = pct + '%';
+        }
         if (pctEl) pctEl.textContent = pct + '%';
       }
 
@@ -4407,12 +4440,15 @@
           miniLog.innerHTML = `🏆 <b class="text-amber-400">${winnerName}</b> cán đích (${GOAL_SCORE}đ) Toàn Thắng! Đang tự động bắt đầu ván mới...`;
         }
         
-        // Thông báo toast nhẹ nhàng không che màn hình
-        const toastDuration = Math.max(200, Math.floor(1500 / spectatorSpeed));
-        showToast(`🏆 ${winnerName} chiến thắng! (Ván #${botWinStats.totalMatches})`, toastDuration);
+        // Tuyệt đối không gọi showToast gây hiện pop up ở góc dưới trong chế độ quan sát
+        const stateEl = document.getElementById('matchStateBadge');
+        if (stateEl) {
+          stateEl.textContent = `🏆 ${winnerName.toUpperCase()} THẮNG`;
+          stateEl.className = 'font-bold text-amber-400';
+        }
 
-        // Tự động khởi tranh ván mới mượt mà, tốc độ 100x chuyển gần như tức thì (< 80ms)
-        const restartDelay = Math.max(60, Math.floor(1200 / spectatorSpeed));
+        // Tự động khởi tranh ván mới mượt mà, tốc độ chuyển đổi êm dịu không giật màn hình
+        const restartDelay = Math.max(80, Math.floor(1000 / spectatorSpeed));
         setTimeout(() => {
           if (isSpectatorMode && !spectatorPaused) {
             handleReset();

@@ -1118,8 +1118,8 @@
 
           <!-- 4-Game Direct Switcher Pills (Chuyển game tức thì 1-chạm, chống bị che khuất) -->
           <div class="flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
-            <button onclick="switchGameView('dice')" id="pillGameDice" class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1 transition-all whitespace-nowrap shadow-sm" title="Cờ Xúc Xắc 12 Ô">
-              <span>🎲</span><span class="hidden sm:inline">12 Ô</span>
+            <button onclick="switchGameView('dice')" id="pillGameDice" class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1 transition-all whitespace-nowrap shadow-sm" title="Cờ Xúc Xắc 20 Ô Hoàng Kim">
+              <span>🎲</span><span class="hidden sm:inline">20 Ô</span>
             </button>
             <button onclick="switchGameView('chess')" id="pillGameChess" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1 transition-all whitespace-nowrap" title="Cờ Vua FIDE">
               <span>♟️</span><span class="hidden sm:inline">Cờ Vua</span>
@@ -1135,7 +1135,7 @@
           <!-- Dynamic Active Game Badge -->
           <div id="arenaGameTitle" class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-cinzel text-xs font-bold shadow-inner">
             <i data-lucide="dice-5" class="w-4 h-4 text-amber-400"></i>
-            <span class="tracking-wider">XÚC XẮC 12 Ô HOÀNG KIM</span>
+            <span class="tracking-wider">XÚC XẮC 20 Ô HOÀNG KIM</span>
           </div>
         </div>
 
@@ -6740,11 +6740,21 @@
     function renderCircuitBoard() {
       const grid = document.getElementById('circuitGrid');
       if (!grid) return;
+
+      // Defensive guard against uninitialized or altered TILES array
+      if (!TILES || !Array.isArray(TILES) || TILES.length === 0) {
+        TILES = (MAPS && MAPS[currentMapId] && MAPS[currentMapId].tiles) || (MAPS && MAPS.nebula && MAPS.nebula.tiles) || [];
+      }
+      if (!boardTraps) boardTraps = {};
+      if (!playerHeroes) playerHeroes = { 1: 'guardian', 2: 'assassin', 3: 'chronomancer', 4: 'hunter' };
+      if (!playerEnergy) playerEnergy = { 1: 3, 2: 3, 3: 3, 4: 3 };
+
       const old = grid.querySelectorAll('.board-tile-cell');
       old.forEach(o => o.remove());
 
       TILES.forEach((t, i) => {
         const coord = COORDS_20[i];
+        if (!coord) return;
         const el = document.createElement('div');
         el.className = `board-tile-cell game-tile rounded-2xl p-1.5 sm:p-2.5 flex flex-col items-center justify-between text-center relative select-none cursor-default`;
         el.style.gridRow = coord.r;
@@ -7703,6 +7713,10 @@
     function enterGameFromLobby(gameKey) {
       switchMainTab('arena');
       switchGameView(gameKey);
+      if (gameKey === 'dice') {
+        renderCircuitBoard();
+        updateDiceUI();
+      }
       soundTone(720, 'triangle', 0.12, 0.15);
     }
 
@@ -7831,6 +7845,10 @@
 
       if (tab === 'arena') {
         switchGameView(activeTab);
+        if (activeTab === 'dice') {
+          renderCircuitBoard();
+          updateDiceUI();
+        }
       } else {
         // Defensive Guard: Ẩn triệt để toàn bộ 4 view cờ và các context controls khi rời khỏi Arena
         const vMono = document.getElementById('monopolyView');
@@ -10215,10 +10233,16 @@
           if (cDice) cDice.classList.remove('hidden');
           if (specBar) specBar.classList.add('hidden');
         }
+        const curMap = (MAPS && MAPS[currentMapId]) || (MAPS && MAPS.nebula);
+        const mapName = curMap ? curMap.name : 'Tinh Vân Hoàng Kim';
         if (titleEl) {
           titleEl.className = 'flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-cinzel text-xs font-bold shadow-inner transition-all duration-200';
-          titleEl.innerHTML = '<i data-lucide="dice-5" class="w-4 h-4 text-amber-400"></i><span class="tracking-wider">XÚC XẮC 12 Ô HOÀNG KIM</span>';
+          titleEl.innerHTML = `<i data-lucide="dice-5" class="w-4 h-4 text-amber-400"></i><span class="tracking-wider uppercase">XÚC XẮC 20 Ô • ${mapName}</span>`;
         }
+        // Luôn đảm bảo bàn cờ được render đủ 20 ô khi vào view cờ xúc xắc
+        renderCircuitBoard();
+        updateDiceUI();
+        highlightTurnCard(currentTurn);
       } else if (tab === 'tictactoe') {
         if (vTTT) {
           vTTT.classList.remove('hidden');
@@ -13227,8 +13251,16 @@
       try { if (window.lucide && typeof lucide.createIcons === 'function') lucide.createIcons(); } catch(e) {}
       try { loadAdminConfig(); } catch(e) {}
       try { initVersionTracker(); } catch(e) {}
-      try { renderCircuitBoard(); } catch(e) {}
-      try { updateDiceUI(); } catch(e) {}
+      try {
+        renderCircuitBoard();
+      } catch(e) {
+        console.error('Initial circuit board render error:', e);
+      }
+      try {
+        updateDiceUI();
+      } catch(e) {
+        console.error('Initial dice UI error:', e);
+      }
       try { checkSecretPortalFromURL(); } catch(e) {}
 
       // Direct game launch via query param (e.g. ?game=monopoly)

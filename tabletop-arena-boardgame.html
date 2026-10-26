@@ -426,6 +426,47 @@
       100% { filter: drop-shadow(0 0 20px rgba(245, 158, 11, 1)); }
     }
     
+    
+    /* === 2.5D ISOMETRIC TABLETOP BOARD STYLES (V3.4.0) === */
+    .mono-viewport-container {
+      perspective: 1400px;
+      perspective-origin: 50% 50%;
+      transform-style: preserve-3d;
+      width: 100%;
+      overflow: visible;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem 0.5rem 2.5rem 0.5rem;
+    }
+
+    .mono-board-25d {
+      transform: rotateX(36deg) rotateZ(-6deg) scale(0.95);
+      transform-style: preserve-3d;
+      box-shadow: -25px 35px 65px rgba(0, 0, 0, 0.9), 0 0 55px rgba(16, 185, 129, 0.25);
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.6s ease;
+    }
+
+    .mono-board-2d {
+      transform: rotateX(0deg) rotateZ(0deg) scale(1);
+      transform-style: preserve-3d;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.6s ease;
+    }
+
+    .mono-board-25d #pawnP1 > div,
+    .mono-board-25d #pawnP2 > div {
+      transform: rotateZ(6deg) rotateX(-36deg) translateZ(20px);
+      filter: drop-shadow(0 14px 10px rgba(0, 0, 0, 0.85));
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .mono-board-2d #pawnP1 > div,
+    .mono-board-2d #pawnP2 > div {
+      transform: rotateZ(0deg) rotateX(0deg) translateZ(0px);
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
     /* 3D Mini House & Monopoly Pop-up Animations */
     @keyframes drop3dHouse {
       0% { transform: translateY(-36px) scale(0) rotate(-10deg); opacity: 0; }
@@ -561,7 +602,7 @@
         <!-- Version & Contributor Changelog Pill -->
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v3.2.0</span>
+          <span id="headerVersionPill" class="font-bold">v3.4.0</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -1765,104 +1806,131 @@
       <!-- =========================================================================
            VIEW 4: CỜ TỶ PHÚ HOÀNG GIA (2D CLASSIC RETRO ARENA - V3.2.0)
            ========================================================================= -->
-      <div id="monopolyView" class="w-full max-w-5xl mx-auto rounded-2xl shadow-2xl border-4 border-slate-900 hidden flex-col items-center relative animate-fade-in select-none bg-[#0092D8] overflow-hidden my-1">
+            <!-- ================= 2D MONOPOLY ARENA (CYBER SAPPHIRE & EMERALD) ================= -->
+      <div id="monopolyView" class="w-full max-w-5xl mx-auto rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.85)] border-2 border-emerald-500/30 hidden flex-col items-center relative animate-fade-in select-none bg-[#070D18] overflow-hidden my-2 backdrop-blur-xl">
         
         <!-- THE 2D RECTANGULAR BOARD (12 Columns x 8 Rows Grid) -->
-        <div id="mono2dBoardWrapper" class="w-full aspect-[12/8.4] sm:aspect-[12/8] bg-[#0092D8] grid grid-cols-12 grid-rows-8 relative p-1 sm:p-1.5 gap-0.5 sm:gap-1 overflow-hidden select-none">
+        <div class="mono-viewport-container w-full overflow-visible"><div id="mono2dBoardWrapper" class="mono-board-25d w-full aspect-[12/8.4] sm:aspect-[12/8] bg-[#070D18] grid grid-cols-12 grid-rows-8 relative p-1.5 sm:p-2.5 gap-1 sm:gap-1.5 overflow-hidden select-none border border-slate-800/80 rounded-2xl">
           
           <!-- 36 PERIMETER TILES (Rendered via JS with Big Fonts & 3D Mini Houses) -->
           <div id="mono2dGridTiles" class="contents"></div>
 
           <!-- ================= CENTRAL ARENA (Cols 2-11, Rows 2-7) ================= -->
-          <div id="mono2dCentralArena" class="col-start-2 col-end-12 row-start-2 row-end-8 bg-gradient-to-b from-[#0295DD] to-[#007AB8] flex flex-col justify-between p-2 sm:p-4 md:p-5 relative rounded-lg border border-sky-400/30 shadow-inner overflow-hidden">
+          <div id="mono2dCentralArena" class="col-start-2 col-end-12 row-start-2 row-end-8 bg-gradient-to-br from-[#0B1526]/95 via-[#08101E]/95 to-[#050A14]/95 flex flex-col justify-between p-2 sm:p-4 md:p-5 relative rounded-xl border border-emerald-500/25 shadow-[inset_0_0_35px_rgba(0,255,170,0.06)] overflow-hidden">
             
-            <!-- TOP HUD: PLAYER AVATAR & BANK (BIGGER NAMES & MONEY) -->
-            <div class="w-full flex items-start justify-between z-10">
+            <!-- Subtle Cyber Grid Background -->
+            <div class="absolute inset-0 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:20px_20px] opacity-10 pointer-events-none"></div>
+
+            <!-- TOP HUD: PLAYER AVATAR & BANK (GLASSMORPHISM BENTO PODS) -->
+            <div class="w-full flex items-center justify-between z-10 gap-2">
               
-              <!-- Left: Player Profile (Tiên, Cash Stack, Big Name, Big Money, 3 Action Buttons) -->
-              <div class="flex items-center gap-2 sm:gap-3.5 relative">
-                <!-- 3 Vertical Utility Buttons -->
-                <div class="flex flex-col gap-1 sm:gap-1.5">
-                  <button onclick="handleMonoPowerBtn()" class="btn-spring w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-sky-600/90 hover:bg-sky-500 border border-sky-300 text-white flex items-center justify-center text-xs sm:text-sm font-bold shadow cursor-pointer" title="Khởi động lại ván cờ">
+              <!-- Left Bento Pod: Player 1 (Tiên / User) -->
+              <div class="flex items-center gap-2 sm:gap-3 bg-[#0D1829]/90 border border-emerald-500/30 rounded-xl px-2.5 py-1.5 sm:px-3.5 sm:py-2 backdrop-blur-sm shadow-md relative">
+                <!-- FLOATING CASH CONTAINER FOR P1 -->
+                <div id="monoP1FloatCashContainer" class="absolute -top-4 sm:-top-6 left-0 w-full pointer-events-none"></div>
+
+                <!-- Avatar with Emerald Glow Ring -->
+                <div class="relative shrink-0">
+                  <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 p-[2px] shadow-[0_0_12px_rgba(16,185,129,0.4)]">
+                    <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-xl sm:text-3xl overflow-hidden">
+                      <span id="monoP1AvatarIcon">👩‍🏫</span>
+                    </div>
+                  </div>
+                  <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-slate-900 rounded-full flex items-center justify-center text-[9px] text-slate-950 font-black">1</span>
+                </div>
+
+                <!-- Info Column -->
+                <div class="flex flex-col">
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-amber-300 font-black text-sm sm:text-base md:text-lg tracking-wide drop-shadow truncate max-w-[90px] sm:max-w-[130px]" id="monoP1NameText">Tiên</span>
+                    <span class="px-1.5 py-0.2 rounded text-[7px] sm:text-[8px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">P1</span>
+                  </div>
+                  <div class="flex items-center gap-1 mt-0.5">
+                    <span class="text-amber-400 text-xs sm:text-sm">🪙</span>
+                    <span class="text-emerald-300 font-chakra text-base sm:text-2xl md:text-3xl font-black tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" id="monoP1CashText">$19760</span>
+                  </div>
+                  <span class="text-slate-400 text-[8px] sm:text-[10px] font-bold uppercase tracking-wider" id="monoP1AssetsText">0 BẤT ĐỘNG SẢN</span>
+                </div>
+              </div>
+
+              <!-- Center Command Pod (Restart, Mode Toggle, Speed) -->
+              <div class="flex flex-col items-center gap-1 shrink-0">
+                <div class="flex items-center gap-1 sm:gap-1.5 bg-[#0A1220]/90 border border-slate-700/60 rounded-xl px-2 py-1 shadow-inner backdrop-blur-sm">
+                  <button onclick="handleMonoPowerBtn()" class="btn-spring w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-amber-400 hover:text-amber-300 flex items-center justify-center text-xs sm:text-sm font-bold shadow cursor-pointer" title="Khởi động lại ván cờ">
                     ⏻
                   </button>
-                  <button onclick="handleMonoSettingsBtn()" class="btn-spring w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-sky-600/90 hover:bg-sky-500 border border-sky-300 text-white flex items-center justify-center text-xs sm:text-sm font-bold shadow cursor-pointer" title="Đổi chế độ: Đấu Bot / 2 Người">
+                  <button onclick="handleMonoSettingsBtn()" class="btn-spring w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-cyan-400 hover:text-cyan-300 flex items-center justify-center text-xs sm:text-sm font-bold shadow cursor-pointer" title="Đổi chế độ: Đấu Bot / 2 Người">
                     ⚙️
                   </button>
-                  <button onclick="toggleMonoSpeedBtn()" id="btnMonoSpeed" class="btn-spring w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-sky-600/90 hover:bg-sky-500 border border-sky-300 text-white flex items-center justify-center text-[9px] sm:text-xs font-black shadow cursor-pointer" title="Tốc độ trận đấu">
+                  <button onclick="toggleMono25DView()" id="btnMono25DToggle" class="btn-spring px-2 py-1 sm:px-2.5 sm:py-1 rounded-lg bg-emerald-600/80 hover:bg-emerald-500 border border-emerald-400/60 text-white flex items-center justify-center text-[8px] sm:text-[10px] font-black shadow cursor-pointer" title="Chuyển góc nhìn 2.5D Isometric / 2D Phẳng">
+                  📐 2.5D
+                </button>
+                <button onclick="toggleMonoSpeedBtn()" id="btnMonoSpeed" class="btn-spring px-2 h-7 sm:h-8 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-emerald-400 hover:text-emerald-300 flex items-center justify-center text-[10px] sm:text-xs font-black shadow cursor-pointer" title="Tốc độ trận đấu">
                     1X
                   </button>
                 </div>
-
-                <!-- Player Avatar -->
-                <div class="flex flex-col items-center">
-                  <span class="text-amber-300 font-black text-sm sm:text-lg md:text-xl tracking-wide drop-shadow truncate max-w-[90px] sm:max-w-[130px]" id="monoP1NameText">Tiên</span>
-                  <div class="w-11 h-11 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full bg-amber-100 border-2 sm:border-3 border-amber-400 flex items-center justify-center text-2xl sm:text-4xl shadow-lg overflow-hidden relative ring-2 ring-sky-900/40">
-                    <span id="monoP1AvatarIcon">👩‍🏫</span>
-                  </div>
-                </div>
-
-                <!-- Stacks of Banknotes, Gold Coins & BIG CASH -->
-                <div class="flex items-center gap-1.5 sm:gap-2.5 pl-0.5 sm:pl-1 relative">
-                  <div class="flex items-end">
-                    <span class="text-2xl sm:text-4xl md:text-5xl">💵</span>
-                    <span class="text-xl sm:text-3xl md:text-4xl -ml-3 sm:-ml-4">🪙</span>
-                  </div>
-                  <div class="flex flex-col relative">
-                    <!-- FLOATING CASH CONTAINER FOR P1 -->
-                    <div id="monoP1FloatCashContainer" class="absolute -top-4 sm:-top-6 left-0 w-full pointer-events-none"></div>
-                    <span class="text-emerald-300 font-chakra text-lg sm:text-3xl md:text-4xl font-black tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" id="monoP1CashText">$19760</span>
-                    <span class="text-sky-100 text-[9px] sm:text-xs md:text-sm font-extrabold tracking-wide uppercase" id="monoP1AssetsText">0 BẤT ĐỘNG SẢN</span>
-                  </div>
+                <div class="px-2.5 py-0.5 rounded-full bg-slate-900/80 border border-slate-800 text-[8px] sm:text-[9px] font-bold text-slate-400 uppercase tracking-widest">
+                  VÁN CỜ TỶ PHÚ
                 </div>
               </div>
 
-              <!-- Right: BANK Temple & Opponent Balance (BIG MONEY) -->
-              <div class="flex items-center gap-2 sm:gap-3.5 relative">
-                <div class="flex flex-col items-end relative">
-                  <!-- FLOATING CASH CONTAINER FOR P2 -->
-                  <div id="monoP2FloatCashContainer" class="absolute -top-4 sm:-top-6 right-0 w-full flex justify-end pointer-events-none"></div>
-                  <span class="text-emerald-300 font-chakra text-lg sm:text-3xl md:text-4xl font-black tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" id="monoBankOrP2CashText">$0</span>
-                  <span class="text-sky-100 text-[9px] sm:text-xs md:text-sm font-extrabold uppercase tracking-wide" id="monoBankOrP2Label">NGÂN HÀNG TRUNG ƯƠNG</span>
-                </div>
-                <!-- Classical Greek Bank Temple Graphic -->
-                <div class="flex flex-col items-center cursor-pointer hover:scale-105 transition-transform" onclick="handleMonoSettingsBtn()" title="Bấm để đổi chế độ Đấu Bot / 2 Người">
-                  <div class="w-12 h-10 sm:w-20 sm:h-15 md:w-22 md:h-16 bg-slate-100 border-2 border-slate-800 rounded-t-lg rounded-b shadow-lg flex flex-col items-center justify-between p-0.5">
-                    <div class="w-full bg-slate-300 rounded text-[7px] sm:text-[9px] font-black text-slate-800 text-center font-chakra">BANK</div>
-                    <div class="w-full flex justify-around px-0.5 text-slate-600 font-bold text-[9px] sm:text-xs">
-                      <span>||</span><span>||</span><span>||</span><span>||</span>
-                    </div>
-                    <div class="w-full h-1 sm:h-1.5 bg-amber-400 rounded-full"></div>
+              <!-- Right Bento Pod: Player 2 / AI Bot / Bank -->
+              <div class="flex items-center gap-2 sm:gap-3 bg-[#0D1829]/90 border border-rose-500/30 rounded-xl px-2.5 py-1.5 sm:px-3.5 sm:py-2 backdrop-blur-sm shadow-md relative">
+                <!-- FLOATING CASH CONTAINER FOR P2 -->
+                <div id="monoP2FloatCashContainer" class="absolute -top-4 sm:-top-6 right-0 w-full flex justify-end pointer-events-none"></div>
+
+                <!-- Info Column -->
+                <div class="flex flex-col items-end">
+                  <div class="flex items-center gap-1.5">
+                    <span class="px-1.5 py-0.2 rounded text-[7px] sm:text-[8px] font-black uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/30" id="monoBankOrP2Label">KỲ THỦ AI</span>
                   </div>
+                  <div class="flex items-center gap-1 mt-0.5">
+                    <span class="text-rose-300 font-chakra text-base sm:text-2xl md:text-3xl font-black tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" id="monoBankOrP2CashText">$19760</span>
+                    <span class="text-amber-400 text-xs sm:text-sm">🪙</span>
+                  </div>
+                  <span class="text-slate-400 text-[8px] sm:text-[10px] font-bold uppercase tracking-wider" id="monoP2AssetsText">0 BẤT ĐỘNG SẢN</span>
+                </div>
+
+                <!-- Avatar with Rose Glow Ring -->
+                <div class="relative shrink-0 cursor-pointer" onclick="handleMonoSettingsBtn()" title="Bấm để đổi chế độ Đấu Bot / 2 Người">
+                  <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-rose-500 to-amber-500 p-[2px] shadow-[0_0_12px_rgba(244,63,94,0.4)]">
+                    <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-xl sm:text-3xl overflow-hidden">
+                      <span id="monoP2AvatarIcon">🦊</span>
+                    </div>
+                  </div>
+                  <span class="absolute -bottom-1 -left-1 w-4 h-4 bg-rose-500 border-2 border-slate-900 rounded-full flex items-center justify-center text-[9px] text-white font-black">2</span>
                 </div>
               </div>
 
             </div>
 
-            <!-- ================= CENTER INTERACTIVE DIALOG (BIG TEXT & SMOOTH POPUP) ================= -->
-            <div id="mono2dDecisionBox" class="w-full max-w-xl mx-auto bg-[#232529]/95 border-2 sm:border-4 border-[#5E6065] rounded-xl sm:rounded-2xl shadow-2xl p-3 sm:p-5 flex flex-col items-center justify-center text-center my-auto transition-all animate-mono-popup z-10">
-              <!-- Question / Action Text with Big Typography -->
-              <h3 id="monoDialogTitle" class="text-white text-sm sm:text-xl md:text-2xl font-black tracking-wide mb-2 sm:mb-4 drop-shadow leading-snug">
-                Bạn có muốn mua ô này với giá <span class="text-amber-300 font-chakra">$3200</span>?
+            <!-- ================= CENTER INTERACTIVE DIALOG (Clean, Modal on demand) ================= -->
+            <div id="mono2dDecisionBox" class="hidden w-full max-w-xl mx-auto bg-[#0C1524]/95 border-2 sm:border-4 border-amber-500/40 rounded-xl sm:rounded-2xl shadow-[0_15px_50px_rgba(0,0,0,0.85)] p-4 sm:p-6 flex flex-col items-center justify-center text-center my-auto transition-all backdrop-blur-md z-20">
+              <!-- Dialog Header Icon -->
+              <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-lg mb-2 shadow-inner">
+                ⚖️
+              </div>
+              <!-- Question / Action Text -->
+              <h3 id="monoDialogTitle" class="text-white text-xs sm:text-base md:text-lg font-extrabold tracking-wide mb-3 sm:mb-4 drop-shadow">
+                Bạn có muốn mua ô này với giá $3200?
               </h3>
               
               <!-- Two Action Buttons (Không / Có) -->
-              <div id="monoDialogActionRow" class="flex items-center justify-center gap-4 sm:gap-8 w-full">
-                <button onclick="handleMonoDialogChoice(false)" id="btnMonoDialogNo" class="btn-spring px-6 sm:px-12 py-2 sm:py-3.5 rounded-full bg-[#6C7078] hover:bg-[#7D818A] text-white text-xs sm:text-xl font-black shadow-lg transition-transform active:scale-95 cursor-pointer">
-                  Không
+              <div id="monoDialogActionRow" class="flex items-center justify-center gap-3 sm:gap-4 w-full">
+                <button onclick="handleMonoDialogChoice(false)" id="btnMonoDialogNo" class="btn-spring px-5 sm:px-8 py-2 sm:py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-600 text-xs sm:text-sm font-bold shadow transition-all cursor-pointer">
+                  Bỏ Qua
                 </button>
-                <button onclick="handleMonoDialogChoice(true)" id="btnMonoDialogYes" class="btn-spring px-6 sm:px-12 py-2 sm:py-3.5 rounded-full bg-[#00B833] hover:bg-[#00D43B] text-white text-xs sm:text-xl font-black shadow-lg transition-transform active:scale-95 shadow-green-600/40 cursor-pointer">
-                  Có
+                <button onclick="handleMonoDialogChoice(true)" id="btnMonoDialogYes" class="btn-spring px-6 sm:px-10 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 text-xs sm:text-sm font-black shadow-lg shadow-emerald-500/30 transition-all cursor-pointer">
+                  Đồng Ý
                 </button>
               </div>
             </div>
 
-            <!-- ================= NEW: RICH EVENT POPUP MODAL OVERLAY ================= -->
-            <div id="monoEventModalOverlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex-col items-center justify-center p-3 sm:p-6 select-none animate-fade-in">
-              <div class="w-full max-w-md bg-gradient-to-b from-[#1E222B] to-[#12151B] border-3 sm:border-4 border-amber-400/90 rounded-2xl shadow-2xl p-4 sm:p-6 flex flex-col items-center text-center relative animate-mono-popup glow-gold">
-                
-                <!-- Event Header Icon & 3D Mini House Preview Container -->
-                <div id="monoModalVisualBox" class="w-20 h-20 sm:w-28 sm:h-28 rounded-2xl bg-slate-900/80 border-2 border-amber-300/40 flex items-center justify-center shadow-inner mb-3 sm:mb-4 relative overflow-hidden">
+            <!-- ================= FULL EVENT MODAL OVERLAY (CELEBRATION / POPUP) ================= -->
+            <div id="monoEventModalOverlay" class="hidden absolute inset-0 bg-slate-950/80 backdrop-blur-md z-30 flex items-center justify-center p-3 animate-fade-in">
+              <div class="w-full max-w-md bg-[#0C1524]/95 border-2 border-amber-500/50 rounded-2xl shadow-2xl p-4 sm:p-6 flex flex-col items-center text-center relative animate-mono-popup">
+                <!-- Glowing Particle Burst / Icon Wrapper -->
+                <div class="w-16 h-16 sm:w-22 sm:h-22 rounded-full bg-gradient-to-b from-amber-400/20 to-amber-600/10 border-2 border-amber-400/50 flex items-center justify-center shadow-inner mb-3 sm:mb-4 relative overflow-hidden">
                   <span id="monoModalIcon" class="text-4xl sm:text-6xl animate-bounce">🏗️</span>
                 </div>
 
@@ -1895,21 +1963,21 @@
             </div>
 
             <!-- BOTTOM CONTROL STRIP: STATUS & ROLL DICE -->
-            <div class="w-full flex items-center justify-between pt-1 z-10">
-              <div class="flex items-center gap-1.5 sm:gap-2.5 bg-black/50 px-2 sm:px-3.5 py-1.5 sm:py-2 rounded-xl border border-sky-300/40 text-xs sm:text-sm font-bold text-white shadow truncate max-w-[65%]">
-                <span id="monoTurnStatusIcon" class="text-sm sm:text-lg">🎲</span>
+            <div class="w-full flex items-center justify-between pt-1 z-10 gap-2">
+              <div class="flex items-center gap-2 bg-[#09111D]/90 px-3 py-1.5 rounded-xl border border-emerald-500/30 text-[10px] sm:text-xs font-semibold text-emerald-100 shadow backdrop-blur-sm truncate max-w-[65%]">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0 animate-ping"></span>
                 <span id="monoTurnStatusText" class="truncate font-semibold">Lượt 1: Tiên sẵn sàng gieo xúc xắc...</span>
               </div>
               
               <!-- Big Roll Button with Dice Face Preview -->
-              <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                <div id="monoDiceResultBox" class="hidden items-center gap-1.5 bg-black/70 px-2 py-1 rounded-xl border border-white/40 shadow-inner">
-                  <span class="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-red-600 text-white font-black flex items-center justify-center text-xs sm:text-base shadow" id="monoDice1Val">5</span>
-                  <span class="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-red-600 text-white font-black flex items-center justify-center text-xs sm:text-base shadow" id="monoDice2Val">4</span>
+              <div class="flex items-center gap-2 shrink-0">
+                <div id="monoDiceResultBox" class="hidden items-center gap-1.5 bg-[#09111D]/95 px-2 py-1 rounded-xl border border-slate-700 shadow-md">
+                  <span class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-gradient-to-br from-red-500 to-rose-700 text-white font-black flex items-center justify-center text-xs sm:text-sm shadow-inner border border-red-400/40" id="monoDice1Val">5</span>
+                  <span class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-gradient-to-br from-red-500 to-rose-700 text-white font-black flex items-center justify-center text-xs sm:text-sm shadow-inner border border-red-400/40" id="monoDice2Val">4</span>
                 </div>
-                <button onclick="executeMono2dRoll()" id="btnMono2dRoll" class="btn-spring flex items-center gap-1 sm:gap-2 px-4 sm:px-7 py-2 sm:py-3 rounded-full bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-xs sm:text-base shadow-xl border-2 border-white transition-transform active:scale-95 cursor-pointer">
-                  <span class="text-sm sm:text-xl">🎲</span>
-                  <span>ĐỔ XÚC XẮC</span>
+                <button onclick="executeMono2dRoll()" id="btnMono2dRoll" class="btn-spring flex items-center gap-1.5 sm:gap-2 px-4 sm:px-7 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-xs sm:text-sm shadow-[0_0_20px_rgba(245,158,11,0.35)] border border-amber-200 transition-all active:scale-95 cursor-pointer">
+                  <span class="text-sm sm:text-base">🎲</span>
+                  <span class="tracking-wider">ĐỔ XÚC XẮC</span>
                 </button>
               </div>
             </div>
@@ -1917,21 +1985,21 @@
           </div>
 
           <!-- PAWN 1 (P1: Tiên) - Positioned dynamically on CSS Grid -->
-          <div id="pawnP1" class="pointer-events-none z-30 flex items-center justify-center" style="grid-column: 12; grid-row: 8;">
-            <div class="w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-cyan-400 border-2 border-white flex items-center justify-center text-xs sm:text-lg shadow-xl drop-shadow-md -translate-x-1.5 -translate-y-1.5 animate-pulse">
+          <div id="pawnP1" class="pointer-events-none z-30 flex items-center justify-center transition-all duration-300" style="grid-column: 12; grid-row: 8;">
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-cyan-400 to-teal-300 border-2 border-white flex items-center justify-center text-xs sm:text-base shadow-[0_0_12px_rgba(6,182,212,0.8)] -translate-x-1.5 -translate-y-1.5 animate-bounce">
               👩‍🏫
             </div>
           </div>
 
           <!-- PAWN 2 (P2: Bot / Đối thủ) - Positioned dynamically on CSS Grid -->
-          <div id="pawnP2" class="pointer-events-none z-30 flex items-center justify-center" style="grid-column: 12; grid-row: 8;">
-            <div class="w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-rose-500 border-2 border-white flex items-center justify-center text-xs sm:text-lg shadow-xl drop-shadow-md translate-x-1.5 translate-y-1.5">
+          <div id="pawnP2" class="pointer-events-none z-30 flex items-center justify-center transition-all duration-300" style="grid-column: 12; grid-row: 8;">
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-rose-500 to-pink-400 border-2 border-white flex items-center justify-center text-xs sm:text-base shadow-[0_0_12px_rgba(244,63,94,0.8)] translate-x-1.5 translate-y-1.5">
               🦊
             </div>
           </div>
 
         </div>
-
+        </div>
       </div>
 
       <!-- Close #mainViewArena properly here -->
@@ -3166,7 +3234,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.2.0</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.4.0</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -5198,49 +5266,53 @@
     // =========================================================================
     // CỜ TỶ PHÚ 2D RETRO CLASSIC ENGINE (V3.2.0 - 3D MINI HOUSES & POPUPS)
     // =========================================================================
+    // =========================================================================
+    // CỜ TỶ PHÚ 2.5D ISOMETRIC TABLETOP ARENA (V3.3.0 - AUTHENTIC RULES & 2.5D)
+    // =========================================================================
     const MONOPOLY_2D_TILES = [
-      // ROW 8: BOTTOM EDGE (Left to Right, cols 1..12)
-      { id: 24, r: 8, c: 1, name: 'TRẠI GIAM', type: 'jail', isCorner: true, bg: 'bg-[#0F172A]', text: 'text-amber-400', icon: '🏛️' },
-      { id: 25, r: 8, c: 2, name: 'QUY NHƠN', type: 'city', price: 1600, rent: [320, 800, 1600], color: '#f59e0b' },
-      { id: 26, r: 8, c: 3, name: 'HỘI AN', type: 'city', price: 1600, rent: [320, 800, 1600], color: '#f59e0b' },
-      { id: 27, r: 8, c: 4, name: 'CƠ HỘI', type: 'chance', icon: '❓', bg: 'bg-[#007AB8]', iconColor: 'text-amber-400' },
-      { id: 28, r: 8, c: 5, name: 'ĐÔNG HÀ', type: 'city', price: 1400, rent: [280, 700, 1400], color: '#ea580c' },
-      { id: 29, r: 8, c: 6, name: 'BẾN XE', type: 'station', price: 2000, rent: [400, 800, 1600], color: '#64748b', icon: '🚌' },
-      { id: 30, r: 8, c: 7, name: 'HÀ TĨNH', type: 'city', price: 1400, rent: [280, 700, 1400], color: '#ea580c' },
-      { id: 31, r: 8, c: 8, name: 'VINH', type: 'city', price: 1200, rent: [240, 600, 1200], color: '#0284c7' },
-      { id: 32, r: 8, c: 9, name: 'VẬN MỆNH', type: 'fate', icon: '❗', bg: 'bg-[#007AB8]', iconColor: 'text-rose-400' },
-      { id: 33, r: 8, c: 10, name: 'THANH HÓA', type: 'city', price: 1000, rent: [200, 500, 1000], color: '#0284c7' },
-      { id: 34, r: 8, c: 11, name: 'NINH BÌNH', type: 'city', price: 1000, rent: [200, 500, 1000], color: '#0284c7' },
+      // BOTTOM ROW: cols 12 down to 1 (row 8) - STARTING CORNER IS (row 8, col 12)
       { id: 0, r: 8, c: 12, name: 'XUẤT PHÁT', type: 'start', isCorner: true, bg: 'bg-[#B91C1C]', text: 'text-white', icon: '🗺️' },
+      { id: 1, r: 8, c: 11, name: 'NINH BÌNH', type: 'city', price: 1000, rent: [200, 500, 1000], color: '#0284c7' },
+      { id: 2, r: 8, c: 10, name: 'THANH HÓA', type: 'city', price: 1000, rent: [200, 500, 1000], color: '#0284c7' },
+      { id: 3, r: 8, c: 9, name: 'VẬN MỆNH', type: 'fate', icon: '❗', bg: 'bg-[#007AB8]', iconColor: 'text-rose-400' },
+      { id: 4, r: 8, c: 8, name: 'VINH', type: 'city', price: 1200, rent: [240, 600, 1200], color: '#0284c7' },
+      { id: 5, r: 8, c: 7, name: 'HÀ TĨNH', type: 'city', price: 1400, rent: [280, 700, 1400], color: '#ea580c' },
+      { id: 6, r: 8, c: 6, name: 'BẾN XE', type: 'station', price: 2000, rent: [400, 800, 1600], color: '#64748b', icon: '🚌' },
+      { id: 7, r: 8, c: 5, name: 'ĐÔNG HÀ', type: 'city', price: 1400, rent: [280, 700, 1400], color: '#ea580c' },
+      { id: 8, r: 8, c: 4, name: 'CƠ HỘI', type: 'chance', icon: '❓', bg: 'bg-[#007AB8]', iconColor: 'text-amber-400' },
+      { id: 9, r: 8, c: 3, name: 'HỘI AN', type: 'city', price: 1600, rent: [320, 800, 1600], color: '#f59e0b' },
+      { id: 10, r: 8, c: 2, name: 'QUY NHƠN', type: 'city', price: 1600, rent: [320, 800, 1600], color: '#f59e0b' },
+      { id: 11, r: 8, c: 1, name: 'TRẠI GIAM', type: 'jail', isCorner: true, bg: 'bg-[#0F172A]', text: 'text-amber-400', icon: '🏛️' },
 
-      // RIGHT COLUMN (Rows 7 down to 2, col 12)
-      { id: 1, r: 7, c: 12, name: 'NAM ĐỊNH', type: 'city', price: 1200, rent: [240, 600, 1200], color: '#16a34a' },
-      { id: 2, r: 6, c: 12, name: 'THÁI BÌNH', type: 'city', price: 1200, rent: [240, 600, 1200], color: '#16a34a' },
-      { id: 3, r: 5, c: 12, name: 'CƠ HỘI', type: 'chance', icon: '❓', bg: 'bg-[#007AB8]', iconColor: 'text-amber-400' },
-      { id: 4, r: 4, c: 12, name: 'HẢI PHÒNG', type: 'city', price: 1800, rent: [360, 900, 1800], color: '#059669' },
-      { id: 5, r: 3, c: 12, name: 'QUẢNG NINH', type: 'city', price: 1800, rent: [360, 900, 1800], color: '#059669' },
-      { id: 6, r: 2, c: 12, name: 'LẠNG SƠN', type: 'city', price: 2000, rent: [400, 1000, 2000], color: '#0d9488' },
+      // LEFT COLUMN: rows 7 down to 2 (col 1)
+      { id: 12, r: 7, c: 1, name: 'NHA TRANG', type: 'city', price: 3000, rent: [600, 1500, 3000], color: '#f97316' },
+      { id: 13, r: 6, c: 1, name: 'PHAN THIẾT', type: 'city', price: 2600, rent: [520, 1300, 2600], color: '#f97316' },
+      { id: 14, r: 5, c: 1, name: 'BẾN CẢNG', type: 'station', price: 2000, rent: [400, 800, 1600], color: '#64748b', icon: '⚓' },
+      { id: 15, r: 4, c: 1, name: 'VŨNG TÀU', type: 'city', price: 3200, rent: [640, 1600, 3200], color: '#e11d48' },
+      { id: 16, r: 3, c: 1, name: 'TP.HCM', type: 'city', price: 4000, rent: [800, 2000, 4000], color: '#e11d48' },
+      { id: 17, r: 2, c: 1, name: 'BIÊN HÒA', type: 'city', price: 2800, rent: [560, 1400, 2800], color: '#db2777' },
 
-      // ROW 1: TOP EDGE (Right to Left, cols 12 down to 1)
-      { id: 7, r: 1, c: 12, name: 'VÔ TÙ', type: 'goto_jail', isCorner: true, bg: 'bg-[#334155]', text: 'text-rose-400', icon: '⛓️' },
-      { id: 8, r: 1, c: 11, name: 'BẮC GIANG', type: 'city', price: 2000, rent: [400, 1000, 2000], color: '#0d9488' },
-      { id: 9, r: 1, c: 10, name: 'THÁI NGUYÊN', type: 'city', price: 2200, rent: [440, 1100, 2200], color: '#2563eb' },
-      { id: 10, r: 1, c: 9, name: 'VẬN MỆNH', type: 'fate', icon: '❗', bg: 'bg-[#007AB8]', iconColor: 'text-rose-400' },
-      { id: 11, r: 1, c: 8, name: 'HÀ NỘI', type: 'city', price: 3500, rent: [700, 1750, 3500], color: '#7c3aed' },
-      { id: 12, r: 1, c: 7, name: 'NHÀ GA', type: 'station', price: 2000, rent: [400, 800, 1600], color: '#64748b', icon: '🚉' },
-      { id: 13, r: 1, c: 6, name: 'HẢI DƯƠNG', type: 'city', price: 2400, rent: [480, 1200, 2400], color: '#9333ea' },
-      { id: 14, r: 1, c: 5, name: 'HÒA BÌNH', type: 'city', price: 2200, rent: [440, 1100, 2200], color: '#2563eb' },
-      { id: 15, r: 1, c: 4, name: 'CƠ HỘI', type: 'chance', icon: '❓', bg: 'bg-[#007AB8]', iconColor: 'text-amber-400' },
-      { id: 16, r: 1, c: 3, name: 'CẦN THƠ', type: 'city', price: 2600, rent: [520, 1300, 2600], color: '#c026d3' },
-      { id: 17, r: 1, c: 2, name: 'BIÊN HÒA', type: 'city', price: 2800, rent: [560, 1400, 2800], color: '#db2777' },
+      // TOP ROW: cols 1 up to 12 (row 1)
       { id: 18, r: 1, c: 1, name: 'TÂN AN', type: 'airport', isCorner: true, bg: 'bg-[#0284C7]', text: 'text-white', icon: '✈️' },
+      { id: 19, r: 1, c: 2, name: 'CẦN THƠ', type: 'city', price: 2600, rent: [520, 1300, 2600], color: '#c026d3' },
+      { id: 20, r: 1, c: 3, name: 'CƠ HỘI', type: 'chance', icon: '❓', bg: 'bg-[#007AB8]', iconColor: 'text-amber-400' },
+      { id: 21, r: 1, c: 4, name: 'HÒA BÌNH', type: 'city', price: 2200, rent: [440, 1100, 2200], color: '#2563eb' },
+      { id: 22, r: 1, c: 5, name: 'HẢI DƯƠNG', type: 'city', price: 2400, rent: [480, 1200, 2400], color: '#9333ea' },
+      { id: 23, r: 1, c: 6, name: 'NHÀ GA', type: 'station', price: 2000, rent: [400, 800, 1600], color: '#64748b', icon: '🚉' },
+      { id: 24, r: 1, c: 7, name: 'HÀ NỘI', type: 'city', price: 3500, rent: [700, 1750, 3500], color: '#7c3aed' },
+      { id: 25, r: 1, c: 8, name: 'VẬN MỆNH', type: 'fate', icon: '❗', bg: 'bg-[#007AB8]', iconColor: 'text-rose-400' },
+      { id: 26, r: 1, c: 9, name: 'THÁI NGUYÊN', type: 'city', price: 2200, rent: [440, 1100, 2200], color: '#2563eb' },
+      { id: 27, r: 1, c: 10, name: 'BẮC GIANG', type: 'city', price: 2000, rent: [400, 1000, 2000], color: '#0d9488' },
+      { id: 28, r: 1, c: 11, name: 'LẠNG SƠN', type: 'city', price: 2000, rent: [400, 1000, 2000], color: '#0d9488' },
+      { id: 29, r: 1, c: 12, name: 'VÔ TÙ', type: 'goto_jail', isCorner: true, bg: 'bg-[#334155]', text: 'text-rose-400', icon: '⛓️' },
 
-      // LEFT COLUMN (Rows 2 down to 7, col 1)
-      { id: 19, r: 2, c: 1, name: 'TP.HCM', type: 'city', price: 4000, rent: [800, 2000, 4000], color: '#e11d48' },
-      { id: 20, r: 3, c: 1, name: 'VŨNG TÀU', type: 'city', price: 3200, rent: [640, 1600, 3200], color: '#e11d48' },
-      { id: 21, r: 4, c: 1, name: 'BẾN CẢNG', type: 'station', price: 2000, rent: [400, 800, 1600], color: '#64748b', icon: '⚓' },
-      { id: 22, r: 5, c: 1, name: 'PHAN THIẾT', type: 'city', price: 2600, rent: [520, 1300, 2600], color: '#f97316' },
-      { id: 23, r: 6, c: 1, name: 'NHA TRANG', type: 'city', price: 3000, rent: [600, 1500, 3000], color: '#f97316' }
+      // RIGHT COLUMN: rows 2 down to 7 (col 12)
+      { id: 30, r: 2, c: 12, name: 'QUẢNG NINH', type: 'city', price: 1800, rent: [360, 900, 1800], color: '#059669' },
+      { id: 31, r: 3, c: 12, name: 'HẢI PHÒNG', type: 'city', price: 1800, rent: [360, 900, 1800], color: '#059669' },
+      { id: 32, r: 4, c: 12, name: 'CƠ HỘI', type: 'chance', icon: '❓', bg: 'bg-[#007AB8]', iconColor: 'text-amber-400' },
+      { id: 33, r: 5, c: 12, name: 'THÁI BÌNH', type: 'city', price: 1200, rent: [240, 600, 1200], color: '#16a34a' },
+      { id: 34, r: 6, c: 12, name: 'NAM ĐỊNH', type: 'city', price: 1200, rent: [240, 600, 1200], color: '#16a34a' },
+      { id: 35, r: 7, c: 12, name: 'HÀ NAM', type: 'city', price: 1000, rent: [200, 500, 1000], color: '#16a34a' }
     ];
 
     let monoState = {
@@ -5248,6 +5320,7 @@
       round: 1,
       isRolling: false,
       speed: 1,
+      is25D: true, // Default to 2.5D Isometric mode
       mode: 'bot', // 'bot' | 'local'
       pendingAction: null,
       eventCallback: null,
@@ -5401,11 +5474,33 @@
       }
     }
 
+    // Toggle 2.5D Isometric ↔ 2D Flat view
+    function toggleMono25DView() {
+      monoState.is25D = !monoState.is25D;
+      const board = document.getElementById('mono2dBoardWrapper');
+      const btn = document.getElementById('btnMono25DToggle');
+      if (board) {
+        if (monoState.is25D) {
+          board.classList.remove('mono-board-2d');
+          board.classList.add('mono-board-25d');
+        } else {
+          board.classList.remove('mono-board-25d');
+          board.classList.add('mono-board-2d');
+        }
+      }
+      if (btn) {
+        btn.textContent = monoState.is25D ? '📐 2.5D' : '📏 2D';
+        btn.title = monoState.is25D ? 'Đang bật 2.5D Isometric (Bấm để chuyển về 2D)' : 'Đang bật 2D Phẳng (Bấm để chuyển sang 2.5D)';
+      }
+      showToast(monoState.is25D ? '📐 Đã chuyển sang góc nhìn 2.5D Isometric!' : '📏 Đã chuyển sang góc nhìn 2D Phẳng!');
+    }
+
     function initMonopolyGame() {
       if (window.currentFirebaseUser) {
         monoState.players[0].name = window.currentFirebaseUser.displayName || 'Tiên';
       }
 
+      // Re-map 36 tiles in authentic perimeter order (index 0 = XUẤT PHÁT)
       monoState.tiles = MONOPOLY_2D_TILES.map(t => ({
         ...t,
         owner: null,
@@ -5418,6 +5513,7 @@
       monoState.pendingAction = null;
       monoState.eventCallback = null;
 
+      // Both players start exactly at XUẤT PHÁT (pos = 0)
       monoState.players[0].cash = 19760;
       monoState.players[0].pos = 0;
       monoState.players[0].inJail = 0;
@@ -5427,6 +5523,22 @@
       monoState.players[1].pos = 0;
       monoState.players[1].inJail = 0;
       monoState.players[1].properties = [];
+
+      // Apply 2.5D state
+      const board = document.getElementById('mono2dBoardWrapper');
+      const btn = document.getElementById('btnMono25DToggle');
+      if (board) {
+        if (monoState.is25D) {
+          board.classList.remove('mono-board-2d');
+          board.classList.add('mono-board-25d');
+        } else {
+          board.classList.remove('mono-board-25d');
+          board.classList.add('mono-board-2d');
+        }
+      }
+      if (btn) {
+        btn.textContent = monoState.is25D ? '📐 2.5D' : '📏 2D';
+      }
 
       renderMonopolyBoard();
       updateMonopolyPawns();
@@ -5577,12 +5689,24 @@
 
       if (mode === 'ready') {
         const curPlayer = monoState.players[monoState.turn];
-        title.innerHTML = `Lượt của <span class="text-amber-300 font-extrabold">${curPlayer.name}</span>! Hãy đổ xúc xắc để di chuyển.`;
-        btnNo.classList.add('hidden');
-        btnYes.classList.remove('hidden');
-        btnYes.textContent = 'Đổ Ngay 🎲';
-        btnYes.className = 'btn-spring px-8 sm:px-14 py-2 sm:py-3.5 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 text-sm sm:text-xl font-black shadow-lg transition-transform active:scale-95 cursor-pointer';
-        monoState.pendingAction = { type: 'roll' };
+        if (curPlayer.inJail > 0) {
+          // Authentic Monopoly Jail Choice: Pay $500 bail OR Roll for double
+          title.innerHTML = `<span class="text-rose-400 font-black">🔒 ${curPlayer.name} đang ở Trại Giam!</span> Bạn muốn nộp <span class="text-amber-300 font-chakra">$500</span> bảo lãnh ra tù ngay, hay đổ xúc xắc tìm số đôi?`;
+          btnNo.classList.remove('hidden');
+          btnYes.classList.remove('hidden');
+          btnNo.textContent = 'Đổ Số Đôi 🎲';
+          btnNo.className = 'btn-spring px-6 sm:px-10 py-2 sm:py-3.5 rounded-full bg-slate-600 hover:bg-slate-500 text-white text-xs sm:text-lg font-black shadow-lg transition-transform active:scale-95 cursor-pointer';
+          btnYes.textContent = 'Nộp $500 Ra Tù 💵';
+          btnYes.className = 'btn-spring px-6 sm:px-10 py-2 sm:py-3.5 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs sm:text-lg font-black shadow-lg transition-transform active:scale-95 cursor-pointer';
+          monoState.pendingAction = { type: 'jail_choice' };
+        } else {
+          title.innerHTML = `Lượt của <span class="text-amber-300 font-extrabold">${curPlayer.name}</span>! Hãy đổ xúc xắc để di chuyển.`;
+          btnNo.classList.add('hidden');
+          btnYes.classList.remove('hidden');
+          btnYes.textContent = 'Đổ Ngay 🎲';
+          btnYes.className = 'btn-spring px-8 sm:px-14 py-2 sm:py-3.5 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 text-sm sm:text-xl font-black shadow-lg transition-transform active:scale-95 cursor-pointer';
+          monoState.pendingAction = { type: 'roll' };
+        }
       } else if (mode === 'buy') {
         title.innerHTML = `Bạn có muốn mua ô <span class="text-sky-300 font-extrabold">${data.tile.name}</span> với giá <span class="text-amber-300 font-chakra font-black">$${data.tile.price}</span> và xây nhà cấp 1?`;
         btnNo.classList.remove('hidden');
@@ -5616,7 +5740,26 @@
     function handleMonoDialogChoice(agreed) {
       if (!monoState.pendingAction) return;
 
-      if (monoState.pendingAction.type === 'roll') {
+      if (monoState.pendingAction.type === 'jail_choice') {
+        const player = monoState.players[monoState.turn];
+        if (agreed) {
+          // Pay $500 bail to get out
+          if (player.cash >= 500) {
+            player.cash -= 500;
+            player.inJail = 0;
+            triggerMonoFloatingCash(player.id, -500);
+            updateMonopolyHUD();
+            showToast(`💵 ${player.name} đã nộp $500 tiền bảo lãnh và được tự do!`);
+            executeMono2dRoll();
+          } else {
+            showToast(`❌ Không đủ $500, phải đổ xúc xắc tìm số đôi!`);
+            executeMono2dRoll();
+          }
+        } else {
+          // Try rolling doubles
+          executeMono2dRoll();
+        }
+      } else if (monoState.pendingAction.type === 'roll') {
         executeMono2dRoll();
       } else if (monoState.pendingAction.type === 'buy') {
         const tile = monoState.pendingAction.tile;
@@ -5715,46 +5858,45 @@
       }
       try { soundTone(360, 'sine', 0.12, 0.15); } catch(e) {}
 
-      // Handle Jail escape
+      // Handle Jail escape logic
       if (player.inJail > 0) {
         if (isDouble) {
           player.inJail = 0;
-          showMonoEventPopup({
-            type: 'jail',
-            badge: '🔓 VƯỢT NGỤC THÀNH CÔNG!',
-            title: `${player.name} Đổ Được Số Đôi!`,
-            desc: 'Bạn đã đổ được 2 viên xúc xắc trùng nhau và được tự do ngay lập tức!',
-            visualIcon: '🎉',
-            onConfirm: () => finishMonoTurn()
-          });
+          showToast(`🔓 ${player.name} đổ số ĐÔI (${d1} - ${d2})! Thoát khỏi Trại Giam tự do.`);
+          // Continue moving
         } else {
           player.inJail--;
+          if (d1El) d1El.classList.remove('mono-dice-rolling');
+          if (d2El) d2El.classList.remove('mono-dice-rolling');
+          monoState.isRolling = false;
+
           showMonoEventPopup({
             type: 'jail',
             badge: '🔒 KẸT TRONG TRẠI GIAM',
-            title: `${player.name} Chưa Thể Ra Tù`,
-            desc: `Bạn cần đổ được số đôi hoặc đợi thêm ${player.inJail} lượt nữa.`,
+            title: `${player.name} Không Ra Được Số Đôi`,
+            desc: player.inJail > 0 ? `Bạn đổ ra ${d1} và ${d2}. Vẫn bị giam giữ (còn ${player.inJail} lượt).` : 'Đã hết hạn tạm giam! Bạn được phóng thích vào lượt tiếp theo.',
             visualIcon: '⛓️',
             onConfirm: () => finishMonoTurn()
           });
-          monoState.isRolling = false;
           return;
         }
       }
 
-      // Step by step animation
+      // Step by step animation along authentic perimeter
       const stepDelay = monoState.speed === 2 ? 65 : 130;
       for (let s = 1; s <= total; s++) {
+        const prevPos = player.pos;
         player.pos = (player.pos + 1) % 36;
         updateMonopolyPawns();
         try { soundTone(480 + s * 15, 'sine', 0.03, 0.05); } catch(e) {}
 
-        // Salary when passing start
-        if (player.pos === 0) {
+        // Authentic Rule: Passing or Landing on XUẤT PHÁT (pos === 0) earns +$2000 salary!
+        if (player.pos === 0 && prevPos !== 0) {
           player.cash += 2000;
           triggerMonoFloatingCash(player.id, 2000);
           try { soundTone(880, 'triangle', 0.18, 0.2); } catch(e) {}
           updateMonopolyHUD();
+          showToast(`🏁 ${player.name} qua Xuất Phát: Nhận lương +$2000!`);
         }
         await new Promise(r => setTimeout(r, stepDelay));
       }
@@ -5825,10 +5967,17 @@
             setMonoDialogMode('notice', { text: `🏰 ${player.name} nghỉ ngơi tại bất động sản tối tân ${landedTile.name}!` });
           }
         } else {
-          // Pay rent
+          // Pay rent to opponent
           const owner = monoState.players[landedTile.owner];
           const lvl = landedTile.level || 1;
-          const rent = landedTile.rent ? (landedTile.rent[lvl - 1] || landedTile.rent[0]) : Math.floor(landedTile.price * 0.2);
+          let rent = 0;
+          if (landedTile.type === 'station') {
+            // Count stations owned by owner
+            const ownedStations = monoState.tiles.filter(t => t.type === 'station' && t.owner === owner.id).length;
+            rent = landedTile.rent[Math.min(ownedStations - 1, 2)] || 400;
+          } else {
+            rent = landedTile.rent ? (landedTile.rent[lvl - 1] || landedTile.rent[0]) : Math.floor(landedTile.price * 0.2);
+          }
           
           player.cash = Math.max(0, player.cash - rent);
           owner.cash += rent;
@@ -5889,20 +6038,22 @@
           onConfirm: () => finishMonoTurn()
         });
       } else if (landedTile.type === 'goto_jail') {
-        player.pos = 24; // Trại giam tile index
+        // Authentic Rule: Go To Jail sends player directly to Jail (index 11) with inJail = 3
+        player.pos = 11; // Index 11 is TRẠI GIAM
         player.inJail = 3;
         updateMonopolyPawns();
         try { soundTone(150, 'sawtooth', 0.4, 0.3); } catch(e) {}
         showMonoEventPopup({
           type: 'jail',
-          badge: '⛓️ BỊ BẮT VÀO TÙ!',
+          badge: '⛓️ BỊ TỐNG VÀO TÙ!',
           title: 'Vô Tù Bóc Lịch',
-          desc: `${player.name} bị áp giải vào Trại Giam! Cần đổ xúc xắc ra số đôi để thoát thân.`,
+          desc: `${player.name} bị cảnh sát tóm và tống thẳng vào Trại Giam! Bạn cần lắc ra số đôi hoặc trả $500 bảo lãnh để ra tù.`,
           visualIcon: '👮',
           onConfirm: () => finishMonoTurn()
         });
       } else if (landedTile.type === 'airport') {
-        player.pos = 11; // Bay thẳng đến Hà Nội
+        // Authentic Rule: Tân An airport allows instant flight to Hanoi (index 24)
+        player.pos = 24; // Hà Nội
         updateMonopolyPawns();
         showMonoEventPopup({
           type: 'airport',
@@ -5913,13 +6064,21 @@
           onConfirm: () => finishMonoTurn()
         });
       } else if (landedTile.type === 'jail') {
-        setMonoDialogMode('notice', { text: `🏛️ ${player.name} ghé thăm người quen tại Trại Giam.` });
+        // Authentic Rule: Normal landing on Jail is "Just Visiting" (Thăm tù)
+        showMonoEventPopup({
+          type: 'visit_jail',
+          badge: '🏛️ THĂM TRẠI GIAM',
+          title: 'Ghé Thăm Bạn Bè',
+          desc: `${player.name} chỉ là khách ghé thăm Trại Giam. Không bị giam giữ và được tự do đi tiếp vào lượt sau!`,
+          visualIcon: '👀',
+          onConfirm: () => finishMonoTurn()
+        });
       } else if (landedTile.type === 'start') {
         showMonoEventPopup({
           type: 'salary',
           badge: '🗺️ ĐIỂM XUẤT PHÁT',
           title: 'Chào Đón Vòng Mới',
-          desc: `${player.name} dừng chân tại Điểm Xuất Phát Hoàng Gia!`,
+          desc: `${player.name} dừng chân đúng ngay Điểm Xuất Phát Hoàng Gia!`,
           visualIcon: '🏁',
           onConfirm: () => finishMonoTurn()
         });
@@ -5956,7 +6115,16 @@
       if (monoState.turn === 1 && monoState.mode === 'bot') {
         const botDelay = monoState.speed === 2 ? 600 : 1200;
         setTimeout(() => {
-          executeMono2dRoll();
+          if (monoState.players[1].inJail > 0) {
+            // Bot AI jail choice: If rich, pays $500 bail; else rolls for double
+            if (monoState.players[1].cash >= 3000) {
+              handleMonoDialogChoice(true); // Pay bail
+            } else {
+              handleMonoDialogChoice(false); // Roll doubles
+            }
+          } else {
+            executeMono2dRoll();
+          }
         }, botDelay);
       }
     }
@@ -5992,6 +6160,7 @@
     window.handleMonoPowerBtn = handleMonoPowerBtn;
     window.handleMonoSettingsBtn = handleMonoSettingsBtn;
     window.toggleMonoSpeedBtn = toggleMonoSpeedBtn;
+    window.toggleMono25DView = toggleMono25DView;
     window.showMonoEventPopup = showMonoEventPopup;
     window.closeMonoEventModal = closeMonoEventModal;
     window.monoState = monoState;
@@ -7903,7 +8072,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v3.2.0'
+      currentVersion: 'v3.4.0'
     };
 
     let allChangelogItems = [];

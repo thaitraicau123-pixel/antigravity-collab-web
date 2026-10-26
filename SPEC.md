@@ -331,3 +331,25 @@ esetTTTScores).
      * Pod Chỉ Huy (Giữa): Nút Nguồn `⏻`, Cài đặt chế độ `⚙️`, và Bộ tăng tốc ván đấu `1X/2X`.
      * Pod P2 / AI (Phải): Avatar vầng sáng hoa hồng tím, nhãn số 2, số dư đối thủ và bất động sản tương ứng.
    - **Bảo Toàn 100% Mô Hình 3D Mini House SVG & Hiệu Ứng Pop-Up Tiền**: Toàn bộ hệ thống nhà phố 3D, biệt thự, cao ốc hoàng gia vương miện và hiệu ứng tiền bay trôi nổi (`animate-float-cash`) được tích hợp trơn tru trên nền Dark Sapphire.
+
+
+---
+
+## ⚡ PHẦN 20: SỬA LỖI XUẤT PHÁT, NÂNG CẤP BÀN CỜ 2.5D ISOMETRIC VÀ CHUẨN HÓA LUẬT CỜ TỶ PHÚ NGUYÊN BẢN (V3.4.0)
+1. **Sửa Triệt Để Vị Trí Ô Xuất Phát**:
+   - Tái cấu trúc mảng 36 ô chu vi với `index 0` là **XUẤT PHÁT** (Góc Đông Nam, Row 8, Col 12).
+   - Đảm bảo quân cờ của người chơi và đối thủ bắt đầu chính xác 100% tại ô Xuất Phát.
+   - Chiều di chuyển vòng tròn chuẩn xác theo luật cờ: Xuất Phát (Row 8, Col 12) -> Ninh Bình (Row 8, Col 11) -> ... -> Trại Giam (Row 8, Col 1) -> Nha Trang -> Tân An -> Cần Thơ -> Vô Tù -> Quảng Ninh -> Xuất Phát.
+2. **Luật Cờ Tỷ Phú Nguyên Bản Đầy Đủ (Authentic Monopoly Rules)**:
+   - **Lương Xuất Phát**: Nhận `+$2,000` mỗi khi đi qua hoặc dừng lại tại ô Xuất Phát.
+   - **Trại Giam & Vô Tù**:
+     * Dẫm vào ô **VÔ TÙ** (ô 29): Bị tống thẳng vào **TRẠI GIAM** (ô 11) với mức án 3 lượt giam.
+     * Khi trong tù: Lựa chọn trả $500 tiền bảo lãnh để ra tù ngay hoặc đổ xúc xắc tìm số đôi.
+     * Dẫm vào ô **TRẠI GIAM** thông thường: Tính là "Thăm Tù" (Just Visiting), không bị giam giữ hay phạt tiền.
+   - **Mua Đất & Xây Nhà 3D**:
+     * Mua đất trống: Tự động khánh thành Nhà Cấp 1 mô hình 3D.
+     * Dừng chân tại đất của mình: Nâng cấp lên Biệt Thự Cấp 2 và Khách Sạn Hoàng Gia Cấp 3.
+   - **Tiền Thuê Lũy Tiến & Bến Bãi**: Tiền thuê nhân theo cấp nhà 3D; tiền thuê bến xe / bến cảng / nhà ga tăng theo số lượng bến sở hữu.
+3. **Nâng Cấp Giao Diện 2.5D Isometric Tabletop**:
+   - Sử dụng CSS 3D perspective `1400px` với góc nghiêng phối cảnh `rotateX(36deg) rotateZ(-6deg)` chân thực.
+   - Tích hợp nút bấm **`[ 📐 2.5D / 2D ]`** trên thanh điều khiển trung tâm cho phép chuyển đổi tức thời giữa 2.5D Isometric và 2D Phẳng, mặc định mở sẵn **2.5D**.

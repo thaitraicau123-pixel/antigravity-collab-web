@@ -1012,14 +1012,14 @@
             <button onclick="setBotCount(3)" id="botCountBtn3" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">3</button>
           </div>
 
-          <!-- Custom Goal Score Selector -->
+          <!-- Custom Goal Score Selector (Nâng độ khó: 50đ, 100đ Chuẩn, 150đ Thách Thức) -->
           <div class="flex items-center bg-board-tray p-1 rounded-xl border border-amber-500/30 text-xs font-bold shadow-inner">
             <span class="text-[11px] text-amber-400 px-1.5 flex items-center gap-1 font-semibold">
               <i data-lucide="target" class="w-3.5 h-3.5"></i> Đích:
             </span>
-            <button onclick="setGoalScore(30)" id="goalBtn30" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">30đ</button>
-            <button onclick="setGoalScore(50)" id="goalBtn50" class="px-2 py-0.5 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-sm font-bold transition-all">50đ</button>
-            <button onclick="setGoalScore(100)" id="goalBtn100" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">100đ</button>
+            <button onclick="setGoalScore(50)" id="goalBtn50" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">50đ</button>
+            <button onclick="setGoalScore(100)" id="goalBtn100" class="px-2 py-0.5 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-sm font-bold transition-all">100đ ⭐</button>
+            <button onclick="setGoalScore(150)" id="goalBtn150" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">150đ 🔥</button>
             <button onclick="promptCustomGoalScore()" id="goalBtnCustom" class="px-1.5 py-0.5 rounded-md text-amber-300/80 hover:text-amber-200 font-mono text-[10px] inline-flex items-center gap-1" title="Nhập điểm tùy biến"><i data-lucide="edit-3" class="w-2.5 h-2.5"></i> Khác</button>
           </div>
 
@@ -1168,10 +1168,10 @@
           <div class="absolute bottom-2 left-2 text-amber-500/20 font-cinzel text-lg select-none">⚜</div>
           <div class="absolute bottom-2 right-2 text-amber-500/20 font-cinzel text-lg select-none">⚜</div>
 
-          <div class="grid grid-cols-4 grid-rows-4 gap-3 sm:gap-3.5 aspect-square max-w-[490px] w-full mx-auto" id="circuitGrid">
+          <div class="grid grid-cols-6 grid-rows-6 gap-2 sm:gap-2.5 aspect-square max-w-[620px] w-full mx-auto" id="circuitGrid">
             
-            <!-- Center Arena: Leather & Felt Dice Tray -->
-            <div class="col-start-2 col-end-4 row-start-2 row-end-4 rounded-2xl dice-tray p-4 flex flex-col items-center justify-center text-center relative select-none">
+            <!-- Center Arena: Leather & Felt Dice Tray (4x4 Center Core) -->
+            <div class="col-start-2 col-end-6 row-start-2 row-end-6 rounded-3xl dice-tray p-4 sm:p-6 flex flex-col items-center justify-center text-center relative select-none shadow-2xl">
               
               <div id="diceTurnBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold mb-3 shadow-inner">
                 <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
@@ -1409,15 +1409,23 @@
               </div>
             </div>
 
-            <!-- Sub-tab 2: Strategy Tips -->
-            <div id="tTabContentTips" class="hidden flex-1 space-y-2 text-[11px] text-slate-300">
-              <div class="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30">
-                <div class="font-bold text-amber-400 mb-0.5 flex items-center gap-1 font-cinzel">👑 Ô Vàng Đột Phá:</div>
-                <p class="text-[10px] text-slate-300">Chiếm <b>#4 Kho Báu (+20)</b> & <b>#11 Chìa Khóa (+30)</b> giúp cán đích 50 điểm siêu tốc!</p>
-              </div>
+            <!-- Sub-tab 2: Strategy Tips (Chiến Thuật Bản Đồ Lớn 20 Ô) -->
+            <div id="tTabContentTips" class="hidden flex-1 space-y-2 text-[11px] text-slate-300 overflow-y-auto max-h-[220px]">
               <div class="p-2 rounded-xl bg-rose-500/10 border border-rose-500/30">
-                <div class="font-bold text-rose-400 mb-0.5 flex items-center gap-1 font-cinzel">⚠️ Vùng Cạm Bẫy:</div>
-                <p class="text-[10px] text-slate-300">Cẩn trọng <b>#5 Bão Điện (-15)</b> và <b>#8 Bẫy Gai (-10)</b>. Nếu dính bẫy điểm sẽ tụt dốc!</p>
+                <div class="font-bold text-rose-400 mb-0.5 flex items-center gap-1 font-cinzel">💥 Cơ Chế Đá Quân (Clash):</div>
+                <p class="text-[10px] text-slate-300">Nếu bạn đáp đúng vào ô đối thủ đang đứng: <b>ĐÁ LÙI 3 Ô</b> và <b>CƯỚP 10 ĐIỂM</b>! Cực kỳ khốc liệt!</p>
+              </div>
+              <div class="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30">
+                <div class="font-bold text-cyan-400 mb-0.5 flex items-center gap-1 font-cinzel">🌀 Cổng Warp 2 Chiều:</div>
+                <p class="text-[10px] text-slate-300">Cổng Alpha <b>#4</b> và Cổng Omega <b>#14</b> liên thông tức thì, giúp nhảy cóc 10 ô xuyên bản đồ!</p>
+              </div>
+              <div class="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30">
+                <div class="font-bold text-amber-400 mb-0.5 flex items-center gap-1 font-cinzel">🎁 Rương Vận Mệnh (#7 & #17):</div>
+                <p class="text-[10px] text-slate-300">Rút thẻ ngẫu nhiên: <b>Khiên Hộ Thân</b>, <b>Hoán Đổi Vị Trí</b>, <b>Cướp Điểm</b> hoặc <b>Xúc Xắc Kép</b>!</p>
+              </div>
+              <div class="p-2 rounded-xl bg-indigo-500/10 border border-indigo-500/30">
+                <div class="font-bold text-indigo-400 mb-0.5 flex items-center gap-1 font-cinzel">❄️ Băng Ngục Kìm Chân (#5):</div>
+                <p class="text-[10px] text-slate-300">Bị kìm chân 1 lượt. Phải gieo ra <b>Số Chẵn (2, 4, 6)</b> hoặc <b>>= 4</b> mới được giải thoát!</p>
               </div>
             </div>
 
@@ -4046,226 +4054,129 @@
     function getTileSvgIcon(id) {
       switch(id) {
         case 0: // Khởi Hành (Start Hyper-Gate)
-          return `<svg viewBox="0 0 48 48" class="w-9 h-9 sm:w-10 sm:h-10 mx-auto filter drop-shadow">
-            <defs>
-              <radialGradient id="t0G" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#34D399" stop-opacity="0.8"/>
-                <stop offset="100%" stop-color="#059669" stop-opacity="0"/>
-              </radialGradient>
-              <linearGradient id="t0A" x1="0%" y1="100%" x2="0%" y2="0%">
-                <stop offset="0%" stop-color="#059669"/>
-                <stop offset="50%" stop-color="#34D399"/>
-                <stop offset="100%" stop-color="#A7F3D0"/>
-              </linearGradient>
-            </defs>
-            <circle cx="24" cy="24" r="18" fill="url(#t0G)" opacity="0.3"/>
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <circle cx="24" cy="24" r="18" fill="#064E3B" opacity="0.3"/>
             <circle cx="24" cy="24" r="20" fill="none" stroke="#10B981" stroke-width="1.8" stroke-dasharray="3 3"/>
-            <circle cx="24" cy="24" r="14" fill="#064E3B" stroke="#34D399" stroke-width="1.5"/>
-            <path d="M24 10 L33 24 L27 24 L27 34 L21 34 L21 24 L15 24 Z" fill="url(#t0A)" stroke="#ECFDF5" stroke-width="1" stroke-linejoin="round"/>
-            <circle cx="24" cy="37" r="1.5" fill="#6EE7B7"/>
+            <path d="M24 10 L33 24 L27 24 L27 34 L21 34 L21 24 L15 24 Z" fill="#34D399" stroke="#ECFDF5" stroke-width="1" stroke-linejoin="round"/>
           </svg>`;
-        case 1: // Đá Lam Ngọc (Royal Sapphire Gem)
-          return `<svg viewBox="0 0 48 48" class="w-9 h-9 sm:w-10 sm:h-10 mx-auto filter drop-shadow">
-            <defs>
-              <linearGradient id="t1T" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#A5F3FC"/>
-                <stop offset="100%" stop-color="#38BDF8"/>
-              </linearGradient>
-              <linearGradient id="t1L" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#0284C7"/>
-                <stop offset="100%" stop-color="#0369A1"/>
-              </linearGradient>
-              <linearGradient id="t1R" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#38BDF8"/>
-                <stop offset="100%" stop-color="#0284C7"/>
-              </linearGradient>
-            </defs>
-            <polygon points="16,14 32,14 41,22 7,22" fill="url(#t1T)" stroke="#BAE6FD" stroke-width="0.8"/>
-            <polygon points="7,22 24,14 16,14" fill="#38BDF8" opacity="0.7"/>
-            <polygon points="41,22 24,14 32,14" fill="#7DD3FC" opacity="0.9"/>
-            <polygon points="7,22 24,40 24,22" fill="url(#t1L)" stroke="#38BDF8" stroke-width="0.8"/>
-            <polygon points="41,22 24,40 24,22" fill="url(#t1R)" stroke="#7DD3FC" stroke-width="0.8"/>
-            <path d="M14 12 L15 14 L17 15 L15 16 L14 18 L13 16 L11 15 L13 14 Z" fill="#FFFFFF"/>
-            <circle cx="35" cy="27" r="1.5" fill="#FFFFFF" opacity="0.9"/>
+        case 1: // Đá Lam Ngọc
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <polygon points="16,14 32,14 41,22 7,22" fill="#38BDF8" stroke="#BAE6FD" stroke-width="0.8"/>
+            <polygon points="7,22 24,40 41,22" fill="#0284C7" stroke="#38BDF8" stroke-width="0.8"/>
+            <circle cx="34" cy="26" r="1.5" fill="#FFFFFF"/>
           </svg>`;
-        case 2: // Hố Đen Sâu (Graviton Vortex Bomb)
-          return `<svg viewBox="0 0 48 48" class="w-9 h-9 sm:w-10 sm:h-10 mx-auto filter drop-shadow">
-            <defs>
-              <radialGradient id="t2C" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#000000"/>
-                <stop offset="65%" stop-color="#4C0519"/>
-                <stop offset="100%" stop-color="#BE123C"/>
-              </radialGradient>
-              <linearGradient id="t2S" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FDA4AF"/>
-                <stop offset="50%" stop-color="#F43F5E"/>
-                <stop offset="100%" stop-color="#881337"/>
-              </linearGradient>
-            </defs>
-            <ellipse cx="24" cy="24" rx="20" ry="12" fill="none" stroke="#F43F5E" stroke-width="1.8" transform="rotate(-25 24 24)" stroke-dasharray="8 4" opacity="0.85"/>
-            <ellipse cx="24" cy="24" rx="16" ry="8" fill="none" stroke="#FB7185" stroke-width="1.2" transform="rotate(25 24 24)" opacity="0.7"/>
-            <circle cx="24" cy="24" r="11" fill="url(#t2C)" stroke="#F43F5E" stroke-width="1.5"/>
-            <path d="M24 16 C30 16 32 22 28 26 C24 30 18 28 18 24 C18 21 21 19 23 20" fill="none" stroke="url(#t2S)" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="24" cy="24" r="3" fill="#000000" stroke="#FDA4AF" stroke-width="0.8"/>
+        case 2: // Bẫy Laser
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <polygon points="24,9 41,38 7,38" fill="#4C0519" stroke="#F43F5E" stroke-width="1.5"/>
+            <rect x="22.5" y="18" width="3" height="9" rx="1.5" fill="#FDA4AF"/>
+            <circle cx="24" cy="32" r="1.8" fill="#FDA4AF"/>
           </svg>`;
-        case 3: // Trạm Tiếp Liệu (Plasma Power Spire)
-          return `<svg viewBox="0 0 48 48" class="w-9 h-9 sm:w-10 sm:h-10 mx-auto filter drop-shadow">
-            <defs>
-              <linearGradient id="t3B" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FEF08A"/>
-                <stop offset="50%" stop-color="#F59E0B"/>
-                <stop offset="100%" stop-color="#D97706"/>
-              </linearGradient>
-            </defs>
+        case 3: // Trạm Tiếp Liệu Plasma
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
             <polygon points="14,40 34,40 30,34 18,34" fill="#78350F" stroke="#F59E0B" stroke-width="1"/>
-            <line x1="24" y1="34" x2="24" y2="8" stroke="#F59E0B" stroke-width="2" stroke-dasharray="2 2" opacity="0.6"/>
-            <path d="M26 8 L14 24 L23 24 L21 38 L34 20 L25 20 Z" fill="url(#t3B)" stroke="#FEF08A" stroke-width="1.2" stroke-linejoin="round"/>
-            <circle cx="24" cy="22" r="16" fill="none" stroke="#FBBF24" stroke-width="1" stroke-dasharray="4 6" opacity="0.5"/>
+            <path d="M26 8 L14 24 L23 24 L21 38 L34 20 L25 20 Z" fill="#F59E0B" stroke="#FEF08A" stroke-width="1.2"/>
           </svg>`;
-        case 4: // Kho Báu Cổ (Imperial Gold Crown)
-          return `<svg viewBox="0 0 48 48" class="w-9 h-9 sm:w-10 sm:h-10 mx-auto filter drop-shadow">
-            <defs>
-              <linearGradient id="t4G" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#FEF08A"/>
-                <stop offset="45%" stop-color="#F59E0B"/>
-                <stop offset="100%" stop-color="#B45309"/>
-              </linearGradient>
-            </defs>
-            <path d="M9 35 L12 20 L20 26 L24 14 L28 26 L36 20 L39 35 Z" fill="url(#t4G)" stroke="#FEF08A" stroke-width="1.2" stroke-linejoin="round"/>
-            <rect x="9" y="34" width="30" height="4.5" rx="2" fill="#78350F" stroke="#FDE68A" stroke-width="0.8"/>
-            <circle cx="15" cy="36.2" r="1.3" fill="#F43F5E"/>
-            <circle cx="24" cy="36.2" r="1.5" fill="#10B981"/>
-            <circle cx="33" cy="36.2" r="1.3" fill="#38BDF8"/>
-            <circle cx="12" cy="20" r="1.8" fill="#FDE68A"/>
-            <circle cx="24" cy="14" r="2.2" fill="#67E8F9" stroke="#FDE68A" stroke-width="0.8"/>
-            <circle cx="36" cy="20" r="1.8" fill="#FDE68A"/>
-            <path d="M24 8 L25 10 L27 11 L25 12 L24 14 L23 12 L21 11 L23 10 Z" fill="#FFFFFF" opacity="0.9"/>
+        case 4: // Cổng Warp Alpha
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow animate-spin-slow">
+            <circle cx="24" cy="24" r="18" fill="none" stroke="#06B6D4" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <circle cx="24" cy="24" r="12" fill="#083344" stroke="#67E8F9" stroke-width="1.2"/>
+            <text x="24" y="28" text-anchor="middle" fill="#67E8F9" font-size="12" font-weight="bold" font-family="monospace">Ω1</text>
           </svg>`;
-        case 5: // Bão Điện Từ (EMP Storm)
-          return `<svg viewBox="0 0 48 48" class="w-9 h-9 sm:w-10 sm:h-10 mx-auto filter drop-shadow">
-            <defs>
-              <linearGradient id="t5C" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#A78BFA"/>
-                <stop offset="100%" stop-color="#5B21B6"/>
-              </linearGradient>
-              <linearGradient id="t5Z" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#FDE047"/>
-                <stop offset="100%" stop-color="#E11D48"/>
-              </linearGradient>
-            </defs>
-            <path d="M15 22 C13 22 10 24 10 27 C10 30 13 32 16 32 L33 32 C36 32 39 30 39 26 C39 23 37 20 34 20 C34 16 30 13 26 13 C22 13 18 16 17 20 C16 20 15 22 15 22 Z" fill="url(#t5C)" stroke="#C4B5FD" stroke-width="1"/>
-            <path d="M22 25 L17 34 L23 34 L19 43 L29 31 L24 31 L28 25 Z" fill="url(#t5Z)" stroke="#FEF9C3" stroke-width="1" stroke-linejoin="round"/>
-            <path d="M31 27 L28 35 L33 35 L29 42" fill="none" stroke="#FDE047" stroke-width="1.5" stroke-linecap="round"/>
+        case 5: // Băng Ngục Kìm Chân (Graviton Prison)
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <rect x="10" y="10" width="28" height="28" rx="6" fill="#0C4A6E" stroke="#38BDF8" stroke-width="1.5"/>
+            <line x1="17" y1="10" x2="17" y2="38" stroke="#7DD3FC" stroke-width="1.5"/>
+            <line x1="24" y1="10" x2="24" y2="38" stroke="#7DD3FC" stroke-width="1.5"/>
+            <line x1="31" y1="10" x2="31" y2="38" stroke="#7DD3FC" stroke-width="1.5"/>
+            <circle cx="24" cy="24" r="4" fill="#BAE6FD" opacity="0.8"/>
           </svg>`;
-        case 6: // Góc Thiên Hà (Galaxy Nebula Portal)
-          return `<svg viewBox="0 0 48 48" class="w-9 h-9 sm:w-10 sm:h-10 mx-auto filter drop-shadow">
-            <defs>
-              <radialGradient id="t6N" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#818CF8"/>
-                <stop offset="50%" stop-color="#4F46E5"/>
-                <stop offset="100%" stop-color="#1E1B4B"/>
-              </radialGradient>
-            </defs>
-            <circle cx="24" cy="24" r="18" fill="url(#t6N)" opacity="0.4"/>
-            <path d="M24 10 C32 10 38 18 36 26 C34 34 26 38 18 36 C10 34 8 24 12 18 C16 12 24 14 26 18 C28 22 24 26 22 24" fill="none" stroke="#A5B4FC" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M24 38 C16 38 10 30 12 22 C14 14 22 10 30 12" fill="none" stroke="#67E8F9" stroke-width="1.2" stroke-linecap="round" opacity="0.8"/>
-            <circle cx="24" cy="24" r="3.5" fill="#FFFFFF"/>
-            <circle cx="34" cy="16" r="1.2" fill="#FDE047"/>
-            <circle cx="14" cy="31" r="1.2" fill="#FDE047"/>
-            <circle cx="16" cy="14" r="1.5" fill="#FFFFFF"/>
-            <circle cx="33" cy="32" r="1.5" fill="#38BDF8"/>
+        case 6: // Quặng Hồng Ngọc
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <polygon points="24,8 38,24 24,40 10,24" fill="#E11D48" stroke="#FDA4AF" stroke-width="1.2"/>
+            <polygon points="24,14 32,24 24,34 16,24" fill="#FB7185" opacity="0.8"/>
+            <circle cx="24" cy="24" r="2" fill="#FFFFFF"/>
           </svg>`;
-        case 7: // Ngôi Sao Sáng (Supernova Star)
-          return `<svg viewBox="0 0 48 48" class="w-9 h-9 sm:w-10 sm:h-10 mx-auto filter drop-shadow">
-            <defs>
-              <radialGradient id="t7G" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#FDE047" stop-opacity="0.9"/>
-                <stop offset="60%" stop-color="#F59E0B" stop-opacity="0.4"/>
-                <stop offset="100%" stop-color="#D97706" stop-opacity="0"/>
-              </radialGradient>
-              <linearGradient id="t7S" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FFFBEB"/>
-                <stop offset="40%" stop-color="#FCD34D"/>
-                <stop offset="100%" stop-color="#F59E0B"/>
-              </linearGradient>
-            </defs>
-            <circle cx="24" cy="24" r="17" fill="url(#t7G)"/>
-            <path d="M24 6 L27.5 18.5 L40 20 L29.5 27.5 L33 40 L24 32.5 L15 40 L18.5 27.5 L8 20 L20.5 18.5 Z" fill="url(#t7S)" stroke="#FEF08A" stroke-width="1.2" stroke-linejoin="round"/>
-            <polygon points="24,18 27,24 24,30 21,24" fill="#FFFFFF" opacity="0.95"/>
+        case 7: // Rương Vận Mệnh I
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <rect x="11" y="16" width="26" height="22" rx="4" fill="#4C1D95" stroke="#A78BFA" stroke-width="1.5"/>
+            <path d="M11 20 C11 14 17 11 24 11 C31 11 37 14 37 20 Z" fill="#6D28D9" stroke="#C4B5FD" stroke-width="1.2"/>
+            <text x="24" y="32" text-anchor="middle" fill="#FDE047" font-size="14" font-weight="black">?</text>
           </svg>`;
-        case 8: // Cạm Bẫy Gai (Cyber Hazard Spikes)
-          return `<svg viewBox="0 0 48 48" class="w-9 h-9 sm:w-10 sm:h-10 mx-auto filter drop-shadow">
-            <defs>
-              <linearGradient id="t8H" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FB7185"/>
-                <stop offset="60%" stop-color="#E11D48"/>
-                <stop offset="100%" stop-color="#881337"/>
-              </linearGradient>
-            </defs>
-            <polygon points="24,8 42,39 6,39" fill="url(#t8H)" stroke="#FECDD3" stroke-width="1.5" stroke-linejoin="round"/>
-            <polygon points="24,15 37,36 11,36" fill="#1C1917" stroke="#F43F5E" stroke-width="1"/>
-            <rect x="22.5" y="19" width="3" height="9" rx="1.5" fill="#F43F5E"/>
-            <circle cx="24" cy="32" r="1.8" fill="#F43F5E"/>
-            <polygon points="6,39 2,33 7,34" fill="#F43F5E"/>
-            <polygon points="42,39 46,33 41,34" fill="#F43F5E"/>
+        case 8: // Bão Điện Từ
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <path d="M15 20 C13 20 10 22 10 25 C10 28 13 30 16 30 L33 30 C36 30 39 28 39 24 C39 21 37 18 34 18 C34 14 30 12 26 12 C22 12 18 14 17 18 Z" fill="#5B21B6" stroke="#C4B5FD" stroke-width="1"/>
+            <path d="M22 24 L17 33 L23 33 L19 42 L29 30 L24 30 L28 24 Z" fill="#FDE047" stroke="#FEF9C3" stroke-width="1"/>
           </svg>`;
-        case 9: // Rương Hoàng Gia (Sovereign Chest)
-          return `<svg viewBox="0 0 48 48" class="w-9 h-9 sm:w-10 sm:h-10 mx-auto filter drop-shadow">
-            <defs>
-              <linearGradient id="t9W" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#92400E"/>
-                <stop offset="100%" stop-color="#451A03"/>
-              </linearGradient>
-              <linearGradient id="t9G" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#FDE68A"/>
-                <stop offset="50%" stop-color="#F59E0B"/>
-                <stop offset="100%" stop-color="#B45309"/>
-              </linearGradient>
-            </defs>
-            <polygon points="24,16 16,8 32,8" fill="#FEF08A" opacity="0.3"/>
-            <rect x="10" y="22" width="28" height="18" rx="2" fill="url(#t9W)" stroke="#F59E0B" stroke-width="1.2"/>
-            <path d="M10 22 C10 16 16 13 24 13 C32 13 38 16 38 22 Z" fill="url(#t9W)" stroke="#F59E0B" stroke-width="1.2"/>
-            <rect x="14" y="13.5" width="3.5" height="26.5" fill="url(#t9G)"/>
-            <rect x="30.5" y="13.5" width="3.5" height="26.5" fill="url(#t9G)"/>
-            <rect x="21" y="20" width="6" height="7" rx="1.5" fill="url(#t9G)" stroke="#78350F" stroke-width="0.8"/>
-            <circle cx="24" cy="22.5" r="1" fill="#451A03"/>
-            <rect x="23.5" y="22.5" width="1" height="2.5" fill="#451A03"/>
+        case 9: // Kho Báu Cổ
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <path d="M10 34 L13 20 L20 26 L24 14 L28 26 L35 20 L38 34 Z" fill="#F59E0B" stroke="#FEF08A" stroke-width="1.2"/>
+            <rect x="10" y="33" width="28" height="4" rx="1.5" fill="#78350F" stroke="#FDE68A" stroke-width="0.8"/>
+            <circle cx="24" cy="14" r="2.2" fill="#38BDF8"/>
           </svg>`;
-        case 10: // Cổng Warp (Hyperjump Stargate)
-          return `<svg viewBox="0 0 48 48" class="w-9 h-9 sm:w-10 sm:h-10 mx-auto filter drop-shadow">
-            <defs>
-              <radialGradient id="t10H" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#67E8F9"/>
-                <stop offset="50%" stop-color="#0284C7"/>
-                <stop offset="100%" stop-color="#0F172A"/>
-              </radialGradient>
-            </defs>
-            <circle cx="24" cy="24" r="19" fill="none" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="6 3"/>
-            <circle cx="24" cy="24" r="15" fill="url(#t10H)" stroke="#38BDF8" stroke-width="1.5"/>
-            <circle cx="24" cy="5" r="2" fill="#38BDF8"/>
-            <circle cx="24" cy="43" r="2" fill="#38BDF8"/>
-            <circle cx="5" cy="24" r="2" fill="#38BDF8"/>
-            <circle cx="43" cy="24" r="2" fill="#38BDF8"/>
-            <ellipse cx="24" cy="24" rx="10" ry="4" fill="none" stroke="#E0F2FE" stroke-width="1.2" transform="rotate(-35 24 24)"/>
-            <ellipse cx="24" cy="24" rx="10" ry="4" fill="none" stroke="#E0F2FE" stroke-width="1.2" transform="rotate(35 24 24)"/>
-            <circle cx="24" cy="24" r="2.5" fill="#FFFFFF"/>
+        case 10: // Đấu Trường Quyết Đấu (Duel Arena)
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <circle cx="24" cy="24" r="18" fill="#78350F" opacity="0.3"/>
+            <line x1="12" y1="12" x2="36" y2="36" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="36" y1="12" x2="12" y2="36" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="24" cy="24" r="5" fill="#FEF08A" stroke="#B45309" stroke-width="1"/>
           </svg>`;
-        case 11: // Chìa Khóa Thần (Sovereignty Master Key)
-          return `<svg viewBox="0 0 48 48" class="w-9 h-9 sm:w-10 sm:h-10 mx-auto filter drop-shadow">
-            <defs>
-              <linearGradient id="t11G" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FEF08A"/>
-                <stop offset="40%" stop-color="#F59E0B"/>
-                <stop offset="100%" stop-color="#B45309"/>
-              </linearGradient>
-            </defs>
-            <circle cx="16" cy="16" r="8" fill="none" stroke="url(#t11G)" stroke-width="2.5"/>
+        case 11: // Sao Siêu Tân Tinh
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <path d="M24 7 L27 18 L38 20 L29 27 L32 38 L24 31 L16 38 L19 27 L10 20 L21 18 Z" fill="#F59E0B" stroke="#FEF08A" stroke-width="1.2"/>
+            <polygon points="24,18 26,24 24,28 22,24" fill="#FFFFFF"/>
+          </svg>`;
+        case 12: // Hố Đen Tử Thần
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <ellipse cx="24" cy="24" rx="18" ry="10" fill="none" stroke="#F43F5E" stroke-width="1.8" transform="rotate(-25 24 24)" stroke-dasharray="6 3"/>
+            <circle cx="24" cy="24" r="11" fill="#000000" stroke="#F43F5E" stroke-width="1.5"/>
+            <circle cx="24" cy="24" r="3" fill="#FDA4AF"/>
+          </svg>`;
+        case 13: // Trạm Tiếp Tế Không Gian
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <rect x="14" y="14" width="20" height="24" rx="4" fill="#065F46" stroke="#34D399" stroke-width="1.5"/>
+            <rect x="20" y="8" width="8" height="6" rx="2" fill="#34D399"/>
+            <line x1="24" y1="20" x2="24" y2="32" stroke="#A7F3D0" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="26" x2="30" y2="26" stroke="#A7F3D0" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>`;
+        case 14: // Cổng Warp Omega
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <circle cx="24" cy="24" r="18" fill="none" stroke="#8B5CF6" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <circle cx="24" cy="24" r="12" fill="#2E1065" stroke="#C4B5FD" stroke-width="1.2"/>
+            <text x="24" y="28" text-anchor="middle" fill="#C4B5FD" font-size="12" font-weight="bold" font-family="monospace">Ω2</text>
+          </svg>`;
+        case 15: // Vành Đai Thiên Thạch
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <circle cx="18" cy="18" r="8" fill="#78350F" stroke="#F59E0B" stroke-width="1.2"/>
+            <circle cx="32" cy="28" r="6" fill="#451A03" stroke="#F59E0B" stroke-width="1"/>
+            <circle cx="28" cy="14" r="3.5" fill="#B45309"/>
+            <path d="M12 36 L36 12" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3 3"/>
+          </svg>`;
+        case 16: // Kim Cương Vĩnh Cửu
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <polygon points="14,14 34,14 42,24 24,40 6,24" fill="#06B6D4" stroke="#67E8F9" stroke-width="1.5"/>
+            <polygon points="14,14 34,14 24,24" fill="#A5F3FC" opacity="0.9"/>
+            <polygon points="6,24 14,14 24,24" fill="#38BDF8" opacity="0.7"/>
+            <polygon points="42,24 34,14 24,24" fill="#0284C7" opacity="0.8"/>
+            <circle cx="24" cy="28" r="2" fill="#FFFFFF"/>
+          </svg>`;
+        case 17: // Rương Vận Mệnh II
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <rect x="11" y="16" width="26" height="22" rx="4" fill="#831843" stroke="#F472B6" stroke-width="1.5"/>
+            <path d="M11 20 C11 14 17 11 24 11 C31 11 37 14 37 20 Z" fill="#9D174D" stroke="#FBCFE8" stroke-width="1.2"/>
+            <text x="24" y="32" text-anchor="middle" fill="#FDE047" font-size="14" font-weight="black">★</text>
+          </svg>`;
+        case 18: // Trạm Thu Phí Không Gian
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <circle cx="24" cy="24" r="16" fill="#991B1B" stroke="#FECACA" stroke-width="1.5"/>
+            <rect x="14" y="21.5" width="20" height="5" rx="2.5" fill="#FFFFFF"/>
+          </svg>`;
+        case 19: // Chìa Khóa Thần
+          return `<svg viewBox="0 0 48 48" class="w-7 h-7 sm:w-8 sm:h-8 mx-auto filter drop-shadow">
+            <circle cx="16" cy="16" r="8" fill="none" stroke="#F59E0B" stroke-width="2.5"/>
             <circle cx="16" cy="16" r="3.5" fill="none" stroke="#FDE68A" stroke-width="1.2"/>
-            <circle cx="16" cy="8" r="1.5" fill="#FDE68A"/>
-            <line x1="22" y1="22" x2="38" y2="38" stroke="url(#t11G)" stroke-width="3" stroke-linecap="round"/>
-            <line x1="34" y1="34" x2="38" y2="30" stroke="url(#t11G)" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="37" y1="37" x2="41" y2="33" stroke="url(#t11G)" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M16 11 L17 14 L20 15 L17 16 L16 19 L15 16 L12 15 L15 14 Z" fill="#FFFFFF" opacity="0.9"/>
+            <line x1="22" y1="22" x2="38" y2="38" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+            <line x1="34" y1="34" x2="38" y2="30" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="37" y1="37" x2="41" y2="33" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
           </svg>`;
         default:
           return `<div class="w-8 h-8 rounded-full bg-slate-700/60 flex items-center justify-center text-xs">#${id}</div>`;
@@ -4342,27 +4253,40 @@
       </svg>`;
     }
 
-    // ================= TABLETOP BOARD: 12 ACRYLIC TILES =================
+    // ================= TABLETOP BOARD: 20 GRAND ARENA TILES (MAP 6x6) =================
     const TILES = [
-      { id: 0, name: 'Khởi Hành', icon: '🚀', pts: 0, type: 'start' },
-      { id: 1, name: 'Đá Lam Ngọc', icon: '💎', pts: 10, type: 'plus' },
-      { id: 2, name: 'Hố Đen Sâu', icon: '💣', pts: -10, type: 'minus' },
-      { id: 3, name: 'Trạm Tiếp Liệu', icon: '⚡', pts: 10, type: 'plus' },
-      { id: 4, name: 'Kho Báu Cổ', icon: '👑', pts: 20, type: 'plus' },
-      { id: 5, name: 'Bão Điện Từ', icon: '🌩️', pts: -15, type: 'minus' },
-      { id: 6, name: 'Góc Thiên Hà', icon: '🌌', pts: 0, type: 'neutral' },
-      { id: 7, name: 'Ngôi Sao Sáng', icon: '⭐', pts: 15, type: 'plus' },
-      { id: 8, name: 'Cạm Bẫy Gai', icon: '⚠️', pts: -10, type: 'minus' },
-      { id: 9, name: 'Rương Hoàng Gia', icon: '🎁', pts: 25, type: 'plus' },
-      { id: 10, name: 'Cổng Warp', icon: '🛸', pts: 0, type: 'neutral' },
-      { id: 11, name: 'Chìa Khóa Thần', icon: '🗝️', pts: 30, type: 'plus' }
+      { id: 0, name: 'Khởi Hành', icon: '🚀', pts: 0, type: 'start', desc: 'Nhận +15đ mỗi khi hoàn thành vòng đua' },
+      { id: 1, name: 'Đá Lam Ngọc', icon: '💎', pts: 10, type: 'plus', desc: 'Khai thác ngọc lam' },
+      { id: 2, name: 'Bẫy Laser', icon: '⚠️', pts: -10, type: 'minus', desc: 'Tia laser thiêu đốt năng lượng' },
+      { id: 3, name: 'Trạm Tiếp Liệu', icon: '⚡', pts: 15, type: 'plus', desc: 'Bơm nạp plasma cao thế' },
+      { id: 4, name: 'Cổng Warp Alpha', icon: '🌀', pts: 0, type: 'warp', target: 14, desc: 'Dịch chuyển tức thời tới Cổng Omega #14' },
+      { id: 5, name: 'Băng Ngục Kìm Chân', icon: '❄️', pts: -5, type: 'freeze', desc: 'Đóng băng kìm chân! Gieo chẵn mới thoát' },
+      { id: 6, name: 'Quặng Hồng Ngọc', icon: '♦️', pts: 20, type: 'plus', desc: 'Khoáng thạch hồng ngọc quý' },
+      { id: 7, name: 'Rương Vận Mệnh I', icon: '🎁', pts: 0, type: 'fortune', desc: 'Rút thẻ cơ hội may rủi bất ngờ' },
+      { id: 8, name: 'Bão Điện Từ', icon: '🌩️', pts: -15, type: 'minus', desc: 'Sấm sét triệt tiêu điểm số' },
+      { id: 9, name: 'Kho Báu Cổ', icon: '👑', pts: 25, type: 'plus', desc: 'Báu vật hoàng gia cổ đại' },
+      { id: 10, name: 'Đấu Trường Quyết Đấu', icon: '⚔️', pts: 0, type: 'duel', desc: 'Kích hoạt thử thách đối kháng' },
+      { id: 11, name: 'Sao Siêu Tân Tinh', icon: '⭐', pts: 20, type: 'plus', desc: 'Hào quang bức xạ ngôi sao' },
+      { id: 12, name: 'Hố Đen Tử Thần', icon: '💣', pts: -25, type: 'minus', desc: 'Lực hấp dẫn cực đại hút cạn điểm' },
+      { id: 13, name: 'Trạm Tiếp Tế', icon: '🔋', pts: 15, type: 'plus', desc: 'Tiếp đạn dược và điểm thưởng' },
+      { id: 14, name: 'Cổng Warp Omega', icon: '🌀', pts: 0, type: 'warp', target: 4, desc: 'Cổng không gian nhảy ngược về Cổng Alpha #4' },
+      { id: 15, name: 'Vành Đai Thiên Thạch', icon: '☄️', pts: -15, type: 'minus', desc: 'Va quẹt mảnh thiên thạch' },
+      { id: 16, name: 'Kim Cương Vĩnh Cửu', icon: '💎', pts: 30, type: 'plus', desc: 'Viên kim cương vô giá tối thượng' },
+      { id: 17, name: 'Rương Vận Mệnh II', icon: '🎁', pts: 0, type: 'fortune', desc: 'Rút thẻ đột biến chiến thuật' },
+      { id: 18, name: 'Trạm Thu Phí Không Gian', icon: '🛑', pts: -10, type: 'minus', desc: 'Đóng thuế giao thông vũ trụ' },
+      { id: 19, name: 'Chìa Khóa Thần', icon: '🗝️', pts: 35, type: 'plus', desc: 'Chìa khóa khai mở vinh quang +35đ' }
     ];
 
-    const COORDS_12 = [
-      { r: 1, c: 1 }, { r: 1, c: 2 }, { r: 1, c: 3 }, { r: 1, c: 4 },
-      { r: 2, c: 4 }, { r: 3, c: 4 }, { r: 4, c: 4 },
-      { r: 4, c: 3 }, { r: 4, c: 2 }, { r: 4, c: 1 },
-      { r: 3, c: 1 }, { r: 2, c: 1 }
+    // Perimeter coordinates for 6x6 Grid (20 cells around the perimeter)
+    const COORDS_20 = [
+      // Top Row (r=1, c=1..6)
+      { r: 1, c: 1 }, { r: 1, c: 2 }, { r: 1, c: 3 }, { r: 1, c: 4 }, { r: 1, c: 5 }, { r: 1, c: 6 },
+      // Right Column (r=2..5, c=6)
+      { r: 2, c: 6 }, { r: 3, c: 6 }, { r: 4, c: 6 }, { r: 5, c: 6 },
+      // Bottom Row (r=6, c=6..1)
+      { r: 6, c: 6 }, { r: 6, c: 5 }, { r: 6, c: 4 }, { r: 6, c: 3 }, { r: 6, c: 2 }, { r: 6, c: 1 },
+      // Left Column (r=5..2, c=1)
+      { r: 5, c: 1 }, { r: 4, c: 1 }, { r: 3, c: 1 }, { r: 2, c: 1 }
     ];
 
     let currentOpponent = 'bot';
@@ -4371,7 +4295,12 @@
     let scores = { 1: 0, 2: 0, 3: 0, 4: 0 };
     let positions = { 1: 0, 2: 0, 3: 0, 4: 0 };
     let isDiceRolling = false;
-    let GOAL_SCORE = 50;
+    let GOAL_SCORE = 100;
+
+    
+    // Tactical State Extensions
+    let playerShields = { 1: false, 2: false, 3: false, 4: false };
+    let playerFrozen = { 1: 0, 2: 0, 3: 0, 4: 0 }; // number of turns frozen
 
     let isSpectatorMode = false;
     let spectatorPaused = false;
@@ -4402,18 +4331,26 @@
       old.forEach(o => o.remove());
 
       TILES.forEach((t, i) => {
-        const coord = COORDS_12[i];
+        const coord = COORDS_20[i];
         const el = document.createElement('div');
         el.className = `board-tile-cell game-tile rounded-2xl p-2 sm:p-2.5 flex flex-col items-center justify-between text-center relative select-none cursor-default`;
         el.style.gridRow = coord.r;
         el.style.gridColumn = coord.c;
 
         if (t.type === 'start') {
-          el.classList.add('border-amber-500/70', 'bg-amber-500/10');
+          el.classList.add('border-amber-500/80', 'bg-amber-500/15', 'shadow-amber-500/20');
         } else if (t.type === 'plus') {
           el.classList.add('border-emerald-500/40', 'hover:border-emerald-400');
         } else if (t.type === 'minus') {
           el.classList.add('border-rose-500/40', 'hover:border-rose-400');
+        } else if (t.type === 'warp') {
+          el.classList.add('border-cyan-500/60', 'bg-cyan-500/10', 'hover:border-cyan-400');
+        } else if (t.type === 'freeze') {
+          el.classList.add('border-blue-400/60', 'bg-blue-500/10', 'hover:border-blue-300');
+        } else if (t.type === 'fortune') {
+          el.classList.add('border-purple-500/60', 'bg-purple-500/10', 'hover:border-purple-400');
+        } else if (t.type === 'duel') {
+          el.classList.add('border-amber-400/60', 'bg-amber-600/10', 'hover:border-amber-300');
         } else {
           el.classList.add('border-slate-700/60');
         }
@@ -4473,11 +4410,45 @@
       if (isDiceRolling) return;
       if (!isSpectatorMode && currentOpponent === 'bot' && currentTurn !== 1) return;
 
+      const pName = getPlayerName(currentTurn);
+
+      // Kiểm tra nếu đấu thủ đang bị Đóng Băng tại Băng Ngục
+      if (playerFrozen[currentTurn] > 0) {
+        isDiceRolling = true;
+        const dice = document.getElementById('diceButton');
+        const face = document.getElementById('diceFaceDisplay');
+        const hint = document.getElementById('diceActionHint');
+        if (hint) hint.textContent = `❄️ ${pName} đang gieo xúc xắc để PHÁ BĂNG...`;
+        
+        const rollDuration = isSpectatorMode ? Math.max(12, Math.floor(600 / spectatorSpeed)) : 500;
+        const roll = Math.floor(Math.random() * 6) + 1;
+        if (dice) dice.classList.add('rolling-dice');
+        await new Promise(r => setTimeout(r, rollDuration));
+        if (dice) dice.classList.remove('rolling-dice');
+        if (face) face.innerHTML = getDiceFaceSvg(roll);
+
+        // Điều kiện phá băng: số chẵn (2, 4, 6) hoặc roll >= 4
+        if (roll % 2 === 0 || roll >= 4) {
+          playerFrozen[currentTurn] = 0;
+          soundTone(850, 'triangle', 0.25, 0.2);
+          document.getElementById('miniLog').innerHTML = `🔥 <b class="text-amber-400">${pName}</b> gieo được ${roll} nút: <b class="text-emerald-400">ĐÃ PHÁ BĂNG THÀNH CÔNG!</b>`;
+          await new Promise(r => setTimeout(r, isSpectatorMode ? Math.max(40, Math.floor(300 / spectatorSpeed)) : 300));
+          await moveMeepleSteps(currentTurn, roll);
+        } else {
+          soundTone(220, 'sawtooth', 0.25, 0.2);
+          document.getElementById('miniLog').innerHTML = `❄️ <b class="text-blue-400">${pName}</b> gieo ${roll} nút: <b class="text-rose-400">PHÁ BĂNG THẤT BẠI!</b> Bị giữ lại 1 lượt!`;
+          playerFrozen[currentTurn] = 0; // tha sau 1 lượt
+          await new Promise(r => setTimeout(r, isSpectatorMode ? Math.max(40, Math.floor(300 / spectatorSpeed)) : 400));
+          switchTurn();
+        }
+        isDiceRolling = false;
+        return;
+      }
+
       isDiceRolling = true;
       const dice = document.getElementById('diceButton');
       const face = document.getElementById('diceFaceDisplay');
       const hint = document.getElementById('diceActionHint');
-      const pName = getPlayerName(currentTurn);
 
       if (dice) dice.classList.add('rolling-dice');
       if (hint) hint.textContent = `🎲 ${pName} đang gieo xúc xắc...`;
@@ -4503,15 +4474,29 @@
     }
 
     async function moveMeepleSteps(player, steps) {
-      // Ở tốc độ siêu tốc (>= 25x), dịch chuyển trực tiếp đến đích không qua 6 bước giật cục
-      if (isSpectatorMode && spectatorSpeed >= 25) {
+      if (isSpectatorMode && spectatorSpeed >= 50) {
+        // Fast instant jump in ultra-speed simulation
+        const oldPos = positions[player];
         positions[player] = (positions[player] + steps) % TILES.length;
+        // Check Lap bonus (vượt qua ô Khởi Hành)
+        if (positions[player] < oldPos) {
+          scores[player] += 15;
+        }
         renderTokens();
-        await new Promise(r => setTimeout(r, Math.max(12, Math.floor(100 / spectatorSpeed))));
+        await new Promise(r => setTimeout(r, Math.max(8, Math.floor(60 / spectatorSpeed))));
       } else {
         const stepDuration = isSpectatorMode ? Math.max(10, Math.floor(180 / spectatorSpeed)) : 220;
         for (let s = 1; s <= steps; s++) {
+          const prev = positions[player];
           positions[player] = (positions[player] + 1) % TILES.length;
+          
+          // Thưởng vòng đua (Lap Bonus) khi vượt qua ô #0 Khởi Hành
+          if (positions[player] === 0 && prev === TILES.length - 1) {
+            scores[player] += 15;
+            soundTone(750, 'triangle', 0.15, 0.15);
+            document.getElementById('miniLog').innerHTML = `🏁 <b class="text-amber-400">${getPlayerName(player)}</b> hoàn thành 1 vòng đua: <b class="text-emerald-400">+15đ Lap Bonus!</b>`;
+          }
+
           renderTokens();
           if (!isSpectatorMode || spectatorSpeed <= 2) {
             soundTone(580, 'sine', 0.05, 0.08);
@@ -4520,7 +4505,6 @@
           const m = document.getElementById(`meeple-p${player}`);
           if (m && (!isSpectatorMode || spectatorSpeed <= 5)) {
             m.classList.remove('meeple-hop');
-            // Dùng requestAnimationFrame thay cho void m.offsetWidth để loại bỏ hoàn toàn Forced Layout Thrashing
             requestAnimationFrame(() => {
               if (m) m.classList.add('meeple-hop');
             });
@@ -4529,29 +4513,109 @@
         }
       }
 
-      const tile = TILES[positions[player]];
+      const currentPos = positions[player];
+      const tile = TILES[currentPos];
       const label = getPlayerName(player);
 
+      // ================= CƠ CHẾ 1: ĐÁ QUÂN (KNOCKBACK CLASH) =================
+      const totalP = getTotalPlayers();
+      for (let otherP = 1; otherP <= totalP; otherP++) {
+        if (otherP !== player && positions[otherP] === currentPos) {
+          const otherName = getPlayerName(otherP);
+          // Kiểm tra khiên hộ thân của nạn nhân
+          if (playerShields[otherP]) {
+            playerShields[otherP] = false;
+            soundTone(900, 'square', 0.2, 0.2);
+            document.getElementById('miniLog').innerHTML = `🛡️ <b class="text-cyan-400">${otherName}</b> kích hoạt <b>Khiên Hộ Thân</b> chặn đứng đòn đá của <b class="text-rose-400">${label}</b>!`;
+          } else {
+            // ĐÁ LÙI 3 Ô & CƯỚP 10 ĐIỂM
+            const stolenPts = Math.min(10, scores[otherP]);
+            scores[player] += stolenPts;
+            scores[otherP] = Math.max(0, scores[otherP] - stolenPts);
+            positions[otherP] = (positions[otherP] - 3 + TILES.length) % TILES.length;
+            renderTokens();
+            soundTone(160, 'sawtooth', 0.3, 0.25);
+            document.getElementById('miniLog').innerHTML = `💥 <b class="text-rose-400">${label}</b> ĐÁ VĂNG <b class="text-amber-300">${otherName}</b> lùi 3 ô và CƯỚP <b class="text-emerald-400">+${stolenPts}đ</b>!`;
+            await new Promise(r => setTimeout(r, isSpectatorMode ? Math.max(50, Math.floor(400 / spectatorSpeed)) : 450));
+          }
+        }
+      }
+
+      // ================= CƠ CHẾ 2: XỬ LÝ Ô TƯƠNG TÁC ĐẶC BIỆT =================
       if (tile.type === 'plus') {
         scores[player] += tile.pts;
         soundTone(880, 'triangle', 0.2, 0.18);
-        const botQuotes = {
-          2: ['🦊 Cáo Lửa bứt tốc!', '🦊 Cáo Lửa săn điểm!', '🦊 Cáo Lửa ranh mãnh!'],
-          3: ['🐺 Sói Băng tính toán!', '🐺 Sói Băng bám đuổi!', '🐺 Sói Băng lạnh lùng!'],
-          4: ['🐼 Gấu Trúc ung dung!', '🐼 Gấu Trúc may mắn!', '🐼 Gấu Trúc húp điểm!']
-        };
-        const botQuote = (botQuotes[player] && botQuotes[player][Math.floor(Math.random() * botQuotes[player].length)]) || '';
-        document.getElementById('miniLog').innerHTML = `✨ <span class="text-amber-400 font-bold">${label}</span> đáp vào <b>${tile.name}</b> (+${tile.pts}đ)! ${botQuote ? `<span class="text-[10px] text-cyan-300 italic ml-1">(${botQuote})</span>` : ''}`;
+        document.getElementById('miniLog').innerHTML = `✨ <b class="text-amber-400">${label}</b> đáp vào <b>${tile.name}</b> (+${tile.pts}đ)!`;
       } else if (tile.type === 'minus') {
-        scores[player] = Math.max(0, scores[player] + tile.pts);
-        soundTone(200, 'sawtooth', 0.25, 0.14);
-        document.getElementById('miniLog').innerHTML = `💥 <span class="text-rose-400 font-bold">${label}</span> dính <b>${tile.name}</b>: ${tile.pts} điểm!`;
+        if (playerShields[player]) {
+          playerShields[player] = false;
+          soundTone(950, 'sine', 0.2, 0.2);
+          document.getElementById('miniLog').innerHTML = `🛡️ <b class="text-cyan-400">${label}</b> dùng Khiên đỡ trọn cạm bẫy <b>${tile.name}</b>!`;
+        } else {
+          scores[player] = Math.max(0, scores[player] + tile.pts);
+          soundTone(200, 'sawtooth', 0.25, 0.14);
+          document.getElementById('miniLog').innerHTML = `💥 <b class="text-rose-400">${label}</b> dính <b>${tile.name}</b>: ${tile.pts} điểm!`;
+        }
+      } else if (tile.type === 'warp') {
+        // CỔNG WARP DỊCH CHUYỂN
+        const targetPos = tile.target;
+        soundTone(1100, 'sine', 0.3, 0.2);
+        document.getElementById('miniLog').innerHTML = `🌀 <b class="text-cyan-400">${label}</b> kích hoạt <b>${tile.name}</b> ➔ Dịch chuyển xuyên không gian tới <b>Ô #${targetPos}</b>!`;
+        await new Promise(r => setTimeout(r, isSpectatorMode ? Math.max(60, Math.floor(350 / spectatorSpeed)) : 400));
+        positions[player] = targetPos;
+        renderTokens();
+      } else if (tile.type === 'freeze') {
+        // BĂNG NGỤC TRỌNG LỰC
+        playerFrozen[player] = 1;
+        soundTone(300, 'triangle', 0.3, 0.2);
+        document.getElementById('miniLog').innerHTML = `❄️ <b class="text-blue-400">${label}</b> bị đóng băng tại <b>${tile.name}</b>! Cần gieo số Chẵn (2,4,6) hoặc >=4 để thoát!`;
+      } else if (tile.type === 'fortune') {
+        // RƯƠNG VẬN MỆNH HUYỀN BÍ
+        const fortuneCards = [
+          { name: 'Khiên Hộ Thân (Divine Shield)', act: () => { playerShields[player] = true; return 'nhận được Khiên Hộ Thân chống mọi sát thương!'; } },
+          { name: 'Hút Năng Lượng Vũ Trụ', act: () => { scores[player] += 20; return 'thu nạp +20đ năng lượng bùng nổ!'; } },
+          { name: 'Hoán Đổi Không Gian', act: () => {
+            // Đổi vị trí với người dẫn đầu nếu không phải mình
+            let leadP = 1; let maxSc = -1;
+            for (let p = 1; p <= totalP; p++) { if (scores[p] > maxSc) { maxSc = scores[p]; leadP = p; } }
+            if (leadP !== player) {
+              const tempPos = positions[player];
+              positions[player] = positions[leadP];
+              positions[leadP] = tempPos;
+              renderTokens();
+              return `hoán đổi vị trí với người dẫn đầu ${getPlayerName(leadP)}!`;
+            }
+            scores[player] += 15;
+            return 'được tăng tốc thêm +15đ!';
+          }},
+          { name: 'Đánh Cắp Từ Tính', act: () => {
+            let totalStolen = 0;
+            for (let p = 1; p <= totalP; p++) {
+              if (p !== player && scores[p] >= 5) {
+                scores[p] -= 5; totalStolen += 5;
+              }
+            }
+            scores[player] += totalStolen;
+            return `hút trọn +${totalStolen}đ từ các đối thủ!`;
+          }}
+        ];
+        const drawn = fortuneCards[Math.floor(Math.random() * fortuneCards.length)];
+        const resText = drawn.act();
+        soundTone(780, 'triangle', 0.25, 0.2);
+        document.getElementById('miniLog').innerHTML = `🎁 <b class="text-purple-400">${label}</b> mở <b>Rương Vận Mệnh</b>: <i>${drawn.name}</i> — ${resText}`;
+      } else if (tile.type === 'duel') {
+        // SÀN ĐẤU QUYẾT ĐẤU
+        const bonus = Math.floor(Math.random() * 15) + 10;
+        scores[player] += bonus;
+        soundTone(650, 'sawtooth', 0.2, 0.2);
+        document.getElementById('miniLog').innerHTML = `⚔️ <b class="text-amber-400">${label}</b> đại náo <b>Sàn Đấu Quyết Đấu</b>: Nhận +${bonus}đ thưởng chiến tích!`;
       } else {
-        document.getElementById('miniLog').innerHTML = `🛡️ ${label} dừng chân an toàn tại <b>${tile.name}</b>.`;
+        document.getElementById('miniLog').innerHTML = `🛡️ <b class="text-slate-300">${label}</b> dừng chân tại <b>${tile.name}</b>.`;
       }
 
       updateDiceUI();
 
+      // Kiểm tra điều kiện thắng
       if (scores[player] >= GOAL_SCORE) {
         recordBotMatchWin(player);
         showVictory(label, player);
@@ -4701,7 +4765,7 @@
 
     function setGoalScore(score) {
       GOAL_SCORE = parseInt(score, 10) || 50;
-      const presets = [30, 50, 100];
+      const presets = [50, 100, 150];
       presets.forEach(p => {
         const btn = document.getElementById('goalBtn' + p);
         if (btn) {
@@ -6378,6 +6442,8 @@
       if (activeTab === 'dice') {
         scores = { 1: 0, 2: 0, 3: 0, 4: 0 };
         positions = { 1: 0, 2: 0, 3: 0, 4: 0 };
+        playerShields = { 1: false, 2: false, 3: false, 4: false };
+        playerFrozen = { 1: 0, 2: 0, 3: 0, 4: 0 };
         currentTurn = 1;
         isDiceRolling = false;
         document.getElementById('diceFaceDisplay').innerHTML = getDiceFaceSvg(0);

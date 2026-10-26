@@ -374,3 +374,27 @@ esetTTTScores).
 4. **Phóng To Bàn Cờ & Chống Bị Che Khuất (Zero-Clipping)**:
    - Loại bỏ thuộc tính `overflow-hidden` trên `#monopolyView`, chuyển thành `overflow-visible` với độ rộng tối đa `max-w-6xl` (1152px).
    - Tinh chỉnh góc nghiêng 2.5D nhẹ nhàng `rotateX(32deg) rotateZ(-4deg) scale(1.02)` kết hợp đệm khoảng cách (`padding: 2rem 1rem 3.5rem 1rem`), giúp toàn bộ 36 ô chu vi từ hàng đỉnh (Hà Nội, Nhà Ga, Tân An...) đến hàng đáy (Hội An, Quy Nhơn, Trại Giam, Xuất Phát...) hiển thị rõ nét 100%, không bị cắt mất bất kỳ góc cạnh nào.
+
+
+---
+
+## ⚡ PHẦN 11: BẢN ĐỒ MỞ RỘNG GRAND MAP 6x6 (20 Ô) & CƠ CHẾ CHIẾN THUẬT ĐA TẦNG
+1. **Bản Đồ Mở Rộng 6x6 (Grand Arena 20 Ô Chu Vi)**:
+   - Mở rộng quy mô bàn cờ từ 12 ô (4x4) lên 20 ô (6x6), khung bàn cờ nới rộng tối đa 620px với khoang trung tâm 4x4 sang trọng.
+   - 20 ô bao gồm đầy đủ hệ thống ô chức năng và báu vật mới:
+     * #0 Khởi Hành (Thưởng +15đ Lap Bonus mỗi khi qua vòng).
+     * #1 Đá Lam Ngọc (+10đ), #2 Bẫy Laser (-10đ), #3 Trạm Plasma (+15đ).
+     * #4 Cổng Warp Alpha (Dịch chuyển tức thời tới Cổng Omega #14).
+     * #5 Băng Ngục Kìm Chân (Giam giữ đấu thủ; cần gieo số chẵn 2,4,6 hoặc >=4 để phá băng).
+     * #6 Quặng Hồng Ngọc (+20đ), #7 Rương Vận Mệnh I (Rút thẻ cơ hội may rủi).
+     * #8 Bão Điện Từ (-15đ), #9 Kho Báu Cổ (+25đ), #10 Sàn Đấu Quyết Đấu (Thưởng nóng chiến tích).
+     * #11 Sao Siêu Tân Tinh (+20đ), #12 Hố Đen Tử Thần (-25đ lực hút cực đại).
+     * #13 Trạm Tiếp Tế (+15đ), #14 Cổng Warp Omega (Liên thông Cổng Alpha).
+     * #15 Vành Đai Thiên Thạch (-15đ), #16 Kim Cương Vĩnh Cửu (+30đ).
+     * #17 Rương Vận Mệnh II (Thẻ bài đột biến), #18 Trạm Thu Phí (-10đ).
+     * #19 Chìa Khóa Thần (+35đ khai mở chiến thắng).
+2. **Cơ Chế Khắc Nghiệt & Độ Khó Chiến Thuật Cao (Challenging Depth)**:
+   - **Đá Quân (Knockback Clash)**: Đáp đúng vào ô đối thủ sẽ ĐÁ LÙI 3 Ô và CƯỚP 10 ĐIỂM!
+   - **Khiên Hộ Thân (Divine Shield)**: Nhận từ Rương Vận Mệnh để miễn nhiễm 1 lần sát thương hoặc đòn đá lùi.
+   - **Băng Ngục (Freeze)**: Gây kìm chân, tạo cơ hội cho đối thủ bứt phá.
+   - **Mục tiêu điểm nâng cao**: Mặc định 100 điểm (thay vì 50 điểm dễ dãi trước đây), kéo dài vòng đua và gia tăng sự cạnh tranh kịch tính giữa các BOT và người chơi.

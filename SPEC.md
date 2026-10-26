@@ -353,3 +353,24 @@ esetTTTScores).
 3. **Nâng Cấp Giao Diện 2.5D Isometric Tabletop**:
    - Sử dụng CSS 3D perspective `1400px` với góc nghiêng phối cảnh `rotateX(36deg) rotateZ(-6deg)` chân thực.
    - Tích hợp nút bấm **`[ 📐 2.5D / 2D ]`** trên thanh điều khiển trung tâm cho phép chuyển đổi tức thời giữa 2.5D Isometric và 2D Phẳng, mặc định mở sẵn **2.5D**.
+
+
+---
+
+## ⚡ PHẦN 21: SỬA LỖI ĐIỀU KHIỂN CHẾ ĐỘ ĐẤU BOT, VÁN MỚI, TỰ ĐỘNG HÓA AI & MỞ RỘNG BÀN CỜ KHÔNG BỊ CHE (V3.5.0)
+1. **Sửa Lỗi Nút Ván Mới & Chuyển Chế Độ Chơi**:
+   - Khởi tạo đầy đủ hàm `setMonopolyMode(mode)` và `restartMonopolyGame()` gắn vào thanh context menu trên đỉnh bàn đấu:
+     * Nút **`[ 🤖 Đấu Với Bot ]`**: Chuyển sang chế độ đấu với Kỳ Thủ AI tự động.
+     * Nút **`[ 👥 2 Người (Pass & Play) ]`**: Chuyển sang chế độ 2 người chơi lần lượt trên cùng thiết bị.
+     * Nút **`[ 🔄 Ván Mới ]`**: Làm mới ván đấu ngay lập tức, đặt 2 quân cờ về ô Xuất Phát và cấp lại vốn $19,760.
+2. **Kích Hoạt Tự Động Hóa Kỳ Thủ AI (Bot AI Loop)**:
+   - Khắc phục lỗi Bot không đổ xúc xắc:
+     * Khi đến lượt Bot, AI tự động gieo xúc xắc sau 1.2 giây (hoặc 0.6 giây nếu bật tốc độ `2X`).
+     * Khi vào ô đất trống: Bot tự động mua đất và xây nhà 3D cấp 1 nếu đủ tiền, phát thông báo nhanh dạng Toast không gây nghẽn màn hình.
+     * Khi vào đất của người chơi: Bot tự động chuyển tiền thuê đất với hiệu ứng tiền bay lơ lửng và chuyển giao lượt mượt mà.
+3. **Mở Hộp Thoại Quyết Định Trung Tâm (`#mono2dDecisionBox`)**:
+   - Khắc phục lỗi hộp thoại mua đất bị ẩn vĩnh viễn: Tự động loại bỏ class `hidden` và kích hoạt `flex animate-mono-popup` nổi bật ngay giữa bàn cờ khi người chơi dẫm vào ô đất trống hoặc ô nâng cấp.
+   - 2 nút bấm bo tròn to bản `[ Không ]` và `[ Có (Mua & Xây 🏡) ]` cho phép 1 chạm là hoàn thành lượt đi.
+4. **Phóng To Bàn Cờ & Chống Bị Che Khuất (Zero-Clipping)**:
+   - Loại bỏ thuộc tính `overflow-hidden` trên `#monopolyView`, chuyển thành `overflow-visible` với độ rộng tối đa `max-w-6xl` (1152px).
+   - Tinh chỉnh góc nghiêng 2.5D nhẹ nhàng `rotateX(32deg) rotateZ(-4deg) scale(1.02)` kết hợp đệm khoảng cách (`padding: 2rem 1rem 3.5rem 1rem`), giúp toàn bộ 36 ô chu vi từ hàng đỉnh (Hà Nội, Nhà Ga, Tân An...) đến hàng đáy (Hội An, Quy Nhơn, Trại Giam, Xuất Phát...) hiển thị rõ nét 100%, không bị cắt mất bất kỳ góc cạnh nào.

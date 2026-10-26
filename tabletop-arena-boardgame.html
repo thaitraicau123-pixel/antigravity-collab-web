@@ -437,11 +437,11 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 1.5rem 0.5rem 2.5rem 0.5rem;
+      padding: 2rem 1rem 3.5rem 1rem;
     }
 
     .mono-board-25d {
-      transform: rotateX(36deg) rotateZ(-6deg) scale(0.95);
+      transform: rotateX(32deg) rotateZ(-4deg) scale(1.02);
       transform-style: preserve-3d;
       box-shadow: -25px 35px 65px rgba(0, 0, 0, 0.9), 0 0 55px rgba(16, 185, 129, 0.25);
       transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.6s ease;
@@ -456,7 +456,7 @@
 
     .mono-board-25d #pawnP1 > div,
     .mono-board-25d #pawnP2 > div {
-      transform: rotateZ(6deg) rotateX(-36deg) translateZ(20px);
+      transform: rotateZ(4deg) rotateX(-32deg) translateZ(20px);
       filter: drop-shadow(0 14px 10px rgba(0, 0, 0, 0.85));
       transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
@@ -602,7 +602,7 @@
         <!-- Version & Contributor Changelog Pill -->
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v3.4.0</span>
+          <span id="headerVersionPill" class="font-bold">v3.5.0</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -1807,7 +1807,7 @@
            VIEW 4: CỜ TỶ PHÚ HOÀNG GIA (2D CLASSIC RETRO ARENA - V3.2.0)
            ========================================================================= -->
             <!-- ================= 2D MONOPOLY ARENA (CYBER SAPPHIRE & EMERALD) ================= -->
-      <div id="monopolyView" class="w-full max-w-5xl mx-auto rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.85)] border-2 border-emerald-500/30 hidden flex-col items-center relative animate-fade-in select-none bg-[#070D18] overflow-hidden my-2 backdrop-blur-xl">
+      <div id="monopolyView" class="w-full max-w-6xl mx-auto rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.85)] border-2 border-emerald-500/30 hidden flex-col items-center relative animate-fade-in select-none bg-[#070D18] overflow-visible my-2 backdrop-blur-xl p-2 sm:p-4">
         
         <!-- THE 2D RECTANGULAR BOARD (12 Columns x 8 Rows Grid) -->
         <div class="mono-viewport-container w-full overflow-visible"><div id="mono2dBoardWrapper" class="mono-board-25d w-full aspect-[12/8.4] sm:aspect-[12/8] bg-[#070D18] grid grid-cols-12 grid-rows-8 relative p-1.5 sm:p-2.5 gap-1 sm:gap-1.5 overflow-hidden select-none border border-slate-800/80 rounded-2xl">
@@ -1905,7 +1905,7 @@
             </div>
 
             <!-- ================= CENTER INTERACTIVE DIALOG (Clean, Modal on demand) ================= -->
-            <div id="mono2dDecisionBox" class="hidden w-full max-w-xl mx-auto bg-[#0C1524]/95 border-2 sm:border-4 border-amber-500/40 rounded-xl sm:rounded-2xl shadow-[0_15px_50px_rgba(0,0,0,0.85)] p-4 sm:p-6 flex flex-col items-center justify-center text-center my-auto transition-all backdrop-blur-md z-20">
+            <div id="mono2dDecisionBox" class="hidden w-full max-w-xl mx-auto bg-[#0C1524]/98 border-3 sm:border-4 border-amber-400 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.95)] p-5 sm:p-7 flex flex-col items-center justify-center text-center my-auto transition-all backdrop-blur-xl z-30 ring-4 ring-amber-500/20">
               <!-- Dialog Header Icon -->
               <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-lg mb-2 shadow-inner">
                 ⚖️
@@ -3234,7 +3234,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.4.0</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.5.0</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -5269,6 +5269,9 @@
     // =========================================================================
     // CỜ TỶ PHÚ 2.5D ISOMETRIC TABLETOP ARENA (V3.3.0 - AUTHENTIC RULES & 2.5D)
     // =========================================================================
+    // =========================================================================
+    // CỜ TỶ PHÚ 2.5D ISOMETRIC ARENA ENGINE (V3.5.0 - UNIFIED & FULLY PLAYABLE)
+    // =========================================================================
     const MONOPOLY_2D_TILES = [
       // BOTTOM ROW: cols 12 down to 1 (row 8) - STARTING CORNER IS (row 8, col 12)
       { id: 0, r: 8, c: 12, name: 'XUẤT PHÁT', type: 'start', isCorner: true, bg: 'bg-[#B91C1C]', text: 'text-white', icon: '🗺️' },
@@ -5495,6 +5498,30 @@
       showToast(monoState.is25D ? '📐 Đã chuyển sang góc nhìn 2.5D Isometric!' : '📏 Đã chuyển sang góc nhìn 2D Phẳng!');
     }
 
+    // Set Game Mode (Bot vs 2 Players)
+    function setMonopolyMode(mode) {
+      monoState.mode = mode;
+      const btnBot = document.getElementById('btnMonoModeBot');
+      const btnLocal = document.getElementById('btnMonoModeLocal');
+      if (btnBot && btnLocal) {
+        if (mode === 'bot') {
+          btnBot.className = 'px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold transition-all shadow-sm';
+          btnLocal.className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition-all';
+        } else {
+          btnLocal.className = 'px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold transition-all shadow-sm';
+          btnBot.className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition-all';
+        }
+      }
+      showToast(mode === 'bot' ? '🤖 Đã chọn chế độ: Đấu với Kỳ Thủ AI' : '👥 Đã chọn chế độ: 2 Người chơi (Pass & Play)');
+      updateMonopolyHUD();
+    }
+
+    // Restart Monopoly Game
+    function restartMonopolyGame() {
+      initMonopolyGame();
+      showToast('🔄 Đã khởi động lại ván cờ mới từ ô Xuất Phát!');
+    }
+
     function initMonopolyGame() {
       if (window.currentFirebaseUser) {
         monoState.players[0].name = window.currentFirebaseUser.displayName || 'Tiên';
@@ -5679,18 +5706,18 @@
       const title = document.getElementById('monoDialogTitle');
       const btnNo = document.getElementById('btnMonoDialogNo');
       const btnYes = document.getElementById('btnMonoDialogYes');
-      if (!title || !btnNo || !btnYes) return;
-
-      if (box) {
-        box.classList.remove('animate-mono-popup');
-        void box.offsetWidth;
-        box.classList.add('animate-mono-popup');
-      }
+      if (!box || !title || !btnNo || !btnYes) return;
 
       if (mode === 'ready') {
         const curPlayer = monoState.players[monoState.turn];
         if (curPlayer.inJail > 0) {
-          // Authentic Monopoly Jail Choice: Pay $500 bail OR Roll for double
+          // In jail: Show choices
+          box.classList.remove('hidden');
+          box.classList.add('flex');
+          box.classList.remove('animate-mono-popup');
+          void box.offsetWidth;
+          box.classList.add('animate-mono-popup');
+
           title.innerHTML = `<span class="text-rose-400 font-black">🔒 ${curPlayer.name} đang ở Trại Giam!</span> Bạn muốn nộp <span class="text-amber-300 font-chakra">$500</span> bảo lãnh ra tù ngay, hay đổ xúc xắc tìm số đôi?`;
           btnNo.classList.remove('hidden');
           btnYes.classList.remove('hidden');
@@ -5700,14 +5727,18 @@
           btnYes.className = 'btn-spring px-6 sm:px-10 py-2 sm:py-3.5 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs sm:text-lg font-black shadow-lg transition-transform active:scale-95 cursor-pointer';
           monoState.pendingAction = { type: 'jail_choice' };
         } else {
-          title.innerHTML = `Lượt của <span class="text-amber-300 font-extrabold">${curPlayer.name}</span>! Hãy đổ xúc xắc để di chuyển.`;
-          btnNo.classList.add('hidden');
-          btnYes.classList.remove('hidden');
-          btnYes.textContent = 'Đổ Ngay 🎲';
-          btnYes.className = 'btn-spring px-8 sm:px-14 py-2 sm:py-3.5 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 text-sm sm:text-xl font-black shadow-lg transition-transform active:scale-95 cursor-pointer';
+          // Ready mode: Hide central dialog so arena is clear!
+          box.classList.add('hidden');
+          box.classList.remove('flex');
           monoState.pendingAction = { type: 'roll' };
         }
       } else if (mode === 'buy') {
+        box.classList.remove('hidden');
+        box.classList.add('flex');
+        box.classList.remove('animate-mono-popup');
+        void box.offsetWidth;
+        box.classList.add('animate-mono-popup');
+
         title.innerHTML = `Bạn có muốn mua ô <span class="text-sky-300 font-extrabold">${data.tile.name}</span> với giá <span class="text-amber-300 font-chakra font-black">$${data.tile.price}</span> và xây nhà cấp 1?`;
         btnNo.classList.remove('hidden');
         btnYes.classList.remove('hidden');
@@ -5717,6 +5748,12 @@
         btnYes.className = 'btn-spring px-6 sm:px-12 py-2 sm:py-3.5 rounded-full bg-[#00B833] hover:bg-[#00D43B] text-white text-sm sm:text-xl font-black shadow-lg transition-transform active:scale-95 shadow-green-600/40 cursor-pointer';
         monoState.pendingAction = { type: 'buy', tile: data.tile };
       } else if (mode === 'upgrade') {
+        box.classList.remove('hidden');
+        box.classList.add('flex');
+        box.classList.remove('animate-mono-popup');
+        void box.offsetWidth;
+        box.classList.add('animate-mono-popup');
+
         const nextLvl = (data.tile.level || 1) + 1;
         const upgradeCost = Math.floor(data.tile.price * 0.5);
         title.innerHTML = `Bạn có muốn nâng cấp <span class="text-sky-300 font-extrabold">${data.tile.name}</span> lên <span class="text-amber-300 font-extrabold">${nextLvl === 3 ? 'Khách Sạn 👑' : 'Biệt Thự Cấp ' + nextLvl}</span> với giá <span class="text-amber-300 font-chakra font-black">$${upgradeCost}</span>?`;
@@ -5728,6 +5765,12 @@
         btnYes.className = 'btn-spring px-6 sm:px-12 py-2 sm:py-3.5 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 text-sm sm:text-xl font-black shadow-lg transition-transform active:scale-95 shadow-amber-500/40 cursor-pointer';
         monoState.pendingAction = { type: 'upgrade', tile: data.tile, cost: upgradeCost };
       } else if (mode === 'notice') {
+        box.classList.remove('hidden');
+        box.classList.add('flex');
+        box.classList.remove('animate-mono-popup');
+        void box.offsetWidth;
+        box.classList.add('animate-mono-popup');
+
         title.innerHTML = data.text;
         btnNo.classList.add('hidden');
         btnYes.classList.remove('hidden');
@@ -5738,6 +5781,12 @@
     }
 
     function handleMonoDialogChoice(agreed) {
+      const box = document.getElementById('mono2dDecisionBox');
+      if (box) {
+        box.classList.add('hidden');
+        box.classList.remove('flex');
+      }
+
       if (!monoState.pendingAction) return;
 
       if (monoState.pendingAction.type === 'jail_choice') {
@@ -5787,10 +5836,12 @@
             });
           } else {
             try { soundTone(220, 'sawtooth', 0.2, 0.2); } catch(e) {}
-            setMonoDialogMode('notice', { text: `❌ ${player.name} không đủ tiền để mua ${tile.name}!` });
+            showToast(`❌ ${player.name} không đủ tiền để mua ${tile.name}!`);
+            finishMonoTurn();
           }
         } else {
-          setMonoDialogMode('notice', { text: `${player.name} quyết định bỏ qua ô ${tile.name}.` });
+          showToast(`${player.name} quyết định bỏ qua ô ${tile.name}.`);
+          finishMonoTurn();
         }
       } else if (monoState.pendingAction.type === 'upgrade') {
         const tile = monoState.pendingAction.tile;
@@ -5818,10 +5869,12 @@
             });
           } else {
             try { soundTone(220, 'sawtooth', 0.2, 0.2); } catch(e) {}
-            setMonoDialogMode('notice', { text: `❌ ${player.name} không đủ tiền để nâng cấp!` });
+            showToast(`❌ ${player.name} không đủ tiền để nâng cấp!`);
+            finishMonoTurn();
           }
         } else {
-          setMonoDialogMode('notice', { text: `${player.name} giữ nguyên hiện trạng ${tile.name}.` });
+          showToast(`${player.name} giữ nguyên hiện trạng ${tile.name}.`);
+          finishMonoTurn();
         }
       } else if (monoState.pendingAction.type === 'continue') {
         finishMonoTurn();
@@ -5870,14 +5923,8 @@
           if (d2El) d2El.classList.remove('mono-dice-rolling');
           monoState.isRolling = false;
 
-          showMonoEventPopup({
-            type: 'jail',
-            badge: '🔒 KẸT TRONG TRẠI GIAM',
-            title: `${player.name} Không Ra Được Số Đôi`,
-            desc: player.inJail > 0 ? `Bạn đổ ra ${d1} và ${d2}. Vẫn bị giam giữ (còn ${player.inJail} lượt).` : 'Đã hết hạn tạm giam! Bạn được phóng thích vào lượt tiếp theo.',
-            visualIcon: '⛓️',
-            onConfirm: () => finishMonoTurn()
-          });
+          showToast(player.inJail > 0 ? `🔒 ${player.name} đổ ra ${d1} - ${d2}. Vẫn bị giam (còn ${player.inJail} lượt).` : '🔓 Đã hết hạn tạm giam! Bạn được phóng thích vào lượt tiếp theo.');
+          setTimeout(() => finishMonoTurn(), 1000);
           return;
         }
       }
@@ -5907,12 +5954,14 @@
 
       // Handle Tile Landing
       const landedTile = monoState.tiles[player.pos];
+      const isBotTurn = (monoState.turn === 1 && monoState.mode === 'bot');
+
       if (landedTile.type === 'city' || landedTile.type === 'station') {
         if (landedTile.owner === null) {
-          if (monoState.turn === 0 || monoState.mode === 'local') {
+          if (!isBotTurn) {
             setMonoDialogMode('buy', { tile: landedTile });
           } else {
-            // Bot AI logic
+            // Autonomous Bot AI Buying
             if (player.cash >= landedTile.price) {
               player.cash -= landedTile.price;
               landedTile.owner = player.id;
@@ -5921,24 +5970,16 @@
               triggerMonoFloatingCash(player.id, -landedTile.price);
               renderMonopolyBoard();
               updateMonopolyHUD();
-              showMonoEventPopup({
-                type: 'build',
-                badge: '🤖 BOT AI XÂY NHÀ!',
-                title: 'Kỳ Thủ AI Mua Đất & Xây Nhà',
-                desc: `Bot AI đã chi $${landedTile.price} để mua ${landedTile.name} và xây Nhà Cấp 1!`,
-                visualSvg: get3DHouseSVG(1, player.id),
-                amountLabel: 'Giá thuê:',
-                amountVal: landedTile.rent[0],
-                onConfirm: () => finishMonoTurn()
-              });
+              showToast(`🤖 Bot AI đã mua ${landedTile.name} ($${landedTile.price}) và xây nhà!`);
             } else {
-              setMonoDialogMode('notice', { text: `🤖 Bot AI không đủ tiền mua ${landedTile.name}.` });
+              showToast(`🤖 Bot AI không đủ tiền mua ${landedTile.name}.`);
             }
+            setTimeout(() => finishMonoTurn(), 1200);
           }
         } else if (landedTile.owner === player.id) {
           // Landing on own property -> Option to upgrade
           if (landedTile.type === 'city' && landedTile.level < 3) {
-            if (monoState.turn === 0 || monoState.mode === 'local') {
+            if (!isBotTurn) {
               setMonoDialogMode('upgrade', { tile: landedTile });
             } else {
               // Bot upgrade logic
@@ -5949,22 +5990,17 @@
                 triggerMonoFloatingCash(player.id, -cost);
                 renderMonopolyBoard();
                 updateMonopolyHUD();
-                showMonoEventPopup({
-                  type: 'upgrade',
-                  badge: '🤖 BOT AI NÂNG CẤP NHÀ!',
-                  title: 'Kỳ Thủ AI Nâng Cấp Bất Động Sản',
-                  desc: `Bot AI đã nâng cấp ${landedTile.name} lên ${landedTile.level === 3 ? 'Khách Sạn Hoàng Gia' : 'Cấp ' + landedTile.level}!`,
-                  visualSvg: get3DHouseSVG(landedTile.level, player.id),
-                  amountLabel: 'Giá thuê mới:',
-                  amountVal: landedTile.rent[landedTile.level - 1],
-                  onConfirm: () => finishMonoTurn()
-                });
-              } else {
-                setMonoDialogMode('notice', { text: `🏠 ${player.name} dừng chân tại ${landedTile.name} của mình.` });
+                showToast(`🤖 Bot AI đã nâng cấp ${landedTile.name} lên Cấp ${landedTile.level}!`);
               }
+              setTimeout(() => finishMonoTurn(), 1200);
             }
           } else {
-            setMonoDialogMode('notice', { text: `🏰 ${player.name} nghỉ ngơi tại bất động sản tối tân ${landedTile.name}!` });
+            if (!isBotTurn) {
+              showToast(`🏰 ${player.name} nghỉ ngơi tại bất động sản tối tân ${landedTile.name}!`);
+              setTimeout(() => finishMonoTurn(), 1000);
+            } else {
+              setTimeout(() => finishMonoTurn(), 800);
+            }
           }
         } else {
           // Pay rent to opponent
@@ -5972,7 +6008,6 @@
           const lvl = landedTile.level || 1;
           let rent = 0;
           if (landedTile.type === 'station') {
-            // Count stations owned by owner
             const ownedStations = monoState.tiles.filter(t => t.type === 'station' && t.owner === owner.id).length;
             rent = landedTile.rent[Math.min(ownedStations - 1, 2)] || 400;
           } else {
@@ -5986,16 +6021,21 @@
           updateMonopolyHUD();
           try { soundTone(200, 'sawtooth', 0.2, 0.2); } catch(e) {}
           
-          showMonoEventPopup({
-            type: 'rent',
-            badge: '💸 NỘP TIỀN THUÊ ĐẤT!',
-            title: `Dừng Chân Tại Đất Của ${owner.name}`,
-            desc: `${player.name} phải trả tiền thuê cho ${owner.name} khi ghé thăm ${landedTile.name} (Cấp ${lvl})!`,
-            visualIcon: '💸',
-            amountLabel: 'Khoản tiền thuê:',
-            amountVal: -rent,
-            onConfirm: () => finishMonoTurn()
-          });
+          if (!isBotTurn) {
+            showMonoEventPopup({
+              type: 'rent',
+              badge: '💸 NỘP TIỀN THUÊ ĐẤT!',
+              title: `Dừng Chân Tại Đất Của ${owner.name}`,
+              desc: `${player.name} phải trả tiền thuê cho ${owner.name} khi ghé thăm ${landedTile.name} (Cấp ${lvl})!`,
+              visualIcon: '💸',
+              amountLabel: 'Khoản tiền thuê:',
+              amountVal: -rent,
+              onConfirm: () => finishMonoTurn()
+            });
+          } else {
+            showToast(`💸 Bot AI trả $${rent} tiền thuê ${landedTile.name} cho bạn!`);
+            setTimeout(() => finishMonoTurn(), 1200);
+          }
         }
       } else if (landedTile.type === 'chance') {
         const rewards = [
@@ -6007,16 +6047,21 @@
         player.cash = Math.max(0, player.cash + card.val);
         triggerMonoFloatingCash(player.id, card.val);
         updateMonopolyHUD();
-        showMonoEventPopup({
-          type: 'chance',
-          badge: card.badge,
-          title: card.val > 0 ? 'Nhận Thưởng Cơ Hội!' : 'Phạt Thẻ Cơ Hội!',
-          desc: card.text,
-          visualIcon: card.icon,
-          amountLabel: 'Biến động số dư:',
-          amountVal: card.val,
-          onConfirm: () => finishMonoTurn()
-        });
+        if (!isBotTurn) {
+          showMonoEventPopup({
+            type: 'chance',
+            badge: card.badge,
+            title: card.val > 0 ? 'Nhận Thưởng Cơ Hội!' : 'Phạt Thẻ Cơ Hội!',
+            desc: card.text,
+            visualIcon: card.icon,
+            amountLabel: 'Biến động số dư:',
+            amountVal: card.val,
+            onConfirm: () => finishMonoTurn()
+          });
+        } else {
+          showToast(`🤖 Bot AI: ${card.badge} (${card.val > 0 ? '+' : ''}$${card.val})`);
+          setTimeout(() => finishMonoTurn(), 1200);
+        }
       } else if (landedTile.type === 'fate') {
         const rewards = [
           { text: 'Kho báu quốc gia giải ngân tài trợ khởi nghiệp!', val: 2000, icon: '🏛️', badge: '❗ VẬN MỆNH THẦN TÀI' },
@@ -6027,61 +6072,61 @@
         player.cash = Math.max(0, player.cash + card.val);
         triggerMonoFloatingCash(player.id, card.val);
         updateMonopolyHUD();
-        showMonoEventPopup({
-          type: 'fate',
-          badge: card.badge,
-          title: card.val > 0 ? 'Vận Mệnh Chiêu Tài!' : 'Vận Mệnh Thử Thách!',
-          desc: card.text,
-          visualIcon: card.icon,
-          amountLabel: 'Biến động số dư:',
-          amountVal: card.val,
-          onConfirm: () => finishMonoTurn()
-        });
+        if (!isBotTurn) {
+          showMonoEventPopup({
+            type: 'fate',
+            badge: card.badge,
+            title: card.val > 0 ? 'Vận Mệnh Chiêu Tài!' : 'Vận Mệnh Thử Thách!',
+            desc: card.text,
+            visualIcon: card.icon,
+            amountLabel: 'Biến động số dư:',
+            amountVal: card.val,
+            onConfirm: () => finishMonoTurn()
+          });
+        } else {
+          showToast(`🤖 Bot AI: ${card.badge} (${card.val > 0 ? '+' : ''}$${card.val})`);
+          setTimeout(() => finishMonoTurn(), 1200);
+        }
       } else if (landedTile.type === 'goto_jail') {
-        // Authentic Rule: Go To Jail sends player directly to Jail (index 11) with inJail = 3
         player.pos = 11; // Index 11 is TRẠI GIAM
         player.inJail = 3;
         updateMonopolyPawns();
         try { soundTone(150, 'sawtooth', 0.4, 0.3); } catch(e) {}
-        showMonoEventPopup({
-          type: 'jail',
-          badge: '⛓️ BỊ TỐNG VÀO TÙ!',
-          title: 'Vô Tù Bóc Lịch',
-          desc: `${player.name} bị cảnh sát tóm và tống thẳng vào Trại Giam! Bạn cần lắc ra số đôi hoặc trả $500 bảo lãnh để ra tù.`,
-          visualIcon: '👮',
-          onConfirm: () => finishMonoTurn()
-        });
+        if (!isBotTurn) {
+          showMonoEventPopup({
+            type: 'jail',
+            badge: '⛓️ BỊ TỐNG VÀO TÙ!',
+            title: 'Vô Tù Bóc Lịch',
+            desc: `${player.name} bị áp giải vào Trại Giam! Bạn cần lắc ra số đôi hoặc trả $500 bảo lãnh để ra tù.`,
+            visualIcon: '👮',
+            onConfirm: () => finishMonoTurn()
+          });
+        } else {
+          showToast(`🤖 Bot AI bị bắt vào Trại Giam (3 lượt)!`);
+          setTimeout(() => finishMonoTurn(), 1200);
+        }
       } else if (landedTile.type === 'airport') {
-        // Authentic Rule: Tân An airport allows instant flight to Hanoi (index 24)
         player.pos = 24; // Hà Nội
         updateMonopolyPawns();
-        showMonoEventPopup({
-          type: 'airport',
-          badge: '✈️ SÂN BAY TÂN AN',
-          title: 'Chuyến Bay Tốc Hành',
-          desc: `${player.name} lên chuyên cơ Tân An và đáp thẳng xuống thủ đô Hà Nội!`,
-          visualIcon: '🛫',
-          onConfirm: () => finishMonoTurn()
-        });
+        if (!isBotTurn) {
+          showMonoEventPopup({
+            type: 'airport',
+            badge: '✈️ SÂN BAY TÂN AN',
+            title: 'Chuyến Bay Tốc Hành',
+            desc: `${player.name} lên chuyên cơ Tân An và đáp thẳng xuống thủ đô Hà Nội!`,
+            visualIcon: '🛫',
+            onConfirm: () => finishMonoTurn()
+          });
+        } else {
+          showToast(`🤖 Bot AI bay từ Tân An đến Hà Nội!`);
+          setTimeout(() => finishMonoTurn(), 1200);
+        }
       } else if (landedTile.type === 'jail') {
-        // Authentic Rule: Normal landing on Jail is "Just Visiting" (Thăm tù)
-        showMonoEventPopup({
-          type: 'visit_jail',
-          badge: '🏛️ THĂM TRẠI GIAM',
-          title: 'Ghé Thăm Bạn Bè',
-          desc: `${player.name} chỉ là khách ghé thăm Trại Giam. Không bị giam giữ và được tự do đi tiếp vào lượt sau!`,
-          visualIcon: '👀',
-          onConfirm: () => finishMonoTurn()
-        });
+        showToast(`🏛️ ${player.name} ghé thăm người quen tại Trại Giam (Thăm tù).`);
+        setTimeout(() => finishMonoTurn(), 1000);
       } else if (landedTile.type === 'start') {
-        showMonoEventPopup({
-          type: 'salary',
-          badge: '🗺️ ĐIỂM XUẤT PHÁT',
-          title: 'Chào Đón Vòng Mới',
-          desc: `${player.name} dừng chân đúng ngay Điểm Xuất Phát Hoàng Gia!`,
-          visualIcon: '🏁',
-          onConfirm: () => finishMonoTurn()
-        });
+        showToast(`🏁 ${player.name} dừng chân đúng ngay Điểm Xuất Phát!`);
+        setTimeout(() => finishMonoTurn(), 1000);
       }
     }
 
@@ -6131,22 +6176,20 @@
 
     function handleMonoPowerBtn() {
       if (confirm('Khởi động lại toàn bộ ván Cờ Tỷ Phú?')) {
-        initMonopolyGame();
-        showToast('🔄 Đã khởi động lại ván cờ!');
+        restartMonopolyGame();
       }
     }
 
     function handleMonoSettingsBtn() {
-      monoState.mode = monoState.mode === 'bot' ? 'local' : 'bot';
-      showToast(monoState.mode === 'bot' ? '🤖 Chế độ: Đấu với Kỳ Thủ AI' : '👥 Chế độ: 2 Người chơi trên cùng máy');
-      updateMonopolyHUD();
+      const newMode = monoState.mode === 'bot' ? 'local' : 'bot';
+      setMonopolyMode(newMode);
     }
 
     function toggleMonoSpeedBtn() {
       monoState.speed = monoState.speed === 1 ? 2 : 1;
       const btn = document.getElementById('btnMonoSpeed');
       if (btn) btn.textContent = `${monoState.speed}X`;
-      showToast(`⚡ Tốc độ di chuyển: ${monoState.speed}X`);
+      showToast(`⚡ Tốc độ ván đấu: ${monoState.speed}X`);
     }
 
     window.initMonopolyGame = initMonopolyGame;
@@ -6161,6 +6204,8 @@
     window.handleMonoSettingsBtn = handleMonoSettingsBtn;
     window.toggleMonoSpeedBtn = toggleMonoSpeedBtn;
     window.toggleMono25DView = toggleMono25DView;
+    window.setMonopolyMode = setMonopolyMode;
+    window.restartMonopolyGame = restartMonopolyGame;
     window.showMonoEventPopup = showMonoEventPopup;
     window.closeMonoEventModal = closeMonoEventModal;
     window.monoState = monoState;
@@ -8072,7 +8117,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v3.4.0'
+      currentVersion: 'v3.5.0'
     };
 
     let allChangelogItems = [];

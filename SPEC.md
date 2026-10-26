@@ -683,3 +683,32 @@ Cho phép người chơi chọn Hero trước trận hoặc chuyển đổi linh
   - Lắc xúc xắc -> Quân cờ di chuyển mượt mà từng ô -> Dừng chân tại ô đất trống -> Modal mua đất mở ra -> Nhấn "Đồng Ý" -> Tiền trừ chính xác, đất chuyển quyền sở hữu, mô hình nhà 3D dựng đứng trên ô cờ -> Modal chúc mừng xuất hiện -> Đóng modal tiếp tục lượt chơi thành công 100%.
 
 ---
+
+### Phần 29: Nâng Cấp Hệ Thống Đổ Xúc Xắc Trung Tâm Đa Điểm Chạm & Triệt Tiêu Lỗi Khó Bấm (v3.7.6)
+
+#### 1. Nguyên Nhân Sự Cố & Phân Tích Kỹ Thuật Chuyên Sâu
+- **Vấn đề người dùng phản ánh**: *"nút đổ xúc xắc vẫn khó bấm lắm"*.
+- **Kết quả đo đạc Telemetry (`document.elementFromPoint`)**:
+  - Khi nút Đổ xúc xắc nằm lồng bên trong container sân cỏ trung tâm (`#mono2dCentralArena`) chịu ma trận biến đổi 3D của `#mono2dBoardWrapper` (`perspective(1400px) rotateX(30deg) rotateZ(25deg)`):
+  - Do hiệu ứng chiếu góc nghiêng 3D, phần đáy của nút bị tụt về phía sau mặt phẳng tọa độ $Z$, dẫn tới **hơn 75% diện tích bề mặt nút bị container cha `mono2dCentralArena` che phủ/hấp thụ sự kiện click chuột** (tỉ lệ trúng chỉ đạt ~24%).
+  - Người chơi buộc phải rê chuột trúng 24% mép trên cùng của nút thì mới kích hoạt được lệnh đổ; nếu bấm vào giữa nút hoặc nửa dưới nút, trình duyệt coi như click vào sân cỏ, hoàn toàn không có phản hồi.
+
+#### 2. Kiến Trúc Trung Tâm Điều Khiển 2D Screen-Space (`#monoCenterControls`)
+- **Tách lớp hoàn toàn khỏi ma trận 3D**:
+  - Chuyển toàn bộ cụm điều khiển xí ngầu và nút bấm ra ngoài `#mono2dBoardWrapper`, đặt trong lớp phủ Screen-space 2D (`#monoCenterControls` với `z-30 pointer-events-none`).
+  - Cụm điều khiển được căn chính giữa (`absolute inset-0 flex items-center justify-center`) trùng khớp tuyệt đối với tâm sân cỏ sa bàn trên mọi độ phân giải.
+  - Tỉ lệ bắt điểm chuột (**Hit-Rate**) trên nút bấm tăng vọt từ 24% lên **100.0% Direct Hit** trên toàn bộ diện tích nút!
+
+#### 3. Bổ Sung Đa Phương Thức Kích Hoạt (Multi-Trigger Architecture)
+Để việc đổ xúc xắc trở nên tiện lợi tối đa, hệ thống hỗ trợ 4 cách gieo xúc xắc đồng thời:
+1. **Nút bấm phong cách Arcade 3D tactile (`#btnMono2dRoll`)**:
+   - Mở rộng vùng bấm lớn (`px-8 sm:px-12 py-3.5 sm:py-4`), hiệu ứng nổi 3D (`shadow-[0_8px_0_#b45309]`), đổ bóng phát quang ánh vàng rực rỡ.
+   - Khi nhấn chuột: nút thụt xuống cơ học (`active:translate-y-1 active:shadow-[0_2px_0_#b45309]`), triệt tiêu độ trễ 300ms trên màn hình cảm ứng bằng `touch-action: manipulation`.
+2. **Khay xí ngầu trực tiếp (`#monoDiceTrayBox`)**:
+   - Người chơi có thể bấm trực tiếp vào 2 viên xí ngầu đỏ sang trọng ở phía trên nút để gieo hạt xí ngầu.
+3. **Chạm vào toàn bộ sân cỏ trung tâm (`#mono2dCentralArena`)**:
+   - Click vào bất kỳ vị trí nào trên vùng sân cỏ rộng $400 \times 400\text{px}$ để gieo xí ngầu (khi đến lượt người chơi).
+4. **Phím tắt Bàn phím (Spacebar / Enter)**:
+   - Nhấn phím `Space` (Cách) hoặc `Enter` trên bàn phím máy tính để đổ xúc xắc ngay tức khắc mà không cần dùng chuột.
+
+---

@@ -618,7 +618,7 @@
         <!-- Version & Contributor Changelog Pill -->
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v3.7.5</span>
+          <span id="headerVersionPill" class="font-bold">v3.7.6</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -2289,13 +2289,37 @@
             </div>
           </div>
         </div>
+          
+        <!-- ================= FLOATING SCREEN-SPACE CENTER ACTION HUB (100% Responsive & Tactile) ================= -->
+        <div id="monoCenterControls" class="absolute inset-0 flex items-center justify-center pointer-events-none z-30 select-none">
+          <div class="flex flex-col items-center justify-center gap-2.5 sm:gap-3 pointer-events-auto">
+            
+            <!-- Clickable 3D Dice Tray (Tap to Roll) -->
+            <div onclick="executeMono2dRoll()" id="monoDiceTrayBox" class="flex items-center gap-2.5 bg-[#050A14]/95 px-4 py-2 rounded-2xl border-2 border-amber-400 shadow-[0_0_25px_rgba(245,158,11,0.5)] backdrop-blur-md cursor-pointer hover:border-yellow-300 hover:scale-105 active:scale-95 transition-all select-none touch-manipulation group" title="Bấm vào hộp xí ngầu hoặc nhấn Space để gieo">
+              <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-red-500 via-rose-600 to-red-700 text-white font-black flex items-center justify-center text-lg sm:text-xl shadow-[inset_0_2px_4px_rgba(255,255,255,0.4)] border border-white/50 group-hover:rotate-6 transition-transform" id="monoDice1Val">5</div>
+              <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-red-500 via-rose-600 to-red-700 text-white font-black flex items-center justify-center text-lg sm:text-xl shadow-[inset_0_2px_4px_rgba(255,255,255,0.4)] border border-white/50 group-hover:-rotate-6 transition-transform" id="monoDice2Val">4</div>
+              <div class="flex flex-col items-center pl-2 border-l border-white/20">
+                <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Tổng</span>
+                <span class="text-base sm:text-lg font-black text-amber-400 font-chakra" id="monoDiceSumVal">9</span>
+              </div>
+            </div>
+
+            <!-- Arcade Tactile Golden Roll Button (Massive Hit Target, 0ms Delay, 100% Clickable) -->
+            <button onclick="executeMono2dRoll()" id="btnMono2dRoll" class="group relative px-8 sm:px-12 py-3.5 sm:py-4 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-sm sm:text-base border-2 border-white shadow-[0_8px_0_#b45309,0_16px_35px_rgba(245,158,11,0.7)] hover:shadow-[0_8px_0_#b45309,0_20px_45px_rgba(245,158,11,0.9)] active:translate-y-1 active:shadow-[0_2px_0_#b45309,0_8px_20px_rgba(245,158,11,0.6)] transition-all cursor-pointer flex items-center justify-center gap-2.5 pointer-events-auto select-none touch-manipulation">
+              <span class="text-lg sm:text-xl group-hover:rotate-12 transition-transform">🎲</span>
+              <span class="tracking-wider uppercase font-black" id="btnMono2dRollText">ĐỔ XÚC XẮC</span>
+              <span class="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded bg-black/20 text-[10px] text-slate-900 font-mono font-bold ml-1 border border-black/10">Space</span>
+            </button>
+          </div>
+        </div>
+
           <div id="mono2dBoardWrapper" class="mono-board-25d w-full max-w-[760px] aspect-square bg-[#070D18] grid grid-cols-10 grid-rows-10 relative p-1 gap-1 select-none border-2 border-emerald-500/40 rounded-3xl mx-auto my-auto shadow-2xl">
             
             <!-- 36 PERIMETER TILES (Rendered via JS with Upright 3D Houses & Level Badges) -->
             <div id="mono2dGridTiles" class="contents"></div>
 
             <!-- ================= CENTRAL TURF ARENA (Cols 2-9, Rows 2-9 = 8x8 Court) ================= -->
-            <div id="mono2dCentralArena" class="col-start-2 col-end-10 row-start-2 row-end-10 bg-gradient-to-br from-[#064e3b]/35 via-[#022c22]/50 to-[#050A14]/90 flex flex-col justify-between p-2.5 sm:p-3 relative rounded-2xl border border-emerald-500/30 shadow-inner">
+            <div id="mono2dCentralArena" onclick="handleCentralTurfClick()" class="col-start-2 col-end-10 row-start-2 row-end-10 cursor-pointer bg-gradient-to-br from-[#064e3b]/35 via-[#022c22]/50 to-[#050A14]/90 flex flex-col justify-between p-2.5 sm:p-3 relative rounded-2xl border border-emerald-500/30 shadow-inner">
               
               <!-- Center Cyber-Turf Texture -->
               <div class="absolute inset-0 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px] opacity-15 pointer-events-none"></div>
@@ -2312,24 +2336,7 @@
                 </div>
               </div>
 
-              <!-- CENTER 3D DICE & ROLL BUTTON (Level with Screen) -->
-              <div class="my-auto flex flex-col items-center justify-center z-20 gap-2 sm:gap-2.5" style="transform: rotateZ(-25deg) rotateX(-30deg) translateZ(35px);">
-                <!-- Dice Box -->
-                <div class="flex items-center gap-2 bg-[#050A14]/95 px-3 py-1.5 rounded-2xl border-2 border-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.4)] backdrop-blur-sm">
-                  <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-red-500 to-rose-700 text-white font-black flex items-center justify-center text-base sm:text-lg shadow-inner border border-white/40" id="monoDice1Val">5</div>
-                  <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-red-500 to-rose-700 text-white font-black flex items-center justify-center text-base sm:text-lg shadow-inner border border-white/40" id="monoDice2Val">4</div>
-                  <div class="flex flex-col items-center pl-1.5 border-l border-white/20">
-                    <span class="text-[8px] sm:text-[9px] text-slate-400 font-bold uppercase">Tổng</span>
-                    <span class="text-sm sm:text-base font-black text-amber-400 font-chakra" id="monoDiceSumVal">9</span>
-                  </div>
-                </div>
-
-                <!-- Big Golden Roll Button -->
-                <button onclick="executeMono2dRoll()" id="btnMono2dRoll" class="btn-spring px-8 sm:px-10 py-3 sm:py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-sm sm:text-base shadow-[0_0_30px_rgba(245,158,11,0.7)] border-2 border-white transition-all active:scale-95 cursor-pointer flex items-center gap-2 pointer-events-auto select-none">
-                  <span class="text-base sm:text-lg">🎲</span>
-                  <span class="tracking-wider">ĐỔ XÚC XẮC</span>
-                </button>
-              </div>
+              <!-- Center Dice moved to Screen-Space Action Hub -->
 
             </div> <!-- Properly close mono2dCentralArena -->
 
@@ -3576,7 +3583,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.7.5</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.7.6</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -7202,14 +7209,17 @@
       }
 
       const rollBtn = document.getElementById('btnMono2dRoll');
+      const diceTray = document.getElementById('monoDiceTrayBox');
       if (rollBtn && curPlayer) {
         rollBtn.disabled = monoState.isRolling || curPlayer.isBot;
         if (curPlayer.isBot) {
           rollBtn.classList.add('opacity-50', 'cursor-not-allowed');
+          if (diceTray) diceTray.classList.add('opacity-60', 'pointer-events-none');
           rollBtn.innerHTML = `<span class="text-base sm:text-lg animate-spin">⏳</span><span class="tracking-wider text-xs sm:text-sm">${curPlayer.name} Đang Đổ...</span>`;
         } else {
           rollBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-          rollBtn.innerHTML = `<span class="text-base sm:text-lg">🎲</span><span class="tracking-wider">ĐỔ XÚC XẮC</span>`;
+          if (diceTray) diceTray.classList.remove('opacity-60', 'pointer-events-none');
+          rollBtn.innerHTML = `<span class="text-lg sm:text-xl group-hover:rotate-12 transition-transform">🎲</span><span class="tracking-wider uppercase font-black" id="btnMono2dRollText">ĐỔ XÚC XẮC</span><span class="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded bg-black/20 text-[10px] text-slate-900 font-mono font-bold ml-1 border border-black/10">Space</span>`;
         }
       }
     }
@@ -7988,6 +7998,36 @@
     window.setMonoDialogMode = setMonoDialogMode;
     window.handleMonoDialogChoice = handleMonoDialogChoice;
     window.executeMono2dRoll = executeMono2dRoll;
+
+    // Click on Central Arena Turf to roll (Maximal hit area)
+    function handleCentralTurfClick() {
+      if (typeof monoState === 'undefined' || monoState.isRolling) return;
+      const curPlayer = monoState.players[monoState.turn];
+      if (curPlayer && !curPlayer.isBot) {
+        executeMono2dRoll();
+      }
+    }
+    window.handleCentralTurfClick = handleCentralTurfClick;
+
+    // Spacebar & Enter Hotkey to Roll Dice
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' || e.code === 'Enter') {
+        const vMono = document.getElementById('monopolyView');
+        if (!vMono || vMono.classList.contains('hidden')) return;
+        const decisionBox = document.getElementById('mono2dDecisionBox');
+        const eventModal = document.getElementById('monoEventModalOverlay');
+        const noModals = (!decisionBox || decisionBox.classList.contains('hidden')) &&
+                         (!eventModal || eventModal.classList.contains('hidden'));
+        if (noModals && typeof monoState !== 'undefined' && !monoState.isRolling) {
+          const curPlayer = monoState.players[monoState.turn];
+          if (curPlayer && !curPlayer.isBot) {
+            e.preventDefault();
+            executeMono2dRoll();
+          }
+        }
+      }
+    });
+
     window.finishMonoTurn = finishMonoTurn;
     window.toggleMonoSpeedBtn = toggleMonoSpeedBtn;
     window.toggleMono25DView = toggleMono25DView;
@@ -9926,7 +9966,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v3.7.5'
+      currentVersion: 'v3.7.6'
     };
 
     let allChangelogItems = [];

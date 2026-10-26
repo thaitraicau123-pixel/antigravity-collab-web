@@ -312,3 +312,22 @@ esetTTTScores).
    - **Hộp thoại quyết định trung tâm (`#mono2dDecisionBox`)**: Hiệu ứng phóng to đàn hồi `animate-mono-popup` mỗi khi chuyển đổi trạng thái (Gieo xúc xắc, Hỏi mua đất, Hỏi nâng cấp nhà).
    - **Thẻ tiền trôi nổi (`animate-float-cash`)**: Tự động bắn ra số tiền trôi lên và mờ dần (`+$2000` xanh lục hoặc `-$3200` đỏ cam) ngay trên avatar người chơi.
    - **Modal Pop-Up Sự Kiện Hoàng Gia (`#monoEventModalOverlay`)**: Khung kính mờ backdrop blur với viền vàng tỏa sáng, hiển thị mô hình 3D thu nhỏ đang xoay/nhún nhảy, huy hiệu sự kiện (Xây nhà, Vận mệnh, Cơ hội, Tiền thuê, Vô tù), số tiền biến động và nút bấm 1 chạm tiếp tục.
+
+
+---
+
+## 💎 PHẦN 19: ĐẠI TU BÀN CỜ TỶ PHÚ HOÀNG GIA (2D ARENA) CYBER SAPPHIRE & BENTO HUD KHOA HỌC (V3.3.0)
+1. **Bối Cảnh & Vấn Đề Trước Khi Sửa**:
+   - Giao diện cũ dùng màu xanh lam sáng `#0092D8` chói mắt, gây mỏi thị giác và lệch hoàn toàn với phong cách Tabletop Cyber Dark Sapphire / Emerald của toàn bộ hệ thống Arena.
+   - Hộp thoại trung tâm (`#mono2dDecisionBox`) bị hiển thị đè liên tục ở trạng thái chờ xúc xắc (`mode === 'ready'`) với nút "Đổ Ngay 🎲" thừa thãi, che khuất toàn bộ tầm nhìn sân khấu bàn cờ.
+   - Thanh HUD hiển thị các nút chức năng xếp dọc thiếu cân đối ở bên người chơi P1.
+2. **Kiến Trúc & Giải Pháp Cải Tiến**:
+   - **Chủ Đạo Dark Glassmorphism Sang Trọng**: Bàn cờ chuyển sang nền than chì cao cấp `#070D18` và Sapphire `#0B1526`, viền ngọc bích `border-emerald-500/30` với hiệu ứng ánh sáng chiều sâu và lưới tọa độ vi mô `radial-gradient(#10b981)`.
+   - **Tối Ưu Hóa Tầm Nhìn Trung Tâm (Non-intrusive Arena)**:
+     * Trạng thái `ready`: Ẩn hoàn toàn hộp thoại `#mono2dDecisionBox` để sân đấu thông thoáng tuyệt đối. Người chơi thao tác trực tiếp qua nút đổ xúc xắc lớn phát sáng ở dải điều khiển phía dưới.
+     * Trạng thái `buy` / `upgrade` / `notice`: Tự động kích hoạt hiển thị hộp thoại pop-up Glassmorphism với viền vàng hổ phách `border-amber-500/40` và các nút hành động tương phản cao.
+   - **Hệ Thống HUD Bento Pods Đối Xứng**:
+     * Pod P1 (Trái): Avatar vầng sáng ngọc lục bảo, nhãn số 1, số dư tiền mặt `$19760` font Chakra Petch và bộ đếm bất động sản.
+     * Pod Chỉ Huy (Giữa): Nút Nguồn `⏻`, Cài đặt chế độ `⚙️`, và Bộ tăng tốc ván đấu `1X/2X`.
+     * Pod P2 / AI (Phải): Avatar vầng sáng hoa hồng tím, nhãn số 2, số dư đối thủ và bất động sản tương ứng.
+   - **Bảo Toàn 100% Mô Hình 3D Mini House SVG & Hiệu Ứng Pop-Up Tiền**: Toàn bộ hệ thống nhà phố 3D, biệt thự, cao ốc hoàng gia vương miện và hiệu ứng tiền bay trôi nổi (`animate-float-cash`) được tích hợp trơn tru trên nền Dark Sapphire.

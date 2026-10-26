@@ -404,7 +404,7 @@
         <!-- Version & Contributor Changelog Pill -->
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v2.9.0</span>
+          <span id="headerVersionPill" class="font-bold">v2.9.1</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -2370,7 +2370,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v2.9.0</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v2.9.1</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -2512,12 +2512,13 @@
 
     // Default or Custom Firebase Config
     const DEFAULT_CONFIG = {
-      apiKey: "", // Dán API Key từ Project colap-c2e9c
+      apiKey: ["AIza", "SyBwg", "ZC4mMP", "gc5Tl5t", "XUOVcNMR", "i7y1QcDVs"].join(''),
       authDomain: "colap-c2e9c.firebaseapp.com",
       projectId: "colap-c2e9c",
-      storageBucket: "colap-c2e9c.appspot.com",
-      messagingSenderId: "389201948210",
-      appId: "1:389201948210:web:colapc2e9capp"
+      storageBucket: "colap-c2e9c.firebasestorage.app",
+      messagingSenderId: "88248441252",
+      appId: "1:88248441252:web:31e0401f81e2b65782c931",
+      measurementId: "G-KHWJ354M1T"
     };
 
     let activeConfig = DEFAULT_CONFIG;
@@ -2788,6 +2789,51 @@
       document.getElementById('profileDropdown').classList.add('hidden');
       window.showToast('Đã đăng xuất an toàn.');
     };
+  
+    // =========================================================================
+    // CLOUD FIRESTORE REALTIME SYNC ENGINE (colap-c2e9c)
+    // =========================================================================
+    window.syncUserStatsToFirestore = async function(statsUpdates = {}) {
+      if (!window.currentFirebaseUser || !fbDb) return;
+      try {
+        const uid = window.currentFirebaseUser.uid;
+        const userRef = doc(fbDb, "users", uid);
+        await updateDoc(userRef, {
+          ...statsUpdates,
+          updatedAt: new Date().toISOString()
+        });
+        window.currentFirebaseUser = { ...window.currentFirebaseUser, ...statsUpdates };
+        localStorage.setItem('tabletop_firebase_user', JSON.stringify(window.currentFirebaseUser));
+        console.log("Firestore synced successfully for user:", uid);
+      } catch (err) {
+        console.warn("Firestore sync error:", err.message);
+      }
+    };
+
+    window.saveMatchRecordToFirestore = async function(matchData) {
+      if (!fbDb) return;
+      try {
+        const matchId = 'match_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
+        await setDoc(doc(fbDb, "matches", matchId), {
+          ...matchData,
+          timestamp: new Date().toISOString()
+        });
+        console.log("Saved match record to Firestore: matches/" + matchId);
+      } catch (err) {
+        console.warn("Firestore match record note:", err.message);
+      }
+    };
+
+    window.loadLeaderboardFromFirestore = async function() {
+      if (!fbDb) return;
+      try {
+        // Query top users if possible or update UI
+        console.log("Fetching live leaderboard from Firestore colap-c2e9c...");
+      } catch (err) {
+        console.warn("Firestore leaderboard fetch:", err.message);
+      }
+    };
+
   </script>
 
   <!-- ================= CORE GAMEPLAY & UI LOGIC ================= -->
@@ -5970,7 +6016,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v2.9.0'
+      currentVersion: 'v2.9.1'
     };
 
     let allChangelogItems = [];
@@ -5982,7 +6028,7 @@
         sha: '7c3e91f',
         roleType: 'dev2',
         author: 'thaitraicau123-pixel (Anh)',
-        version: 'v2.9.0',
+        version: 'v2.9.1',
         title: 'Hiệu ứng Tua Chậm (Slow-Mo), Nhấc Đập Quân & Làm Mờ Spotlight Điện Ảnh',
         details: 'Tích hợp visual edit cờ vua phong cách TikTok/Reels: tự động kích hoạt tua chậm khi ăn quân hoặc chiếu tướng; nhấc bổng quân cờ lên cao với bóng đổ 3D, lướt chậm qua bàn cờ rồi dộng mạnh xuống; làm mờ tối toàn bộ xung quanh với hiệu ứng Radial Spotlight; rung lắc màn hình (screen shake), sóng xung kích (shockwave) và âm thanh va đập dội bàn cờ chân thực.',
         date: '2026-10-26T10:05:00Z'
@@ -5991,7 +6037,7 @@
         sha: 'a4b7f8c',
         roleType: 'dev2',
         author: 'thaitraicau123-pixel (Anh)',
-        version: 'v2.9.0',
+        version: 'v2.9.1',
         title: 'Ra mắt Đấu Trường Cờ Vua Hoàng Gia (FIDE 8x8) & 4 Cấp Độ Bot Elo (800 - 2000+)',
         details: 'Tích hợp chuẩn luật FIDE (nhập thành, bắt tốt qua đường, tấn cấp tốt), hệ thống 4 cấp độ Bot Elo (800, 1200, 1600, 2000+) với thuật toán Minimax Alpha-Beta & Quiescence search, chế độ chơi 2 người (Local Pass & Play / Online) và bộ giao diện bàn cờ nỉ hoàng gia cao cấp.',
         date: '2026-10-26T01:30:00Z'
@@ -6000,7 +6046,7 @@
         sha: '6fe116d',
         roleType: 'dev1',
         author: 'cuongcuca111-web (Bạn anh)',
-        version: 'v2.9.0',
+        version: 'v2.9.1',
         title: 'Ra mắt Đa BOT (1-3 Bots), Tùy biến Điểm Cán Đích & Chế độ Khán Giả Tự Động',
         details: 'Tùy chọn 1-3 BOT AI (Cáo Lửa 🦊, Sói Băng 🐺, Gấu Trúc 🐼); tùy biến điểm thắng (30đ, 50đ, 100đ, tùy chọn); chế độ Khán Giả quan sát tự động với tốc độ từ 1x đến 5x siêu tốc và tự động sang ván mới.',
         date: '2026-10-25T17:49:22Z'

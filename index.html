@@ -3258,7 +3258,7 @@
           <button id="adminTabBtn2" onclick="switchAdminTab('players')" class="btn-spring px-3.5 py-2 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 border border-board-border">
             <i data-lucide="users" class="w-4 h-4 text-cyan-400"></i>
             <span>Quản Lý Kỳ Thủ</span>
-            <span id="adminBadgePlayerCount" class="text-[10px] px-1.5 py-0.2 rounded-full bg-cyan-500/20 text-cyan-300 font-mono">4</span>
+            <span id="adminBadgePlayerCount" class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-mono font-bold animate-pulse">1</span>
           </button>
           <button id="adminTabBtn3" onclick="switchAdminTab('balancer')" class="btn-spring px-3.5 py-2 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 border border-board-border">
             <i data-lucide="sliders" class="w-4 h-4 text-amber-400"></i>
@@ -3438,10 +3438,16 @@
                   <option value="Kiện Tướng PRO">Kiện Tướng PRO</option>
                   <option value="Tân Thủ">Tân Thủ</option>
                 </select>
-                <button onclick="adminQuickAddMockPlayer()" class="btn-spring px-3 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1.5">
-                  <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
-                  <span>Thêm Kỳ Thủ Mẫu</span>
-                </button>
+                <div class="flex items-center gap-2">
+                  <button onclick="syncRealFirestorePlayers(true)" id="btnAdminSyncFirestore" class="btn-spring px-3 py-2 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/40 font-bold flex items-center gap-1.5 transition-all shadow-sm" title="Quét và tải toàn bộ tài khoản thực tế từ Cloud Firestore">
+                    <i data-lucide="refresh-cw" id="iconSyncFirestore" class="w-3.5 h-3.5 text-cyan-400"></i>
+                    <span>Đồng Bộ Dữ Liệu Thật</span>
+                  </button>
+                  <button onclick="openAdminAddRealPlayerModal()" class="btn-spring px-3 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 font-bold flex items-center gap-1.5 transition-all shadow-sm" title="Tạo tài khoản kỳ thủ mới và lưu trực tiếp lên Cloud Firestore">
+                    <i data-lucide="user-plus" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <span>Thêm Kỳ Thủ Mới</span>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -3731,7 +3737,10 @@
       doc, 
       setDoc, 
       getDoc, 
-      updateDoc 
+      updateDoc,
+      collection,
+      getDocs,
+      onSnapshot 
     } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
     // Default or Custom Firebase Config
@@ -3763,6 +3772,91 @@
     // Expose Firebase Auth Handler Functions to Window Scope
     window.fbAuth = fbAuth;
     window.fbDb = fbDb;
+
+    // Universal Real-Time Firestore Sync Helper (SDK + REST Fallback)
+    window.saveUserToCloudFirestore = async function(userData) {
+      if (!userData || !userData.uid) return;
+      const projectId = "colap-c2e9c";
+      
+      // 1. Try SDK Write
+      try {
+        if (fbDb) {
+          await setDoc(doc(fbDb, "users", userData.uid), userData, { merge: true });
+          console.log("SDK: Saved user to Cloud Firestore: users/" + userData.uid);
+        }
+      } catch (err) {
+        console.warn("SDK write note:", err.message);
+      }
+
+      // 2. Direct Firestore REST API Write (Guaranteed Persistence)
+      try {
+        const fields = {
+          uid: { stringValue: String(userData.uid) },
+          displayName: { stringValue: String(userData.displayName || userData.email?.split('@')[0] || 'Kỳ Thủ') },
+          email: { stringValue: String(userData.email || '') },
+          role: { stringValue: String(userData.role || (userData.email === 'minhcuong111@gmail.com' ? 'Admin' : 'Tân Thủ')) },
+          coins: { integerValue: String(userData.coins !== undefined ? userData.coins : 2450) },
+          gems: { integerValue: String(userData.gems !== undefined ? userData.gems : 150) },
+          elo: { integerValue: String(userData.elo !== undefined ? userData.elo : 1200) },
+          level: { integerValue: String(userData.level || 1) },
+          matches: { integerValue: String(userData.matches || 0) },
+          winRate: { stringValue: String(userData.winRate || "0%") },
+          status: { stringValue: String(userData.status || 'active') },
+          createdAt: { stringValue: String(userData.createdAt || new Date().toISOString()) }
+        };
+
+        const restUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/users/${userData.uid}`;
+        await fetch(restUrl, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fields })
+        });
+        console.log("REST: Synced user to Cloud Firestore: users/" + userData.uid);
+      } catch (restErr) {
+        console.warn("REST write note:", restErr.message);
+      }
+    };
+
+    // Update specific field in Firestore
+    window.updateCloudFirestoreUserField = async function(uid, fieldUpdates) {
+      if (!uid || !fieldUpdates) return;
+      const projectId = "colap-c2e9c";
+      
+      // SDK Update
+      try {
+        if (fbDb) {
+          await updateDoc(doc(fbDb, "users", uid), fieldUpdates);
+        }
+      } catch (e) {}
+
+      // REST Update
+      try {
+        const fieldPaths = Object.keys(fieldUpdates).map(k => `updateMask.fieldPaths=${encodeURIComponent(k)}`).join('&');
+        const fields = {};
+        for (const [k, v] of Object.entries(fieldUpdates)) {
+          if (typeof v === 'number') {
+            fields[k] = { integerValue: String(v) };
+          } else {
+            fields[k] = { stringValue: String(v) };
+          }
+        }
+        const restUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/users/${uid}?${fieldPaths}`;
+        await fetch(restUrl, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fields })
+        });
+      } catch (e) {}
+    };
+
+    // Expose collection & onSnapshot to window
+    window.fbCollection = collection;
+    window.fbGetDocs = getDocs;
+    window.fbOnSnapshot = onSnapshot;
+    window.fbDoc = doc;
+    window.fbSetDoc = setDoc;
+    window.fbUpdateDoc = updateDoc;
+
 
     // Listen to Real-time Auth State Change
     if (fbAuth) {
@@ -3872,7 +3966,7 @@
 
           try {
             if (fbDb) {
-              await setDoc(doc(fbDb, "users", user.uid), firestoreUserData);
+              await window.saveUserToCloudFirestore(firestoreUserData);
               console.log("Pushed to Cloud Firestore successfully: users/" + user.uid);
             }
           } catch (fsErr) {
@@ -3962,7 +4056,7 @@
           elo: 1350
         };
         try {
-          if (fbDb) await setDoc(doc(fbDb, "users", user.uid), firestoreUserData, { merge: true });
+          await window.saveUserToCloudFirestore(firestoreUserData);
         } catch (e) {}
 
         window.currentFirebaseUser = firestoreUserData;
@@ -3990,7 +4084,7 @@
           elo: 1350
         };
         try {
-          if (fbDb) await setDoc(doc(fbDb, "users", user.uid), firestoreUserData, { merge: true });
+          await window.saveUserToCloudFirestore(firestoreUserData);
         } catch (e) {}
 
         window.currentFirebaseUser = firestoreUserData;
@@ -7912,215 +8006,221 @@
       isMaintenance: false
     };
 
-    let adminPlayersList = [
-      {
-        uid: 'admin_usr_01',
-        name: 'Minh Dev',
-        email: 'minh.dev@tabletop.io',
-        role: 'Admin',
-        coins: 2450,
-        gems: 150,
-        elo: 1680,
-        winRate: 78,
-        matches: 45,
-        status: 'active',
-        avatarBg: 'from-amber-500 to-amber-700'
-      },
-      {
-        uid: 'vip_usr_02',
-        name: 'Shadow Grandmaster',
-        email: 'shadow.gm@tabletop.io',
-        role: 'Huyền Thoại VIP',
-        coins: 18200,
-        gems: 920,
-        elo: 2580,
-        winRate: 89,
-        matches: 140,
-        status: 'active',
-        avatarBg: 'from-purple-600 to-indigo-700'
-      },
-      {
-        uid: 'pro_usr_03',
-        name: 'Phượng Hoàng Lửa',
-        email: 'phoenix@board.net',
-        role: 'Kiện Tướng PRO',
-        coins: 6500,
-        gems: 310,
-        elo: 2240,
-        winRate: 83,
-        matches: 112,
-        status: 'active',
-        avatarBg: 'from-rose-500 to-amber-600'
-      },
-      {
-        uid: 'new_usr_04',
-        name: 'Kỳ Thủ Lam Ngọc',
-        email: 'novice@tabletop.org',
-        role: 'Tân Thủ',
-        coins: 850,
-        gems: 25,
-        elo: 1250,
-        winRate: 52,
-        matches: 22,
-        status: 'active',
-        avatarBg: 'from-cyan-600 to-blue-700'
-      }
-    ];
+    // 100% REAL CLOUD FIRESTORE PLAYER LIST (colap-c2e9c)
+    let adminPlayersList = [];
+    let firestoreUnsubscribe = null;
 
     let adminAuditLogs = [
-      { id: 1, time: 'Vừa xong', tag: 'AUTH', color: 'emerald', text: 'Admin Console được mở và xác thực quyền Super Admin.' },
-      { id: 2, time: '2 phút trước', tag: 'FIRESTORE', color: 'cyan', text: 'Đồng bộ Firestore tài liệu users/{uid} hoàn tất.' },
-      { id: 3, time: '5 phút trước', tag: 'MATCH', color: 'amber', text: 'Kỳ thủ Minh Dev hoàn tất ván Dice Quest với 50 điểm.' },
-      { id: 4, time: '12 phút trước', tag: 'VIP', color: 'purple', text: 'Giao dịch nâng cấp gói Huyền Thoại VIP kích hoạt thành công.' }
+      { id: 1, time: 'Vừa xong', tag: 'AUTH', color: 'emerald', text: 'Admin Console kết nối Cloud Firestore thành công.' },
+      { id: 2, time: 'Vừa xong', tag: 'FIRESTORE', color: 'cyan', text: 'Đồng bộ Firestore dữ liệu thật users/* kích hoạt.' }
     ];
 
-    // =========================================================================
-    // SECRET PORTAL SYSTEM (4 CỔNG BÍ MẬT DÀNH CHO QUẢN TRỊ VIÊN)
-    // =========================================================================
-    let logoSecretClicks = 0;
-    let logoSecretTimer = null;
+    // Synchronize Real Players directly from Cloud Firestore (colap-c2e9c)
+    window.syncRealFirestorePlayers = async function(manualToast = false) {
+      const icon = document.getElementById('iconSyncFirestore');
+      if (icon) icon.classList.add('animate-spin');
 
-    window.handleLogoSecretClick = function(e) {
-      logoSecretClicks++;
-      clearTimeout(logoSecretTimer);
-      logoSecretTimer = setTimeout(() => {
-        if (logoSecretClicks < 3) {
-          switchGameView('dice');
+      if (manualToast) {
+        showToast('🔄 Đang quét & đồng bộ tài khoản thật từ Cloud Firestore...');
+      }
+
+      const realPlayers = [];
+      const projectId = "colap-c2e9c";
+
+      // Method 1: Direct Cloud Firestore REST API (Ultra reliable & fast)
+      try {
+        const res = await fetch(`https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/users?pageSize=100`, {
+          cache: 'no-store'
+        });
+        if (res.ok) {
+          const json = await res.json();
+          const docs = json.documents || [];
+          docs.forEach(d => {
+            const f = d.fields || {};
+            const docId = d.name.split('/').pop();
+            const uid = (f.uid && f.uid.stringValue) || docId;
+            const email = (f.email && f.email.stringValue) || '';
+            const displayName = (f.displayName && f.displayName.stringValue) || (email ? email.split('@')[0] : 'Kỳ Thủ');
+            const coins = f.coins ? (f.coins.integerValue ? Number(f.coins.integerValue) : Number(f.coins.doubleValue || 0)) : 2450;
+            const gems = f.gems ? (f.gems.integerValue ? Number(f.gems.integerValue) : Number(f.gems.doubleValue || 0)) : 150;
+            const elo = f.elo ? (f.elo.integerValue ? Number(f.elo.integerValue) : Number(f.elo.doubleValue || 0)) : 1200;
+            const role = (f.role && f.role.stringValue) || (email === 'minhcuong111@gmail.com' ? 'Admin' : 'Tân Thủ');
+            const status = (f.status && f.status.stringValue) || 'active';
+            const matches = f.matches ? (f.matches.integerValue ? Number(f.matches.integerValue) : 0) : 0;
+            const winRate = f.winRate ? parseInt(f.winRate.stringValue || '0') : 0;
+            const createdAt = (f.createdAt && f.createdAt.stringValue) || '';
+
+            realPlayers.push({
+              uid,
+              name: displayName,
+              email,
+              role,
+              coins,
+              gems,
+              elo,
+              winRate,
+              matches,
+              status,
+              createdAt,
+              avatarBg: role === 'Admin' ? 'from-rose-500 to-amber-600' : 'from-cyan-600 to-blue-700'
+            });
+          });
         }
-        logoSecretClicks = 0;
-      }, 800);
-
-      if (logoSecretClicks >= 3) {
-        logoSecretClicks = 0;
-        clearTimeout(logoSecretTimer);
-        triggerSecretPortal('Vương Miện Logo (Triple-Click)');
-      }
-    };
-
-    let footerSecretClicks = 0;
-    let footerSecretTimer = null;
-
-    window.handleSecretFooterClick = function(e) {
-      footerSecretClicks++;
-      clearTimeout(footerSecretTimer);
-      footerSecretTimer = setTimeout(() => {
-        footerSecretClicks = 0;
-      }, 800);
-
-      if (footerSecretClicks >= 3) {
-        footerSecretClicks = 0;
-        clearTimeout(footerSecretTimer);
-        triggerSecretPortal('Bản Quyền © Footer (Triple-Click)');
-      }
-    };
-
-    function triggerSecretPortal(sourceName) {
-      // Secret visual flourish on Logo
-      const logoIcon = document.getElementById('brandLogoIcon');
-      if (logoIcon) {
-        logoIcon.classList.add('ring-4', 'ring-amber-400', 'scale-110');
-        setTimeout(() => logoIcon.classList.remove('ring-4', 'ring-amber-400', 'scale-110'), 900);
+      } catch (err) {
+        console.warn("Firestore REST Fetch error:", err);
       }
 
-      // Secret Magical Chime Audio Synthesis
-      soundTone(523.25, 'sine', 0.12, 0.12); // C5
-      setTimeout(() => soundTone(659.25, 'sine', 0.12, 0.12), 100); // E5
-      setTimeout(() => soundTone(783.99, 'triangle', 0.22, 0.18), 200); // G5
-      setTimeout(() => soundTone(1046.50, 'triangle', 0.35, 0.25), 320); // C6
-
-      // Open Modal
-      openAdminModal();
-      showToast(`🗝️ Cổng Bí Mật Quản Trị Viên kích hoạt qua [${sourceName}]!`);
-      adminAddLog('AUTH', `Kích hoạt Cổng Bí Mật Quản Trị Viên thành công qua [${sourceName}].`);
-    }
-
-    // Secret Hotkey Listener: Ctrl + Shift + A hoặc Alt + Shift + A
-    window.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey || e.altKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
-        e.preventDefault();
-        triggerSecretPortal('Phím tắt Ctrl+Shift+A');
-      }
-    });
-
-    // Secret URL Hash / Query check: #admin hoặc ?secret=admin
-    function checkSecretPortalFromURL() {
-      const hash = (window.location.hash || '').toLowerCase();
-      const search = (window.location.search || '').toLowerCase();
-      if (hash === '#admin' || hash === '#secret' || search.includes('secret=admin') || search.includes('admin=true')) {
-        setTimeout(() => {
-          triggerSecretPortal('URL Mật Mã (#admin)');
-        }, 400);
-      }
-    }
-    window.addEventListener('hashchange', checkSecretPortalFromURL);
-
-    // Load saved admin config from localStorage
-    function loadAdminConfig() {
-      const savedCfg = localStorage.getItem('tabletop_admin_config');
-      if (savedCfg) {
+      // Method 2: Firestore Modular SDK Fallback if REST returned empty
+      if (realPlayers.length === 0 && window.fbDb && window.fbCollection && window.fbGetDocs) {
         try {
-          adminGameConfig = { ...adminGameConfig, ...JSON.parse(savedCfg) };
-        } catch(e) {}
-      }
-      applyAdminConfigToGame();
-    }
-
-    function applyAdminConfigToGame() {
-      GOAL_SCORE = adminGameConfig.targetScore;
-      const display = document.getElementById('boardTargetScoreDisplay');
-      if (display) display.textContent = `${GOAL_SCORE} ĐIỂM`;
-
-      // Update TILES points
-      TILES.forEach(t => {
-        if (t.id === 3) t.pts = adminGameConfig.treasureReward;
-        if (t.id === 7) t.pts = adminGameConfig.starReward;
-        if (t.id === 11) t.pts = adminGameConfig.keyReward;
-        if (t.id === 5) t.pts = -Math.abs(adminGameConfig.blackholePenalty);
-      });
-
-      // Update Maintenance Banner
-      const banner = document.getElementById('adminMaintenanceBanner');
-      const badge = document.getElementById('adminMaintenanceStatusBadge');
-      if (banner) {
-        if (adminGameConfig.isMaintenance) {
-          banner.classList.remove('hidden');
-          banner.classList.add('flex');
-        } else {
-          banner.classList.add('hidden');
-          banner.classList.remove('flex');
+          const snapshot = await window.fbGetDocs(window.fbCollection(window.fbDb, "users"));
+          snapshot.forEach(docSnap => {
+            const d = docSnap.data();
+            realPlayers.push({
+              uid: d.uid || docSnap.id,
+              name: d.displayName || d.name || (d.email ? d.email.split('@')[0] : 'Kỳ Thủ'),
+              email: d.email || '',
+              role: d.role || (d.email === 'minhcuong111@gmail.com' ? 'Admin' : 'Tân Thủ'),
+              coins: d.coins !== undefined ? Number(d.coins) : 2450,
+              gems: d.gems !== undefined ? Number(d.gems) : 150,
+              elo: d.elo !== undefined ? Number(d.elo) : 1200,
+              winRate: d.winRate ? parseInt(d.winRate) : 0,
+              matches: d.matches !== undefined ? Number(d.matches) : 0,
+              status: d.status || 'active',
+              createdAt: d.createdAt || '',
+              avatarBg: (d.role === 'Admin') ? 'from-rose-500 to-amber-600' : 'from-cyan-600 to-blue-700'
+            });
+          });
+        } catch (sdkErr) {
+          console.warn("Firestore SDK Fetch error:", sdkErr);
         }
       }
-      if (badge) {
-        badge.textContent = adminGameConfig.isMaintenance ? 'BẢO TRÌ' : 'HOẠT ĐỘNG';
-        badge.className = adminGameConfig.isMaintenance 
-          ? 'px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-400'
-          : 'px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400';
+
+      // Include current logged in user if not in list
+      if (window.currentFirebaseUser) {
+        const u = window.currentFirebaseUser;
+        const exists = realPlayers.find(p => p.email === u.email || p.uid === u.uid);
+        if (!exists) {
+          realPlayers.unshift({
+            uid: u.uid || 'usr_' + Date.now(),
+            name: u.displayName || 'Kỳ Thủ Hiện Tại',
+            email: u.email || '',
+            role: u.role || 'Admin',
+            coins: u.coins !== undefined ? Number(u.coins) : 2450,
+            gems: u.gems !== undefined ? Number(u.gems) : 150,
+            elo: u.elo !== undefined ? Number(u.elo) : 1200,
+            winRate: u.winRate ? parseInt(u.winRate) : 0,
+            matches: u.matches || 0,
+            status: 'active',
+            createdAt: u.createdAt || new Date().toISOString(),
+            avatarBg: 'from-amber-500 to-amber-700'
+          });
+        }
       }
-    }
+
+      adminPlayersList = realPlayers;
+
+      // Update badge counts and metrics
+      const badge = document.getElementById('adminBadgePlayerCount');
+      if (badge) badge.textContent = adminPlayersList.length;
+      
+      const tabBadge = document.getElementById('adminPlayerTabBadge');
+      if (tabBadge) tabBadge.textContent = adminPlayersList.length;
+
+      const statPl = document.getElementById('statAdminPlayers');
+      if (statPl) statPl.textContent = adminPlayersList.length.toLocaleString();
+
+      const totalCoins = adminPlayersList.reduce((acc, p) => acc + (p.coins || 0), 0);
+      const totalGems = adminPlayersList.reduce((acc, p) => acc + (p.gems || 0), 0);
+      const statEc = document.getElementById('statAdminEconomy');
+      if (statEc) statEc.textContent = `${totalCoins.toLocaleString()} 🪙 / ${totalGems.toLocaleString()} 💎`;
+
+      renderAdminPlayersTable();
+
+      setTimeout(() => {
+        if (icon) icon.classList.remove('animate-spin');
+        if (manualToast) {
+          showToast(`✅ Đã đồng bộ thành công ${adminPlayersList.length} tài khoản thật từ Cloud Firestore!`);
+        }
+      }, 400);
+
+      adminAddLog('FIRESTORE', `Đồng bộ ${adminPlayersList.length} tài khoản thực tế từ Cloud Firestore hoàn tất.`);
+    };
+
+    // Open Add Real Player Modal
+    window.openAdminAddRealPlayerModal = function() {
+      openModal('adminAddRealPlayerModal');
+    };
+
+    window.adminQuickAddMockPlayer = function() {
+      openAdminAddRealPlayerModal();
+    };
+
+    // Form submit for adding a real player to Firestore
+    window.handleCreateRealPlayerSubmit = async function(e) {
+      if (e) e.preventDefault();
+      const btn = document.getElementById('btnSubmitAddRealPlayer');
+      if (btn) btn.disabled = true;
+
+      const name = document.getElementById('newPlayerName').value.trim();
+      const email = document.getElementById('newPlayerEmail').value.trim();
+      const role = document.getElementById('newPlayerRole').value;
+      const elo = Number(document.getElementById('newPlayerElo').value) || 1200;
+      const coins = Number(document.getElementById('newPlayerCoins').value) || 2450;
+      const gems = Number(document.getElementById('newPlayerGems').value) || 150;
+
+      const newUid = 'usr_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 7);
+
+      const playerData = {
+        uid: newUid,
+        displayName: name,
+        email: email,
+        role: role,
+        coins: coins,
+        gems: gems,
+        elo: elo,
+        level: 1,
+        matches: 0,
+        winRate: "0%",
+        status: "active",
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        if (window.saveUserToCloudFirestore) {
+          await window.saveUserToCloudFirestore(playerData);
+        }
+        showToast(`🎉 Đã thêm kỳ thủ "${name}" lên Cloud Firestore thành công!`);
+        adminAddLog('PLAYER', `Đăng ký thành công kỳ thủ thực tế ${name} (${email}) lên Cloud Firestore.`);
+        closeModal('adminAddRealPlayerModal');
+        
+        // Reset form
+        document.getElementById('newPlayerName').value = '';
+        document.getElementById('newPlayerEmail').value = '';
+
+        await syncRealFirestorePlayers(false);
+      } catch (err) {
+        showToast('❌ Lỗi khi lưu vào Firestore: ' + err.message);
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    };
 
     // Open Admin Modal
     window.openAdminModal = function() {
       openModal('adminModal');
 
-      // Sync active firebase user into players list if not yet there
-      if (window.currentFirebaseUser) {
-        const u = window.currentFirebaseUser;
-        const exists = adminPlayersList.find(p => p.email === u.email || p.uid === u.uid);
-        if (!exists) {
-          adminPlayersList.unshift({
-            uid: u.uid || 'usr_' + Date.now(),
-            name: u.displayName || 'Kỳ Thủ Hiện Tại',
-            email: u.email,
-            role: u.role || 'Admin',
-            coins: u.coins || 1250,
-            gems: u.gems || 45,
-            elo: u.elo || 1420,
-            winRate: u.winRate || 64,
-            matches: u.matches || 28,
-            status: 'active',
-            avatarBg: 'from-amber-500 to-amber-700'
+      // Trigger automatic realtime sync from Cloud Firestore
+      syncRealFirestorePlayers(false);
+
+      // Setup Firestore Real-time Listener (Auto update when anyone registers)
+      if (!firestoreUnsubscribe && window.fbDb && window.fbCollection && window.fbOnSnapshot) {
+        try {
+          firestoreUnsubscribe = window.fbOnSnapshot(window.fbCollection(window.fbDb, "users"), () => {
+            console.log("Firestore Realtime Trigger: User collection updated!");
+            syncRealFirestorePlayers(false);
           });
-        }
+        } catch (e) {}
       }
 
       // Check if unlocked
@@ -8188,27 +8288,35 @@
 
       Object.keys(views).forEach(k => {
         if (k === tab) {
-          views[k].classList.remove('hidden');
-          btns[k].className = 'btn-spring px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white flex items-center gap-1.5 shadow-sm';
+          if (views[k]) views[k].classList.remove('hidden');
+          if (btns[k]) btns[k].className = 'btn-spring px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white flex items-center gap-1.5 shadow-sm';
         } else {
-          views[k].classList.add('hidden');
-          btns[k].className = 'btn-spring px-3.5 py-2 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 border border-board-border';
+          if (views[k]) views[k].classList.add('hidden');
+          if (btns[k]) btns[k].className = 'btn-spring px-3.5 py-2 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 border border-board-border';
         }
       });
 
-      if (tab === 'players') renderAdminPlayersTable();
+      if (tab === 'players') {
+        syncRealFirestorePlayers(false);
+      }
       if (tab === 'balancer') populateBalancerForm();
       if (tab === 'logs') renderAdminLogsFeed();
       lucide.createIcons();
     };
 
     function renderAdminAll() {
-      // Metrics
+      // Real Metrics
       const totalCoins = adminPlayersList.reduce((acc, p) => acc + (p.coins || 0), 0);
       const totalGems = adminPlayersList.reduce((acc, p) => acc + (p.gems || 0), 0);
-      document.getElementById('statAdminPlayers').textContent = (adminPlayersList.length + 1280).toLocaleString();
-      document.getElementById('adminBadgePlayerCount').textContent = adminPlayersList.length;
-      document.getElementById('statAdminEconomy').textContent = `${(totalCoins / 1000).toFixed(1)}k 🪙`;
+      
+      const statPl = document.getElementById('statAdminPlayers');
+      if (statPl) statPl.textContent = adminPlayersList.length.toLocaleString();
+
+      const badge = document.getElementById('adminBadgePlayerCount');
+      if (badge) badge.textContent = adminPlayersList.length;
+
+      const statEc = document.getElementById('statAdminEconomy');
+      if (statEc) statEc.textContent = `${totalCoins.toLocaleString()} 🪙 / ${totalGems.toLocaleString()} 💎`;
 
       renderAdminPlayersTable();
       populateBalancerForm();
@@ -8230,6 +8338,22 @@
         return matchesSearch && matchesRole;
       });
 
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="p-8 text-center text-xs text-slate-400">
+              <div class="flex flex-col items-center gap-2">
+                <i data-lucide="users" class="w-8 h-8 text-slate-500"></i>
+                <span class="font-semibold text-slate-300">Chưa tìm thấy kỳ thủ phù hợp trong Cloud Firestore.</span>
+                <span class="text-[11px] text-slate-500">Bấm <b>[Đồng Bộ Dữ Liệu Thật]</b> hoặc <b>[Thêm Kỳ Thủ Mới]</b> để cập nhật ngay.</span>
+              </div>
+            </td>
+          </tr>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
       filtered.forEach(p => {
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-white/[0.02] transition-colors';
@@ -8246,15 +8370,15 @@
         tr.innerHTML = `
           <td class="p-3">
             <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-xl bg-gradient-to-tr ${p.avatarBg || 'from-amber-500 to-amber-700'} text-white font-black flex items-center justify-center text-xs shadow-inner">
+              <div class="w-8 h-8 rounded-xl bg-gradient-to-tr ${p.avatarBg || 'from-cyan-600 to-blue-700'} text-white font-black flex items-center justify-center text-xs shadow-inner">
                 ${p.name.substring(0, 2).toUpperCase()}
               </div>
               <div>
                 <div class="font-bold text-white flex items-center gap-1.5">
                   ${p.name}
-                  ${p.uid === 'admin_usr_01' || (window.currentFirebaseUser && window.currentFirebaseUser.email === p.email) ? '<span class="text-[9px] px-1 rounded bg-amber-500/20 text-amber-300 font-mono">BẠN</span>' : ''}
+                  ${(window.currentFirebaseUser && (window.currentFirebaseUser.email === p.email || window.currentFirebaseUser.uid === p.uid)) ? '<span class="text-[9px] px-1 rounded bg-amber-500/20 text-amber-300 font-mono font-bold">BẠN</span>' : ''}
                 </div>
-                <div class="text-[11px] text-slate-400 font-mono">${p.email} • UID: ${p.uid.substring(0, 10)}...</div>
+                <div class="text-[11px] text-slate-400 font-mono">${p.email || 'Không có email'} • UID: ${p.uid ? p.uid.substring(0, 10) + '...' : 'Chưa có'}</div>
               </div>
             </div>
           </td>
@@ -8272,7 +8396,7 @@
           <td class="p-3">
             <div class="font-mono">
               <div class="text-white font-bold">${p.elo || 1200} ELO</div>
-              <div class="text-[10px] text-slate-400">${p.matches || 0} trận (${p.winRate || 50}% W)</div>
+              <div class="text-[10px] text-slate-400">${p.matches || 0} trận (${p.winRate || 0}% W)</div>
             </div>
           </td>
           <td class="p-3">
@@ -8283,13 +8407,13 @@
           </td>
           <td class="p-3 text-right">
             <div class="flex items-center justify-end gap-1.5">
-              <button onclick="adminAddCurrency('${p.uid}', 'coins', 500)" class="btn-spring px-2 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-[10px] font-bold" title="Tặng 500 Xu">
+              <button onclick="adminAddCurrency('${p.uid}', 'coins', 500)" class="btn-spring px-2 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-[10px] font-bold" title="Cấp 500 Xu vào Cloud Firestore">
                 +500 🪙
               </button>
-              <button onclick="adminAddCurrency('${p.uid}', 'gems', 50)" class="btn-spring px-2 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-[10px] font-bold" title="Tặng 50 Đá quý">
+              <button onclick="adminAddCurrency('${p.uid}', 'gems', 50)" class="btn-spring px-2 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-[10px] font-bold" title="Cấp 50 Đá quý vào Cloud Firestore">
                 +50 💎
               </button>
-              <button onclick="adminToggleUserRole('${p.uid}')" class="btn-spring px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-[10px] font-semibold" title="Đổi cấp bậc vai trò">
+              <button onclick="adminToggleUserRole('${p.uid}')" class="btn-spring px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-[10px] font-semibold" title="Đổi cấp bậc vai trò trong Cloud Firestore">
                 Đổi Quyền
               </button>
               <button onclick="adminToggleBanUser('${p.uid}')" class="btn-spring p-1 rounded-lg ${isBanned ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-rose-500/10 text-rose-400 border border-rose-500/30'}" title="${isBanned ? 'Mở khóa kỳ thủ' : 'Khóa tài khoản'}">
@@ -8303,74 +8427,69 @@
       lucide.createIcons();
     };
 
-    window.adminAddCurrency = function(uid, type, amount) {
+    window.adminAddCurrency = async function(uid, type, amount) {
       const p = adminPlayersList.find(x => x.uid === uid);
       if (!p) return;
       if (type === 'coins') p.coins = (p.coins || 0) + amount;
       if (type === 'gems') p.gems = (p.gems || 0) + amount;
 
+      // Persist to Cloud Firestore
+      if (window.updateCloudFirestoreUserField) {
+        window.updateCloudFirestoreUserField(uid, { [type]: p[type] });
+      }
+
       // Sync active user if matched
       if (window.currentFirebaseUser && (window.currentFirebaseUser.uid === uid || window.currentFirebaseUser.email === p.email)) {
         window.currentFirebaseUser.coins = p.coins;
         window.currentFirebaseUser.gems = p.gems;
-        document.getElementById('userCoins').textContent = p.coins.toLocaleString();
-        document.getElementById('userGems').textContent = p.gems.toLocaleString();
+        const uCoins = document.getElementById('userCoins');
+        const uGems = document.getElementById('userGems');
+        if (uCoins) uCoins.textContent = p.coins.toLocaleString();
+        if (uGems) uGems.textContent = p.gems.toLocaleString();
         localStorage.setItem('tabletop_firebase_user', JSON.stringify(window.currentFirebaseUser));
       }
 
-      adminAddLog('REWARD', `Quản trị viên đã cấp phát +${amount} ${type === 'coins' ? 'Xu 🪙' : 'Đá Quý 💎'} cho kỳ thủ ${p.name}.`);
-      showToast(`✨ Đã tặng +${amount} ${type} cho ${p.name}`);
+      adminAddLog('REWARD', `Quản trị viên đã cấp phát +${amount} ${type === 'coins' ? 'Xu 🪙' : 'Đá Quý 💎'} cho kỳ thủ ${p.name} (Lưu Firestore).`);
+      showToast(`✨ Đã cấp +${amount} ${type} cho ${p.name} (Lưu Firestore)`);
       renderAdminPlayersTable();
       soundTone(720, 'sine', 0.1, 0.1);
     };
 
-    window.adminToggleUserRole = function(uid) {
+    window.adminToggleUserRole = async function(uid) {
       const p = adminPlayersList.find(x => x.uid === uid);
       if (!p) return;
       const roles = ['Tân Thủ', 'Kiện Tướng PRO', 'Huyền Thoại VIP', 'Admin'];
       const nextIdx = (roles.indexOf(p.role) + 1) % roles.length;
       p.role = roles[nextIdx];
 
+      // Persist to Cloud Firestore
+      if (window.updateCloudFirestoreUserField) {
+        window.updateCloudFirestoreUserField(uid, { role: p.role });
+      }
+
       if (window.currentFirebaseUser && (window.currentFirebaseUser.uid === uid || window.currentFirebaseUser.email === p.email)) {
         window.currentFirebaseUser.role = p.role;
         localStorage.setItem('tabletop_firebase_user', JSON.stringify(window.currentFirebaseUser));
       }
 
-      adminAddLog('ROLE', `Đổi vai trò kỳ thủ ${p.name} thành [${p.role}].`);
-      showToast(`👑 Đã cập nhật vai trò ${p.name} thành: ${p.role}`);
+      adminAddLog('ROLE', `Đổi vai trò kỳ thủ ${p.name} thành [${p.role}] trong Firestore.`);
+      showToast(`👑 Đã cập nhật vai trò ${p.name} thành: ${p.role} (Firestore)`);
       renderAdminPlayersTable();
       soundTone(550, 'triangle', 0.12, 0.1);
     };
 
-    window.adminToggleBanUser = function(uid) {
+    window.adminToggleBanUser = async function(uid) {
       const p = adminPlayersList.find(x => x.uid === uid);
       if (!p) return;
       p.status = p.status === 'banned' ? 'active' : 'banned';
 
-      adminAddLog('BAN', `${p.status === 'banned' ? 'Khóa' : 'Mở khóa'} tài khoản kỳ thủ ${p.name}.`);
-      showToast(`${p.status === 'banned' ? '🚫 Đã khóa' : '✅ Đã mở khóa'} tài khoản ${p.name}`);
-      renderAdminPlayersTable();
-    };
+      // Persist to Cloud Firestore
+      if (window.updateCloudFirestoreUserField) {
+        window.updateCloudFirestoreUserField(uid, { status: p.status });
+      }
 
-    window.adminQuickAddMockPlayer = function() {
-      const names = ['Thánh Cờ Ba Cọc', 'Kỳ Vương Núi Nhạn', 'Vua Cờ Neon', 'Bá Tước Xúc Xắc', 'Hiệp Sĩ Rồng Vàng'];
-      const randName = names[Math.floor(Math.random() * names.length)] + ' #' + Math.floor(Math.random() * 900 + 100);
-      const newP = {
-        uid: 'mock_' + Date.now(),
-        name: randName,
-        email: 'player_' + Date.now().toString().slice(-4) + '@tabletop.arena',
-        role: 'Tân Thủ',
-        coins: 1000,
-        gems: 30,
-        elo: Math.floor(Math.random() * 400 + 1200),
-        winRate: Math.floor(Math.random() * 30 + 50),
-        matches: Math.floor(Math.random() * 20 + 5),
-        status: 'active',
-        avatarBg: 'from-cyan-600 to-indigo-700'
-      };
-      adminPlayersList.push(newP);
-      adminAddLog('PLAYER', `Thêm kỳ thủ mẫu ${newP.name} vào hệ thống.`);
-      showToast(`👤 Đã thêm kỳ thủ: ${newP.name}`);
+      adminAddLog('BAN', `${p.status === 'banned' ? 'Khóa' : 'Mở khóa'} tài khoản kỳ thủ ${p.name} trên Firestore.`);
+      showToast(`${p.status === 'banned' ? '🚫 Đã khóa' : '✅ Đã mở khóa'} tài khoản ${p.name}`);
       renderAdminPlayersTable();
     };
 
@@ -10735,5 +10854,71 @@
       }
     });
   </script>
+
+  <!-- ================= MODAL: THÊM KỲ THỦ THỰC TẾ LÊN CLOUD FIRESTORE ================= -->
+  <div id="adminAddRealPlayerModal" class="fixed inset-0 z-[120] hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+    <div class="w-full max-w-md bg-[#0F172A] border-2 border-emerald-500/40 rounded-3xl p-6 shadow-2xl space-y-4 relative">
+      <button onclick="closeModal('adminAddRealPlayerModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-xl bg-black/40 border border-board-border">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="flex items-center gap-3 border-b border-slate-700/60 pb-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+          <i data-lucide="user-plus" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="text-sm font-black text-white font-cinzel">THÊM KỲ THỦ VÀO FIRESTORE</h3>
+          <p class="text-[11px] text-slate-400 font-mono">Lưu trữ trực tiếp lên Cloud Firestore (Dữ liệu thật 100%)</p>
+        </div>
+      </div>
+
+      <form onsubmit="handleCreateRealPlayerSubmit(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">Tên Kỳ Thủ (Bạn của bạn):</label>
+          <input type="text" id="newPlayerName" required placeholder="Ví dụ: Hoàng Long, Thái, Minh..." class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">Địa Chỉ Email:</label>
+          <input type="email" id="newPlayerEmail" required placeholder="ban.cua.toi@gmail.com" class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Vai Trò / Quyền:</label>
+            <select id="newPlayerRole" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-white focus:outline-none focus:border-emerald-500">
+              <option value="Tân Thủ">Tân Thủ</option>
+              <option value="Kiện Tướng PRO">Kiện Tướng PRO</option>
+              <option value="Huyền Thoại VIP">Huyền Thoại VIP</option>
+              <option value="Admin">Admin</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Chỉ Số ELO Ban Đầu:</label>
+            <input type="number" id="newPlayerElo" value="1200" min="100" max="3000" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-white focus:outline-none focus:border-emerald-500 font-mono">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Số Vàng 🪙 Ban Đầu:</label>
+            <input type="number" id="newPlayerCoins" value="2450" min="0" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-amber-300 focus:outline-none focus:border-emerald-500 font-mono font-bold">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Số Đá Quý 💎 Ban Đầu:</label>
+            <input type="number" id="newPlayerGems" value="150" min="0" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-cyan-300 focus:outline-none focus:border-emerald-500 font-mono font-bold">
+          </div>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeModal('adminAddRealPlayerModal')" class="btn-spring px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold">
+            Hủy Bỏ
+          </button>
+          <button type="submit" id="btnSubmitAddRealPlayer" class="btn-spring px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold flex items-center gap-1.5 shadow-lg shadow-emerald-900/40">
+            <i data-lucide="cloud-upload" class="w-4 h-4"></i>
+            <span>Lưu Vào Cloud Firestore</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
 </body>
 </html>

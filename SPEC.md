@@ -751,3 +751,68 @@ Cho phép người chơi chọn Hero trước trận hoặc chuyển đổi linh
   - Âm thanh đếm tiền xào xạc kết hợp tiếng leng keng kim loại vàng bạc.
 
 ---
+
+### Phần 31: Nghiệm Thu Kỹ Thuật v3.8.5 — Sập Cửa Sắt Trại Giam & Bộ Mô Hình Nhà 3D Isometric Chuẩn Business Tour
+
+#### 1. Bối cảnh & Mục tiêu Nâng cấp
+- **Triển khai chuẩn quy trình**: Kích hoạt **Argon-Flash Orchestrator** (Gemini 4 Argon làm Tổng công trình sư thiết kế kiến trúc, Gemini 3.8 Flash làm Kỹ sư thực thi code & kiểm chứng).
+- **Khắc phục triệt để**:
+  1. Rà soát nguyên nhân người dùng chưa thấy hoạt ảnh tiền và máy bay ở v3.8.0 (do bot mua/nâng cấp và trả tiền thuê chưa được gắn trigger hoạt ảnh).
+  2. Bổ sung hiệu ứng **Cánh Cửa Sắt Nhà Tù Sập Xuống (Jail Gate Slam Animation)** kèm âm thanh kim loại va đập đanh thép và ổ khóa đại bàng bấm chặt.
+  3. Thay thế toàn bộ mô hình nhà cũ bằng **Bộ Mô Hình Nhà 3D Isometric Chuẩn Business Tour** (theo ảnh tham khảo `media_1793024677897_7df0f6ec.jpg`).
+  4. Bổ sung nút bấm tương tác **"✈️ Bay Thử"** ngay trên thanh soi chi tiết ô Sân Bay Tân An (Tile 18) giúp người dùng kích hoạt xem máy bay bất cứ lúc nào.
+
+#### 2. Chi tiết Kỹ thuật Tính năng v3.8.5
+
+##### A. Hiệu Ứng Cánh Cửa Sắt Nhà Tù Sập Xuống (`#monoJailGateOverlay`)
+- **Kích hoạt tự động khi**:
+  - Dừng chân đúng vào **Ô 27: VÔ TÙ (GOTOJAIL)**.
+  - Gieo số đôi 3 lần liên tiếp trong một lượt (**Bị phạt quá tốc độ - Speeding penalty**).
+- **Cấu trúc thị giác**:
+  - Hai cánh cửa sắt dày đan song song (`#monoJailGateLeft` và `#monoJailGateRight`) với các thanh thép titan phản quang chạy dọc và 3 dải giằng thép ngang chịu lực.
+  - Hai cánh cửa trượt tốc độ cao từ hai mép màn hình vào giữa và va đập sầm với rung chấn màn hình (`monoGateScreenShake`).
+  - Ổ khóa vàng đại bàng khổng lồ (`#monoJailPadlock`) thả từ trên xuống bấm khóa chặt 2 cánh cửa.
+  - Biển cảnh báo Neon phát quang: *"TRẠI GIAM HOÀNG GIA - CÁNH CỬA SẮT ĐÃ SẬP XUỐNG!"*.
+- **Âm thanh tổng hợp Web Audio API**:
+  - Tiếng kim loại trượt xích (`160Hz sawtooth`).
+  - Tiếng va đập sập cửa sắt cực mạnh (`110Hz sawtooth` + `720Hz square`).
+  - Tiếng ổ khóa bập lại giòn giã (`1280Hz sine`).
+
+##### B. Bộ Mô Hình Nhà 3D Isometric Chuẩn "Business Tour"
+Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận diện của từng kỳ thủ:
+1. **Cấp 1 - Nhà Vườn Nghỉ Dưỡng (Cottage Lv.1)**:
+   - Đế cỏ xanh tự nhiên vát cạnh 3D.
+   - Tường thạch cao trắng phong cách low-poly vát cạnh.
+   - Cửa gỗ sồi tay nắm vàng, cửa sổ kính màu xanh phản chiếu bầu trời.
+   - Ống khói gạch nung cổ điển với từng làn khói tròn lượn lờ bốc lên.
+   - Mái dốc chữ A đôi màu theo màu đại diện của người chơi.
+2. **Cấp 2 - Biệt Thự Nghỉ Dưỡng Song Lập 2 Tầng (Duplex Resort Villa Lv.2)**:
+   - Đế lát sân đá hoa cương granite sang trọng.
+   - Nhà 2 tầng bề thế với ban công tầng trên có lan can trắng.
+   - Cổng vòm đón khách, hệ thống cửa sổ kính sáng đèn ấm áp.
+   - Mái ngói đa tầng màu người chơi, đỉnh mái gắn chong chóng gió mạ vàng.
+3. **Cấp 3 - Tổ Hợp Khách Sạn Chọc Trời (Skyscraper Hotel Tower Lv.3 - Landmark)**:
+   - Đế móng bê tông cốt thép chịu lực cao cấp.
+   - Tháp cao tầng phong cách hiện đại với các dải kính phản quang xanh cyan, lưới cửa sổ phát sáng lộng lẫy về đêm.
+   - Biển hiệu vàng Neon "HOTEL" ngay trên mái hiên tầng trệt.
+   - Tầng thượng tích hợp sân bay trực thăng hình tròn với chữ "H" nổi bật, cột cờ tung bay.
+- **Cơ chế chống nghiêng 2.5D**: Áp dụng class `.mono-upright-3d` giúp công trình luôn đứng thẳng tắp 90° trên mặt bàn cờ nghiêng 30°.
+
+##### C. Mạng Lưới Kích Hoạt Hoạt Ảnh Toàn Diện
+- **Hoạt ảnh chuyển tiền (`triggerMonoCashTransfer`)**:
+  - Người chơi mua đất -> Tiền bay vào Ngân Hàng.
+  - Người chơi nâng cấp nhà -> Tiền bay vào Ngân Hàng.
+  - BOT mua đất -> Tiền bay vào Ngân Hàng.
+  - BOT nâng cấp nhà -> Tiền bay vào Ngân Hàng.
+  - Trả tiền thuê đất (Người trả BOT, BOT trả BOT, BOT trả Người) -> Tiền bay trực tiếp vào túi đối thủ.
+- **Hoạt ảnh máy bay (`triggerMonoAirplaneFlyby`)**:
+  - Kích hoạt khi đáp xuống ô Sân Bay Tân An (Tile 18).
+  - Tích hợp nút **"✈️ Bay Thử"** ngay trong bảng soi chi tiết ô đất giúp xem nhanh bất cứ lúc nào.
+
+#### 3. Kiểm Chứng Chất Lượng & Parity
+- **Edge Headless Screenshots**:
+  - `verify_v385_board_houses.png`: Bàn cờ 2.5D hiển thị đầy đủ nhà Cấp 1, Cấp 2, Cấp 3 và nút Bay Thử.
+  - `verify_v385_jail_slam.png`: Cánh cửa sắt nhà tù sập xuống kèm ổ khóa khóa chặt.
+  - `verify_v385_airplane.png`: Máy bay phản lực thương mại bay qua sân bay.
+  - `verify_v385_cash.png`: Chồng tiền $3,150 (3 cọc USD, 1 xu vàng, 1 xu bạc) bay vào Ngân Hàng.
+- **SHA256 Parity**: 100% khớp bit giữa 3 tệp nguồn và bản phân phối Download.

@@ -534,7 +534,47 @@
     }
 
   
-    /* === AIRPLANE FLYBY & CASH TRANSFER ANIMATIONS (v3.8.0) === */
+    
+    /* === JAIL GATE SLAM ANIMATION (v3.8.5) === */
+    @keyframes monoGateSlamLeft {
+      0% { transform: translateX(-100%); }
+      70% { transform: translateX(2.5%); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes monoGateSlamRight {
+      0% { transform: translateX(100%); }
+      70% { transform: translateX(-2.5%); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes monoPadlockSnap {
+      0% { transform: translate(-50%, -120px) scale(0.4); opacity: 0; }
+      25% { opacity: 1; }
+      70% { transform: translate(-50%, -46%) scale(1.15); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+    @keyframes monoGateScreenShake {
+      0%, 100% { transform: translate(0, 0); }
+      15% { transform: translate(-6px, 6px); }
+      35% { transform: translate(6px, -4px); }
+      55% { transform: translate(-4px, 3px); }
+      75% { transform: translate(3px, -2px); }
+    }
+
+    .mono-gate-slam-left {
+      animation: monoGateSlamLeft 0.45s cubic-bezier(0.18, 0.89, 0.32, 1.25) both;
+    }
+    .mono-gate-slam-right {
+      animation: monoGateSlamRight 0.45s cubic-bezier(0.18, 0.89, 0.32, 1.25) both;
+    }
+    .mono-padlock-snap {
+      animation: monoPadlockSnap 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 0.10s both;
+    }
+    .mono-gate-screen-shake {
+      animation: monoGateScreenShake 0.4s ease-out 0.42s;
+    }
+
+    /* === AIRPLANE FLYBY & CASH TRANSFER ANIMATIONS (v3.8.5) === */
+
     @keyframes monoAirplaneFlight {
       0% {
         top: 110%;
@@ -565,21 +605,33 @@
 
     @keyframes monoCashFlightArc {
       0% {
-        left: 22%;
+        left: 24%;
         transform: translateY(-50%) scale(0.9) rotate(-4deg);
-        opacity: 0;
+        opacity: 0.95;
       }
-      15% {
+      25% {
+        left: 36%;
         opacity: 1;
         transform: translateY(calc(-50% - 25px)) scale(1.08) rotate(3deg);
       }
-      65% {
+      50% {
+        left: 46%;
         opacity: 1;
-        transform: translateY(calc(-50% - 10px)) scale(1) rotate(-1deg);
+        transform: translateY(calc(-50% - 28px)) scale(1.1) rotate(0deg);
+      }
+      75% {
+        left: 58%;
+        opacity: 1;
+        transform: translateY(calc(-50% - 14px)) scale(1.02) rotate(-1deg);
+      }
+      90% {
+        left: 65%;
+        opacity: 0.85;
+        transform: translateY(-50%) scale(0.8) rotate(4deg);
       }
       100% {
         left: 68%;
-        transform: translateY(-50%) scale(0.6) rotate(6deg);
+        transform: translateY(-50%) scale(0.5) rotate(6deg);
         opacity: 0;
       }
     }
@@ -692,7 +744,7 @@
         <!-- Version & Contributor Changelog Pill -->
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v3.8.0</span>
+          <span id="headerVersionPill" class="font-bold">v3.8.5</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -1991,7 +2043,7 @@
         </div>
 
         <!-- 3x3 Tactile Grid (Tối ưu responsive không bị tràn màn hình) -->
-        <div class="grid grid-cols-3 gap-2.5 sm:gap-3 w-full max-w-[320px] aspect-square mx-auto mb-3.5 p-2.5 rounded-2xl bg-board-tray border-2 border-board-border shadow-inner" id="tttGrid">
+        <div class="grid grid-cols-3 grid-rows-3 gap-2.5 sm:gap-3 w-full max-w-[340px] aspect-square mx-auto mb-3.5 p-2.5 rounded-2xl bg-board-tray border-2 border-board-border shadow-inner" id="tttGrid">
         </div>
 
         <!-- Compact Tri-Scoreboard -->
@@ -2330,6 +2382,66 @@
         </div>
 
         
+        
+        <!-- ================= SCREEN-SPACE JAIL GATE SLAM OVERLAY (Tile 27 Vô Tù / 3 Lần Đôi) ================= -->
+        <div id="monoJailGateOverlay" class="hidden absolute inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md pointer-events-none select-none overflow-hidden">
+          <div id="monoJailGateBox" class="relative w-full max-w-2xl h-[420px] rounded-3xl border-4 border-slate-700 bg-[#070b14]/90 shadow-[0_0_80px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col items-center justify-between p-6">
+            <!-- Jail Bars Left Half -->
+            <div id="monoJailGateLeft" class="absolute top-0 bottom-0 left-0 w-1/2 flex justify-around bg-gradient-to-r from-slate-900/90 via-slate-800/80 to-slate-900/95 border-r-4 border-slate-600 shadow-2xl z-10">
+              <div class="w-3.5 h-full bg-gradient-to-r from-slate-400 via-slate-200 to-slate-600 shadow-lg border-x border-slate-950"></div>
+              <div class="w-3.5 h-full bg-gradient-to-r from-slate-400 via-slate-200 to-slate-600 shadow-lg border-x border-slate-950"></div>
+              <div class="w-3.5 h-full bg-gradient-to-r from-slate-400 via-slate-200 to-slate-600 shadow-lg border-x border-slate-950"></div>
+              <div class="w-3.5 h-full bg-gradient-to-r from-slate-400 via-slate-200 to-slate-600 shadow-lg border-x border-slate-950"></div>
+              <div class="w-4 h-full bg-gradient-to-r from-slate-500 via-slate-300 to-slate-700 shadow-xl border-x border-slate-950"></div>
+              <!-- Horizontal Reinforcement Steel Bars -->
+              <div class="absolute top-16 left-0 right-0 h-4 bg-gradient-to-b from-slate-400 via-slate-200 to-slate-600 border-y border-slate-950 shadow-md"></div>
+              <div class="absolute bottom-16 left-0 right-0 h-4 bg-gradient-to-b from-slate-400 via-slate-200 to-slate-600 border-y border-slate-950 shadow-md"></div>
+              <div class="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-5 bg-gradient-to-b from-slate-400 via-slate-200 to-slate-600 border-y border-slate-950 shadow-md"></div>
+            </div>
+
+            <!-- Jail Bars Right Half -->
+            <div id="monoJailGateRight" class="absolute top-0 bottom-0 right-0 w-1/2 flex justify-around bg-gradient-to-l from-slate-900/90 via-slate-800/80 to-slate-900/95 border-l-4 border-slate-600 shadow-2xl z-10">
+              <div class="w-4 h-full bg-gradient-to-r from-slate-500 via-slate-300 to-slate-700 shadow-xl border-x border-slate-950"></div>
+              <div class="w-3.5 h-full bg-gradient-to-r from-slate-400 via-slate-200 to-slate-600 shadow-lg border-x border-slate-950"></div>
+              <div class="w-3.5 h-full bg-gradient-to-r from-slate-400 via-slate-200 to-slate-600 shadow-lg border-x border-slate-950"></div>
+              <div class="w-3.5 h-full bg-gradient-to-r from-slate-400 via-slate-200 to-slate-600 shadow-lg border-x border-slate-950"></div>
+              <div class="w-3.5 h-full bg-gradient-to-r from-slate-400 via-slate-200 to-slate-600 shadow-lg border-x border-slate-950"></div>
+              <!-- Horizontal Reinforcement Steel Bars -->
+              <div class="absolute top-16 left-0 right-0 h-4 bg-gradient-to-b from-slate-400 via-slate-200 to-slate-600 border-y border-slate-950 shadow-md"></div>
+              <div class="absolute bottom-16 left-0 right-0 h-4 bg-gradient-to-b from-slate-400 via-slate-200 to-slate-600 border-y border-slate-950 shadow-md"></div>
+              <div class="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-5 bg-gradient-to-b from-slate-400 via-slate-200 to-slate-600 border-y border-slate-950 shadow-md"></div>
+            </div>
+
+            <!-- Heavy Solid Steel Padlock Center -->
+            <div id="monoJailPadlock" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
+              <div class="w-16 h-20 rounded-t-full border-[7px] border-slate-300 bg-transparent -mb-5 shadow-2xl"></div>
+              <div class="w-24 h-24 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-700 border-4 border-amber-300 shadow-[0_0_35px_rgba(245,158,11,0.8)] flex flex-col items-center justify-center relative">
+                <span class="text-3xl filter drop-shadow">🔒</span>
+                <div class="w-3 h-4 bg-slate-950 rounded-full mt-1"></div>
+              </div>
+            </div>
+
+            <!-- Prison Header Banner -->
+            <div class="z-30 flex flex-col items-center gap-1.5 mt-2 bg-slate-950/90 px-6 py-2 rounded-2xl border-2 border-rose-500/70 shadow-[0_0_25px_rgba(244,63,94,0.6)]">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">🚨</span>
+                <span class="text-xs sm:text-sm font-black font-chakra uppercase tracking-widest text-rose-400">TRẠI GIAM HOÀNG GIA</span>
+                <span class="text-xl">🚨</span>
+              </div>
+              <span class="text-xl sm:text-2xl font-black font-cinzel text-white tracking-wide text-center uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                CÁNH CỬA SẮT ĐÃ SẬP XUỐNG!
+              </span>
+            </div>
+
+            <!-- Subtitle Reason -->
+            <div class="z-30 mb-2 bg-black/80 px-5 py-2 rounded-xl border border-white/20 text-center max-w-md">
+              <p id="monoJailGateReason" class="text-xs sm:text-sm text-amber-200 font-bold leading-relaxed">
+                Người chơi bị tống giam 3 lượt hoặc phải đổ đôi / nộp $500 để bảo lãnh!
+              </p>
+            </div>
+          </div>
+        </div>
+
         <!-- ================= SCREEN-SPACE AIRPLANE FLYBY OVERLAY (Tile 18 Sân Bay / Dịch Chuyển) ================= -->
         <div id="monoAirplaneOverlay" class="hidden absolute inset-0 z-50 flex flex-col items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fade-in pointer-events-none select-none overflow-hidden">
           
@@ -2553,7 +2665,7 @@
 
       </div>
 
-      <!-- Close #mainViewArena properly here -->
+          </div> <!-- Close #mainViewArena properly here -->
 
 
     <!-- VIEWPORT 2: LEADERBOARDS (BẢNG PHONG THẦN CHUYÊN BIỆT) -->
@@ -3450,7 +3562,7 @@
           <button id="adminTabBtn2" onclick="switchAdminTab('players')" class="btn-spring px-3.5 py-2 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 border border-board-border">
             <i data-lucide="users" class="w-4 h-4 text-cyan-400"></i>
             <span>Quản Lý Kỳ Thủ</span>
-            <span id="adminBadgePlayerCount" class="text-[10px] px-1.5 py-0.2 rounded-full bg-cyan-500/20 text-cyan-300 font-mono">4</span>
+            <span id="adminBadgePlayerCount" class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-mono font-bold animate-pulse">1</span>
           </button>
           <button id="adminTabBtn3" onclick="switchAdminTab('balancer')" class="btn-spring px-3.5 py-2 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 border border-board-border">
             <i data-lucide="sliders" class="w-4 h-4 text-amber-400"></i>
@@ -3630,10 +3742,16 @@
                   <option value="Kiện Tướng PRO">Kiện Tướng PRO</option>
                   <option value="Tân Thủ">Tân Thủ</option>
                 </select>
-                <button onclick="adminQuickAddMockPlayer()" class="btn-spring px-3 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1.5">
-                  <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
-                  <span>Thêm Kỳ Thủ Mẫu</span>
-                </button>
+                <div class="flex items-center gap-2">
+                  <button onclick="syncRealFirestorePlayers(true)" id="btnAdminSyncFirestore" class="btn-spring px-3 py-2 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/40 font-bold flex items-center gap-1.5 transition-all shadow-sm" title="Quét và tải toàn bộ tài khoản thực tế từ Cloud Firestore">
+                    <i data-lucide="refresh-cw" id="iconSyncFirestore" class="w-3.5 h-3.5 text-cyan-400"></i>
+                    <span>Đồng Bộ Dữ Liệu Thật</span>
+                  </button>
+                  <button onclick="openAdminAddRealPlayerModal()" class="btn-spring px-3 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 font-bold flex items-center gap-1.5 transition-all shadow-sm" title="Tạo tài khoản kỳ thủ mới và lưu trực tiếp lên Cloud Firestore">
+                    <i data-lucide="user-plus" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <span>Thêm Kỳ Thủ Mới</span>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -3785,7 +3903,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.8.0</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.8.5</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -3923,7 +4041,10 @@
       doc, 
       setDoc, 
       getDoc, 
-      updateDoc 
+      updateDoc,
+      collection,
+      getDocs,
+      onSnapshot 
     } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
     // Default or Custom Firebase Config
@@ -3955,6 +4076,91 @@
     // Expose Firebase Auth Handler Functions to Window Scope
     window.fbAuth = fbAuth;
     window.fbDb = fbDb;
+
+    // Universal Real-Time Firestore Sync Helper (SDK + REST Fallback)
+    window.saveUserToCloudFirestore = async function(userData) {
+      if (!userData || !userData.uid) return;
+      const projectId = "colap-c2e9c";
+      
+      // 1. Try SDK Write
+      try {
+        if (fbDb) {
+          await setDoc(doc(fbDb, "users", userData.uid), userData, { merge: true });
+          console.log("SDK: Saved user to Cloud Firestore: users/" + userData.uid);
+        }
+      } catch (err) {
+        console.warn("SDK write note:", err.message);
+      }
+
+      // 2. Direct Firestore REST API Write (Guaranteed Persistence)
+      try {
+        const fields = {
+          uid: { stringValue: String(userData.uid) },
+          displayName: { stringValue: String(userData.displayName || userData.email?.split('@')[0] || 'Kỳ Thủ') },
+          email: { stringValue: String(userData.email || '') },
+          role: { stringValue: String(userData.role || (userData.email === 'minhcuong111@gmail.com' ? 'Admin' : 'Tân Thủ')) },
+          coins: { integerValue: String(userData.coins !== undefined ? userData.coins : 2450) },
+          gems: { integerValue: String(userData.gems !== undefined ? userData.gems : 150) },
+          elo: { integerValue: String(userData.elo !== undefined ? userData.elo : 1200) },
+          level: { integerValue: String(userData.level || 1) },
+          matches: { integerValue: String(userData.matches || 0) },
+          winRate: { stringValue: String(userData.winRate || "0%") },
+          status: { stringValue: String(userData.status || 'active') },
+          createdAt: { stringValue: String(userData.createdAt || new Date().toISOString()) }
+        };
+
+        const restUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/users/${userData.uid}`;
+        await fetch(restUrl, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fields })
+        });
+        console.log("REST: Synced user to Cloud Firestore: users/" + userData.uid);
+      } catch (restErr) {
+        console.warn("REST write note:", restErr.message);
+      }
+    };
+
+    // Update specific field in Firestore
+    window.updateCloudFirestoreUserField = async function(uid, fieldUpdates) {
+      if (!uid || !fieldUpdates) return;
+      const projectId = "colap-c2e9c";
+      
+      // SDK Update
+      try {
+        if (fbDb) {
+          await updateDoc(doc(fbDb, "users", uid), fieldUpdates);
+        }
+      } catch (e) {}
+
+      // REST Update
+      try {
+        const fieldPaths = Object.keys(fieldUpdates).map(k => `updateMask.fieldPaths=${encodeURIComponent(k)}`).join('&');
+        const fields = {};
+        for (const [k, v] of Object.entries(fieldUpdates)) {
+          if (typeof v === 'number') {
+            fields[k] = { integerValue: String(v) };
+          } else {
+            fields[k] = { stringValue: String(v) };
+          }
+        }
+        const restUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/users/${uid}?${fieldPaths}`;
+        await fetch(restUrl, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fields })
+        });
+      } catch (e) {}
+    };
+
+    // Expose collection & onSnapshot to window
+    window.fbCollection = collection;
+    window.fbGetDocs = getDocs;
+    window.fbOnSnapshot = onSnapshot;
+    window.fbDoc = doc;
+    window.fbSetDoc = setDoc;
+    window.fbUpdateDoc = updateDoc;
+
 
     // Listen to Real-time Auth State Change
     if (fbAuth) {
@@ -4064,7 +4270,7 @@
 
           try {
             if (fbDb) {
-              await setDoc(doc(fbDb, "users", user.uid), firestoreUserData);
+              await window.saveUserToCloudFirestore(firestoreUserData);
               console.log("Pushed to Cloud Firestore successfully: users/" + user.uid);
             }
           } catch (fsErr) {
@@ -4154,7 +4360,7 @@
           elo: 1350
         };
         try {
-          if (fbDb) await setDoc(doc(fbDb, "users", user.uid), firestoreUserData, { merge: true });
+          await window.saveUserToCloudFirestore(firestoreUserData);
         } catch (e) {}
 
         window.currentFirebaseUser = firestoreUserData;
@@ -4182,7 +4388,7 @@
           elo: 1350
         };
         try {
-          if (fbDb) await setDoc(doc(fbDb, "users", user.uid), firestoreUserData, { merge: true });
+          await window.saveUserToCloudFirestore(firestoreUserData);
         } catch (e) {}
 
         window.currentFirebaseUser = firestoreUserData;
@@ -5085,14 +5291,18 @@
     }
 
     function handleGaugeClick() {
-      if (currentTurn === 1 && !isDiceRolling && !isSpectatorMode) {
-        handleDiceClickWithTiming();
-      }
+      if (isDiceRolling || isSpectatorMode) return;
+      if (currentOpponent === 'bot' && currentTurn !== 1) return;
+      handleDiceClickWithTiming();
     }
 
     function handleDiceClickWithTiming() {
       if (isDiceRolling) return;
-      if (currentTurn !== 1 && !isSpectatorMode) return;
+      if (isSpectatorMode) return;
+      if (currentOpponent === 'bot' && currentTurn !== 1) {
+        showToast("⏳ Đang là lượt của Bot, vui lòng đợi...");
+        return;
+      }
       
       const res = getRollFromTiming(timingPos);
       rollDiceQuest(res.roll, res.isCrit);
@@ -5133,7 +5343,7 @@
 
     function triggerSkillTrap() {
       const p = currentTurn;
-      if (p !== 1 && !isSpectatorMode) return;
+      if (isSpectatorMode || (currentOpponent === 'bot' && p !== 1)) return;
       const hero = HERO_CLASSES[playerHeroes[p]] || HERO_CLASSES.guardian;
       const cost = hero.trapCost || 2;
       if (playerEnergy[p] < cost) {
@@ -5151,7 +5361,7 @@
 
     function triggerSkillShield() {
       const p = currentTurn;
-      if (p !== 1 && !isSpectatorMode) return;
+      if (isSpectatorMode || (currentOpponent === 'bot' && p !== 1)) return;
       if (playerEnergy[p] < 1) {
         showToast('⚠️ Không đủ Năng Lượng ⚡ để bật khiên!');
         return;
@@ -5870,7 +6080,8 @@
       pendingNudge = null;
       const row = document.getElementById('diceNudgeRow');
       if (row) { row.classList.add('hidden'); row.classList.remove('flex'); }
-      moveMeepleSteps(player, baseRoll);
+      isDiceRolling = true;
+      moveMeepleSteps(player, baseRoll).finally(() => { isDiceRolling = false; });
     }
 
     function applyDiceNudge(delta) {
@@ -5891,12 +6102,12 @@
       soundTone(700, 'triangle', 0.15, 0.2);
       showToast(`⏩ Tinh chỉnh bước đi: ${baseRoll} ${delta > 0 ? '+1' : '-1'} = ${newRoll} Bước!`);
       updateEnergyUI();
-      moveMeepleSteps(player, newRoll);
+      isDiceRolling = true;
+      moveMeepleSteps(player, newRoll).finally(() => { isDiceRolling = false; });
     }
 
     async function rollDiceQuest(fixedRoll = null, isCrit = false) {
       if (isDiceRolling) return;
-      if (!isSpectatorMode && currentOpponent === 'bot' && currentTurn !== 1) return;
 
       const pName = getPlayerName(currentTurn);
 
@@ -6217,7 +6428,8 @@
         vInd.textContent = `LƯỢT: ${pName.toUpperCase()}`;
       }
 
-      if (currentTurn === 1 && !isSpectatorMode) {
+      const isHumanTurn = !isSpectatorMode && (currentTurn === 1 || currentOpponent === 'human');
+      if (isHumanTurn) {
         if (badge) {
           badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] font-bold shadow-inner';
         }
@@ -6260,8 +6472,12 @@
     }
 
     async function triggerAutoRoll(player) {
-      if (isDiceRolling || spectatorPaused) return;
+      if (spectatorPaused) return;
       if (player === 1 && !isSpectatorMode) return;
+      if (isDiceRolling) {
+        setTimeout(() => triggerAutoRoll(player), 200);
+        return;
+      }
       await rollDiceQuest();
     }
 
@@ -6627,13 +6843,13 @@
 
       tttBoard.forEach((val, idx) => {
         const btn = document.createElement('button');
-        btn.className = `game-tile rounded-2xl flex items-center justify-center text-4xl sm:text-5xl font-black select-none transition-all shadow-md`;
+        btn.className = `game-tile rounded-2xl w-full h-full aspect-square min-h-0 min-w-0 flex items-center justify-center text-4xl sm:text-5xl font-black select-none transition-all shadow-md leading-none`;
         if (val === 'X') {
-          btn.innerHTML = `<span class="text-cyan-400 drop-shadow-[0_0_12px_rgba(6,182,212,0.7)] animate-pulse">X</span>`;
+          btn.innerHTML = `<span class="text-cyan-400 drop-shadow-[0_0_14px_rgba(6,182,212,0.8)] animate-pulse leading-none flex items-center justify-center select-none">X</span>`;
         } else if (val === 'O') {
-          btn.innerHTML = `<span class="text-rose-400 drop-shadow-[0_0_12px_rgba(244,63,94,0.7)]">O</span>`;
+          btn.innerHTML = `<span class="text-rose-400 drop-shadow-[0_0_14px_rgba(244,63,94,0.8)] leading-none flex items-center justify-center select-none">O</span>`;
         } else {
-          btn.innerHTML = ``;
+          btn.innerHTML = `<span class="invisible select-none pointer-events-none leading-none">·</span>`;
           btn.onclick = () => handleTTTClick(idx);
         }
         grid.appendChild(btn);
@@ -7011,7 +7227,205 @@
       eventCallback: null
     };
 
-    // Upright 3D House SVG Generator
+    
+    // Authentic Business Tour 3D House Models (Cottage Lv.1, Villa Lv.2, Skyscraper Hotel Lv.3)
+    function getBusinessTourHouseSVG(level, ownerIdx, size = 64) {
+      const cfg = MONOPOLY_PRESET_CONFIGS[ownerIdx % 4];
+
+      if (level === 1) {
+        // LEVEL 1: Business Tour Cute Low-Poly Cottage
+        return `
+          <svg width="${size}" height="${size}" viewBox="0 0 80 80" fill="none" class="filter drop-shadow-[0_12px_16px_rgba(0,0,0,0.6)]">
+            <defs>
+              <linearGradient id="cottageWallL_${ownerIdx}" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#cbd5e1" />
+                <stop offset="100%" stop-color="#94a3b8" />
+              </linearGradient>
+              <linearGradient id="cottageWallR_${ownerIdx}" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="100%" stop-color="#f1f5f9" />
+              </linearGradient>
+              <linearGradient id="cottageRoofL_${ownerIdx}" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="${cfg.bright}" />
+                <stop offset="100%" stop-color="${cfg.roof}" />
+              </linearGradient>
+              <linearGradient id="cottageRoofR_${ownerIdx}" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="${cfg.color}" />
+                <stop offset="100%" stop-color="${cfg.roof}" />
+              </linearGradient>
+            </defs>
+
+            <!-- Shadow -->
+            <ellipse cx="40" cy="70" rx="30" ry="8" fill="rgba(0,0,0,0.45)" />
+
+            <!-- Lawn Plinth -->
+            <polygon points="14,64 40,73 66,64 40,55" fill="#22c55e" stroke="#16a34a" stroke-width="1" />
+            <polygon points="14,64 40,73 40,75 14,66" fill="#15803d" />
+            <polygon points="40,73 66,64 66,66 40,75" fill="#166534" />
+
+            <!-- Walls (White Stucco Low-Poly) -->
+            <polygon points="22,57 40,64 40,40 22,33" fill="url(#cottageWallL_${ownerIdx})" stroke="#64748b" stroke-width="0.8" />
+            <polygon points="40,64 58,57 58,33 40,40" fill="url(#cottageWallR_${ownerIdx})" stroke="#cbd5e1" stroke-width="0.8" />
+
+            <!-- Front Wooden Door -->
+            <polygon points="27,57 35,60 35,46 27,43" fill="#78350f" stroke="#451a03" stroke-width="0.8" />
+            <polygon points="29,55 33,57 33,48 29,46" fill="#92400e" />
+            <circle cx="33" cy="54" r="0.9" fill="#fbbf24" />
+
+            <!-- Window with Sky Reflection -->
+            <polygon points="45,53 53,49 53,40 45,43" fill="#38bdf8" stroke="#ffffff" stroke-width="1" />
+            <line x1="49" y1="51" x2="49" y2="41.5" stroke="#ffffff" stroke-width="0.8" />
+            <line x1="45" y1="48" x2="53" y2="44.5" stroke="#ffffff" stroke-width="0.8" />
+            <polygon points="46,45 50,43 48,41 46,42" fill="#ffffff" opacity="0.75" />
+
+            <!-- Stone Chimney with Smoke -->
+            <polygon points="27,27 32,29 32,18 27,16" fill="#b91c1c" stroke="#7f1d1d" stroke-width="0.8" />
+            <polygon points="32,29 35,27 35,17 32,18" fill="#991b1b" stroke="#7f1d1d" stroke-width="0.8" />
+            <polygon points="27,16 32,18 35,17 30,15" fill="#ef4444" />
+            <circle cx="31" cy="12" r="2.6" fill="#ffffff" opacity="0.9" />
+            <circle cx="33" cy="8" r="3.4" fill="#ffffff" opacity="0.75" />
+            <circle cx="36" cy="4" r="2.2" fill="#ffffff" opacity="0.55" />
+
+            <!-- Vibrant Pitched Gable Roof in Player Colors -->
+            <polygon points="18,34 40,43 40,21 18,12" fill="url(#cottageRoofL_${ownerIdx})" stroke="#ffffff" stroke-width="1.4" />
+            <polygon points="40,43 62,34 62,12 40,21" fill="url(#cottageRoofR_${ownerIdx})" stroke="#ffffff" stroke-width="1.4" />
+            <!-- White Ridge Eaves -->
+            <polygon points="18,34 40,43 40,45 18,36" fill="#ffffff" opacity="0.9" />
+            <polygon points="40,43 62,34 62,36 40,45" fill="#e2e8f0" opacity="0.9" />
+          </svg>
+        `;
+      } else if (level === 2) {
+        // LEVEL 2: Business Tour 2-Story Luxury Resort Villa
+        return `
+          <svg width="${size}" height="${size}" viewBox="0 0 80 92" fill="none" class="filter drop-shadow-[0_14px_20px_rgba(0,0,0,0.65)]">
+            <defs>
+              <linearGradient id="villaRoof1_${ownerIdx}" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="${cfg.bright}" />
+                <stop offset="100%" stop-color="${cfg.roof}" />
+              </linearGradient>
+              <linearGradient id="villaRoof2_${ownerIdx}" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="${cfg.color}" />
+                <stop offset="100%" stop-color="${cfg.roof}" />
+              </linearGradient>
+            </defs>
+
+            <!-- Shadow -->
+            <ellipse cx="40" cy="83" rx="34" ry="8" fill="rgba(0,0,0,0.5)" />
+
+            <!-- Paved Patio Plinth -->
+            <polygon points="10,75 40,86 70,75 40,64" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1" />
+            <polygon points="10,75 40,86 40,89 10,78" fill="#64748b" />
+            <polygon points="40,86 70,75 70,78 40,89" fill="#475569" />
+
+            <!-- First Floor Walls -->
+            <polygon points="18,68 40,76 40,50 18,42" fill="#f8fafc" stroke="#cbd5e1" stroke-width="0.8" />
+            <polygon points="40,76 62,68 62,42 40,50" fill="#e2e8f0" stroke="#94a3b8" stroke-width="0.8" />
+
+            <!-- Grand Arch Entrance Door -->
+            <polygon points="26,71 34,74 34,57 26,54" fill="#78350f" stroke="#451a03" stroke-width="0.8" />
+            <ellipse cx="30" cy="55.5" rx="4" ry="3" fill="#b45309" />
+            <circle cx="32" cy="65" r="0.9" fill="#fbbf24" />
+
+            <!-- Ground Floor Windows with Golden Lights -->
+            <polygon points="46,65 54,62 54,53 46,56" fill="#fef08a" stroke="#f59e0b" stroke-width="0.8" />
+            <line x1="50" y1="63.5" x2="50" y2="54.5" stroke="#f59e0b" stroke-width="0.6" />
+
+            <!-- Middle Floor Eaves & Balcony -->
+            <polygon points="14,44 40,53 66,44 40,35" fill="url(#villaRoof1_${ownerIdx})" stroke="#ffffff" stroke-width="1.2" />
+            <!-- Balcony Railing -->
+            <polygon points="22,35 40,42 40,37 22,30" fill="rgba(255,255,255,0.7)" stroke="#ffffff" stroke-width="0.8" />
+            <polygon points="40,42 58,35 58,30 40,37" fill="rgba(255,255,255,0.5)" stroke="#ffffff" stroke-width="0.8" />
+
+            <!-- Second Floor Penthouse Villa -->
+            <polygon points="24,35 40,41 40,24 24,18" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="0.8" />
+            <polygon points="40,41 56,35 56,18 40,24" fill="#cbd5e1" stroke="#94a3b8" stroke-width="0.8" />
+
+            <!-- Upper Double Windows -->
+            <polygon points="28,31 34,33 34,25 28,23" fill="#38bdf8" stroke="#ffffff" stroke-width="0.8" />
+            <polygon points="46,33 52,31 52,23 46,25" fill="#38bdf8" stroke="#ffffff" stroke-width="0.8" />
+
+            <!-- Top Tiled Roof in Player Color -->
+            <polygon points="20,20 40,28 40,11 20,4" fill="url(#villaRoof1_${ownerIdx})" stroke="#ffffff" stroke-width="1.5" />
+            <polygon points="40,28 60,20 60,4 40,11" fill="url(#villaRoof2_${ownerIdx})" stroke="#ffffff" stroke-width="1.5" />
+            <polygon points="20,20 40,28 40,30 20,22" fill="#ffffff" />
+            <polygon points="40,28 60,20 60,22 40,30" fill="#e2e8f0" />
+
+            <!-- Golden Weather Vane -->
+            <line x1="40" y1="11" x2="40" y2="5" stroke="#fbbf24" stroke-width="1.5" />
+            <polygon points="40,5 45,3 40,1" fill="#f59e0b" />
+          </svg>
+        `;
+      } else {
+        // LEVEL 3: Business Tour Modern Skyscraper Hotel Tower
+        return `
+          <svg width="${size}" height="${size}" viewBox="0 0 80 105" fill="none" class="filter drop-shadow-[0_18px_25px_rgba(0,0,0,0.8)]">
+            <defs>
+              <linearGradient id="hotelTowerL_${ownerIdx}" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#1e293b" />
+                <stop offset="100%" stop-color="#0f172a" />
+              </linearGradient>
+              <linearGradient id="hotelTowerR_${ownerIdx}" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#334155" />
+                <stop offset="100%" stop-color="#1e293b" />
+              </linearGradient>
+              <linearGradient id="hotelGlass_${ownerIdx}" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#38bdf8" />
+                <stop offset="50%" stop-color="#0284c7" />
+                <stop offset="100%" stop-color="#0369a1" />
+              </linearGradient>
+            </defs>
+
+            <!-- Ground Shadow -->
+            <ellipse cx="40" cy="96" rx="36" ry="8" fill="rgba(0,0,0,0.6)" />
+
+            <!-- Foundation Plinth -->
+            <polygon points="12,88 40,98 68,88 40,78" fill="#0284c7" stroke="#38bdf8" stroke-width="1.2" />
+            <polygon points="12,88 40,98 40,101 12,91" fill="#0369a1" />
+            <polygon points="40,98 68,88 68,91 40,101" fill="#0c4a6e" />
+
+            <!-- Main Tower Facades -->
+            <polygon points="20,83 40,90 40,30 20,23" fill="url(#hotelTowerL_${ownerIdx})" stroke="${cfg.color}" stroke-width="1.2" />
+            <polygon points="40,90 60,83 60,23 40,30" fill="url(#hotelTowerR_${ownerIdx})" stroke="${cfg.color}" stroke-width="1.2" />
+
+            <!-- Grid of Lit Windows -->
+            <!-- Floor 4 -->
+            <polygon points="23,40 28,42 28,34 23,32" fill="url(#hotelGlass_${ownerIdx})" stroke="#bae6fd" stroke-width="0.6" />
+            <polygon points="31,43 36,45 36,37 31,35" fill="url(#hotelGlass_${ownerIdx})" stroke="#bae6fd" stroke-width="0.6" />
+            <polygon points="44,45 49,43 49,35 44,37" fill="#fef08a" stroke="#fde047" stroke-width="0.6" />
+            <polygon points="52,42 57,40 57,32 52,34" fill="url(#hotelGlass_${ownerIdx})" stroke="#bae6fd" stroke-width="0.6" />
+
+            <!-- Floor 3 -->
+            <polygon points="23,53 28,55 28,47 23,45" fill="#fde047" stroke="#ffffff" stroke-width="0.6" />
+            <polygon points="31,56 36,58 36,50 31,48" fill="url(#hotelGlass_${ownerIdx})" stroke="#bae6fd" stroke-width="0.6" />
+            <polygon points="44,58 49,56 49,48 44,50" fill="url(#hotelGlass_${ownerIdx})" stroke="#bae6fd" stroke-width="0.6" />
+            <polygon points="52,55 57,53 57,45 52,47" fill="#fef08a" stroke="#fde047" stroke-width="0.6" />
+
+            <!-- Floor 2 -->
+            <polygon points="23,66 28,68 28,60 23,58" fill="url(#hotelGlass_${ownerIdx})" stroke="#bae6fd" stroke-width="0.6" />
+            <polygon points="31,69 36,71 36,63 31,61" fill="#fde047" stroke="#ffffff" stroke-width="0.6" />
+            <polygon points="44,71 49,69 49,61 44,63" fill="url(#hotelGlass_${ownerIdx})" stroke="#bae6fd" stroke-width="0.6" />
+            <polygon points="52,68 57,66 57,58 52,60" fill="url(#hotelGlass_${ownerIdx})" stroke="#bae6fd" stroke-width="0.6" />
+
+            <!-- Floor 1 Hotel Marquee -->
+            <polygon points="33,88 47,88 47,76 33,76" fill="#f59e0b" stroke="#fbbf24" stroke-width="1" />
+            <polygon points="35,88 45,88 45,80 35,80" fill="#78350f" />
+            <text x="40" y="75" font-size="4.5" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="0.5">HOTEL</text>
+
+            <!-- Rooftop Crown & Helipad -->
+            <polygon points="18,23 40,30 62,23 40,16" fill="${cfg.roof}" stroke="#ffffff" stroke-width="1.5" />
+            <ellipse cx="40" cy="23" rx="12" ry="4" fill="${cfg.color}" stroke="#ffffff" stroke-width="1" />
+            <text x="40" y="24.5" font-size="5" font-weight="900" fill="#ffffff" text-anchor="middle">H</text>
+
+            <!-- Luxury Flag & Golden Star -->
+            <line x1="40" y1="16" x2="40" y2="6" stroke="#f59e0b" stroke-width="1.8" />
+            <polygon points="40,6 48,9 40,12" fill="#ef4444" stroke="#fbbf24" stroke-width="0.8" />
+            <polygon points="40,6 42,4 40,2 38,4" fill="#fbbf24" />
+          </svg>
+        `;
+      }
+    }
+
+    // Upright 3D House HTML for Game Board Tiles (Business Tour Style)
     function getUpright3DHouseHTML(level, ownerIdx) {
       const cfg = MONOPOLY_PRESET_CONFIGS[ownerIdx % 4];
       if (level === 1) {
@@ -7020,12 +7434,7 @@
             <span class="px-1.5 py-0.2 rounded-full bg-cyan-500 text-slate-950 font-black text-[7px] sm:text-[8px] shadow border border-white mb-0.5 tracking-wider">
               ⭐ LV.1
             </span>
-            <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
-              <polygon points="12,38 32,48 32,32 12,24" fill="#0f172a" stroke="${cfg.color}" stroke-width="2" />
-              <polygon points="32,48 52,38 52,24 32,32" fill="#1e293b" stroke="${cfg.color}" stroke-width="2" />
-              <polygon points="10,24 32,32 32,16 10,10" fill="${cfg.roof}" stroke="#ffffff" stroke-width="1.5" />
-              <polygon points="32,32 54,24 54,10 32,16" fill="${cfg.color}" stroke="#ffffff" stroke-width="1.5" />
-            </svg>
+            ${getBusinessTourHouseSVG(1, ownerIdx, 38)}
           </div>
         `;
       } else if (level === 2) {
@@ -7034,17 +7443,7 @@
             <span class="px-1.5 py-0.2 rounded-full bg-amber-400 text-slate-950 font-black text-[8px] sm:text-[9px] shadow-lg border border-white mb-0.5 tracking-wider">
               ⭐⭐ LV.2
             </span>
-            <svg width="40" height="44" viewBox="0 0 64 74" fill="none">
-              <polygon points="10,50 32,60 32,40 10,32" fill="#0f172a" stroke="${cfg.color}" stroke-width="2" />
-              <polygon points="32,60 54,50 54,32 32,40" fill="#1e293b" stroke="${cfg.color}" stroke-width="2" />
-              <polygon points="8,32 32,42 56,32 32,24" fill="#334155" stroke="${cfg.roof}" stroke-width="1.5" />
-              <polygon points="14,30 32,38 32,22 14,16" fill="#1e293b" />
-              <polygon points="32,38 50,30 50,16 32,22" fill="#0f172a" />
-              <rect x="20" y="24" width="5" height="6" rx="1" fill="#fbbf24" transform="skewY(18)" />
-              <rect x="39" y="25" width="5" height="6" rx="1" fill="#fbbf24" transform="skewY(-18)" />
-              <polygon points="12,16 32,24 32,8 12,2" fill="${cfg.roof}" stroke="#ffffff" stroke-width="1.5" />
-              <polygon points="32,24 52,16 52,2 32,8" fill="${cfg.color}" stroke="#ffffff" stroke-width="1.5" />
-            </svg>
+            ${getBusinessTourHouseSVG(2, ownerIdx, 42)}
           </div>
         `;
       } else {
@@ -7053,73 +7452,22 @@
             <span class="px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-slate-950 font-black text-[9px] sm:text-[10px] shadow-[0_0_12px_rgba(245,158,11,0.9)] border border-white mb-0.5 tracking-wider animate-pulse">
               👑 MAX LV.3
             </span>
-            <svg width="46" height="54" viewBox="0 0 64 88" fill="none">
-              <polygon points="12,68 32,78 32,28 12,20" fill="#0f172a" stroke="${cfg.color}" stroke-width="2" />
-              <polygon points="32,78 52,68 52,20 32,28" fill="#1e293b" stroke="${cfg.color}" stroke-width="2" />
-              <polygon points="16,30 28,35 28,64 16,58" fill="#0284c7" opacity="0.6" />
-              <polygon points="36,35 48,30 48,58 36,64" fill="#38bdf8" opacity="0.6" />
-              <polygon points="18,20 32,26 46,20 32,12" fill="#fbbf24" stroke="#ffffff" stroke-width="1.5" />
-              <polygon points="26,12 32,15 38,12 32,2" fill="${cfg.roof}" stroke="#fbbf24" stroke-width="1.5" />
-              <circle cx="32" cy="2" r="4" fill="#fbbf24" stroke="#ffffff" stroke-width="1" />
-            </svg>
+            ${getBusinessTourHouseSVG(3, ownerIdx, 48)}
           </div>
         `;
       }
     }
 
-    // Helper: 3D SVG for Event Popup
+    // Event Popup 3D SVG Generator
     function get3DHouseSVG(level, ownerIdx) {
-      const cfg = MONOPOLY_PRESET_CONFIGS[ownerIdx % 4];
-      if (level === 1) {
-        return `
-          <div class="animate-bounce flex flex-col items-center">
-            <svg width="80" height="80" viewBox="0 0 64 64" fill="none" class="filter drop-shadow-xl">
-              <ellipse cx="32" cy="54" rx="26" ry="8" fill="rgba(0,0,0,0.4)" />
-              <polygon points="12,38 32,48 32,32 12,24" fill="#0f172a" stroke="${cfg.color}" stroke-width="2" />
-              <polygon points="32,48 52,38 52,24 32,32" fill="#1e293b" stroke="${cfg.color}" stroke-width="2" />
-              <polygon points="36,44 44,40 44,30 36,34" fill="${cfg.color}" />
-              <polygon points="10,24 32,32 32,16 10,10" fill="${cfg.roof}" stroke="#ffffff" stroke-width="1.5" />
-              <polygon points="32,32 54,24 54,10 32,16" fill="${cfg.color}" stroke="#ffffff" stroke-width="1.5" />
-              <polygon points="20,12 24,14 24,8 20,6" fill="#f59e0b" />
-            </svg>
-          </div>
-        `;
-      } else if (level === 2) {
-        return `
-          <div class="animate-bounce flex flex-col items-center">
-            <svg width="90" height="90" viewBox="0 0 64 74" fill="none" class="filter drop-shadow-xl">
-              <ellipse cx="32" cy="66" rx="28" ry="8" fill="rgba(0,0,0,0.5)" />
-              <polygon points="10,50 32,60 32,40 10,32" fill="#0f172a" stroke="${cfg.color}" stroke-width="2" />
-              <polygon points="32,60 54,50 54,32 32,40" fill="#1e293b" stroke="${cfg.color}" stroke-width="2" />
-              <polygon points="8,32 32,42 56,32 32,24" fill="#334155" stroke="${cfg.roof}" stroke-width="2" />
-              <polygon points="14,30 32,38 32,22 14,16" fill="#1e293b" />
-              <polygon points="32,38 50,30 50,16 32,22" fill="#0f172a" />
-              <rect x="20" y="24" width="6" height="8" rx="1" fill="#fbbf24" transform="skewY(18)" />
-              <rect x="38" y="26" width="6" height="8" rx="1" fill="#fbbf24" transform="skewY(-18)" />
-              <polygon points="12,16 32,24 32,8 12,2" fill="${cfg.roof}" stroke="#ffffff" stroke-width="2" />
-              <polygon points="32,24 52,16 52,2 32,8" fill="${cfg.color}" stroke="#ffffff" stroke-width="2" />
-            </svg>
-          </div>
-        `;
-      } else {
-        return `
-          <div class="animate-bounce flex flex-col items-center">
-            <svg width="100" height="100" viewBox="0 0 64 88" fill="none" class="filter drop-shadow-2xl">
-              <ellipse cx="32" cy="80" rx="30" ry="8" fill="rgba(0,0,0,0.6)" />
-              <polygon points="12,68 32,78 32,28 12,20" fill="#0f172a" stroke="${cfg.color}" stroke-width="2" />
-              <polygon points="32,78 52,68 52,20 32,28" fill="#1e293b" stroke="${cfg.color}" stroke-width="2" />
-              <polygon points="16,30 28,35 28,64 16,58" fill="#0284c7" opacity="0.6" />
-              <polygon points="36,35 48,30 48,58 36,64" fill="${cfg.bright}" opacity="0.6" />
-              <polygon points="18,20 32,26 46,20 32,12" fill="#fbbf24" stroke="#ffffff" stroke-width="2" />
-              <polygon points="26,12 32,15 38,12 32,2" fill="${cfg.roof}" stroke="#fbbf24" stroke-width="2" />
-              <circle cx="32" cy="2" r="5" fill="#fbbf24" stroke="#ffffff" stroke-width="1.5" />
-            </svg>
-          </div>
-        `;
-      }
+      const size = level === 1 ? 95 : (level === 2 ? 105 : 115);
+      return `
+        <div class="animate-bounce flex flex-col items-center">
+          ${getBusinessTourHouseSVG(level, ownerIdx, size)}
+        </div>
+      `;
     }
 
-    // Trigger Floating Cash Animation
     function triggerMonoFloatingCash(playerIdx, amount) {
       const container = document.getElementById(`monoCornerFloat_${playerIdx}`);
       if (!container) return;
@@ -7254,7 +7602,10 @@
       if (t.isCorner) {
         levelEl.textContent = 'Ô ĐẶC BIỆT';
         levelEl.className = 'text-[9px] font-black text-amber-300 px-1.5 py-0.2 rounded bg-amber-400/20 border border-amber-400/40';
-        subEl.innerHTML = '<span class="text-amber-300 font-bold">' + (t.type === "start" ? "Nhận +$2,000 khi đi qua" : (t.type === "jail" ? "Khu vực Trại Giam" : (t.type === "fly" ? "Bay tự do tới ô bất kỳ" : "Vào tù ngay lập tức!"))) + '</span>';
+        subEl.innerHTML = '<span class="text-amber-300 font-bold">' + (t.type === "start" ? "Nhận +$2,000 khi đi qua" : (t.type === "jail" ? "Khu vực Trại Giam" : (t.type === "airport" ? "Sân Bay Tân An (+1,000 trợ cấp)" : (t.type === "fly" ? "Bay tự do tới ô bất kỳ" : "Vào tù ngay lập tức!")))) + '</span>';
+        if (t.id === 18) {
+          subEl.innerHTML += ' <button onclick="triggerMonoAirplaneFlyby({ player: monoState.players[monoState.turn], destTile: monoState.tiles[18] })" class="ml-2 px-2.5 py-0.5 rounded-lg bg-amber-400 text-slate-950 font-black text-[9px] hover:bg-yellow-300 cursor-pointer shadow-md border border-white">✈️ Bay Thử</button>';
+        }
       } else if (t.type === 'chance' || t.type === 'fate') {
         levelEl.textContent = t.type === 'chance' ? 'CƠ HỘI' : 'VẬN MỆNH';
         levelEl.className = 'text-[9px] font-black text-cyan-300 px-1.5 py-0.2 rounded bg-cyan-400/20 border border-cyan-400/40';
@@ -7518,15 +7869,24 @@
             updateMonopolyHUD();
             try { soundTone(880, 'triangle', 0.2, 0.2); } catch(e) {}
 
-            showMonoEventPopup({
-              type: 'build',
-              badge: '🏗️ XÂY NHÀ THÀNH CÔNG!',
-              title: `${player.name} Đã Xây Nhà Cấp 1`,
-              desc: `Chúc mừng! Bạn đã sở hữu khu đất ${tile.name} và đặt viên gạch đầu tiên!`,
-              visualSvg: get3DHouseSVG(1, player.id),
-              amountLabel: 'Giá thuê ban đầu:',
-              amountVal: tile.rent[0],
-              onConfirm: () => finishMonoTurn()
+triggerMonoCashTransfer({
+              payer: player,
+              recipient: 'bank',
+              amount: tile.price,
+              type: 'buy',
+              desc: `${player.name} nộp ${tile.price.toLocaleString()} vào Ngân Hàng mua ${tile.name}!`,
+              onComplete: () => {
+                showMonoEventPopup({
+                  type: 'build',
+                  badge: '🏗️ XÂY NHÀ THÀNH CÔNG!',
+                  title: `${player.name} Đã Xây Nhà Cấp 1`,
+                  desc: `Chúc mừng! Bạn đã sở hữu khu đất ${tile.name} và xây Nhà Kiểu Business Tour!`,
+                  visualSvg: get3DHouseSVG(1, player.id),
+                  amountLabel: 'Giá thuê ban đầu:',
+                  amountVal: tile.rent[0],
+                  onConfirm: () => finishMonoTurn()
+                });
+              }
             });
           } else {
             try { soundTone(220, 'sawtooth', 0.2, 0.2); } catch(e) {}
@@ -7550,15 +7910,24 @@
             updateMonopolyHUD();
             try { soundTone(950, 'triangle', 0.2, 0.2); } catch(e) {}
 
-            showMonoEventPopup({
+triggerMonoCashTransfer({
+              payer: player,
+              recipient: 'bank',
+              amount: cost,
               type: 'upgrade',
-              badge: `🏰 NÂNG CẤP THÀNH CÔNG!`,
-              title: `${player.name} Đã Nâng Cấp Cấp ${tile.level}`,
-              desc: `Khu đất ${tile.name} đã được nâng cấp lên ${tile.level === 3 ? 'Khách Sạn Hoàng Gia MAX' : 'Biệt Thự Sang Trọng'}!`,
-              visualSvg: get3DHouseSVG(tile.level, player.id),
-              amountLabel: 'Giá thuê mới:',
-              amountVal: tile.rent[tile.level - 1],
-              onConfirm: () => finishMonoTurn()
+              desc: `${player.name} nộp ${cost.toLocaleString()} nâng cấp ${tile.name} lên Cấp ${tile.level}!`,
+              onComplete: () => {
+                showMonoEventPopup({
+                  type: 'upgrade',
+                  badge: `🏰 NÂNG CẤP THÀNH CÔNG!`,
+                  title: `${player.name} Đã Nâng Cấp Cấp ${tile.level}`,
+                  desc: `Khu đất ${tile.name} đã được nâng cấp lên ${tile.level === 3 ? 'Khách Sạn Hoàng Gia MAX' : 'Biệt Thự Sang Trọng'}!`,
+                  visualSvg: get3DHouseSVG(tile.level, player.id),
+                  amountLabel: 'Giá thuê mới:',
+                  amountVal: tile.rent[tile.level - 1],
+                  onConfirm: () => finishMonoTurn()
+                });
+              }
             });
           } else {
             try { soundTone(220, 'sawtooth', 0.2, 0.2); } catch(e) {}
@@ -7634,8 +8003,14 @@
             player.inJail = 3;
             monoState.isRolling = false;
             updateMonopolyPawns();
-            showToast(`🚨 ${player.name} gieo 3 lần số đôi liên tiếp! Bị phạt chạy quá tốc độ và tống vào Trại Giam!`);
-            finishMonoTurn();
+            triggerMonoJailGateAnimation({
+              player: player,
+              reason: 'Đổ đôi 3 lần liên tiếp! Bị phạt chạy quá tốc độ, đưa vào Trại Giam!',
+              onComplete: () => {
+                showToast(`🚨 ${player.name} gieo 3 lần số đôi liên tiếp! Bị phạt chạy quá tốc độ và tống vào Trại Giam!`);
+                finishMonoTurn();
+              }
+            });
             return;
           } else {
             monoState.hasExtraTurn = true;
@@ -7695,11 +8070,23 @@
               triggerMonoFloatingCash(player.id, -landedTile.price);
               renderMonopolyBoard();
               updateMonopolyHUD();
-              showToast(`🤖 ${player.name} đã mua ${landedTile.name} (${landedTile.price.toLocaleString()}) và xây nhà!`);
+              try { soundTone(880, 'triangle', 0.2, 0.2); } catch(e) {}
+
+              triggerMonoCashTransfer({
+                payer: player,
+                recipient: 'bank',
+                amount: landedTile.price,
+                type: 'buy',
+                desc: `${player.name} nộp ${landedTile.price.toLocaleString()} vào Ngân Hàng mua ${landedTile.name}!`,
+                onComplete: () => {
+                  showToast(`🤖 ${player.name} quyết định mua ${landedTile.name} với giá ${landedTile.price.toLocaleString()}!`);
+                  monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 1000);
+                }
+              });
             } else {
               showToast(`🤖 ${player.name} tiết kiệm ngân sách, bỏ qua ${landedTile.name}.`);
+              monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 800);
             }
-            monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 1200);
           }
         } else if (landedTile.owner === player.id) {
           if (landedTile.type === 'city' && landedTile.level < 3) {
@@ -7713,9 +8100,22 @@
                 triggerMonoFloatingCash(player.id, -cost);
                 renderMonopolyBoard();
                 updateMonopolyHUD();
-                showToast(`🤖 ${player.name} đã nâng cấp ${landedTile.name} lên Cấp ${landedTile.level}!`);
+                try { soundTone(990, 'triangle', 0.25, 0.2); } catch(e) {}
+
+                triggerMonoCashTransfer({
+                  payer: player,
+                  recipient: 'bank',
+                  amount: cost,
+                  type: 'upgrade',
+                  desc: `${player.name} nộp ${cost.toLocaleString()} nâng cấp ${landedTile.name} lên Cấp ${landedTile.level}!`,
+                  onComplete: () => {
+                    showToast(`🏗️ ${player.name} nâng cấp ${landedTile.name} lên ${landedTile.level === 3 ? 'Khách Sạn Hoàng Gia MAX' : 'Biệt Thự Cấp 2'} (-${cost.toLocaleString()})!`);
+                    monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 1000);
+                  }
+                });
+              } else {
+                monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 800);
               }
-              monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 1200);
             }
           } else {
             monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 800);
@@ -7749,21 +8149,30 @@
           updateMonopolyHUD();
           try { soundTone(200, 'sawtooth', 0.2, 0.2); } catch(e) {}
 
-          if (!isBotTurn) {
-            showMonoEventPopup({
-              type: 'rent',
-              badge: '💸 NỘP TIỀN THUÊ ĐẤT!',
-              title: `Dừng Chân Tại Đất Của ${owner.name}`,
-              desc: `${player.name} phải trả ${rent.toLocaleString()} tiền thuê cho ${owner.name} khi ghé thăm ${landedTile.name} (Cấp ${landedTile.level || 1})!`,
-              visualIcon: '💸',
-              amountLabel: 'Khoản tiền thuê:',
-              amountVal: -rent,
-              onConfirm: () => finishMonoTurn()
-            });
-          } else {
-            showToast(`💸 ${player.name} trả ${actualPaid.toLocaleString()} tiền thuê ${landedTile.name} cho ${owner.name}!`);
-            monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 1200);
-          }
+          triggerMonoCashTransfer({
+            payer: player,
+            recipient: owner,
+            amount: actualPaid,
+            type: 'rent',
+            desc: `${player.name} trả tiền thuê ${actualPaid.toLocaleString()} cho ${owner.name}!`,
+            onComplete: () => {
+              if (!isBotTurn) {
+                showMonoEventPopup({
+                  type: 'rent',
+                  badge: '💸 NỘP TIỀN THUÊ ĐẤT!',
+                  title: `Dừng Chân Tại Đất Của ${owner.name}`,
+                  desc: `${player.name} phải trả ${actualPaid.toLocaleString()} tiền thuê cho ${owner.name} khi ghé thăm ${landedTile.name} (Cấp ${landedTile.level || 1})!`,
+                  visualIcon: '💸',
+                  amountLabel: 'Khoản tiền thuê:',
+                  amountVal: -actualPaid,
+                  onConfirm: () => finishMonoTurn()
+                });
+              } else {
+                showToast(`💸 ${player.name} trả ${actualPaid.toLocaleString()} tiền thuê ${landedTile.name} cho ${owner.name}!`);
+                monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 1000);
+              }
+            }
+          });
         }
       } else if (landedTile.type === 'gotojail') {
         player.pos = 9; // Teleport to Trại Giam
@@ -7771,21 +8180,26 @@
         monoState.hasExtraTurn = false;
         monoState.doublesStreak = 0;
         updateMonopolyPawns();
-        try { soundTone(160, 'sawtooth', 0.3, 0.3); } catch(e) {}
 
-        if (!isBotTurn) {
-          showMonoEventPopup({
-            type: 'jail',
-            badge: '⛓️ VÔ TÙ!',
-            title: `${player.name} Bị Bắt Giam!`,
-            desc: 'Bạn vi phạm luật và bị đưa thẳng về Trại Giam, phải thụ án 3 lượt hoặc nộp tiền bảo lãnh!',
-            visualIcon: '🔒',
-            onConfirm: () => finishMonoTurn()
-          });
-        } else {
-          showToast(`🔒 ${player.name} bị tống giam vào Trại Giam!`);
-          monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 1200);
-        }
+        triggerMonoJailGateAnimation({
+          player: player,
+          reason: 'Dừng chân đúng ô Vô Tù! Bị tống giam 3 lượt!',
+          onComplete: () => {
+            if (!isBotTurn) {
+              showMonoEventPopup({
+                type: 'jail',
+                badge: '⛓️ VÔ TÙ!',
+                title: `${player.name} Bị Bắt Giam!`,
+                desc: 'Cánh cửa sắt đã sập xuống! Bạn vi phạm luật và phải thụ án 3 lượt hoặc nộp $500 bảo lãnh!',
+                visualIcon: '🔒',
+                onConfirm: () => finishMonoTurn()
+              });
+            } else {
+              showToast(`🔒 ${player.name} dừng chân đúng ô Vô Tù! Bị tống giam 3 lượt.`);
+              monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 1000);
+            }
+          }
+        });
       } else if (landedTile.type === 'start') {
         showToast(`🌟 ${player.name} dừng chân đúng ô Xuất Phát!`);
         monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 800);
@@ -8202,7 +8616,7 @@
     window.executeMono2dRoll = executeMono2dRoll;
 
     // =========================================================================
-    // DYNAMIC CASH DENOMINATIONS & ANIMATIONS (v3.8.0)
+    // DYNAMIC CASH DENOMINATIONS & ANIMATIONS (v3.8.5)
     // Breakdown: $1,000 bundles, $100 gold coins, $50 silver coins
     // =========================================================================
 
@@ -8379,7 +8793,12 @@
         if (descEl) descEl.textContent = desc || `${payer.name} đã trả ${amount.toLocaleString()} tiền thuê cho ${recipient.name}.`;
       }
 
-      // 3. Render Cash Stack
+      // 3. Show Overlay first and force layout reflow so children render actively
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+      void overlay.offsetWidth;
+
+      // 4. Render Cash Stack & Trigger Flight
       if (stackContainer) {
         stackContainer.innerHTML = renderCashStackHTML(amount);
         stackContainer.classList.remove('mono-cash-flying');
@@ -8387,7 +8806,7 @@
         stackContainer.classList.add('mono-cash-flying');
       }
 
-      // 4. Pulse Recipient
+      // 5. Pulse Recipient
       if (recipPod) {
         recipPod.classList.remove('mono-recipient-pulsing');
         void recipPod.offsetWidth;
@@ -8401,10 +8820,6 @@
         setTimeout(() => soundTone(1320, 'sine', 0.15, 0.3), 500);
       } catch(e) {}
 
-      // Show Overlay
-      overlay.classList.remove('hidden');
-      overlay.classList.add('flex');
-
       // Auto close after animation finishes
       setTimeout(() => {
         overlay.classList.add('hidden');
@@ -8415,6 +8830,75 @@
     window.triggerMonoCashTransfer = triggerMonoCashTransfer;
 
     // Trigger Airplane Flyby Sequence (Tile 18 Sân Bay / Dịch Chuyển)
+    
+    function triggerMonoJailGateAnimation({ player, reason, onComplete }) {
+      const overlay = document.getElementById('monoJailGateOverlay');
+      if (!overlay) {
+        if (onComplete) onComplete();
+        return;
+      }
+
+      const leftGate = document.getElementById('monoJailGateLeft');
+      const rightGate = document.getElementById('monoJailGateRight');
+      const padlock = document.getElementById('monoJailPadlock');
+      const gateBox = document.getElementById('monoJailGateBox');
+      const reasonEl = document.getElementById('monoJailGateReason');
+
+      if (reasonEl && reason) {
+        reasonEl.textContent = reason;
+      }
+
+      // 1. Show overlay first and force reflow so children have non-zero geometry
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+      void overlay.offsetWidth;
+
+      // 2. Trigger keyframe animations
+      if (leftGate) {
+        leftGate.classList.remove('mono-gate-slam-left');
+        void leftGate.offsetWidth;
+        leftGate.classList.add('mono-gate-slam-left');
+      }
+      if (rightGate) {
+        rightGate.classList.remove('mono-gate-slam-right');
+        void rightGate.offsetWidth;
+        rightGate.classList.add('mono-gate-slam-right');
+      }
+      if (padlock) {
+        padlock.classList.remove('mono-padlock-snap');
+        void padlock.offsetWidth;
+        padlock.classList.add('mono-padlock-snap');
+      }
+      if (gateBox) {
+        gateBox.classList.remove('mono-gate-screen-shake');
+        void gateBox.offsetWidth;
+        gateBox.classList.add('mono-gate-screen-shake');
+      }
+
+      // 3. Synthesized Heavy Metallic Clang + Padlock Snap Sound
+      try {
+        // 0s: Metal sliding scrape
+        soundTone(160, 'sawtooth', 0.2, 0.2);
+        // 0.42s: Massive Heavy Metallic Gate Impact
+        setTimeout(() => {
+          soundTone(110, 'sawtooth', 0.35, 0.4);
+          soundTone(720, 'square', 0.25, 0.3);
+        }, 420);
+        // 0.65s: Sharp Solid Padlock Click
+        setTimeout(() => {
+          soundTone(1280, 'sine', 0.12, 0.25);
+        }, 650);
+      } catch(e) {}
+
+      // Auto dismiss after 2.0s
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+        if (onComplete) onComplete();
+      }, 2000);
+    }
+    window.triggerMonoJailGateAnimation = triggerMonoJailGateAnimation;
+
     function triggerMonoAirplaneFlyby({ player, destTile, onComplete }) {
       const overlay = document.getElementById('monoAirplaneOverlay');
       if (!overlay) {
@@ -8737,215 +9221,221 @@
       isMaintenance: false
     };
 
-    let adminPlayersList = [
-      {
-        uid: 'admin_usr_01',
-        name: 'Minh Dev',
-        email: 'minh.dev@tabletop.io',
-        role: 'Admin',
-        coins: 2450,
-        gems: 150,
-        elo: 1680,
-        winRate: 78,
-        matches: 45,
-        status: 'active',
-        avatarBg: 'from-amber-500 to-amber-700'
-      },
-      {
-        uid: 'vip_usr_02',
-        name: 'Shadow Grandmaster',
-        email: 'shadow.gm@tabletop.io',
-        role: 'Huyền Thoại VIP',
-        coins: 18200,
-        gems: 920,
-        elo: 2580,
-        winRate: 89,
-        matches: 140,
-        status: 'active',
-        avatarBg: 'from-purple-600 to-indigo-700'
-      },
-      {
-        uid: 'pro_usr_03',
-        name: 'Phượng Hoàng Lửa',
-        email: 'phoenix@board.net',
-        role: 'Kiện Tướng PRO',
-        coins: 6500,
-        gems: 310,
-        elo: 2240,
-        winRate: 83,
-        matches: 112,
-        status: 'active',
-        avatarBg: 'from-rose-500 to-amber-600'
-      },
-      {
-        uid: 'new_usr_04',
-        name: 'Kỳ Thủ Lam Ngọc',
-        email: 'novice@tabletop.org',
-        role: 'Tân Thủ',
-        coins: 850,
-        gems: 25,
-        elo: 1250,
-        winRate: 52,
-        matches: 22,
-        status: 'active',
-        avatarBg: 'from-cyan-600 to-blue-700'
-      }
-    ];
+    // 100% REAL CLOUD FIRESTORE PLAYER LIST (colap-c2e9c)
+    let adminPlayersList = [];
+    let firestoreUnsubscribe = null;
 
     let adminAuditLogs = [
-      { id: 1, time: 'Vừa xong', tag: 'AUTH', color: 'emerald', text: 'Admin Console được mở và xác thực quyền Super Admin.' },
-      { id: 2, time: '2 phút trước', tag: 'FIRESTORE', color: 'cyan', text: 'Đồng bộ Firestore tài liệu users/{uid} hoàn tất.' },
-      { id: 3, time: '5 phút trước', tag: 'MATCH', color: 'amber', text: 'Kỳ thủ Minh Dev hoàn tất ván Dice Quest với 50 điểm.' },
-      { id: 4, time: '12 phút trước', tag: 'VIP', color: 'purple', text: 'Giao dịch nâng cấp gói Huyền Thoại VIP kích hoạt thành công.' }
+      { id: 1, time: 'Vừa xong', tag: 'AUTH', color: 'emerald', text: 'Admin Console kết nối Cloud Firestore thành công.' },
+      { id: 2, time: 'Vừa xong', tag: 'FIRESTORE', color: 'cyan', text: 'Đồng bộ Firestore dữ liệu thật users/* kích hoạt.' }
     ];
 
-    // =========================================================================
-    // SECRET PORTAL SYSTEM (4 CỔNG BÍ MẬT DÀNH CHO QUẢN TRỊ VIÊN)
-    // =========================================================================
-    let logoSecretClicks = 0;
-    let logoSecretTimer = null;
+    // Synchronize Real Players directly from Cloud Firestore (colap-c2e9c)
+    window.syncRealFirestorePlayers = async function(manualToast = false) {
+      const icon = document.getElementById('iconSyncFirestore');
+      if (icon) icon.classList.add('animate-spin');
 
-    window.handleLogoSecretClick = function(e) {
-      logoSecretClicks++;
-      clearTimeout(logoSecretTimer);
-      logoSecretTimer = setTimeout(() => {
-        if (logoSecretClicks < 3) {
-          switchGameView('dice');
+      if (manualToast) {
+        showToast('🔄 Đang quét & đồng bộ tài khoản thật từ Cloud Firestore...');
+      }
+
+      const realPlayers = [];
+      const projectId = "colap-c2e9c";
+
+      // Method 1: Direct Cloud Firestore REST API (Ultra reliable & fast)
+      try {
+        const res = await fetch(`https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/users?pageSize=100`, {
+          cache: 'no-store'
+        });
+        if (res.ok) {
+          const json = await res.json();
+          const docs = json.documents || [];
+          docs.forEach(d => {
+            const f = d.fields || {};
+            const docId = d.name.split('/').pop();
+            const uid = (f.uid && f.uid.stringValue) || docId;
+            const email = (f.email && f.email.stringValue) || '';
+            const displayName = (f.displayName && f.displayName.stringValue) || (email ? email.split('@')[0] : 'Kỳ Thủ');
+            const coins = f.coins ? (f.coins.integerValue ? Number(f.coins.integerValue) : Number(f.coins.doubleValue || 0)) : 2450;
+            const gems = f.gems ? (f.gems.integerValue ? Number(f.gems.integerValue) : Number(f.gems.doubleValue || 0)) : 150;
+            const elo = f.elo ? (f.elo.integerValue ? Number(f.elo.integerValue) : Number(f.elo.doubleValue || 0)) : 1200;
+            const role = (f.role && f.role.stringValue) || (email === 'minhcuong111@gmail.com' ? 'Admin' : 'Tân Thủ');
+            const status = (f.status && f.status.stringValue) || 'active';
+            const matches = f.matches ? (f.matches.integerValue ? Number(f.matches.integerValue) : 0) : 0;
+            const winRate = f.winRate ? parseInt(f.winRate.stringValue || '0') : 0;
+            const createdAt = (f.createdAt && f.createdAt.stringValue) || '';
+
+            realPlayers.push({
+              uid,
+              name: displayName,
+              email,
+              role,
+              coins,
+              gems,
+              elo,
+              winRate,
+              matches,
+              status,
+              createdAt,
+              avatarBg: role === 'Admin' ? 'from-rose-500 to-amber-600' : 'from-cyan-600 to-blue-700'
+            });
+          });
         }
-        logoSecretClicks = 0;
-      }, 800);
-
-      if (logoSecretClicks >= 3) {
-        logoSecretClicks = 0;
-        clearTimeout(logoSecretTimer);
-        triggerSecretPortal('Vương Miện Logo (Triple-Click)');
-      }
-    };
-
-    let footerSecretClicks = 0;
-    let footerSecretTimer = null;
-
-    window.handleSecretFooterClick = function(e) {
-      footerSecretClicks++;
-      clearTimeout(footerSecretTimer);
-      footerSecretTimer = setTimeout(() => {
-        footerSecretClicks = 0;
-      }, 800);
-
-      if (footerSecretClicks >= 3) {
-        footerSecretClicks = 0;
-        clearTimeout(footerSecretTimer);
-        triggerSecretPortal('Bản Quyền © Footer (Triple-Click)');
-      }
-    };
-
-    function triggerSecretPortal(sourceName) {
-      // Secret visual flourish on Logo
-      const logoIcon = document.getElementById('brandLogoIcon');
-      if (logoIcon) {
-        logoIcon.classList.add('ring-4', 'ring-amber-400', 'scale-110');
-        setTimeout(() => logoIcon.classList.remove('ring-4', 'ring-amber-400', 'scale-110'), 900);
+      } catch (err) {
+        console.warn("Firestore REST Fetch error:", err);
       }
 
-      // Secret Magical Chime Audio Synthesis
-      soundTone(523.25, 'sine', 0.12, 0.12); // C5
-      setTimeout(() => soundTone(659.25, 'sine', 0.12, 0.12), 100); // E5
-      setTimeout(() => soundTone(783.99, 'triangle', 0.22, 0.18), 200); // G5
-      setTimeout(() => soundTone(1046.50, 'triangle', 0.35, 0.25), 320); // C6
-
-      // Open Modal
-      openAdminModal();
-      showToast(`🗝️ Cổng Bí Mật Quản Trị Viên kích hoạt qua [${sourceName}]!`);
-      adminAddLog('AUTH', `Kích hoạt Cổng Bí Mật Quản Trị Viên thành công qua [${sourceName}].`);
-    }
-
-    // Secret Hotkey Listener: Ctrl + Shift + A hoặc Alt + Shift + A
-    window.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey || e.altKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
-        e.preventDefault();
-        triggerSecretPortal('Phím tắt Ctrl+Shift+A');
-      }
-    });
-
-    // Secret URL Hash / Query check: #admin hoặc ?secret=admin
-    function checkSecretPortalFromURL() {
-      const hash = (window.location.hash || '').toLowerCase();
-      const search = (window.location.search || '').toLowerCase();
-      if (hash === '#admin' || hash === '#secret' || search.includes('secret=admin') || search.includes('admin=true')) {
-        setTimeout(() => {
-          triggerSecretPortal('URL Mật Mã (#admin)');
-        }, 400);
-      }
-    }
-    window.addEventListener('hashchange', checkSecretPortalFromURL);
-
-    // Load saved admin config from localStorage
-    function loadAdminConfig() {
-      const savedCfg = localStorage.getItem('tabletop_admin_config');
-      if (savedCfg) {
+      // Method 2: Firestore Modular SDK Fallback if REST returned empty
+      if (realPlayers.length === 0 && window.fbDb && window.fbCollection && window.fbGetDocs) {
         try {
-          adminGameConfig = { ...adminGameConfig, ...JSON.parse(savedCfg) };
-        } catch(e) {}
-      }
-      applyAdminConfigToGame();
-    }
-
-    function applyAdminConfigToGame() {
-      GOAL_SCORE = adminGameConfig.targetScore;
-      const display = document.getElementById('boardTargetScoreDisplay');
-      if (display) display.textContent = `${GOAL_SCORE} ĐIỂM`;
-
-      // Update TILES points
-      TILES.forEach(t => {
-        if (t.id === 3) t.pts = adminGameConfig.treasureReward;
-        if (t.id === 7) t.pts = adminGameConfig.starReward;
-        if (t.id === 11) t.pts = adminGameConfig.keyReward;
-        if (t.id === 5) t.pts = -Math.abs(adminGameConfig.blackholePenalty);
-      });
-
-      // Update Maintenance Banner
-      const banner = document.getElementById('adminMaintenanceBanner');
-      const badge = document.getElementById('adminMaintenanceStatusBadge');
-      if (banner) {
-        if (adminGameConfig.isMaintenance) {
-          banner.classList.remove('hidden');
-          banner.classList.add('flex');
-        } else {
-          banner.classList.add('hidden');
-          banner.classList.remove('flex');
+          const snapshot = await window.fbGetDocs(window.fbCollection(window.fbDb, "users"));
+          snapshot.forEach(docSnap => {
+            const d = docSnap.data();
+            realPlayers.push({
+              uid: d.uid || docSnap.id,
+              name: d.displayName || d.name || (d.email ? d.email.split('@')[0] : 'Kỳ Thủ'),
+              email: d.email || '',
+              role: d.role || (d.email === 'minhcuong111@gmail.com' ? 'Admin' : 'Tân Thủ'),
+              coins: d.coins !== undefined ? Number(d.coins) : 2450,
+              gems: d.gems !== undefined ? Number(d.gems) : 150,
+              elo: d.elo !== undefined ? Number(d.elo) : 1200,
+              winRate: d.winRate ? parseInt(d.winRate) : 0,
+              matches: d.matches !== undefined ? Number(d.matches) : 0,
+              status: d.status || 'active',
+              createdAt: d.createdAt || '',
+              avatarBg: (d.role === 'Admin') ? 'from-rose-500 to-amber-600' : 'from-cyan-600 to-blue-700'
+            });
+          });
+        } catch (sdkErr) {
+          console.warn("Firestore SDK Fetch error:", sdkErr);
         }
       }
-      if (badge) {
-        badge.textContent = adminGameConfig.isMaintenance ? 'BẢO TRÌ' : 'HOẠT ĐỘNG';
-        badge.className = adminGameConfig.isMaintenance 
-          ? 'px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-400'
-          : 'px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400';
+
+      // Include current logged in user if not in list
+      if (window.currentFirebaseUser) {
+        const u = window.currentFirebaseUser;
+        const exists = realPlayers.find(p => p.email === u.email || p.uid === u.uid);
+        if (!exists) {
+          realPlayers.unshift({
+            uid: u.uid || 'usr_' + Date.now(),
+            name: u.displayName || 'Kỳ Thủ Hiện Tại',
+            email: u.email || '',
+            role: u.role || 'Admin',
+            coins: u.coins !== undefined ? Number(u.coins) : 2450,
+            gems: u.gems !== undefined ? Number(u.gems) : 150,
+            elo: u.elo !== undefined ? Number(u.elo) : 1200,
+            winRate: u.winRate ? parseInt(u.winRate) : 0,
+            matches: u.matches || 0,
+            status: 'active',
+            createdAt: u.createdAt || new Date().toISOString(),
+            avatarBg: 'from-amber-500 to-amber-700'
+          });
+        }
       }
-    }
+
+      adminPlayersList = realPlayers;
+
+      // Update badge counts and metrics
+      const badge = document.getElementById('adminBadgePlayerCount');
+      if (badge) badge.textContent = adminPlayersList.length;
+      
+      const tabBadge = document.getElementById('adminPlayerTabBadge');
+      if (tabBadge) tabBadge.textContent = adminPlayersList.length;
+
+      const statPl = document.getElementById('statAdminPlayers');
+      if (statPl) statPl.textContent = adminPlayersList.length.toLocaleString();
+
+      const totalCoins = adminPlayersList.reduce((acc, p) => acc + (p.coins || 0), 0);
+      const totalGems = adminPlayersList.reduce((acc, p) => acc + (p.gems || 0), 0);
+      const statEc = document.getElementById('statAdminEconomy');
+      if (statEc) statEc.textContent = `${totalCoins.toLocaleString()} 🪙 / ${totalGems.toLocaleString()} 💎`;
+
+      renderAdminPlayersTable();
+
+      setTimeout(() => {
+        if (icon) icon.classList.remove('animate-spin');
+        if (manualToast) {
+          showToast(`✅ Đã đồng bộ thành công ${adminPlayersList.length} tài khoản thật từ Cloud Firestore!`);
+        }
+      }, 400);
+
+      adminAddLog('FIRESTORE', `Đồng bộ ${adminPlayersList.length} tài khoản thực tế từ Cloud Firestore hoàn tất.`);
+    };
+
+    // Open Add Real Player Modal
+    window.openAdminAddRealPlayerModal = function() {
+      openModal('adminAddRealPlayerModal');
+    };
+
+    window.adminQuickAddMockPlayer = function() {
+      openAdminAddRealPlayerModal();
+    };
+
+    // Form submit for adding a real player to Firestore
+    window.handleCreateRealPlayerSubmit = async function(e) {
+      if (e) e.preventDefault();
+      const btn = document.getElementById('btnSubmitAddRealPlayer');
+      if (btn) btn.disabled = true;
+
+      const name = document.getElementById('newPlayerName').value.trim();
+      const email = document.getElementById('newPlayerEmail').value.trim();
+      const role = document.getElementById('newPlayerRole').value;
+      const elo = Number(document.getElementById('newPlayerElo').value) || 1200;
+      const coins = Number(document.getElementById('newPlayerCoins').value) || 2450;
+      const gems = Number(document.getElementById('newPlayerGems').value) || 150;
+
+      const newUid = 'usr_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 7);
+
+      const playerData = {
+        uid: newUid,
+        displayName: name,
+        email: email,
+        role: role,
+        coins: coins,
+        gems: gems,
+        elo: elo,
+        level: 1,
+        matches: 0,
+        winRate: "0%",
+        status: "active",
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        if (window.saveUserToCloudFirestore) {
+          await window.saveUserToCloudFirestore(playerData);
+        }
+        showToast(`🎉 Đã thêm kỳ thủ "${name}" lên Cloud Firestore thành công!`);
+        adminAddLog('PLAYER', `Đăng ký thành công kỳ thủ thực tế ${name} (${email}) lên Cloud Firestore.`);
+        closeModal('adminAddRealPlayerModal');
+        
+        // Reset form
+        document.getElementById('newPlayerName').value = '';
+        document.getElementById('newPlayerEmail').value = '';
+
+        await syncRealFirestorePlayers(false);
+      } catch (err) {
+        showToast('❌ Lỗi khi lưu vào Firestore: ' + err.message);
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    };
 
     // Open Admin Modal
     window.openAdminModal = function() {
       openModal('adminModal');
 
-      // Sync active firebase user into players list if not yet there
-      if (window.currentFirebaseUser) {
-        const u = window.currentFirebaseUser;
-        const exists = adminPlayersList.find(p => p.email === u.email || p.uid === u.uid);
-        if (!exists) {
-          adminPlayersList.unshift({
-            uid: u.uid || 'usr_' + Date.now(),
-            name: u.displayName || 'Kỳ Thủ Hiện Tại',
-            email: u.email,
-            role: u.role || 'Admin',
-            coins: u.coins || 1250,
-            gems: u.gems || 45,
-            elo: u.elo || 1420,
-            winRate: u.winRate || 64,
-            matches: u.matches || 28,
-            status: 'active',
-            avatarBg: 'from-amber-500 to-amber-700'
+      // Trigger automatic realtime sync from Cloud Firestore
+      syncRealFirestorePlayers(false);
+
+      // Setup Firestore Real-time Listener (Auto update when anyone registers)
+      if (!firestoreUnsubscribe && window.fbDb && window.fbCollection && window.fbOnSnapshot) {
+        try {
+          firestoreUnsubscribe = window.fbOnSnapshot(window.fbCollection(window.fbDb, "users"), () => {
+            console.log("Firestore Realtime Trigger: User collection updated!");
+            syncRealFirestorePlayers(false);
           });
-        }
+        } catch (e) {}
       }
 
       // Check if unlocked
@@ -9013,27 +9503,35 @@
 
       Object.keys(views).forEach(k => {
         if (k === tab) {
-          views[k].classList.remove('hidden');
-          btns[k].className = 'btn-spring px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white flex items-center gap-1.5 shadow-sm';
+          if (views[k]) views[k].classList.remove('hidden');
+          if (btns[k]) btns[k].className = 'btn-spring px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white flex items-center gap-1.5 shadow-sm';
         } else {
-          views[k].classList.add('hidden');
-          btns[k].className = 'btn-spring px-3.5 py-2 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 border border-board-border';
+          if (views[k]) views[k].classList.add('hidden');
+          if (btns[k]) btns[k].className = 'btn-spring px-3.5 py-2 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 border border-board-border';
         }
       });
 
-      if (tab === 'players') renderAdminPlayersTable();
+      if (tab === 'players') {
+        syncRealFirestorePlayers(false);
+      }
       if (tab === 'balancer') populateBalancerForm();
       if (tab === 'logs') renderAdminLogsFeed();
       lucide.createIcons();
     };
 
     function renderAdminAll() {
-      // Metrics
+      // Real Metrics
       const totalCoins = adminPlayersList.reduce((acc, p) => acc + (p.coins || 0), 0);
       const totalGems = adminPlayersList.reduce((acc, p) => acc + (p.gems || 0), 0);
-      document.getElementById('statAdminPlayers').textContent = (adminPlayersList.length + 1280).toLocaleString();
-      document.getElementById('adminBadgePlayerCount').textContent = adminPlayersList.length;
-      document.getElementById('statAdminEconomy').textContent = `${(totalCoins / 1000).toFixed(1)}k 🪙`;
+      
+      const statPl = document.getElementById('statAdminPlayers');
+      if (statPl) statPl.textContent = adminPlayersList.length.toLocaleString();
+
+      const badge = document.getElementById('adminBadgePlayerCount');
+      if (badge) badge.textContent = adminPlayersList.length;
+
+      const statEc = document.getElementById('statAdminEconomy');
+      if (statEc) statEc.textContent = `${totalCoins.toLocaleString()} 🪙 / ${totalGems.toLocaleString()} 💎`;
 
       renderAdminPlayersTable();
       populateBalancerForm();
@@ -9055,6 +9553,22 @@
         return matchesSearch && matchesRole;
       });
 
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="p-8 text-center text-xs text-slate-400">
+              <div class="flex flex-col items-center gap-2">
+                <i data-lucide="users" class="w-8 h-8 text-slate-500"></i>
+                <span class="font-semibold text-slate-300">Chưa tìm thấy kỳ thủ phù hợp trong Cloud Firestore.</span>
+                <span class="text-[11px] text-slate-500">Bấm <b>[Đồng Bộ Dữ Liệu Thật]</b> hoặc <b>[Thêm Kỳ Thủ Mới]</b> để cập nhật ngay.</span>
+              </div>
+            </td>
+          </tr>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
       filtered.forEach(p => {
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-white/[0.02] transition-colors';
@@ -9071,15 +9585,15 @@
         tr.innerHTML = `
           <td class="p-3">
             <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-xl bg-gradient-to-tr ${p.avatarBg || 'from-amber-500 to-amber-700'} text-white font-black flex items-center justify-center text-xs shadow-inner">
+              <div class="w-8 h-8 rounded-xl bg-gradient-to-tr ${p.avatarBg || 'from-cyan-600 to-blue-700'} text-white font-black flex items-center justify-center text-xs shadow-inner">
                 ${p.name.substring(0, 2).toUpperCase()}
               </div>
               <div>
                 <div class="font-bold text-white flex items-center gap-1.5">
                   ${p.name}
-                  ${p.uid === 'admin_usr_01' || (window.currentFirebaseUser && window.currentFirebaseUser.email === p.email) ? '<span class="text-[9px] px-1 rounded bg-amber-500/20 text-amber-300 font-mono">BẠN</span>' : ''}
+                  ${(window.currentFirebaseUser && (window.currentFirebaseUser.email === p.email || window.currentFirebaseUser.uid === p.uid)) ? '<span class="text-[9px] px-1 rounded bg-amber-500/20 text-amber-300 font-mono font-bold">BẠN</span>' : ''}
                 </div>
-                <div class="text-[11px] text-slate-400 font-mono">${p.email} • UID: ${p.uid.substring(0, 10)}...</div>
+                <div class="text-[11px] text-slate-400 font-mono">${p.email || 'Không có email'} • UID: ${p.uid ? p.uid.substring(0, 10) + '...' : 'Chưa có'}</div>
               </div>
             </div>
           </td>
@@ -9097,7 +9611,7 @@
           <td class="p-3">
             <div class="font-mono">
               <div class="text-white font-bold">${p.elo || 1200} ELO</div>
-              <div class="text-[10px] text-slate-400">${p.matches || 0} trận (${p.winRate || 50}% W)</div>
+              <div class="text-[10px] text-slate-400">${p.matches || 0} trận (${p.winRate || 0}% W)</div>
             </div>
           </td>
           <td class="p-3">
@@ -9108,13 +9622,13 @@
           </td>
           <td class="p-3 text-right">
             <div class="flex items-center justify-end gap-1.5">
-              <button onclick="adminAddCurrency('${p.uid}', 'coins', 500)" class="btn-spring px-2 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-[10px] font-bold" title="Tặng 500 Xu">
+              <button onclick="adminAddCurrency('${p.uid}', 'coins', 500)" class="btn-spring px-2 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-[10px] font-bold" title="Cấp 500 Xu vào Cloud Firestore">
                 +500 🪙
               </button>
-              <button onclick="adminAddCurrency('${p.uid}', 'gems', 50)" class="btn-spring px-2 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-[10px] font-bold" title="Tặng 50 Đá quý">
+              <button onclick="adminAddCurrency('${p.uid}', 'gems', 50)" class="btn-spring px-2 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-[10px] font-bold" title="Cấp 50 Đá quý vào Cloud Firestore">
                 +50 💎
               </button>
-              <button onclick="adminToggleUserRole('${p.uid}')" class="btn-spring px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-[10px] font-semibold" title="Đổi cấp bậc vai trò">
+              <button onclick="adminToggleUserRole('${p.uid}')" class="btn-spring px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-[10px] font-semibold" title="Đổi cấp bậc vai trò trong Cloud Firestore">
                 Đổi Quyền
               </button>
               <button onclick="adminToggleBanUser('${p.uid}')" class="btn-spring p-1 rounded-lg ${isBanned ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-rose-500/10 text-rose-400 border border-rose-500/30'}" title="${isBanned ? 'Mở khóa kỳ thủ' : 'Khóa tài khoản'}">
@@ -9128,74 +9642,69 @@
       lucide.createIcons();
     };
 
-    window.adminAddCurrency = function(uid, type, amount) {
+    window.adminAddCurrency = async function(uid, type, amount) {
       const p = adminPlayersList.find(x => x.uid === uid);
       if (!p) return;
       if (type === 'coins') p.coins = (p.coins || 0) + amount;
       if (type === 'gems') p.gems = (p.gems || 0) + amount;
 
+      // Persist to Cloud Firestore
+      if (window.updateCloudFirestoreUserField) {
+        window.updateCloudFirestoreUserField(uid, { [type]: p[type] });
+      }
+
       // Sync active user if matched
       if (window.currentFirebaseUser && (window.currentFirebaseUser.uid === uid || window.currentFirebaseUser.email === p.email)) {
         window.currentFirebaseUser.coins = p.coins;
         window.currentFirebaseUser.gems = p.gems;
-        document.getElementById('userCoins').textContent = p.coins.toLocaleString();
-        document.getElementById('userGems').textContent = p.gems.toLocaleString();
+        const uCoins = document.getElementById('userCoins');
+        const uGems = document.getElementById('userGems');
+        if (uCoins) uCoins.textContent = p.coins.toLocaleString();
+        if (uGems) uGems.textContent = p.gems.toLocaleString();
         localStorage.setItem('tabletop_firebase_user', JSON.stringify(window.currentFirebaseUser));
       }
 
-      adminAddLog('REWARD', `Quản trị viên đã cấp phát +${amount} ${type === 'coins' ? 'Xu 🪙' : 'Đá Quý 💎'} cho kỳ thủ ${p.name}.`);
-      showToast(`✨ Đã tặng +${amount} ${type} cho ${p.name}`);
+      adminAddLog('REWARD', `Quản trị viên đã cấp phát +${amount} ${type === 'coins' ? 'Xu 🪙' : 'Đá Quý 💎'} cho kỳ thủ ${p.name} (Lưu Firestore).`);
+      showToast(`✨ Đã cấp +${amount} ${type} cho ${p.name} (Lưu Firestore)`);
       renderAdminPlayersTable();
       soundTone(720, 'sine', 0.1, 0.1);
     };
 
-    window.adminToggleUserRole = function(uid) {
+    window.adminToggleUserRole = async function(uid) {
       const p = adminPlayersList.find(x => x.uid === uid);
       if (!p) return;
       const roles = ['Tân Thủ', 'Kiện Tướng PRO', 'Huyền Thoại VIP', 'Admin'];
       const nextIdx = (roles.indexOf(p.role) + 1) % roles.length;
       p.role = roles[nextIdx];
 
+      // Persist to Cloud Firestore
+      if (window.updateCloudFirestoreUserField) {
+        window.updateCloudFirestoreUserField(uid, { role: p.role });
+      }
+
       if (window.currentFirebaseUser && (window.currentFirebaseUser.uid === uid || window.currentFirebaseUser.email === p.email)) {
         window.currentFirebaseUser.role = p.role;
         localStorage.setItem('tabletop_firebase_user', JSON.stringify(window.currentFirebaseUser));
       }
 
-      adminAddLog('ROLE', `Đổi vai trò kỳ thủ ${p.name} thành [${p.role}].`);
-      showToast(`👑 Đã cập nhật vai trò ${p.name} thành: ${p.role}`);
+      adminAddLog('ROLE', `Đổi vai trò kỳ thủ ${p.name} thành [${p.role}] trong Firestore.`);
+      showToast(`👑 Đã cập nhật vai trò ${p.name} thành: ${p.role} (Firestore)`);
       renderAdminPlayersTable();
       soundTone(550, 'triangle', 0.12, 0.1);
     };
 
-    window.adminToggleBanUser = function(uid) {
+    window.adminToggleBanUser = async function(uid) {
       const p = adminPlayersList.find(x => x.uid === uid);
       if (!p) return;
       p.status = p.status === 'banned' ? 'active' : 'banned';
 
-      adminAddLog('BAN', `${p.status === 'banned' ? 'Khóa' : 'Mở khóa'} tài khoản kỳ thủ ${p.name}.`);
-      showToast(`${p.status === 'banned' ? '🚫 Đã khóa' : '✅ Đã mở khóa'} tài khoản ${p.name}`);
-      renderAdminPlayersTable();
-    };
+      // Persist to Cloud Firestore
+      if (window.updateCloudFirestoreUserField) {
+        window.updateCloudFirestoreUserField(uid, { status: p.status });
+      }
 
-    window.adminQuickAddMockPlayer = function() {
-      const names = ['Thánh Cờ Ba Cọc', 'Kỳ Vương Núi Nhạn', 'Vua Cờ Neon', 'Bá Tước Xúc Xắc', 'Hiệp Sĩ Rồng Vàng'];
-      const randName = names[Math.floor(Math.random() * names.length)] + ' #' + Math.floor(Math.random() * 900 + 100);
-      const newP = {
-        uid: 'mock_' + Date.now(),
-        name: randName,
-        email: 'player_' + Date.now().toString().slice(-4) + '@tabletop.arena',
-        role: 'Tân Thủ',
-        coins: 1000,
-        gems: 30,
-        elo: Math.floor(Math.random() * 400 + 1200),
-        winRate: Math.floor(Math.random() * 30 + 50),
-        matches: Math.floor(Math.random() * 20 + 5),
-        status: 'active',
-        avatarBg: 'from-cyan-600 to-indigo-700'
-      };
-      adminPlayersList.push(newP);
-      adminAddLog('PLAYER', `Thêm kỳ thủ mẫu ${newP.name} vào hệ thống.`);
-      showToast(`👤 Đã thêm kỳ thủ: ${newP.name}`);
+      adminAddLog('BAN', `${p.status === 'banned' ? 'Khóa' : 'Mở khóa'} tài khoản kỳ thủ ${p.name} trên Firestore.`);
+      showToast(`${p.status === 'banned' ? '🚫 Đã khóa' : '✅ Đã mở khóa'} tài khoản ${p.name}`);
       renderAdminPlayersTable();
     };
 
@@ -10431,7 +10940,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v3.8.0'
+      currentVersion: 'v3.8.5'
     };
 
     let allChangelogItems = [];
@@ -11169,7 +11678,7 @@
     "sha": "0056d54",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.8.0",
+    "version": "v3.8.5",
     "title": "fix(gh-pages): add standalone Monaco Editor Web IDE for GitHub Pages deployment",
     "details": [
       "fix(gh-pages): add standalone Monaco Editor Web IDE for GitHub Pages deployment"
@@ -11530,24 +12039,29 @@
 
     // App Initialization
     window.addEventListener('DOMContentLoaded', () => {
-      loadBotWinStats();
-      switchMainTab('lobby');
-      lucide.createIcons();
-      loadAdminConfig();
-      initVersionTracker();
-      renderCircuitBoard();
-      updateDiceUI();
-      checkSecretPortalFromURL();
+      try { loadBotWinStats(); } catch(e) {}
+      try { if (window.lucide && typeof lucide.createIcons === 'function') lucide.createIcons(); } catch(e) {}
+      try { loadAdminConfig(); } catch(e) {}
+      try { initVersionTracker(); } catch(e) {}
+      try { renderCircuitBoard(); } catch(e) {}
+      try { updateDiceUI(); } catch(e) {}
+      try { checkSecretPortalFromURL(); } catch(e) {}
 
       // Direct game launch via query param (e.g. ?game=monopoly)
+      let launchedDirectly = false;
       try {
         const urlParams = new URLSearchParams(window.location.search);
         const requestedGame = urlParams.get('game');
         if (requestedGame) {
           switchMainTab('arena');
           switchGameView(requestedGame);
+          launchedDirectly = true;
         }
       } catch (e) {}
+
+      if (!launchedDirectly) {
+        switchMainTab('lobby');
+      }
 
       // Check local cache if any
       const cached = localStorage.getItem('tabletop_firebase_user');
@@ -11560,5 +12074,71 @@
       }
     });
   </script>
+
+  <!-- ================= MODAL: THÊM KỲ THỦ THỰC TẾ LÊN CLOUD FIRESTORE ================= -->
+  <div id="adminAddRealPlayerModal" class="fixed inset-0 z-[120] hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+    <div class="w-full max-w-md bg-[#0F172A] border-2 border-emerald-500/40 rounded-3xl p-6 shadow-2xl space-y-4 relative">
+      <button onclick="closeModal('adminAddRealPlayerModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-xl bg-black/40 border border-board-border">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="flex items-center gap-3 border-b border-slate-700/60 pb-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+          <i data-lucide="user-plus" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="text-sm font-black text-white font-cinzel">THÊM KỲ THỦ VÀO FIRESTORE</h3>
+          <p class="text-[11px] text-slate-400 font-mono">Lưu trữ trực tiếp lên Cloud Firestore (Dữ liệu thật 100%)</p>
+        </div>
+      </div>
+
+      <form onsubmit="handleCreateRealPlayerSubmit(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">Tên Kỳ Thủ (Bạn của bạn):</label>
+          <input type="text" id="newPlayerName" required placeholder="Ví dụ: Hoàng Long, Thái, Minh..." class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">Địa Chỉ Email:</label>
+          <input type="email" id="newPlayerEmail" required placeholder="ban.cua.toi@gmail.com" class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Vai Trò / Quyền:</label>
+            <select id="newPlayerRole" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-white focus:outline-none focus:border-emerald-500">
+              <option value="Tân Thủ">Tân Thủ</option>
+              <option value="Kiện Tướng PRO">Kiện Tướng PRO</option>
+              <option value="Huyền Thoại VIP">Huyền Thoại VIP</option>
+              <option value="Admin">Admin</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Chỉ Số ELO Ban Đầu:</label>
+            <input type="number" id="newPlayerElo" value="1200" min="100" max="3000" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-white focus:outline-none focus:border-emerald-500 font-mono">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Số Vàng 🪙 Ban Đầu:</label>
+            <input type="number" id="newPlayerCoins" value="2450" min="0" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-amber-300 focus:outline-none focus:border-emerald-500 font-mono font-bold">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Số Đá Quý 💎 Ban Đầu:</label>
+            <input type="number" id="newPlayerGems" value="150" min="0" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-cyan-300 focus:outline-none focus:border-emerald-500 font-mono font-bold">
+          </div>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeModal('adminAddRealPlayerModal')" class="btn-spring px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold">
+            Hủy Bỏ
+          </button>
+          <button type="submit" id="btnSubmitAddRealPlayer" class="btn-spring px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold flex items-center gap-1.5 shadow-lg shadow-emerald-900/40">
+            <i data-lucide="cloud-upload" class="w-4 h-4"></i>
+            <span>Lưu Vào Cloud Firestore</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
 </body>
 </html>

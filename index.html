@@ -1257,6 +1257,26 @@
             <span id="spectatorBtnText">Quan Sát</span>
           </button>
 
+          <!-- Dice Speed Selector (1x - 25x) -->
+          <div class="flex items-center bg-board-tray p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
+            <span class="text-[11px] text-amber-400 px-1.5 flex items-center gap-1 font-semibold">
+              ⚡ Tốc độ:
+            </span>
+            <div class="flex items-center gap-0.5">
+              <button onclick="setDiceSpeed(1)" id="diceSpeedBtn_1" class="px-2 py-0.5 rounded-md bg-amber-500 text-slate-950 font-bold shadow-sm transition">1x</button>
+              <button onclick="setDiceSpeed(2)" id="diceSpeedBtn_2" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition">2x</button>
+              <button onclick="setDiceSpeed(5)" id="diceSpeedBtn_5" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition">5x</button>
+              <button onclick="setDiceSpeed(10)" id="diceSpeedBtn_10" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition">10x</button>
+              <button onclick="setDiceSpeed(25)" id="diceSpeedBtn_25" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition">25x</button>
+            </div>
+          </div>
+
+          <!-- Dice Auto-Play Header Toggle -->
+          <button onclick="toggleDiceAutoPlay()" id="btnDiceAutoPlayHeader" class="btn-spring px-2.5 py-1 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all" title="Bật/Tắt tự động gieo xúc xắc">
+            <span class="text-sm">🤖</span>
+            <span id="diceAutoPlayHeaderText">Tự Động: TẮT</span>
+          </button>
+
           <!-- New Match Reset -->
           <button onclick="handleReset()" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-200 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm">
             <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-amber-400"></i>
@@ -1358,6 +1378,29 @@
             <button onclick="setMonopolyPlayerCount(3)" id="btnMonoCount3" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition-all font-bold">3P</button>
             <button onclick="setMonopolyPlayerCount(4)" id="btnMonoCount4" class="px-2 py-1 rounded-lg bg-emerald-600 text-white font-bold transition-all shadow-sm">4P</button>
           </div>
+
+          <!-- Monopoly Speed Engine (1x - 25x) -->
+          <div class="flex items-center gap-1.5 bg-black/60 px-2.5 py-1 rounded-xl border border-board-border text-xs font-semibold">
+            <span class="text-amber-400 font-bold flex items-center gap-1 text-[11px]">
+              ⚡ <span id="monoSpeedValText">1x</span>
+            </span>
+            <input type="range" id="monoSpeedSlider" min="1" max="25" value="1" step="1" oninput="setMonoSpeed(this.value)" class="w-16 accent-amber-400 cursor-pointer h-1.5 bg-slate-700 rounded-lg" title="Kéo để chỉnh tốc độ 1x - 25x">
+            <div class="flex items-center gap-0.5 ml-1">
+              <button onclick="setMonoSpeed(1)" id="monoSpeedBtn_1" class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500 text-slate-950">1x</button>
+              <button onclick="setMonoSpeed(2)" id="monoSpeedBtn_2" class="px-1.5 py-0.5 rounded text-[10px] font-bold text-slate-400 hover:text-white">2x</button>
+              <button onclick="setMonoSpeed(5)" id="monoSpeedBtn_5" class="px-1.5 py-0.5 rounded text-[10px] font-bold text-slate-400 hover:text-white">5x</button>
+              <button onclick="setMonoSpeed(10)" id="monoSpeedBtn_10" class="px-1.5 py-0.5 rounded text-[10px] font-bold text-slate-400 hover:text-white">10x</button>
+              <button onclick="setMonoSpeed(15)" id="monoSpeedBtn_15" class="px-1.5 py-0.5 rounded text-[10px] font-bold text-slate-400 hover:text-white">15x</button>
+              <button onclick="setMonoSpeed(20)" id="monoSpeedBtn_20" class="px-1.5 py-0.5 rounded text-[10px] font-bold text-slate-400 hover:text-white">20x</button>
+              <button onclick="setMonoSpeed(25)" id="monoSpeedBtn_25" class="px-1.5 py-0.5 rounded text-[10px] font-bold text-slate-400 hover:text-white">25x</button>
+            </div>
+          </div>
+
+          <!-- Monopoly Auto-Play Header Toggle -->
+          <button onclick="toggleMonoAutoPlay()" id="btnMonoAutoPlayHeader" class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all" title="Bật/Tắt tự động chơi Cờ Tỷ Phú">
+            <span class="text-sm">🤖</span>
+            <span id="monoAutoPlayHeaderText">Tự Động: TẮT</span>
+          </button>
 
           <!-- Quick Reset -->
           <button onclick="restartMonopolyGame()" class="btn-spring px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-board-border text-xs flex items-center gap-1 shadow-sm" title="Bắt đầu ván mới">
@@ -1574,6 +1617,12 @@
                     </svg>
                   </div>
                 </div>
+
+                <!-- Dice Auto-Play Toggle on Board -->
+                <button onclick="toggleDiceAutoPlay()" id="btnDiceAutoPlayBoard" class="group px-3 py-1 rounded-xl bg-[#0f172a]/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-600 text-[11px] font-bold flex items-center gap-1 shadow-sm transition-all cursor-pointer select-none my-0.5" title="Bật/Tắt chế độ tự động gieo xúc xắc">
+                  <span class="text-xs">🤖</span>
+                  <span id="diceAutoPlayBoardText">TỰ ĐỘNG CHƠI: TẮT</span>
+                </button>
 
                 <!-- Action Hint or Nudge Row -->
                 <div id="diceCenterActionArea" class="w-full flex flex-col items-center justify-center min-h-[30px] z-10">
@@ -2360,7 +2409,7 @@
           <div class="flex flex-col min-w-0">
             <div class="flex items-center gap-1">
               <span class="text-white font-black text-xs sm:text-sm truncate max-w-[90px]" id="monoCornerName_0">Tiên</span>
-              <span class="px-1 py-0.2 rounded text-[7px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40">P1</span>
+              <span id="monoCornerRoleBadge_0" class="px-1 py-0.2 rounded text-[7px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40">P1</span>
               <span id="monoCornerTurnBadge_0" class="px-1.5 py-0.2 rounded text-[7px] font-black bg-amber-400 text-slate-950 animate-pulse">LƯỢT</span>
             </div>
             <span class="text-emerald-400 font-chakra font-black text-sm sm:text-lg leading-tight" id="monoCornerCash_0">$3,500</span>
@@ -2377,7 +2426,7 @@
           <div class="flex flex-col text-right min-w-0">
             <div class="flex items-center gap-1 justify-end">
               <span id="monoCornerTurnBadge_1" class="hidden px-1.5 py-0.2 rounded text-[7px] font-black bg-amber-400 text-slate-950 animate-pulse">LƯỢT</span>
-              <span class="px-1 py-0.2 rounded text-[7px] font-black bg-sky-500/20 text-sky-300 border border-sky-500/40">BOT</span>
+              <span id="monoCornerRoleBadge_1" class="px-1 py-0.2 rounded text-[7px] font-black bg-sky-500/20 text-sky-300 border border-sky-500/40">BOT</span>
               <span class="text-white font-black text-xs sm:text-sm truncate max-w-[90px]" id="monoCornerName_1">Kỳ Lân AI</span>
             </div>
             <span class="text-emerald-400 font-chakra font-black text-sm sm:text-lg leading-tight" id="monoCornerCash_1">$3,500</span>
@@ -2398,7 +2447,7 @@
           <div class="flex flex-col min-w-0">
             <div class="flex items-center gap-1">
               <span class="text-white font-black text-xs sm:text-sm truncate max-w-[90px]" id="monoCornerName_2">Rồng Lửa AI</span>
-              <span class="px-1 py-0.2 rounded text-[7px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40">BOT</span>
+              <span id="monoCornerRoleBadge_2" class="px-1 py-0.2 rounded text-[7px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40">BOT</span>
               <span id="monoCornerTurnBadge_2" class="hidden px-1.5 py-0.2 rounded text-[7px] font-black bg-amber-400 text-slate-950 animate-pulse">LƯỢT</span>
             </div>
             <span class="text-emerald-400 font-chakra font-black text-sm sm:text-lg leading-tight" id="monoCornerCash_2">$3,500</span>
@@ -2415,7 +2464,7 @@
           <div class="flex flex-col text-right min-w-0">
             <div class="flex items-center gap-1 justify-end">
               <span id="monoCornerTurnBadge_3" class="hidden px-1.5 py-0.2 rounded text-[7px] font-black bg-amber-400 text-slate-950 animate-pulse">LƯỢT</span>
-              <span class="px-1 py-0.2 rounded text-[7px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">BOT</span>
+              <span id="monoCornerRoleBadge_3" class="px-1 py-0.2 rounded text-[7px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">BOT</span>
               <span class="text-white font-black text-xs sm:text-sm truncate max-w-[90px]" id="monoCornerName_3">Tổng Tài AI</span>
             </div>
             <span class="text-emerald-400 font-chakra font-black text-sm sm:text-lg leading-tight" id="monoCornerCash_3">$3,500</span>
@@ -2695,6 +2744,12 @@
               <span class="text-lg sm:text-xl group-hover:rotate-12 transition-transform">🎲</span>
               <span class="tracking-wider uppercase font-black" id="btnMono2dRollText">ĐỔ XÚC XẮC</span>
               <span class="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded bg-black/20 text-[10px] text-slate-900 font-mono font-bold ml-1 border border-black/10">Space</span>
+            </button>
+
+            <!-- Auto-Play Button on Monopoly Board Surface -->
+            <button onclick="toggleMonoAutoPlay()" id="btnMonoAutoPlayBoard" class="group px-4 py-1.5 rounded-xl bg-[#0f172a]/95 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-600 text-xs font-extrabold flex items-center gap-1.5 shadow-md transition-all cursor-pointer select-none pointer-events-auto" title="Bật/Tắt chế độ tự động chơi ngay trên bàn cờ">
+              <span class="text-sm group-hover:rotate-12 transition-transform">🤖</span>
+              <span id="monoAutoPlayBoardText">TỰ ĐỘNG CHƠI: TẮT</span>
             </button>
           </div>
         </div>
@@ -7006,7 +7061,7 @@
       if (hint) hint.textContent = `🎲 ${pName} đang gieo xúc xắc...`;
       soundTone(440, 'square', 0.08, 0.06);
 
-      const rollDuration = isSpectatorMode ? Math.max(15, Math.floor(450 / spectatorSpeed)) : 600;
+      const rollDuration = isSpectatorMode ? Math.max(15, Math.floor(450 / spectatorSpeed)) : Math.max(25, Math.floor(450 / (window.diceSpeed || 1)));
       let roll = fixedRoll || (Math.floor(Math.random() * 6) + 1);
 
       if (dice && (!isSpectatorMode || spectatorSpeed <= 5)) {
@@ -7025,6 +7080,26 @@
 
       if (hint) hint.textContent = `${pName} gieo được: ${roll} nút!`;
       recordDiceRoll(roll);
+
+      // Pre-Move Broadcast for Online Dice: notify opponent immediately so they see the roll & hops!
+      if (window.isOnlineRoomMatch && typeof window.pushOnlineGameState === 'function') {
+        window.pushOnlineGameState('dice', {
+          actionType: 'ROLL_START',
+          rollerPlayer: currentTurn,
+          roll: roll,
+          isCrit: isCrit,
+          fromPos: positions[currentTurn],
+          targetPos: (positions[currentTurn] + roll) % TILES.length,
+          toast: `🎲 ${pName} gieo xúc xắc được ${roll} nút!`
+        });
+      }
+
+      // If Dice Auto-Play is active, skip nudge prompt and move directly
+      if (window.diceAutoPlay) {
+        await moveMeepleSteps(currentTurn, roll);
+        isDiceRolling = false;
+        return;
+      }
 
       // Offer Nudge if Human player has energy >= 1 and not spectator
       if (currentTurn === 1 && !isSpectatorMode && playerEnergy[1] >= 1) {
@@ -7062,7 +7137,7 @@
         renderTokens();
         await new Promise(r => setTimeout(r, Math.max(8, Math.floor(60 / spectatorSpeed))));
       } else {
-        const stepDuration = isSpectatorMode ? Math.max(10, Math.floor(180 / spectatorSpeed)) : 220;
+        const stepDuration = isSpectatorMode ? Math.max(10, Math.floor(180 / spectatorSpeed)) : Math.max(12, Math.floor(200 / (window.diceSpeed || 1)));
         for (let s = 1; s <= steps; s++) {
           const prev = positions[player];
           positions[player] = (positions[player] + 1) % TILES.length;
@@ -7298,6 +7373,14 @@
         if (typeof window.updateOnlineRoomHUD === 'function') {
           window.updateOnlineRoomHUD();
         }
+
+        if (window.diceAutoPlay && (currentTurn - 1 === window.myRoomPlayerIndex)) {
+          setTimeout(() => {
+            if (window.diceAutoPlay && !isDiceRolling) {
+              handleDiceClickWithTiming();
+            }
+          }, Math.max(50, Math.floor(600 / (window.diceSpeed || 1))));
+        }
         return;
       }
 
@@ -7309,6 +7392,14 @@
         if (text) text.textContent = `Lượt của ${pName}`;
         if (hint) hint.textContent = 'Chạm vào xúc xắc để gieo hoặc canh lực';
         startTimingGauge();
+
+        if (window.diceAutoPlay) {
+          setTimeout(() => {
+            if (window.diceAutoPlay && !isDiceRolling) {
+              handleDiceClickWithTiming();
+            }
+          }, Math.max(50, Math.floor(600 / (window.diceSpeed || 1))));
+        }
       } else {
         stopTimingGauge();
         const thought = getBotDecisionThought(currentTurn);
@@ -7320,7 +7411,7 @@
         if (text) text.textContent = `Lượt của ${pName}...`;
         if (hint) hint.textContent = `${pName} đang tính toán...`;
 
-        const botDelay = isSpectatorMode ? Math.max(15, Math.floor(700 / spectatorSpeed)) : 800;
+        const botDelay = isSpectatorMode ? Math.max(15, Math.floor(700 / spectatorSpeed)) : Math.max(40, Math.floor(750 / (window.diceSpeed || 1)));
         setTimeout(() => {
           if (!spectatorPaused && ((currentTurn > 1) || isSpectatorMode)) {
             triggerAutoRoll(currentTurn);
@@ -8945,7 +9036,8 @@
           portraitEl.innerHTML = getBusinessTourCornerPortraitSVG(idx);
         }
 
-        if (idx < monoState.playerCount) {
+        const totalActivePlayers = monoState.players ? monoState.players.length : (monoState.playerCount || 2);
+        if (idx < totalActivePlayers && idx < monoState.playerCount) {
           pod.style.display = 'flex';
           const isCurTurn = (monoState.turn === idx);
           const posClass = cornerPositions[idx % 4];
@@ -8963,6 +9055,7 @@
           const assetsEl = document.getElementById(`monoCornerAssets_${idx}`);
           const netWorthEl = document.getElementById(`monoCornerNetWorth_${idx}`);
           const turnBadge = document.getElementById(`monoCornerTurnBadge_${idx}`);
+          const roleBadge = document.getElementById(`monoCornerRoleBadge_${idx}`);
 
           const netWorth = getMonoPlayerNetWorth(p);
 
@@ -8976,6 +9069,17 @@
           if (turnBadge) {
             if (isCurTurn && !p.isBankrupt) turnBadge.classList.remove('hidden');
             else turnBadge.classList.add('hidden');
+          }
+
+          // Dynamic Role Badge (P1, P2, NGƯỜI vs BOT)
+          if (roleBadge) {
+            if (p.isBot) {
+              roleBadge.textContent = 'BOT';
+              roleBadge.className = 'px-1 py-0.2 rounded text-[7px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40';
+            } else {
+              roleBadge.textContent = `P${idx + 1}`;
+              roleBadge.className = 'px-1 py-0.2 rounded text-[7px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+            }
           }
 
           // Update 3D Cash & Silver Ingot Pile next to board
@@ -9161,6 +9265,9 @@
         btnYes.textContent = 'Thâu Tóm ($' + buyoutCost.toLocaleString() + ') 🔥';
         monoState.pendingAction = { type: 'takeover', tile: tile, cost: buyoutCost, prevOwner: prevOwner };
       }
+      if (window.monoAutoPlay) {
+        checkAndTriggerMonoAutoPlay();
+      }
     }
 
     function handleMonoDialogChoice(agreed) {
@@ -9338,8 +9445,20 @@
       if (d2El) d2El.textContent = d2;
       if (sumEl) sumEl.textContent = totalSteps;
 
-      if (window.isOnlineRoomMatch && typeof window.syncOnlineMonopolyState === 'function') {
-        window.syncOnlineMonopolyState(`🎲 ${player.name} gieo xúc xắc: ${d1} + ${d2} = ${totalSteps}`);
+      // Pre-Move Broadcast for Monopoly Online: send ROLL_START immediately before hopping!
+      if (window.isOnlineRoomMatch && typeof window.pushOnlineGameState === 'function') {
+        window.pushOnlineGameState('monopoly', {
+          actionType: 'ROLL_START',
+          rollerIdx: monoState.turn,
+          d1: d1,
+          d2: d2,
+          totalSteps: totalSteps,
+          isDoubles: isDoubles,
+          fromPos: player.pos,
+          targetPos: (player.pos + totalSteps) % monoState.tiles.length,
+          round: monoState.round,
+          toast: `🎲 ${player.name} gieo xúc xắc: ${d1} + ${d2} = ${totalSteps}`
+        });
       }
 
       try { soundTone(520, 'square', 0.1, 0.15); } catch(e) {}
@@ -9395,7 +9514,8 @@
       }
 
       let stepsRemaining = totalSteps;
-      const stepIntervalTime = monoState.speed === 2 ? 85 : 155;
+      const monoSpd = window.monoSpeed || monoState.speed || 1;
+      const stepIntervalTime = Math.max(12, Math.round(170 / monoSpd));
 
       if (monoState.stepIntervalId) clearInterval(monoState.stepIntervalId);
 
@@ -9458,12 +9578,12 @@
                 desc: `${player.name} nộp $${landedTile.price.toLocaleString()} vào Ngân Hàng mua ${landedTile.name}!`,
                 onComplete: () => {
                   showToast(`🤖 ${player.name} đã mua & xây nhà tại ${landedTile.name} (-$${landedTile.price})!`);
-                  monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 750);
+                  monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), Math.max(40, Math.round(750 / (window.monoSpeed || monoState.speed || 1))));
                 }
               });
             } else {
               showToast(`🤖 ${player.name} giữ vốn, bỏ qua ${landedTile.name}.`);
-              monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 650);
+              monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), Math.max(40, Math.round(650 / (window.monoSpeed || monoState.speed || 1))));
             }
           }
         } else if (landedTile.owner === player.id) {
@@ -9764,7 +9884,7 @@
         setMonoDialogMode('ready');
 
         if (curPlayer.isBot) {
-          const botDelay = monoState.speed === 2 ? 500 : 950;
+          const botDelay = Math.max(40, Math.round(700 / (window.monoSpeed || monoState.speed || 1)));
           monoState.botTimeoutId = setTimeout(() => executeMono2dRoll(), botDelay);
         }
         return;
@@ -9794,6 +9914,9 @@
       updateMonopolyPawns();
       updateMonopolyHUD();
       setMonoDialogMode('ready');
+      if (window.monoAutoPlay) {
+        checkAndTriggerMonoAutoPlay();
+      }
 
       const nextPlayer = monoState.players[monoState.turn];
       if (window.isOnlineRoomMatch) {
@@ -9804,7 +9927,7 @@
           window.updateOnlineRoomHUD();
         }
       } else if (nextPlayer.isBot && !nextPlayer.isBankrupt) {
-        const botDelay = monoState.speed === 2 ? 500 : 950;
+        const botDelay = Math.max(40, Math.round(700 / (window.monoSpeed || monoState.speed || 1)));
         monoState.botTimeoutId = setTimeout(() => {
           if (nextPlayer.inJail > 0 && nextPlayer.cash >= 600) {
             nextPlayer.cash -= 250;
@@ -9827,6 +9950,9 @@
       }
 
       monoState.eventCallback = onConfirm || null;
+      if (window.monoAutoPlay) {
+        checkAndTriggerMonoAutoPlay();
+      }
 
       const visualBox = document.getElementById('monoModalVisualBox');
       const badgeEl = document.getElementById('monoModalBadge');
@@ -9942,6 +10068,19 @@
           monoState.botTimeoutId = null;
         }
         monoState.isRolling = false;
+        if (monoState.players) {
+          monoState.players.forEach(p => {
+            if (p._remoteMoveInterval) {
+              clearInterval(p._remoteMoveInterval);
+              p._remoteMoveInterval = null;
+            }
+            p._isRemoteMoving = false;
+          });
+        }
+      }
+      if (typeof monoAutoPlayTimer !== 'undefined' && monoAutoPlayTimer) {
+        clearTimeout(monoAutoPlayTimer);
+        monoAutoPlayTimer = null;
       }
     }
 
@@ -9950,11 +10089,288 @@
       showToast('🔄 Đã khởi tạo ván cờ Business Tour mới (Vốn $3,500)!');
     }
 
-    function toggleMonoSpeedBtn() {
-      monoState.speed = monoState.speed === 1 ? 2 : 1;
+    // 1x - 25x Ultra Speed Engine for Monopoly
+    window.monoSpeed = 1;
+    const MONO_SPEED_STEPS = [1, 2, 5, 10, 15, 20, 25];
+
+    function setMonoSpeed(val) {
+      val = Math.max(1, Math.min(25, parseInt(val, 10) || 1));
+      window.monoSpeed = val;
+      if (typeof monoState !== 'undefined') monoState.speed = val;
+
+      // Update button on board (#btnMonoSpeed)
       const btn = document.getElementById('btnMonoSpeed');
-      if (btn) btn.textContent = `${monoState.speed}X`;
-      showToast(`⚡ Tốc độ ván đấu: ${monoState.speed}X`);
+      if (btn) {
+        btn.textContent = `${val}X`;
+        if (val >= 15) {
+          btn.className = 'px-2.5 py-1 rounded-xl bg-rose-600/90 hover:bg-rose-500 text-white font-black border-2 border-white/70 text-[10px] cursor-pointer shadow-[0_0_12px_rgba(244,63,94,0.6)] animate-pulse';
+        } else if (val >= 5) {
+          btn.className = 'px-2.5 py-1 rounded-xl bg-amber-600/90 hover:bg-amber-500 text-white font-black border-2 border-white/70 text-[10px] cursor-pointer shadow-md';
+        } else {
+          btn.className = 'px-2.5 py-1 rounded-xl bg-[#0f172a]/90 hover:bg-slate-800 text-emerald-300 font-black border-2 border-white/70 text-[10px] cursor-pointer shadow-md';
+        }
+      }
+
+      // Update slider & text in #ctxControlsMonopoly
+      const slider = document.getElementById('monoSpeedSlider');
+      if (slider) slider.value = val;
+      const valText = document.getElementById('monoSpeedValText');
+      if (valText) valText.textContent = `${val}x`;
+
+      // Update quick preset buttons active state
+      MONO_SPEED_STEPS.forEach(s => {
+        const pBtn = document.getElementById(`monoSpeedBtn_${s}`);
+        if (pBtn) {
+          if (s === val) {
+            pBtn.className = 'px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500 text-slate-950 shadow-sm';
+          } else {
+            pBtn.className = 'px-1.5 py-0.5 rounded text-[10px] font-bold text-slate-400 hover:text-white transition';
+          }
+        }
+      });
+
+      if (typeof showToast === 'function') {
+        showToast(`⚡ Tốc độ Cờ Tỷ Phú: ${val}X`);
+      }
+    }
+
+    function toggleMonoSpeedBtn() {
+      const cur = window.monoSpeed || 1;
+      const idx = MONO_SPEED_STEPS.indexOf(cur);
+      const nextSpeed = (idx >= 0 && idx < MONO_SPEED_STEPS.length - 1) ? MONO_SPEED_STEPS[idx + 1] : MONO_SPEED_STEPS[0];
+      setMonoSpeed(nextSpeed);
+    }
+
+    // Toggleable Auto-Play Engine for Monopoly
+    window.monoAutoPlay = false;
+    let monoAutoPlayTimer = null;
+
+    function toggleMonoAutoPlay(forceState) {
+      if (typeof forceState === 'boolean') {
+        window.monoAutoPlay = forceState;
+      } else {
+        window.monoAutoPlay = !window.monoAutoPlay;
+      }
+
+      const isAuto = window.monoAutoPlay;
+      const boardBtn = document.getElementById('btnMonoAutoPlayBoard');
+      const boardText = document.getElementById('monoAutoPlayBoardText');
+      const headerBtn = document.getElementById('btnMonoAutoPlayHeader');
+      const headerText = document.getElementById('monoAutoPlayHeaderText');
+
+      if (boardBtn && boardText) {
+        if (isAuto) {
+          boardBtn.className = 'group px-4 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white border-2 border-emerald-300 ring-4 ring-emerald-400/40 text-xs font-black flex items-center gap-1.5 shadow-[0_0_20px_rgba(16,185,129,0.8)] transition-all cursor-pointer select-none pointer-events-auto animate-pulse';
+          boardText.innerHTML = '🤖 TỰ ĐỘNG CHƠI: <span class="text-yellow-300">ĐANG BẬT ⚡</span>';
+        } else {
+          boardBtn.className = 'group px-4 py-1.5 rounded-xl bg-[#0f172a]/95 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-600 text-xs font-extrabold flex items-center gap-1.5 shadow-md transition-all cursor-pointer select-none pointer-events-auto';
+          boardText.textContent = '🤖 TỰ ĐỘNG CHƠI: TẮT';
+        }
+      }
+
+      if (headerBtn && headerText) {
+        if (isAuto) {
+          headerBtn.className = 'px-2.5 py-1 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 text-white border-2 border-emerald-300 ring-2 ring-emerald-400/40 text-xs font-black flex items-center gap-1.5 shadow-md transition-all animate-pulse';
+          headerText.innerHTML = '🤖 Tự Động: <span class="text-yellow-300">BẬT ⚡</span>';
+        } else {
+          headerBtn.className = 'px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all';
+          headerText.textContent = '🤖 Tự Động: TẮT';
+        }
+      }
+
+      if (isAuto) {
+        showToast('🤖 Đã BẬT Tự Động Chơi Cờ Tỷ Phú! Hệ thống sẽ tự gieo xúc xắc và mua đất thông minh.');
+        checkAndTriggerMonoAutoPlay();
+      } else {
+        if (monoAutoPlayTimer) {
+          clearTimeout(monoAutoPlayTimer);
+          monoAutoPlayTimer = null;
+        }
+        showToast('🛑 Đã TẮT Tự Động Chơi. Trả lại quyền điều khiển thủ công cho bạn!');
+      }
+    }
+
+    function checkAndTriggerMonoAutoPlay() {
+      if (!window.monoAutoPlay) return;
+      if (monoAutoPlayTimer) {
+        clearTimeout(monoAutoPlayTimer);
+        monoAutoPlayTimer = null;
+      }
+
+      const speed = window.monoSpeed || monoState.speed || 1;
+      const thinkDelay = Math.max(60, Math.round(600 / speed));
+
+      let isLocalTurn = false;
+      if (window.isOnlineRoomMatch) {
+        isLocalTurn = (monoState.turn === window.myRoomPlayerIndex);
+      } else if (monoState.mode === 'bot') {
+        isLocalTurn = (monoState.turn === 0);
+      } else {
+        isLocalTurn = true;
+      }
+
+      if (!isLocalTurn) return;
+
+      const player = monoState.players[monoState.turn];
+      if (!player || player.isBankrupt) return;
+
+      // 1. If currently showing a decision dialog (buy, upgrade, takeover, jail)
+      const decisionBox = document.getElementById('mono2dDecisionBox');
+      if (decisionBox && !decisionBox.classList.contains('hidden') && monoState.pendingAction) {
+        monoAutoPlayTimer = setTimeout(() => {
+          if (!window.monoAutoPlay) return;
+          const act = monoState.pendingAction;
+          if (!act) return;
+
+          if (act.type === 'buy') {
+            const tile = act.tile;
+            if (player.cash >= tile.price + 150) {
+              handleMonoDialogChoice(true);
+            } else {
+              handleMonoDialogChoice(false);
+            }
+          } else if (act.type === 'upgrade') {
+            const cost = act.cost || Math.floor(act.tile.price * 0.5);
+            if (player.cash >= cost + 200) {
+              handleMonoDialogChoice(true);
+            } else {
+              handleMonoDialogChoice(false);
+            }
+          } else if (act.type === 'takeover') {
+            const cost = act.cost;
+            if (player.cash >= cost + 400) {
+              handleMonoDialogChoice(true);
+            } else {
+              handleMonoDialogChoice(false);
+            }
+          } else if (act.type === 'jail_choice') {
+            if (player.cash >= 600) {
+              handleMonoDialogChoice(true);
+            } else {
+              handleMonoDialogChoice(false);
+            }
+          }
+        }, thinkDelay);
+        return;
+      }
+
+      // 2. If showing an event modal overlay
+      const eventModal = document.getElementById('monoEventModalOverlay');
+      if (eventModal && !eventModal.classList.contains('hidden')) {
+        monoAutoPlayTimer = setTimeout(() => {
+          if (!window.monoAutoPlay) return;
+          closeMonoEventModal();
+        }, Math.max(50, Math.round(700 / speed)));
+        return;
+      }
+
+      // 3. Ready to roll dice
+      if (!monoState.isRolling) {
+        monoAutoPlayTimer = setTimeout(() => {
+          if (!window.monoAutoPlay || monoState.isRolling) return;
+          let currentLocalTurn = false;
+          if (window.isOnlineRoomMatch) currentLocalTurn = (monoState.turn === window.myRoomPlayerIndex);
+          else if (monoState.mode === 'bot') currentLocalTurn = (monoState.turn === 0);
+          else currentLocalTurn = true;
+
+          if (currentLocalTurn) {
+            executeMono2dRoll();
+          }
+        }, thinkDelay);
+      }
+    }
+
+    // Dice Speed & Auto-Play Engine (1x - 25x)
+    window.diceSpeed = 1;
+    const DICE_SPEED_STEPS = [1, 2, 5, 10, 25];
+
+    function setDiceSpeed(val) {
+      val = Math.max(1, Math.min(25, parseInt(val, 10) || 1));
+      window.diceSpeed = val;
+
+      DICE_SPEED_STEPS.forEach(s => {
+        const btn = document.getElementById(`diceSpeedBtn_${s}`);
+        if (btn) {
+          if (s === val) {
+            btn.className = 'px-2 py-0.5 rounded-md bg-amber-500 text-slate-950 font-bold shadow-sm transition';
+          } else {
+            btn.className = 'px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition';
+          }
+        }
+      });
+
+      if (typeof showToast === 'function') {
+        showToast(`⚡ Tốc độ Xúc Xắc 20 Ô: ${val}X`);
+      }
+    }
+
+    window.diceAutoPlay = false;
+    let diceAutoPlayTimer = null;
+
+    function toggleDiceAutoPlay(forceState) {
+      if (typeof forceState === 'boolean') {
+        window.diceAutoPlay = forceState;
+      } else {
+        window.diceAutoPlay = !window.diceAutoPlay;
+      }
+
+      const isAuto = window.diceAutoPlay;
+      const headerBtn = document.getElementById('btnDiceAutoPlayHeader');
+      const headerText = document.getElementById('diceAutoPlayHeaderText');
+      const boardBtn = document.getElementById('btnDiceAutoPlayBoard');
+      const boardText = document.getElementById('diceAutoPlayBoardText');
+
+      if (headerBtn && headerText) {
+        if (isAuto) {
+          headerBtn.className = 'btn-spring px-2.5 py-1 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 text-white border-2 border-emerald-300 ring-2 ring-emerald-400/40 text-xs font-black flex items-center gap-1.5 shadow-md transition-all animate-pulse';
+          headerText.innerHTML = '🤖 Tự Động: <span class="text-yellow-300">BẬT ⚡</span>';
+        } else {
+          headerBtn.className = 'btn-spring px-2.5 py-1 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all';
+          headerText.textContent = '🤖 Tự Động: TẮT';
+        }
+      }
+
+      if (boardBtn && boardText) {
+        if (isAuto) {
+          boardBtn.className = 'group px-3 py-1 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white border-2 border-emerald-300 ring-2 ring-emerald-400/40 text-xs font-black flex items-center gap-1 shadow-md transition-all cursor-pointer animate-pulse';
+          boardText.innerHTML = '🤖 TỰ ĐỘNG: <span class="text-yellow-300">BẬT ⚡</span>';
+        } else {
+          boardBtn.className = 'group px-3 py-1 rounded-xl bg-[#0f172a]/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-600 text-[11px] font-bold flex items-center gap-1 shadow-sm transition-all cursor-pointer';
+          boardText.textContent = '🤖 TỰ ĐỘNG CHƠI: TẮT';
+        }
+      }
+
+      if (isAuto) {
+        showToast('🤖 Đã BẬT Tự Động Gieo Xúc Xắc 20 Ô!');
+        checkAndTriggerDiceAutoPlay();
+      } else {
+        if (diceAutoPlayTimer) {
+          clearTimeout(diceAutoPlayTimer);
+          diceAutoPlayTimer = null;
+        }
+        showToast('🛑 Đã TẮT Tự Động Gieo Xúc Xắc.');
+      }
+    }
+
+    function checkAndTriggerDiceAutoPlay() {
+      if (!window.diceAutoPlay) return;
+      if (diceAutoPlayTimer) {
+        clearTimeout(diceAutoPlayTimer);
+        diceAutoPlayTimer = null;
+      }
+
+      const isHumanTurn = !isSpectatorMode && (currentTurn === 1 || currentOpponent === 'human');
+      const isOnlineMyTurn = window.isOnlineRoomMatch && (currentTurn - 1 === window.myRoomPlayerIndex);
+
+      if (!isHumanTurn && !isOnlineMyTurn) return;
+
+      const speed = window.diceSpeed || 1;
+      const autoDelay = Math.max(50, Math.floor(600 / speed));
+
+      diceAutoPlayTimer = setTimeout(() => {
+        if (!window.diceAutoPlay || isDiceRolling) return;
+        handleDiceClickWithTiming();
+      }, autoDelay);
     }
 
     function initMonopolyGame() {
@@ -10227,12 +10643,13 @@
         setTimeout(() => soundTone(1320, 'sine', 0.15, 0.3), 500);
       } catch(e) {}
 
-      // Auto close after animation finishes
+      // Auto close after animation finishes (speed scaled)
+      const cashAnimDuration = Math.max(180, Math.round(1450 / (window.monoSpeed || monoState.speed || 1)));
       setTimeout(() => {
         overlay.classList.add('hidden');
         overlay.classList.remove('flex');
         if (onComplete) onComplete();
-      }, 1450);
+      }, cashAnimDuration);
     }
     window.triggerMonoCashTransfer = triggerMonoCashTransfer;
 
@@ -10297,12 +10714,13 @@
         }, 650);
       } catch(e) {}
 
-      // Auto dismiss after 2.0s
+      // Auto dismiss after 2.0s (speed scaled)
+      const jailAnimDuration = Math.max(250, Math.round(2000 / (window.monoSpeed || monoState.speed || 1)));
       setTimeout(() => {
         overlay.classList.add('hidden');
         overlay.classList.remove('flex');
         if (onComplete) onComplete();
-      }, 2000);
+      }, jailAnimDuration);
     }
     window.triggerMonoJailGateAnimation = triggerMonoJailGateAnimation;
 
@@ -10350,7 +10768,7 @@
         showToast(`✈️ ${player.name} đã hạ cánh an toàn tại ${destTile.name}!`);
 
         if (onComplete) onComplete();
-      }, 2050);
+      }, Math.max(250, Math.round(2050 / (window.monoSpeed || monoState.speed || 1))));
     }
     window.triggerMonoAirplaneFlyby = triggerMonoAirplaneFlyby;
 
@@ -10386,6 +10804,13 @@
 
     window.finishMonoTurn = finishMonoTurn;
     window.toggleMonoSpeedBtn = toggleMonoSpeedBtn;
+    window.setMonoSpeed = setMonoSpeed;
+    window.toggleMonoAutoPlay = toggleMonoAutoPlay;
+    window.checkAndTriggerMonoAutoPlay = checkAndTriggerMonoAutoPlay;
+    window.setDiceSpeed = setDiceSpeed;
+    window.toggleDiceAutoPlay = toggleDiceAutoPlay;
+    window.checkAndTriggerDiceAutoPlay = checkAndTriggerDiceAutoPlay;
+    window.rollMonopolyDice = executeMono2dRoll;
     window.toggleMono25DView = toggleMono25DView;
     window.setMonopolyMode = setMonopolyMode;
     window.setMonopolyPlayerCount = setMonopolyPlayerCount;
@@ -14206,8 +14631,104 @@
       }
     };
 
+    
+    // Remote Step-by-Step Animation for Monopoly (P2P Synchronized 3D Hopping)
+    window.animateRemoteMonoMove = function(playerIdx, fromPos, totalSteps, targetPos, onDone) {
+      const player = monoState.players[playerIdx];
+      if (!player) {
+        if (onDone) onDone();
+        return;
+      }
+
+      if (player._remoteMoveInterval) {
+        clearInterval(player._remoteMoveInterval);
+        player._remoteMoveInterval = null;
+      }
+
+      player._isRemoteMoving = true;
+      player.pos = fromPos;
+      updateMonopolyPawns();
+
+      const speed = window.monoSpeed || monoState.speed || 1;
+      const stepIntervalTime = Math.max(12, Math.round(170 / speed));
+      let stepsLeft = totalSteps;
+
+      player._remoteMoveInterval = setInterval(() => {
+        player.pos = (player.pos + 1) % monoState.tiles.length;
+        updateMonopolyPawns();
+
+        const activePawnInner = document.querySelector('#pawnP' + (player.id + 1) + ' > div');
+        if (activePawnInner) {
+          activePawnInner.classList.remove('mono-pawn-hopping');
+          void activePawnInner.offsetWidth;
+          activePawnInner.classList.add('mono-pawn-hopping');
+        }
+        try { soundTone(420 + player.pos * 10, 'sine', 0.04, 0.05); } catch(e) {}
+
+        if (player.pos === 0) {
+          player.cash += BUSINESS_TOUR_SALARY;
+          triggerMonoFloatingCash(player.id, BUSINESS_TOUR_SALARY);
+          updateMonopolyHUD();
+          showToast(`💰 ${player.name} qua ô START: Nhận lương +$${BUSINESS_TOUR_SALARY}!`);
+        }
+
+        stepsLeft--;
+        if (stepsLeft <= 0) {
+          clearInterval(player._remoteMoveInterval);
+          player._remoteMoveInterval = null;
+          player.pos = targetPos;
+          player._isRemoteMoving = false;
+          updateMonopolyPawns();
+          if (onDone) onDone();
+        }
+      }, stepIntervalTime);
+    };
+
+    // Remote Step-by-Step Animation for Dice Quest (P2P Synchronized 20-Tile Circuit)
+    window.animateRemoteDiceMove = function(player, fromPos, steps, targetPos, onDone) {
+      let currentP = fromPos;
+      let stepsLeft = steps;
+      const speed = window.diceSpeed || 1;
+      const stepDuration = Math.max(12, Math.floor(200 / speed));
+
+      const intervalId = setInterval(() => {
+        const prev = currentP;
+        currentP = (currentP + 1) % TILES.length;
+        positions[player] = currentP;
+
+        if (currentP === 0 && prev === TILES.length - 1) {
+          scores[player] += 15;
+          soundTone(750, 'triangle', 0.15, 0.15);
+          addBattleLog(`🏁 <b class="text-amber-400">${getPlayerShortName(player)}</b> hoàn thành 1 vòng đua (<b class="text-emerald-400">+15đ</b>)!`, 'lap');
+        }
+
+        renderTokens();
+        soundTone(580, 'sine', 0.05, 0.08);
+
+        const m = document.getElementById(`meeple-p${player}`);
+        if (m) {
+          m.classList.remove('meeple-hop');
+          requestAnimationFrame(() => {
+            if (m) m.classList.add('meeple-hop');
+          });
+        }
+
+        stepsLeft--;
+        if (stepsLeft <= 0) {
+          clearInterval(intervalId);
+          positions[player] = targetPos;
+          renderTokens();
+          updateDiceUI();
+          if (onDone) onDone();
+        }
+      }, stepDuration);
+    };
+
+
     window.setupOnlineMonopoly = function(room) {
       monoState.mode = 'online';
+      if (!window.mpRoomState) window.mpRoomState = {};
+      window.mpRoomState.currentRoom = room;
       initMonopolyGame();
       if (room.matchState && room.matchState.game === 'monopoly') {
         applyOnlineGameState('monopoly', room.matchState);
@@ -14308,18 +14829,70 @@
       const payload = matchState.payload;
 
       if (gameType === 'monopoly') {
+        // A. Real-Time Pre-Move Broadcast: Opponent rolled the dice!
+        if (payload.actionType === 'ROLL_START') {
+          const d1El = document.getElementById('monoDice1Val');
+          const d2El = document.getElementById('monoDice2Val');
+          const sumEl = document.getElementById('monoDiceSumVal');
+          const diceTray = document.getElementById('monoDiceTrayBox');
+          if (d1El) d1El.textContent = payload.d1;
+          if (d2El) d2El.textContent = payload.d2;
+          if (sumEl) sumEl.textContent = payload.totalSteps;
+          monoState.lastRollSum = payload.totalSteps;
+
+          if (diceTray) {
+            diceTray.classList.add('scale-110', 'border-yellow-300');
+            setTimeout(() => diceTray.classList.remove('scale-110', 'border-yellow-300'), 400);
+          }
+          try { soundTone(520, 'square', 0.1, 0.15); } catch(e) {}
+
+          if (payload.toast) showToast(payload.toast);
+
+          // Animate remote pawn hopping step-by-step
+          animateRemoteMonoMove(payload.rollerIdx, payload.fromPos, payload.totalSteps, payload.targetPos, () => {
+            updateMonopolyPawns();
+            updateMonopolyHUD();
+          });
+          return;
+        }
+
+        // B. Full Game State Sync (Post-move, property purchase, upgrade, turn completion)
         if (payload.players && Array.isArray(payload.players)) {
           payload.players.forEach(p => {
             const localP = monoState.players[p.id];
             if (localP) {
+              const oldPos = localP.pos;
+              const oldCash = localP.cash;
+
+              if (oldCash !== p.cash) {
+                const diff = p.cash - oldCash;
+                triggerMonoFloatingCash(p.id, diff);
+              }
+
+              if (!localP._isRemoteMoving && oldPos !== p.pos) {
+                const steps = (p.pos - oldPos + monoState.tiles.length) % monoState.tiles.length;
+                if (steps > 0 && steps <= 12) {
+                  animateRemoteMonoMove(p.id, oldPos, steps, p.pos, () => {
+                    localP.cash = p.cash;
+                    localP.inJail = p.inJail;
+                    localP.isBankrupt = p.isBankrupt;
+                    localP.properties = p.properties || [];
+                    updateMonopolyPawns();
+                    updateMonopolyHUD();
+                  });
+                } else {
+                  localP.pos = p.pos;
+                }
+              }
+
               localP.cash = p.cash;
-              localP.pos = p.pos;
               localP.inJail = p.inJail;
               localP.isBankrupt = p.isBankrupt;
               localP.properties = p.properties || [];
             }
           });
         }
+
         if (payload.tiles && Array.isArray(payload.tiles)) {
           payload.tiles.forEach(t => {
             const localT = monoState.tiles[t.id];
@@ -14353,9 +14926,39 @@
           declareMonoWinner(wPlayer, payload.winner.reason || 'Chiến thắng áp đảo!');
         }
 
+        // Trigger Auto-Play if enabled and it is now our turn
+        if (window.monoAutoPlay) {
+          checkAndTriggerMonoAutoPlay();
+        }
+
       } else if (gameType === 'dice') {
+        // A. Real-Time Pre-Move Broadcast: Opponent rolled dice!
+        if (payload.actionType === 'ROLL_START') {
+          const dice = document.getElementById('diceButton');
+          const face = document.getElementById('diceFaceDisplay');
+          const hint = document.getElementById('diceActionHint');
+          if (face) face.innerHTML = getDiceFaceSvg(payload.roll);
+          if (dice) {
+            dice.classList.add('rolling-dice');
+            setTimeout(() => dice.classList.remove('rolling-dice'), Math.max(25, Math.floor(400 / (window.diceSpeed || 1))));
+          }
+          if (hint) hint.textContent = `${getPlayerName(payload.rollerPlayer)} gieo được ${payload.roll} nút!`;
+          soundTone(payload.isCrit ? 960 : 440, 'triangle', 0.15, 0.2);
+
+          animateRemoteDiceMove(payload.rollerPlayer, payload.fromPos, payload.roll, payload.targetPos, () => {
+            renderTokens();
+            updateDiceUI();
+          });
+          return;
+        }
+
+        // B. Full Dice State Sync
         if (payload.scores) scores = { ...payload.scores };
-        if (payload.positions) positions = { ...payload.positions };
+        if (payload.positions) {
+          Object.keys(payload.positions).forEach(k => {
+            positions[k] = payload.positions[k];
+          });
+        }
         if (typeof payload.currentTurn === 'number') currentTurn = payload.currentTurn;
         if (payload.playerEnergy) playerEnergy = { ...payload.playerEnergy };
         if (payload.playerShields) playerShields = { ...payload.playerShields };
@@ -14374,6 +14977,14 @@
         }
         if (payload.toast) showToast(payload.toast);
         if (payload.winner) showVictory(payload.winner.label, payload.winner.player);
+
+        if (window.diceAutoPlay && (currentTurn - 1 === window.myRoomPlayerIndex)) {
+          setTimeout(() => {
+            if (window.diceAutoPlay && !isDiceRolling) {
+              handleDiceClickWithTiming();
+            }
+          }, Math.max(50, Math.floor(600 / (window.diceSpeed || 1))));
+        }
 
       } else if (gameType === 'tictactoe') {
         if (payload.tttBoard) tttBoard = [...payload.tttBoard];

@@ -521,7 +521,7 @@
         <!-- Version & Contributor Changelog Pill -->
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v3.0.0</span>
+          <span id="headerVersionPill" class="font-bold">v3.0.1</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -632,7 +632,7 @@
         <!-- Feature Badges Pill -->
         <div class="flex flex-wrap items-center justify-center gap-2.5 mt-4 text-xs font-mono text-slate-300">
           <span class="px-2.5 py-1 rounded-xl bg-board-tray border border-board-border flex items-center gap-1.5 shadow-sm">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> 3 Đấu Trường Sẵn Sàng
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> 4 Đấu Trường Sẵn Sàng
           </span>
           <span class="px-2.5 py-1 rounded-xl bg-board-tray border border-board-border flex items-center gap-1.5 shadow-sm">
             <i data-lucide="bot" class="w-3.5 h-3.5 text-cyan-400"></i> Đấu Trí AI Đa Cấp Độ
@@ -789,6 +789,52 @@
             <span>VÀO BÀN ĐẤU NGAY</span>
           </button>
         </div>
+        <!-- GAME CARD 4: CỜ TỶ PHÚ HOÀNG GIA (2.5D ISOMETRIC) -->
+        <div class="group relative tabletop-mat rounded-3xl p-6 border border-emerald-500/40 hover:border-emerald-400/90 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/25 flex flex-col justify-between overflow-hidden">
+          <div class="absolute -right-10 -top-10 w-40 h-40 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/25 transition-all"></div>
+          
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[10px] font-bold uppercase tracking-wider font-mono flex items-center gap-1.5 shadow-sm">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> SIÊU PHẨM 2.5D
+              </span>
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-700/20 border border-emerald-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                <span class="text-2xl">🏰</span>
+              </div>
+            </div>
+
+            <h3 class="font-cinzel text-xl font-bold text-white mb-1.5 group-hover:text-emerald-300 transition-colors">
+              Cờ Tỷ Phú 2.5D
+            </h3>
+            <p class="text-xs text-slate-400 mb-4 font-sans line-clamp-2">
+              Đấu trường bất động sản góc nhìn 2.5D Isometric. Đổ 2 xúc xắc, mua đất, xây biệt thự, dựng Landmark và thâu tóm phá sản đối thủ!
+            </p>
+
+            <div class="space-y-2 mb-6 text-xs text-slate-300">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <span>Góc nhìn 2.5D Isometric 3D nổi bật</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <span>Đổ 2 Xúc Xắc 3D & Cơ chế Double</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <span>Xây Landmark & Thâu tóm đối thủ</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <span>Vòng quay Sticker Emoji thả biểu cảm</span>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="enterGameFromLobby('monopoly')" class="btn-spring w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 hover:from-emerald-500 hover:to-teal-400 text-black font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 transition-all cursor-pointer">
+            <i data-lucide="play" class="w-4 h-4 fill-black"></i>
+            <span>VÀO BÀN ĐẤU NGAY</span>
+          </button>
+        </div>
 
       </div>
 
@@ -839,6 +885,27 @@
           <div id="arenaGameTitle" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-cinzel text-xs font-bold shadow-inner">
             <i data-lucide="dice-5" class="w-4 h-4 text-amber-400"></i>
             <span class="tracking-wider">XÚC XẮC 12 Ô HOÀNG KIM</span>
+          </div>
+          <!-- Quick Game Switcher Dropdown (Chuyen game tuc thi trong Ban Dau) -->
+          <div class="relative ml-1">
+            <button onclick="toggleArenaGameMenu()" class="btn-spring px-2 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-board-border text-xs flex items-center gap-1 font-bold shadow-sm" title="Đổi sang trò chơi khác">
+              <i data-lucide="gamepad-2" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Đổi Game ▾</span>
+            </button>
+            <div id="arenaGameMenu" class="hidden absolute left-0 mt-1.5 w-48 rounded-2xl bg-slate-900 border border-board-border shadow-2xl p-1.5 z-50 text-xs space-y-1">
+              <button onclick="switchGameView('monopoly'); toggleArenaGameMenu()" class="w-full px-2.5 py-1.5 rounded-xl hover:bg-emerald-500/20 text-left flex items-center gap-2 text-emerald-300 font-bold">
+                <span>🏰</span> Cờ Tỷ Phú 2.5D (Mới)
+              </button>
+              <button onclick="switchGameView('chess'); toggleArenaGameMenu()" class="w-full px-2.5 py-1.5 rounded-xl hover:bg-amber-500/20 text-left flex items-center gap-2 text-amber-300 font-bold">
+                <span>♟️</span> Cờ Vua FIDE (8x8)
+              </button>
+              <button onclick="switchGameView('dice'); toggleArenaGameMenu()" class="w-full px-2.5 py-1.5 rounded-xl hover:bg-amber-500/20 text-left flex items-center gap-2 text-slate-200">
+                <span>🎲</span> Xúc Xắc 12 Ô Lớn
+              </button>
+              <button onclick="switchGameView('tictactoe'); toggleArenaGameMenu()" class="w-full px-2.5 py-1.5 rounded-xl hover:bg-cyan-500/20 text-left flex items-center gap-2 text-slate-200">
+                <span>⭕❌</span> Cờ Ca-rô Neon 3x3
+              </button>
+            </div>
           </div>
         </div>
 
@@ -2112,6 +2179,7 @@
           <li><button onclick="switchMainTab('arena'); switchGameView('dice')" class="hover:text-amber-400 transition-colors">🎲 Cờ Xúc Xắc 12 Ô Lớn</button></li>
           <li><button onclick="switchMainTab('arena'); switchGameView('tictactoe')" class="hover:text-amber-400 transition-colors">⭕❌ Cờ Ca-rô Hoàng Gia</button></li>
           <li><button onclick="switchMainTab('arena'); switchGameView('chess')" class="hover:text-amber-400 transition-colors font-semibold text-amber-300">♟️ Cờ Vua Hoàng Gia (FIDE 8x8)</button></li>
+              <li><button onclick="switchMainTab('arena'); switchGameView('monopoly')" class="hover:text-emerald-400 transition-colors font-bold text-emerald-400">🏰 Cờ Tỷ Phú Hoàng Gia (2.5D)</button></li>
           <li><button onclick="switchMainTab('leaderboard')" class="hover:text-amber-400 transition-colors">🏆 Bảng Xếp Hạng Kỳ Thủ</button></li>
         </ul>
       </div>
@@ -2899,7 +2967,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.0.0</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.0.1</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -5390,6 +5458,12 @@
     // ================= MAIN NAVIGATION TABS (LOBBY, ARENA, LEADERBOARDS, VIP, RULES) =================
     window.currentMainTab = 'lobby';
 
+    
+    function toggleArenaGameMenu() {
+      const m = document.getElementById('arenaGameMenu');
+      if (m) m.classList.toggle('hidden');
+    }
+
     function enterGameFromLobby(gameKey) {
       switchMainTab('arena');
       switchGameView(gameKey);
@@ -5397,7 +5471,7 @@
     }
 
     function playRandomGame() {
-      const games = ['dice', 'chess', 'tictactoe'];
+      const games = ['dice', 'chess', 'tictactoe', 'monopoly'];
       const chosen = games[Math.floor(Math.random() * games.length)];
       enterGameFromLobby(chosen);
       showToast(`🎲 Đã ghép ngẫu nhiên vào: ${chosen === 'dice' ? 'Xúc Xắc 12 Ô' : (chosen === 'chess' ? 'Cờ Vua FIDE' : 'Ca-rô Neon')}!`);
@@ -7362,7 +7436,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v3.0.0'
+      currentVersion: 'v3.0.1'
     };
 
     let allChangelogItems = [];
@@ -7374,7 +7448,7 @@
         sha: '7c3e91f',
         roleType: 'dev2',
         author: 'thaitraicau123-pixel (Anh)',
-        version: 'v3.0.0',
+        version: 'v3.0.1',
         title: 'Hiệu ứng Tua Chậm (Slow-Mo), Nhấc Đập Quân & Làm Mờ Spotlight Điện Ảnh',
         details: 'Tích hợp visual edit cờ vua phong cách TikTok/Reels: tự động kích hoạt tua chậm khi ăn quân hoặc chiếu tướng; nhấc bổng quân cờ lên cao với bóng đổ 3D, lướt chậm qua bàn cờ rồi dộng mạnh xuống; làm mờ tối toàn bộ xung quanh với hiệu ứng Radial Spotlight; rung lắc màn hình (screen shake), sóng xung kích (shockwave) và âm thanh va đập dội bàn cờ chân thực.',
         date: '2026-10-26T10:05:00Z'
@@ -7383,7 +7457,7 @@
         sha: 'a4b7f8c',
         roleType: 'dev2',
         author: 'thaitraicau123-pixel (Anh)',
-        version: 'v3.0.0',
+        version: 'v3.0.1',
         title: 'Ra mắt Đấu Trường Cờ Vua Hoàng Gia (FIDE 8x8) & 4 Cấp Độ Bot Elo (800 - 2000+)',
         details: 'Tích hợp chuẩn luật FIDE (nhập thành, bắt tốt qua đường, tấn cấp tốt), hệ thống 4 cấp độ Bot Elo (800, 1200, 1600, 2000+) với thuật toán Minimax Alpha-Beta & Quiescence search, chế độ chơi 2 người (Local Pass & Play / Online) và bộ giao diện bàn cờ nỉ hoàng gia cao cấp.',
         date: '2026-10-26T01:30:00Z'
@@ -7392,7 +7466,7 @@
         sha: '6fe116d',
         roleType: 'dev1',
         author: 'cuongcuca111-web (Bạn anh)',
-        version: 'v3.0.0',
+        version: 'v3.0.1',
         title: 'Ra mắt Đa BOT (1-3 Bots), Tùy biến Điểm Cán Đích & Chế độ Khán Giả Tự Động',
         details: 'Tùy chọn 1-3 BOT AI (Cáo Lửa 🦊, Sói Băng 🐺, Gấu Trúc 🐼); tùy biến điểm thắng (30đ, 50đ, 100đ, tùy chọn); chế độ Khán Giả quan sát tự động với tốc độ từ 1x đến 5x siêu tốc và tự động sang ván mới.',
         date: '2026-10-25T17:49:22Z'

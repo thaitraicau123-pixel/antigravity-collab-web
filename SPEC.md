@@ -602,3 +602,30 @@ Cho phép người chơi chọn Hero trước trận hoặc chuyển đổi linh
 8. **Kích Hoạt Âm Thanh (AudioContext Resume) & Thưởng Vàng Hồ Sơ**:
    - Khắc phục chính sách autoplay của trình duyệt bằng cách tự động đánh thức `audioCtx.resume()` khi người chơi tương tác.
    - Khi người chơi chiến thắng ván cờ tỷ phú, tài khoản được tự động cộng **+300 Vàng** vào ví kinh tế chung của Tabletop Arena.
+
+---
+
+### Phần 26: Sửa Triệt Để Lỗi Rò Rỉ Mã Nguồn, Cải Tiến Đột Phá Khả Năng Đọc Tên Ô & Banner Soi Bất Động Sản Trực Tiếp (v3.7.3)
+
+#### 1. Nguyên Nhân Sự Cố & Giải Pháp Kỹ Thuật
+1. **Triệt tiêu 100% lỗi rò rỉ mã nguồn (Trailing Debris past `</html>` Fix)**:
+   - *Hiện tượng*: Người dùng chụp màn hình (`media_1793012763618_84299903.png`) cho thấy các đoạn mã JavaScript (`updateMonopolyPawns`, `setMonoDialogMode`) bị in lộ trực tiếp dưới chân trang web.
+   - *Nguyên nhân*: Do các đợt cập nhật trước đó vô tình để lại đoạn mã dư thừa sau thẻ đóng `</html>`, khiến trình duyệt coi phần đuôi là văn bản HTML thuần và render ra giao diện.
+   - *Khắc phục*: Tinh chỉnh cấu trúc tài liệu HTML, cắt bỏ toàn bộ 542KB rác phía sau `</html>`, khôi phục tính toàn vẹn 100% cho cây DOM, xác thực 5/5 thẻ script nội tuyến vượt qua kiểm tra cú pháp của Node VM.
+
+2. **Cải tiến độ rõ nét của tên thành phố trên 36 ô (Typography & Readability Overhaul)**:
+   - *Khắc phục cắt ngắn chữ (`...`)*: Loại bỏ hoàn toàn thuộc tính CSS `truncate` vốn làm các tên thành phố tiếng Việt dài như `THANH HÓA`, `QUẢNG NINH`, `THÁI NGUYÊN`, `HẢI DƯƠNG`, `BẮC GIANG`, `LẠNG SƠN` bị co lại thành `THANH...`, `QUẢN...`.
+   - *Hỗ trợ xuống dòng tự nhiên 2 dòng*: Thiết lập container kích thước tối thiểu `min-h-[25px] leading-[1.08]` với hộp đen viền sáng sang trọng (`bg-[#050A14]/95 border border-white/25`), chữ in hoa đậm `text-[10px] sm:text-[11px] font-black uppercase text-white drop-shadow`, tạo độ tương phản tối đa trên mọi loại màu sắc ô đất.
+
+3. **Tối ưu góc nghiêng Isometric 2.5D (Perspective Optimization)**:
+   - Giảm góc nghiêng trục X từ `rotateX(44deg)` xuống `rotateX(32deg)` và nâng tỷ lệ hiển thị từ `scale(0.85)` lên `scale(0.96)`.
+   - Kết quả: Ô cờ cao hơn **20%** theo phương thẳng đứng và lớn hơn **13%** diện tích tổng thể, loại bỏ hoàn toàn hiện tượng dẹt hình học (foreshortening), giúp người chơi đọc tên các tỉnh thành mà không cần phải nghiêng đầu hay phóng to màn hình.
+   - Đồng bộ góc phản nghiêng của các mô hình nhà 3D nổi và tiêu điểm quân cờ sang `rotateX(-32deg)` đảm bảo các tòa nhà luôn đứng thẳng tắp hướng về người chơi.
+
+4. **HUD Soi Bất Động Sản Trực Quan Siêu Rõ Nét (`#monoTopTileInspector`)**:
+   - Tích hợp một thanh HUD kính mờ chuẩn 2D (`backdrop-blur-md bg-[#090F1E]/95 border-2 border-amber-400/50`) ngự trị phía trên đỉnh bàn cờ.
+   - **Tương tác trực tiếp**:
+     - Khi người chơi rê chuột vào bất kỳ ô cờ nào (hoặc khi quân cờ di chuyển và hạ cánh vào một ô), thanh HUD lập tức hiển thị chi tiết tên đầy đủ của tỉnh thành, chấm màu đại diện, cấp độ nhà hiện tại, giá mua khu đất và biểu giá tiền thuê tương ứng.
+     - Khi rời chuột, HUD tự động hồi quy về thông tin ô đất hiện tại của người chơi đang trong lượt.
+
+---

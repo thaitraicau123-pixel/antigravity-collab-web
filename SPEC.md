@@ -816,3 +816,23 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
   - `verify_v385_airplane.png`: Máy bay phản lực thương mại bay qua sân bay.
   - `verify_v385_cash.png`: Chồng tiền $3,150 (3 cọc USD, 1 xu vàng, 1 xu bạc) bay vào Ngân Hàng.
 - **SHA256 Parity**: 100% khớp bit giữa 3 tệp nguồn và bản phân phối Download.
+
+
+---
+
+## Part 32: Business Tour 2.5D Complete Overhaul — Buildings, Figurines, Economy & Takeover (`v3.9.0`)
+
+### 1. Architectural Overview (`argon-flash-orchestrator`)
+- **2.5D Multi-Building Compounds & Beach Resorts (`getBusinessTourHouseSVG`)**:
+  - Modeled directly on the *Business Tour* 2.5D isometric aesthetic: every property sits on a bright green lawn plinth (`#84cc16`) framed by a white stone curb (`#ffffff` / `#e2e8f0`) with 3D trees and high-contrast navy window grids (`#0f172a`).
+  - **Level 1**: Suburban house with white isometric walls, vibrant player-colored pitched gable roof, chimney, and garden tree.
+  - **Level 2**: Two-story villa + side annex cottage compound on a landscaped turf plot.
+  - **Level 3 (Landmark Complex)**: Tall multi-story high-rise skyscraper + luxury villa wing with player-colored crown and compact level badge (`[1]`, `[2]`, `[3]`).
+  - **Beach Resorts**: Sandy island plot surrounded by turquoise water, resort bungalow, and tropical palm tree (`Bãi Biển Bali`, `Vịnh Hạ Long`, `Đảo Phú Quốc`).
+- **2.5D Full-Body Standing Character Figurines & Corner Hero Portraits (`getBusinessTourCharacterSVG`, `getBusinessTourCornerPortraitSVG`)**:
+  - Replaced flat circular emoji tokens with standing 2.5D full-body figurines (tailored suits, shirts, ties, arms, legs, shoes, expressive faces, and character-specific headgear/hood/horns) standing on glowing 3D pedestals with overhead roll badges.
+  - Added 4 large corner character portraits (`Nữ Sát Thủ Đỏ`, `Bạch Kỳ Lân`, `Hỏa Long Vương`, `Tổng Tài Áo Xanh`) and 4 dynamic 3D cash & silver bullion piles (`getSideCashAndIngotPileSVG`) flanking the board.
+- **Fast-Paced Business Tour Economy & Hostile Takeover Engine**:
+  - Rebalanced starting capital to `$3,500`, Start salary to `+$400`, property prices (`$120–$650`), and steep multi-tier rents (`58%` to `320%` of base price) with `x1.5` Color Monopoly and `x2` Festival Arch (`getFestivalArchSVG`) multipliers.
+  - Added **Hostile Takeover (`takeover` mode)**: landing on an opponent's Level 1 or Level 2 city allows buying out the property outright after paying rent.
+  - Added **4 Fast-Win Conditions**: First Bankruptcy Knock-out, 3/3 Beach Resort Monopoly, `$8,500` Net Worth Target, or Round 15 Leader.

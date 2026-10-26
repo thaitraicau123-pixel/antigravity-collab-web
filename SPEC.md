@@ -457,3 +457,14 @@ Cho phép người chơi chọn Hero trước trận hoặc chuyển đổi linh
 - **Bong bóng suy luận Bot (Live Thought Inspector):** Tab riêng biệt `[🧠 Trí Tuệ Bot]` trong Tactical Deck hiển thị thời gian thực cho từng Bot: Thẻ hồ sơ cá nhân, chỉ số Thắng/Bại, Role hiện tại, suy luận động mục tiêu/rủi ro/kỹ năng, và nút reset độc lập `[↺ Reset Bot]` cho từng cá thể.
 - **Hệ thống Học Thích Nghi (Adaptive Counter-Pick):** Sau mỗi trận thua, Bot phân tích kẻ vừa thắng dùng Role gì và nguyên nhân thua, từ đó tự động đổi sang Role khắc chế ở ván tiếp theo với sơ đồ khắc chế trực quan tại tab `[Khắc Chế]`.
 - **Bảng Hồ Sơ Bot & Nút Reset Thống Kê:** Lưu trữ `localStorage` toàn bộ số trận Thắng/Thua, Tỷ lệ Winrate %, Chuỗi trận và nút `[🔄 Reset Toàn Bộ]` kết hợp cùng các nút reset từng Bot để xóa trắng làm lại từ đầu.
+
+#### 2.7. Hệ Thống Soi Ý Định Bot, 3 Trạng Thái Hành Động & Ma Trận Mối Quan Hệ Thù Ghét ("Ghim" Nhau)
+- **Tab Soi Ý Định Từng Bot (Individual Bot Inspector):** Bộ lọc chuyển đổi giữa các Bot (Tất cả / Bot 1 Cáo Lửa / Bot 2 Sói Băng / Bot 3 Gấu Trúc). Cho phép soi sâu mục tiêu bước đi tiếp theo, ô đang nhắm tới và chiến thuật dự kiến.
+- **3 Trạng Thái Hành Động Động:**
+  * 🟡 `[⏳ ĐANG TIẾN HÀNH]`: Đang chờ lượt, đang nhắm mục tiêu, đang tích năng lượng hoặc đang canh bước xúc xắc.
+  * 🟢 `[✅ THÀNH CÔNG]`: Vừa đá văng đối thủ, cướp điểm, gài bẫy chuẩn xác, nhặt ngọc hoặc thắng quyết đấu.
+  * 🔴 `[❌ THẤT BẠI]`: Bị đá văng, dẫm phải mìn nổ, phá băng bất thành, thua quyết đấu hoặc bị kìm chân.
+- **Thanh Mối Quan Hệ Thù Ghét (Rivalry & Feud Affinity Bar):**
+  * Điểm mối quan hệ từ 0% đến 100% giữa từng cặp đấu thủ.
+  * **Quy tắc "Ghim":** Mối quan hệ càng thấp (<35%) thì mức độ thù hận càng cao. Bot sẽ ưu tiên tối đa việc **gài mìn chặn đường**, **tinh chỉnh bước xúc xắc để đá văng** và **nhắm tới kẻ bị ghim** để trả thù.
+  * Hiển thị thanh đo trực quan: Đỏ rực (💢 CỰC GHIM / Thù Địch), Vàng (Cảnh giác), Xanh (Hòa hoãn) kèm tên đối tượng đang bị ghim nhiều nhất.

@@ -1614,62 +1614,217 @@
               </div>
             </div>
 
-            <!-- Sub-tab 3: Dedicated Bot AI Thought Inspector & Adaptation Memory -->
-            <div id="tTabContentBot" class="hidden flex-1 space-y-2 text-[11px] text-slate-300 overflow-y-auto max-h-[250px]">
+            <!-- Sub-tab 3: Dedicated Bot AI Thought, Intent & Feud Inspector -->
+            <div id="tTabContentBot" class="hidden flex-1 space-y-2.5 text-[11px] text-slate-300 overflow-y-auto max-h-[260px] custom-scrollbar pr-0.5">
+              <!-- Top Bar: Header & Reset All -->
               <div class="flex items-center justify-between pb-1 border-b border-purple-500/30">
                 <span class="text-purple-300 font-bold font-cinzel text-xs flex items-center gap-1">
-                  <i data-lucide="brain" class="w-3.5 h-3.5 text-purple-400"></i> TRÍ TUỆ NHÂN TẠO & SUY LUẬN BOT
+                  <i data-lucide="brain" class="w-3.5 h-3.5 text-purple-400"></i> CHIẾN THUẬT & Ý ĐỊNH BOT
                 </span>
-                <button onclick="resetBotWinStats()" class="btn-spring px-1.5 py-0.5 rounded bg-rose-950/60 hover:bg-rose-800 border border-rose-500/40 text-rose-300 text-[9px] font-mono" title="Reset toàn bộ thống kê và bộ nhớ thích nghi của Bot">
+                <button onclick="resetBotWinStats()" class="btn-spring px-1.5 py-0.5 rounded bg-rose-950/60 hover:bg-rose-800 border border-rose-500/40 text-rose-300 text-[9px] font-mono transition-colors" title="Reset toàn bộ thống kê và bộ nhớ thích nghi của Bot">
                   🔄 Reset Tất Cả Bot
                 </button>
               </div>
 
+              <!-- Filter Selector: Xem Từng Bot Riêng Biệt -->
+              <div class="flex items-center bg-black/50 p-0.5 rounded-xl border border-purple-500/30 text-[10px] font-mono gap-0.5">
+                <button onclick="filterBotInspector('all')" id="btnFilterBotAll" class="flex-1 py-1 rounded-lg bg-purple-700 text-white font-bold transition-all shadow-sm">
+                  Tất Cả
+                </button>
+                <button onclick="filterBotInspector(2)" id="btnFilterBot2" class="flex-1 py-1 rounded-lg text-slate-400 hover:text-rose-300 transition-all font-medium">
+                  🦊 Cáo Lửa
+                </button>
+                <button onclick="filterBotInspector(3)" id="btnFilterBot3" class="flex-1 py-1 rounded-lg text-slate-400 hover:text-indigo-300 transition-all font-medium">
+                  🔮 Sói Băng
+                </button>
+                <button onclick="filterBotInspector(4)" id="btnFilterBot4" class="flex-1 py-1 rounded-lg text-slate-400 hover:text-emerald-300 transition-all font-medium">
+                  💎 Gấu Trúc
+                </button>
+              </div>
+
               <!-- BOT 1 Card (Cáo Lửa) -->
-              <div class="p-2 rounded-xl bg-black/40 border border-rose-500/30 space-y-1">
+              <div id="botCard2" class="p-2.5 rounded-xl bg-black/40 border border-rose-500/30 space-y-2 transition-all">
                 <div class="flex items-center justify-between text-[10px] font-mono">
-                  <span class="text-rose-400 font-bold flex items-center gap-1">
-                    <span class="w-2 h-2 rounded-full bg-rose-500"></span> Cáo Lửa (BOT 1)
-                  </span>
-                  <div class="flex items-center gap-1">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-sm shadow-rose-500/50"></span>
+                    <strong class="text-rose-300 font-bold">Cáo Lửa (BOT 1)</strong>
                     <span id="bot1RoleBadge" class="px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 text-[9px] font-bold">🦊 SÁT THỦ</span>
-                    <button onclick="resetSingleBot(2)" class="px-1 py-0.2 rounded bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 text-[8px]" title="Reset riêng Bot 1">↺</button>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <span id="botStatusBadge2" class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-bold inline-flex items-center gap-1 shadow-sm">
+                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> ĐANG TIẾN HÀNH
+                    </span>
+                    <button onclick="resetSingleBot(2)" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 text-[8px]" title="Reset riêng Bot 1">↺</button>
                   </div>
                 </div>
-                <div class="text-[9px] text-slate-300 bg-purple-950/30 p-1.5 rounded-lg border border-purple-500/20 font-mono italic" id="bot1LiveThought">
-                  "Đang quan sát bàn cờ: Tính toán gài Mìn Lượng Tử chặn đầu P1..."
+
+                <!-- Mục tiêu & Ý định -->
+                <div class="text-[9px] text-slate-200 bg-purple-950/30 p-2 rounded-lg border border-purple-500/20 font-mono space-y-1">
+                  <div class="flex items-center justify-between text-slate-400">
+                    <span>🎯 <b class="text-amber-400">Mục tiêu:</b> <span id="bot2TargetTileName" class="text-slate-200">Ô #10 (Đấu Trường)</span></span>
+                    <span id="bot2DesiredStep" class="text-cyan-300 font-bold">Ước lượng: 3 nút</span>
+                  </div>
+                  <div class="italic text-purple-200" id="bot1LiveThought">
+                    "Đang rình rập đối thủ: Tính toán gài Mìn Lượng Tử chặn đầu P1..."
+                  </div>
+                </div>
+
+                <!-- Thanh Mối Quan Hệ & Mức Độ Ghim -->
+                <div class="p-2 rounded-lg bg-black/60 border border-white/5 space-y-1.5 text-[9px] font-mono">
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-400 font-bold flex items-center gap-1">
+                      <span class="text-rose-400">💢</span> <span>MỨC ĐỘ GHIM:</span>
+                    </span>
+                    <span id="bot2GhimSummary" class="text-amber-300 font-bold">Bình thường (Chưa ghim ai)</span>
+                  </div>
+                  <!-- Thanh Mối Quan Hệ Đa Cực -->
+                  <div class="space-y-1" id="bot2FeudBars">
+                    <div class="flex items-center justify-between text-[8px] text-slate-400">
+                      <span>Với Bạn (P1):</span>
+                      <span id="bot2RelTextP1" class="text-emerald-400 font-bold">50% (Hòa hoãn)</span>
+                    </div>
+                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                      <div id="bot2RelBarP1" class="h-full bg-gradient-to-r from-amber-600 to-emerald-400 transition-all duration-300" style="width: 50%"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-[8px] text-slate-400">
+                      <span>Với Sói Băng:</span>
+                      <span id="bot2RelTextP3" class="text-cyan-400 font-bold">50% (Cạnh tranh)</span>
+                    </div>
+                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                      <div id="bot2RelBarP3" class="h-full bg-gradient-to-r from-indigo-600 to-cyan-400 transition-all duration-300" style="width: 50%"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-[8px] text-slate-400">
+                      <span>Với Gấu Trúc:</span>
+                      <span id="bot2RelTextP4" class="text-amber-400 font-bold">50% (Bình thường)</span>
+                    </div>
+                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                      <div id="bot2RelBarP4" class="h-full bg-gradient-to-r from-amber-600 to-yellow-400 transition-all duration-300" style="width: 50%"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <!-- BOT 2 Card (Sói Băng) -->
-              <div class="p-2 rounded-xl bg-black/40 border border-indigo-500/30 space-y-1">
+              <div id="botCard3" class="p-2.5 rounded-xl bg-black/40 border border-indigo-500/30 space-y-2 transition-all">
                 <div class="flex items-center justify-between text-[10px] font-mono">
-                  <span class="text-indigo-400 font-bold flex items-center gap-1">
-                    <span class="w-2 h-2 rounded-full bg-indigo-500"></span> Sói Băng (BOT 2)
-                  </span>
-                  <div class="flex items-center gap-1">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 shadow-sm shadow-indigo-500/50"></span>
+                    <strong class="text-indigo-300 font-bold">Sói Băng (BOT 2)</strong>
                     <span id="bot2RoleBadge" class="px-1.5 py-0.2 rounded bg-indigo-500/20 text-indigo-300 text-[9px] font-bold">🔮 PHÁP SƯ</span>
-                    <button onclick="resetSingleBot(3)" class="px-1 py-0.2 rounded bg-slate-800 hover:bg-indigo-500/20 text-slate-400 hover:text-indigo-300 text-[8px]" title="Reset riêng Bot 2">↺</button>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <span id="botStatusBadge3" class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-bold inline-flex items-center gap-1 shadow-sm">
+                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> ĐANG TIẾN HÀNH
+                    </span>
+                    <button onclick="resetSingleBot(3)" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-indigo-500/20 text-slate-400 hover:text-indigo-300 text-[8px]" title="Reset riêng Bot 2">↺</button>
                   </div>
                 </div>
-                <div class="text-[9px] text-slate-300 bg-purple-950/30 p-1.5 rounded-lg border border-purple-500/20 font-mono italic" id="bot2LiveThought">
-                  "Tích trữ 5⚡ năng lượng để nhảy cóc qua Cổng Warp #4 ➔ #14..."
+
+                <!-- Mục tiêu & Ý định -->
+                <div class="text-[9px] text-slate-200 bg-purple-950/30 p-2 rounded-lg border border-purple-500/20 font-mono space-y-1">
+                  <div class="flex items-center justify-between text-slate-400">
+                    <span>🎯 <b class="text-amber-400">Mục tiêu:</b> <span id="bot3TargetTileName" class="text-slate-200">Cổng Warp Alpha #4</span></span>
+                    <span id="bot3DesiredStep" class="text-indigo-300 font-bold">Ước lượng: 4 nút</span>
+                  </div>
+                  <div class="italic text-purple-200" id="bot2LiveThought">
+                    "Tích trữ 5⚡ năng lượng để nhảy cóc qua Cổng Warp #4 ➔ #14..."
+                  </div>
+                </div>
+
+                <!-- Thanh Mối Quan Hệ & Mức Độ Ghim -->
+                <div class="p-2 rounded-lg bg-black/60 border border-white/5 space-y-1.5 text-[9px] font-mono">
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-400 font-bold flex items-center gap-1">
+                      <span class="text-indigo-400">💢</span> <span>MỨC ĐỘ GHIM:</span>
+                    </span>
+                    <span id="bot3GhimSummary" class="text-indigo-300 font-bold">Bình thường (Chưa ghim ai)</span>
+                  </div>
+                  <!-- Thanh Mối Quan Hệ Đa Cực -->
+                  <div class="space-y-1" id="bot3FeudBars">
+                    <div class="flex items-center justify-between text-[8px] text-slate-400">
+                      <span>Với Bạn (P1):</span>
+                      <span id="bot3RelTextP1" class="text-emerald-400 font-bold">50% (Hòa hoãn)</span>
+                    </div>
+                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                      <div id="bot3RelBarP1" class="h-full bg-gradient-to-r from-amber-600 to-emerald-400 transition-all duration-300" style="width: 50%"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-[8px] text-slate-400">
+                      <span>Với Cáo Lửa:</span>
+                      <span id="bot3RelTextP2" class="text-rose-400 font-bold">50% (Cảnh giác)</span>
+                    </div>
+                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                      <div id="bot3RelBarP2" class="h-full bg-gradient-to-r from-rose-600 to-amber-400 transition-all duration-300" style="width: 50%"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-[8px] text-slate-400">
+                      <span>Với Gấu Trúc:</span>
+                      <span id="bot3RelTextP4" class="text-amber-400 font-bold">50% (Bình thường)</span>
+                    </div>
+                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                      <div id="bot3RelBarP4" class="h-full bg-gradient-to-r from-amber-600 to-yellow-400 transition-all duration-300" style="width: 50%"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <!-- BOT 3 Card (Gấu Trúc) -->
-              <div class="p-2 rounded-xl bg-black/40 border border-emerald-500/30 space-y-1">
+              <div id="botCard4" class="p-2.5 rounded-xl bg-black/40 border border-emerald-500/30 space-y-2 transition-all">
                 <div class="flex items-center justify-between text-[10px] font-mono">
-                  <span class="text-emerald-400 font-bold flex items-center gap-1">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Gấu Trúc (BOT 3)
-                  </span>
-                  <div class="flex items-center gap-1">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
+                    <strong class="text-emerald-300 font-bold">Gấu Trúc (BOT 3)</strong>
                     <span id="bot3RoleBadge" class="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">💎 THỢ SĂN</span>
-                    <button onclick="resetSingleBot(4)" class="px-1 py-0.2 rounded bg-slate-800 hover:bg-emerald-500/20 text-slate-400 hover:text-emerald-300 text-[8px]" title="Reset riêng Bot 3">↺</button>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <span id="botStatusBadge4" class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-bold inline-flex items-center gap-1 shadow-sm">
+                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> ĐANG TIẾN HÀNH
+                    </span>
+                    <button onclick="resetSingleBot(4)" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-emerald-500/20 text-slate-400 hover:text-emerald-300 text-[8px]" title="Reset riêng Bot 3">↺</button>
                   </div>
                 </div>
-                <div class="text-[9px] text-slate-300 bg-purple-950/30 p-1.5 rounded-lg border border-purple-500/20 font-mono italic" id="bot3LiveThought">
-                  "Ưu tiên ăn ô Quặng Hồng Ngọc (+20đ) và Kim Cương Vĩnh Cửu (+30đ)..."
+
+                <!-- Mục tiêu & Ý định -->
+                <div class="text-[9px] text-slate-200 bg-purple-950/30 p-2 rounded-lg border border-purple-500/20 font-mono space-y-1">
+                  <div class="flex items-center justify-between text-slate-400">
+                    <span>🎯 <b class="text-amber-400">Mục tiêu:</b> <span id="bot4TargetTileName" class="text-slate-200">Kim Cương Vĩnh Cửu (+30đ)</span></span>
+                    <span id="bot4DesiredStep" class="text-emerald-300 font-bold">Ước lượng: 5 nút</span>
+                  </div>
+                  <div class="italic text-purple-200" id="bot3LiveThought">
+                    "Ưu tiên ăn ô Quặng Hồng Ngọc (+20đ) và Kim Cương Vĩnh Cửu (+30đ)..."
+                  </div>
+                </div>
+
+                <!-- Thanh Mối Quan Hệ & Mức Độ Ghim -->
+                <div class="p-2 rounded-lg bg-black/60 border border-white/5 space-y-1.5 text-[9px] font-mono">
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-400 font-bold flex items-center gap-1">
+                      <span class="text-emerald-400">💢</span> <span>MỨC ĐỘ GHIM:</span>
+                    </span>
+                    <span id="bot4GhimSummary" class="text-emerald-300 font-bold">Bình thường (Chưa ghim ai)</span>
+                  </div>
+                  <!-- Thanh Mối Quan Hệ Đa Cực -->
+                  <div class="space-y-1" id="bot4FeudBars">
+                    <div class="flex items-center justify-between text-[8px] text-slate-400">
+                      <span>Với Bạn (P1):</span>
+                      <span id="bot4RelTextP1" class="text-emerald-400 font-bold">50% (Hòa hoãn)</span>
+                    </div>
+                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                      <div id="bot4RelBarP1" class="h-full bg-gradient-to-r from-amber-600 to-emerald-400 transition-all duration-300" style="width: 50%"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-[8px] text-slate-400">
+                      <span>Với Cáo Lửa:</span>
+                      <span id="bot4RelTextP2" class="text-rose-400 font-bold">50% (Cảnh giác)</span>
+                    </div>
+                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                      <div id="bot4RelBarP2" class="h-full bg-gradient-to-r from-rose-600 to-amber-400 transition-all duration-300" style="width: 50%"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-[8px] text-slate-400">
+                      <span>Với Sói Băng:</span>
+                      <span id="bot4RelTextP3" class="text-indigo-400 font-bold">50% (Bình thường)</span>
+                    </div>
+                    <div class="w-full h-1.5 rounded-full bg-slate-900 overflow-hidden">
+                      <div id="bot4RelBarP3" class="h-full bg-gradient-to-r from-indigo-600 to-purple-400 transition-all duration-300" style="width: 50%"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -4277,6 +4432,11 @@
       if (botWinStats.wins && botWinStats.wins[botId]) {
         botWinStats.wins[botId] = 0;
       }
+      if (botRelationships[botId]) {
+        botRelationships[botId] = { 1: 50, 2: 50, 3: 50, 4: 50 };
+      }
+      setBotActionStatus(botId, 'progress', 'Đã đặt lại dữ liệu học');
+      updateBotFeudUI(botId);
       updateBotWinStatsUI();
       const el = document.getElementById(`bot${botId - 1}LiveThought`);
       if (el) el.textContent = '"Đã đặt lại dữ liệu học của Bot này về vạch xuất phát."';
@@ -4286,6 +4446,15 @@
 
     function resetBotWinStats() {
       botWinStats = { totalMatches: 0, wins: { 1: 0, 2: 0, 3: 0, 4: 0 } };
+      botRelationships = {
+        2: { 1: 50, 3: 50, 4: 50 },
+        3: { 1: 50, 2: 50, 4: 50 },
+        4: { 1: 50, 2: 50, 3: 50 }
+      };
+      [2, 3, 4].forEach(b => {
+        setBotActionStatus(b, 'progress', 'Khởi tạo lại trạng thái');
+        updateBotFeudUI(b);
+      });
       try {
         localStorage.removeItem('tabletop_bot_win_stats');
       } catch (e) {}
@@ -5027,6 +5196,13 @@
         const loseName = getPlayerShortName(loserId);
         addBattleLog(`⚔️ <b class="text-amber-400">${winName}</b> thắng quyết đấu trước <b class="text-slate-300">${loseName}</b> & cướp <b class="text-emerald-400">+20đ</b>!`, 'duel');
         showToast(`⚔️ ${winName} thắng quyết đấu trước ${loseName} (+20đ)!`);
+        if (winnerId > 1) {
+          setBotActionStatus(winnerId, 'success', `Thắng quyết đấu trước ${loseName} (+20đ)`);
+        }
+        if (loserId > 1) {
+          setBotActionStatus(loserId, 'failed', `Thua quyết đấu trước ${winName}`);
+          updateBotRelationship(loserId, winnerId, -20, 'Thua quyết đấu');
+        }
         updateDiceUI();
         duelState.active = false;
         return;
@@ -5158,8 +5334,149 @@
       duelState.active = false;
     }
 
-    // ================= BOT REASONING & ADAPTIVE META LEARNING =================
+    // ================= BOT REASONING, INTENT & FEUD RIVALRY MATRIX =================
     let botAdaptiveMemories = {}; // { botId: { losses: 0, lastLossAgainstHero: 'assassin' } }
+
+    // Feud Matrix: [botId][targetId] = 0 - 100% (50 = Trung lập, < 35 = CỰC GHIM, > 65 = Hòa hoãn)
+    let botRelationships = {
+      2: { 1: 50, 3: 50, 4: 50 },
+      3: { 1: 50, 2: 50, 4: 50 },
+      4: { 1: 50, 2: 50, 3: 50 }
+    };
+
+    // Action Statuses: 'progress' | 'success' | 'failed'
+    let botActionStatuses = {
+      2: { status: 'progress', desc: 'Đang quan sát bàn cờ' },
+      3: { status: 'progress', desc: 'Đang nạp plasma năng lượng' },
+      4: { status: 'progress', desc: 'Đang tìm kho báu' }
+    };
+
+    function setBotActionStatus(botId, status, desc = '') {
+      if (!botActionStatuses[botId]) botActionStatuses[botId] = {};
+      botActionStatuses[botId] = { status, desc, time: Date.now() };
+
+      const badge = document.getElementById(`botStatusBadge${botId}`);
+      if (!badge) return;
+
+      if (status === 'success') {
+        badge.className = 'px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] font-bold inline-flex items-center gap-1 shadow-sm';
+        badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> THÀNH CÔNG';
+      } else if (status === 'failed') {
+        badge.className = 'px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[9px] font-bold inline-flex items-center gap-1 shadow-sm';
+        badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-rose-400 animate-bounce"></span> THẤT BẠI';
+      } else {
+        badge.className = 'px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-bold inline-flex items-center gap-1 shadow-sm';
+        badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> ĐANG TIẾN HÀNH';
+      }
+    }
+
+    function updateBotRelationship(botId, targetId, delta, reason = '') {
+      if (botId <= 1) return; // Only bots have feud tracking
+      if (!botRelationships[botId]) botRelationships[botId] = { 1: 50, 2: 50, 3: 50, 4: 50 };
+      const cur = botRelationships[botId][targetId] !== undefined ? botRelationships[botId][targetId] : 50;
+      const newVal = Math.max(0, Math.min(100, cur + delta));
+      botRelationships[botId][targetId] = newVal;
+
+      updateBotFeudUI(botId);
+    }
+
+    function getMostHatedRival(botId) {
+      if (!botRelationships[botId]) return { rivalId: 1, affinity: 50, isGhim: false };
+      let minAff = 999;
+      let hated = 1;
+      const rels = botRelationships[botId];
+      for (const t in rels) {
+        const tid = parseInt(t, 10);
+        if (tid !== botId && rels[tid] < minAff) {
+          minAff = rels[tid];
+          hated = tid;
+        }
+      }
+      return { rivalId: hated, affinity: minAff, isGhim: minAff < 35 };
+    }
+
+    function updateBotFeudUI(botId) {
+      if (botId <= 1) return;
+      const hated = getMostHatedRival(botId);
+      const summaryEl = document.getElementById(`bot${botId}GhimSummary`);
+      if (summaryEl) {
+        if (hated.isGhim) {
+          const hatedName = getPlayerShortName(hated.rivalId);
+          summaryEl.className = 'text-rose-400 font-black animate-pulse';
+          summaryEl.innerHTML = `🎯 CỰC GHIM ${hatedName} (${hated.affinity}%)`;
+        } else if (hated.affinity < 50) {
+          summaryEl.className = 'text-amber-400 font-bold';
+          summaryEl.textContent = `Cảnh giác (${hated.affinity}%)`;
+        } else {
+          summaryEl.className = 'text-emerald-400 font-medium';
+          summaryEl.textContent = 'Hòa hoãn (Chưa ghim ai)';
+        }
+      }
+
+      // Update individual rival bars
+      const targets = [1, 2, 3, 4].filter(p => p !== botId);
+      targets.forEach(t => {
+        const textEl = document.getElementById(`bot${botId}RelTextP${t}`);
+        const barEl = document.getElementById(`bot${botId}RelBarP${t}`);
+        const aff = botRelationships[botId] ? (botRelationships[botId][t] || 50) : 50;
+
+        if (barEl) {
+          barEl.style.width = aff + '%';
+          if (aff < 35) {
+            barEl.className = 'h-full bg-gradient-to-r from-rose-600 to-rose-400 transition-all duration-300 shadow-sm shadow-rose-500/50';
+          } else if (aff < 60) {
+            barEl.className = 'h-full bg-gradient-to-r from-amber-600 to-yellow-400 transition-all duration-300';
+          } else {
+            barEl.className = 'h-full bg-gradient-to-r from-cyan-600 to-emerald-400 transition-all duration-300';
+          }
+        }
+        if (textEl) {
+          if (aff < 35) {
+            textEl.className = 'text-rose-400 font-black';
+            textEl.textContent = `${aff}% (CỰC GHIM 💢)`;
+          } else if (aff < 60) {
+            textEl.className = 'text-amber-400 font-bold';
+            textEl.textContent = `${aff}% (Cảnh giác)`;
+          } else {
+            textEl.className = 'text-emerald-400 font-bold';
+            textEl.textContent = `${aff}% (Hòa hoãn)`;
+          }
+        }
+      });
+    }
+
+    function filterBotInspector(filter) {
+      const btnAll = document.getElementById('btnFilterBotAll');
+      const btn2 = document.getElementById('btnFilterBot2');
+      const btn3 = document.getElementById('btnFilterBot3');
+      const btn4 = document.getElementById('btnFilterBot4');
+
+      [btnAll, btn2, btn3, btn4].forEach(b => {
+        if (b) b.className = 'flex-1 py-1 rounded-lg text-slate-400 hover:text-white transition-all font-medium';
+      });
+
+      const card2 = document.getElementById('botCard2');
+      const card3 = document.getElementById('botCard3');
+      const card4 = document.getElementById('botCard4');
+
+      if (filter === 'all') {
+        if (btnAll) btnAll.className = 'flex-1 py-1 rounded-lg bg-purple-700 text-white font-bold transition-all shadow-sm';
+        if (card2) card2.classList.remove('hidden');
+        if (card3) card3.classList.remove('hidden');
+        if (card4) card4.classList.remove('hidden');
+      } else {
+        const activeBtn = document.getElementById(`btnFilterBot${filter}`);
+        if (activeBtn) activeBtn.className = 'flex-1 py-1 rounded-lg bg-purple-700 text-white font-bold transition-all shadow-sm';
+        if (card2) card2.classList.toggle('hidden', filter !== 2);
+        if (card3) card3.classList.toggle('hidden', filter !== 3);
+        if (card4) card4.classList.toggle('hidden', filter !== 4);
+      }
+    }
+
+    window.filterBotInspector = filterBotInspector;
+    window.setBotActionStatus = setBotActionStatus;
+    window.updateBotRelationship = updateBotRelationship;
+    window.getMostHatedRival = getMostHatedRival;
 
     function getBotDecisionThought(botId) {
       const curPos = positions[botId];
@@ -5190,16 +5507,50 @@
         }
       }
 
-      // Threat target badge
-      const badge = document.getElementById('botThreatTargetBadge');
-      if (badge) {
-        badge.textContent = `TARGET: ${getPlayerName(leaderId)}`;
+      // Threat & Ghim target analysis
+      const feud = getMostHatedRival(botId);
+      const targetRivalId = feud.isGhim ? feud.rivalId : leaderId;
+      const targetRivalName = getPlayerShortName(targetRivalId);
+
+      // Update Target & Desired step UI
+      const targetTileIdx = (curPos + bestStep) % TILES.length;
+      const targetTileEl = document.getElementById(`bot${botId}TargetTileName`);
+      const stepEl = document.getElementById(`bot${botId}DesiredStep`);
+      if (targetTileEl) targetTileEl.textContent = `Ô #${targetTileIdx} (${TILES[targetTileIdx].name})`;
+      if (stepEl) stepEl.textContent = `Ước lượng: ${bestStep} nút`;
+
+      // Status in progress
+      setBotActionStatus(botId, 'progress', `Đang nhắm tới Ô #${targetTileIdx}`);
+
+      // 1. Phục kích kẻ bị Ghim nếu đang có Mối quan hệ thù địch (< 35%)
+      if (feud.isGhim) {
+        const rivalPos = positions[feud.rivalId];
+        const distBehind = (curPos - rivalPos + TILES.length) % TILES.length;
+        const distAhead = (rivalPos - curPos + TILES.length) % TILES.length;
+
+        // Nếu kẻ bị ghim đang ở ngay sau lưng (cách 1 - 4 ô): Đặt Mìn Lượng Tử để chặn đầu!
+        const heroConfig = HERO_CLASSES[botHero] || HERO_CLASSES.assassin;
+        if (distBehind <= 4 && distBehind > 0 && energy >= heroConfig.trapCost && !boardTraps[curPos]) {
+          playerEnergy[botId] -= heroConfig.trapCost;
+          boardTraps[curPos] = { owner: botId, damage: 20 };
+          setBotActionStatus(botId, 'success', `Gài bẫy chặn đầu ${targetRivalName}`);
+          return `"💢 CỰC GHIM ${targetRivalName} (${feud.affinity}%): Vừa gài Mìn tại Ô #${curPos} để phục kích trả thù mối hận trước đó!"`;
+        }
+
+        // Nếu kẻ bị ghim đang ở phía trước (trong tầm 1 - 6 ô): Canh bước để đá văng!
+        if (distAhead >= 1 && distAhead <= 6) {
+          bestStep = distAhead;
+          if (targetTileEl) targetTileEl.textContent = `Ô #${rivalPos} (Vị trí của ${targetRivalName})`;
+          if (stepEl) stepEl.textContent = `ĐÁ QUÂN: ${bestStep} nút!`;
+          return `"🎯 NHẮM ĐÁ VĂNG ${targetRivalName} (Mối quan hệ: ${feud.affinity}%): Canh đúng ${bestStep} nút để đáp trùng ô đá lùi 3 ô & cướp điểm!"`;
+        }
       }
 
       // Check if bot should shield
       if (energy >= 1 && minPenalty <= -15 && !playerShields[botId]) {
         playerEnergy[botId] -= 1;
         playerShields[botId] = true;
+        setBotActionStatus(botId, 'success', 'Bật Khiên né bẫy');
         return `"Phát hiện ô nguy hiểm phía trước (${minPenalty}đ)! Quyết định tiêu tốn 1⚡ kích hoạt KHIÊN BẢO HỘ né sát thương!"`;
       }
 
@@ -5208,7 +5559,7 @@
       if (energy >= heroConfig.trapCost && !boardTraps[curPos]) {
         playerEnergy[botId] -= heroConfig.trapCost;
         boardTraps[curPos] = { owner: botId, damage: 20 };
-        return `"Đang dẫn đầu hoặc phục kích: Gài MÌN tại Ô #${curPos} (${TILES[curPos].name}) để gài bẫy ${getPlayerName(leaderId)}!"`;
+        return `"Đang dẫn đầu hoặc phục kích: Gài MÌN tại Ô #${curPos} (${TILES[curPos].name}) để gài bẫy ${targetRivalName}!"`;
       }
 
       return `"Đang ngắm vào Ô #${(curPos + bestStep) % TILES.length} (${TILES[(curPos + bestStep) % TILES.length].name}). Canh lực xúc xắc bước ${bestStep} để tối ưu hóa điểm số!"`;
@@ -5557,8 +5908,17 @@
             scores[player] = Math.max(0, scores[player] - dmg);
             scores[trapOwner] += dmg;
             soundTone(180, 'sawtooth', 0.3, 0.3);
-            showToast(`💥 BÙM! ${label} dẫm phải MÌN của ${getPlayerName(trapOwner)}! Bị trừ -${dmg}đ và chuyển cho đối thủ!`);
+            showToast(`💥 BÙM! ${label} dẫm phải MÌN của ${getPlayerName(trapOwner)}! Bị trừ -${dmg}đ!`);
+            addBattleLog(`💣 <b class="text-rose-400">${getPlayerShortName(player)}</b> dẫm phải Mìn của <b class="text-amber-400">${getPlayerShortName(trapOwner)}</b> (-<b class="text-rose-400">${dmg}đ</b>)!`, 'trap');
             updateDiceUI();
+            if (player > 1) {
+              setBotActionStatus(player, 'failed', `Dẫm phải Mìn của ${getPlayerShortName(trapOwner)} (- ${dmg}đ)`);
+              updateBotRelationship(player, trapOwner, -30, 'Dẫm phải mìn');
+            }
+            if (trapOwner > 1) {
+              setBotActionStatus(trapOwner, 'success', `Mìn hạ gục ${getPlayerShortName(player)} (+ ${dmg}đ)`);
+              updateBotRelationship(trapOwner, player, +10, 'Bẫy mìn trúng đích');
+            }
           }
         }
       }
@@ -5590,6 +5950,14 @@
             renderTokens();
             soundTone(160, 'sawtooth', 0.3, 0.25);
             addBattleLog(`💥 <b class="text-rose-400">${getPlayerShortName(player)}</b> đá văng <b class="text-indigo-400">${getPlayerShortName(otherP)}</b> lùi 3 ô & cướp <b class="text-emerald-400">+${stolenPts}đ</b>!`, 'clash');
+            if (otherP > 1) {
+              setBotActionStatus(otherP, 'failed', `Bị ${getPlayerShortName(player)} đá lùi 3 ô!`);
+              updateBotRelationship(otherP, player, -25, 'Bị đá văng');
+            }
+            if (player > 1) {
+              setBotActionStatus(player, 'success', `Đá văng ${getPlayerShortName(otherP)} cướp +10đ!`);
+              updateBotRelationship(player, otherP, +10, 'Hả dạ sau khi đá văng');
+            }
             await new Promise(r => setTimeout(r, isSpectatorMode ? Math.max(50, Math.floor(400 / spectatorSpeed)) : 450));
           }
         }

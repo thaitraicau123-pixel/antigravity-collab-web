@@ -650,3 +650,36 @@ Cho phép người chơi chọn Hero trước trận hoặc chuyển đổi linh
      - Mô hình nhà 3D nổi và tiêu điểm quân cờ phản nghiêng `rotateX(-30deg) translateZ(28px)` vươn thẳng đứng về phía người xem, tạo cảm giác sa bàn 3D sang trọng, thoáng đãng mà không bị mỏi mắt.
 
 ---
+
+### Phần 28: Tinh Chỉnh Phối Cảnh Nghiêng 30 Độ Hơi Chéo Chéo (Gentle Oblique Isometric 25° Slant) & Hoàn Thiện Click & Bàn Đấu (v3.7.5)
+
+#### 1. Phân Tích Yêu Cầu & Nghiên Cứu Hình Học
+- **Phản hồi từ người dùng**: *"anh muốn nghiêng 30 độ nma phải hơi chéo chéo á"*.
+- **So sánh trực quan các góc độ**:
+  - *Góc xoay 0° (`rotateZ: 0deg`)*: Bàn cờ vuông góc chính diện, cạnh đáy nằm ngang hoàn toàn. Góc nhìn phẳng, thiếu đi chiều sâu sa bàn 3D đặc trưng của dòng cờ tỷ phú cao cấp (Monopoly GO / Tabletop Arena).
+  - *Góc xoay 45° (`rotateZ: 45deg`)*: Xoay chéo góc cực đại tạo hình thoi/kim cương. Khi nhìn phối cảnh 3D bị kéo dài trục chéo, tên các ô nghiêng 45° khiến người chơi phải nghiêng đầu để đọc chữ và chiếm nhiều chiều dọc.
+  - *Góc xoay 25° (`rotateZ: 25deg`)* với độ nghiêng 30° (`rotateX: 30deg`): **Điểm cân bằng vàng**. Bàn cờ có độ xiên chéo thanh thoát ("hơi chéo chéo"), tạo cảm giác không gian bàn chơi 2.5D chân thực và đẳng cấp; đồng thời góc nghiêng 25° đủ nhẹ để toàn bộ typography tên tỉnh thành vẫn gần như nằm ngang, dễ đọc lướt mà không gây mỏi mắt.
+
+#### 2. Kích Thước Bàn Cờ & Bố Cục Không Gian (Scale & Bounding Box)
+- Khi bàn cờ xoay xiên 25°, đường chéo mở rộng kích thước bao (bounding box).
+- Thiết lập tỉ lệ hiển thị `scale(0.82)` (`transform: perspective(1400px) rotateX(30deg) rotateZ(25deg) scale(0.82)`):
+  - Đảm bảo trọn vẹn 100% cả 4 đỉnh bàn cờ nằm gọn gàng bên trong vùng nhìn (viewport):
+    - **Ô 0 (Xuất Phát)**: Đỉnh đáy bàn cờ, hiển thị đầy đủ, không bị che khuất bởi mép dưới trình duyệt hay thẻ người chơi.
+    - **Ô 9 (Trại Giam)**: Đỉnh trái bàn cờ, thoáng đãng cạnh Pod P3.
+    - **Ô 18 (Tân An / Sân Bay)**: Đỉnh trên bàn cờ, nằm bên dưới thanh HUD Inspector.
+    - **Ô 27 (Vô Tù)**: Đỉnh phải bàn cờ, thoáng đãng cạnh Pod P2.
+  - 4 quân cờ P1-P4 (Tiên, Cáo AI, Hổ AI, Gấu Trúc AI) tập kết chuẩn xác trên ô Xuất Phát (ô 0) tại thời điểm khởi tạo bàn cờ.
+
+#### 3. Phản Xoay Đồng Bộ Chi Tiết 3D Nổi (Counter-Rotation)
+- **Mô hình nhà & khách sạn 3D**: Thừa hưởng quy tắc CSS `.mono-board-25d .mono-upright-3d` phản xoay `rotateZ(-25deg) rotateX(-30deg) translateZ(28px)`, luôn đứng thẳng đứng theo trọng lực màn hình.
+- **Quân cờ & Đèn định vị lượt đi (Overhead Turn Beacon)**: Phản xoay `rotateZ(-25deg) rotateX(-30deg) translateZ(28px)`, đèn rọi kim cương nhấp nháy chỉ đúng đầu nhân vật.
+- **Hộp xí ngầu & Nút "Đổ Xúc Xắc"**: Thiết lập `transform: rotateZ(-25deg) rotateX(-30deg) translateZ(35px)`, nằm chính diện mặt người chơi, phẳng và nổi bật trên mặt sân cỏ trung tâm.
+
+#### 4. Đo Đạc Tương Tác & Kiểm Thử Tự Động (Telemetry & Flow Verification)
+- **Hit-Testing 100%**:
+  - `document.elementFromPoint` tại tọa độ nút "Đồng Ý (Mua & Xây)" trả về trực tiếp `BUTTON#btnMonoDialogYes` (`isDirectHit: true`).
+  - Hộp thoại quyết định và modal sự kiện nằm ở lớp HUD 2D màn hình (`z-50 backdrop-blur-sm pointer-events-auto`), không còn bị nuốt click bởi các thẻ 3D lồng ghép.
+- **End-to-End User Flow**:
+  - Lắc xúc xắc -> Quân cờ di chuyển mượt mà từng ô -> Dừng chân tại ô đất trống -> Modal mua đất mở ra -> Nhấn "Đồng Ý" -> Tiền trừ chính xác, đất chuyển quyền sở hữu, mô hình nhà 3D dựng đứng trên ô cờ -> Modal chúc mừng xuất hiện -> Đóng modal tiếp tục lượt chơi thành công 100%.
+
+---

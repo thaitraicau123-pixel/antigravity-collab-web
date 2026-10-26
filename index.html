@@ -1515,27 +1515,48 @@
 
           <!-- 2. MULTI-TAB TACTICAL DECK -->
           <div class="tabletop-mat rounded-2xl p-3.5 flex-1 flex flex-col border border-board-border shadow-lg">
-            <!-- Deck Sub-tabs -->
-            <div class="flex items-center bg-board-tray p-0.5 rounded-xl border border-board-border text-[11px] font-bold mb-3">
+            <!-- Deck Sub-tabs: 4 Integrated Tabs -->
+            <div class="flex items-center bg-board-tray p-0.5 rounded-xl border border-board-border text-[10px] sm:text-[11px] font-bold mb-3 gap-0.5">
               <button onclick="switchTacticalSubTab('log')" id="tTabBtnLog" class="flex-1 py-1 rounded-lg bg-amber-600 text-white transition-all shadow-sm">
-                <span class="inline-flex items-center gap-1.5 justify-center"><i data-lucide="swords" class="w-3 h-3 text-amber-300"></i><span>Nhật Ký</span></span>
+                <span class="inline-flex items-center gap-1 justify-center"><i data-lucide="swords" class="w-3 h-3 text-amber-300"></i><span>Nhật Ký</span></span>
               </button>
               <button onclick="switchTacticalSubTab('tips')" id="tTabBtnTips" class="flex-1 py-1 rounded-lg text-slate-400 hover:text-white transition-all">
-                <span class="inline-flex items-center gap-1.5 justify-center"><i data-lucide="lightbulb" class="w-3 h-3 text-amber-300"></i><span>Chiến Thuật</span></span>
+                <span class="inline-flex items-center gap-1 justify-center"><i data-lucide="lightbulb" class="w-3 h-3 text-amber-300"></i><span>Chiến Thuật</span></span>
+              </button>
+              <button onclick="switchTacticalSubTab('bot')" id="tTabBtnBot" class="flex-1 py-1 rounded-lg text-slate-400 hover:text-white transition-all">
+                <span class="inline-flex items-center gap-1 justify-center"><i data-lucide="brain" class="w-3 h-3 text-purple-400"></i><span>Trí Tuệ</span></span>
               </button>
               <button onclick="switchTacticalSubTab('stats')" id="tTabBtnStats" class="flex-1 py-1 rounded-lg text-slate-400 hover:text-white transition-all">
-                <span class="inline-flex items-center gap-1.5 justify-center"><i data-lucide="bar-chart-2" class="w-3 h-3 text-cyan-300"></i><span>Thống Kê</span></span>
+                <span class="inline-flex items-center gap-1 justify-center"><i data-lucide="bar-chart-2" class="w-3 h-3 text-cyan-300"></i><span>Thống Kê</span></span>
               </button>
             </div>
 
-            <!-- Sub-tab 1: Battle Log (includes miniLog) -->
-            <div id="tTabContentLog" class="flex-1 flex flex-col justify-between space-y-2">
-              <div id="miniLog" class="text-xs text-slate-200 p-2.5 rounded-xl bg-black/40 border border-white/5 min-h-[46px] flex items-center font-sans">
-                ⚔️ Đấu trường khai màn! Hãy gieo xúc xắc để xuất quân.
+            <!-- Sub-tab 1: Expanded Live Battle Log Stream -->
+            <div id="tTabContentLog" class="flex-1 flex flex-col space-y-2 max-h-[250px]">
+              <!-- Header Bar: Match Status & Turn Counter & Clear Button -->
+              <div class="flex items-center justify-between pb-1 border-b border-board-border/60 text-[10px]">
+                <div class="flex items-center gap-1.5 font-mono">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span class="text-slate-400">Trạng thái:</span>
+                  <span id="matchStatusText" class="text-emerald-400 font-bold font-mono">TRANH TÀI</span>
+                </div>
+                <div class="flex items-center gap-1.5 text-slate-400">
+                  <span class="px-1.5 py-0.5 rounded bg-black/40 border border-board-border text-[9px] font-mono" id="battleLogCountBadge">0 sự kiện</span>
+                  <button onclick="clearBattleLog()" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 text-[9px] font-mono transition-colors" title="Xóa lịch sử nhật ký">Làm mới</button>
+                </div>
               </div>
-              <div class="p-2 rounded-xl bg-board-tray/80 border border-board-border text-[10px] text-slate-400 flex items-center justify-between">
-                <span>Trạng thái trận đấu:</span>
-                <span class="text-emerald-400 font-bold font-mono">ĐANG TRANH TÀI</span>
+
+              <!-- Compact Highlight of Latest Event (miniLog) -->
+              <div id="miniLog" class="text-[11px] text-slate-200 p-2 rounded-xl bg-amber-950/30 border border-amber-500/30 flex items-center gap-2 font-sans shadow-sm leading-snug">
+                <span class="text-base shrink-0">⚔️</span>
+                <span class="flex-1 text-slate-200">Đấu trường khai màn! Hãy gieo xúc xắc để xuất quân.</span>
+              </div>
+
+              <!-- Scrollable Battle Event Stream (Lịch sử các diễn biến mới nhất) -->
+              <div class="flex-1 overflow-y-auto space-y-1.5 pr-0.5 custom-scrollbar min-h-[140px] max-h-[175px]" id="battleLogFeed">
+                <div class="text-[10px] text-slate-500 italic text-center py-4 bg-black/20 rounded-lg border border-white/5">
+                  Ghi nhận trực tiếp mọi pha đá quân, đặt bẫy, mở rương và nhận thưởng theo từng lượt.
+                </div>
               </div>
             </div>
 
@@ -4878,6 +4899,84 @@
       showToast(`🦸 ${getPlayerName(playerId)} chọn Hệ: ${hero.name} (${hero.desc})`);
     }
 
+    // ================= EXPANDED BATTLE LOG SYSTEM =================
+    let battleLogHistory = [];
+
+    function getPlayerShortName(p, withHero = false) {
+      let baseName = 'Bạn';
+      if (p === 2) baseName = 'Cáo Lửa';
+      else if (p === 3) baseName = 'Sói Băng';
+      else if (p === 4) baseName = 'Gấu Trúc';
+      else if (p === 1) {
+        const u = window.currentFirebaseUser;
+        baseName = u ? (u.displayName ? u.displayName.split(' ')[0] : 'Bạn') : 'Bạn';
+      }
+      if (!withHero) return baseName;
+      const heroId = (playerHeroes && playerHeroes[p]) ? playerHeroes[p] : 'guardian';
+      const hero = HERO_CLASSES[heroId] || HERO_CLASSES.guardian;
+      const heroShort = hero.name.replace('Hiệp Sĩ ', '').replace('Cáo Lửa ', '').replace('Pháp Sư ', '').replace('Thợ Săn ', '');
+      return `${baseName} <span class="text-[9px] font-mono text-slate-400">(${hero.icon} ${heroShort})</span>`;
+    }
+
+    function addBattleLog(textHtml, type = 'info') {
+      const mini = document.getElementById('miniLog');
+      if (mini) {
+        mini.innerHTML = `<span class="text-base shrink-0">${type === 'clash' ? '💥' : (type === 'duel' ? '⚔️' : (type === 'trap' ? '💣' : (type === 'reward' ? '✨' : '⚡')))}</span><span class="flex-1 text-slate-200 leading-snug">${textHtml}</span>`;
+      }
+
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      battleLogHistory.unshift({
+        text: textHtml,
+        time: timeStr,
+        type
+      });
+      if (battleLogHistory.length > 25) battleLogHistory.pop();
+
+      renderBattleLogFeed();
+    }
+
+    function clearBattleLog() {
+      battleLogHistory = [];
+      renderBattleLogFeed();
+      const mini = document.getElementById('miniLog');
+      if (mini) {
+        mini.innerHTML = '<span class="text-base shrink-0">⚔️</span><span class="flex-1 text-slate-300">Đấu trường sẵn sàng! Hãy gieo xúc xắc để tiếp tục.</span>';
+      }
+      showToast('Đã làm mới danh sách nhật ký trận đấu.');
+    }
+
+    function renderBattleLogFeed() {
+      const feed = document.getElementById('battleLogFeed');
+      const badge = document.getElementById('battleLogCountBadge');
+      if (badge) badge.textContent = `${battleLogHistory.length} sự kiện`;
+      if (!feed) return;
+
+      if (battleLogHistory.length === 0) {
+        feed.innerHTML = `
+          <div class="text-[10px] text-slate-500 italic text-center py-4 bg-black/20 rounded-lg border border-white/5">
+            Ghi nhận trực tiếp mọi pha đá quân, đặt bẫy, mở rương và nhận thưởng theo từng lượt.
+          </div>
+        `;
+        return;
+      }
+
+      feed.innerHTML = battleLogHistory.map((item, idx) => {
+        const isLatest = idx === 0;
+        const borderCls = isLatest ? 'border-amber-500/40 bg-amber-950/30 shadow-sm' : 'border-board-border/40 bg-black/30';
+        return `
+          <div class="p-1.5 rounded-lg border ${borderCls} text-[11px] text-slate-200 flex items-start justify-between gap-1.5 transition-all">
+            <div class="flex-1 leading-snug">${item.text}</div>
+            <span class="text-[9px] font-mono text-slate-500 shrink-0 mt-0.5">${item.time}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.addBattleLog = addBattleLog;
+    window.clearBattleLog = clearBattleLog;
+    window.renderBattleLogFeed = renderBattleLogFeed;
+
     // ================= PVP DUEL ARENA (Ô #10 & CLASH) =================
     let duelState = {
       active: false,
@@ -4896,6 +4995,44 @@
       duelState.mode = Math.random() > 0.5 ? 'reflex' : 'rps';
       duelState.winner = null;
 
+      // ẨN TOÀN BỘ POPUP KHI ĐANG QUAN SÁT (SPECTATOR MODE) HOẶC KHI 2 BOT ĐẤU VỚI NHAU
+      const isBotDuel = (challenger > 1 && defender > 1);
+      const shouldSilentDuel = isSpectatorMode || isBotDuel;
+
+      if (shouldSilentDuel) {
+        // Tự động phân định kết quả ngầm nhanh chóng, không che khuất bàn cờ!
+        const h1 = (playerHeroes && playerHeroes[challenger]) ? playerHeroes[challenger] : 'guardian';
+        const h2 = (playerHeroes && playerHeroes[defender]) ? playerHeroes[defender] : 'guardian';
+        let p1Advantage = 0.5;
+        if ((h1 === 'guardian' && h2 === 'assassin') ||
+            (h1 === 'assassin' && h2 === 'hunter') ||
+            (h1 === 'hunter' && h2 === 'chronomancer') ||
+            (h1 === 'chronomancer' && h2 === 'guardian')) {
+          p1Advantage = 0.65;
+        } else if ((h2 === 'guardian' && h1 === 'assassin') ||
+                   (h2 === 'assassin' && h1 === 'hunter') ||
+                   (h2 === 'hunter' && h1 === 'chronomancer') ||
+                   (h2 === 'chronomancer' && h1 === 'guardian')) {
+          p1Advantage = 0.35;
+        }
+        const winnerId = Math.random() < p1Advantage ? challenger : defender;
+        const loserId = (winnerId === challenger) ? defender : challenger;
+
+        const stealPts = Math.min(20, scores[loserId]);
+        scores[loserId] = Math.max(0, scores[loserId] - stealPts);
+        scores[winnerId] += 20;
+
+        soundTone(720, 'triangle', 0.12, 0.15);
+        const winName = getPlayerShortName(winnerId);
+        const loseName = getPlayerShortName(loserId);
+        addBattleLog(`⚔️ <b class="text-amber-400">${winName}</b> thắng quyết đấu trước <b class="text-slate-300">${loseName}</b> & cướp <b class="text-emerald-400">+20đ</b>!`, 'duel');
+        showToast(`⚔️ ${winName} thắng quyết đấu trước ${loseName} (+20đ)!`);
+        updateDiceUI();
+        duelState.active = false;
+        return;
+      }
+
+      // CHỈ HIỆN POPUP KHI NGƯỜI THỰC THAM GIA ĐẤU & KHÔNG PHẢI CHẾ ĐỘ QUAN SÁT
       const modal = document.getElementById('skillDuelModal');
       const title = document.getElementById('duelTitle');
       const desc = document.getElementById('duelDesc');
@@ -4906,7 +5043,7 @@
       if (!modal) return;
       modal.classList.remove('hidden');
 
-      if (title) title.innerHTML = `⚔️ ${getPlayerName(challenger)} <span class="text-rose-400">QUYẾT ĐẤU</span> ${getPlayerName(defender)}!`;
+      if (title) title.innerHTML = `⚔️ ${getPlayerShortName(challenger, true)} <span class="text-rose-400">QUYẾT ĐẤU</span> ${getPlayerShortName(defender, true)}!`;
       if (desc) desc.textContent = 'Kẻ thắng cuộc sẽ cướp ngay +20 ĐIỂM từ đối thủ!';
 
       if (duelState.mode === 'reflex') {
@@ -5000,7 +5137,10 @@
       scores[winnerId] += 20;
 
       soundTone(880, 'triangle', 0.3, 0.3);
-      showToast(`🏆 ${getPlayerName(winnerId)} CHIẾN THẮNG QUYẾT ĐẤU! Cướp +20đ từ ${getPlayerName(loserId)}!`);
+      const wName = getPlayerShortName(winnerId);
+      const lName = getPlayerShortName(loserId);
+      addBattleLog(`🏆 <b class="text-amber-400">${wName}</b> chiến thắng quyết đấu trước <b>${lName}</b> & cướp <b class="text-emerald-400">+20đ</b>!`, 'duel');
+      showToast(`🏆 ${wName} CHIẾN THẮNG QUYẾT ĐẤU! Cướp +20đ!`);
       updateDiceUI();
 
       setTimeout(() => {
@@ -5286,12 +5426,12 @@
         if (roll % 2 === 0 || roll >= 4) {
           playerFrozen[currentTurn] = 0;
           soundTone(850, 'triangle', 0.25, 0.2);
-          document.getElementById('miniLog').innerHTML = `🔥 <b class="text-amber-400">${pName}</b> gieo được ${roll} nút: <b class="text-emerald-400">ĐÃ PHÁ BĂNG THÀNH CÔNG!</b>`;
+          addBattleLog(`🔥 <b class="text-amber-400">${getPlayerShortName(currentTurn)}</b> gieo ${roll} nút: Phá băng thành công!`, 'system');
           await new Promise(r => setTimeout(r, isSpectatorMode ? Math.max(40, Math.floor(300 / spectatorSpeed)) : 300));
           await moveMeepleSteps(currentTurn, roll);
         } else {
           soundTone(220, 'sawtooth', 0.25, 0.2);
-          document.getElementById('miniLog').innerHTML = `❄️ <b class="text-blue-400">${pName}</b> gieo ${roll} nút: <b class="text-rose-400">PHÁ BĂNG THẤT BẠI!</b> Bị giữ lại 1 lượt!`;
+          addBattleLog(`❄️ <b class="text-blue-400">${getPlayerShortName(currentTurn)}</b> gieo ${roll} nút: Chưa thoát Băng Ngục!`, 'freeze');
           playerFrozen[currentTurn] = 0;
           await new Promise(r => setTimeout(r, isSpectatorMode ? Math.max(40, Math.floor(300 / spectatorSpeed)) : 400));
           switchTurn();
@@ -5373,7 +5513,7 @@
           if (positions[player] === 0 && prev === TILES.length - 1) {
             scores[player] += 15;
             soundTone(750, 'triangle', 0.15, 0.15);
-            document.getElementById('miniLog').innerHTML = `🏁 <b class="text-amber-400">${getPlayerName(player)}</b> hoàn thành 1 vòng đua: <b class="text-emerald-400">+15đ Lap Bonus!</b>`;
+            addBattleLog(`🏁 <b class="text-amber-400">${getPlayerShortName(player)}</b> hoàn thành 1 vòng đua (<b class="text-emerald-400">+15đ</b>)!`, 'lap');
           }
 
           renderTokens();
@@ -5440,7 +5580,7 @@
           if (playerShields[otherP]) {
             playerShields[otherP] = false;
             soundTone(900, 'square', 0.2, 0.2);
-            document.getElementById('miniLog').innerHTML = `🛡️ <b class="text-cyan-400">${otherName}</b> kích hoạt <b>Khiên Hộ Thân</b> chặn đứng đòn đá của <b class="text-rose-400">${label}</b>!`;
+            addBattleLog(`🛡️ <b class="text-cyan-400">${getPlayerShortName(otherP)}</b> bật <b>Khiên</b> chặn đòn đá của <b class="text-rose-400">${getPlayerShortName(player)}</b>!`, 'shield');
           } else {
             // ĐÁ LÙI 3 Ô & CƯỚP 10 ĐIỂM
             const stolenPts = Math.min(10, scores[otherP]);
@@ -5449,7 +5589,7 @@
             positions[otherP] = (positions[otherP] - 3 + TILES.length) % TILES.length;
             renderTokens();
             soundTone(160, 'sawtooth', 0.3, 0.25);
-            document.getElementById('miniLog').innerHTML = `💥 <b class="text-rose-400">${label}</b> ĐÁ VĂNG <b class="text-amber-300">${otherName}</b> lùi 3 ô và CƯỚP <b class="text-emerald-400">+${stolenPts}đ</b>!`;
+            addBattleLog(`💥 <b class="text-rose-400">${getPlayerShortName(player)}</b> đá văng <b class="text-indigo-400">${getPlayerShortName(otherP)}</b> lùi 3 ô & cướp <b class="text-emerald-400">+${stolenPts}đ</b>!`, 'clash');
             await new Promise(r => setTimeout(r, isSpectatorMode ? Math.max(50, Math.floor(400 / spectatorSpeed)) : 450));
           }
         }
@@ -5467,24 +5607,24 @@
           updateEnergyUI();
         }
         soundTone(880, 'triangle', 0.2, 0.18);
-        document.getElementById('miniLog').innerHTML = `✨ <b class="text-amber-400">${label}</b> đáp vào <b>${tile.name}</b> (+${gain}đ)!`;
+        addBattleLog(`✨ <b class="text-amber-400">${getPlayerShortName(player)}</b> thu thập <b>${tile.name}</b> (<b class="text-emerald-400">+${gain}đ</b>)!`, 'reward');
       } else if (tile.type === 'minus') {
         if (playerShields[player]) {
           playerShields[player] = false;
           soundTone(950, 'sine', 0.2, 0.2);
-          document.getElementById('miniLog').innerHTML = `🛡️ <b class="text-cyan-400">${label}</b> dùng Khiên đỡ trọn cạm bẫy <b>${tile.name}</b>!`;
+          addBattleLog(`🛡️ <b class="text-cyan-400">${getPlayerShortName(player)}</b> dùng Khiên đỡ trọn cạm bẫy <b>${tile.name}</b>!`, 'shield');
         } else {
           let penalty = tile.pts;
           if (playerHeroes[player] === 'guardian') penalty = Math.round(penalty * 0.6);
           scores[player] = Math.max(0, scores[player] + penalty);
           soundTone(200, 'sawtooth', 0.25, 0.14);
-          document.getElementById('miniLog').innerHTML = `💥 <b class="text-rose-400">${label}</b> dính <b>${tile.name}</b>: ${penalty} điểm!`;
+          addBattleLog(`⚠️ <b class="text-rose-400">${getPlayerShortName(player)}</b> dính <b>${tile.name}</b> (<b class="text-rose-400">${penalty}đ</b>)!`, 'trap');
         }
       } else if (tile.type === 'warp') {
         // CỔNG WARP DỊCH CHUYỂN
         const targetPos = tile.target;
         soundTone(1100, 'sine', 0.3, 0.2);
-        document.getElementById('miniLog').innerHTML = `🌀 <b class="text-cyan-400">${label}</b> kích hoạt <b>${tile.name}</b> ➔ Dịch chuyển xuyên không gian tới <b>Ô #${targetPos}</b>!`;
+        addBattleLog(`🌀 <b class="text-cyan-400">${getPlayerShortName(player)}</b> vượt Cổng Warp tới <b>Ô #${targetPos}</b>!`, 'warp');
         await new Promise(r => setTimeout(r, isSpectatorMode ? Math.max(60, Math.floor(350 / spectatorSpeed)) : 400));
         positions[player] = targetPos;
         renderTokens();
@@ -5492,7 +5632,7 @@
         // BĂNG NGỤC TRỌNG LỰC
         playerFrozen[player] = 1;
         soundTone(300, 'triangle', 0.3, 0.2);
-        document.getElementById('miniLog').innerHTML = `❄️ <b class="text-blue-400">${label}</b> bị đóng băng tại <b>${tile.name}</b>! Cần gieo số Chẵn (2,4,6) hoặc >=4 để thoát!`;
+        addBattleLog(`❄️ <b class="text-blue-400">${getPlayerShortName(player)}</b> bị kìm chân tại <b>${tile.name}</b> (cần số Chẵn hoặc >=4)!`, 'freeze');
       } else if (tile.type === 'fortune') {
         // RƯƠNG VẬN MỆNH HUYỀN BÍ
         const fortuneCards = [
@@ -5526,15 +5666,15 @@
         const drawn = fortuneCards[Math.floor(Math.random() * fortuneCards.length)];
         const resText = drawn.act();
         soundTone(780, 'triangle', 0.25, 0.2);
-        document.getElementById('miniLog').innerHTML = `🎁 <b class="text-purple-400">${label}</b> mở <b>Rương Vận Mệnh</b>: <i>${drawn.name}</i> — ${resText}`;
+        addBattleLog(`🎁 <b class="text-purple-400">${getPlayerShortName(player)}</b> mở Rương: <i>${drawn.name}</i> (${resText})`, 'reward');
       } else if (tile.type === 'duel') {
         // SÀN ĐẤU QUYẾT ĐẤU
         const bonus = Math.floor(Math.random() * 15) + 10;
         scores[player] += bonus;
         soundTone(650, 'sawtooth', 0.2, 0.2);
-        document.getElementById('miniLog').innerHTML = `⚔️ <b class="text-amber-400">${label}</b> đại náo <b>Sàn Đấu Quyết Đấu</b>: Nhận +${bonus}đ thưởng chiến tích!`;
+        addBattleLog(`⚔️ <b class="text-amber-400">${getPlayerShortName(player)}</b> dừng chân tại Đấu Trường (+${bonus}đ thưởng)!`, 'duel');
       } else {
-        document.getElementById('miniLog').innerHTML = `🛡️ <b class="text-slate-300">${label}</b> dừng chân tại <b>${tile.name}</b>.`;
+        addBattleLog(`🛡️ <b class="text-slate-300">${getPlayerShortName(player)}</b> dừng chân tại <b>${tile.name}</b>.`, 'info');
       }
 
       updateDiceUI();
@@ -6235,7 +6375,7 @@
 
     // ================= TACTICAL DECK SUB-TABS (LOG, TIPS, STATS) =================
     function switchTacticalSubTab(subTab) {
-      const tabs = ['log', 'tips', 'stats'];
+      const tabs = ['log', 'tips', 'bot', 'stats'];
       tabs.forEach(t => {
         const btn = document.getElementById('tTabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
         const content = document.getElementById('tTabContent' + t.charAt(0).toUpperCase() + t.slice(1));
@@ -7345,7 +7485,7 @@
       if (isSpectatorMode) {
         const miniLog = document.getElementById('miniLog');
         if (miniLog) {
-          miniLog.innerHTML = `🏆 <b class="text-amber-400">${winnerName}</b> cán đích (${GOAL_SCORE}đ) Toàn Thắng! Đang tự động bắt đầu ván mới...`;
+          addBattleLog(`🏆 <b class="text-amber-400">${winnerName}</b> cán đích (${GOAL_SCORE}đ) Toàn Thắng! Đang tự động bắt đầu ván mới...`, 'victory');
         }
         
         // Tuyệt đối không gọi showToast gây hiện pop up ở góc dưới trong chế độ quan sát
@@ -7407,7 +7547,7 @@
         currentTurn = 1;
         isDiceRolling = false;
         document.getElementById('diceFaceDisplay').innerHTML = getDiceFaceSvg(0);
-        document.getElementById('miniLog').textContent = '⚔️ Đấu trường khai màn! Hãy gieo xúc xắc để xuất quân.';
+        if (typeof addBattleLog === 'function') { addBattleLog('⚔️ Đấu trường khai màn! Hãy gieo xúc xắc để xuất quân.', 'system'); } else { const m = document.getElementById('miniLog'); if (m) m.textContent = '⚔️ Đấu trường khai màn! Hãy gieo xúc xắc để xuất quân.'; }
         updateDiceUI();
         renderCircuitBoard();
         highlightTurnCard(1);

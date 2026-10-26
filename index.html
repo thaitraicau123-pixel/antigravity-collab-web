@@ -535,7 +535,7 @@
 
   
     
-    /* === JAIL GATE SLAM ANIMATION (v3.9.0) === */
+    /* === JAIL GATE SLAM ANIMATION (v3.9.2) === */
     @keyframes monoGateSlamLeft {
       0% { transform: translateX(-100%); }
       70% { transform: translateX(2.5%); }
@@ -573,7 +573,7 @@
       animation: monoGateScreenShake 0.4s ease-out 0.42s;
     }
 
-    /* === AIRPLANE FLYBY & CASH TRANSFER ANIMATIONS (v3.9.0) === */
+    /* === AIRPLANE FLYBY & CASH TRANSFER ANIMATIONS (v3.9.2) === */
 
     @keyframes monoAirplaneFlight {
       0% {
@@ -603,55 +603,67 @@
       animation: monoAirplaneFlight 2.0s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
     }
 
-    @keyframes monoCashFlightArc {
+    /* === 100% GPU HARDWARE-ACCELERATED 60FPS CASH FLIGHT & PAWN GLIDE (v3.9.2) === */
+    @keyframes monoCashFlightArc60fps {
       0% {
-        left: 24%;
-        transform: translateY(-50%) scale(0.9) rotate(-4deg);
-        opacity: 0.95;
+        transform: translate3d(-135px, -50%, 0) scale3d(0.85, 0.85, 1) rotate(-5deg);
+        opacity: 0;
       }
-      25% {
-        left: 36%;
+      12% {
+        transform: translate3d(-115px, -54%, 0) scale3d(1, 1, 1) rotate(-2deg);
         opacity: 1;
-        transform: translateY(calc(-50% - 25px)) scale(1.08) rotate(3deg);
       }
       50% {
-        left: 46%;
+        transform: translate3d(0px, -74%, 0) scale3d(1.12, 1.12, 1) rotate(2deg);
         opacity: 1;
-        transform: translateY(calc(-50% - 28px)) scale(1.1) rotate(0deg);
       }
-      75% {
-        left: 58%;
+      86% {
+        transform: translate3d(115px, -54%, 0) scale3d(0.95, 0.95, 1) rotate(4deg);
         opacity: 1;
-        transform: translateY(calc(-50% - 14px)) scale(1.02) rotate(-1deg);
-      }
-      90% {
-        left: 65%;
-        opacity: 0.85;
-        transform: translateY(-50%) scale(0.8) rotate(4deg);
       }
       100% {
-        left: 68%;
-        transform: translateY(-50%) scale(0.5) rotate(6deg);
+        transform: translate3d(140px, -50%, 0) scale3d(0.55, 0.55, 1) rotate(8deg);
         opacity: 0;
       }
     }
 
     .mono-cash-flying {
-      animation: monoCashFlightArc 1.35s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+      left: 50% !important;
+      top: 50% !important;
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      animation: monoCashFlightArc60fps 1.25s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* 60FPS Smooth Character Hop & Glide on Board */
+    @keyframes monoPawnHop60fps {
+      0% {
+        transform: rotateZ(-25deg) rotateX(-30deg) translate3d(0, 0, 28px) scale3d(1, 1, 1);
+      }
+      45% {
+        transform: rotateZ(-25deg) rotateX(-30deg) translate3d(0, -18px, 46px) scale3d(1.08, 1.08, 1);
+      }
+      100% {
+        transform: rotateZ(-25deg) rotateX(-30deg) translate3d(0, 0, 28px) scale3d(1, 1, 1);
+      }
+    }
+
+    .mono-board-25d .mono-pawn-hopping {
+      will-change: transform;
+      backface-visibility: hidden;
+      animation: monoPawnHop60fps 0.14s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
 
     @keyframes monoRecipientPulse {
-      0%, 70% {
-        transform: scale(1);
-        filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
+      0%, 65% {
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
       }
-      85% {
-        transform: scale(1.12);
-        filter: drop-shadow(0 0 35px rgba(245, 158, 11, 0.95));
+      82% {
+        transform: translate3d(0, -4px, 0) scale3d(1.14, 1.14, 1);
       }
       100% {
-        transform: scale(1);
-        filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
       }
     }
 
@@ -744,7 +756,7 @@
         <!-- Version & Contributor Changelog Pill -->
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v3.9.0</span>
+          <span id="headerVersionPill" class="font-bold">v3.9.2</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -2291,7 +2303,7 @@
             <!-- ================= 2.5D DIAMOND ISOMETRIC MONOPOLY ARENA (LINE LET'S GET RICH STYLE) ================= -->
       <div id="monopolyView" class="hidden relative w-full flex-col items-center justify-center p-2 sm:p-4 my-auto select-none overflow-visible max-w-7xl mx-auto min-h-[720px]">
         
-        <!-- ================= 4-CORNER BUSINESS TOUR HERO PORTRAITS & 3D CASH PILES (v3.9.0) ================= -->
+        <!-- ================= 4-CORNER BUSINESS TOUR HERO PORTRAITS & 3D CASH PILES (v3.9.2) ================= -->
         <!-- Top-Left: Player 1 (Red Hooded Lady / Tiên) -->
         <div id="monoCornerPod_0" class="absolute top-2 sm:top-3 left-2 sm:left-3 z-30 flex items-center gap-2.5 bg-[#0C1524]/95 border-2 border-rose-500/80 rounded-2xl p-2 sm:p-2.5 shadow-2xl backdrop-blur-md transition-all duration-300">
           <div id="monoCornerFloat_0" class="absolute -top-6 left-0 w-full flex justify-center pointer-events-none z-40"></div>
@@ -2639,16 +2651,16 @@
           </div>
         </div>
 
-          <div id="mono2dBoardWrapper" class="mono-board-25d w-full max-w-[770px] aspect-square bg-[#cbd5e1] grid grid-cols-10 grid-rows-10 relative p-1.5 gap-[3px] select-none border-4 border-[#64748b] rounded-2xl mx-auto my-auto shadow-[0_35px_70px_rgba(0,0,0,0.9),0_10px_0_#475569]">
+          <div id="mono2dBoardWrapper" class="mono-board-25d w-full max-w-[820px] aspect-square bg-[#cbd5e1] grid grid-cols-12 grid-rows-12 relative p-1.5 gap-[2.5px] select-none border-4 border-[#64748b] rounded-2xl mx-auto my-auto shadow-[0_35px_70px_rgba(0,0,0,0.9),0_10px_0_#475569]">
             
-            <!-- 36 PERIMETER TILES (Rendered via JS with Business Tour 2.5D Buildings & Landmarks) -->
+            <!-- 44 PERIMETER TILES (12x12 Grid = +2 Tiles Per Edge, Business Tour 2.5D Buildings & Landmarks) -->
             <div id="mono2dGridTiles" class="contents"></div>
 
-            <!-- ================= BUSINESS TOUR BRIGHT MEADOW CENTRAL TURF ARENA (Cols 2-9, Rows 2-9) ================= -->
-            <div id="mono2dCentralArena" onclick="handleCentralTurfClick()" class="col-start-2 col-end-10 row-start-2 row-end-10 cursor-pointer bg-gradient-to-br from-[#a3e635] via-[#84cc16] to-[#65a30d] flex flex-col justify-between p-2.5 sm:p-3.5 relative rounded-xl border-[6px] border-[#475569] shadow-[inset_0_0_30px_rgba(0,0,0,0.25)] overflow-hidden">
+            <!-- ================= BUSINESS TOUR BRIGHT MEADOW CENTRAL TURF ARENA (Cols 2-11, Rows 2-11 = 10x10 Court) ================= -->
+            <div id="mono2dCentralArena" onclick="handleCentralTurfClick()" class="col-start-2 col-end-12 row-start-2 row-end-12 cursor-pointer bg-gradient-to-br from-[#a3e635] via-[#84cc16] to-[#65a30d] flex flex-col justify-between p-2.5 sm:p-3.5 relative rounded-xl border-[6px] border-[#475569] shadow-[inset_0_0_30px_rgba(0,0,0,0.25)] overflow-hidden">
               
-              <!-- Business Tour Meadow Grid Lines (Subtle soccer/park lawn divisions like reference image) -->
-              <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.22)_2px,transparent_2px),linear-gradient(to_bottom,rgba(255,255,255,0.22)_2px,transparent_2px)] [background-size:25%_25%] pointer-events-none"></div>
+              <!-- Business Tour Meadow Grid Lines -->
+              <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.22)_2px,transparent_2px),linear-gradient(to_bottom,rgba(255,255,255,0.22)_2px,transparent_2px)] [background-size:20%_20%] pointer-events-none"></div>
               <!-- Inner Road Curb Frame -->
               <div class="absolute inset-1 rounded-lg border-2 border-dashed border-white/40 pointer-events-none"></div>
 
@@ -2656,7 +2668,7 @@
               <div class="w-full flex items-center justify-between z-10 text-[9px] sm:text-[10px]">
                 <div class="flex items-center gap-1.5 bg-[#0f172a]/90 px-3 py-1 rounded-xl border-2 border-white/80 font-black shadow-lg">
                   <span class="text-amber-400">🏆</span>
-                  <span class="text-white tracking-wide" id="monoTurnStatusText">VÒNG 1/15 • MỤC TIÊU: $8,500</span>
+                  <span class="text-white tracking-wide" id="monoTurnStatusText">VÒNG 1/15 • 44 Ô • MỤC TIÊU: $8,500</span>
                 </div>
                 <div class="flex items-center gap-1.5">
                   <button onclick="event.stopPropagation(); restartMonopolyGame()" class="px-2.5 py-1 rounded-xl bg-[#0f172a]/90 hover:bg-slate-800 text-amber-300 font-black border-2 border-white/70 text-[10px] cursor-pointer shadow-md" title="Khởi động lại ván cờ">⏻ Ván Mới</button>
@@ -2667,17 +2679,17 @@
               <!-- Bottom Victory Progress Hint -->
               <div class="w-full flex items-center justify-center z-10 pointer-events-none">
                 <div class="px-3 py-0.5 rounded-full bg-[#0f172a]/80 border border-white/50 text-[8px] sm:text-[9px] font-extrabold text-amber-200 tracking-wider uppercase shadow">
-                  ⚡ Thắng Nhanh: Đạt $8,500 Tài Sản • Độc Quyền 3 Resort • Hoặc Phá Sản Đối Thủ!
+                  ⚡ Bản Đồ 44 Ô Mở Rộng (12x12) • Đạt $8,500 Tài Sản • Độc Quyền 4 Resort • Hoặc Phá Sản Đối Thủ!
                 </div>
               </div>
 
             </div> <!-- Properly close mono2dCentralArena -->
 
-            <!-- PAWNS (Direct children of mono2dBoardWrapper 10x10 grid) -->
-            <div id="pawnP1" class="pointer-events-none z-40 flex items-center justify-center transition-all duration-300" style="grid-column: 10; grid-row: 10;"></div>
-            <div id="pawnP2" class="pointer-events-none z-40 flex items-center justify-center transition-all duration-300" style="grid-column: 10; grid-row: 10;"></div>
-            <div id="pawnP3" class="pointer-events-none z-40 flex items-center justify-center transition-all duration-300" style="grid-column: 10; grid-row: 10;"></div>
-            <div id="pawnP4" class="pointer-events-none z-40 flex items-center justify-center transition-all duration-300" style="grid-column: 10; grid-row: 10;"></div>
+            <!-- PAWNS (Direct children of mono2dBoardWrapper 12x12 grid, 60fps GPU accelerated) -->
+            <div id="pawnP1" class="pointer-events-none z-40 flex items-center justify-center will-change-transform" style="grid-column: 12; grid-row: 12;"></div>
+            <div id="pawnP2" class="pointer-events-none z-40 flex items-center justify-center will-change-transform" style="grid-column: 12; grid-row: 12;"></div>
+            <div id="pawnP3" class="pointer-events-none z-40 flex items-center justify-center will-change-transform" style="grid-column: 12; grid-row: 12;"></div>
+            <div id="pawnP4" class="pointer-events-none z-40 flex items-center justify-center will-change-transform" style="grid-column: 12; grid-row: 12;"></div>
 
           </div>
         </div>
@@ -4068,7 +4080,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.9.0</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.9.2</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -7876,49 +7888,57 @@
     // CỜ TỶ PHÚ 2.5D DIAMOND ISOMETRIC ARENA ENGINE (V3.7.0 - 3D HOUSES & BEACONS)
     // =========================================================================
     const MONOPOLY_2D_TILES = [
-      // BOTTOM EDGE: row 10, cols 10 down to 1 (Bottom Vertex = START, Left Vertex = LOST ISLAND)
-      { id: 0, r: 10, c: 10, name: 'START', vnName: 'XUẤT PHÁT', type: 'start', isCorner: true, bg: 'bg-[#e2e8f0]', text: 'text-slate-900', icon: '🏁' },
-      { id: 1, r: 10, c: 9, name: 'NINH BÌNH', type: 'city', group: 'g1', price: 120, rent: [70, 180, 420], color: '#22c55e' },
-      { id: 2, r: 10, c: 8, name: 'THANH HÓA', type: 'city', group: 'g1', price: 140, rent: [80, 210, 480], color: '#22c55e' },
-      { id: 3, r: 10, c: 7, name: 'CHANCE', vnName: 'VẬN MỆNH', type: 'fate', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-rose-500' },
-      { id: 4, r: 10, c: 6, name: 'VINH', type: 'city', group: 'g1', price: 160, rent: [95, 240, 550], color: '#22c55e' },
-      { id: 5, r: 10, c: 5, name: 'HÀ TĨNH', type: 'city', group: 'g2', price: 200, rent: [120, 300, 680], color: '#0ea5e9' },
-      { id: 6, r: 10, c: 4, name: 'BÃI BIỂN BALI', type: 'station', group: 'resort', price: 300, rent: [180, 420, 900], color: '#0284c7', icon: '🏖️' },
-      { id: 7, r: 10, c: 3, name: 'ĐÔNG HÀ', type: 'city', group: 'g2', price: 220, rent: [130, 330, 750], color: '#0ea5e9' },
-      { id: 8, r: 10, c: 2, name: 'CHANCE', vnName: 'CƠ HỘI', type: 'chance', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-amber-500' },
-      { id: 9, r: 10, c: 1, name: 'LOST ISLAND', vnName: 'TRẠI GIAM', type: 'jail', isCorner: true, bg: 'bg-[#38bdf8]', text: 'text-slate-950', icon: '🏝️' },
+      // BOTTOM EDGE (12 cols: col 12 down to col 1 at row 12 -> +2 tiles added: CÀ MAU & BẠC LIÊU)
+      { id: 0, r: 12, c: 12, name: 'START', vnName: 'XUẤT PHÁT', type: 'start', isCorner: true, bg: 'bg-[#e2e8f0]', text: 'text-slate-900', icon: '🏁' },
+      { id: 1, r: 12, c: 11, name: 'CÀ MAU', type: 'city', group: 'g1', price: 100, rent: [60, 150, 350], color: '#22c55e' },
+      { id: 2, r: 12, c: 10, name: 'BẠC LIÊU', type: 'city', group: 'g1', price: 110, rent: [65, 165, 380], color: '#22c55e' },
+      { id: 3, r: 12, c: 9, name: 'NINH BÌNH', type: 'city', group: 'g1', price: 120, rent: [70, 180, 420], color: '#22c55e' },
+      { id: 4, r: 12, c: 8, name: 'VẬN MỆNH', vnName: 'VẬN MỆNH', type: 'fate', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-rose-500' },
+      { id: 5, r: 12, c: 7, name: 'THANH HÓA', type: 'city', group: 'g2', price: 140, rent: [80, 210, 480], color: '#10b981' },
+      { id: 6, r: 12, c: 6, name: 'BÃI BIỂN BALI', type: 'station', group: 'resort', price: 280, rent: [170, 380, 780, 1400], color: '#0284c7', icon: '🏖️' },
+      { id: 7, r: 12, c: 5, name: 'VINH', type: 'city', group: 'g2', price: 160, rent: [95, 240, 550], color: '#10b981' },
+      { id: 8, r: 12, c: 4, name: 'HÀ TĨNH', type: 'city', group: 'g2', price: 180, rent: [110, 270, 620], color: '#0ea5e9' },
+      { id: 9, r: 12, c: 3, name: 'CƠ HỘI', vnName: 'CƠ HỘI', type: 'chance', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-amber-500' },
+      { id: 10, r: 12, c: 2, name: 'ĐÔNG HÀ', type: 'city', group: 'g2', price: 200, rent: [120, 300, 680], color: '#0ea5e9' },
+      { id: 11, r: 12, c: 1, name: 'LOST ISLAND', vnName: 'TRẠI GIAM', type: 'jail', isCorner: true, bg: 'bg-[#38bdf8]', text: 'text-slate-950', icon: '🏝️' },
 
-      // LEFT EDGE: rows 9 down to 2, col 1 (Left Vertex = LOST ISLAND up to Top Vertex = WORLD CHAMPIONSHIPS)
-      { id: 10, r: 9, c: 1, name: 'HỘI AN', type: 'city', group: 'g3', price: 260, rent: [150, 380, 860], color: '#f59e0b' },
-      { id: 11, r: 8, c: 1, name: 'QUY NHƠN', type: 'city', group: 'g3', price: 280, rent: [165, 410, 920], color: '#f59e0b' },
-      { id: 12, r: 7, c: 1, name: 'NHA TRANG', type: 'city', group: 'g4', price: 340, rent: [200, 500, 1100], color: '#f97316' },
-      { id: 13, r: 6, c: 1, name: 'PHAN THIẾT', type: 'city', group: 'g4', price: 320, rent: [190, 470, 1050], color: '#f97316' },
-      { id: 14, r: 5, c: 1, name: 'VỊNH HẠ LONG', type: 'station', group: 'resort', price: 300, rent: [180, 420, 900], color: '#0284c7', icon: '🏝️' },
-      { id: 15, r: 4, c: 1, name: 'VŨNG TÀU', type: 'city', group: 'g5', price: 420, rent: [250, 620, 1380], color: '#e11d48' },
-      { id: 16, r: 3, c: 1, name: 'TP.HCM', type: 'city', group: 'g5', price: 650, rent: [390, 950, 2100], color: '#e11d48' },
-      { id: 17, r: 2, c: 1, name: 'BIÊN HÒA', type: 'city', group: 'g5', price: 380, rent: [225, 560, 1250], color: '#e11d48' },
+      // LEFT EDGE (12 rows: row 11 down to row 2 at col 1 -> +2 tiles added: HUẾ & ĐÀ LẠT)
+      { id: 12, r: 11, c: 1, name: 'HUẾ', type: 'city', group: 'g3', price: 220, rent: [130, 330, 750], color: '#f59e0b' },
+      { id: 13, r: 10, c: 1, name: 'HỘI AN', type: 'city', group: 'g3', price: 240, rent: [145, 360, 820], color: '#f59e0b' },
+      { id: 14, r: 9, c: 1, name: 'QUY NHƠN', type: 'city', group: 'g3', price: 260, rent: [155, 390, 880], color: '#f59e0b' },
+      { id: 15, r: 8, c: 1, name: 'CƠ HỘI', vnName: 'CƠ HỘI', type: 'chance', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-amber-500' },
+      { id: 16, r: 7, c: 1, name: 'VỊNH HẠ LONG', type: 'station', group: 'resort', price: 280, rent: [170, 380, 780, 1400], color: '#0284c7', icon: '🏝️' },
+      { id: 17, r: 6, c: 1, name: 'PHAN THIẾT', type: 'city', group: 'g4', price: 300, rent: [180, 450, 1000], color: '#f97316' },
+      { id: 18, r: 5, c: 1, name: 'NHA TRANG', type: 'city', group: 'g4', price: 320, rent: [195, 480, 1080], color: '#f97316' },
+      { id: 19, r: 4, c: 1, name: 'ĐÀ LẠT', type: 'city', group: 'g4', price: 350, rent: [210, 520, 1180], color: '#f97316' },
+      { id: 20, r: 3, c: 1, name: 'VŨNG TÀU', type: 'city', group: 'g5', price: 400, rent: [240, 600, 1350], color: '#e11d48' },
+      { id: 21, r: 2, c: 1, name: 'BIÊN HÒA', type: 'city', group: 'g5', price: 420, rent: [250, 630, 1420], color: '#e11d48' },
 
-      // TOP EDGE: row 1, cols 1 up to 10 (Top Vertex = WORLD TOUR / TÂN AN down to Right Vertex = VÔ TÙ)
-      { id: 18, r: 1, c: 1, name: 'TÂN AN', vnName: 'WORLD TOUR', type: 'airport', isCorner: true, bg: 'bg-[#0284c7]', text: 'text-white', icon: '✈️' },
-      { id: 19, r: 1, c: 2, name: 'CẦN THƠ', type: 'city', group: 'g6', price: 360, rent: [215, 530, 1180], color: '#a855f7' },
-      { id: 20, r: 1, c: 3, name: 'CHANCE', vnName: 'CƠ HỘI', type: 'chance', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-amber-500' },
-      { id: 21, r: 1, c: 4, name: 'HÒA BÌNH', type: 'city', group: 'g6', price: 300, rent: [180, 440, 980], color: '#a855f7' },
-      { id: 22, r: 1, c: 5, name: 'HẢI DƯƠNG', type: 'city', group: 'g6', price: 320, rent: [190, 470, 1050], color: '#a855f7' },
-      { id: 23, r: 1, c: 6, name: 'ĐẢO PHÚ QUỐC', type: 'station', group: 'resort', price: 300, rent: [180, 420, 900], color: '#0284c7', icon: '🏖️' },
-      { id: 24, r: 1, c: 7, name: 'HÀ NỘI', type: 'city', group: 'g7', price: 580, rent: [350, 860, 1900], color: '#4f46e5' },
-      { id: 25, r: 1, c: 8, name: 'CHANCE', vnName: 'VẬN MỆNH', type: 'fate', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-rose-500' },
-      { id: 26, r: 1, c: 9, name: 'THÁI NGUYÊN', type: 'city', group: 'g7', price: 340, rent: [200, 500, 1100], color: '#4f46e5' },
-      { id: 27, r: 1, c: 10, name: 'VÔ TÙ', vnName: 'BẮT GIAM', type: 'gotojail', isCorner: true, bg: 'bg-[#312e81]', text: 'text-amber-300', icon: '⛓️' },
+      // TOP EDGE (12 cols: col 1 up to col 12 at row 1 -> +2 tiles added: ĐÀ NẴNG & SAPA)
+      { id: 22, r: 1, c: 1, name: 'TÂN AN', vnName: 'WORLD TOUR', type: 'airport', isCorner: true, bg: 'bg-[#0284c7]', text: 'text-white', icon: '✈️' },
+      { id: 23, r: 1, c: 2, name: 'CẦN THƠ', type: 'city', group: 'g6', price: 360, rent: [215, 530, 1180], color: '#a855f7' },
+      { id: 24, r: 1, c: 3, name: 'ĐÀ NẴNG', type: 'city', group: 'g6', price: 450, rent: [270, 670, 1500], color: '#a855f7' },
+      { id: 25, r: 1, c: 4, name: 'CƠ HỘI', vnName: 'CƠ HỘI', type: 'chance', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-amber-500' },
+      { id: 26, r: 1, c: 5, name: 'HÒA BÌNH', type: 'city', group: 'g6', price: 300, rent: [180, 440, 980], color: '#9333ea' },
+      { id: 27, r: 1, c: 6, name: 'ĐẢO PHÚ QUỐC', type: 'station', group: 'resort', price: 280, rent: [170, 380, 780, 1400], color: '#0284c7', icon: '🏖️' },
+      { id: 28, r: 1, c: 7, name: 'HẢI DƯƠNG', type: 'city', group: 'g7', price: 320, rent: [190, 470, 1050], color: '#4f46e5' },
+      { id: 29, r: 1, c: 8, name: 'SAPA', type: 'city', group: 'g7', price: 380, rent: [230, 570, 1280], color: '#4f46e5' },
+      { id: 30, r: 1, c: 9, name: 'VẬN MỆNH', vnName: 'VẬN MỆNH', type: 'fate', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-rose-500' },
+      { id: 31, r: 1, c: 10, name: 'HÀ NỘI', type: 'city', group: 'g7', price: 580, rent: [350, 860, 1900], color: '#4f46e5' },
+      { id: 32, r: 1, c: 11, name: 'TP.HCM', type: 'city', group: 'g5', price: 650, rent: [390, 950, 2100], color: '#e11d48' },
+      { id: 33, r: 1, c: 12, name: 'VÔ TÙ', vnName: 'BẮT GIAM', type: 'gotojail', isCorner: true, bg: 'bg-[#312e81]', text: 'text-amber-300', icon: '⛓️' },
 
-      // RIGHT EDGE: rows 2 up to 9, col 10 (Right Vertex = VÔ TÙ down to Bottom Vertex = START)
-      { id: 28, r: 2, c: 10, name: 'BẮC GIANG', type: 'city', group: 'g8', price: 280, rent: [165, 410, 920], color: '#0d9488' },
-      { id: 29, r: 3, c: 10, name: 'LẠNG SƠN', type: 'city', group: 'g8', price: 280, rent: [165, 410, 920], color: '#0d9488' },
-      { id: 30, r: 4, c: 10, name: 'QUẢNG NINH', type: 'city', group: 'g8', price: 250, rent: [150, 370, 820], color: '#0d9488' },
-      { id: 31, r: 5, c: 10, name: 'HẢI PHÒNG', type: 'city', group: 'g9', price: 240, rent: [140, 350, 780], color: '#16a34a' },
-      { id: 32, r: 6, c: 10, name: 'CHANCE', vnName: 'CƠ HỘI', type: 'chance', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-amber-500' },
-      { id: 33, r: 7, c: 10, name: 'THÁI BÌNH', type: 'city', group: 'g9', price: 180, rent: [105, 260, 600], color: '#ca8a04' },
-      { id: 34, r: 8, c: 10, name: 'NAM ĐỊNH', type: 'city', group: 'g9', price: 180, rent: [105, 260, 600], color: '#ca8a04' },
-      { id: 35, r: 9, c: 10, name: 'HÀ NAM', type: 'city', group: 'g1', price: 150, rent: [90, 220, 500], color: '#22c55e' }
+      // RIGHT EDGE (12 rows: row 2 up to row 11 at col 12 -> +2 tiles added: THÁI NGUYÊN, CÔN ĐẢO RESORT, VĨNH PHÚC, BẮC NINH)
+      { id: 34, r: 2, c: 12, name: 'THÁI NGUYÊN', type: 'city', group: 'g8', price: 300, rent: [180, 440, 980], color: '#0d9488' },
+      { id: 35, r: 3, c: 12, name: 'BẮC GIANG', type: 'city', group: 'g8', price: 280, rent: [165, 410, 920], color: '#0d9488' },
+      { id: 36, r: 4, c: 12, name: 'LẠNG SƠN', type: 'city', group: 'g8', price: 280, rent: [165, 410, 920], color: '#0d9488' },
+      { id: 37, r: 5, c: 12, name: 'QUẢNG NINH', type: 'city', group: 'g9', price: 260, rent: [155, 390, 860], color: '#16a34a' },
+      { id: 38, r: 6, c: 12, name: 'CÔN ĐẢO', type: 'station', group: 'resort', price: 280, rent: [170, 380, 780, 1400], color: '#0284c7', icon: '🏖️' },
+      { id: 39, r: 7, c: 12, name: 'HẢI PHÒNG', type: 'city', group: 'g9', price: 240, rent: [140, 350, 780], color: '#16a34a' },
+      { id: 40, r: 8, c: 12, name: 'CƠ HỘI', vnName: 'CƠ HỘI', type: 'chance', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-amber-500' },
+      { id: 41, r: 9, c: 12, name: 'VĨNH PHÚC', type: 'city', group: 'g10', price: 210, rent: [125, 310, 700], color: '#ca8a04' },
+      { id: 42, r: 10, c: 12, name: 'BẮC NINH', type: 'city', group: 'g10', price: 190, rent: [115, 280, 640], color: '#ca8a04' },
+      { id: 43, r: 11, c: 12, name: 'HÀ NAM', type: 'city', group: 'g10', price: 150, rent: [90, 220, 500], color: '#ca8a04' }
     ];
 
     const MONOPOLY_CHANCE_CARDS = [
@@ -7963,7 +7983,7 @@
       turn: 0,
       round: 1,
       lastRollSum: 9,
-      festivalTileId: 16, // Default Festival x2 city
+      festivalTileId: 32, // Default Festival x2 city
       isRolling: false,
       speed: 1,
       is25D: true,
@@ -8113,40 +8133,168 @@
       }
     }
 
-    // 3D Isometric Green Cash Stacks & Silver Ingot Piles Flanking the Board (Matching Reference Image)
-    function getSideCashAndIngotPileSVG(cashAmount) {
-      const stacks = Math.max(1, Math.min(4, Math.ceil(cashAmount / 1000)));
+    // 3D White Canvas Money Bag ($) with Green Dollar Bills + Ascending Gold Coin Towers & Leaning Gold Coins
+    // Directly modeled on media_1793028915317_3ea181a6.png!
+    function getMoneyBagAndGoldCoinsSVG(cashAmount = 3500, width = 104, height = 84) {
+      const scale = Math.max(1, Math.min(3, Math.ceil(cashAmount / 1200)));
       return `
-        <svg width="88" height="64" viewBox="0 0 110 80" fill="none" class="filter drop-shadow-[0_10px_12px_rgba(0,0,0,0.55)]">
-          <!-- Green Dollar Bill Stacks (Left) -->
-          ${Array.from({ length: stacks }).map((_, i) => {
-            const yOff = 32 - i * 8;
-            return `
-              <g transform="translate(4, ${yOff})">
-                <polygon points="6,16 34,28 62,16 34,4" fill="#4ade80" stroke="#16a34a" stroke-width="1.2"/>
-                <polygon points="6,16 34,28 34,35 6,23" fill="#22c55e" stroke="#15803d" stroke-width="0.8"/>
-                <polygon points="34,28 62,16 62,23 34,35" fill="#16a34a" stroke="#14532d" stroke-width="0.8"/>
-                <!-- Paper Wrapper Band -->
-                <polygon points="24,11 44,20 36,24 16,15" fill="#fef08a" opacity="0.9"/>
-                <polygon points="24,20 34,24 34,31 24,27" fill="#fde047" opacity="0.85"/>
-              </g>
-            `;
-          }).join('')}
-          <!-- Silver / Platinum Bullion Bars (Right - Matching Reference Image) -->
-          <g transform="translate(48, 30)">
-            <polygon points="6,16 26,25 48,15 28,6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
-            <polygon points="6,16 26,25 26,32 6,23" fill="#cbd5e1"/>
-            <polygon points="26,25 48,15 48,22 26,32" fill="#94a3b8"/>
-            <polygon points="10,9 30,18 50,8 30,-1" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-            <polygon points="10,9 30,18 30,24 10,15" fill="#e2e8f0"/>
-            <polygon points="30,18 50,8 50,14 30,24" fill="#94a3b8"/>
+        <svg width="${width}" height="${height}" viewBox="0 0 160 130" fill="none" class="filter drop-shadow-[0_12px_16px_rgba(0,0,0,0.65)]">
+          <defs>
+            <!-- Soft 3D White Canvas Sack Gradient -->
+            <radialGradient id="sackCanvasGrad" cx="38%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="55%" stop-color="#f1f5f9" />
+              <stop offset="85%" stop-color="#cbd5e1" />
+              <stop offset="100%" stop-color="#94a3b8" />
+            </radialGradient>
+            <!-- Metallic Gold Coin Rim Gradient -->
+            <linearGradient id="goldStackRim" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#b45309" />
+              <stop offset="28%" stop-color="#fde047" />
+              <stop offset="55%" stop-color="#f59e0b" />
+              <stop offset="80%" stop-color="#fef08a" />
+              <stop offset="100%" stop-color="#92400e" />
+            </linearGradient>
+            <!-- Gold Coin Face Gradient -->
+            <linearGradient id="goldCoinFace" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fef08a" />
+              <stop offset="45%" stop-color="#facc15" />
+              <stop offset="100%" stop-color="#ca8a04" />
+            </linearGradient>
+          </defs>
+
+          <!-- Ground Ambient Occlusion Shadow -->
+          <ellipse cx="82" cy="116" rx="68" ry="10" fill="rgba(0,0,0,0.45)" />
+
+          <!-- ==================== RIGHT SIDE: WHITE CANVAS MONEY SACK WITH GREEN BILLS & ROPE ==================== -->
+          <g transform="translate(68, 8)">
+            <!-- Green Dollar Bills Peeking Out of Top of Sack -->
+            <g transform="translate(20, 6) rotate(-14)">
+              <rect x="0" y="0" width="24" height="18" rx="1.5" fill="#dcfce7" stroke="#15803d" stroke-width="1.2"/>
+              <rect x="2.5" y="2.5" width="19" height="13" fill="none" stroke="#166534" stroke-width="0.9"/>
+              <circle cx="12" cy="9" r="3.5" fill="#15803d" opacity="0.5"/>
+            </g>
+            <g transform="translate(34, 4) rotate(10)">
+              <rect x="0" y="0" width="26" height="19" rx="1.5" fill="#bbf7d0" stroke="#14532d" stroke-width="1.2"/>
+              <rect x="2.5" y="2.5" width="21" height="14" fill="none" stroke="#15803d" stroke-width="0.9"/>
+              <circle cx="13" cy="9.5" r="4" fill="#166534" opacity="0.55"/>
+            </g>
+
+            <!-- Ruffled Canvas Bag Top Collar / Frill -->
+            <path d="M18,22 Q24,16 31,21 Q38,15 45,21 Q52,16 58,22 L50,35 L26,35 Z" fill="url(#sackCanvasGrad)" stroke="#cbd5e1" stroke-width="1"/>
+            <!-- Canvas Folds in Collar -->
+            <path d="M26,21 L31,33 M38,19 L38,33 M49,21 L44,33" stroke="#94a3b8" stroke-width="1.2" opacity="0.65" stroke-linecap="round"/>
+
+            <!-- Plump 3D White Canvas Sack Body -->
+            <path d="M25,34 C10,48 2,82 5,98 C7,106 16,108 38,108 C60,108 70,106 72,98 C74,84 64,48 51,34 Z" fill="url(#sackCanvasGrad)" stroke="#cbd5e1" stroke-width="1.2"/>
+            <!-- Soft 3D Shading Creases on Sack -->
+            <path d="M16,96 C14,76 22,52 29,37" stroke="#ffffff" stroke-width="3" fill="none" opacity="0.7" stroke-linecap="round"/>
+            <path d="M58,98 C62,82 56,55 48,37" stroke="#94a3b8" stroke-width="2.5" fill="none" opacity="0.45" stroke-linecap="round"/>
+
+            <!-- Golden-Brown Rope Tied Around Neck + Loops -->
+            <path d="M23,33 C11,29 8,42 13,50" stroke="#d97706" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <circle cx="13" cy="50" r="2.2" fill="#b45309"/>
+            <path d="M53,33 C65,29 68,42 63,50" stroke="#d97706" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <circle cx="63" cy="50" r="2.2" fill="#b45309"/>
+            <!-- Triple Wrapped Rope Cord -->
+            <rect x="23" y="31" width="30" height="3.2" rx="1.6" fill="#f59e0b" stroke="#92400e" stroke-width="0.8"/>
+            <rect x="22" y="34" width="32" height="3.2" rx="1.6" fill="#d97706" stroke="#78350f" stroke-width="0.8"/>
+            <rect x="24" y="37" width="28" height="2.8" rx="1.4" fill="#b45309" stroke="#78350f" stroke-width="0.7"/>
+
+            <!-- Bold Olive-Gold Dollar Sign ($) Printed on Sack Center -->
+            <text x="38" y="86" font-size="42" font-weight="900" font-family="Arial, sans-serif" fill="#85754e" text-anchor="middle" opacity="0.9">$</text>
+          </g>
+
+          <!-- ==================== LEFT SIDE: 3 ASCENDING GOLD COIN TOWERS + LEANING "$" GOLD COINS ==================== -->
+          <!-- Back-Right Tallest Gold Coin Tower (12 coins high) -->
+          <g transform="translate(56, 52)">
+            ${Array.from({ length: 10 }).map((_, idx) => {
+              const cy = 50 - idx * 4.5;
+              return `
+                <rect x="0" y="${cy}" width="24" height="5" rx="2" fill="url(#goldStackRim)" stroke="#92400e" stroke-width="0.6"/>
+                <ellipse cx="12" cy="${cy}" rx="12" ry="3.2" fill="url(#goldCoinFace)" stroke="#fef08a" stroke-width="0.5"/>
+              `;
+            }).join('')}
+          </g>
+
+          <!-- Middle Gold Coin Tower (8 coins high) -->
+          <g transform="translate(34, 62)">
+            ${Array.from({ length: 7 }).map((_, idx) => {
+              const cy = 40 - idx * 4.5;
+              return `
+                <rect x="0" y="${cy}" width="24" height="5" rx="2" fill="url(#goldStackRim)" stroke="#92400e" stroke-width="0.6"/>
+                <ellipse cx="12" cy="${cy}" rx="12" ry="3.2" fill="url(#goldCoinFace)" stroke="#fef08a" stroke-width="0.5"/>
+              `;
+            }).join('')}
+          </g>
+
+          <!-- Front-Left Short Gold Coin Tower (5 coins high) -->
+          <g transform="translate(14, 74)">
+            ${Array.from({ length: 5 }).map((_, idx) => {
+              const cy = 28 - idx * 4.5;
+              return `
+                <rect x="0" y="${cy}" width="24" height="5" rx="2" fill="url(#goldStackRim)" stroke="#92400e" stroke-width="0.6"/>
+                <ellipse cx="12" cy="${cy}" rx="12" ry="3.2" fill="url(#goldCoinFace)" stroke="#fef08a" stroke-width="0.5"/>
+              `;
+            }).join('')}
+          </g>
+
+          <!-- Base Flat Gold Coins in Foreground -->
+          <g transform="translate(4, 104)">
+            <rect x="0" y="3" width="22" height="5" rx="2" fill="url(#goldStackRim)" stroke="#92400e" stroke-width="0.6"/>
+            <ellipse cx="11" cy="3" rx="11" ry="3.5" fill="url(#goldCoinFace)"/>
+          </g>
+          <g transform="translate(18, 108)">
+            <rect x="0" y="3" width="24" height="5.5" rx="2" fill="url(#goldStackRim)" stroke="#92400e" stroke-width="0.6"/>
+            <ellipse cx="12" cy="3" rx="12" ry="4" fill="url(#goldCoinFace)"/>
+          </g>
+          <g transform="translate(62, 108)">
+            <rect x="0" y="3" width="24" height="5.5" rx="2" fill="url(#goldStackRim)" stroke="#92400e" stroke-width="0.6"/>
+            <ellipse cx="12" cy="3" rx="12" ry="4" fill="url(#goldCoinFace)"/>
+          </g>
+
+          <!-- 4 Angled / Leaning Embossed Gold "$" Coins in Foreground (Exact match to reference image!) -->
+          <!-- Leaning Coin 1 (Left, tilted -28 deg) -->
+          <g transform="translate(26, 96) rotate(-28)">
+            <ellipse cx="0" cy="2.5" rx="13" ry="10" fill="#b45309" stroke="#78350f" stroke-width="0.8"/>
+            <ellipse cx="0" cy="0" rx="13" ry="10" fill="url(#goldCoinFace)" stroke="#fef08a" stroke-width="1.2"/>
+            <ellipse cx="0" cy="0" rx="9.5" ry="7" fill="none" stroke="#d97706" stroke-width="0.8"/>
+            <text x="0" y="4" font-size="11" font-weight="900" fill="#b45309" text-anchor="middle">$</text>
+          </g>
+
+          <!-- Leaning Coin 2 (Center-Low, tilted 18 deg) -->
+          <g transform="translate(48, 107) rotate(18)">
+            <ellipse cx="0" cy="2.5" rx="13" ry="9.5" fill="#b45309" stroke="#78350f" stroke-width="0.8"/>
+            <ellipse cx="0" cy="0" rx="13" ry="9.5" fill="url(#goldCoinFace)" stroke="#fef08a" stroke-width="1.2"/>
+            <ellipse cx="0" cy="0" rx="9.5" ry="6.8" fill="none" stroke="#d97706" stroke-width="0.8"/>
+            <text x="0" y="3.5" font-size="11" font-weight="900" fill="#b45309" text-anchor="middle">$</text>
+          </g>
+
+          <!-- Leaning Coin 3 (Center-High, tilted 22 deg) -->
+          <g transform="translate(56, 94) rotate(22)">
+            <ellipse cx="0" cy="2.5" rx="13.5" ry="10.5" fill="#b45309" stroke="#78350f" stroke-width="0.8"/>
+            <ellipse cx="0" cy="0" rx="13.5" ry="10.5" fill="url(#goldCoinFace)" stroke="#fef08a" stroke-width="1.2"/>
+            <ellipse cx="0" cy="0" rx="10" ry="7.5" fill="none" stroke="#d97706" stroke-width="0.8"/>
+            <text x="0" y="4" font-size="11.5" font-weight="900" fill="#b45309" text-anchor="middle">$</text>
+          </g>
+
+          <!-- Leaning Coin 4 (Right-Front in front of sack, tilted 20 deg) -->
+          <g transform="translate(74, 102) rotate(20)">
+            <ellipse cx="0" cy="2.5" rx="13.5" ry="10.5" fill="#b45309" stroke="#78350f" stroke-width="0.8"/>
+            <ellipse cx="0" cy="0" rx="13.5" ry="10.5" fill="url(#goldCoinFace)" stroke="#fef08a" stroke-width="1.2"/>
+            <ellipse cx="0" cy="0" rx="10" ry="7.5" fill="none" stroke="#d97706" stroke-width="0.8"/>
+            <text x="0" y="4" font-size="11.5" font-weight="900" fill="#b45309" text-anchor="middle">$</text>
           </g>
         </svg>
       `;
     }
 
+    function getSideCashAndIngotPileSVG(cashAmount) {
+      return getMoneyBagAndGoldCoinsSVG(cashAmount, 106, 86);
+    }
+
     // =========================================================================
-    // 2. AUTHENTIC BUSINESS TOUR 2.5D ISOMETRIC BUILDINGS & RESORTS (v3.9.0)
+    // 2. AUTHENTIC BUSINESS TOUR 2.5D ISOMETRIC BUILDINGS & RESORTS (v3.9.2)
     // =========================================================================
     // Directly modeled on media_1793028219505_4ba5abef.png:
     // - Bright green lawn pad (#84cc16) with thick white/stone isometric curb (#f8fafc / #cbd5e1)
@@ -8589,8 +8737,8 @@
         levelEl.textContent = 'Ô ĐẶC BIỆT';
         levelEl.className = 'text-[9px] font-black text-amber-300 px-1.5 py-0.2 rounded bg-amber-400/20 border border-amber-400/40';
         subEl.innerHTML = '<span class="text-amber-300 font-bold">' + (t.type === "start" ? "Nhận lương +$400 & Tổ chức Lễ Hội x2" : (t.type === "jail" ? "Đảo Hoang / Trại Giam (Bảo lãnh $250)" : (t.type === "airport" ? "World Tour Tân An (+$300 trợ cấp)" : "Vào tù ngay lập tức!"))) + '</span>';
-        if (t.id === 18) {
-          subEl.innerHTML += ' <button onclick="triggerMonoAirplaneFlyby({ player: monoState.players[monoState.turn], destTile: monoState.tiles[18] })" class="ml-2 px-2.5 py-0.5 rounded-lg bg-amber-400 text-slate-950 font-black text-[9px] hover:bg-yellow-300 cursor-pointer shadow-md border border-white pointer-events-auto">✈️ Bay Thử</button>';
+        if (t.id === 22) {
+          subEl.innerHTML += ' <button onclick="triggerMonoAirplaneFlyby({ player: monoState.players[monoState.turn], destTile: monoState.tiles[22] })" class="ml-2 px-2.5 py-0.5 rounded-lg bg-amber-400 text-slate-950 font-black text-[9px] hover:bg-yellow-300 cursor-pointer shadow-md border border-white pointer-events-auto">✈️ Bay Thử</button>';
         }
       } else if (t.type === 'chance' || t.type === 'fate') {
         levelEl.textContent = 'VÒNG QUAY MAY MẮN';
@@ -9034,7 +9182,7 @@
           if (monoState.doublesStreak >= 3) {
             monoState.doublesStreak = 0;
             monoState.hasExtraTurn = false;
-            player.pos = 9;
+            player.pos = 11;
             player.inJail = 2;
             monoState.isRolling = false;
             updateMonopolyPawns();
@@ -9064,6 +9212,12 @@
       monoState.stepIntervalId = setInterval(() => {
         player.pos = (player.pos + 1) % monoState.tiles.length;
         updateMonopolyPawns();
+        const activePawnInner = document.querySelector('#pawnP' + (player.id + 1) + ' > div');
+        if (activePawnInner) {
+          activePawnInner.classList.remove('mono-pawn-hopping');
+          void activePawnInner.offsetWidth;
+          activePawnInner.classList.add('mono-pawn-hopping');
+        }
         try { soundTone(420 + player.pos * 10, 'sine', 0.04, 0.05); } catch(e) {}
 
         // Passing START (id: 0) -> +$400 Business Tour Salary
@@ -9220,7 +9374,7 @@
           });
         }
       } else if (landedTile.type === 'gotojail') {
-        player.pos = 9;
+        player.pos = 11;
         player.inJail = 2;
         monoState.hasExtraTurn = false;
         monoState.doublesStreak = 0;
@@ -9271,7 +9425,7 @@
         const unownedCities = monoState.tiles.filter(t => (t.type === 'city' || t.type === 'station') && t.owner === null);
         const destTile = unownedCities.length > 0
           ? unownedCities[Math.floor(Math.random() * unownedCities.length)]
-          : monoState.tiles[16]; // TP.HCM
+          : monoState.tiles[32]; // TP.HCM
 
         triggerMonoAirplaneFlyby({
           player: player,
@@ -9286,7 +9440,7 @@
         const card = deck[Math.floor(Math.random() * deck.length)];
 
         if (card.action === 'jail') {
-          player.pos = 9;
+          player.pos = 11;
           player.inJail = 2;
           monoState.hasExtraTurn = false;
           updateMonopolyPawns();
@@ -9303,7 +9457,7 @@
           triggerMonoFloatingCash(player.id, card.amount);
           triggerMonoAirplaneFlyby({
             player: player,
-            destTile: monoState.tiles[18],
+            destTile: monoState.tiles[22],
             onComplete: () => finishMonoTurn()
           });
           return;
@@ -9661,7 +9815,7 @@
       monoState.turn = 0;
       monoState.round = 1;
       monoState.lastRollSum = 9;
-      monoState.festivalTileId = 16; // TP.HCM starts with Festival x2 arch
+      monoState.festivalTileId = 32; // TP.HCM starts with Festival x2 arch
       monoState.isRolling = false;
       monoState.hasExtraTurn = false;
       monoState.doublesStreak = 0;
@@ -9704,7 +9858,7 @@
     window.getBusinessTourCharacterSVG = getBusinessTourCharacterSVG;
 
     // =========================================================================
-    // DYNAMIC CASH DENOMINATIONS & ANIMATIONS (v3.9.0)
+    // DYNAMIC CASH DENOMINATIONS & ANIMATIONS (v3.9.2)
     // Breakdown: $1,000 bundles, $100 gold coins, $50 silver coins
     // =========================================================================
 
@@ -9756,81 +9910,21 @@
 
     // Render 3D Stacks of Dollars, Gold Coins & Silver Coins
     function renderCashStackHTML(amount) {
-      const { dollarBundles, goldCoins, silverCoins } = getCashDenominations(amount);
-      let html = '';
-
-      // 1. Dollar Bundles ($1,000 / bundle)
-      if (dollarBundles > 0) {
-        let bundleSvgs = '';
-        for (let i = 0; i < dollarBundles; i++) {
-          const yOff = (dollarBundles - 1 - i) * 14;
-          bundleSvgs += `
-            <g transform="translate(0, ${yOff})">
-              <polygon points="10,18 45,34 80,18 45,4" fill="#22c55e" stroke="#16a34a" stroke-width="1.2" />
-              <polygon points="10,18 45,34 45,42 10,26" fill="#16a34a" />
-              <polygon points="45,34 80,18 80,26 45,42" fill="#15803d" />
-              <polygon points="34,13 56,23 56,31 34,21" fill="#bef264" opacity="0.9" />
-              <ellipse cx="45" cy="19" rx="6" ry="3" fill="#15803d" opacity="0.6" />
-              <text x="45" y="21" font-size="6" font-weight="900" fill="#ffffff" text-anchor="middle">$</text>
-            </g>
-          `;
-        }
-        const svgHeight = 44 + (dollarBundles - 1) * 14;
-        html += `
-          <div class="flex flex-col items-center">
-            <svg width="70" height="${svgHeight}" viewBox="0 0 90 ${svgHeight + 5}" fill="none">
-              ${bundleSvgs}
-            </svg>
-            <span class="text-[8px] font-black text-emerald-400 font-mono -mt-1 bg-black/70 px-1 rounded border border-emerald-500/30">${dollarBundles} Cọc (${(dollarBundles * 1000).toLocaleString()})</span>
+      const bagsCount = amount >= 600 ? 2 : 1;
+      return `
+        <div class="flex flex-col items-center justify-center pointer-events-none select-none">
+          <div class="flex items-end -space-x-5">
+            ${Array.from({ length: bagsCount }).map((_, i) => `
+              <div class="${i === 1 ? 'scale-90 -translate-y-1' : ''}">
+                ${getMoneyBagAndGoldCoinsSVG(amount, 128, 104)}
+              </div>
+            `).join('')}
           </div>
-        `;
-      }
-
-      // 2. Gold Coins ($100 / coin)
-      if (goldCoins > 0) {
-        const coinH = 26 + (goldCoins - 1) * 5;
-        let ridges = '';
-        for (let j = 0; j < goldCoins; j++) {
-          const cy = 12 + j * 5;
-          ridges += `<line x1="2" y1="${cy}" x2="32" y2="${cy}" stroke="#f59e0b" opacity="0.6" />`;
-        }
-        html += `
-          <div class="flex flex-col items-center">
-            <svg width="30" height="${coinH + 16}" viewBox="0 0 36 ${coinH + 20}" fill="none">
-              <path d="M 2,10 L 2,${coinH} A 15 6 0 0 0 32,${coinH} L 32,10 Z" fill="#b45309" stroke="#78350f" stroke-width="1.2" />
-              ${ridges}
-              <ellipse cx="17" cy="10" rx="15" ry="6" fill="#fbbf24" stroke="#fef08a" stroke-width="1.2" />
-              <ellipse cx="17" cy="10" rx="11" ry="4" fill="#f59e0b" stroke="#fef08a" stroke-width="1" />
-              <text x="17" y="12" font-size="7" font-weight="900" fill="#78350f" text-anchor="middle">$</text>
-            </svg>
-            <span class="text-[8px] font-black text-amber-300 font-mono -mt-1 bg-black/70 px-1 rounded border border-amber-500/30">${goldCoins} Vàng (${goldCoins * 100})</span>
-          </div>
-        `;
-      }
-
-      // 3. Silver Coins ($50 / coin)
-      if (silverCoins > 0) {
-        const sCoinH = 22 + (silverCoins - 1) * 4;
-        let sRidges = '';
-        for (let k = 0; k < silverCoins; k++) {
-          const scy = 10 + k * 4;
-          sRidges += `<line x1="2" y1="${scy}" x2="26" y2="${scy}" stroke="#cbd5e1" opacity="0.6" />`;
-        }
-        html += `
-          <div class="flex flex-col items-center">
-            <svg width="26" height="${sCoinH + 14}" viewBox="0 0 30 ${sCoinH + 18}" fill="none">
-              <path d="M 2,8 L 2,${sCoinH} A 12 5 0 0 0 26,${sCoinH} L 26,8 Z" fill="#64748b" stroke="#334155" stroke-width="1.2" />
-              ${sRidges}
-              <ellipse cx="14" cy="8" rx="12" ry="5" fill="#e2e8f0" stroke="#ffffff" stroke-width="1.2" />
-              <ellipse cx="14" cy="8" rx="9" ry="3" fill="#94a3b8" stroke="#ffffff" stroke-width="1" />
-              <text x="14" y="10" font-size="6" font-weight="900" fill="#334155" text-anchor="middle">$</text>
-            </svg>
-            <span class="text-[8px] font-black text-slate-300 font-mono -mt-1 bg-black/70 px-1 rounded border border-slate-500/30">${silverCoins} Bạc (${silverCoins * 50})</span>
-          </div>
-        `;
-      }
-
-      return html;
+          <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 font-chakra font-black text-xs shadow-lg border-2 border-white -mt-2">
+            $${amount.toLocaleString()}
+          </span>
+        </div>
+      `;
     }
 
     // Trigger Dynamic Cash Transfer Animation
@@ -12030,7 +12124,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v3.9.0'
+      currentVersion: 'v3.9.2'
     };
 
     let allChangelogItems = [];
@@ -12757,7 +12851,7 @@
     "sha": "cc13f60",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.9.0",
+    "version": "v3.9.2",
     "title": "feat: deploy Cyber Board Game UI (Animate UI edition) to GitHub Pages",
     "details": [
       "feat: deploy Cyber Board Game UI (Animate UI edition) to GitHub Pages"
@@ -12768,7 +12862,7 @@
     "sha": "0056d54",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.9.0",
+    "version": "v3.9.2",
     "title": "fix(gh-pages): add standalone Monaco Editor Web IDE for GitHub Pages deployment",
     "details": [
       "fix(gh-pages): add standalone Monaco Editor Web IDE for GitHub Pages deployment"

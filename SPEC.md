@@ -836,3 +836,22 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
   - Rebalanced starting capital to `$3,500`, Start salary to `+$400`, property prices (`$120–$650`), and steep multi-tier rents (`58%` to `320%` of base price) with `x1.5` Color Monopoly and `x2` Festival Arch (`getFestivalArchSVG`) multipliers.
   - Added **Hostile Takeover (`takeover` mode)**: landing on an opponent's Level 1 or Level 2 city allows buying out the property outright after paying rent.
   - Added **4 Fast-Win Conditions**: First Bankruptcy Knock-out, 3/3 Beach Resort Monopoly, `$8,500` Net Worth Target, or Round 15 Leader.
+
+
+---
+
+## Part 33: 3D Canvas Money Bag & Gold Coin Towers, 60fps GPU Animation, and 44-Tile (12x12) Expanded Board (`v3.9.2`)
+
+### 1. 3D White Canvas Money Sack & Gold Coin Towers (`getMoneyBagAndGoldCoinsSVG`)
+- Modeled directly on the user's reference image (`media_1793028915317_3ea181a6.png`):
+  - **Plump 3D White Canvas Sack**: Soft radial-shaded white canvas bag with ruffled collar folds, golden-brown triple-wrapped rope cord with side loops, olive-gold `$` emblem printed on the front, and crisp green dollar bills peeking out of the top.
+  - **Ascending Gold Coin Towers & Leaning Embossed Coins**: 3 ascending cylindrical stacks of metallic gold coins on the left plus 4 angled/leaning `$` embossed gold coins resting against the base.
+  - Deployed both at the **4 board corners** (`#monoSideCashPile_0..3`) and inside the **flying cash transfer animation** (`renderCashStackHTML`).
+
+### 2. 60fps GPU Hardware-Accelerated Motion (`monoCashFlightArc60fps`, `monoPawnHop60fps`)
+- Eliminated layout-thrashing `left`/`top` keyframe animations in favor of pure GPU `translate3d(...) scale3d(...)` compositing with `will-change: transform, opacity` and `backface-visibility: hidden` for zero-jank 60fps transitions.
+- Added smooth 60fps character hop animation (`.mono-pawn-hopping`) on each tile step.
+
+### 3. Expanded 44-Tile (12x12 Grid) Board (+2 Tiles Per Edge)
+- Upgraded `#mono2dBoardWrapper` from `10x10` (36 tiles) to `12x12` (**44 perimeter tiles** = **+2 tiles per edge**), expanding `#mono2dCentralArena` to `col-start-2 col-end-12 row-start-2 row-end-12`.
+- Added 8 new cities and resorts across the 4 edges: **Cà Mau, Bạc Liêu, Huế, Đà Lạt, Đà Nẵng, Sapa, Côn Đảo Resort, Vĩnh Phúc, Bắc Ninh**.

@@ -6047,9 +6047,8 @@
 
       updateDiceUI();
 
-      // Kiểm tra điều kiện thắng
+      // Kiểm tra điều kiện thắng (Chỉ gọi showVictory, việc ghi nhận thống kê do showVictory đảm nhiệm duy nhất 1 lần)
       if (scores[player] >= GOAL_SCORE) {
-        recordBotMatchWin(player);
         showVictory(label, player);
         return;
       }
@@ -7847,8 +7846,11 @@
     }
 
     function showVictory(winnerName, winnerPlayerId = 1) {
-      recordBotMatchWin(winnerPlayerId);
-      recordMatchDefeatAndAdapt(winnerPlayerId);
+      // Chỉ ghi nhận thống kê và học thích nghi cho trận đấu Cờ Xúc Xắc (Dice Arena)
+      if (activeTab === 'dice') {
+        recordBotMatchWin(winnerPlayerId);
+        recordMatchDefeatAndAdapt(winnerPlayerId);
+      }
       // 1. CHẾ ĐỘ QUAN SÁT (SPECTATOR MODE): BỎ HOÀN TOÀN POPUP KẾT THÚC VÁN (ẢNH 3)
       if (isSpectatorMode) {
         const miniLog = document.getElementById('miniLog');

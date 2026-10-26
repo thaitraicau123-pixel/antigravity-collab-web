@@ -238,3 +238,21 @@ esetTTTScores).
      * Widget Tài Sản & Người Dùng: Đồng Xu Vàng (Coin), Kim Cương Xanh (Diamond Gem), Loa Âm Thanh (Sound Wave), Nhánh Phiên Bản (Git Branch), Nút Tài Khoản (User Pill).
      * Header Bảng Phong Thần & Hội Viên VIP: Thay thế emoji 🏆 và ⚡ bằng biểu tượng vector mạ vàng đa giác phát sáng.
      * Footer Toàn Trang: Đồng bộ toàn bộ 12 liên kết bàn cờ, tài khoản, điều khoản từ icon emoji sang SVG độc bản.
+
+
+---
+
+## ⚡ PHẦN 15: ĐIỀU HƯỚNG BỘ LỌC CHANGELOG CHÍNH XÁC & ĐỊNH TUYẾN COMMIT BÊN MÀU TÍM (CUONGCUCA111-WEB)
+1. **Thiết Lập Git Identity Cố Định Cho Lập Trình Viên (Màu Tím)**:
+   - Cấu hình vĩnh viễn trong local repository:
+     * `user.name`: `cuongcuca111-web`
+     * `user.email`: `cuongcuca111@users.noreply.github.com`
+   - Đảm bảo từ nay về sau, toàn bộ các commit mới đẩy lên GitHub sẽ tự động mang định danh của Bên Màu Tím (`dev1` - `cuongcuca111-web (Bạn anh) - UI/UX Board Game Designer & Frontend`).
+2. **Bộ Lọc Phân Tích Commit Thông Minh Hai Lớp (Smart Dual-Layered Classifier)**:
+   - Sửa đổi hàm `parseCommitDetails(c, index, total)`:
+     * Phân loại chính xác 100% các tính năng UI, UX, Motion 60fps, Transition, Spectator, Đa BOT, Mobile Responsive, Bento Grid, SVG Icons về đúng Bên Màu Tím (`cuongcuca111-web`).
+     * Phân loại các tính năng Cờ Tỷ Phú 2.5D Isometric, Cờ Vua FIDE, Bot Minimax Elo, GitHub API Live Tracker về Bên Màu Xanh (`thaitraicau123-pixel (Anh)`).
+3. **Hiệu Chỉnh Danh Sách CURATED_CHANGELOG & Thẻ Tóm Tắt Dev**:
+   - Cập nhật đúng các đầu việc chủ chốt của 2 Dev trên 2 thẻ tóm tắt đỉnh Modal:
+     * Bên Màu Xanh: Cờ Tỷ Phú 2.5D, Cờ Vua FIDE & Bot Minimax, GitHub REST API Engine & WebSocket.
+     * Bên Màu Tím: Chuyển cảnh 60fps GPU, Bí kíp Bento 4 bộ môn & SVG độc bản, Đa BOT & Khán giả, Tối ưu Mobile UX.

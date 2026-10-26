@@ -521,7 +521,7 @@
         <!-- Version & Contributor Changelog Pill -->
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v3.0.1</span>
+          <span id="headerVersionPill" class="font-bold">v3.0.2</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -869,43 +869,38 @@
     <div id="mainViewArena" class="hidden w-full flex flex-col items-center">
 
       <!-- UNIFIED ARENA MATCH CONSOLE (BẢNG ĐIỀU KHIỂN TRẬN ĐẤU TẬP TRUNG) -->
-      <div id="arenaMatchConsole" class="w-full max-w-5xl mb-3 p-2.5 sm:p-3 rounded-2xl bg-[#0B101E]/90 border border-amber-500/30 shadow-xl backdrop-blur-md flex flex-wrap items-center justify-between gap-2.5">
+      <div id="arenaMatchConsole" class="w-full max-w-5xl mb-3 p-2.5 sm:p-3 rounded-2xl bg-[#0B101E]/90 border border-amber-500/30 shadow-xl backdrop-blur-md flex flex-wrap items-center justify-between gap-2.5 relative z-50">
         
-        <!-- Left: Return to Lobby & Active Game Identity Badge -->
-        <div class="flex items-center gap-2.5 shrink-0">
+        <!-- Left: Return to Lobby & Direct 4-Game Switcher Pills -->
+        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0 flex-wrap">
           <!-- Back to Main Menu Button -->
-          <button onclick="switchMainTab('lobby')" class="btn-spring px-3.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all" title="Quay về Menu Chính chọn trò chơi khác">
+          <button onclick="switchMainTab('lobby')" class="btn-spring px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all" title="Quay về Menu Chính chọn trò chơi khác">
             <i data-lucide="arrow-left" class="w-4 h-4 text-amber-400"></i>
-            <span>Sảnh Game</span>
+            <span class="hidden xs:inline">Sảnh Game</span>
           </button>
 
           <div class="hidden sm:block h-6 w-px bg-board-border/80"></div>
 
+          <!-- 4-Game Direct Switcher Pills (Chuyển game tức thì 1-chạm, chống bị che khuất) -->
+          <div class="flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
+            <button onclick="switchGameView('dice')" id="pillGameDice" class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1 transition-all whitespace-nowrap shadow-sm" title="Cờ Xúc Xắc 12 Ô">
+              <span>🎲</span><span class="hidden sm:inline">12 Ô</span>
+            </button>
+            <button onclick="switchGameView('chess')" id="pillGameChess" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1 transition-all whitespace-nowrap" title="Cờ Vua FIDE">
+              <span>♟️</span><span class="hidden sm:inline">Cờ Vua</span>
+            </button>
+            <button onclick="switchGameView('tictactoe')" id="pillGameTTT" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1 transition-all whitespace-nowrap" title="Cờ Ca-rô Neon">
+              <span>⭕❌</span><span class="hidden sm:inline">Ca-rô</span>
+            </button>
+            <button onclick="switchGameView('monopoly')" id="pillGameMono" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1 transition-all whitespace-nowrap" title="Cờ Tỷ Phú 2.5D">
+              <span>🏰</span><span class="hidden sm:inline">Tỷ Phú</span>
+            </button>
+          </div>
+
           <!-- Dynamic Active Game Badge -->
-          <div id="arenaGameTitle" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-cinzel text-xs font-bold shadow-inner">
+          <div id="arenaGameTitle" class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-cinzel text-xs font-bold shadow-inner">
             <i data-lucide="dice-5" class="w-4 h-4 text-amber-400"></i>
             <span class="tracking-wider">XÚC XẮC 12 Ô HOÀNG KIM</span>
-          </div>
-          <!-- Quick Game Switcher Dropdown (Chuyen game tuc thi trong Ban Dau) -->
-          <div class="relative ml-1">
-            <button onclick="toggleArenaGameMenu()" class="btn-spring px-2 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-board-border text-xs flex items-center gap-1 font-bold shadow-sm" title="Đổi sang trò chơi khác">
-              <i data-lucide="gamepad-2" class="w-3.5 h-3.5 text-amber-400"></i>
-              <span>Đổi Game ▾</span>
-            </button>
-            <div id="arenaGameMenu" class="hidden absolute left-0 mt-1.5 w-48 rounded-2xl bg-slate-900 border border-board-border shadow-2xl p-1.5 z-50 text-xs space-y-1">
-              <button onclick="switchGameView('monopoly'); toggleArenaGameMenu()" class="w-full px-2.5 py-1.5 rounded-xl hover:bg-emerald-500/20 text-left flex items-center gap-2 text-emerald-300 font-bold">
-                <span>🏰</span> Cờ Tỷ Phú 2.5D (Mới)
-              </button>
-              <button onclick="switchGameView('chess'); toggleArenaGameMenu()" class="w-full px-2.5 py-1.5 rounded-xl hover:bg-amber-500/20 text-left flex items-center gap-2 text-amber-300 font-bold">
-                <span>♟️</span> Cờ Vua FIDE (8x8)
-              </button>
-              <button onclick="switchGameView('dice'); toggleArenaGameMenu()" class="w-full px-2.5 py-1.5 rounded-xl hover:bg-amber-500/20 text-left flex items-center gap-2 text-slate-200">
-                <span>🎲</span> Xúc Xắc 12 Ô Lớn
-              </button>
-              <button onclick="switchGameView('tictactoe'); toggleArenaGameMenu()" class="w-full px-2.5 py-1.5 rounded-xl hover:bg-cyan-500/20 text-left flex items-center gap-2 text-slate-200">
-                <span>⭕❌</span> Cờ Ca-rô Neon 3x3
-              </button>
-            </div>
           </div>
         </div>
 
@@ -2967,7 +2962,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.0.1</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.0.2</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -5639,7 +5634,41 @@
           titleEl.className = 'flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 font-cinzel text-xs font-bold shadow-inner transition-all duration-200';
           titleEl.innerHTML = '<i data-lucide="crown" class="w-4 h-4 text-indigo-400"></i><span class="tracking-wider">CỜ VUA HOÀNG GIA (8x8 FIDE)</span>';
         }
+      } else if (tab === 'monopoly') {
+        if (vMono) {
+          vMono.classList.remove('hidden');
+          vMono.classList.remove('view-fade-slide');
+          void vMono.offsetWidth;
+          vMono.classList.add('flex', 'view-fade-slide');
+          if (typeof initMonopolyGame === 'function') {
+            initMonopolyGame();
+          }
+        }
+        if (cMono) cMono.classList.remove('hidden');
+        if (specBar) specBar.classList.add('hidden');
+        if (titleEl) {
+          titleEl.className = 'flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-cinzel text-xs font-bold shadow-inner transition-all duration-200';
+          titleEl.innerHTML = '<span class="text-base">🏰</span><span class="tracking-wider">CỜ TỶ PHÚ HOÀNG GIA (2.5D ARENA)</span>';
+        }
       }
+
+      // Update Arena Game Pill Switcher active states
+      const gamePills = [
+        { id: 'pillGameDice', key: 'dice', activeCls: 'bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold shadow-sm' },
+        { id: 'pillGameChess', key: 'chess', activeCls: 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-bold shadow-sm' },
+        { id: 'pillGameTTT', key: 'tictactoe', activeCls: 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold shadow-sm' },
+        { id: 'pillGameMono', key: 'monopoly', activeCls: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold shadow-sm' },
+      ];
+      gamePills.forEach(p => {
+        const el = document.getElementById(p.id);
+        if (el) {
+          if (p.key === tab) {
+            el.className = 'px-2.5 py-1 rounded-lg flex items-center gap-1 transition-all whitespace-nowrap ' + p.activeCls;
+          } else {
+            el.className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1 transition-all whitespace-nowrap';
+          }
+        }
+      });
 
       if (window.lucide) {
         window.lucide.createIcons();
@@ -7436,7 +7465,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v3.0.1'
+      currentVersion: 'v3.0.2'
     };
 
     let allChangelogItems = [];

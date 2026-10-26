@@ -269,3 +269,23 @@ esetTTTScores).
    - **Tầng 1 (DOM Tree Hierarchy)**: Di chuyển thẻ đóng `</div>` của `mainViewArena` xuống phía sau `monopolyView`, đưa cả 4 bộ môn (`diceView`, `tictactoeView`, `chessView`, `monopolyView`) về đúng cấu trúc lồng nhau của Đấu Trường.
    - **Tầng 2 (Defensive Guard)**: Trong `switchMainTab(tab)`, mỗi khi `tab !== 'arena'`, kích hoạt cơ chế phòng thủ tự động gán `.hidden` và gỡ bỏ `.flex`/`.grid` cho toàn bộ 4 view cờ và các context toolbars.
    - **Tầng 3 (Smooth UX)**: Khi về Sảnh (`tab === 'lobby'`), tự động cuộn mượt mà lên đỉnh trang (`window.scrollTo({ top: 0, behavior: 'smooth' })`), hiển thị giao diện Sảnh Game thanh thoát, sạch đẹp 100% (đúng như Ảnh 2).
+
+
+---
+
+## ⚡ PHẦN 17: TÁI THIẾT KẾ CỜ TỶ PHÚ VIỆT NAM 2D CỔ ĐIỂN SIÊU NHẸ (12x8 CHUẨN 36 Ô)
+1. **Mục Tiêu & Yêu Cầu Thiết Kế Từ Người Dùng**:
+   - Người dùng yêu cầu thay thế toàn bộ kiến trúc 2.5D Isometric (gây nặng tải, dễ méo chữ và khó bấm trên mobile) sang mô hình **Bàn Cờ Tỷ Phú Việt Nam 2D Cổ Điển** theo đúng ảnh mẫu (`media_1792992097872_67f9addd.png`).
+   - Tối thiểu và đầy đủ các thành phần như trong ảnh:
+     * Khung bàn cờ chữ nhật 12 cột x 8 hàng tỉ lệ 12/8 (36 ô bao quanh chu vi).
+     * 4 góc trạm cờ danh tiếng: Sân Bay Tân An ✈️ (Góc Tây Bắc), Vô Tù ⛓️ (Góc Đông Bắc), Trại Giam 🏛️ (Góc Tây Nam), Xuất Phát 🗺️ (Góc Đông Nam).
+     * Đầy đủ các tỉnh thành Việt Nam với màu sắc và mức giá thực tế (Hà Tĩnh, Đông Hà, Hội An, Quy Nhơn, Phan Thiết, Biên Hòa, Cần Thơ, Lạng Sơn, Hải Phòng, v.v.) cùng các ô Bến Xe, Nhà Ga, Bến Cảng, Cơ Hội ❓, Vận Mệnh ❗.
+     * Khu vực sân trung tâm xanh biếc: Avatar người chơi Tiên 👩‍🏫 với kính mắt, cọc tiền mặt 💵 và đồng xu vàng 🪙, số dư `$19760`, 3 nút tiện ích (`⏻`, `⚙️`, `1X/2X`).
+     * Tòa nhà Ngân hàng `BANK` bên góc phải hiển thị số dư ngân khố / tài sản đối thủ.
+     * Hộp thoại tương tác trung tâm chính diện: `"Bạn có muốn mua ô này với giá $3200?"` với 2 nút lớn bo tròn `[ Không ]` (xám) và `[ Có ]` (xanh lá rực rỡ).
+     * Nút Đổ Xúc Xắc lớn góc dưới cùng hiển thị mặt 2 viên xúc xắc trực quan.
+2. **Ưu Điểm Vượt Trội**:
+   - **Siêu Nhẹ & Tối Giản**: 100% CSS Grid phẳng, không sử dụng phép biến đổi 3D phức tạp (`rotateX/rotateZ`), không tiêu tốn GPU, không gây nóng máy hay đơ giật.
+   - **Tương Thích Mọi Thiết Bị**: Co giãn hoàn hảo từ màn hình điện thoại nhỏ đến tablet và màn hình máy tính 2K/4K.
+   - **Trải Nghiệm Trực Quan**: Tất cả chữ, số tiền, tên tỉnh thành đều to, rõ ràng, dễ đọc, 1 chạm là tương tác ngay.
+

@@ -5179,14 +5179,18 @@
     }
 
     function handleGaugeClick() {
-      if (currentTurn === 1 && !isDiceRolling && !isSpectatorMode) {
-        handleDiceClickWithTiming();
-      }
+      if (isDiceRolling || isSpectatorMode) return;
+      if (currentOpponent === 'bot' && currentTurn !== 1) return;
+      handleDiceClickWithTiming();
     }
 
     function handleDiceClickWithTiming() {
       if (isDiceRolling) return;
-      if (currentTurn !== 1 && !isSpectatorMode) return;
+      if (isSpectatorMode) return;
+      if (currentOpponent === 'bot' && currentTurn !== 1) {
+        showToast("⏳ Đang là lượt của Bot, vui lòng đợi...");
+        return;
+      }
       
       const res = getRollFromTiming(timingPos);
       rollDiceQuest(res.roll, res.isCrit);
@@ -5227,7 +5231,7 @@
 
     function triggerSkillTrap() {
       const p = currentTurn;
-      if (p !== 1 && !isSpectatorMode) return;
+      if (isSpectatorMode || (currentOpponent === 'bot' && p !== 1)) return;
       const hero = HERO_CLASSES[playerHeroes[p]] || HERO_CLASSES.guardian;
       const cost = hero.trapCost || 2;
       if (playerEnergy[p] < cost) {
@@ -5245,7 +5249,7 @@
 
     function triggerSkillShield() {
       const p = currentTurn;
-      if (p !== 1 && !isSpectatorMode) return;
+      if (isSpectatorMode || (currentOpponent === 'bot' && p !== 1)) return;
       if (playerEnergy[p] < 1) {
         showToast('⚠️ Không đủ Năng Lượng ⚡ để bật khiên!');
         return;
@@ -5964,7 +5968,8 @@
       pendingNudge = null;
       const row = document.getElementById('diceNudgeRow');
       if (row) { row.classList.add('hidden'); row.classList.remove('flex'); }
-      moveMeepleSteps(player, baseRoll);
+      isDiceRolling = true;
+      moveMeepleSteps(player, baseRoll).finally(() => { isDiceRolling = false; });
     }
 
     function applyDiceNudge(delta) {
@@ -5985,12 +5990,12 @@
       soundTone(700, 'triangle', 0.15, 0.2);
       showToast(`⏩ Tinh chỉnh bước đi: ${baseRoll} ${delta > 0 ? '+1' : '-1'} = ${newRoll} Bước!`);
       updateEnergyUI();
-      moveMeepleSteps(player, newRoll);
+      isDiceRolling = true;
+      moveMeepleSteps(player, newRoll).finally(() => { isDiceRolling = false; });
     }
 
     async function rollDiceQuest(fixedRoll = null, isCrit = false) {
       if (isDiceRolling) return;
-      if (!isSpectatorMode && currentOpponent === 'bot' && currentTurn !== 1) return;
 
       const pName = getPlayerName(currentTurn);
 
@@ -6311,7 +6316,8 @@
         vInd.textContent = `LƯỢT: ${pName.toUpperCase()}`;
       }
 
-      if (currentTurn === 1 && !isSpectatorMode) {
+      const isHumanTurn = !isSpectatorMode && (currentTurn === 1 || currentOpponent === 'human');
+      if (isHumanTurn) {
         if (badge) {
           badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] font-bold shadow-inner';
         }
@@ -6354,8 +6360,12 @@
     }
 
     async function triggerAutoRoll(player) {
-      if (isDiceRolling || spectatorPaused) return;
+      if (spectatorPaused) return;
       if (player === 1 && !isSpectatorMode) return;
+      if (isDiceRolling) {
+        setTimeout(() => triggerAutoRoll(player), 200);
+        return;
+      }
       await rollDiceQuest();
     }
 

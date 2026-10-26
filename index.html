@@ -6739,7 +6739,29 @@
       { id: 35, r: 9, c: 10, name: 'HÀ NAM', type: 'city', price: 1000, rent: [200, 500, 1000], color: '#0284c7' }
     ];
 
-    const MONOPOLY_PRESET_CONFIGS = [
+    const MONOPOLY_CHANCE_CARDS = [
+    { name: 'Xổ Số Hoàng Gia', desc: 'Trúng giải nhì xổ số kiến thiết toàn quốc!', amount: 1000, icon: '🎉' },
+    { name: 'Cổ Tức Ngân Hàng', desc: 'Nhận cổ tức định kỳ từ quỹ đầu tư tài chính!', amount: 1500, icon: '📈' },
+    { name: 'Tài Trợ Dự Án', desc: 'Đô thị trao giải thưởng quy hoạch kiến trúc xuất sắc!', amount: 800, icon: '🌟' },
+    { name: 'Hoàn Thuế Thu Nhập', desc: 'Cơ quan thuế hoàn trả tiền thuế thừa!', amount: 500, icon: '💰' },
+    { name: 'Bảo Trì Hệ Thống', desc: 'Đóng góp chi phí sửa chữa hệ thống cấp thoát nước đô thị!', amount: -500, icon: '🔧' },
+    { name: 'Phạt Quá Tốc Độ', desc: 'Cảnh sát giao thông lập biên bản chạy quá tốc độ!', amount: -500, icon: '🚔' },
+    { name: 'Đóng Thuế Đất Đai', desc: 'Nộp thuế sử dụng đất phi nông nghiệp hàng năm!', amount: -800, icon: '🏛️' },
+    { name: 'Bảo Hiểm Y Tế', desc: 'Chi trả viện phí và dịch vụ chăm sóc sức khỏe định kỳ!', amount: -400, icon: '🏥' }
+  ];
+
+  const MONOPOLY_FATE_CARDS = [
+    { name: 'Thừa Kế Gia Tộc', desc: 'Nhận khoản thừa kế tài sản bất ngờ từ dòng họ!', amount: 2000, icon: '👑' },
+    { name: 'Đấu Thầu Thành Công', desc: 'Ký kết hợp đồng phát triển khu đô thị mới!', amount: 1200, icon: '🏗️' },
+    { name: 'Khen Thưởng Doanh Nhân', desc: 'Được trao cúp Vinh Danh Tỷ Phú Xuất Sắc!', amount: 800, icon: '🏆' },
+    { name: 'Trợ Cấp Phát Triển', desc: 'Nhận gói hỗ trợ khởi nghiệp từ chính phủ!', amount: 500, icon: '💵' },
+    { name: 'Cải Tạo Hạ Tầng', desc: 'Nộp chi phí rải nhựa và lắp đèn đường khu dân cư!', amount: -600, icon: '🚧' },
+    { name: 'Phạt Ô Nhiễm Đô Thị', desc: 'Xử phạt vi phạm quy định xử lý rác thải xây dựng!', amount: -700, icon: '⚠️' },
+    { name: 'Ủng Hộ Từ Thiện', desc: 'Đóng góp vào quỹ khuyến học tài năng trẻ thành phố!', amount: -500, icon: '❤️' },
+    { name: 'Kiểm Toán Tài Chính', desc: 'Chi trả phí thuê đơn vị kiểm toán độc lập!', amount: -800, icon: '📊' }
+  ];
+
+  const MONOPOLY_PRESET_CONFIGS = [
       { id: 0, defaultName: 'Tiên', avatar: '👩‍🏫', color: '#06b6d4', roof: '#0284c7', border: 'border-cyan-500/50', glow: 'shadow-[0_0_12px_rgba(6,182,212,0.6)]', badgeBg: 'bg-cyan-500', bright: '#38bdf8' },
       { id: 1, defaultName: 'Cáo AI 🦊', avatar: '🦊', color: '#f43f5e', roof: '#e11d48', border: 'border-rose-500/50', glow: 'shadow-[0_0_12px_rgba(244,63,94,0.6)]', badgeBg: 'bg-rose-500', bright: '#fb7185' },
       { id: 2, defaultName: 'Hổ AI 🐯', avatar: '🐯', color: '#f59e0b', roof: '#d97706', border: 'border-amber-500/50', glow: 'shadow-[0_0_12px_rgba(245,158,11,0.6)]', badgeBg: 'bg-amber-500', bright: '#fbbf24' },
@@ -7274,11 +7296,18 @@
       if (player.inJail > 0) {
         if (isDoubles) {
           player.inJail = 0;
+          monoState.hasExtraTurn = false;
+          monoState.doublesStreak = 0;
           showToast(`🎉 ${player.name} gieo được số đôi (${d1}-${d2})! Ra tù ngay!`);
         } else {
           player.inJail--;
           if (player.inJail === 0) {
-            showToast(`⛓️ Hết hạn tù! ${player.name} được thả tự do.`);
+            // 3rd turn sentence expired -> mandatory $500 bail
+            const bail = Math.min(player.cash, 500);
+            player.cash -= bail;
+            triggerMonoFloatingCash(player.id, -bail);
+            updateMonopolyHUD();
+            showToast(`⛓️ Hết hạn tù! ${player.name} nộp ${bail} bảo lãnh bắt buộc và được tự do.`);
           } else {
             showToast(`⛓️ ${player.name} không đổ được số đôi. Còn lại ${player.inJail} lượt giam.`);
             monoState.isRolling = false;
@@ -7286,13 +7315,37 @@
             return;
           }
         }
+      } else {
+        // Standard rolling: Doubles logic
+        if (isDoubles) {
+          monoState.doublesStreak = (monoState.doublesStreak || 0) + 1;
+          if (monoState.doublesStreak >= 3) {
+            // Speeding penalty: 3 doubles in a row sends player to Jail
+            monoState.doublesStreak = 0;
+            monoState.hasExtraTurn = false;
+            player.pos = 9;
+            player.inJail = 3;
+            monoState.isRolling = false;
+            updateMonopolyPawns();
+            showToast(`🚨 ${player.name} gieo 3 lần số đôi liên tiếp! Bị phạt chạy quá tốc độ và tống vào Trại Giam!`);
+            finishMonoTurn();
+            return;
+          } else {
+            monoState.hasExtraTurn = true;
+          }
+        } else {
+          monoState.doublesStreak = 0;
+          monoState.hasExtraTurn = false;
+        }
       }
 
       // Step by step pawn movement around 36 tiles
       let stepsRemaining = totalSteps;
       const stepIntervalTime = monoState.speed === 2 ? 100 : 200;
 
-      const stepInterval = setInterval(() => {
+      if (monoState.stepIntervalId) clearInterval(monoState.stepIntervalId);
+
+      monoState.stepIntervalId = setInterval(() => {
         player.pos = (player.pos + 1) % monoState.tiles.length;
         updateMonopolyPawns();
         try { soundTone(400 + player.pos * 10, 'sine', 0.04, 0.05); } catch(e) {}
@@ -7302,12 +7355,13 @@
           player.cash += 2000;
           triggerMonoFloatingCash(player.id, 2000);
           updateMonopolyHUD();
-          showToast(`💰 ${player.name} đi qua Xuất Phát: Nhận Lương +$2,000!`);
+          showToast(`💰 ${player.name} đi qua Xuất Phát: Nhận Lương +\$2,000!`);
         }
 
         stepsRemaining--;
         if (stepsRemaining <= 0) {
-          clearInterval(stepInterval);
+          clearInterval(monoState.stepIntervalId);
+          monoState.stepIntervalId = null;
           monoState.isRolling = false;
           handleMonoLanding(player);
         }
@@ -7324,8 +7378,9 @@
           if (!isBotTurn) {
             setMonoDialogMode('buy', { tile: landedTile });
           } else {
-            // Autonomous Bot AI
-            if (player.cash >= landedTile.price) {
+            // Autonomous Bot AI with cash reserve prudence
+            const minBuffer = 300;
+            if (player.cash >= landedTile.price + minBuffer) {
               player.cash -= landedTile.price;
               landedTile.owner = player.id;
               landedTile.level = 1;
@@ -7335,9 +7390,9 @@
               updateMonopolyHUD();
               showToast(`🤖 ${player.name} đã mua ${landedTile.name} (${landedTile.price.toLocaleString()}) và xây nhà!`);
             } else {
-              showToast(`🤖 ${player.name} không đủ tiền mua ${landedTile.name}.`);
+              showToast(`🤖 ${player.name} tiết kiệm ngân sách, bỏ qua ${landedTile.name}.`);
             }
-            setTimeout(() => finishMonoTurn(), 1200);
+            monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 1200);
           }
         } else if (landedTile.owner === player.id) {
           if (landedTile.type === 'city' && landedTile.level < 3) {
@@ -7345,7 +7400,7 @@
               setMonoDialogMode('upgrade', { tile: landedTile });
             } else {
               const cost = Math.floor(landedTile.price * 0.5);
-              if (player.cash >= cost + 2000) {
+              if (player.cash >= cost + 1500) {
                 player.cash -= cost;
                 landedTile.level = Math.min(3, landedTile.level + 1);
                 triggerMonoFloatingCash(player.id, -cost);
@@ -7353,20 +7408,35 @@
                 updateMonopolyHUD();
                 showToast(`🤖 ${player.name} đã nâng cấp ${landedTile.name} lên Cấp ${landedTile.level}!`);
               }
-              setTimeout(() => finishMonoTurn(), 1200);
+              monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 1200);
             }
           } else {
-            setTimeout(() => finishMonoTurn(), 800);
+            monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 800);
           }
         } else {
           // Pay Rent to opponent
           const owner = monoState.players[landedTile.owner];
-          const lvl = landedTile.level || 1;
-          let rent = landedTile.rent ? (landedTile.rent[lvl - 1] || landedTile.rent[0]) : Math.floor(landedTile.price * 0.2);
+          let rent = 0;
 
+          if (landedTile.type === 'station') {
+            // Multi-station rent scaling based on how many stations the owner possesses (1: $400, 2: $800, 3: $1600)
+            const ownedStations = monoState.tiles.filter(t => t.type === 'station' && t.owner === landedTile.owner).length;
+            const sIdx = Math.max(0, Math.min(2, ownedStations - 1));
+            rent = landedTile.rent ? (landedTile.rent[sIdx] || 400) : 400;
+          } else {
+            const lvl = landedTile.level || 1;
+            rent = landedTile.rent ? (landedTile.rent[lvl - 1] || landedTile.rent[0]) : Math.floor(landedTile.price * 0.2);
+          }
+
+          // Compute actualPaid BEFORE deducting player.cash to prevent 0-payment bug
           const actualPaid = Math.min(player.cash, rent);
           player.cash = Math.max(0, player.cash - rent);
           owner.cash += actualPaid;
+
+          if (player.cash === 0) {
+            player.bankruptTo = owner.id;
+          }
+
           triggerMonoFloatingCash(player.id, -actualPaid);
           triggerMonoFloatingCash(owner.id, actualPaid);
           updateMonopolyHUD();
@@ -7377,7 +7447,7 @@
               type: 'rent',
               badge: '💸 NỘP TIỀN THUÊ ĐẤT!',
               title: `Dừng Chân Tại Đất Của ${owner.name}`,
-              desc: `${player.name} phải trả ${rent.toLocaleString()} tiền thuê cho ${owner.name} khi ghé thăm ${landedTile.name} (Cấp ${lvl})!`,
+              desc: `${player.name} phải trả ${rent.toLocaleString()} tiền thuê cho ${owner.name} khi ghé thăm ${landedTile.name} (Cấp ${landedTile.level || 1})!`,
               visualIcon: '💸',
               amountLabel: 'Khoản tiền thuê:',
               amountVal: -rent,
@@ -7385,12 +7455,14 @@
             });
           } else {
             showToast(`💸 ${player.name} trả ${actualPaid.toLocaleString()} tiền thuê ${landedTile.name} cho ${owner.name}!`);
-            setTimeout(() => finishMonoTurn(), 1200);
+            monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 1200);
           }
         }
       } else if (landedTile.type === 'gotojail') {
         player.pos = 9; // Teleport to Trại Giam
         player.inJail = 3;
+        monoState.hasExtraTurn = false;
+        monoState.doublesStreak = 0;
         updateMonopolyPawns();
         try { soundTone(160, 'sawtooth', 0.3, 0.3); } catch(e) {}
 
@@ -7405,16 +7477,15 @@
           });
         } else {
           showToast(`🔒 ${player.name} bị tống giam vào Trại Giam!`);
-          setTimeout(() => finishMonoTurn(), 1200);
+          monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 1200);
         }
       } else if (landedTile.type === 'start') {
         showToast(`🌟 ${player.name} dừng chân đúng ô Xuất Phát!`);
-        setTimeout(() => finishMonoTurn(), 800);
+        monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 800);
       } else if (landedTile.type === 'jail') {
         showToast(`🏛️ ${player.name} ghé thăm Trại Giam (Thăm tù an toàn).`);
-        setTimeout(() => finishMonoTurn(), 800);
+        monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 800);
       } else if (landedTile.type === 'airport') {
-        // Beneficial Airport feature
         const bonus = 1000;
         player.cash += bonus;
         triggerMonoFloatingCash(player.id, bonus);
@@ -7434,53 +7505,37 @@
           });
         } else {
           showToast(`✈️ ${player.name} hạ cánh tại Sân Bay Tân An: Nhận trợ cấp du lịch +${bonus.toLocaleString()}!`);
-          setTimeout(() => finishMonoTurn(), 1000);
+          monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 1000);
         }
       } else if (landedTile.type === 'chance' || landedTile.type === 'fate') {
-        const isLucky = Math.random() > 0.35;
-        const val = (Math.floor(Math.random() * 4) + 1) * 500;
-        if (isLucky) {
-          player.cash += val;
-          triggerMonoFloatingCash(player.id, val);
-          updateMonopolyHUD();
-          try { soundTone(780, 'triangle', 0.2, 0.2); } catch(e) {}
+        // Draw curated card from authentic decks
+        const deck = landedTile.type === 'chance' ? MONOPOLY_CHANCE_CARDS : MONOPOLY_FATE_CARDS;
+        const card = deck[Math.floor(Math.random() * deck.length)];
 
-          if (!isBotTurn) {
-            showMonoEventPopup({
-              type: 'chance',
-              badge: landedTile.type === 'chance' ? '🎁 CƠ HỘI MAY MẮN!' : '🌟 VẬN MỆNH HOÀNG GIA!',
-              title: 'Trúng Thưởng Xổ Số & Tài Trợ',
-              desc: `Chúc mừng ${player.name}! Bạn bốc được thẻ may mắn và nhận phần thưởng từ ngân khố thành phố!`,
-              visualIcon: '🎁',
-              amountLabel: 'Tiền thưởng nhận được:',
-              amountVal: val,
-              onConfirm: () => finishMonoTurn()
-            });
-          } else {
-            showToast(`🎁 ${landedTile.name}: ${player.name} nhận thưởng +${val.toLocaleString()}!`);
-            setTimeout(() => finishMonoTurn(), 1000);
-          }
+        if (card.amount >= 0) {
+          player.cash += card.amount;
+          triggerMonoFloatingCash(player.id, card.amount);
         } else {
-          player.cash = Math.max(0, player.cash - val);
-          triggerMonoFloatingCash(player.id, -val);
-          updateMonopolyHUD();
-          try { soundTone(220, 'sawtooth', 0.2, 0.2); } catch(e) {}
+          player.cash = Math.max(0, player.cash + card.amount);
+          triggerMonoFloatingCash(player.id, card.amount);
+        }
+        updateMonopolyHUD();
+        try { soundTone(card.amount >= 0 ? 780 : 220, card.amount >= 0 ? 'triangle' : 'sawtooth', 0.2, 0.2); } catch(e) {}
 
-          if (!isBotTurn) {
-            showMonoEventPopup({
-              type: 'fate',
-              badge: landedTile.type === 'chance' ? '⚡ PHẠT THẺ CƠ HỘI!' : '⚡ NỘP PHẠT VẬN MỆNH!',
-              title: 'Bảo Trì Đô Thị & Đóng Thuế',
-              desc: `Rất tiếc! ${player.name} phải đóng góp chi phí bảo trì cơ sở hạ tầng đô thị vào quỹ ngân sách.`,
-              visualIcon: '⚡',
-              amountLabel: 'Khoản chi phí nộp phạt:',
-              amountVal: -val,
-              onConfirm: () => finishMonoTurn()
-            });
-          } else {
-            showToast(`⚡ ${landedTile.name}: ${player.name} nộp phạt -${val.toLocaleString()}!`);
-            setTimeout(() => finishMonoTurn(), 1000);
-          }
+        if (!isBotTurn) {
+          showMonoEventPopup({
+            type: landedTile.type,
+            badge: landedTile.type === 'chance' ? '🎁 THẺ CƠ HỘI!' : '🌟 THẺ VẬN MỆNH!',
+            title: card.name,
+            desc: card.desc,
+            visualIcon: card.icon,
+            amountLabel: card.amount >= 0 ? 'Số tiền nhận được:' : 'Khoản tiền nộp phạt:',
+            amountVal: card.amount,
+            onConfirm: () => finishMonoTurn()
+          });
+        } else {
+          showToast(`${card.icon} ${landedTile.name}: ${card.name} (${card.amount >= 0 ? '+' : ''}${card.amount.toLocaleString()}) cho ${player.name}!`);
+          monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 1000);
         }
       }
     }
@@ -7491,32 +7546,72 @@
       if (curPlayer.cash <= 0 && !curPlayer.isBankrupt) {
         curPlayer.isBankrupt = true;
         curPlayer.cash = 0;
-        // Release bankrupt properties back to bank
-        monoState.tiles.forEach(t => {
-          if (t.owner === curPlayer.id) {
-            t.owner = null;
-            t.level = 0;
-          }
-        });
+
+        const creditorId = curPlayer.bankruptTo;
+        const creditor = (creditorId !== undefined && creditorId !== null) ? monoState.players[creditorId] : null;
+
+        if (creditor && !creditor.isBankrupt) {
+          // Transfer all properties to creditor
+          monoState.tiles.forEach(t => {
+            if (t.owner === curPlayer.id) {
+              t.owner = creditor.id;
+              creditor.properties.push(t.id);
+            }
+          });
+          showToast(`💀 ${curPlayer.name} đã phá sản! Toàn bộ bất động sản được chuyển giao cho ${creditor.name}!`);
+        } else {
+          // Release properties back to bank
+          monoState.tiles.forEach(t => {
+            if (t.owner === curPlayer.id) {
+              t.owner = null;
+              t.level = 0;
+            }
+          });
+          showToast(`💀 ${curPlayer.name} đã phá sản! Toàn bộ bất động sản được ngân hàng thu hồi.`);
+        }
         curPlayer.properties = [];
+        curPlayer.bankruptTo = null;
         renderMonopolyBoard();
-        showToast(`💀 ${curPlayer.name} đã phá sản! Toàn bộ bất động sản được ngân hàng thu hồi.`);
       }
 
       const activePlayers = monoState.players.filter(p => !p.isBankrupt);
       if (activePlayers.length <= 1) {
         const winner = activePlayers[0] || monoState.players[0];
+
+        // Award Tabletop Arena coins if player 1 (user) wins
+        if (winner.id === 0 && window.currentFirebaseUser) {
+          window.currentFirebaseUser.coins = (window.currentFirebaseUser.coins || 2450) + 300;
+          const coinEl = document.getElementById('userCoins');
+          if (coinEl) coinEl.textContent = Number(window.currentFirebaseUser.coins).toLocaleString();
+        }
+
         showMonoEventPopup({
           type: 'gameover',
           badge: '👑 VÔ ĐỊCH CỜ TỶ PHÚ!',
           title: `${winner.name} Đã Giành Chiến Thắng!`,
-          desc: `Tất cả đối thủ đã phá sản! ${winner.name} chính thức trở thành Tỷ Phú Hoàng Gia!`,
+          desc: `Tất cả đối thủ đã phá sản! ${winner.name} chính thức trở thành Tỷ Phú Hoàng Gia!${winner.id === 0 ? ' Bạn được thưởng +300 Vàng 🪙!' : ''}`,
           visualIcon: '🏆',
           onConfirm: () => initMonopolyGame()
         });
         return;
       }
 
+      // Check for extra turn on doubles
+      if (monoState.hasExtraTurn && !curPlayer.isBankrupt && curPlayer.inJail === 0) {
+        monoState.hasExtraTurn = false;
+        showToast(`🎲 SỐ ĐÔI! ${curPlayer.name.toUpperCase()} ĐƯỢC ĐỔ THÊM 1 LƯỢT!`);
+        updateMonopolyPawns();
+        updateMonopolyHUD();
+        setMonoDialogMode('ready');
+
+        if (curPlayer.isBot) {
+          const botDelay = monoState.speed === 2 ? 600 : 1200;
+          monoState.botTimeoutId = setTimeout(() => executeMono2dRoll(), botDelay);
+        }
+        return;
+      }
+
+      monoState.hasExtraTurn = false;
       let nextTurn = (monoState.turn + 1) % monoState.players.length;
       let count = 0;
       while (monoState.players[nextTurn].isBankrupt && count < monoState.players.length) {
@@ -7537,9 +7632,8 @@
       const nextPlayer = monoState.players[monoState.turn];
       if (nextPlayer.isBot && !nextPlayer.isBankrupt) {
         const botDelay = monoState.speed === 2 ? 600 : 1200;
-        setTimeout(() => {
+        monoState.botTimeoutId = setTimeout(() => {
           if (nextPlayer.inJail > 0) {
-            // Autonomous jail logic for Bot: pay bail if rich, or roll for doubles
             if (nextPlayer.cash >= 3000) {
               nextPlayer.cash -= 500;
               nextPlayer.inJail = 0;
@@ -7679,6 +7773,20 @@
       }
     }
 
+    function stopMonopolyTimers() {
+      if (window.monoState) {
+        if (monoState.stepIntervalId) {
+          clearInterval(monoState.stepIntervalId);
+          monoState.stepIntervalId = null;
+        }
+        if (monoState.botTimeoutId) {
+          clearTimeout(monoState.botTimeoutId);
+          monoState.botTimeoutId = null;
+        }
+        monoState.isRolling = false;
+      }
+    }
+
     // Restart
     function restartMonopolyGame() {
       initMonopolyGame();
@@ -7694,6 +7802,7 @@
 
     // Initialize Game
     function initMonopolyGame() {
+      stopMonopolyTimers();
       const pCount = Math.max(2, Math.min(4, monoState.playerCount || 4));
       monoState.playerCount = pCount;
 
@@ -7746,8 +7855,12 @@
       monoState.turn = 0;
       monoState.round = 1;
       monoState.isRolling = false;
+      monoState.hasExtraTurn = false;
+      monoState.doublesStreak = 0;
       monoState.pendingAction = null;
       monoState.eventCallback = null;
+      monoState.stepIntervalId = null;
+      monoState.botTimeoutId = null;
 
       // Apply 2.5D state
       const board = document.getElementById('mono2dBoardWrapper');

@@ -567,3 +567,38 @@ Cho phép người chơi chọn Hero trước trận hoặc chuyển đổi linh
 7. **Trải Nghiệm Thẻ Cơ Hội / Vận Mệnh & Trợ Cấp Sân Bay**:
    - Khi người chơi dừng chân tại ô **CƠ HỘI** hoặc **VẬN MỆNH**, hệ thống bật hộp thoại thông báo chi tiết nội dung may mắn hoặc nộp phạt thay vì chỉ hiện toast ngắn.
    - Khi dừng chân tại ô **SÂN BAY TÂN AN**, người chơi nhận được khoản trợ cấp du lịch hạng thương gia **+\$1,000** tiền mặt.
+
+
+---
+
+## ⚡ PHẦN 25: KIỂM TOÁN VÀ KHẮC PHỤC LỖI LOGIC NỘI BỘ, LUẬT CHƠI & BẢO VỆ TIẾN TRÌNH VÁN ĐẤU (MONOPOLY LOGIC & MECHANICS AUDIT - V3.7.2)
+1. **Khắc Phục Lỗi Thứ Tự Trừ Tiền Thuê (Rent Calculation Order Fix)**:
+   - *Lỗi logic cũ*: Trước đây hàm trừ tiền thuê tính `player.cash = Math.max(0, player.cash - rent)` trước rồi mới tính `actualPaid = Math.min(player.cash, rent)`. Khi người chơi chỉ còn \$200 mà tiền thuê là \$500, số tiền của người chơi bị giảm về 0 trước, dẫn đến `actualPaid` bị tính bằng 0. Chủ nợ bị mất trắng khoản tiền \$200 còn lại của người thua.
+   - *Đã khắc phục*: Tính toán `actualPaid = Math.min(player.cash, rent)` trước khi khấu trừ. Người thuê trả hết số tiền hiện có, chủ nợ nhận đủ tiền mặt thực tế và người thuê phá sản công bằng.
+
+2. **Chuyển Nhượng Bất Động Sản Phá Sản Cho Chủ Nợ (Creditor Property Inheritance)**:
+   - Theo luật Cờ Tỷ Phú quốc tế chuẩn mực: Khi người chơi A phá sản do nộp tiền thuê cho chủ nợ B, toàn bộ các khu đất và nhà 3D của A lập tức được chuyển nhượng quyền sở hữu sang cho B (`owner = B.id`), giúp B mở rộng đế chế. Nếu người chơi phá sản do nộp phạt cho ngân hàng, tài sản mới hoàn trả về ngân hàng.
+
+3. **Luật Đổ Số Đôi Nhận Lượt Đổ Thêm & Phạt Chạy Quá Tốc Độ (Doubles Extra Turn & Speeding Penalty)**:
+   - Khi gieo xúc xắc đạt số đôi (`d1 === d2`) lúc không ở tù, người chơi nhận được thông báo **🎲 SỐ ĐÔI! ĐƯỢC ĐỔ THÊM 1 LƯỢT!** và tiếp tục giữ lượt đi kế tiếp.
+   - Nếu đổ số đôi liên tiếp 3 lần trong một vòng, người chơi bị lập biên bản vi phạm tốc độ và tống thẳng vào Trại Giam (`pos = 9, inJail = 3`) theo đúng luật nguyên bản.
+
+4. **Tỷ Lệ Tiền Thuê Đa Bến Xe / Nhà Ga (Progressive Transport Rent Scaling)**:
+   - Bổ sung công thức tính tiền thuê lũy tiến cho các ô Bến Xe, Bến Cảng, Nhà Ga dựa trên số lượng trạm giao thông mà chủ sở hữu nắm giữ:
+     * Sở hữu 1 trạm: Tiền thuê \$400.
+     * Sở hữu 2 trạm: Tiền thuê \$800.
+     * Sở hữu trọn bộ 3 trạm: Tiền thuê vọt lên \$1,600!
+
+5. **Nộp Bảo Lãnh Bắt Buộc Khi Hết Hạn Tù Lượt Thứ 3**:
+   - Khi người chơi đã ở tù hết 3 lượt mà vẫn không gieo được số đôi, hệ thống tự động khấu trừ \$500 tiền bảo lãnh bắt buộc và cho phép người chơi di chuyển số bước đã gieo.
+
+6. **Triệt Tiêu Hoàn Toàn Tiến Trình Chạy Ngầm (Dangling Timers Cleanup)**:
+   - Tích hợp hàm `stopMonopolyTimers()` quản lý tập trung `monoState.stepIntervalId` và `monoState.botTimeoutId`.
+   - Mỗi khi người chơi bấm nút **[ Ván Mới ]**, đổi số lượng người chơi (2P/3P/4P) hoặc chuyển sang tab game khác (Cờ Vua, Ca-rô, Đua Xúc Xắc), mọi bộ đếm bước đi và thời gian chờ của Bot lập tức bị hủy bỏ, ngăn chặn 100% hiện tượng Bot "ma" tự đổ xúc xắc hay bước cờ chạy chồng chéo giữa các ván.
+
+7. **Bộ Thẻ Cơ Hội & Vận Mệnh Đa Dạng Lore**:
+   - Thay thế việc tăng/giảm tiền ngẫu nhiên khô khan bằng kho thẻ bài 16 sự kiện kinh điển (Xổ Số Hoàng Gia, Cổ Tức Ngân Hàng, Tài Trợ Đô Thị, Phạt Quá Tốc Độ, Thừa Kế Gia Tộc, Đấu Thầu Thành Công, v.v.).
+
+8. **Kích Hoạt Âm Thanh (AudioContext Resume) & Thưởng Vàng Hồ Sơ**:
+   - Khắc phục chính sách autoplay của trình duyệt bằng cách tự động đánh thức `audioCtx.resume()` khi người chơi tương tác.
+   - Khi người chơi chiến thắng ván cờ tỷ phú, tài khoản được tự động cộng **+300 Vàng** vào ví kinh tế chung của Tabletop Arena.

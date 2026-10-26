@@ -493,23 +493,23 @@
         <!-- Navigation Menu Tabs (Desktop) -->
         <nav class="hidden lg:flex items-center gap-1 bg-black/50 p-1 rounded-2xl border border-board-border/60 text-xs font-bold shrink-0" id="mainNavBar">
           <button id="navTabLobby" onclick="switchMainTab('lobby')" class="btn-spring px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white flex items-center gap-1.5 shadow-md shadow-amber-700/30 transition-all font-bold whitespace-nowrap">
-            <i data-lucide="layout-grid" class="w-3.5 h-3.5 text-amber-300"></i>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-300"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="currentColor" fill-opacity="0.25"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
             <span>Sảnh Game</span>
           </button>
           <button id="navTabArena" onclick="switchMainTab('arena')" class="btn-spring px-3 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-1.5 transition-all font-semibold whitespace-nowrap">
-            <i data-lucide="swords" class="w-3.5 h-3.5 text-amber-400"></i>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-400"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/></svg>
             <span>Bàn Đấu</span>
           </button>
           <button id="navTabLeaderboard" onclick="switchMainTab('leaderboard')" class="btn-spring px-3 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-1.5 transition-all whitespace-nowrap">
-            <i data-lucide="trophy" class="w-3.5 h-3.5 text-amber-400"></i>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-400"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1h10v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34"/><path d="M6 4h12v5a6 6 0 0 1-12 0V4z"/></svg>
             <span>Bảng Phong Thần</span>
           </button>
           <button id="navTabVIP" onclick="switchMainTab('vip')" class="btn-spring px-3 py-1.5 rounded-xl text-slate-300 hover:text-amber-300 hover:bg-amber-500/10 flex items-center gap-1.5 transition-all whitespace-nowrap">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-400"><path d="M2 4l3 12h14l3-12-5 6-5-8-5 8-5-6z"/><circle cx="12" cy="18" r="1.5" fill="currentColor"/></svg>
             <span>Hội Viên VIP</span>
           </button>
           <button id="navTabRules" onclick="switchMainTab('rules')" class="btn-spring px-3 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-1.5 transition-all whitespace-nowrap">
-            <i data-lucide="scroll" class="w-3.5 h-3.5 text-cyan-400"></i>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-cyan-400"><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h11a2 2 0 0 0 2-2v-2H6v2a2 2 0 0 0 2 2z"/><path d="M4 17V3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
             <span>Luật Chơi</span>
           </button>
         </nav>
@@ -548,14 +548,14 @@
 
         <!-- Sound Toggle -->
         <button onclick="toggleSound()" class="btn-spring p-2 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white border border-board-border shadow-sm shrink-0" title="Bật/Tắt âm thanh">
-          <i data-lucide="volume-2" id="soundIcon" class="w-4 h-4"></i>
+          <span id="soundIcon" class="flex items-center justify-center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-slate-300"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></span>
         </button>
 
         <!-- User Authentication & Profile Widget -->
         <div id="authArea" class="shrink-0">
           <!-- Guest Button -->
           <button id="btnLoginTrigger" onclick="openAuthModal('signup')" class="btn-spring px-3 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-xs shadow-md shadow-amber-700/30 border border-amber-400/40 flex items-center gap-1.5 whitespace-nowrap">
-            <i data-lucide="user-plus" class="w-4 h-4"></i>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
             <span>Đăng ký / Đăng nhập</span>
           </button>
 
@@ -576,11 +576,11 @@
                 Đã xác thực: <b class="text-amber-400" id="dropdownEmail">user@email.com</b>
               </div>
               <button onclick="openModal('profileModal')" class="w-full px-3 py-2 rounded-xl hover:bg-slate-800 text-left flex items-center gap-2 text-slate-200">
-                <i data-lucide="user-check" class="w-4 h-4 text-amber-400"></i>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-amber-400"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
                 Hồ Sơ & Thành Tựu
               </button>
               <button id="dropdownAdminBtn" onclick="openAdminModal()" class="hidden w-full px-3 py-2 rounded-xl hover:bg-rose-500/10 text-left items-center gap-2 text-rose-300 font-semibold">
-                <i data-lucide="shield-check" class="w-4 h-4 text-rose-400"></i>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-rose-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
                 Đại Sảnh Quản Trị (Admin)
               </button>
               <button onclick="switchMainTab('vip')" class="w-full px-3 py-2 rounded-xl hover:bg-slate-800 text-left flex items-center gap-2 text-amber-300">
@@ -589,7 +589,7 @@
               </button>
               <div class="h-px bg-slate-800 my-1"></div>
               <button onclick="handleFirebaseLogout()" class="w-full px-3 py-2 rounded-xl hover:bg-rose-500/10 text-left flex items-center gap-2 text-rose-400 font-semibold">
-                <i data-lucide="log-out" class="w-4 h-4"></i>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-rose-400"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                 Đăng Xuất
               </button>
             </div>
@@ -657,7 +657,7 @@
             <!-- Top Tag & Icon -->
             <div class="flex items-center justify-between mb-4">
               <span class="px-2.5 py-1 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[10px] font-bold uppercase tracking-wider font-mono">
-                🔥 Phổ Biến Nhất
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-amber-400 inline mr-1"><path d="M12 2c-.2 2.3-1.8 4.2-3.2 5.8-1.5 1.7-2.8 3.5-2.8 5.7 0 4.1 3.4 7.5 7.5 7.5s7.5-3.4 7.5-7.5c0-1.8-.8-3.4-1.9-4.7-.4-.5-.9-1-1.3-1.6-1-1.4-1.6-3.1-1.8-4.9-1.3 1.2-2.7 2.7-3 4.5-.4 2.1-.1 4.1.3 6.2-1.3-.8-2.3-2-2.7-3.5-.4-1.6-.2-3.3.4-4.8.4-1 .8-1.8 1-2.7z"/></svg>Phổ Biến Nhất
               </span>
               <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-700/20 border border-amber-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
                 <i data-lucide="dice-5" class="w-6 h-6 text-amber-400"></i>
@@ -751,7 +751,7 @@
             <!-- Top Tag & Icon -->
             <div class="flex items-center justify-between mb-4">
               <span class="px-2.5 py-1 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 text-[10px] font-bold uppercase tracking-wider font-mono">
-                ⚡ Đấu Trí Chớp Nhoáng
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-cyan-400 inline mr-1"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor" fill-opacity="0.2"/></svg>Đấu Trí Chớp Nhoáng
               </span>
               <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-700/20 border border-cyan-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
                 <i data-lucide="grid-3x3" class="w-6 h-6 text-cyan-400"></i>
@@ -2068,89 +2068,282 @@
       </div>
     </div>
 
-    <!-- VIEWPORT 4: GAME RULES (BÍ KÍP LUẬT CHƠI CHUYÊN BIỆT) -->
-    <div id="mainViewRules" class="hidden w-full max-w-4xl tabletop-mat rounded-3xl p-6 sm:p-8 shadow-2xl border border-board-border">
-      <div class="flex items-center justify-between mb-6 pb-4 border-b border-board-border">
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 text-2xl shadow-inner">
-            📖
+    <!-- VIEWPORT 4: GAME RULES (BÍ KÍP LUẬT CHƠI CHI TIẾT - CHUẨN KHOA HỌC /WEBPRO) -->
+    <div id="mainViewRules" class="hidden w-full max-w-7xl tabletop-mat rounded-3xl p-5 sm:p-8 shadow-2xl border border-board-border">
+      
+      <!-- Top Header & Actions -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 pb-5 border-b border-board-border/80">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-cyan-500/15 border border-cyan-500/35 flex items-center justify-center text-cyan-400 shadow-inner shrink-0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           </div>
           <div>
-            <h2 class="font-cinzel text-xl sm:text-2xl font-black text-white">Bí Kíp & Luật Chơi Chi Tiết</h2>
-            <p class="text-xs text-slate-400">Hướng dẫn tường tận luật thi đấu và cơ chế tính điểm các ô bàn cờ</p>
+            <h2 class="font-cinzel text-xl sm:text-2xl font-black text-white tracking-wide flex items-center gap-2">
+              Bí Kíp & Pháp Điển Luật Chơi
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">Hướng dẫn tường tận luật thi đấu FIDE & cơ chế tính điểm các ô bàn cờ khoa học</p>
           </div>
         </div>
-        <button onclick="switchMainTab('arena')" class="btn-spring px-4 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md">
-          <i data-lucide="arrow-left" class="w-4 h-4"></i>
-          <span>Vào Bàn Đấu</span>
+        <div class="flex items-center gap-2 self-stretch sm:self-auto">
+          <button onclick="switchMainTab('arena')" class="btn-spring flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-700/25 border border-amber-500/30">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/></svg>
+            <span>Vào Bàn Đấu Ngay</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs for Scientific Ergonomics -->
+      <div class="flex items-center gap-1.5 sm:gap-2 mb-6 p-1.5 rounded-2xl bg-black/40 border border-board-border/80 overflow-x-auto no-scrollbar text-xs font-bold" id="rulesCategoryTabs">
+        <button onclick="filterRulesCategory('all')" id="ruleTabAll" class="btn-spring px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-md flex items-center gap-2 whitespace-nowrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-200"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+          <span>Toàn Cảnh 4 Bộ Môn</span>
+        </button>
+        <button onclick="filterRulesCategory('dice')" id="ruleTabDice" class="btn-spring px-3.5 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-2 whitespace-nowrap transition-all">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-400"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          <span>1. Đua Ngựa Xúc Xắc (12 Ô)</span>
+        </button>
+        <button onclick="filterRulesCategory('caro')" id="ruleTabCaro" class="btn-spring px-3.5 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-2 whitespace-nowrap transition-all">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-cyan-400"><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+          <span>2. Cờ Ca-rô Neon (3x3)</span>
+        </button>
+        <button onclick="filterRulesCategory('chess')" id="ruleTabChess" class="btn-spring px-3.5 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-2 whitespace-nowrap transition-all">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-300"><path d="M12 2v4m-2-2h4"/><path d="M6 7l3 2 3-3 3 3 3-2 1 6H5l1-6z"/><path d="M5 13h14v3a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3z"/><path d="M4 21h16v-1a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v1z"/></svg>
+          <span>3. Cờ Vua Quốc Tế (FIDE 8x8)</span>
+        </button>
+        <button onclick="filterRulesCategory('monopoly')" id="ruleTabMonopoly" class="btn-spring px-3.5 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-2 whitespace-nowrap transition-all">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-emerald-400"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 10a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v11H9V10z"/></svg>
+          <span>4. Cờ Tỷ Phú 2.5D (Isometric)</span>
         </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-        <div class="p-4 rounded-2xl bg-board-tray border border-board-border space-y-3">
-          <div class="font-cinzel font-bold text-amber-400 text-sm flex items-center gap-2">
-            🎲 Bàn Cờ Xúc Xắc 12 Ô (Dice Quest):
+      <!-- 4-Column Balanced Bento Grid (Zero nesting bugs, equal visual hierarchy) -->
+      <div id="rulesCardsContainer" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 text-xs">
+        
+        <!-- CARD 1: DICE QUEST 12 Ô -->
+        <div id="ruleCardDice" class="rule-bento-card p-5 rounded-2xl bg-board-tray border border-amber-500/30 flex flex-col justify-between space-y-4 hover:border-amber-500/60 transition-all shadow-lg hover:shadow-amber-500/10">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between pb-3 border-b border-board-border/60">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-inner">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/><circle cx="7.5" cy="10.5" r="1" fill="currentColor"/><circle cx="16.5" cy="10.5" r="1" fill="currentColor"/><circle cx="12" cy="16.5" r="1" fill="currentColor"/></svg>
+                </div>
+                <div>
+                  <h3 class="font-cinzel font-bold text-amber-400 text-sm">Đua Ngựa Xúc Xắc</h3>
+                  <span class="text-[10px] text-slate-400 font-mono">12 Ô Chu Vi • Đua Điểm 50</span>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 text-[10px] font-bold">1-4 Người</span>
+            </div>
+
+            <p class="text-slate-300 leading-relaxed">
+              Các đấu thủ lần lượt gieo xúc xắc 6 mặt để di chuyển quân cờ theo chiều kim đồng hồ quanh 12 ô chu vi vũ trụ.
+            </p>
+
+            <div class="space-y-2">
+              <div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 space-y-1">
+                <div class="font-bold flex items-center gap-1.5">
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 text-emerald-400 shrink-0"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <span>Ô Tích Điểm Thưởng:</span>
+                </div>
+                <div class="text-[11px] text-emerald-200/90 pl-5">
+                  Ngôi Sao (<b class="text-white">+15</b>), Rương Báu (<b class="text-white">+20</b>), Chìa Khóa Thần (<b class="text-white">+30</b>).
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 space-y-1">
+                <div class="font-bold flex items-center gap-1.5">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-rose-400 shrink-0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  <span>Ô Bẫy Hiểm Nguy:</span>
+                </div>
+                <div class="text-[11px] text-rose-200/90 pl-5">
+                  Hố Đen (<b class="text-white">-10</b>), Cạm Bẫy Gai (<b class="text-white">-10</b>), Bão Sét (<b class="text-white">-15</b>).
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 space-y-1">
+                <div class="font-bold flex items-center gap-1.5">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-cyan-400 shrink-0"><circle cx="12" cy="12" r="9" stroke-dasharray="3 3"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+                  <span>Ô Cơ Động & Đặc Biệt:</span>
+                </div>
+                <div class="text-[11px] text-cyan-200/90 pl-5">
+                  Trạm Tiếp Liệu (Hồi phục), Góc Thiên Hà (Bảo vệ), Cổng Warp (Dịch chuyển tức thời).
+                </div>
+              </div>
+            </div>
           </div>
-          <p class="text-slate-300 leading-relaxed">
-            Hai đấu thủ lần lượt gieo xúc xắc 6 mặt để di chuyển quân cờ theo chiều kim đồng hồ quanh 12 ô chu vi.
-          </p>
-          <div class="space-y-1.5">
-            <div class="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">
-              <b>Ô Tích Điểm:</b> ⭐ Ngôi Sao (+15), 👑 Kho Báu (+20), 🗝️ Chìa Khóa Thần (+30).
+
+          <div class="space-y-2 pt-2 border-t border-board-border/60">
+            <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-bold flex items-center gap-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-amber-400 shrink-0"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+              <span>Mục tiêu: Đạt mốc <b>50 ĐIỂM</b> để xưng vương!</span>
             </div>
-            <div class="p-2 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300">
-              <b>Ô Bẫy Hiểm Nguy:</b> 💣 Hố Đen (-10), ⚠️ Cạm Bẫy Gai (-10), 🌩️ Bão Điện Từ (-15).
-            </div>
-            <div class="p-2 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">
-              <b>Ô Cơ Động & Đặc Biệt:</b> 🚀 Trạm Tiếp Liệu, 🌌 Góc Thiên Hà, 🛸 Cổng Warp.
-            </div>
+            <button onclick="enterGameFromLobby('dice')" class="btn-spring w-full py-2.5 rounded-xl bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+              <span>Chơi Đua Ngựa Ngay</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
           </div>
-          <p class="text-amber-300 font-bold">
-            🏆 Mục tiêu: Kỳ thủ nào tích lũy đủ <b>50 ĐIỂM</b> trước sẽ lập tức xưng vương bàn cờ!
-          </p>
         </div>
 
-        <div class="p-4 rounded-2xl bg-board-tray border border-board-border space-y-3 flex flex-col justify-between">
-          <div>
-            <div class="font-cinzel font-bold text-cyan-400 text-sm flex items-center gap-2 mb-3">
-              ⭕❌ Cờ Ca-rô Hoàng Gia 3x3 (Neon Arena):
+        <!-- CARD 2: CO CA-RO 3x3 -->
+        <div id="ruleCardCaro" class="rule-bento-card p-5 rounded-2xl bg-board-tray border border-cyan-500/30 flex flex-col justify-between space-y-4 hover:border-cyan-500/60 transition-all shadow-lg hover:shadow-cyan-500/10">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between pb-3 border-b border-board-border/60">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-inner">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="4.5" y1="4.5" x2="7.5" y2="7.5" stroke="#F43F5E" stroke-width="2.2"/><line x1="7.5" y1="4.5" x2="4.5" y2="7.5" stroke="#F43F5E" stroke-width="2.2"/><circle cx="18" cy="18" r="1.8" stroke="#38BDF8" stroke-width="2"/></svg>
+                </div>
+                <div>
+                  <h3 class="font-cinzel font-bold text-cyan-400 text-sm">Cờ Ca-rô Hoàng Gia</h3>
+                  <span class="text-[10px] text-slate-400 font-mono">Neon Arena • Ma Trận 3x3</span>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-[10px] font-bold">PvP / PvBot</span>
             </div>
-            <p class="text-slate-300 leading-relaxed mb-3">
-              Đấu trí kinh điển 3x3 trên nền bàn cờ neon hiện đại. Bạn (X) đối đầu cùng AI Bot (O).
+
+            <p class="text-slate-300 leading-relaxed">
+              Đấu trí kinh điển 3x3 trên nền bàn cờ neon hiện đại. Người chơi (X) đối đầu cùng AI Bot hoặc Người chơi 2 (O).
             </p>
-            <ul class="list-disc list-inside space-y-1.5 text-slate-300">
-              <li>Mỗi lượt đặt 1 quân cờ vào ô trống bất kỳ.</li>
-              <li>Tạo thành 1 hàng 3 quân liên tiếp (ngang, dọc hoặc đường chéo) để giành chiến thắng.</li>
-              <li>Nếu kín 9 ô mà chưa có ai 3 quân thẳng hàng, ván cờ xử Hòa.</li>
+
+            <ul class="space-y-2 text-slate-300">
+              <li class="flex items-start gap-2 p-2 rounded-xl bg-slate-900/60 border border-slate-800">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Mỗi lượt đặt 1 quân cờ vào ô trống bất kỳ trên ma trận 9 ô.</span>
+              </li>
+              <li class="flex items-start gap-2 p-2 rounded-xl bg-slate-900/60 border border-slate-800">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Tạo thành 1 hàng 3 quân liên tiếp (ngang, dọc hoặc đường chéo) để giành chiến thắng.</span>
+              </li>
+              <li class="flex items-start gap-2 p-2 rounded-xl bg-slate-900/60 border border-slate-800">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>Nếu kín 9 ô mà chưa có ai 3 quân thẳng hàng, ván cờ phân định Hòa.</span>
+              </li>
             </ul>
           </div>
-          <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-bold text-center">
-            💡 Gợi ý: Hãy chiếm ô trung tâm (ô số 5) để nắm quyền chủ động!
-          </div>
-        
-        <!-- Card 3: Co Vua Hoang Gia FIDE -->
-        <div class="p-4 rounded-2xl bg-board-tray border border-amber-500/40 space-y-3 flex flex-col justify-between">
-          <div>
-            <div class="font-cinzel font-bold text-amber-300 text-sm flex items-center gap-2 mb-2">
-              ♟️ Cờ Vua Hoàng Gia (FIDE 8x8):
+
+          <div class="space-y-2 pt-2 border-t border-board-border/60">
+            <div class="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-bold flex items-center gap-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-cyan-400 shrink-0"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6h8c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"/></svg>
+              <span>Mẹo: Chiếm ô trung tâm (ô 5) để nắm 4 hướng thắng!</span>
             </div>
-            <p class="text-slate-300 leading-relaxed mb-2.5">
-              Đấu trường cờ vua tiêu chuẩn quốc tế FIDE 8x8 với 4 cấp độ Bot AI Minimax và chế độ 2 người chơi cục bộ.
+            <button onclick="enterGameFromLobby('tictactoe')" class="btn-spring w-full py-2.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/40 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+              <span>Chơi Ca-rô Ngay</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- CARD 3: CO VUA FIDE 8x8 -->
+        <div id="ruleCardChess" class="rule-bento-card p-5 rounded-2xl bg-board-tray border border-amber-500/40 flex flex-col justify-between space-y-4 hover:border-amber-500/70 transition-all shadow-lg hover:shadow-amber-500/15">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between pb-3 border-b border-board-border/60">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-300 shadow-inner">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M12 2v4m-2-2h4"/><path d="M6 7l3 2 3-3 3 3 3-2 1 6H5l1-6z" fill="#F59E0B" fill-opacity="0.25"/><path d="M5 13h14v3a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3z"/><path d="M4 21h16v-1a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v1z"/></svg>
+                </div>
+                <div>
+                  <h3 class="font-cinzel font-bold text-amber-300 text-sm">Cờ Vua Hoàng Gia</h3>
+                  <span class="text-[10px] text-slate-400 font-mono">Chuẩn Quốc Tế FIDE • 8x8</span>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 text-[10px] font-bold">4 Cấp Độ AI</span>
+            </div>
+
+            <p class="text-slate-300 leading-relaxed">
+              Đấu trường cờ vua tiêu chuẩn quốc tế FIDE 8x8 với 4 cấp độ Bot AI Minimax và chế độ 2 người chơi cục bộ mượt mà.
             </p>
-            <div class="space-y-1.5">
-              <div class="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-200">
-                <b>Đầy Đủ Luật FIDE:</b> Nhập thành (O-O / O-O-O), Bắt tốt qua đường (En Passant), Phong cấp tốt (Promotion).
+
+            <div class="space-y-2">
+              <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-200 space-y-1">
+                <div class="font-bold flex items-center gap-1.5 text-amber-300">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  <span>Quy Chuẩn FIDE Đầy Đủ:</span>
+                </div>
+                <div class="text-[11px] text-amber-100/80 pl-5">
+                  Nhập thành (O-O / O-O-O), Bắt tốt qua đường (En Passant), Phong cấp Tốt khi chạm hàng cuối.
+                </div>
               </div>
-              <div class="p-2 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-200">
-                <b>🎬 Cinematic Edit:</b> Hiệu ứng quay chậm slow-motion, nhấc quân 3D và dộng bàn cờ khi ăn quân & chiếu tướng.
+
+              <div class="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-200 space-y-1">
+                <div class="font-bold flex items-center gap-1.5 text-cyan-300">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><rect x="2" y="2" width="20" height="20" rx="3"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+                  <span>Hiệu Ứng Điện Ảnh Cinematic:</span>
+                </div>
+                <div class="text-[11px] text-cyan-100/80 pl-5">
+                  Quay chậm Slow-motion, nhấc quân 3D và rung dộng bàn cờ khi ăn quân & chiếu bí.
+                </div>
               </div>
             </div>
           </div>
-          <div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-bold text-center">
-            👑 Mục tiêu: Chiếu bí (Checkmate) Vua đối phương để giành chiến thắng!
+
+          <div class="space-y-2 pt-2 border-t border-board-border/60">
+            <div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-bold flex items-center gap-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-400 shrink-0"><circle cx="12" cy="12" r="9"/><polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"/></svg>
+              <span>Mục tiêu: Chiếu bí (Checkmate) Vua đối phương!</span>
+            </div>
+            <button onclick="enterGameFromLobby('chess')" class="btn-spring w-full py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+              <span>Chơi Cờ Vua Ngay</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
           </div>
-        </div></div>
+        </div>
+
+        <!-- CARD 4: CO TY PHU 2.5D ISOMETRIC -->
+        <div id="ruleCardMonopoly" class="rule-bento-card p-5 rounded-2xl bg-board-tray border border-emerald-500/40 flex flex-col justify-between space-y-4 hover:border-emerald-500/70 transition-all shadow-lg hover:shadow-emerald-500/15">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between pb-3 border-b border-board-border/60">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-inner">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 10a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v11H9V10z"/></svg>
+                </div>
+                <div>
+                  <h3 class="font-cinzel font-bold text-emerald-300 text-sm">Cờ Tỷ Phú 2.5D</h3>
+                  <span class="text-[10px] text-slate-400 font-mono">2.5D Isometric • Bất Động Sản</span>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">2-4 Người</span>
+            </div>
+
+            <p class="text-slate-300 leading-relaxed">
+              Đấu trường địa ốc góc nhìn 2.5D Isometric. Đổ 2 xúc xắc 3D, mua đất, xây khách sạn, dựng Landmark và thâu tóm phá sản đối thủ.
+            </p>
+
+            <div class="space-y-2">
+              <div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-200 space-y-1">
+                <div class="font-bold flex items-center gap-1.5 text-emerald-300">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                  <span>Cơ Chế Bất Động Sản:</span>
+                </div>
+                <div class="text-[11px] text-emerald-100/80 pl-5">
+                  Mua ô đất, nâng cấp nhà cấp 1-3, xây Biệt Thự và Landmark độc quyền thu phí thuê cao.
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-200 space-y-1">
+                <div class="font-bold flex items-center gap-1.5 text-teal-300">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                  <span>Đổ 2 Xúc Xắc & Cú Đôi (Double):</span>
+                </div>
+                <div class="text-[11px] text-teal-100/80 pl-5">
+                  Gieo trúng 2 mặt giống nhau được đi thêm lượt! Đổ đôi 3 lần liên tiếp bị đưa vào Đảo Hoang.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-2 pt-2 border-t border-board-border/60">
+            <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-bold flex items-center gap-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-amber-400 shrink-0"><circle cx="12" cy="12" r="9"/><polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"/></svg>
+              <span>Mục tiêu: Độc quyền lãnh địa & khiến đối thủ phá sản!</span>
+            </div>
+            <button onclick="enterGameFromLobby('monopoly')" class="btn-spring w-full py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+              <span>Chơi Cờ Tỷ Phú Ngay</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
       </div>
+
     </div>
 
   </div>
@@ -2171,31 +2364,31 @@
       <div>
         <h4 class="font-bold text-slate-200 mb-2 uppercase text-[10px] tracking-wider font-cinzel">Bàn Cờ Thi Đấu</h4>
         <ul class="space-y-1.5 text-[11px]">
-          <li><button onclick="switchMainTab('arena'); switchGameView('dice')" class="hover:text-amber-400 transition-colors">🎲 Cờ Xúc Xắc 12 Ô Lớn</button></li>
-          <li><button onclick="switchMainTab('arena'); switchGameView('tictactoe')" class="hover:text-amber-400 transition-colors">⭕❌ Cờ Ca-rô Hoàng Gia</button></li>
-          <li><button onclick="switchMainTab('arena'); switchGameView('chess')" class="hover:text-amber-400 transition-colors font-semibold text-amber-300">♟️ Cờ Vua Hoàng Gia (FIDE 8x8)</button></li>
-              <li><button onclick="switchMainTab('arena'); switchGameView('monopoly')" class="hover:text-emerald-400 transition-colors font-bold text-emerald-400">🏰 Cờ Tỷ Phú Hoàng Gia (2.5D)</button></li>
-          <li><button onclick="switchMainTab('leaderboard')" class="hover:text-amber-400 transition-colors">🏆 Bảng Xếp Hạng Kỳ Thủ</button></li>
+          <li><button onclick="switchMainTab('arena'); switchGameView('dice')" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-400"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5" fill="currentColor"/><circle cx="16" cy="16" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg><span>Cờ Xúc Xắc 12 Ô Lớn</span></button></li>
+          <li><button onclick="switchMainTab('arena'); switchGameView('tictactoe')" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-cyan-400"><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg><span>Cờ Ca-rô Hoàng Gia</span></button></li>
+          <li><button onclick="switchMainTab('arena'); switchGameView('chess')" class="hover:text-amber-400 transition-colors font-semibold text-amber-300 flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-300"><path d="M12 2v4m-2-2h4"/><path d="M6 7l3 2 3-3 3 3 3-2 1 6H5l1-6z"/></svg><span>Cờ Vua Hoàng Gia (FIDE 8x8)</span></button></li>
+              <li><button onclick="switchMainTab('arena'); switchGameView('monopoly')" class="hover:text-emerald-400 transition-colors font-bold text-emerald-400 flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-emerald-400"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 10a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v11H9V10z"/></svg><span>Cờ Tỷ Phú Hoàng Gia (2.5D)</span></button></li>
+          <li><button onclick="switchMainTab('leaderboard')" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-400"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M6 4h12v5a6 6 0 0 1-12 0V4z"/></svg><span>Bảng Xếp Hạng Kỳ Thủ</span></button></li>
         </ul>
       </div>
 
       <div>
         <h4 class="font-bold text-slate-200 mb-2 uppercase text-[10px] tracking-wider font-cinzel">Tài Khoản Kỳ Thủ</h4>
         <ul class="space-y-1.5 text-[11px]">
-          <li><button onclick="openAuthModal('signup')" class="hover:text-amber-400 transition-colors">📝 Đăng Ký Tài Khoản</button></li>
-          <li><button onclick="openAuthModal('signin')" class="hover:text-amber-400 transition-colors">🔐 Đăng Nhập Kỳ Thủ</button></li>
-          <li><button onclick="switchMainTab('vip')" class="hover:text-amber-400 transition-colors">⚡ Đặc Quyền Hội Viên VIP</button></li>
-          <li><button onclick="openModal('profileModal')" class="hover:text-amber-400 transition-colors">👤 Hồ Sơ & Thành Tựu</button></li>
+          <li><button onclick="openAuthModal('signup')" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-slate-300"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg><span>Đăng Ký Tài Khoản</span></button></li>
+          <li><button onclick="openAuthModal('signin')" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-400"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Đăng Nhập Kỳ Thủ</span></button></li>
+          <li><button onclick="switchMainTab('vip')" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-400"><path d="M2 4l3 12h14l3-12-5 6-5-8-5 8-5-6z"/></svg><span>Đặc Quyền Hội Viên VIP</span></button></li>
+          <li><button onclick="openModal('profileModal')" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-slate-300"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Hồ Sơ & Thành Tựu</span></button></li>
         </ul>
       </div>
 
       <div>
         <h4 class="font-bold text-slate-200 mb-2 uppercase text-[10px] tracking-wider font-cinzel">Hỗ Trợ & Điều Khoản</h4>
         <ul class="space-y-1.5 text-[11px]">
-          <li><button onclick="switchMainTab('rules')" class="hover:text-amber-400 transition-colors">📖 Hướng Dẫn & Luật Chơi</button></li>
+          <li><button onclick="switchMainTab('rules')" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-cyan-400"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span>Hướng Dẫn & Luật Chơi</span></button></li>
           <li><button onclick="openModal('versionModal')" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5 font-semibold text-cyan-400/90"><i data-lucide="git-pull-request" class="w-3.5 h-3.5 text-cyan-400"></i><span>Nhật Ký Phiên Bản (Changelog)</span></button></li>
-          <li><a href="#" class="hover:text-amber-400 transition-colors">🛡️ Điều Khoản Dịch Vụ</a></li>
-          <li><a href="#" class="hover:text-amber-400 transition-colors">🔒 Chính Sách Bảo Mật</a></li>
+          <li><a href="#" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-slate-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Điều Khoản Dịch Vụ</span></a></li>
+          <li><a href="#" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-slate-400"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Chính Sách Bảo Mật</span></a></li>
         </ul>
       </div>
     </div>
@@ -4109,8 +4302,14 @@
 
     function toggleSound() {
       isSoundOn = !isSoundOn;
-      document.getElementById('soundIcon').setAttribute('data-lucide', isSoundOn ? 'volume-2' : 'volume-x');
-      lucide.createIcons();
+      const icon = document.getElementById('soundIcon');
+      if (icon) {
+        if (isSoundOn) {
+          icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-slate-300"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
+        } else {
+          icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-rose-400"><line x1="1" y1="1" x2="23" y2="23"/><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 .74 6.07"/></svg>';
+        }
+      }
     }
 
     // Modal Manager
@@ -5471,6 +5670,64 @@
       enterGameFromLobby(chosen);
       showToast(`🎲 Đã ghép ngẫu nhiên vào: ${chosen === 'dice' ? 'Xúc Xắc 12 Ô' : (chosen === 'chess' ? 'Cờ Vua FIDE' : 'Ca-rô Neon')}!`);
     }
+
+    
+    // Scientific Rules Category Filter (/webpro standard)
+    window.filterRulesCategory = function(cat) {
+      const cards = {
+        dice: document.getElementById('ruleCardDice'),
+        caro: document.getElementById('ruleCardCaro'),
+        chess: document.getElementById('ruleCardChess'),
+        monopoly: document.getElementById('ruleCardMonopoly')
+      };
+      const tabs = {
+        all: document.getElementById('ruleTabAll'),
+        dice: document.getElementById('ruleTabDice'),
+        caro: document.getElementById('ruleTabCaro'),
+        chess: document.getElementById('ruleTabChess'),
+        monopoly: document.getElementById('ruleTabMonopoly')
+      };
+      
+      const container = document.getElementById('rulesCardsContainer');
+      if (!container) return;
+
+      if (cat === 'all') {
+        container.className = 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 text-xs';
+        Object.values(cards).forEach(c => {
+          if (c) {
+            c.classList.remove('hidden');
+            c.classList.remove('view-fade-slide');
+            void c.offsetWidth;
+            c.classList.add('view-fade-slide');
+          }
+        });
+      } else {
+        container.className = 'grid grid-cols-1 max-w-2xl mx-auto gap-5 text-xs';
+        for (const k in cards) {
+          if (cards[k]) {
+            if (k === cat) {
+              cards[k].classList.remove('hidden');
+              cards[k].classList.remove('view-fade-slide');
+              void cards[k].offsetWidth;
+              cards[k].classList.add('view-fade-slide');
+            } else {
+              cards[k].classList.add('hidden');
+              cards[k].classList.remove('view-fade-slide');
+            }
+          }
+        }
+      }
+
+      for (const k in tabs) {
+        if (tabs[k]) {
+          if (k === cat) {
+            tabs[k].className = 'btn-spring px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-md flex items-center gap-2 whitespace-nowrap font-bold';
+          } else {
+            tabs[k].className = 'btn-spring px-3.5 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-2 whitespace-nowrap font-semibold transition-all';
+          }
+        }
+      }
+    };
 
     function switchMainTab(tab) {
       window.currentMainTab = tab;

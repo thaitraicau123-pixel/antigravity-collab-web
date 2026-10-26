@@ -213,3 +213,28 @@ esetTTTScores).
      * Card thu nhỏ và hạ xuống `scale(0.95) translateY(8px)` đồng thời mờ dần ra trong 260ms trước khi gán class `.hidden`.
 4. **Bloom Transition Cho Profile Dropdown Menu**:
    - Thay thế việc ẩn hiện đột ngột bằng hiệu ứng dropdown bloom `.dropdown-smooth` (`scale(0.95) -translate-y-2` -> `scale(1) translate-y-0`), bóng đổ mượt mà khi người dùng tương tác với avatar/menu tài khoản.
+
+
+---
+
+## ⚡ PHẦN 14: ĐẠI TU BỐ CỤC KHOA HỌC & BỘ ICON SVG ĐỘC BẢN TOÀN TRANG (/WEBPRO & /THIETKEWEB)
+1. **Khắc Phục Lỗi Cấu Trúc HTML & Tái Thiết Bố Cục Bí Kíp Luật Chơi (mainViewRules)**:
+   - Sửa triệt để lỗi thẻ `</div>` khiến Card Cờ Vua bị nuốt vào bên trong Card Ca-rô.
+   - Nâng cấp chiều rộng container lên `max-w-7xl` chuẩn desktop 2K/4K và tối ưu co giãn hoàn hảo trên tablet, mobile.
+   - Bổ sung thanh điều hướng phân loại bộ môn (Scientific Category Tabs):
+     * `[✨ Toàn Cảnh 4 Bộ Môn]`
+     * `[🎲 1. Đua Ngựa Xúc Xắc (12 Ô)]`
+     * `[⭕❌ 2. Cờ Ca-rô Neon (3x3)]`
+     * `[♟️ 3. Cờ Vua Quốc Tế (FIDE 8x8)]`
+     * `[🏰 4. Cờ Tỷ Phú 2.5D (Isometric)]`
+   - Bố cục 4 thẻ Bento cân bằng hoàn hảo, mỗi thẻ hiển thị chi tiết:
+     * Huy hiệu icon vector SVG độc bản riêng (Xúc xắc 3D, Ca-rô Neon, Vua FIDE, Lâu đài Tỷ Phú).
+     * Phân loại cơ chế điểm thưởng, ô nguy hiểm, ô cơ động bằng các thẻ màu tương phản WCAG 2.1 AAA.
+     * Nút bấm thao tác nhanh đưa người chơi vào bàn đấu ngay lập tức (`enterGameFromLobby('dice'|'tictactoe'|'chess'|'monopoly')`).
+
+2. **Bộ Sưu Tập Icon SVG Độc Bản (Bespoke Vector SVG Icon Suite - Trụ cột 3 /thietkeweb)**:
+   - Loại bỏ 100% các icon Emoji hệ điều hành không đồng nhất và thay thế bằng vector SVG tinh xảo, nét vẽ 2px, bo tròn `round`:
+     * Menu Tabs: Sảnh Game (Grid Bento), Bàn Đấu (Song Kiếm Laser), Xếp Hạng (Cúp Hoàng Gia), VIP (Vương Miện Lục Lăng), Bí Kíp (Cuộn Pháp Điển).
+     * Widget Tài Sản & Người Dùng: Đồng Xu Vàng (Coin), Kim Cương Xanh (Diamond Gem), Loa Âm Thanh (Sound Wave), Nhánh Phiên Bản (Git Branch), Nút Tài Khoản (User Pill).
+     * Header Bảng Phong Thần & Hội Viên VIP: Thay thế emoji 🏆 và ⚡ bằng biểu tượng vector mạ vàng đa giác phát sáng.
+     * Footer Toàn Trang: Đồng bộ toàn bộ 12 liên kết bàn cờ, tài khoản, điều khoản từ icon emoji sang SVG độc bản.

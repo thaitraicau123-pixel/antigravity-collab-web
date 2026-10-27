@@ -4170,19 +4170,23 @@
         </div>
       </div>
 
-      <!-- Navigation Tabs (3 Tabs) -->
-      <div class="flex items-center gap-1.5 p-1 rounded-2xl bg-slate-900/90 border border-slate-800 mb-3 shrink-0">
-        <button onclick="switchProfileTab('overview')" id="pTabBtnOverview" class="flex-1 py-2 px-2.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1.5 bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-[0_0_15px_rgba(245,158,11,0.15)] hover:-translate-y-0.5">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><path d="M3 3v18h18"></path><rect width="4" height="7" x="7" y="10" rx="1"></rect><rect width="4" height="12" x="15" y="5" rx="1"></rect></svg>
-          <span>Tổng Quan</span>
+      <!-- Navigation Tabs (4 Tabs) -->
+      <div class="grid grid-cols-4 gap-1 p-1 rounded-2xl bg-slate-900/90 border border-slate-800 mb-3 shrink-0">
+        <button onclick="switchProfileTab('overview')" id="pTabBtnOverview" class="py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-[0_0_15px_rgba(245,158,11,0.15)] hover:-translate-y-0.5">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><path d="M3 3v18h18"></path><rect width="4" height="7" x="7" y="10" rx="1"></rect><rect width="4" height="12" x="15" y="5" rx="1"></rect></svg>
+          <span class="truncate">Tổng Quan</span>
         </button>
-        <button onclick="switchProfileTab('armory')" id="pTabBtnArmory" class="flex-1 py-2 px-2.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1.5 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent hover:-translate-y-0.5">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"></polyline><line x1="13" y1="19" x2="19" y2="13"></line><line x1="16" y1="16" x2="20" y2="20"></line><line x1="19" y1="21" x2="21" y2="19"></line><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"></polyline><line x1="5" y1="14" x2="9" y2="18"></line><line x1="7" y1="17" x2="4" y2="20"></line><line x1="3" y1="19" x2="5" y2="21"></line></svg>
-          <span>Kho Skin</span>
+        <button onclick="switchProfileTab('ranks')" id="pTabBtnRanks" class="py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent hover:-translate-y-0.5">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <span class="truncate">Bậc Rank</span>
         </button>
-        <button onclick="switchProfileTab('history')" id="pTabBtnHistory" class="flex-1 py-2 px-2.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1.5 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent hover:-translate-y-0.5">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          <span>Lịch Sử</span>
+        <button onclick="switchProfileTab('armory')" id="pTabBtnArmory" class="py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent hover:-translate-y-0.5">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"></polyline><line x1="13" y1="19" x2="19" y2="13"></line><line x1="16" y1="16" x2="20" y2="20"></line><line x1="19" y1="21" x2="21" y2="19"></line><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"></polyline><line x1="5" y1="14" x2="9" y2="18"></line><line x1="7" y1="17" x2="4" y2="20"></line><line x1="3" y1="19" x2="5" y2="21"></line></svg>
+          <span class="truncate">Kho Skin</span>
+        </button>
+        <button onclick="switchProfileTab('history')" id="pTabBtnHistory" class="py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent hover:-translate-y-0.5">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span class="truncate">Lịch Sử</span>
         </button>
       </div>
 
@@ -4267,7 +4271,20 @@
           </div>
         </div>
 
-        <!-- Tab 2: Armory & Skin Vault -->
+        <!-- Tab 2: Rank Tiers & Rewards (7 Bậc Phân Hạng) -->
+        <div id="pTabRanks" class="space-y-2.5 hidden">
+          <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+            <span class="font-bold uppercase tracking-wider text-[10px] text-amber-400 flex items-center gap-1.5">
+              <span>🏆 Lộ Trình 7 Bậc Phân Hạng Hoàng Gia</span>
+            </span>
+            <span class="text-[10px] font-mono text-slate-400" id="profileRankClaimSummary">Đã nhận: 0/7 bậc</span>
+          </div>
+          <div id="profileRankTiersList" class="space-y-2">
+            <!-- Rendered via renderProfileRankRewardsUI() -->
+          </div>
+        </div>
+
+        <!-- Tab 3: Armory & Skin Vault -->
         <div id="pTabArmory" class="space-y-4 hidden">
           <!-- Dice Skins Section -->
           <div>
@@ -4292,7 +4309,7 @@
           </div>
         </div>
 
-        <!-- Tab 3: Match History -->
+        <!-- Tab 4: Match History -->
         <div id="pTabHistory" class="space-y-2.5 hidden">
           <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
             <span class="font-bold uppercase tracking-wider text-[10px]">Nhật Ký Chiến Đấu Gần Nhất</span>
@@ -6027,6 +6044,32 @@
       // Khóa nhận thưởng ván này
       window.matchRewardClaimed = true;
 
+      // Tự động ghi nhận lịch sử đấu thật (Real Match History) cho TẤT CẢ 4 game
+      try {
+        let winnerName = (normOutcome === 'win')
+          ? ((window.currentFirebaseUser && window.currentFirebaseUser.displayName) || 'Kỳ Thủ (Bạn)')
+          : (gameKey === 'chess' ? 'ChessBot FIDE Kiện Tướng' : (gameKey === 'monopoly' ? 'Tỷ Phú BOT' : (gameKey === 'tictactoe' ? 'AI Ca-rô Neon' : 'Cáo Lửa')));
+        
+        let matchScore = 0;
+        if (gameKey === 'dice') {
+          matchScore = (typeof scores !== 'undefined' && scores && scores[1] !== undefined) ? scores[1] : (normOutcome === 'win' ? 50 : 20);
+        } else if (gameKey === 'chess') {
+          let hMoves = 0;
+          try { if (typeof chessGame !== 'undefined' && chessGame && chessGame.history) hMoves = chessGame.history().length; } catch(e) {}
+          matchScore = hMoves > 0 ? Math.ceil(hMoves / 2) : (normOutcome === 'win' ? 35 : 20);
+        } else if (gameKey === 'monopoly') {
+          matchScore = (typeof monoState !== 'undefined' && monoState.round) ? monoState.round : 5;
+        } else if (gameKey === 'tictactoe') {
+          matchScore = normOutcome === 'win' ? 100 : (normOutcome === 'draw' ? 50 : 20);
+        }
+
+        if (typeof recordMatchToProfileHistory === 'function') {
+          recordMatchToProfileHistory(normOutcome === 'win', winnerName, matchScore, gameKey, reasonText || note);
+        }
+      } catch (errRecord) {
+        console.warn('[MatchReward] Ghi nhận lịch sử thất bại:', errRecord);
+      }
+
       if (skipReward || (coins === 0 && gems === 0)) {
         console.log(`[MatchReward] Chưa đủ điều kiện nhận thưởng: ${note}`);
         window.updateMatchRewardModalBadge(gameKey, normOutcome, 0, 0, computedMult);
@@ -6121,6 +6164,67 @@
 
     window.openRewardsModal = function() {
       openModal('rewardsModal');
+    };
+
+    window.updateUserCurrency = function(addCoins = 0, addGems = 0) {
+      if (!window.currentFirebaseUser) {
+        try {
+          const cached = localStorage.getItem('tabletop_firebase_user');
+          if (cached) window.currentFirebaseUser = JSON.parse(cached);
+        } catch(e) {}
+      }
+      if (!window.currentFirebaseUser) {
+        const gCoins = parseInt(localStorage.getItem('tabletop_guest_coins') || '0', 10);
+        const gGems = parseInt(localStorage.getItem('tabletop_guest_gems') || '0', 10);
+        window.currentFirebaseUser = {
+          uid: 'guest_' + (localStorage.getItem('tabletop_guest_id') || Math.random().toString(36).substring(2, 9)),
+          displayName: 'Kỳ Thủ',
+          email: 'guest@tabletop.io',
+          coins: gCoins,
+          gems: gGems,
+          role: 'Tân Thủ',
+          elo: parseInt(localStorage.getItem('tabletop_player_elo')) || 1200,
+          level: 1,
+          status: 'active'
+        };
+      }
+
+      window.currentFirebaseUser.coins = Math.max(0, (parseInt(window.currentFirebaseUser.coins, 10) || 0) + addCoins);
+      window.currentFirebaseUser.gems = Math.max(0, (parseInt(window.currentFirebaseUser.gems, 10) || 0) + addGems);
+
+      try {
+        localStorage.setItem('tabletop_firebase_user', JSON.stringify(window.currentFirebaseUser));
+        localStorage.setItem('tabletop_guest_coins', String(window.currentFirebaseUser.coins));
+        localStorage.setItem('tabletop_guest_gems', String(window.currentFirebaseUser.gems));
+      } catch(e) {}
+
+      const uCoins = document.getElementById('userCoins');
+      const uGems = document.getElementById('userGems');
+      if (uCoins) uCoins.textContent = Number(window.currentFirebaseUser.coins).toLocaleString();
+      if (uGems) uGems.textContent = Number(window.currentFirebaseUser.gems).toLocaleString();
+
+      if (typeof adminPlayersList !== 'undefined' && Array.isArray(adminPlayersList)) {
+        const p = adminPlayersList.find(x => x.uid === window.currentFirebaseUser.uid || (x.email && x.email === window.currentFirebaseUser.email));
+        if (p) {
+          p.coins = window.currentFirebaseUser.coins;
+          p.gems = window.currentFirebaseUser.gems;
+          if (typeof renderAdminPlayersTable === 'function') renderAdminPlayersTable();
+        }
+      }
+      if (typeof updateAdminStatsUI === 'function') {
+        updateAdminStatsUI();
+      }
+
+      try {
+        if (typeof window.saveUserToCloudFirestore === 'function' && window.currentFirebaseUser.uid) {
+          window.saveUserToCloudFirestore(window.currentFirebaseUser);
+        } else if (typeof window.updateCloudFirestoreUserField === 'function' && window.currentFirebaseUser.uid) {
+          window.updateCloudFirestoreUserField(window.currentFirebaseUser.uid, {
+            coins: window.currentFirebaseUser.coins,
+            gems: window.currentFirebaseUser.gems
+          });
+        }
+      } catch(e) {}
     };
 
     // Audio Synthesizer
@@ -6411,93 +6515,183 @@
 
     
     
-    // ================= ADVANCED PLAYER PROFILE & ARMORY SYSTEM =================
+    // ================= ADVANCED PLAYER PROFILE, 7-TIER RANK & ARMORY SYSTEM =================
+    const RANK_TIERS = [
+      {
+        tierKey: 'bronze',
+        tierName: 'Đồng Đoàn',
+        tierBadge: '🥉',
+        minElo: 0,
+        maxElo: 1199,
+        rewardCoins: 200,
+        rewardGems: 10,
+        colorCls: 'text-amber-600',
+        borderCls: 'border-amber-700/50',
+        bgCls: 'bg-amber-950/30',
+        auraCls: 'shadow-[0_0_25px_rgba(180,83,9,0.35)]',
+        gradientBar: 'from-amber-800 to-amber-600',
+        desc: 'Bậc khởi đầu cho mọi tân thủ bước vào đấu trường.'
+      },
+      {
+        tierKey: 'silver',
+        tierName: 'Bạc Đoàn',
+        tierBadge: '🥈',
+        minElo: 1200,
+        maxElo: 1499,
+        rewardCoins: 500,
+        rewardGems: 25,
+        colorCls: 'text-slate-300',
+        borderCls: 'border-slate-400/50',
+        bgCls: 'bg-slate-800/40',
+        auraCls: 'shadow-[0_0_25px_rgba(148,163,184,0.35)]',
+        gradientBar: 'from-slate-400 via-slate-300 to-slate-100',
+        desc: 'Kỳ thủ đã nắm vững các chiến thuật cơ bản.'
+      },
+      {
+        tierKey: 'gold',
+        tierName: 'Vàng Hoàng Kim',
+        tierBadge: '🥇',
+        minElo: 1500,
+        maxElo: 1799,
+        rewardCoins: 1000,
+        rewardGems: 50,
+        colorCls: 'text-amber-400',
+        borderCls: 'border-amber-400/50',
+        bgCls: 'bg-amber-950/40',
+        auraCls: 'shadow-[0_0_30px_rgba(245,158,11,0.45)]',
+        gradientBar: 'from-amber-500 via-amber-400 to-yellow-300',
+        desc: 'Bậc đấu của những kỳ thủ dày dặn kinh nghiệm.'
+      },
+      {
+        tierKey: 'platinum',
+        tierName: 'Bạch Kim Tinh Thể',
+        tierBadge: '🔷',
+        minElo: 1800,
+        maxElo: 2099,
+        rewardCoins: 2000,
+        rewardGems: 100,
+        colorCls: 'text-cyan-300',
+        borderCls: 'border-cyan-400/50',
+        bgCls: 'bg-cyan-950/40',
+        auraCls: 'shadow-[0_0_35px_rgba(6,182,212,0.45)]',
+        gradientBar: 'from-cyan-500 via-cyan-400 to-teal-300',
+        desc: 'Ánh sáng tinh thể phản chiếu sự quyết đoán và nhạy bén.'
+      },
+      {
+        tierKey: 'diamond',
+        tierName: 'Kim Cương Quý Tộc',
+        tierBadge: '💎',
+        minElo: 2100,
+        maxElo: 2399,
+        rewardCoins: 3500,
+        rewardGems: 180,
+        colorCls: 'text-blue-300',
+        borderCls: 'border-blue-400/50',
+        bgCls: 'bg-blue-950/40',
+        auraCls: 'shadow-[0_0_35px_rgba(59,130,246,0.45)]',
+        gradientBar: 'from-blue-500 via-indigo-400 to-cyan-300',
+        desc: 'Đỉnh cao kỹ nghệ bàn cờ với tư duy chiến thuật sắc bén.'
+      },
+      {
+        tierKey: 'master',
+        tierName: 'Cao Thủ Huyền Thoại',
+        tierBadge: '🔮',
+        minElo: 2400,
+        maxElo: 2699,
+        rewardCoins: 5000,
+        rewardGems: 300,
+        colorCls: 'text-purple-300',
+        borderCls: 'border-purple-400/50',
+        bgCls: 'bg-purple-950/40',
+        auraCls: 'shadow-[0_0_40px_rgba(168,85,247,0.55)]',
+        gradientBar: 'from-purple-500 via-fuchsia-400 to-pink-300',
+        desc: 'Huyền thoại sống của đấu trường với tỷ lệ thắng áp đảo.'
+      },
+      {
+        tierKey: 'grandmaster',
+        tierName: 'Đại Kiện Tướng Hoàng Gia',
+        tierBadge: '👑',
+        minElo: 2700,
+        maxElo: 9999,
+        rewardCoins: 10000,
+        rewardGems: 600,
+        colorCls: 'text-rose-300',
+        borderCls: 'border-rose-400/50',
+        bgCls: 'bg-rose-950/40',
+        auraCls: 'shadow-[0_0_45px_rgba(244,63,94,0.6)]',
+        gradientBar: 'from-rose-500 via-amber-400 to-yellow-200',
+        desc: 'Vương miện tối thượng của Đại Kiện Tướng Bàn Cờ Hoàng Gia.'
+      }
+    ];
+    window.RANK_TIERS = RANK_TIERS;
+
     function getPlayerRankInfo(elo) {
       const currentElo = Number(elo) || 1200;
       if (currentElo < 1200) {
-        const min = 0;
-        const max = 1200;
-        const pct = Math.min(100, Math.max(0, Math.round((currentElo / max) * 100)));
+        const tier = RANK_TIERS[0];
+        const pct = Math.min(100, Math.max(0, Math.round((currentElo / 1200) * 100)));
         return {
-          tierKey: 'bronze',
-          tierName: 'Đồng Đoàn',
-          tierBadge: '🥉',
-          colorCls: 'text-amber-700',
-          borderCls: 'border-amber-700/50',
-          bgCls: 'bg-amber-950/30',
-          auraCls: 'shadow-[0_0_25px_rgba(180,83,9,0.35)]',
-          gradientBar: 'from-amber-700 to-amber-600',
+          ...tier,
           nextTier: 'Bạc Đoàn (1,200 ELO)',
           remaining: 1200 - currentElo,
           progressPct: pct
         };
       } else if (currentElo < 1500) {
-        const min = 1200;
-        const max = 1500;
-        const pct = Math.min(100, Math.max(0, Math.round(((currentElo - min) / (max - min)) * 100)));
+        const tier = RANK_TIERS[1];
+        const pct = Math.min(100, Math.max(0, Math.round(((currentElo - 1200) / 300) * 100)));
         return {
-          tierKey: 'silver',
-          tierName: 'Bạc Đoàn',
-          tierBadge: '🥈',
-          colorCls: 'text-slate-300',
-          borderCls: 'border-slate-400/50',
-          bgCls: 'bg-slate-800/40',
-          auraCls: 'shadow-[0_0_25px_rgba(148,163,184,0.35)]',
-          gradientBar: 'from-slate-400 via-slate-300 to-slate-100',
+          ...tier,
           nextTier: 'Vàng Hoàng Kim (1,500 ELO)',
           remaining: 1500 - currentElo,
           progressPct: pct
         };
       } else if (currentElo < 1800) {
-        const min = 1500;
-        const max = 1800;
-        const pct = Math.min(100, Math.max(0, Math.round(((currentElo - min) / (max - min)) * 100)));
+        const tier = RANK_TIERS[2];
+        const pct = Math.min(100, Math.max(0, Math.round(((currentElo - 1500) / 300) * 100)));
         return {
-          tierKey: 'gold',
-          tierName: 'Vàng Hoàng Kim',
-          tierBadge: '🥇',
-          colorCls: 'text-amber-400',
-          borderCls: 'border-amber-400/50',
-          bgCls: 'bg-amber-950/40',
-          auraCls: 'shadow-[0_0_30px_rgba(245,158,11,0.45)]',
-          gradientBar: 'from-amber-500 via-amber-400 to-yellow-300',
+          ...tier,
           nextTier: 'Bạch Kim Tinh Thể (1,800 ELO)',
           remaining: 1800 - currentElo,
           progressPct: pct
         };
       } else if (currentElo < 2100) {
-        const min = 1800;
-        const max = 2100;
-        const pct = Math.min(100, Math.max(0, Math.round(((currentElo - min) / (max - min)) * 100)));
+        const tier = RANK_TIERS[3];
+        const pct = Math.min(100, Math.max(0, Math.round(((currentElo - 1800) / 300) * 100)));
         return {
-          tierKey: 'platinum',
-          tierName: 'Bạch Kim Tinh Thể',
-          tierBadge: '💎',
-          colorCls: 'text-cyan-300',
-          borderCls: 'border-cyan-400/50',
-          bgCls: 'bg-cyan-950/40',
-          auraCls: 'shadow-[0_0_35px_rgba(6,182,212,0.45)]',
-          gradientBar: 'from-cyan-500 via-cyan-400 to-teal-300',
-          nextTier: 'Đại Cao Thủ Thần Thoại (2,100 ELO)',
+          ...tier,
+          nextTier: 'Kim Cương Quý Tộc (2,100 ELO)',
           remaining: 2100 - currentElo,
           progressPct: pct
         };
-      } else {
+      } else if (currentElo < 2400) {
+        const tier = RANK_TIERS[4];
+        const pct = Math.min(100, Math.max(0, Math.round(((currentElo - 2100) / 300) * 100)));
         return {
-          tierKey: 'grandmaster',
-          tierName: 'Đại Cao Thủ Thần Thoại',
-          tierBadge: '👑',
-          colorCls: 'text-purple-300',
-          borderCls: 'border-purple-400/50',
-          bgCls: 'bg-purple-950/40',
-          auraCls: 'shadow-[0_0_40px_rgba(168,85,247,0.55)]',
-          gradientBar: 'from-purple-500 via-pink-400 to-amber-300',
-          nextTier: 'Bậc Tối Cao Hoàng Kim (Top Tier)',
+          ...tier,
+          nextTier: 'Cao Thủ Huyền Thoại (2,400 ELO)',
+          remaining: 2400 - currentElo,
+          progressPct: pct
+        };
+      } else if (currentElo < 2700) {
+        const tier = RANK_TIERS[5];
+        const pct = Math.min(100, Math.max(0, Math.round(((currentElo - 2400) / 300) * 100)));
+        return {
+          ...tier,
+          nextTier: 'Đại Kiện Tướng Hoàng Gia (2,700 ELO)',
+          remaining: 2700 - currentElo,
+          progressPct: pct
+        };
+      } else {
+        const tier = RANK_TIERS[6];
+        return {
+          ...tier,
+          nextTier: 'Bậc Tối Cao Hoàng Gia (Top Tier)',
           remaining: 0,
           progressPct: 100
         };
       }
     }
+    window.getPlayerRankInfo = getPlayerRankInfo;
 
     function getProfileMatchHistory() {
       try {
@@ -6508,7 +6702,7 @@
         {
           id: 'm_init_1',
           result: 'win',
-          mode: 'Đấu Trường Cờ Bàn (4 Kỳ Thủ)',
+          mode: 'Xúc Xắc 20 Ô Hoàng Kim',
           opponents: 'Cáo Lửa, Sói Băng, Gấu Trúc',
           score: '55đ • Cán Đích #1',
           eloChange: '+25 ELO',
@@ -6517,17 +6711,17 @@
         {
           id: 'm_init_2',
           result: 'win',
-          mode: 'Đấu Trường Cờ Bàn (4 Kỳ Thủ)',
-          opponents: 'Cáo Lửa, Sói Băng, Gấu Trúc',
-          score: '50đ • Cán Đích #1',
-          eloChange: '+20 ELO',
+          mode: 'Cờ Tỷ Phú Hoàng Gia',
+          opponents: 'Tỷ Phú BOT, Doanh Nhân BOT',
+          score: '12 vòng • Thắng áp đảo',
+          eloChange: '+25 ELO',
           timeAgo: '1 giờ trước'
         },
         {
           id: 'm_init_3',
           result: 'loss',
-          mode: 'Đại Chiến Cờ Vua Hoàng Gia',
-          opponents: 'ChessBot Kiện Tướng',
+          mode: 'Đại Chiến Cờ Vua FIDE',
+          opponents: 'ChessBot FIDE Kiện Tướng',
           score: 'Chiếu bí lượt 38',
           eloChange: '-15 ELO',
           timeAgo: '3 giờ trước'
@@ -6535,56 +6729,120 @@
         {
           id: 'm_init_4',
           result: 'win',
-          mode: 'Đấu Trường Cờ Ca-rô 5 Nước',
-          opponents: 'Cao Thủ Cờ Ca-rô',
-          score: '5 quân liên tiếp',
-          eloChange: '+18 ELO',
+          mode: 'Đấu Trường Ca-rô Neon',
+          opponents: 'AI Ca-rô Bất Bại',
+          score: '100đ • 5 quân liên tiếp',
+          eloChange: '+20 ELO',
           timeAgo: 'Hôm qua'
         }
       ];
     }
 
-    function recordMatchToProfileHistory(isWin, winnerName, finalScore) {
+    function recordMatchToProfileHistory(isWin, winnerName = '', finalScore = 0, gameKey = '', reasonText = '') {
       try {
+        // Debounce deduplication (< 1200ms)
+        const now = Date.now();
+        if (window._lastMatchRecordedTime && (now - window._lastMatchRecordedTime < 1200)) {
+          console.log('[MatchHistory] Skip duplicate record within 1.2s');
+          return;
+        }
+        window._lastMatchRecordedTime = now;
+
         const history = getProfileMatchHistory();
-        const modeName = (typeof activeTab !== 'undefined' && activeTab === 'chess') ? 'Đại Chiến Cờ Vua' : 
-                         (typeof activeTab !== 'undefined' && activeTab === 'caro') ? 'Đấu Trường Cờ Ca-rô' : 'Đấu Trường Cờ Bàn (4 Kỳ Thủ)';
-        const opponents = (typeof activeTab !== 'undefined' && activeTab === 'dice') ? 'Cáo Lửa, Sói Băng, Gấu Trúc' : 
-                          (typeof activeTab !== 'undefined' && activeTab === 'chess') ? 'ChessBot Hoàng Gia' : 'Đối Thủ Bot';
+        const activeKey = gameKey || (typeof activeTab !== 'undefined' ? activeTab : 'dice');
         
-        const eloChange = isWin ? '+25 ELO' : '-15 ELO';
+        let modeName = 'Xúc Xắc 20 Ô Hoàng Kim';
+        let opponents = 'Cáo Lửa, Sói Băng, Gấu Trúc';
+
+        if (activeKey === 'monopoly') {
+          modeName = 'Cờ Tỷ Phú Hoàng Gia';
+          const isOnlineMono = Boolean((typeof window.isOnlineRoomMatch !== 'undefined' && window.isOnlineRoomMatch) || 
+                                       (typeof monoState !== 'undefined' && monoState.mode === 'online'));
+          opponents = isOnlineMono ? 'Người chơi Online' : 'Tỷ Phú BOT, Doanh Nhân BOT';
+        } else if (activeKey === 'chess') {
+          modeName = 'Đại Chiến Cờ Vua FIDE';
+          opponents = 'ChessBot FIDE Kiện Tướng';
+        } else if (activeKey === 'tictactoe' || activeKey === 'caro') {
+          modeName = 'Đấu Trường Ca-rô Neon';
+          opponents = 'AI Ca-rô Bất Bại';
+        } else if (activeKey === 'dice') {
+          modeName = 'Xúc Xắc 20 Ô Hoàng Kim';
+          const isOnline = Boolean((typeof window.isOnlineRoomMatch !== 'undefined' && window.isOnlineRoomMatch) || 
+                                   (typeof currentOpponent !== 'undefined' && currentOpponent === 'online'));
+          opponents = isOnline ? 'Kỳ thủ Phòng Đấu' : 'Cáo Lửa, Sói Băng, Gấu Trúc';
+        }
+
+        const normWin = Boolean(isWin === true || isWin === 'win');
+        const isDraw = Boolean(isWin === 'draw' || (typeof reasonText === 'string' && reasonText.toLowerCase().includes('hòa')));
+        
+        let eloChangeVal = normWin ? 25 : (isDraw ? 5 : -15);
+        let eloChangeStr = normWin ? '+25 ELO' : (isDraw ? '+5 ELO' : '-15 ELO');
+
+        let displayScore = '';
+        if (reasonText) {
+          displayScore = `${finalScore ? finalScore + 'đ • ' : ''}${reasonText}`;
+        } else if (activeKey === 'monopoly') {
+          displayScore = `${finalScore ? finalScore + ' vòng • ' : ''}${normWin ? 'Thắng tài sản' : 'Phá sản / Hoàn tất'}`;
+        } else if (activeKey === 'chess') {
+          displayScore = `${finalScore ? finalScore + ' nước • ' : ''}${normWin ? 'Chiếu bí đối thủ' : (isDraw ? 'Hòa cờ' : 'Thất thủ')}`;
+        } else if (activeKey === 'tictactoe' || activeKey === 'caro') {
+          displayScore = `${finalScore}đ ${normWin ? '• 5 quân liên tiếp' : (isDraw ? '• Hòa cờ' : '• Thua điểm')}`;
+        } else {
+          displayScore = `${finalScore}đ ${normWin ? '• Cán Đích #1' : '• Hoàn thành chặng đua'}`;
+        }
+
         const newRecord = {
           id: 'm_' + Date.now(),
-          result: isWin ? 'win' : 'loss',
+          result: normWin ? 'win' : (isDraw ? 'draw' : 'loss'),
           mode: modeName,
           opponents: opponents,
-          score: `${finalScore}đ ${isWin ? '• Cán Đích #1' : '• Thua điểm'}`,
-          eloChange: eloChange,
-          timeAgo: 'Vừa xong'
+          score: displayScore,
+          eloChange: eloChangeStr,
+          timeAgo: 'Vừa xong',
+          timestamp: Date.now()
         };
         history.unshift(newRecord);
-        if (history.length > 20) history.pop();
+        if (history.length > 25) history.pop();
         localStorage.setItem('tabletop_match_history', JSON.stringify(history));
 
         // Cập nhật ELO & Win Streak
         let curElo = parseInt(localStorage.getItem('tabletop_player_elo')) || 1350;
-        if (isWin) {
-          curElo += 25;
-          let streak = (parseInt(localStorage.getItem('tabletop_cur_streak')) || 0) + 1;
-          localStorage.setItem('tabletop_cur_streak', streak);
-          let bestStreak = parseInt(localStorage.getItem('tabletop_best_streak')) || 5;
-          if (streak > bestStreak) {
-            localStorage.setItem('tabletop_best_streak', streak);
-          }
-        } else {
-          curElo = Math.max(800, curElo - 15);
-          localStorage.setItem('tabletop_cur_streak', 0);
-        }
+        curElo = Math.max(600, curElo + eloChangeVal);
         localStorage.setItem('tabletop_player_elo', curElo);
+
+        let streak = parseInt(localStorage.getItem('tabletop_cur_streak')) || 0;
+        let bestStreak = parseInt(localStorage.getItem('tabletop_best_streak')) || 5;
+        if (normWin) {
+          streak += 1;
+          if (streak > bestStreak) {
+            bestStreak = streak;
+            localStorage.setItem('tabletop_best_streak', bestStreak);
+          }
+        } else if (!isDraw) {
+          streak = 0;
+        }
+        localStorage.setItem('tabletop_cur_streak', streak);
+
+        // Cập nhật Tổng số trận & Số trận thắng
+        let totalM = parseInt(localStorage.getItem('tabletop_total_matches')) || 0;
+        let totalW = parseInt(localStorage.getItem('tabletop_total_wins')) || 0;
+        totalM += 1;
+        if (normWin) totalW += 1;
+        localStorage.setItem('tabletop_total_matches', totalM);
+        localStorage.setItem('tabletop_total_wins', totalW);
+
         if (window.currentFirebaseUser) {
           window.currentFirebaseUser.elo = curElo;
           localStorage.setItem('tabletop_firebase_user', JSON.stringify(window.currentFirebaseUser));
+          try {
+            if (typeof window.saveUserToCloudFirestore === 'function' && window.currentFirebaseUser.uid) {
+              window.saveUserToCloudFirestore(window.currentFirebaseUser);
+            } else if (typeof window.updateCloudFirestoreUserField === 'function' && window.currentFirebaseUser.uid) {
+              window.updateCloudFirestoreUserField(window.currentFirebaseUser.uid, { elo: curElo });
+            }
+          } catch(e) {}
         }
+
         if (typeof window.updateProfileModalUI === 'function') {
           window.updateProfileModalUI();
         }
@@ -6623,27 +6881,181 @@
     }
 
     window.switchProfileTab = function(tabName) {
-      const tabs = ['overview', 'armory', 'history'];
+      const tabs = ['overview', 'ranks', 'armory', 'history'];
       tabs.forEach(t => {
         const btn = document.getElementById('pTabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
         const content = document.getElementById('pTab' + t.charAt(0).toUpperCase() + t.slice(1));
         if (t === tabName) {
           if (btn) {
-            btn.className = "flex-1 py-2 px-2.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1.5 bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-[0_0_15px_rgba(245,158,11,0.15)] hover:-translate-y-0.5";
+            btn.className = "py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-[0_0_15px_rgba(245,158,11,0.15)] hover:-translate-y-0.5";
           }
           if (content) {
             content.classList.remove('hidden');
           }
         } else {
           if (btn) {
-            btn.className = "flex-1 py-2 px-2.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1.5 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent hover:-translate-y-0.5";
+            btn.className = "py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent hover:-translate-y-0.5";
           }
           if (content) {
             content.classList.add('hidden');
           }
         }
       });
+      if (tabName === 'ranks') {
+        renderProfileRankRewardsUI();
+      }
       soundTone(550, 'sine', 0.05, 0.08);
+    };
+
+    window.claimRankReward = function(tierKey) {
+      if (!window.RANK_TIERS) return;
+      const tier = window.RANK_TIERS.find(t => t.tierKey === tierKey);
+      if (!tier) return;
+
+      const elo = (window.currentFirebaseUser && window.currentFirebaseUser.elo) || parseInt(localStorage.getItem('tabletop_player_elo')) || 1350;
+      if (elo < tier.minElo) {
+        showToast(`⚠️ Bạn cần đạt tối thiểu ${tier.minElo.toLocaleString()} ELO để nhận phần thưởng bậc [${tier.tierName}]!`);
+        soundTone(300, 'sawtooth', 0.15, 0.1);
+        return;
+      }
+
+      let claimed = [];
+      try {
+        const raw = localStorage.getItem('tabletop_claimed_rank_rewards');
+        if (raw) claimed = JSON.parse(raw);
+      } catch (e) {}
+      if (!Array.isArray(claimed)) claimed = [];
+
+      if (claimed.includes(tierKey)) {
+        showToast(`ℹ️ Bạn đã nhận phần thưởng cho bậc [${tier.tierName}] rồi!`);
+        return;
+      }
+
+      // Đánh dấu đã nhận
+      claimed.push(tierKey);
+      localStorage.setItem('tabletop_claimed_rank_rewards', JSON.stringify(claimed));
+
+      // Cộng Xu và Kim Cương vào ví người chơi
+      if (typeof window.updateUserCurrency === 'function') {
+        window.updateUserCurrency(tier.rewardCoins, tier.rewardGems);
+      } else {
+        if (!window.currentFirebaseUser) {
+          try {
+            const cached = localStorage.getItem('tabletop_firebase_user');
+            if (cached) window.currentFirebaseUser = JSON.parse(cached);
+          } catch(e) {}
+        }
+        if (!window.currentFirebaseUser) {
+          window.currentFirebaseUser = {
+            uid: 'guest_' + (localStorage.getItem('tabletop_guest_id') || Math.random().toString(36).substring(2, 9)),
+            displayName: 'Kỳ Thủ',
+            coins: 0,
+            gems: 0,
+            elo: elo
+          };
+        }
+        window.currentFirebaseUser.coins = (parseInt(window.currentFirebaseUser.coins, 10) || 0) + tier.rewardCoins;
+        window.currentFirebaseUser.gems = (parseInt(window.currentFirebaseUser.gems, 10) || 0) + tier.rewardGems;
+        localStorage.setItem('tabletop_firebase_user', JSON.stringify(window.currentFirebaseUser));
+        localStorage.setItem('tabletop_guest_coins', String(window.currentFirebaseUser.coins));
+        localStorage.setItem('tabletop_guest_gems', String(window.currentFirebaseUser.gems));
+        const uCoins = document.getElementById('userCoins');
+        const uGems = document.getElementById('userGems');
+        if (uCoins) uCoins.textContent = Number(window.currentFirebaseUser.coins).toLocaleString();
+        if (uGems) uGems.textContent = Number(window.currentFirebaseUser.gems).toLocaleString();
+      }
+
+      // Audio & Toast chúc mừng
+      soundTone(784, 'triangle', 0.2, 0.15);
+      setTimeout(() => soundTone(1046, 'triangle', 0.35, 0.2), 120);
+      showToast(`🎉 CHÚC MỪNG! Đã nhận quà Thăng Hạng [${tier.tierName}]: +${tier.rewardCoins.toLocaleString()} 🪙 & +${tier.rewardGems} 💎!`, 3500);
+
+      // Re-render UI
+      window.renderProfileRankRewardsUI();
+      if (typeof window.updateProfileModalUI === 'function') {
+        window.updateProfileModalUI();
+      }
+    };
+
+    window.renderProfileRankRewardsUI = function() {
+      const container = document.getElementById('profileRankTiersList');
+      if (!container || !window.RANK_TIERS) return;
+
+      const elo = (window.currentFirebaseUser && window.currentFirebaseUser.elo) || parseInt(localStorage.getItem('tabletop_player_elo')) || 1350;
+      let claimed = [];
+      try {
+        const raw = localStorage.getItem('tabletop_claimed_rank_rewards');
+        if (raw) claimed = JSON.parse(raw);
+      } catch (e) {}
+      if (!Array.isArray(claimed)) claimed = [];
+
+      const summary = document.getElementById('profileRankClaimSummary');
+      if (summary) {
+        summary.textContent = `Đã nhận: ${claimed.length}/7 bậc`;
+      }
+
+      container.innerHTML = window.RANK_TIERS.map(tier => {
+        const isReached = (elo >= tier.minElo);
+        const isCurrent = (elo >= tier.minElo && (elo <= tier.maxElo || tier.tierKey === 'grandmaster'));
+        const isClaimed = claimed.includes(tier.tierKey);
+
+        let actionBtnHtml = '';
+        if (isClaimed) {
+          actionBtnHtml = `
+            <span class="px-3 py-1.5 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold flex items-center gap-1.5 shadow-sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Đã Nhận</span>
+            </span>
+          `;
+        } else if (isReached) {
+          actionBtnHtml = `
+            <button onclick="claimRankReward('${tier.tierKey}')" class="btn-spring px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-[11px] shadow-[0_0_15px_rgba(245,158,11,0.4)] flex items-center gap-1.5 transition-all animate-pulse hover:-translate-y-0.5 cursor-pointer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect width="20" height="5" x="2" y="7"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+              <span>Nhận Thưởng</span>
+            </button>
+          `;
+        } else {
+          actionBtnHtml = `
+            <span class="px-3 py-1.5 rounded-xl bg-slate-950/70 text-slate-500 border border-slate-800 text-[11px] font-semibold flex items-center gap-1.5 cursor-not-allowed">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <span>Cần ${tier.minElo.toLocaleString()} ELO</span>
+            </span>
+          `;
+        }
+
+        return `
+          <div class="p-3 rounded-2xl ${isCurrent ? 'border-amber-500/60 shadow-[0_0_20px_rgba(245,158,11,0.2)] bg-gradient-to-r from-amber-500/10 via-slate-900/90 to-slate-950' : (isReached ? 'border-slate-700/80 bg-slate-900/80' : 'border-slate-800/60 bg-slate-950/40 opacity-75')} border transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:-translate-y-0.5">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-11 h-11 rounded-xl flex items-center justify-center text-xl shrink-0 ${tier.bgCls} border ${tier.borderCls} ${tier.auraCls}">
+                ${tier.tierBadge}
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="text-xs font-bold font-cinzel ${tier.colorCls}">${tier.tierName}</span>
+                  ${isCurrent ? '<span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Đang Ở Bậc Này</span>' : ''}
+                  ${!isReached ? '<span class="px-1.5 py-0.2 rounded text-[9px] font-medium bg-slate-800 text-slate-400">Chưa Đạt</span>' : ''}
+                </div>
+                <div class="text-[10px] text-slate-400 font-mono mt-0.5">
+                  Mốc: <b class="text-slate-200">${tier.minElo.toLocaleString()} ${tier.maxElo < 9999 ? '- ' + tier.maxElo.toLocaleString() : '+'}</b> ELO
+                </div>
+                <div class="text-[10px] text-slate-400 mt-0.5 line-clamp-1">${tier.desc}</div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between sm:justify-end gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-800/60">
+              <div class="text-right">
+                <div class="text-[9px] uppercase tracking-wider text-slate-400 font-semibold">Gói Quà Bậc</div>
+                <div class="flex items-center gap-1.5 mt-0.5 font-mono text-xs font-bold">
+                  <span class="text-amber-300">+${tier.rewardCoins.toLocaleString()} 🪙</span>
+                  <span class="text-cyan-300">+${tier.rewardGems} 💎</span>
+                </div>
+              </div>
+              <div>
+                ${actionBtnHtml}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
     };
 
     window.setProfileDiceSkin = function(skinId) {
@@ -6828,9 +7240,18 @@
       const uid = (u && u.uid) || 'fb_live_89234';
       const elo = (u && u.elo) || parseInt(localStorage.getItem('tabletop_player_elo')) || 1350;
 
-      // Stats
-      const totalMatches = (typeof botWinStats !== 'undefined' && typeof botWinStats.totalMatches === 'number' && botWinStats.totalMatches > 0) ? botWinStats.totalMatches : 14;
-      const winsCount = (typeof botWinStats !== 'undefined' && botWinStats.wins && typeof botWinStats.wins[1] === 'number' && botWinStats.wins[1] > 0) ? botWinStats.wins[1] : 9;
+      // Stats (Real Match Data)
+      let savedMatches = parseInt(localStorage.getItem('tabletop_total_matches'));
+      let savedWins = parseInt(localStorage.getItem('tabletop_total_wins'));
+      if (isNaN(savedMatches) || savedMatches === 0) {
+        const hist = getProfileMatchHistory();
+        if (hist && hist.length > 0) {
+          savedMatches = hist.length;
+          savedWins = hist.filter(h => h.result === 'win').length;
+        }
+      }
+      const totalMatches = (!isNaN(savedMatches) && savedMatches > 0) ? savedMatches : ((typeof botWinStats !== 'undefined' && botWinStats.totalMatches > 0) ? botWinStats.totalMatches : 14);
+      const winsCount = (!isNaN(savedWins) && savedWins >= 0) ? savedWins : ((typeof botWinStats !== 'undefined' && botWinStats.wins && botWinStats.wins[1] > 0) ? botWinStats.wins[1] : 9);
       const lossesCount = Math.max(0, totalMatches - winsCount);
       const winRatePct = totalMatches > 0 ? Math.round((winsCount / totalMatches) * 100) : 64;
 
@@ -6911,10 +7332,15 @@
       const elIce = document.getElementById('profileIceBreaks');
       if (elIce) elIce.textContent = typeof iceBreaks === 'string' && iceBreaks.includes('lần') ? iceBreaks : `${iceBreaks} lần`;
 
-      // Render Tab 2 Skins
+      // Render Tab 2 Rank Rewards (7 Bậc Phân Hạng)
+      if (typeof renderProfileRankRewardsUI === 'function') {
+        renderProfileRankRewardsUI();
+      }
+
+      // Render Tab 3 Skins
       renderProfileSkinsUI();
 
-      // Render Tab 3 Match History
+      // Render Tab 4 Match History
       renderProfileMatchHistoryUI();
     };
 
@@ -19059,7 +19485,42 @@ function renderCashStackHTML(amount) {
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             <!-- Game 1: Dice -->
             <button type="button" onclick="selectMpGame('dice')" id="mpGameCard_dice" class="mp-game-card group p-3 rounded-2xl bg-slate-900/90 border-2 border-cyan-400 text-left transition-all hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-500/20 relative cursor-pointer">
-              <div class="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-lg mb-2">🎲</div>
+              <div class="w-10 h-10 rounded-2xl bg-amber-500/15 border border-amber-500/40 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner mb-2.5">
+                <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="mpDiceTop" x1="5" y1="5" x2="27" y2="17" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#FEF08A"/>
+                      <stop offset="50%" stop-color="#FBBF24"/>
+                      <stop offset="100%" stop-color="#F59E0B"/>
+                    </linearGradient>
+                    <linearGradient id="mpDiceLeft" x1="5" y1="11" x2="16" y2="28" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#F59E0B"/>
+                      <stop offset="100%" stop-color="#B45309"/>
+                    </linearGradient>
+                    <linearGradient id="mpDiceRight" x1="16" y1="17" x2="27" y2="28" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#D97706"/>
+                      <stop offset="100%" stop-color="#78350F"/>
+                    </linearGradient>
+                    <filter id="mpDiceGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#F59E0B" flood-opacity="0.4"/>
+                    </filter>
+                  </defs>
+                  <g filter="url(#mpDiceGlow)">
+                    <polygon points="16,4 27,10 16,16 5,10" fill="url(#mpDiceTop)" stroke="#FEF08A" stroke-width="0.5" stroke-linejoin="round"/>
+                    <polygon points="5,10 16,16 16,27 5,21" fill="url(#mpDiceLeft)" stroke="#FBBF24" stroke-width="0.5" stroke-linejoin="round"/>
+                    <polygon points="16,16 27,10 27,21 16,27" fill="url(#mpDiceRight)" stroke="#D97706" stroke-width="0.5" stroke-linejoin="round"/>
+                    <path d="M5 10L16 16L27 10" stroke="#FFFBEB" stroke-width="0.75" stroke-linecap="round" opacity="0.8"/>
+                    <line x1="16" y1="16" x2="16" y2="27" stroke="#FEF08A" stroke-width="0.75" stroke-linecap="round" opacity="0.6"/>
+                    <ellipse cx="16" cy="10" rx="1.8" ry="1.1" fill="#78350F" stroke="#FEF08A" stroke-width="0.4"/>
+                    <circle cx="8.5" cy="14" r="1.1" fill="#FEF3C7" stroke="#92400E" stroke-width="0.3"/>
+                    <circle cx="10.5" cy="18.5" r="1.1" fill="#FEF3C7" stroke="#92400E" stroke-width="0.3"/>
+                    <circle cx="12.5" cy="23" r="1.1" fill="#FEF3C7" stroke="#92400E" stroke-width="0.3"/>
+                    <circle cx="19.5" cy="22" r="1.1" fill="#FEF3C7" stroke="#78350F" stroke-width="0.3"/>
+                    <circle cx="23.5" cy="15" r="1.1" fill="#FEF3C7" stroke="#78350F" stroke-width="0.3"/>
+                    <path d="M26 6L26.8 8.2L29 9L26.8 9.8L26 12L25.2 9.8L23 9L25.2 8.2Z" fill="#FFFBEB" opacity="0.9"/>
+                  </g>
+                </svg>
+              </div>
               <div class="text-xs font-bold text-white group-hover:text-amber-300">Xúc Xắc 20 Ô</div>
               <div class="text-[10px] text-slate-400 font-mono">2-4 Người</div>
               <div class="mp-check-badge absolute top-2 right-2 text-cyan-400 font-bold text-xs">✓</div>
@@ -19067,7 +19528,41 @@ function renderCashStackHTML(amount) {
 
             <!-- Game 2: Chess -->
             <button type="button" onclick="selectMpGame('chess')" id="mpGameCard_chess" class="mp-game-card group p-3 rounded-2xl bg-slate-900/60 border border-slate-800 text-left transition-all hover:border-cyan-500/50 relative cursor-pointer">
-              <div class="w-9 h-9 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400 text-lg mb-2">♟️</div>
+              <div class="w-10 h-10 rounded-2xl bg-indigo-500/15 border border-indigo-500/40 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner mb-2.5">
+                <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="mpKnightBody" x1="8" y1="8" x2="24" y2="28" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#A5B4FC"/>
+                      <stop offset="35%" stop-color="#6366F1"/>
+                      <stop offset="80%" stop-color="#4338CA"/>
+                      <stop offset="100%" stop-color="#312E81"/>
+                    </linearGradient>
+                    <linearGradient id="mpCrownGold" x1="12" y1="3" x2="20" y2="9" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#FEF08A"/>
+                      <stop offset="50%" stop-color="#F59E0B"/>
+                      <stop offset="100%" stop-color="#B45309"/>
+                    </linearGradient>
+                    <filter id="mpChessGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#6366F1" flood-opacity="0.45"/>
+                    </filter>
+                  </defs>
+                  <g filter="url(#mpChessGlow)">
+                    <path d="M6 27C6 25.5 9 24.8 16 24.8C23 24.8 26 25.5 26 27C26 28.5 23 29 16 29C9 29 6 28.5 6 27Z" fill="#3730A3" stroke="#818CF8" stroke-width="0.75"/>
+                    <path d="M8 25C8 24 10.5 23.2 16 23.2C21.5 23.2 24 24 24 25" stroke="#A5B4FC" stroke-width="0.6" stroke-linecap="round"/>
+                    <path d="M9 24.5C9.5 22 10.5 20 12 18.5C10.5 17.5 9.5 15.5 9.5 14C9.5 13 10.2 12 11.5 11.2C10.8 9.5 11.2 7.8 12.8 7.2C14 6.8 15.2 7.2 16 8C17.5 7 19.8 7.5 21 9C22.2 10.5 22.5 12.8 22 15C21.6 17 22.2 19.5 23 24.5H9Z" fill="url(#mpKnightBody)" stroke="#818CF8" stroke-width="0.75" stroke-linejoin="round"/>
+                    <path d="M19.5 10C21 12 21.2 14.5 20.8 17.5" stroke="#C7D2FE" stroke-width="0.75" stroke-linecap="round"/>
+                    <path d="M18 12.5C19 14.5 19.2 17 18.8 19.5" stroke="#C7D2FE" stroke-width="0.6" stroke-linecap="round" opacity="0.8"/>
+                    <ellipse cx="11" cy="13.5" rx="0.7" ry="1" fill="#312E81"/>
+                    <circle cx="14" cy="11.5" r="1.1" fill="#38BDF8"/>
+                    <circle cx="13.7" cy="11.2" r="0.4" fill="#FFFFFF"/>
+                    <path d="M12.5 7L13.5 3.5L16 5.5L18.5 3.5L19.5 7Z" fill="url(#mpCrownGold)" stroke="#FEF08A" stroke-width="0.5" stroke-linejoin="round"/>
+                    <circle cx="13.5" cy="3.5" r="0.6" fill="#EF4444"/>
+                    <circle cx="16" cy="5.2" r="0.7" fill="#38BDF8"/>
+                    <circle cx="18.5" cy="3.5" r="0.6" fill="#EF4444"/>
+                    <path d="M11 21C13.5 22.5 18.5 22.5 21 21" stroke="#FBBF24" stroke-width="0.8" stroke-linecap="round"/>
+                  </g>
+                </svg>
+              </div>
               <div class="text-xs font-bold text-white group-hover:text-indigo-300">Cờ Vua FIDE</div>
               <div class="text-[10px] text-slate-400 font-mono">2 Người</div>
               <div class="mp-check-badge hidden absolute top-2 right-2 text-cyan-400 font-bold text-xs">✓</div>
@@ -19075,7 +19570,39 @@ function renderCashStackHTML(amount) {
 
             <!-- Game 3: Tic Tac Toe / Caro -->
             <button type="button" onclick="selectMpGame('tictactoe')" id="mpGameCard_tictactoe" class="mp-game-card group p-3 rounded-2xl bg-slate-900/60 border border-slate-800 text-left transition-all hover:border-cyan-500/50 relative cursor-pointer">
-              <div class="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 text-lg mb-2">⭕❌</div>
+              <div class="w-10 h-10 rounded-2xl bg-cyan-500/15 border border-cyan-500/40 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner mb-2.5">
+                <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <filter id="mpNeonCyanGlow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                      <feMerge>
+                        <feMergeNode in="blur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                    <filter id="mpNeonRoseGlow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                      <feMerge>
+                        <feMergeNode in="blur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <path d="M11 4V28M21 4V28M4 11H28M4 21H28" stroke="#0891B2" stroke-width="0.5" stroke-dasharray="1.5 1.5" opacity="0.3"/>
+                  <g filter="url(#mpNeonCyanGlow)">
+                    <circle cx="12" cy="12" r="5.5" stroke="#06B6D4" stroke-width="2.5" opacity="0.5"/>
+                    <circle cx="12" cy="12" r="5.5" stroke="#E0F2FE" stroke-width="1.2"/>
+                    <circle cx="12" cy="12" r="3" stroke="#22D3EE" stroke-width="0.5" stroke-dasharray="2 1.5"/>
+                  </g>
+                  <g filter="url(#mpNeonRoseGlow)">
+                    <path d="M16 16L26 26M26 16L16 26" stroke="#F43F5E" stroke-width="2.8" stroke-linecap="round" opacity="0.5"/>
+                    <path d="M16 16L26 26M26 16L16 26" stroke="#FFE4E6" stroke-width="1.3" stroke-linecap="round"/>
+                    <circle cx="21" cy="21" r="0.9" fill="#FFFFFF"/>
+                  </g>
+                  <circle cx="27" cy="8" r="0.75" fill="#38BDF8" opacity="0.8"/>
+                  <circle cx="6" cy="24" r="0.75" fill="#FB7185" opacity="0.8"/>
+                </svg>
+              </div>
               <div class="text-xs font-bold text-white group-hover:text-cyan-300">Ca-rô Neon</div>
               <div class="text-[10px] text-slate-400 font-mono">2 Người</div>
               <div class="mp-check-badge hidden absolute top-2 right-2 text-cyan-400 font-bold text-xs">✓</div>
@@ -19083,7 +19610,50 @@ function renderCashStackHTML(amount) {
 
             <!-- Game 4: Monopoly -->
             <button type="button" onclick="selectMpGame('monopoly')" id="mpGameCard_monopoly" class="mp-game-card group p-3 rounded-2xl bg-slate-900/60 border border-slate-800 text-left transition-all hover:border-cyan-500/50 relative cursor-pointer">
-              <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-lg mb-2">🏰</div>
+              <div class="w-10 h-10 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner mb-2.5">
+                <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="mpEmeLeft" x1="6" y1="8" x2="16" y2="28" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#34D399"/>
+                      <stop offset="40%" stop-color="#059669"/>
+                      <stop offset="100%" stop-color="#047857"/>
+                    </linearGradient>
+                    <linearGradient id="mpEmeRight" x1="16" y1="8" x2="26" y2="28" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#059669"/>
+                      <stop offset="50%" stop-color="#047857"/>
+                      <stop offset="100%" stop-color="#064E3B"/>
+                    </linearGradient>
+                    <linearGradient id="mpGoldSpire" x1="14" y1="2" x2="18" y2="10" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#FEF08A"/>
+                      <stop offset="50%" stop-color="#F59E0B"/>
+                      <stop offset="100%" stop-color="#B45309"/>
+                    </linearGradient>
+                    <filter id="mpMonopolyGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#10B981" flood-opacity="0.45"/>
+                    </filter>
+                  </defs>
+                  <g filter="url(#mpMonopolyGlow)">
+                    <polygon points="16,25 27,21 16,17 5,21" fill="#064E3B" stroke="#059669" stroke-width="0.5"/>
+                    <polygon points="11,10 16,13 16,27 11,24" fill="url(#mpEmeLeft)" stroke="#34D399" stroke-width="0.5" stroke-linejoin="round"/>
+                    <polygon points="16,13 21,10 21,24 16,27" fill="url(#mpEmeRight)" stroke="#10B981" stroke-width="0.5" stroke-linejoin="round"/>
+                    <polygon points="6,15 11,18 11,24 6,21" fill="#047857" stroke="#10B981" stroke-width="0.4"/>
+                    <polygon points="6,15 8.5,13.5 11,15 8.5,16.5" fill="#34D399" stroke="#6EE7B7" stroke-width="0.4"/>
+                    <polygon points="21,18 26,15 26,21 21,24" fill="#064E3B" stroke="#059669" stroke-width="0.4"/>
+                    <polygon points="21,15 23.5,13.5 26,15 23.5,16.5" fill="#10B981" stroke="#34D399" stroke-width="0.4"/>
+                    <polygon points="16,8 21,10 16,13 11,10" fill="#6EE7B7" stroke="#A7F3D0" stroke-width="0.5"/>
+                    <polygon points="16,2 17.5,8 16,9.5 14.5,8" fill="url(#mpGoldSpire)" stroke="#FEF08A" stroke-width="0.4"/>
+                    <line x1="16" y1="2" x2="16" y2="0.8" stroke="#FEF08A" stroke-width="0.75" stroke-linecap="round"/>
+                    <circle cx="16" cy="0.8" r="0.6" fill="#FDE047"/>
+                    <polygon points="12.5,14.5 14.8,15.8 14.8,17 12.5,15.7" fill="#A7F3D0" opacity="0.9"/>
+                    <polygon points="12.5,17.5 14.8,18.8 14.8,20 12.5,18.7" fill="#FEF08A" opacity="0.95"/>
+                    <polygon points="12.5,20.5 14.8,21.8 14.8,23 12.5,21.7" fill="#A7F3D0" opacity="0.9"/>
+                    <polygon points="17.2,15.8 19.5,14.5 19.5,15.7 17.2,17" fill="#A7F3D0" opacity="0.9"/>
+                    <polygon points="17.2,18.8 19.5,17.5 19.5,18.7 17.2,20" fill="#FEF08A" opacity="0.95"/>
+                    <polygon points="17.2,21.8 19.5,20.5 19.5,21.7 17.2,23" fill="#A7F3D0" opacity="0.9"/>
+                    <circle cx="23" cy="7" r="0.7" fill="#FDE047"/>
+                  </g>
+                </svg>
+              </div>
               <div class="text-xs font-bold text-white group-hover:text-emerald-300">Cờ Tỷ Phú</div>
               <div class="text-[10px] text-slate-400 font-mono">2-4 Người</div>
               <div class="mp-check-badge hidden absolute top-2 right-2 text-cyan-400 font-bold text-xs">✓</div>

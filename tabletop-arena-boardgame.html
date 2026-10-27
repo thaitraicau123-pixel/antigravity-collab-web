@@ -24,10 +24,10 @@
         extend: {
           colors: {
             board: {
-              felt: '#0A0F1D',
-              wood: '#141B2D',
-              tray: '#101726',
-              border: '#2A364F',
+              felt: '#081e18',
+              wood: '#0e261f',
+              tray: '#0b231c',
+              border: '#1c3e34',
               gold: '#D97706',
               goldGlow: '#F59E0B',
               bronze: '#B45309',
@@ -64,12 +64,22 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
-      background-color: #060911;
+      background-color: #071e17;
       background-image: 
-        radial-gradient(circle at 50% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
-        radial-gradient(circle at 80% 85%, rgba(217, 119, 6, 0.08) 0%, transparent 50%),
-        radial-gradient(#1E293B 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 28px 28px;
+        /* Stadium Top Floodlight Beam (Ánh đèn sân đấu rạng rỡ) */
+        radial-gradient(ellipse 75% 45% at 50% -5%, rgba(52, 211, 153, 0.28) 0%, rgba(16, 185, 129, 0.14) 50%, transparent 80%),
+        /* Championship Golden Trophy Glow (Ánh vàng cúp vô địch) */
+        radial-gradient(circle at 88% 18%, rgba(245, 158, 11, 0.16) 0%, transparent 42%),
+        /* Fresh Lime Turf Flare (Sân cỏ năng động rực rỡ) */
+        radial-gradient(circle at 12% 82%, rgba(132, 204, 22, 0.15) 0%, transparent 45%),
+        /* Ambient Center Stadium Pitch Glow */
+        radial-gradient(ellipse 65% 45% at 50% 50%, rgba(16, 185, 129, 0.09) 0%, transparent 70%),
+        /* Stadium Lawn Alternating Stripes (Sọc cỏ sân vận động thể thao) */
+        linear-gradient(180deg, rgba(16, 185, 129, 0.035) 50%, transparent 50%),
+        /* 2.5D Tactical Stadium Pitch Dots (Lưới tọa độ chiến thuật) */
+        radial-gradient(rgba(52, 211, 153, 0.22) 1.2px, transparent 1.2px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 64px, 28px 28px;
+      background-attachment: fixed, fixed, fixed, fixed, fixed, fixed;
     }
 
     /* Vietnamese Typography Excellence & Hierarchy */
@@ -271,8 +281,8 @@
 
     /* Tabletop Beveled Tile */
     .game-tile {
-      background: linear-gradient(145deg, #131B2E, #0E1524);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(145deg, #0e2920, #081d16);
+      border: 1px solid rgba(52, 211, 153, 0.15);
       box-shadow: 
         0 4px 6px -1px rgba(0, 0, 0, 0.4),
         0 2px 4px -2px rgba(0, 0, 0, 0.3),
@@ -295,12 +305,12 @@
 
     /* Dice Felt Tray */
     .dice-tray {
-      background: radial-gradient(circle, #0F172A 0%, #090D17 100%);
+      background: radial-gradient(circle, #0e2b21 0%, #061711 100%);
       box-shadow: 
         inset 0 4px 12px rgba(0, 0, 0, 0.8),
         inset 0 0 0 2px rgba(217, 119, 6, 0.2),
         0 8px 24px rgba(0, 0, 0, 0.6);
-      border: 2px solid #1E293B;
+      border: 2px solid #1c3e34;
     }
 
     /* 3D Rolling Dice */
@@ -329,10 +339,11 @@
       box-shadow: 0 0 15px rgba(217, 119, 6, 0.08);
     }
     .tabletop-mat {
-      background: linear-gradient(180deg, #101728 0%, #0A0F1D 100%);
+      background: linear-gradient(180deg, rgba(13, 38, 30, 0.95) 0%, rgba(7, 24, 18, 0.98) 100%);
       box-shadow: 
         0 20px 50px -10px rgba(0, 0, 0, 0.8),
-        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 0 0 1px rgba(52, 211, 153, 0.14),
+        0 0 35px -5px rgba(16, 185, 129, 0.15),
         inset 0 1px 1px rgba(255, 255, 255, 0.15);
     }
   
@@ -1291,7 +1302,7 @@
   </div>
 
   <!-- ================= TOP NAVIGATION BAR ================= -->
-  <header class="sticky top-0 z-40 w-full bg-[#080D1A]/95 backdrop-blur-xl border-b border-board-border/60 px-2 sm:px-4 lg:px-6 py-2.5">
+  <header class="sticky top-0 z-40 w-full bg-[#071e17]/90 backdrop-blur-xl border-b border-emerald-500/25 shadow-[0_4px_25px_rgba(4,120,87,0.15)] px-2 sm:px-4 lg:px-6 py-2.5">
     <div class="w-full max-w-[1600px] mx-auto px-2 sm:px-4 lg:px-6 flex items-center justify-between gap-2 sm:gap-4">
       
       <!-- Left: Brand Logo & Navigation Tabs -->
@@ -1299,7 +1310,7 @@
         <!-- Logo -->
         <div class="flex items-center gap-2.5 cursor-pointer group shrink-0" onclick="switchMainTab('lobby')" title="Về Sảnh Trò Chơi (Menu Chính)">
           <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-600 to-amber-800 p-0.5 shadow-xl shadow-amber-600/30 flex items-center justify-center group-hover:scale-105 transition-transform" id="brandLogoIcon">
-            <div class="w-full h-full bg-[#080D1A] rounded-[14px] flex items-center justify-center p-1 relative overflow-hidden">
+            <div class="w-full h-full bg-[#071e17] rounded-[14px] flex items-center justify-center p-1 relative overflow-hidden">
               <div class="absolute inset-0 bg-gradient-to-tr from-amber-500/10 via-transparent to-amber-300/20 pointer-events-none"></div>
               <svg viewBox="0 0 64 64" class="w-full h-full filter drop-shadow">
                 <defs>
@@ -1415,7 +1426,7 @@
           <div id="userProfileWidget" class="hidden relative">
             <button onclick="toggleProfileDropdown()" class="btn-spring flex items-center gap-2 p-1.5 pr-2.5 rounded-xl bg-board-tray hover:bg-slate-800 border border-board-border text-xs">
               <div class="relative shrink-0"><div id="userAvatarSmall" class="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-700 text-white font-bold flex items-center justify-center text-xs shadow-sm relative overflow-hidden border border-amber-400/40"><svg viewBox="0 0 24 24" class="absolute inset-0 w-full h-full pointer-events-none opacity-20" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hudAvatarGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FBBF24"/><stop offset="100%" stop-color="#B45309"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#hudAvatarGrad)"/></svg>
-                MD</div><span class="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 border border-[#080D1A]"></span>
+                MD</div><span class="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 border border-[#071e17]"></span>
               </div>
               <span id="navUserName" class="font-bold text-white max-w-[65px] sm:max-w-[95px] xl:max-w-[120px] truncate">Minh Dev</span>
               <div id="userLevelBadge" class="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[10px] font-mono font-bold shrink-0"><svg viewBox="0 0 24 24" class="w-3 h-3 inline-block shrink-0" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hudLvlGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#D97706"/></linearGradient></defs><polygon points="12,2 15,8 22,9 17,14 18,21 12,17.5 6,21 7,14 2,9 9,8" fill="url(#hudLvlGrad)" stroke="#FEF08A" stroke-width="1"/></svg><span id="userLevel">Lv.1</span></div><span id="userRank" class="hidden">Vàng Hoàng Kim</span><span id="navUserBadge" class="hidden xl:inline-block text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold font-mono shrink-0">ONLINE</span>
@@ -6325,6 +6336,9 @@
     function isMatchInProgress() {
       if (window.currentMainTab !== 'arena') return false;
       if (activeTab === 'monopoly') {
+        if (window.monoState && Array.isArray(monoState.players) && !monoState.gameOver && !monoState.isGameOver) return true;
+        const mv = document.getElementById('monopolyView');
+        if (mv && !mv.classList.contains('hidden') && mv.style.display !== 'none') return true;
         if (window.monoState && Array.isArray(monoState.players) && !monoState.gameOver) {
           const hasActivity = (monoState.round > 1) || (monoState.turn > 0) ||
             monoState.players.some(p => p.pos > 0 || p.cash !== 2000 || (p.properties && p.properties.length > 0)) ||
@@ -6334,7 +6348,9 @@
         return false;
       }
       if (activeTab === 'dice') {
-        const hasEnded = Object.values(scores || {}).some(s => s >= GOAL_SCORE);
+        const dv = document.getElementById('diceView');
+        if (dv && !dv.classList.contains('hidden') && dv.style.display !== 'none') return true;
+        const hasEnded = Object.values(scores || {}).some(s => s >= (typeof GOAL_SCORE !== 'undefined' ? GOAL_SCORE : 100));
         if (hasEnded) return false;
         const hasStarted = Object.values(scores || {}).some(s => s > 0) ||
           Object.values(positions || {}).some(p => p > 0) ||
@@ -6342,13 +6358,27 @@
         return Boolean(hasStarted);
       }
       if (activeTab === 'chess') {
+        const cv = document.getElementById('chessView');
+        if (cv && !cv.classList.contains('hidden') && cv.style.display !== 'none') return true;
+        if (window.chessGame && typeof chessGame.game_over === 'function') {
+          return !chessGame.game_over();
+        }
         if (window.chessGame && typeof chessGame.history === 'function') {
           return chessGame.history().length > 0 && !chessGame.game_over();
         }
         return false;
       }
       if (activeTab === 'tictactoe') {
-        return Array.isArray(window.tttBoard) && tttBoard.some(c => c !== null) && !window.tttGameOver;
+        const tv = document.getElementById('tictactoeView');
+        if (tv && !tv.classList.contains('hidden') && tv.style.display !== 'none') return !window.tttGameOver;
+        return Array.isArray(window.tttBoard) && !window.tttGameOver;
+      }
+      const anyGameVisible = ['monopolyView', 'diceView', 'chessView', 'tictactoeView'].some(id => {
+        const el = document.getElementById(id);
+        return el && !el.classList.contains('hidden') && el.style.display !== 'none';
+      });
+      if (anyGameVisible) return true;
+      if (false) {
       }
       return false;
     }
@@ -6592,7 +6622,33 @@
         window.tttBoard = [null,null,null,null,null,null,null,null,null];
       }
 
-      // 2. Tắt hoàn toàn cờ
+      if (window.chessBotTimeout) {
+        clearTimeout(window.chessBotTimeout);
+        window.chessBotTimeout = null;
+      }
+      if (window.tttBotTimeout) {
+        clearTimeout(window.tttBotTimeout);
+        window.tttBotTimeout = null;
+      }
+      if (window.botTurnTimeout) {
+        clearTimeout(window.botTurnTimeout);
+        window.botTurnTimeout = null;
+      }
+      if (window.mpRoomState) {
+        if (window.mpRoomState.unsubListener) {
+          try { window.mpRoomState.unsubListener(); } catch(e) {}
+          window.mpRoomState.unsubListener = null;
+        }
+        if (window.mpRoomState.pollInterval) {
+          clearInterval(window.mpRoomState.pollInterval);
+          window.mpRoomState.pollInterval = null;
+        }
+      }
+      window.isOnlineRoomMatch = false;
+      const onlineHud = document.getElementById('onlineRoomHUD');
+      if (onlineHud) onlineHud.classList.add('hidden');
+
+      // 2. Tắt hoàn toàn cờ autoplay và hoạt động nền
       window.monoAutoPlay = false;
       window.diceAutoPlay = false;
       if (typeof toggleMonoAutoPlay === 'function') toggleMonoAutoPlay(false);
@@ -10820,7 +10876,7 @@
     };
 
     function switchMainTab(tab, force = false) {
-      if (!force && window.currentMainTab === 'arena' && tab !== 'arena' && typeof isMatchInProgress === 'function' && isMatchInProgress()) {
+      if (!force && (window.currentMainTab === 'arena' || (typeof isMatchInProgress === 'function' && isMatchInProgress())) && tab !== 'arena') {
         requestExitArenaToLobby(tab);
         return;
       }

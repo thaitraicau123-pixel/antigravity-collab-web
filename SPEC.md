@@ -1093,3 +1093,21 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
     - Trong chế độ Phóng To (`mono-fullscreen-active`): Ẩn hoàn toàn `#arenaMatchConsole` và thanh `<header>` trên cùng (`display: none !important;`).
     - Toàn bộ chiều cao màn hình (`100vh`) được giải phóng để mở rộng bàn cờ lên kích thước tối đa, tạo tầm nhìn bao quát cực kỳ thoáng đãng, sắc nét và dễ đọc.
     - Nút nổi **"✕ Thu Nhỏ (Esc)"** đặt độc lập, trang trọng tại góc trên bên phải màn hình để người dùng có thể dễ dàng thu nhỏ lại bất cứ lúc nào (hoặc ấn phím `Esc` / `F`).
+
+### v4.1.7 (2026-10-27) - Triple-A 2D Character Avatars Overhaul (Masterpiece Edition)
+- **Triệt Tiêu 100% Đồ Họa Avatar Vẽ Tay Thô Sơ**:
+  - Khắc phục triệt để vấn đề 4 ảnh đại diện ở 4 góc pod người chơi trông thô sơ, nét vẽ méo mó dạng hình học đơn giản trước đây.
+  - Chuyển đổi toàn diện sang **Bộ 4 Ảnh Đại Diện 2D Chuẩn Game AAA Business Tour / Monopoly Cao Cấp**:
+    1. **Player 0 - Tiên / Nữ Hoàng Tỷ Phú (Crimson Tycoon Empress)**: Nữ tài phiệt Đông Á tuyệt sắc với mái tóc đen óng ả bồng bềnh, đôi mắt ruby phát quang lộng lẫy, nụ cười kiêu sa cuốn hút, trang phục blazer nhung đỏ bordeaux viền vàng thêu hoa văn hoàng gia, dây chuyền kim cương giọt nước và ngọc ruby, huy hiệu sư tử vàng dập nổi.
+    2. **Player 1 - Kỳ Lân AI / Bạch Kỳ Lân Thần Thoại (Celestial Azure Unicorn)**: Thần mã kỳ lân hoàng gia với sừng vàng xoắn ốc tỏa ánh hào quang ma thuật và bụi sao, bờm tóc lam ngọc bay bồng bềnh óng ả, mắt ngọc bích sapphire thông tuệ, lồng trong khung phù điêu cổ ngữ thần thoại dát vàng nạm đá quý.
+    3. **Player 2 - Rồng Lửa AI / Hỏa Long Vương Uy Mãnh (Infernal Dragon King)**: Chúa tể rồng lửa uy nghi, vảy rồng đỏ ruby và obsidian xếp lớp 3D sắc sảo, cặp sừng dung nham nứt sáng rực lửa cam cháy, mắt rồng hoàng kim rực sáng, khói than hồng cuộn trào từ khóe miệng, đóng khung vàng phù điêu song long chầu nguyệt.
+    4. **Player 3 - Tổng Tài AI / Tổng Tài Tỷ Phú Lịch Lãm (Apex Billionaire Tycoon)**: Quý ông tài phiệt phố Wall bảnh bao, mái tóc undercut vuốt sáp thời thượng, sống mũi cao, cằm vuông nam tính với nụ cười đắc thắng, âu phục tuxedo navy phối ve áo nhung xanh ngọc lục bảo, nơ lụa thắt ghim vàng, phía sau là cửa kính penthouse tầng cao ngắm nhìn toàn cảnh thành phố lung linh ánh đèn.
+- **Khung Avatar Mạ Vàng Hoàng Gia & Tương Thích Mọi Giao Diện**:
+  - Khung chân dung bo góc mềm mại viền vàng hoàng kim bắt sáng (`border-amber-400`), ăn khớp hoàn hảo với 4 Pod góc.
+  - Tích hợp ảnh đại diện sắc nét vào **Modal Chuyển Tiền Mua Đất / Nâng Nhà / Trả Tiền Thuê** (`renderMonoCashTransferModal`) thay thế toàn bộ emoji cũ.
+  - Tích hợp ảnh đại diện vinh danh chiến thắng kích thước lớn vào **Modal Game Over / Victory** (`declareMonoWinner`).
+- **Tối Ưu Tuyệt Đối Khoảng Cách Công Thái Học (Zero-Overlap Fullscreen)**:
+  - Tăng khoảng cách lề trên cho 2 Pod trên cùng trong chế độ Phóng To lên `top: 4.25rem !important;` (và cọc tiền `top: 172px !important;`), tạo khoảng hở an toàn >20px tách biệt hoàn toàn với nút **"Thu Nhỏ (Esc)"**.
+- **Cơ Chế Self-Contained Nhẹ Nhàng & Bền Vững**:
+  - Tối ưu hóa ảnh nén 256x256 chất lượng cao bicubic (chỉ ~25-35KB mỗi ảnh) và nhúng trực tiếp dưới dạng Base64 Data URL (`BUSINESS_TOUR_AVATAR_DATA_URLS`).
+  - Đảm bảo tệp `tabletop-arena-boardgame.html` và tệp trong thư mục Downloads hoàn toàn độc lập, chạy offline 100%, không bao giờ bị lỗi ảnh 404.

@@ -1111,3 +1111,42 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
 - **Cơ Chế Self-Contained Nhẹ Nhàng & Bền Vững**:
   - Tối ưu hóa ảnh nén 256x256 chất lượng cao bicubic (chỉ ~25-35KB mỗi ảnh) và nhúng trực tiếp dưới dạng Base64 Data URL (`BUSINESS_TOUR_AVATAR_DATA_URLS`).
   - Đảm bảo tệp `tabletop-arena-boardgame.html` và tệp trong thư mục Downloads hoàn toàn độc lập, chạy offline 100%, không bao giờ bị lỗi ảnh 404.
+
+
+---
+
+### [v4.1.8] - 2026-10-27: 2D Cartoon Caricature Avatars & Unified Matching Board Pawns (Ảnh Đại Diện Hoạt Hình Tiếu Lâm & Mô Hình Quân Cờ Đồng Nhất 100%)
+
+#### 1. Bối cảnh & Yêu cầu Người Dùng
+- **Yêu cầu cốt lõi**:
+  - Đổi phong cách ảnh đại diện 2D sang phong cách hoạt hình biếm họa tiếu lâm, ngộ nghĩnh, hài hước ("cartoon hơi xâu xấu").
+  - Thiết kế lại mô hình quân cờ 2D đứng trên các ô bàn cờ đẹp mắt, sắc nét, hoạt hình sinh động ("theo kiểu 2D đẹp hẳn").
+  - **Đồng nhất 100% giữa ảnh đại diện và mô hình bàn cờ**: Mô hình quân cờ đứng nhảy bước trên ô cờ PHẢI LÀ BẢN TOÀN THÂN CỦA CHÍNH NHÂN VẬT ĐÓ TRÊN ẢNH ĐẠI DIỆN ("mô hình là mô hình của ảnh đại diện luôn").
+
+#### 2. Chi tiết Thiết Kế Bộ 4 Nhân Vật Đồng Nhất 100%
+1. **Player 0 - Tiên (Player 1) - Cô Nàng Hoodie Tai Mèo Tiếu Lâm**:
+   - **Avatar 2D**: Cô bé hoạt hình ngộ nghĩnh mặc áo hoodie đỏ có 2 tai mèo dựng đứng, tóc 2 chùm đen buộc nơ vàng, mắt to tròn cười toe toét thè lưỡi tinh nghịch.
+   - **Mô hình 2D Bàn Cờ**: Toàn thân cô bé mặc áo hoodie đỏ tai mèo có dây rút trắng, tóc cột 2 bên gắn nơ vàng, quần soóc bò xanh denim, giày sneaker trắng viền đỏ thể thao, tay giơ ký hiệu chiến thắng (V-sign) tiếu lâm.
+2. **Player 1 - Kỳ Lân AI (Player 2) - Bạch Kỳ Lân Ngố Răng Thỏ**:
+   - **Avatar 2D**: Chú kỳ lân trắng ngộ nghĩnh có 2 răng thỏ to nhô ra, mắt lác hài hước, sừng vàng xoắn ốc tỏa sáng lấp lánh, bờm xanh ngọc turquoise, thắt cà vạt Bitcoin xanh navy.
+   - **Mô hình 2D Bàn Cờ**: Toàn thân chú kỳ lân ngố 2 chân đứng thẳng giơ 2 tay vẫy chào mừng, bụng trắng tròn, bờm ngọc, sừng vàng xoắn ốc, cà vạt sọc xanh, móng chân vàng nổi bật.
+3. **Player 2 - Rồng Lửa AI (Player 3) - Rồng Đỏ Mập Ú Đáng Yêu**:
+   - **Avatar 2D**: Chú rồng đỏ mập ú má hồng phúng phính, 2 răng nanh nhô lên ngộ nghĩnh, sừng vàng nhỏ, cánh cam tí hon, lỗ mũi phì ra làn khói xám tiếu lâm.
+   - **Mô hình 2D Bàn Cờ**: Toàn thân chú rồng đỏ mập lùn ngộ nghĩnh, bụng sọc vàng cam ấm áp, 2 cánh dơi cam nhỏ xòe ra, đuôi rồng vểnh lên, má hồng và 2 răng nanh đặc trưng.
+4. **Player 3 - Tổng Tài AI (Player 4) - Đại Gia Răng Vàng Hài Hước**:
+   - **Avatar 2D**: Đại gia biếm họa đầu to, tóc chải bóng loáng, lông mày rậm rạp, miệng cười rộng ngoác khoe răng vàng chóe phát sáng lấp lánh, áo vest xanh navy, cà vạt đỏ, ghim cài áo hình ký tự đô la `$` vàng rực.
+   - **Mô hình 2D Bàn Cờ**: Toàn thân đại gia mặc vest xanh navy, sơ mi trắng cổ bẻ, cà vạt đỏ có ghim đô la `$`, tay phải chống hông kiêu hãnh, tay trái xách vali tiền vàng đầy ắp, đầu to cười toe khoe răng vàng lấp lánh.
+
+#### 3. Cấu Trúc Kỹ Thuật & Hiệu Năng
+- **Avatar Nén Base64 Siêu Nhẹ**:
+  - Nén ảnh chuẩn JPEG bicubic 256x256 (~25-34 KB/ảnh, tổng ~120 KB) nhúng trực tiếp vào mảng `BUSINESS_TOUR_AVATAR_DATA_URLS`.
+  - Không phát sinh HTTP request ra ngoài, bảo đảm 100% offline portable.
+- **Mô Hình Quân Cờ SVG Vector 100% Thuần**:
+  - Lập trình trong hàm `getBusinessTourCharacterSVG(playerIdx, isCurTurn = false)`.
+  - Hỗ trợ vòng hào quang phát sáng (`stroke-dasharray="4 2"`) báo hiệu lượt đi hiện tại của nhân vật.
+  - Render mượt mà 60fps trên mọi trình duyệt mà không tốn tài nguyên texture 3D.
+- **SHA-256 Parity**:
+  - Đồng bộ 100% hash SHA-256 trên cả 3 bản:
+    1. `index.html`
+    2. `tabletop-arena-boardgame.html`
+    3. `C:\\Users\\admin\\Downloads\\tabletop-arena-boardgame.html`

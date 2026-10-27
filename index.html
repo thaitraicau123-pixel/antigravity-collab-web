@@ -1044,7 +1044,7 @@
               <circle cx="12" cy="12" r="6" stroke="#FEF08A" stroke-width="1" fill="#F59E0B"/>
               <text x="12" y="15" font-size="8" font-family="monospace" font-weight="900" fill="#78350F" text-anchor="middle">G</text>
             </svg>
-            <span id="userCoins" class="font-mono">2.450</span>
+            <span id="userCoins" class="font-mono">0</span>
           </div>
           <div class="h-3 w-px bg-slate-700"></div>
           <div class="flex items-center gap-1 text-cyan-400" title="Kim cương quý tộc">
@@ -1053,7 +1053,7 @@
               <polygon points="8,5 16,5 12,11" fill="#A5F3FC" opacity="0.8"/>
               <polygon points="3,11 8,5 12,11" fill="#38BDF8" opacity="0.6"/>
               <polygon points="21,11 16,5 12,11" fill="#0284C7" opacity="0.7"/>
-            </svg> <span id="userGems" class="font-mono">150</span>
+            </svg> <span id="userGems" class="font-mono">0</span>
           </div>
         </div>
 
@@ -4267,9 +4267,9 @@
                     <i data-lucide="users" class="w-4 h-4"></i>
                   </div>
                 </div>
-                <div class="text-2xl font-black text-white font-mono" id="statAdminPlayers">1,284</div>
-                <div class="text-[11px] text-emerald-400 flex items-center gap-1 mt-1">
-                  <span>▲ +18 hôm nay</span> <span class="text-slate-500">• Đang hoạt động</span>
+                <div class="text-2xl font-black text-white font-mono" id="statAdminPlayers">0</div>
+                <div class="text-[11px] text-emerald-400 flex items-center gap-1 mt-1" id="statAdminPlayersSubtitle">
+                  <span>● Đang hoạt động</span> <span class="text-slate-500">• Tổng số tài khoản đã đăng ký trên hệ thống</span>
                 </div>
               </div>
 
@@ -4280,9 +4280,9 @@
                     <i data-lucide="dices" class="w-4 h-4"></i>
                   </div>
                 </div>
-                <div class="text-2xl font-black text-amber-400 font-mono" id="statAdminMatches">8,492</div>
-                <div class="text-[11px] text-slate-400 flex items-center gap-1 mt-1">
-                  <span>🎲 Xúc xắc: 5,232</span> <span class="text-slate-500">• ⭕ Ca-rô: 3,260</span>
+                <div class="text-2xl font-black text-amber-400 font-mono" id="statAdminMatches">0</div>
+                <div class="text-[11px] text-slate-400 flex items-center gap-1 mt-1" id="statAdminMatchesSubtitle">
+                  <span>🎲 Xúc xắc: 0</span> <span class="text-slate-500">• ⭕ Ca-rô: 0 • ♟️ Cờ: 0 • 🎩 Tỷ phú: 0</span>
                 </div>
               </div>
 
@@ -4293,9 +4293,9 @@
                     <i data-lucide="coins" class="w-4 h-4"></i>
                   </div>
                 </div>
-                <div class="text-2xl font-black text-emerald-400 font-mono" id="statAdminEconomy">3.8M 🪙</div>
-                <div class="text-[11px] text-cyan-400 flex items-center gap-1 mt-1">
-                  <span>💎 45,280 Đá quý</span> <span class="text-slate-500">• Tỉ lệ lạm phát: Thấp</span>
+                <div class="text-2xl font-black text-emerald-400 font-mono" id="statAdminEconomy">0 🪙 / 0 💎</div>
+                <div class="text-[11px] text-cyan-400 flex items-center gap-1 mt-1" id="statAdminEconomySubtitle">
+                  <span>🪙 0 Xu • 💎 0 Kim cương</span> <span class="text-slate-500">• Toàn bộ tài khoản</span>
                 </div>
               </div>
 
@@ -4327,34 +4327,34 @@
                     <i data-lucide="pie-chart" class="w-4 h-4 text-amber-400"></i>
                     Tỷ Lệ Chiến Thắng Toàn Đấu Trường
                   </h4>
-                  <span class="text-xs text-slate-400 font-mono">Dữ liệu 1,000 ván gần nhất</span>
+                  <span class="text-xs text-slate-400 font-mono" id="statAdminWinRateScope">Chưa có dữ liệu trận đấu (0 ván)</span>
                 </div>
-                <div class="space-y-3 text-xs">
+                <div class="space-y-3 text-xs" id="statAdminWinRateContainer">
                   <div>
                     <div class="flex justify-between text-slate-300 mb-1">
                       <span>Kỳ Thủ Con Người Thắng</span>
-                      <span class="font-bold text-cyan-400 font-mono">64% (640 ván)</span>
+                      <span class="font-bold text-cyan-400 font-mono" id="statAdminHumanWinText">0% (0 ván)</span>
                     </div>
                     <div class="w-full h-3 bg-black/40 rounded-full overflow-hidden border border-white/5">
-                      <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" style="width: 64%"></div>
+                      <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full transition-all duration-500" id="statAdminHumanWinBar" style="width: 0%"></div>
                     </div>
                   </div>
                   <div>
                     <div class="flex justify-between text-slate-300 mb-1">
                       <span>Trí Tuệ Nhân Tạo (BOT) Thắng</span>
-                      <span class="font-bold text-rose-400 font-mono">28% (280 ván)</span>
+                      <span class="font-bold text-rose-400 font-mono" id="statAdminBotWinText">0% (0 ván)</span>
                     </div>
                     <div class="w-full h-3 bg-black/40 rounded-full overflow-hidden border border-white/5">
-                      <div class="h-full bg-gradient-to-r from-rose-500 to-amber-500 rounded-full" style="width: 28%"></div>
+                      <div class="h-full bg-gradient-to-r from-rose-500 to-amber-500 rounded-full transition-all duration-500" id="statAdminBotWinBar" style="width: 0%"></div>
                     </div>
                   </div>
                   <div>
                     <div class="flex justify-between text-slate-300 mb-1">
                       <span>Ván Cờ Ca-rô Hòa</span>
-                      <span class="font-bold text-slate-400 font-mono">8% (80 ván)</span>
+                      <span class="font-bold text-slate-400 font-mono" id="statAdminDrawWinText">0% (0 ván)</span>
                     </div>
                     <div class="w-full h-3 bg-black/40 rounded-full overflow-hidden border border-white/5">
-                      <div class="h-full bg-slate-600 rounded-full" style="width: 8%"></div>
+                      <div class="h-full bg-slate-600 rounded-full transition-all duration-500" id="statAdminDrawWinBar" style="width: 0%"></div>
                     </div>
                   </div>
                 </div>
@@ -4770,8 +4770,8 @@
           displayName: { stringValue: String(userData.displayName || userData.email?.split('@')[0] || 'Kỳ Thủ') },
           email: { stringValue: String(userData.email || '') },
           role: { stringValue: String(userData.role || (userData.email === 'minhcuong111@gmail.com' ? 'Admin' : 'Tân Thủ')) },
-          coins: { integerValue: String(userData.coins !== undefined ? userData.coins : 2450) },
-          gems: { integerValue: String(userData.gems !== undefined ? userData.gems : 150) },
+          coins: { integerValue: String(userData.coins !== undefined ? userData.coins : 0) },
+          gems: { integerValue: String(userData.gems !== undefined ? userData.gems : 0) },
           elo: { integerValue: String(userData.elo !== undefined ? userData.elo : 1200) },
           level: { integerValue: String(userData.level || 1) },
           matches: { integerValue: String(userData.matches || 0) },
@@ -4842,8 +4842,8 @@
             uid: user.uid,
             displayName: user.displayName || user.email.split('@')[0],
             email: user.email,
-            coins: 2450,
-            gems: 150,
+            coins: 0,
+            gems: 0,
             elo: 1200,
             matches: 0,
             winRate: "0%"
@@ -4859,6 +4859,15 @@
             }
           } catch (e) {
             console.warn("Firestore Read Note:", e.message);
+          }
+
+          // If legacy default balance (2450 coins & 150 gems), reset to 0
+          if (userData.coins === 2450 && userData.gems === 150) {
+            userData.coins = 0;
+            userData.gems = 0;
+            if (window.updateCloudFirestoreUserField && userData.uid) {
+              window.updateCloudFirestoreUserField(userData.uid, { coins: 0, gems: 0 });
+            }
           }
 
           window.currentFirebaseUser = userData;
@@ -4925,8 +4934,8 @@
             uid: user.uid,
             displayName: displayName,
             email: email,
-            coins: 2450,
-            gems: 150,
+            coins: 0,
+            gems: 0,
             elo: 1200,
             level: 1,
             vip: true,
@@ -4981,8 +4990,8 @@
             uid: user.uid,
             displayName: user.displayName || displayName,
             email: email,
-            coins: 2450,
-            gems: 150,
+            coins: 0,
+            gems: 0,
             elo: 1200,
             matches: 0,
             winRate: "0%"
@@ -5026,8 +5035,8 @@
           uid: user.uid,
           displayName: user.displayName || 'Google Champion',
           email: user.email,
-          coins: 3000,
-          gems: 200,
+          coins: 0,
+          gems: 0,
           elo: 1350
         };
         try {
@@ -5054,8 +5063,8 @@
           uid: user.uid,
           displayName: user.displayName || 'GitHub Master',
           email: user.email,
-          coins: 3000,
-          gems: 200,
+          coins: 0,
+          gems: 0,
           elo: 1350
         };
         try {
@@ -5361,8 +5370,8 @@
       document.getElementById('profileUidDisplay').textContent = userData.uid || 'fb_live';
       document.getElementById('leaderboardMyRankName').textContent = `${userData.displayName} (Bạn)`;
 
-      if (userData.coins) document.getElementById('userCoins').textContent = Number(userData.coins).toLocaleString();
-      if (userData.gems) document.getElementById('userGems').textContent = Number(userData.gems).toLocaleString();
+      if (userData.coins !== undefined && userData.coins !== null) document.getElementById('userCoins').textContent = Number(userData.coins).toLocaleString();
+      if (userData.gems !== undefined && userData.gems !== null) document.getElementById('userGems').textContent = Number(userData.gems).toLocaleString();
 
       const initials = userData.displayName.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
       document.getElementById('userAvatarSmall').textContent = initials;
@@ -5401,8 +5410,8 @@
         uid: 'fb_' + Math.random().toString(36).substring(2, 11),
         displayName: name,
         email: `${name.toLowerCase().replace(/\s+/g, '')}@${provider.toLowerCase()}.com`,
-        coins: 3000,
-        gems: 200,
+        coins: 0,
+        gems: 0,
         elo: 1350
       };
       localStorage.setItem('tabletop_firebase_user', JSON.stringify(firestoreUserData));
@@ -6009,6 +6018,7 @@
         if (txtEl) txtEl.textContent = `${wins} ván (${pct}%)`;
         if (barEl) barEl.style.width = `${pct}%`;
       }
+      if (typeof updateAdminStatsUI === 'function') updateAdminStatsUI();
     }
 
     // ================= BESPOKE LUXURY VECTOR ICON ENGINE =================
@@ -8320,6 +8330,7 @@
       document.getElementById('tttScoreX').textContent = tttScores.X;
       document.getElementById('tttScoreO').textContent = tttScores.O;
       document.getElementById('tttScoreDraw').textContent = tttScores.draw;
+      if (typeof updateAdminStatsUI === 'function') updateAdminStatsUI();
     }
 
     // ================= MAIN NAVIGATION TABS (LOBBY, ARENA, LEADERBOARDS, VIP, RULES) =================
@@ -10641,10 +10652,22 @@
     function declareMonoWinner(winner, winReasonText) {
       stopMonopolyTimers();
       if (winner.id === 0 && window.currentFirebaseUser) {
-        window.currentFirebaseUser.coins = (window.currentFirebaseUser.coins || 2450) + 300;
+        window.currentFirebaseUser.coins = (window.currentFirebaseUser.coins || 0) + 300;
         const coinEl = document.getElementById('userCoins');
         if (coinEl) coinEl.textContent = Number(window.currentFirebaseUser.coins).toLocaleString();
       }
+      try {
+        const monoMatchCount = Number(localStorage.getItem('tabletop_mono_match_count') || 0) + 1;
+        localStorage.setItem('tabletop_mono_match_count', monoMatchCount);
+        if (winner.id === 0) {
+          const mw = Number(localStorage.getItem('tabletop_mono_human_wins') || 0) + 1;
+          localStorage.setItem('tabletop_mono_human_wins', mw);
+        } else {
+          const mb = Number(localStorage.getItem('tabletop_mono_bot_wins') || 0) + 1;
+          localStorage.setItem('tabletop_mono_bot_wins', mb);
+        }
+        if (typeof updateAdminStatsUI === 'function') updateAdminStatsUI();
+      } catch (e) {}
       showMonoEventPopup({
         type: 'gameover',
         badge: '👑 NHÀ VÔ ĐỊCH BUSINESS TOUR!',
@@ -12686,8 +12709,15 @@
             const uid = (f.uid && f.uid.stringValue) || docId;
             const email = (f.email && f.email.stringValue) || '';
             const displayName = (f.displayName && f.displayName.stringValue) || (email ? email.split('@')[0] : 'Kỳ Thủ');
-            const coins = f.coins ? (f.coins.integerValue ? Number(f.coins.integerValue) : Number(f.coins.doubleValue || 0)) : 2450;
-            const gems = f.gems ? (f.gems.integerValue ? Number(f.gems.integerValue) : Number(f.gems.doubleValue || 0)) : 150;
+            let coins = f.coins ? (f.coins.integerValue ? Number(f.coins.integerValue) : Number(f.coins.doubleValue || 0)) : 0;
+            let gems = f.gems ? (f.gems.integerValue ? Number(f.gems.integerValue) : Number(f.gems.doubleValue || 0)) : 0;
+            if (coins === 2450 && gems === 150) {
+              coins = 0;
+              gems = 0;
+              if (window.updateCloudFirestoreUserField && uid) {
+                window.updateCloudFirestoreUserField(uid, { coins: 0, gems: 0 });
+              }
+            }
             const elo = f.elo ? (f.elo.integerValue ? Number(f.elo.integerValue) : Number(f.elo.doubleValue || 0)) : 1200;
             const role = (f.role && f.role.stringValue) || (email === 'minhcuong111@gmail.com' ? 'Admin' : 'Tân Thủ');
             const status = (f.status && f.status.stringValue) || 'active';
@@ -12726,8 +12756,8 @@
               name: d.displayName || d.name || (d.email ? d.email.split('@')[0] : 'Kỳ Thủ'),
               email: d.email || '',
               role: d.role || (d.email === 'minhcuong111@gmail.com' ? 'Admin' : 'Tân Thủ'),
-              coins: d.coins !== undefined ? Number(d.coins) : 2450,
-              gems: d.gems !== undefined ? Number(d.gems) : 150,
+              coins: (d.coins === 2450 && d.gems === 150) ? 0 : (d.coins !== undefined ? Number(d.coins) : 0),
+              gems: (d.coins === 2450 && d.gems === 150) ? 0 : (d.gems !== undefined ? Number(d.gems) : 0),
               elo: d.elo !== undefined ? Number(d.elo) : 1200,
               winRate: d.winRate ? parseInt(d.winRate) : 0,
               matches: d.matches !== undefined ? Number(d.matches) : 0,
@@ -12751,8 +12781,8 @@
             name: u.displayName || 'Kỳ Thủ Hiện Tại',
             email: u.email || '',
             role: u.role || 'Admin',
-            coins: u.coins !== undefined ? Number(u.coins) : 2450,
-            gems: u.gems !== undefined ? Number(u.gems) : 150,
+            coins: (u.coins === 2450 && u.gems === 150) ? 0 : (u.coins !== undefined ? Number(u.coins) : 0),
+            gems: (u.coins === 2450 && u.gems === 150) ? 0 : (u.gems !== undefined ? Number(u.gems) : 0),
             elo: u.elo !== undefined ? Number(u.elo) : 1200,
             winRate: u.winRate ? parseInt(u.winRate) : 0,
             matches: u.matches || 0,
@@ -12765,21 +12795,8 @@
 
       adminPlayersList = realPlayers;
 
-      // Update badge counts and metrics
-      const badge = document.getElementById('adminBadgePlayerCount');
-      if (badge) badge.textContent = adminPlayersList.length;
-      
-      const tabBadge = document.getElementById('adminPlayerTabBadge');
-      if (tabBadge) tabBadge.textContent = adminPlayersList.length;
-
-      const statPl = document.getElementById('statAdminPlayers');
-      if (statPl) statPl.textContent = adminPlayersList.length.toLocaleString();
-
-      const totalCoins = adminPlayersList.reduce((acc, p) => acc + (p.coins || 0), 0);
-      const totalGems = adminPlayersList.reduce((acc, p) => acc + (p.gems || 0), 0);
-      const statEc = document.getElementById('statAdminEconomy');
-      if (statEc) statEc.textContent = `${totalCoins.toLocaleString()} 🪙 / ${totalGems.toLocaleString()} 💎`;
-
+      // Update badge counts and metrics from real database
+      updateAdminStatsUI();
       renderAdminPlayersTable();
 
       setTimeout(() => {
@@ -12811,8 +12828,10 @@
       const email = document.getElementById('newPlayerEmail').value.trim();
       const role = document.getElementById('newPlayerRole').value;
       const elo = Number(document.getElementById('newPlayerElo').value) || 1200;
-      const coins = Number(document.getElementById('newPlayerCoins').value) || 2450;
-      const gems = Number(document.getElementById('newPlayerGems').value) || 150;
+      const rawCoins = document.getElementById('newPlayerCoins').value;
+      const rawGems = document.getElementById('newPlayerGems').value;
+      const coins = rawCoins !== '' ? Math.max(0, Number(rawCoins) || 0) : 0;
+      const gems = rawGems !== '' ? Math.max(0, Number(rawGems) || 0) : 0;
 
       const newUid = 'usr_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 7);
 
@@ -12949,20 +12968,103 @@
       lucide.createIcons();
     };
 
-    function renderAdminAll() {
-      // Real Metrics
-      const totalCoins = adminPlayersList.reduce((acc, p) => acc + (p.coins || 0), 0);
-      const totalGems = adminPlayersList.reduce((acc, p) => acc + (p.gems || 0), 0);
-      
+    window.updateAdminStatsUI = function() {
+      // 1. Thẻ 1: Tổng Kỳ Thủ (Total Players) - Dữ liệu thật 100%
       const statPl = document.getElementById('statAdminPlayers');
       if (statPl) statPl.textContent = adminPlayersList.length.toLocaleString();
 
       const badge = document.getElementById('adminBadgePlayerCount');
       if (badge) badge.textContent = adminPlayersList.length;
 
+      const tabBadge = document.getElementById('adminPlayerTabBadge');
+      if (tabBadge) tabBadge.textContent = adminPlayersList.length;
+
+      const subPl = document.getElementById('statAdminPlayersSubtitle');
+      if (subPl) {
+        const activeCount = adminPlayersList.filter(p => p.status === 'active').length;
+        subPl.innerHTML = `<span>● ${activeCount} kỳ thủ online/active</span> <span class="text-slate-500">• Tổng số tài khoản đã đăng ký trên hệ thống</span>`;
+      }
+
+      // 2. Thẻ 2: Ván Cờ Đã Đấu (Matches Played) - Dữ liệu thật 100%
+      const diceMatches = (typeof botWinStats !== 'undefined' && botWinStats.totalMatches) || 0;
+      const tttMatches = (typeof tttScores !== 'undefined' && ((tttScores.X || 0) + (tttScores.O || 0) + (tttScores.draw || 0))) || 0;
+      const chessRecordCount = Number(localStorage.getItem('tabletop_chess_match_count') || 0);
+      const monoMatchCount = Number(localStorage.getItem('tabletop_mono_match_count') || 0);
+      const totalRealMatches = diceMatches + tttMatches + chessRecordCount + monoMatchCount;
+
+      const statMatches = document.getElementById('statAdminMatches');
+      if (statMatches) statMatches.textContent = totalRealMatches.toLocaleString();
+
+      const subMatches = document.getElementById('statAdminMatchesSubtitle');
+      if (subMatches) {
+        subMatches.innerHTML = `<span>🎲 Xúc xắc: ${diceMatches.toLocaleString()}</span> <span class="text-slate-500">• ⭕ Ca-rô: ${tttMatches.toLocaleString()} • ♟️ Cờ: ${chessRecordCount.toLocaleString()} • 🎩 Tỷ phú: ${monoMatchCount.toLocaleString()}</span>`;
+      }
+
+      // 3. Thẻ 3: Kinh Tế Lưu Hành (Circulation Economy) - Dữ liệu thật 100%
+      const totalCoins = adminPlayersList.reduce((acc, p) => acc + (p.coins || 0), 0);
+      const totalGems = adminPlayersList.reduce((acc, p) => acc + (p.gems || 0), 0);
       const statEc = document.getElementById('statAdminEconomy');
       if (statEc) statEc.textContent = `${totalCoins.toLocaleString()} 🪙 / ${totalGems.toLocaleString()} 💎`;
 
+      const subEc = document.getElementById('statAdminEconomySubtitle');
+      if (subEc) {
+        subEc.innerHTML = `<span>🪙 ${totalCoins.toLocaleString()} Xu • 💎 ${totalGems.toLocaleString()} Kim cương</span> <span class="text-slate-500">• Toàn bộ tài khoản</span>`;
+      }
+
+      // 4. Thẻ 4: Tỷ Lệ Chiến Thắng Toàn Đấu Trường (Win Rates) - Dữ liệu thật 100%
+      const diceHumanWins = (typeof botWinStats !== 'undefined' && botWinStats.wins && botWinStats.wins[1]) || 0;
+      const tttHumanWins = (typeof tttScores !== 'undefined' && tttScores.X) || 0;
+      const chessHumanWins = Number(localStorage.getItem('tabletop_chess_human_wins') || 0);
+      const monoHumanWins = Number(localStorage.getItem('tabletop_mono_human_wins') || 0);
+      const totalHumanWins = diceHumanWins + tttHumanWins + chessHumanWins + monoHumanWins;
+
+      const diceBotWins = (typeof botWinStats !== 'undefined' && botWinStats.wins ? ((botWinStats.wins[2] || 0) + (botWinStats.wins[3] || 0) + (botWinStats.wins[4] || 0)) : 0);
+      const tttBotWins = (typeof tttScores !== 'undefined' && tttScores.O) || 0;
+      const chessBotWins = Number(localStorage.getItem('tabletop_chess_bot_wins') || 0);
+      const monoBotWins = Number(localStorage.getItem('tabletop_mono_bot_wins') || 0);
+      const totalBotWins = diceBotWins + tttBotWins + chessBotWins + monoBotWins;
+
+      const tttDraws = (typeof tttScores !== 'undefined' && tttScores.draw) || 0;
+      const chessDraws = Number(localStorage.getItem('tabletop_chess_draws') || 0);
+      const totalDraws = tttDraws + chessDraws;
+
+      const statScope = document.getElementById('statAdminWinRateScope');
+      const humanText = document.getElementById('statAdminHumanWinText');
+      const humanBar = document.getElementById('statAdminHumanWinBar');
+      const botText = document.getElementById('statAdminBotWinText');
+      const botBar = document.getElementById('statAdminBotWinBar');
+      const drawText = document.getElementById('statAdminDrawWinText');
+      const drawBar = document.getElementById('statAdminDrawWinBar');
+
+      if (totalRealMatches > 0) {
+        const humanPct = Math.round((totalHumanWins / totalRealMatches) * 100);
+        const botPct = Math.round((totalBotWins / totalRealMatches) * 100);
+        const drawPct = Math.max(0, 100 - humanPct - botPct);
+
+        if (statScope) statScope.textContent = `Dữ liệu thực tế: ${totalRealMatches.toLocaleString()} ván đã đấu`;
+        if (humanText) humanText.textContent = `${humanPct}% (${totalHumanWins.toLocaleString()} ván)`;
+        if (humanBar) humanBar.style.width = `${humanPct}%`;
+
+        if (botText) botText.textContent = `${botPct}% (${totalBotWins.toLocaleString()} ván)`;
+        if (botBar) botBar.style.width = `${botPct}%`;
+
+        if (drawText) drawText.textContent = `${drawPct}% (${totalDraws.toLocaleString()} ván)`;
+        if (drawBar) drawBar.style.width = `${drawPct}%`;
+      } else {
+        if (statScope) statScope.textContent = `Chưa có dữ liệu trận đấu (0 ván)`;
+        if (humanText) humanText.textContent = `0% (0 ván)`;
+        if (humanBar) humanBar.style.width = `0%`;
+
+        if (botText) botText.textContent = `0% (0 ván)`;
+        if (botBar) botBar.style.width = `0%`;
+
+        if (drawText) drawText.textContent = `0% (0 ván)`;
+        if (drawBar) drawBar.style.width = `0%`;
+      }
+    };
+
+    function renderAdminAll() {
+      updateAdminStatsUI();
       renderAdminPlayersTable();
       populateBalancerForm();
       renderAdminLogsFeed();
@@ -14251,15 +14353,38 @@
 
     function handleChessGameOver() {
       stopChessTimer();
-      if (chessGame.in_checkmate()) {
-        const winner = (chessGame.turn() === 'w') ? 'Đen (Black)' : 'Trắng (White)';
-        const title = `${winner} Chiếu Bí Toàn Thắng! 👑`;
-        const desc = `Một thế cờ xuất sắc đã kết liễu trận đấu sau ${chessGame.history().length} nước đi!`;
-        showVictory(winner);
-        soundTone(659, 'triangle', 0.2, 0.2);
-        setTimeout(() => soundTone(880, 'triangle', 0.35, 0.25), 150);
-      } else if (chessGame.in_draw()) {
-        showVictory('Hòa Cờ (Draw)');
+      try {
+        const chessRecordCount = Number(localStorage.getItem('tabletop_chess_match_count') || 0) + 1;
+        localStorage.setItem('tabletop_chess_match_count', chessRecordCount);
+        if (chessGame.in_checkmate()) {
+          const winner = (chessGame.turn() === 'w') ? 'Đen (Black)' : 'Trắng (White)';
+          if (chessMode === 'bot') {
+            if (chessGame.turn() === 'b') {
+              const hw = Number(localStorage.getItem('tabletop_chess_human_wins') || 0) + 1;
+              localStorage.setItem('tabletop_chess_human_wins', hw);
+            } else {
+              const bw = Number(localStorage.getItem('tabletop_chess_bot_wins') || 0) + 1;
+              localStorage.setItem('tabletop_chess_bot_wins', bw);
+            }
+          } else {
+            const hw = Number(localStorage.getItem('tabletop_chess_human_wins') || 0) + 1;
+            localStorage.setItem('tabletop_chess_human_wins', hw);
+          }
+          showVictory(winner);
+          soundTone(659, 'triangle', 0.2, 0.2);
+          setTimeout(() => soundTone(880, 'triangle', 0.35, 0.25), 150);
+        } else if (chessGame.in_draw()) {
+          const cd = Number(localStorage.getItem('tabletop_chess_draws') || 0) + 1;
+          localStorage.setItem('tabletop_chess_draws', cd);
+          showVictory('Hòa Cờ (Draw)');
+        }
+        if (typeof updateAdminStatsUI === 'function') updateAdminStatsUI();
+      } catch (e) {
+        if (chessGame.in_checkmate()) {
+          showVictory((chessGame.turn() === 'w') ? 'Đen (Black)' : 'Trắng (White)');
+        } else if (chessGame.in_draw()) {
+          showVictory('Hòa Cờ (Draw)');
+        }
       }
     }
 
@@ -16812,6 +16937,14 @@
       if (cached) {
         try {
           const u = JSON.parse(cached);
+          if (u.coins === 2450 && u.gems === 150) {
+            u.coins = 0;
+            u.gems = 0;
+            localStorage.setItem('tabletop_firebase_user', JSON.stringify(u));
+            if (window.updateCloudFirestoreUserField && u.uid) {
+              window.updateCloudFirestoreUserField(u.uid, { coins: 0, gems: 0 });
+            }
+          }
           window.currentFirebaseUser = u;
           window.applyUserUI(u);
         } catch (e) {}
@@ -17108,11 +17241,11 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-slate-300 font-bold mb-1">Số Vàng 🪙 Ban Đầu:</label>
-            <input type="number" id="newPlayerCoins" value="2450" min="0" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-amber-300 focus:outline-none focus:border-emerald-500 font-mono font-bold">
+            <input type="number" id="newPlayerCoins" value="0" min="0" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-amber-300 focus:outline-none focus:border-emerald-500 font-mono font-bold">
           </div>
           <div>
             <label class="block text-slate-300 font-bold mb-1">Số Đá Quý 💎 Ban Đầu:</label>
-            <input type="number" id="newPlayerGems" value="150" min="0" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-cyan-300 focus:outline-none focus:border-emerald-500 font-mono font-bold">
+            <input type="number" id="newPlayerGems" value="0" min="0" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-cyan-300 focus:outline-none focus:border-emerald-500 font-mono font-bold">
           </div>
         </div>
 

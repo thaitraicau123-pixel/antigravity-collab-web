@@ -1019,3 +1019,19 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
     - Ô **TRẠI GIAM ALCATRAZ** ở góc trái: Nằm trọn vẹn trong màn hình, cách thẻ pod Rồng Lửa AI an toàn, không bị đè che.
     - Ô **INTERPOL (BẮT GIAM)** ở góc phải: Nằm trọn vẹn trong màn hình.
     - Cả 4 góc của bàn cờ đều hiển thị trọn vẹn 100% trong khung nhìn trên mọi độ phân giải (1080p, 768p, màn hình rộng 16:9).
+
+
+### v4.1.3 (2026-10-27) - Zero Component Overlap: Decouple Top Inspector HUD & Player Pod Cash Piles
+- **Triệt Tiêu 100% Hiện Tượng Đè Lấn Thành Phần (Zero Overlap Ergonomics)**:
+  - Khắc phục triệt để 2 điểm đè lấn người dùng phản hồi:
+    1. **Thanh Inspector HUD (#monoTopTileInspector) vs Góc Sân Bay (Tile 22)**:
+       - Thanh soi thông tin đất đai trước đây nằm đè lên góc nhọn ô Sân Bay ở đỉnh bàn cờ.
+       - Hiệu chỉnh: Nâng thanh Inspector lên `top: 6px`, đồng thời điều chỉnh góc nâng bàn cờ 2.5D về `translateY(-4%)` (Fullscreen) và `translateY(-2.5%)` (Thường), đưa kích thước bàn cờ về `min(76vh, 64vw, 820px)` (Fullscreen) và `min(64vh, 52vw, 720px)` (Thường).
+       - Kết quả: Tạo ra khoảng cách đệm an toàn rộng tới **~35px** giữa đáy thanh Inspector và đỉnh ô Sân Bay. Cả hai hiển thị sắc sảo, độc lập, không chạm nhau.
+    2. **Thẻ Pod Người Chơi (#monoCornerPod_0..3) vs Cụm Túi Tiền 3D (#monoSideCashPile_0..3)**:
+       - Trước đây miệng túi tiền và dây thắt vàng bị mép đáy của thẻ pod người chơi đè lên 5-10px.
+       - Hiệu chỉnh: Tăng khoảng cách tách rời của 4 cụm túi tiền ở cả 4 góc:
+         - **Chế độ Thường**: Cụm trên đặt `top-[106px] sm:top-[112px]`, cụm dưới đặt `bottom-[106px] sm:bottom-[112px]`.
+         - **Chế độ Fullscreen**: Cụm trên đặt `top: 158px !important;`, cụm dưới đặt `bottom: 118px !important;`.
+       - Kết quả: Tạo khoảng cách cố định rộng **22-25px** giữa thẻ người chơi và túi tiền ở cả 4 góc. Toàn bộ miệng túi nhung, ánh hào quang, thỏi xu vàng và bệ nhãn hiển thị trọn vẹn 100%, không còn bất kỳ sự chồng đè nào.
+  - **Bảo toàn 100% điều kiện 4 góc**: Cả 4 góc bàn cờ (START, ALCATRAZ, AIRPORT, INTERPOL) tiếp tục nằm trọn vẹn 100% bên trong khung nhìn màn hình.

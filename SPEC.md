@@ -945,3 +945,8 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
 ### v4.0.7 — Staggered Cash Transfer Animation & 1500ms Suspense Dice Roll
 - **1500ms 3D Suspense Dice Roll**: Tăng thời gian lăn xúc xắc lên 1500ms (ở tốc độ 1x) với 9 nhịp âm thanh lạch cạch va đập giảm tốc dần (decelerating tumble) + nhịp nghỉ sau dừng 420ms giúp người chơi theo dõi kết quả xúc xắc rõ ràng và hồi hộp hơn.
 - **Staggered Cash Transfer Animation**: Tiền chuyển xuất hiện lần lượt từng phần tử bên người trả (Chồng xu vàng nảy lên trước -> Túi tiền vải bố 3D nảy lên tiếp theo -> Huy hiệu số tiền bung sáng), sau đó rung nhẹ gom thành 1 thể đồng nhất tỏa hào quang vàng kim rồi mới lướt bay parabol sang người nhận.
+
+### v4.0.8 — Fix Bot AI Dice Roll & Watchdog Timing Synchronization
+- **Fix Bot AI Dice Rolling**: Sửa triệt để lỗi AI đổ xúc xắc bị chập chờn/kẹt do cơ chế tự cứu `runMonopolyWatchdog` trước đây có ngưỡng 1200ms quá ngắn so với thời gian lăn xúc xắc 1500ms + hoạt ảnh chuyển tiền 2300ms.
+- **Animation-Aware Watchdog Guard**: Bổ sung điều kiện bảo vệ tuyệt đối: Watchdog chỉ can thiệp khi Bot AI thực sự đứng lượt ở nút đổ (không đang lăn xúc xắc `!monoState.isRolling`, không đang nhảy ô `!monoState.stepIntervalId`, và không có modal chuyển tiền hay sự kiện nào đang chạy).
+- **Continuous Timestamp Refresh**: Cập nhật `monoState.lastActivityTime` xuyên suốt các giai đoạn của xúc xắc (1500ms lăn, 420ms chốt điểm) và chuyển tiền giúp ván đấu diễn ra mượt mà 100% không bao giờ bị ngắt quãng giữa chừng.

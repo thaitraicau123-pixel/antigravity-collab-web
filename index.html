@@ -532,7 +532,7 @@
     }
 
     /* =========================================================================
-       3D GLOSSY OBSIDIAN PIP DICE CUBE & CYAN AURA TUMBLE PHYSICS (v4.0.7)
+       3D GLOSSY OBSIDIAN PIP DICE CUBE & CYAN AURA TUMBLE PHYSICS (v4.0.8)
        ========================================================================= */
     .mono-die-scene {
       width: 44px;
@@ -638,7 +638,7 @@
     .pip-bc { grid-area: 3 / 2; }
     .pip-br { grid-area: 3 / 3; }
 
-    /* Airborne Parabolic Hop & Cyan Backlight Burst during 1500ms Roll (v4.0.7) */
+    /* Airborne Parabolic Hop & Cyan Backlight Burst during 1500ms Roll (v4.0.8) */
     @keyframes monoDieAirborneHop {
       0% {
         transform: translate3d(0, 0, 0) scale(1);
@@ -768,7 +768,7 @@
       animation: monoAirplaneFlight 2.0s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
     }
 
-    /* === 100% GPU HARDWARE-ACCELERATED 60FPS STAGGERED CASH FLIGHT (v4.0.7) === */
+    /* === 100% GPU HARDWARE-ACCELERATED 60FPS STAGGERED CASH FLIGHT (v4.0.8) === */
 
     /* Staggered spawn of cash transfer items beside payer pod */
     .mono-transfer-stagger-coins {
@@ -1116,7 +1116,7 @@
 
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v4.0.7</span>
+          <span id="headerVersionPill" class="font-bold">v4.0.8</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -3153,7 +3153,7 @@
         <div id="monoCenterControls" class="absolute inset-0 flex items-center justify-center pointer-events-none z-30 select-none">
           <div class="flex flex-col items-center justify-center gap-2.5 sm:gap-3 pointer-events-auto">
             
-            <!-- Clickable 3D Glossy Obsidian Pip Dice Tray (Tap to Roll - v4.0.7) -->
+            <!-- Clickable 3D Glossy Obsidian Pip Dice Tray (Tap to Roll - v4.0.8) -->
             <div onclick="executeMono2dRoll()" id="monoDiceTrayBox" class="flex items-center gap-3.5 bg-[#050A14]/95 px-5 py-2.5 rounded-2xl border-2 border-cyan-400/80 shadow-[0_0_28px_rgba(6,182,212,0.45)] backdrop-blur-md cursor-pointer hover:border-cyan-300 hover:scale-105 active:scale-95 transition-all select-none touch-manipulation group" title="Bấm vào khay xúc xắc 3D hoặc nhấn Space để tung xúc xắc">
               <!-- Hidden numeric holders for 100% P2P sync compatibility -->
               <span id="monoDice1Val" class="hidden">6</span>
@@ -4654,7 +4654,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v4.0.7</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v4.0.8</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -8869,7 +8869,7 @@
       }
     }
 
-    // 3D Studio Masterpiece White Canvas Money Bag ($) with Vintage Banknotes + Tall Flush Gold Coin Cylinders & Embossed "$" Coins (v4.0.7)
+    // 3D Studio Masterpiece White Canvas Money Bag ($) with Vintage Banknotes + Tall Flush Gold Coin Cylinders & Embossed "$" Coins (v4.0.8)
     let __wealthSvgUidCounter = 0;
 
     function buildWealthSharedDefs(uid) {
@@ -10151,7 +10151,7 @@
     }
 
     // =========================================================================
-    // 3D OBSIDIAN PIP DICE ROTATION & SUSPENSE TUMBLE ENGINE (v4.0.7)
+    // 3D OBSIDIAN PIP DICE ROTATION & SUSPENSE TUMBLE ENGINE (v4.0.8)
     // =========================================================================
     let monoDiceSpinRound = 0;
 
@@ -10239,9 +10239,11 @@ function playMonoDiceTumbleSFX(durationMs) {
 
     function animateMono3DDiceRoll(d1, d2, onComplete) {
       const monoSpd = window.monoSpeed || monoState.speed || 1;
-      // Full suspense 1500ms at 1x speed for clear observation (v4.0.7)
+      // Full suspense 1500ms at 1x speed for clear observation (v4.0.8)
       const rollDuration = Math.max(200, Math.round(1500 / Math.pow(monoSpd, 0.75)));
       const settlePause = Math.max(60, Math.round(420 / Math.pow(monoSpd, 0.8)));
+
+      monoState.lastActivityTime = Date.now();
 
       const tray = document.getElementById('monoDiceTrayBox');
       const sumEl = document.getElementById('monoDiceSumVal');
@@ -10272,6 +10274,7 @@ function playMonoDiceTumbleSFX(durationMs) {
 
       // Stage 2: Dice land & lock onto dotted faces after 1500ms -> Reveal Total & Doubles
       monoState.diceRollTimeoutId = setTimeout(() => {
+        monoState.lastActivityTime = Date.now();
         const totalSteps = d1 + d2;
         const isDoubles = (d1 === d2);
 
@@ -10305,12 +10308,12 @@ function playMonoDiceTumbleSFX(durationMs) {
 
         // Stage 3: Generous settle pause (420ms) so player clearly sees the settled dotted faces before pawn hops
         monoState.diceRollTimeoutId = setTimeout(() => {
+          monoState.lastActivityTime = Date.now();
           monoState.diceRollTimeoutId = null;
           if (typeof onComplete === 'function') onComplete();
         }, settlePause);
       }, rollDuration);
     }
-        // Execute 2.5D Roll Dice
     function executeMono2dRoll() {
       if (monoState.isRolling) return;
       if (window.isOnlineRoomMatch && window.myRoomPlayerIndex !== monoState.turn) {
@@ -11345,13 +11348,33 @@ function playMonoDiceTumbleSFX(durationMs) {
         isLocalTurn = true;
       }
 
-      // TRƯỜNG HỢP 4: monoState.isRolling bị kẹt quá 3500ms mà không có bước nhảy ô mới
-      if (monoState.isRolling && idleElapsed > 3500) {
-        console.warn('[MonoWatchdog] isRolling stuck >3500ms, auto-recovering...');
+      // Check if any active animation or overlay modal is currently presenting
+      const cashOverlay = document.getElementById('monoCashTransferOverlay') || document.getElementById('monoCashTransferModal');
+      const isCashModalOpen = cashOverlay && !cashOverlay.classList.contains('hidden');
+      const eventOverlay = document.getElementById('monoEventModalOverlay');
+      const isEventModalOpen = eventOverlay && !eventOverlay.classList.contains('hidden');
+      const jailOverlay = document.getElementById('monoJailGateOverlay');
+      const isJailModalOpen = jailOverlay && !jailOverlay.classList.contains('hidden');
+      const isAnyModalActive = isCashModalOpen || isEventModalOpen || isJailModalOpen;
+
+      // When animations or modals are active, keep lastActivityTime fresh
+      if (isAnyModalActive || monoState.stepIntervalId) {
+        monoState.lastActivityTime = now;
+        return;
+      }
+
+      // TRƯỜNG HỢP 4: monoState.isRolling bị kẹt quá 8000ms mà không có bước nhảy ô mới (browser exception recovery)
+      const maxRollingThreshold = Math.max(3500, Math.round(8500 / Math.pow(curSpeed, 0.75)));
+      if (monoState.isRolling && idleElapsed > maxRollingThreshold) {
+        console.warn('[MonoWatchdog] isRolling stuck >' + maxRollingThreshold + 'ms, auto-recovering...');
         monoState.isRolling = false;
         if (monoState.stepIntervalId) {
           clearInterval(monoState.stepIntervalId);
           monoState.stepIntervalId = null;
+        }
+        if (monoState.diceRollTimeoutId) {
+          clearTimeout(monoState.diceRollTimeoutId);
+          monoState.diceRollTimeoutId = null;
         }
         monoState.lastActivityTime = now;
         updateMonopolyPawns();
@@ -11363,6 +11386,11 @@ function playMonoDiceTumbleSFX(durationMs) {
         return;
       }
 
+      // If dice is actively rolling, DO NOT INTERRUPT
+      if (monoState.isRolling) {
+        return;
+      }
+
       // TRƯỜNG HỢP 2: Đang có monoState.pendingAction của người chơi local quá 300ms khi bật Auto-Play
       if (window.monoAutoPlay && isLocalTurn && monoState.pendingAction && idleElapsed > 300) {
         monoState.lastActivityTime = now;
@@ -11371,12 +11399,8 @@ function playMonoDiceTumbleSFX(durationMs) {
       }
 
       // TRƯỜNG HỢP 1: Đứng ở nút Đổ Xúc Xắc khi bật Auto-Play
-      const rollWaitThreshold = Math.max(220, Math.round(850 / curSpeed));
+      const rollWaitThreshold = Math.max(250, Math.round(900 / curSpeed));
       if (window.monoAutoPlay && isLocalTurn && !monoState.isRolling && !monoState.pendingAction && idleElapsed > rollWaitThreshold) {
-        const eventModal = document.getElementById('monoEventModalOverlay');
-        if (eventModal && !eventModal.classList.contains('hidden')) {
-          closeMonoEventModal();
-        }
         const decisionBox = document.getElementById('mono2dDecisionBox') || document.getElementById('monoDecisionBox');
         if (decisionBox && !decisionBox.classList.contains('hidden')) {
           decisionBox.classList.add('hidden');
@@ -11388,9 +11412,14 @@ function playMonoDiceTumbleSFX(durationMs) {
         return;
       }
 
-      // TRƯỜNG HỢP 3: Lượt của Bot AI bị đứng lượt quá 1200ms
-      if (!window.isOnlineRoomMatch && curPlayer.isBot && !curPlayer.isBankrupt && idleElapsed > 1200) {
-        monoState.isRolling = false;
+      // TRƯỜNG HỢP 3: Lượt của Bot AI bị đứng lượt ở khay xúc xắc (chỉ kích hoạt khi hoàn toàn không có hành động nào khác!)
+      const botRollWaitThreshold = Math.max(800, Math.round(2500 / curSpeed));
+      if (!window.isOnlineRoomMatch && curPlayer.isBot && !curPlayer.isBankrupt
+          && !monoState.isRolling
+          && !monoState.stepIntervalId
+          && !monoState.pendingAction
+          && idleElapsed > botRollWaitThreshold) {
+        console.warn('[MonoWatchdog] Bot AI waiting too long to roll, auto-triggering roll...');
         monoState.lastActivityTime = now;
         if (monoState.botTimeoutId) {
           clearTimeout(monoState.botTimeoutId);
@@ -11406,7 +11435,6 @@ function playMonoDiceTumbleSFX(durationMs) {
         return;
       }
     }
-
     function runDiceQuestWatchdog() {
       if (typeof activeTab !== 'undefined' && activeTab !== 'dice') return;
       if (!window.diceAutoPlay) return;
@@ -11717,7 +11745,7 @@ function playMonoDiceTumbleSFX(durationMs) {
       `;
     }
 
-    // Render 3D Studio Stacks of Dollars ($1,000/bag), Flush Gold Coin Cylinders ($100/coin) & Silver Coins ($25/coin) (v4.0.7)
+    // Render 3D Studio Stacks of Dollars ($1,000/bag), Flush Gold Coin Cylinders ($100/coin) & Silver Coins ($25/coin) (v4.0.8)
 function renderCashStackHTML(amount) {
       const amt = Math.max(0, amount || 0);
       const bags = Math.floor(amt / 1000);
@@ -11760,7 +11788,7 @@ function renderCashStackHTML(amount) {
       `;
     }
 
-    // Trigger Dynamic Cash Transfer Animation with Staggered Stacks & Consolidated Flight (v4.0.7)
+    // Trigger Dynamic Cash Transfer Animation with Staggered Stacks & Consolidated Flight (v4.0.8)
         function triggerMonoCashTransfer(opts) {
       opts = opts || {};
       const payer = opts.payer;
@@ -11850,7 +11878,7 @@ function renderCashStackHTML(amount) {
         if (descEl) descEl.textContent = desc || `${payer.name} đã trả ${amount.toLocaleString()} tiền thuê cho ${recipient.name}.`;
       }
 
-      // Timing: 2300ms base animation at 1x so player comfortably follows each stack and flight (v4.0.7)
+      // Timing: 2300ms base animation at 1x so player comfortably follows each stack and flight (v4.0.8)
       const speedFactor = window.monoSpeed || monoState.speed || 1;
       const transferDurationMs = Math.max(400, Math.round(2300 / Math.pow(speedFactor, 0.82)));
       const staggerDur = (transferDurationMs * 0.22 / 1000).toFixed(2) + 's';
@@ -11859,6 +11887,7 @@ function renderCashStackHTML(amount) {
       overlay.classList.remove('hidden');
       overlay.classList.add('flex');
       void overlay.offsetWidth;
+      monoState.lastActivityTime = Date.now();
 
       // 4. Render Cash Stack with Staggered Classes & Flight
       if (stackContainer) {
@@ -14637,7 +14666,7 @@ function renderCashStackHTML(amount) {
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v4.0.7'
+      currentVersion: 'v4.0.8'
     };
 
     let allChangelogItems = [];

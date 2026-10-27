@@ -921,7 +921,16 @@
       overflow-y: hidden !important;
     }
 
-    #monopolyView {
+    #monopolyView.hidden,
+    #diceView.hidden,
+    #chessView.hidden,
+    #tictactoeView.hidden {
+      display: none !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+
+    #monopolyView:not(.hidden) {
       height: calc(100vh - 215px);
       min-height: 480px;
       max-height: 880px;
@@ -1622,19 +1631,19 @@
 
           <!-- 4-Game Direct Switcher Pills (Bespoke SVG Vector Icons, 100% Crisp) -->
           <div class="flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
-            <button onclick="switchGameView('dice')" id="pillGameDice" class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1.5 transition-all whitespace-nowrap shadow-sm" title="Cờ Xúc Xắc 20 Ô Hoàng Kim">
+            <button onclick="requestSwitchGameView('dice')" id="pillGameDice" class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1.5 transition-all whitespace-nowrap shadow-sm" title="Cờ Xúc Xắc 20 Ô Hoàng Kim">
               <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)] shrink-0" fill="none"><polygon points="16,3 28,9 16,15 4,9" fill="url(#diceTopGrad)" stroke="#FEF08A" stroke-width="0.8"/><circle cx="16" cy="9" r="1.5" fill="#78350F"/><polygon points="4,9 16,15 16,29 4,23" fill="url(#diceLeftGrad)" stroke="#B45309" stroke-width="0.8"/><circle cx="8" cy="14" r="1.2" fill="#FDE68A"/><circle cx="12" cy="22" r="1.2" fill="#FDE68A"/><polygon points="16,15 28,9 28,23 16,29" fill="url(#diceRightGrad)" stroke="#D97706" stroke-width="0.8"/><circle cx="20" cy="18" r="1.2" fill="#78350F"/><circle cx="24" cy="14" r="1.2" fill="#78350F"/><circle cx="24" cy="22" r="1.2" fill="#78350F"/></svg>
               <span class="hidden sm:inline">20 Ô</span>
             </button>
-            <button onclick="switchGameView('chess')" id="pillGameChess" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1.5 transition-all whitespace-nowrap" title="Cờ Vua FIDE">
+            <button onclick="requestSwitchGameView('chess')" id="pillGameChess" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1.5 transition-all whitespace-nowrap" title="Cờ Vua FIDE">
               <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(99,102,241,0.6)] shrink-0" fill="none"><path d="M7 28h18c-1-3-2-4-3-6-1-1-1-3 0-5 1-2 2-4 2-7 0-4-3-6-7-6-2 0-3 1-5 3-1-1-3-1-4 0-1 1-1 3-1 4 0 2 1 3 2 4l-1 2c-2 2-3 4-2 7 0 1 0 2 0 4h-1z" fill="url(#chessGrad)" stroke="#C7D2FE" stroke-width="1"/><circle cx="13" cy="12" r="1.2" fill="#E0E7FF"/><path d="M10 28h12v2H10z" fill="#818CF8"/></svg>
               <span class="hidden sm:inline">Cờ Vua</span>
             </button>
-            <button onclick="switchGameView('tictactoe')" id="pillGameTTT" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1.5 transition-all whitespace-nowrap" title="Cờ Ca-rô Neon">
+            <button onclick="requestSwitchGameView('tictactoe')" id="pillGameTTT" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1.5 transition-all whitespace-nowrap" title="Cờ Ca-rô Neon">
               <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(6,182,212,0.6)] shrink-0" fill="none"><line x1="6" y1="7" x2="18" y2="19" stroke="url(#xGrad)" stroke-width="3" stroke-linecap="round"/><line x1="18" y1="7" x2="6" y2="19" stroke="url(#xGrad)" stroke-width="3" stroke-linecap="round"/><circle cx="21" cy="20" r="7" stroke="url(#oGrad)" stroke-width="2.5" fill="none"/></svg>
               <span class="hidden sm:inline">Ca-rô</span>
             </button>
-            <button onclick="switchGameView('monopoly')" id="pillGameMono" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1.5 transition-all whitespace-nowrap" title="Cờ Tỷ Phú 2.5D">
+            <button onclick="requestSwitchGameView('monopoly')" id="pillGameMono" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1.5 transition-all whitespace-nowrap" title="Cờ Tỷ Phú 2.5D">
               <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(16,185,129,0.6)] shrink-0" fill="none"><polygon points="16,3 23,7 16,11 9,7" fill="url(#monoRoof)" stroke="#FDE68A" stroke-width="0.7"/><polygon points="9,7 16,11 16,28 9,24" fill="url(#monoTower1)" stroke="#059669" stroke-width="0.7"/><polygon points="16,11 23,7 23,24 16,28" fill="url(#monoTower2)" stroke="#047857" stroke-width="0.7"/><line x1="12" y1="13" x2="14" y2="14" stroke="#FDE68A" stroke-width="1.2"/><line x1="12" y1="18" x2="14" y2="19" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="14" x2="20" y2="13" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="19" x2="20" y2="18" stroke="#FDE68A" stroke-width="1.2"/><polygon points="4,13 9,10 9,24 4,27" fill="#047857" stroke="#10B981" stroke-width="0.6"/><polygon points="23,10 28,13 28,27 23,24" fill="#065F46" stroke="#10B981" stroke-width="0.6"/></svg>
               <span class="hidden sm:inline">Tỷ Phú</span>
             </button>
@@ -1736,6 +1745,12 @@
           </button>
 
           <!-- New Match Reset -->
+          <!-- Exit Match & Stop Background Button -->
+          <button onclick="requestExitArenaToLobby('lobby')" style="order: 9999;" class="btn-spring px-3 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer order-last" title="Xác nhận thoát trận và dừng hoàn toàn game chạy ngầm">
+            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+            <span>Thoát Trận</span>
+          </button>
+
           <button onclick="handleReset()" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-200 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm">
             <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-amber-400"></i>
             <span>Ván Mới</span>
@@ -1772,6 +1787,12 @@
           </div>
 
           <!-- Chess New Match -->
+          <!-- Exit Match & Stop Background Button -->
+          <button onclick="requestExitArenaToLobby('lobby')" style="order: 9999;" class="btn-spring px-3 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer order-last" title="Xác nhận thoát trận và dừng hoàn toàn game chạy ngầm">
+            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+            <span>Thoát Trận</span>
+          </button>
+
           <button onclick="resetChessGame()" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-200 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm">
             <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-indigo-400"></i>
             <span>Ván Mới</span>
@@ -1812,6 +1833,12 @@
           <button onclick="resetTTTScores()" class="btn-spring px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold flex items-center gap-1" title="Đặt lại tỉ số X/O/Hòa">
             <i data-lucide="trash-2" class="w-3.5 h-3.5 text-slate-400"></i>
             <span class="hidden sm:inline">Xóa Tỉ Số</span>
+          </button>
+
+          <!-- Exit Match & Stop Background Button -->
+          <button onclick="requestExitArenaToLobby('lobby')" class="btn-spring px-3 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Xác nhận thoát trận và dừng hoàn toàn game chạy ngầm">
+            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+            <span>Thoát Trận</span>
           </button>
         </div>
 
@@ -1865,6 +1892,12 @@
           <button onclick="toggleMonopolyFullscreen()" id="btnMonoFullscreenHeader" class="btn-spring px-2.5 py-1 rounded-xl bg-indigo-900/80 hover:bg-indigo-700 text-indigo-200 hover:text-white border border-indigo-500/50 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all" title="Bật/Tắt Toàn Màn Hình 16:9 (Phím tắt: F hoặc Esc)">
             <span class="text-sm">⛶</span>
             <span id="monoFullscreenHeaderText">Toàn Màn Hình</span>
+          </button>
+
+          <!-- Exit Match & Stop Background Button -->
+          <button onclick="requestExitArenaToLobby('lobby')" class="btn-spring px-3 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Xác nhận thoát trận và dừng hoàn toàn game chạy ngầm">
+            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+            <span>Thoát Trận</span>
           </button>
         </div>
       </div> <!-- Close #arenaMatchConsole properly here -->
@@ -5159,7 +5192,7 @@
               -- Commits
             </span>
           </div>
-          <div id="dev1Highlights" class="text-[11px] text-slate-300 space-y-1 pl-1">
+          <div id="dev2Highlights" class="text-[11px] text-slate-300 space-y-1 pl-1">
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Siêu phẩm Cờ Tỷ Phú 2.5D Isometric, Xây Landmark & Thâu tóm</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Đấu trường Cờ Vua FIDE 8x8 & 4 Cấp độ Bot AI Minimax</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Engine theo dõi phiên bản GitHub REST API & WebSocket Backend</span></div>
@@ -5182,7 +5215,9 @@
               -- Commits
             </span>
           </div>
-          <div class="text-[11px] text-slate-300 space-y-1 pl-1">
+          <div id="dev1Highlights" class="text-[11px] text-slate-300 space-y-1 pl-1">
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Fix Cờ Tỷ Phú ẩn triệt để khi chuyển game, Nút Thoát Trận dừng 100% chạy ngầm & Chuẩn hóa 4 Icon P2P</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Hệ thống 7 Bậc Rank & Phần thưởng Thăng hạng + Lịch sử đấu thật 4 Game</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Tối ưu Responsive Topbar (chống khuất Avatar/Auth) & Fix Modal Thoát Trận</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Hệ thống Chuyển cảnh 60fps GPU & Spring-pop 9 Modal</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Đại tu Bí Kíp Bento Grid 4 Bộ Môn & Bộ Icon SVG Độc Bản</span></div>
@@ -5721,6 +5756,7 @@
     // MATCH EXIT GUARD & CLEAN TERMINATION SYSTEM
     // =========================================================================
     window.pendingExitTargetTab = 'lobby';
+    window.pendingSwitchGameTab = null;
 
     function isMatchInProgress() {
       if (window.currentMainTab !== 'arena') return false;
@@ -5754,9 +5790,126 @@
     }
     window.isMatchInProgress = isMatchInProgress;
 
+    function stopAllBackgroundGameProcesses() {
+      window.isArenaGameTerminated = true;
+
+      if (typeof stopMonopolyTimers === 'function') {
+        stopMonopolyTimers();
+      }
+      if (typeof monoAutoPlayTimer !== 'undefined' && monoAutoPlayTimer) {
+        clearTimeout(monoAutoPlayTimer);
+        monoAutoPlayTimer = null;
+      }
+      if (typeof diceAutoPlayTimer !== 'undefined' && diceAutoPlayTimer) {
+        clearTimeout(diceAutoPlayTimer);
+        diceAutoPlayTimer = null;
+      }
+      if (window.monoWatchdogInterval) {
+        clearInterval(window.monoWatchdogInterval);
+        window.monoWatchdogInterval = null;
+      }
+      if (typeof stopTimingGauge === 'function') {
+        stopTimingGauge();
+      }
+      if (typeof stopChessTimer === 'function') {
+        stopChessTimer();
+      }
+      if (window.chessBotTimeout) {
+        clearTimeout(window.chessBotTimeout);
+        window.chessBotTimeout = null;
+      }
+      if (window.tttBotTimeout) {
+        clearTimeout(window.tttBotTimeout);
+        window.tttBotTimeout = null;
+      }
+      if (window.botTurnTimeout) {
+        clearTimeout(window.botTurnTimeout);
+        window.botTurnTimeout = null;
+      }
+      if (window.monoState) {
+        if (monoState.botTimeoutId) {
+          clearTimeout(monoState.botTimeoutId);
+          monoState.botTimeoutId = null;
+        }
+        if (monoState.stepIntervalId) {
+          clearInterval(monoState.stepIntervalId);
+          monoState.stepIntervalId = null;
+        }
+        if (monoState.diceRollTimeoutId) {
+          clearTimeout(monoState.diceRollTimeoutId);
+          monoState.diceRollTimeoutId = null;
+        }
+        monoState.isGameOver = true;
+        monoState.gameOver = true;
+        monoState.isRolling = false;
+        monoState.pendingAction = null;
+        monoState.eventCallback = null;
+        if (monoState.players && Array.isArray(monoState.players)) {
+          monoState.players.forEach(p => { p.properties = []; p.pos = 0; p.cash = 2000; });
+        }
+      }
+      window.isDiceRolling = false;
+      window.monoAutoPlay = false;
+      window.diceAutoPlay = false;
+      if (typeof toggleMonoAutoPlay === 'function') toggleMonoAutoPlay(false);
+      if (typeof toggleDiceAutoPlay === 'function') toggleDiceAutoPlay(false);
+
+      try {
+        scores = { 1: 0, 2: 0, 3: 0, 4: 0 };
+        positions = { 1: 0, 2: 0, 3: 0, 4: 0 };
+      } catch (e) {}
+
+      window.tttGameOver = true;
+      if (Array.isArray(window.tttBoard)) {
+        window.tttBoard = [null,null,null,null,null,null,null,null,null];
+      }
+
+      if (window.chessGame && typeof chessGame.reset === 'function') {
+        chessGame.reset();
+      }
+
+      if (typeof closeMonoEventModal === 'function') closeMonoEventModal();
+      if (typeof closeMonoAssetManager === 'function') closeMonoAssetManager();
+      closeArenaExitConfirmModal();
+
+      const activeModals = [
+        'monoCashTransferOverlay', 'monoCashTransferModal', 'mono2dDecisionBox',
+        'monoJailGateOverlay', 'monoAirplaneOverlay', 'monoEventModalOverlay',
+        'monoAssetManagerModal', 'skillDuelModal', 'arenaExitConfirmModal'
+      ];
+      activeModals.forEach(mId => {
+        const el = document.getElementById(mId);
+        if (el) {
+          el.classList.add('hidden');
+          el.classList.remove('flex');
+        }
+      });
+    }
+    window.stopAllBackgroundGameProcesses = stopAllBackgroundGameProcesses;
+
+    function requestSwitchGameView(targetGame) {
+      if (targetGame === (typeof activeTab !== 'undefined' ? activeTab : '')) return;
+      if (typeof isMatchInProgress === 'function' && isMatchInProgress()) {
+        window.pendingSwitchGameTab = targetGame;
+        window.pendingExitTargetTab = null;
+        const modal = document.getElementById('arenaExitConfirmModal');
+        if (modal) {
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+          return;
+        }
+      }
+      stopAllBackgroundGameProcesses();
+      if (typeof switchGameView === 'function') {
+        switchGameView(targetGame, true);
+      }
+    }
+    window.requestSwitchGameView = requestSwitchGameView;
+
     function requestExitArenaToLobby(targetTab) {
       window.pendingExitTargetTab = targetTab || 'lobby';
-      if (isMatchInProgress()) {
+      window.pendingSwitchGameTab = null;
+      if (window.currentMainTab === 'arena' || (typeof isMatchInProgress === 'function' && isMatchInProgress())) {
         const modal = document.getElementById('arenaExitConfirmModal');
         if (modal) {
           modal.classList.remove('hidden');
@@ -5781,12 +5934,25 @@
 
     function confirmExitArenaToLobby() {
       closeArenaExitConfirmModal();
-      terminateActiveGameCleanly(window.pendingExitTargetTab || 'lobby');
+      if (window.pendingSwitchGameTab) {
+        const nextGame = window.pendingSwitchGameTab;
+        window.pendingSwitchGameTab = null;
+        stopAllBackgroundGameProcesses();
+        if (typeof switchGameView === 'function') {
+          switchGameView(nextGame, true);
+        }
+        if (typeof showToast === 'function') {
+          showToast('🏳️ Đã dừng hẳn game cũ và chuyển sang bàn đấu mới.');
+        }
+      } else {
+        terminateActiveGameCleanly(window.pendingExitTargetTab || 'lobby');
+      }
     }
     window.confirmExitArenaToLobby = confirmExitArenaToLobby;
 
     function terminateActiveGameCleanly(targetTab) {
       const dest = targetTab || 'lobby';
+      stopAllBackgroundGameProcesses();
 
       // 1. Dừng ngay lập tức 100% các interval, timeout, animation loop, audio loop
       if (typeof stopMonopolyTimers === 'function') {
@@ -5872,6 +6038,7 @@
         if (v) {
           v.classList.add('hidden');
           v.classList.remove('grid', 'flex', 'block', 'view-fade-slide');
+          v.style.display = 'none';
         }
       });
 
@@ -12720,8 +12887,12 @@ function playMonoDiceTumbleSFX(durationMs) {
     // Ensures zero freezes even at 20x-25x ultra speeds or doubles roll chains
     // =========================================================================
     function runMonopolyWatchdog() {
+      if (window.isArenaGameTerminated) return;
+      if (window.currentMainTab && window.currentMainTab !== 'arena') return;
       if (typeof activeTab !== 'undefined' && activeTab !== 'monopoly') return;
-      if (!window.monoState || !monoState.players || monoState.gameOver) return;
+      const vMonoEl = document.getElementById('monopolyView');
+      if (!vMonoEl || vMonoEl.classList.contains('hidden') || vMonoEl.style.display === 'none') return;
+      if (!window.monoState || !monoState.players || monoState.gameOver || monoState.isGameOver) return;
 
       const now = Date.now();
       if (!monoState.lastActivityTime) monoState.lastActivityTime = now;
@@ -12831,7 +13002,11 @@ function playMonoDiceTumbleSFX(durationMs) {
       }
     }
     function runDiceQuestWatchdog() {
+      if (window.isArenaGameTerminated) return;
+      if (window.currentMainTab && window.currentMainTab !== 'arena') return;
       if (typeof activeTab !== 'undefined' && activeTab !== 'dice') return;
+      const vDiceEl = document.getElementById('diceView');
+      if (!vDiceEl || vDiceEl.classList.contains('hidden') || vDiceEl.style.display === 'none') return;
       if (!window.diceAutoPlay) return;
 
       const now = Date.now();
@@ -14193,7 +14368,16 @@ function renderCashStackHTML(amount) {
     window.monoState = monoState;
     window.MONOPOLY_2D_TILES = MONOPOLY_2D_TILES;
 
-    function switchGameView(tab) {
+    function switchGameView(tab, force = false) {
+      window.isArenaGameTerminated = false;
+      if (!window.monoWatchdogInterval) {
+        window.monoWatchdogInterval = setInterval(() => {
+          try {
+            runMonopolyWatchdog();
+            runDiceQuestWatchdog();
+          } catch (e) {}
+        }, 350);
+      }
       if (typeof stopTimingGauge === 'function') stopTimingGauge();
       if (typeof stopChessTimer === 'function') stopChessTimer();
 
@@ -14256,6 +14440,7 @@ function renderCashStackHTML(amount) {
         if (v) {
           v.classList.add('hidden');
           v.classList.remove('grid', 'flex', 'block', 'view-fade-slide');
+          v.style.display = 'none';
         }
       });
 
@@ -14267,6 +14452,7 @@ function renderCashStackHTML(amount) {
       if (tab === 'dice') {
         if (!isSpectatorMode) startTimingGauge();
         if (vDice) {
+          vDice.style.display = '';
           vDice.classList.remove('hidden');
           void vDice.offsetWidth;
           vDice.classList.add('grid', 'view-fade-slide');
@@ -14289,6 +14475,7 @@ function renderCashStackHTML(amount) {
         highlightTurnCard(currentTurn);
       } else if (tab === 'tictactoe') {
         if (vTTT) {
+          vTTT.style.display = '';
           vTTT.classList.remove('hidden');
           void vTTT.offsetWidth;
           vTTT.classList.add('flex', 'view-fade-slide');
@@ -14302,6 +14489,7 @@ function renderCashStackHTML(amount) {
         }
       } else if (tab === 'chess') {
         if (vChess) {
+          vChess.style.display = '';
           vChess.classList.remove('hidden');
           void vChess.offsetWidth;
           vChess.classList.add('flex', 'view-fade-slide');
@@ -14316,6 +14504,7 @@ function renderCashStackHTML(amount) {
       } else if (tab === 'monopoly') {
         document.body.classList.add('mono-view-active');
         if (vMono) {
+          vMono.style.display = '';
           vMono.classList.remove('hidden');
           void vMono.offsetWidth;
           vMono.classList.add('flex', 'view-fade-slide');
@@ -16365,6 +16554,30 @@ function renderCashStackHTML(amount) {
 
     // Curated fallback updates in case of offline or GitHub API rate limiting
     const CURATED_CHANGELOG = [
+  {
+    "sha": "e9c41a2",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v4.1.0",
+    "title": "Fix Monopoly view bleed-through on game switch, sync P2P modal icons with Lobby standard, and add Exit Match confirmation stopping all background processes",
+    "details": [
+      "fix(ui-arena): isolate #monopolyView:not(.hidden) CSS, replace P2P game icons with Lobby standard SVGs, and add Thoát Trận buttons that completely stop background loops/bots",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-27 14:48:00 +0700"
+  },
+  {
+    "sha": "48ba1a9",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v4.0.9",
+    "title": "Redesign bespoke SVG icons, audit real match history, and add 7-tier rank progression with rewards",
+    "details": [
+      "feat(ui-rank): redesign bespoke SVG icons, audit real match history, and add 7-tier rank progression with rewards",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-27 12:12:00 +0700"
+  },
   {
     "sha": "ab441b3",
     "roleType": "dev1",
@@ -19485,41 +19698,8 @@ function renderCashStackHTML(amount) {
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             <!-- Game 1: Dice -->
             <button type="button" onclick="selectMpGame('dice')" id="mpGameCard_dice" class="mp-game-card group p-3 rounded-2xl bg-slate-900/90 border-2 border-cyan-400 text-left transition-all hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-500/20 relative cursor-pointer">
-              <div class="w-10 h-10 rounded-2xl bg-amber-500/15 border border-amber-500/40 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner mb-2.5">
-                <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="mpDiceTop" x1="5" y1="5" x2="27" y2="17" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stop-color="#FEF08A"/>
-                      <stop offset="50%" stop-color="#FBBF24"/>
-                      <stop offset="100%" stop-color="#F59E0B"/>
-                    </linearGradient>
-                    <linearGradient id="mpDiceLeft" x1="5" y1="11" x2="16" y2="28" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stop-color="#F59E0B"/>
-                      <stop offset="100%" stop-color="#B45309"/>
-                    </linearGradient>
-                    <linearGradient id="mpDiceRight" x1="16" y1="17" x2="27" y2="28" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stop-color="#D97706"/>
-                      <stop offset="100%" stop-color="#78350F"/>
-                    </linearGradient>
-                    <filter id="mpDiceGlow" x="-20%" y="-20%" width="140%" height="140%">
-                      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#F59E0B" flood-opacity="0.4"/>
-                    </filter>
-                  </defs>
-                  <g filter="url(#mpDiceGlow)">
-                    <polygon points="16,4 27,10 16,16 5,10" fill="url(#mpDiceTop)" stroke="#FEF08A" stroke-width="0.5" stroke-linejoin="round"/>
-                    <polygon points="5,10 16,16 16,27 5,21" fill="url(#mpDiceLeft)" stroke="#FBBF24" stroke-width="0.5" stroke-linejoin="round"/>
-                    <polygon points="16,16 27,10 27,21 16,27" fill="url(#mpDiceRight)" stroke="#D97706" stroke-width="0.5" stroke-linejoin="round"/>
-                    <path d="M5 10L16 16L27 10" stroke="#FFFBEB" stroke-width="0.75" stroke-linecap="round" opacity="0.8"/>
-                    <line x1="16" y1="16" x2="16" y2="27" stroke="#FEF08A" stroke-width="0.75" stroke-linecap="round" opacity="0.6"/>
-                    <ellipse cx="16" cy="10" rx="1.8" ry="1.1" fill="#78350F" stroke="#FEF08A" stroke-width="0.4"/>
-                    <circle cx="8.5" cy="14" r="1.1" fill="#FEF3C7" stroke="#92400E" stroke-width="0.3"/>
-                    <circle cx="10.5" cy="18.5" r="1.1" fill="#FEF3C7" stroke="#92400E" stroke-width="0.3"/>
-                    <circle cx="12.5" cy="23" r="1.1" fill="#FEF3C7" stroke="#92400E" stroke-width="0.3"/>
-                    <circle cx="19.5" cy="22" r="1.1" fill="#FEF3C7" stroke="#78350F" stroke-width="0.3"/>
-                    <circle cx="23.5" cy="15" r="1.1" fill="#FEF3C7" stroke="#78350F" stroke-width="0.3"/>
-                    <path d="M26 6L26.8 8.2L29 9L26.8 9.8L26 12L25.2 9.8L23 9L25.2 8.2Z" fill="#FFFBEB" opacity="0.9"/>
-                  </g>
-                </svg>
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-700/20 border border-amber-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform mb-2.5">
+                <svg viewBox="0 0 32 32" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(245,158,11,0.7)]" fill="none"><polygon points="16,3 28,9 16,15 4,9" fill="url(#diceTopGrad)" stroke="#FEF08A" stroke-width="0.8"/><circle cx="16" cy="9" r="1.5" fill="#78350F"/><polygon points="4,9 16,15 16,29 4,23" fill="url(#diceLeftGrad)" stroke="#B45309" stroke-width="0.8"/><circle cx="8" cy="14" r="1.2" fill="#FDE68A"/><circle cx="12" cy="22" r="1.2" fill="#FDE68A"/><polygon points="16,15 28,9 28,23 16,29" fill="url(#diceRightGrad)" stroke="#D97706" stroke-width="0.8"/><circle cx="20" cy="18" r="1.2" fill="#78350F"/><circle cx="24" cy="14" r="1.2" fill="#78350F"/><circle cx="24" cy="22" r="1.2" fill="#78350F"/></svg>
               </div>
               <div class="text-xs font-bold text-white group-hover:text-amber-300">Xúc Xắc 20 Ô</div>
               <div class="text-[10px] text-slate-400 font-mono">2-4 Người</div>
@@ -19528,40 +19708,8 @@ function renderCashStackHTML(amount) {
 
             <!-- Game 2: Chess -->
             <button type="button" onclick="selectMpGame('chess')" id="mpGameCard_chess" class="mp-game-card group p-3 rounded-2xl bg-slate-900/60 border border-slate-800 text-left transition-all hover:border-cyan-500/50 relative cursor-pointer">
-              <div class="w-10 h-10 rounded-2xl bg-indigo-500/15 border border-indigo-500/40 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner mb-2.5">
-                <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="mpKnightBody" x1="8" y1="8" x2="24" y2="28" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stop-color="#A5B4FC"/>
-                      <stop offset="35%" stop-color="#6366F1"/>
-                      <stop offset="80%" stop-color="#4338CA"/>
-                      <stop offset="100%" stop-color="#312E81"/>
-                    </linearGradient>
-                    <linearGradient id="mpCrownGold" x1="12" y1="3" x2="20" y2="9" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stop-color="#FEF08A"/>
-                      <stop offset="50%" stop-color="#F59E0B"/>
-                      <stop offset="100%" stop-color="#B45309"/>
-                    </linearGradient>
-                    <filter id="mpChessGlow" x="-20%" y="-20%" width="140%" height="140%">
-                      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#6366F1" flood-opacity="0.45"/>
-                    </filter>
-                  </defs>
-                  <g filter="url(#mpChessGlow)">
-                    <path d="M6 27C6 25.5 9 24.8 16 24.8C23 24.8 26 25.5 26 27C26 28.5 23 29 16 29C9 29 6 28.5 6 27Z" fill="#3730A3" stroke="#818CF8" stroke-width="0.75"/>
-                    <path d="M8 25C8 24 10.5 23.2 16 23.2C21.5 23.2 24 24 24 25" stroke="#A5B4FC" stroke-width="0.6" stroke-linecap="round"/>
-                    <path d="M9 24.5C9.5 22 10.5 20 12 18.5C10.5 17.5 9.5 15.5 9.5 14C9.5 13 10.2 12 11.5 11.2C10.8 9.5 11.2 7.8 12.8 7.2C14 6.8 15.2 7.2 16 8C17.5 7 19.8 7.5 21 9C22.2 10.5 22.5 12.8 22 15C21.6 17 22.2 19.5 23 24.5H9Z" fill="url(#mpKnightBody)" stroke="#818CF8" stroke-width="0.75" stroke-linejoin="round"/>
-                    <path d="M19.5 10C21 12 21.2 14.5 20.8 17.5" stroke="#C7D2FE" stroke-width="0.75" stroke-linecap="round"/>
-                    <path d="M18 12.5C19 14.5 19.2 17 18.8 19.5" stroke="#C7D2FE" stroke-width="0.6" stroke-linecap="round" opacity="0.8"/>
-                    <ellipse cx="11" cy="13.5" rx="0.7" ry="1" fill="#312E81"/>
-                    <circle cx="14" cy="11.5" r="1.1" fill="#38BDF8"/>
-                    <circle cx="13.7" cy="11.2" r="0.4" fill="#FFFFFF"/>
-                    <path d="M12.5 7L13.5 3.5L16 5.5L18.5 3.5L19.5 7Z" fill="url(#mpCrownGold)" stroke="#FEF08A" stroke-width="0.5" stroke-linejoin="round"/>
-                    <circle cx="13.5" cy="3.5" r="0.6" fill="#EF4444"/>
-                    <circle cx="16" cy="5.2" r="0.7" fill="#38BDF8"/>
-                    <circle cx="18.5" cy="3.5" r="0.6" fill="#EF4444"/>
-                    <path d="M11 21C13.5 22.5 18.5 22.5 21 21" stroke="#FBBF24" stroke-width="0.8" stroke-linecap="round"/>
-                  </g>
-                </svg>
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-indigo-700/20 border border-indigo-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform mb-2.5">
+                <svg viewBox="0 0 32 32" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(99,102,241,0.7)]" fill="none"><path d="M7 28h18c-1-3-2-4-3-6-1-1-1-3 0-5 1-2 2-4 2-7 0-4-3-6-7-6-2 0-3 1-5 3-1-1-3-1-4 0-1 1-1 3-1 4 0 2 1 3 2 4l-1 2c-2 2-3 4-2 7 0 1 0 2 0 4h-1z" fill="url(#chessGrad)" stroke="#C7D2FE" stroke-width="1"/><circle cx="13" cy="12" r="1.2" fill="#E0E7FF"/><path d="M10 28h12v2H10z" fill="#818CF8"/><path d="M14 6l1-2 2 1-1 2" stroke="#FDE68A" stroke-width="1.2" stroke-linecap="round"/></svg>
               </div>
               <div class="text-xs font-bold text-white group-hover:text-indigo-300">Cờ Vua FIDE</div>
               <div class="text-[10px] text-slate-400 font-mono">2 Người</div>
@@ -19570,38 +19718,8 @@ function renderCashStackHTML(amount) {
 
             <!-- Game 3: Tic Tac Toe / Caro -->
             <button type="button" onclick="selectMpGame('tictactoe')" id="mpGameCard_tictactoe" class="mp-game-card group p-3 rounded-2xl bg-slate-900/60 border border-slate-800 text-left transition-all hover:border-cyan-500/50 relative cursor-pointer">
-              <div class="w-10 h-10 rounded-2xl bg-cyan-500/15 border border-cyan-500/40 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner mb-2.5">
-                <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <filter id="mpNeonCyanGlow" x="-30%" y="-30%" width="160%" height="160%">
-                      <feGaussianBlur stdDeviation="1.5" result="blur"/>
-                      <feMerge>
-                        <feMergeNode in="blur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                      </feMerge>
-                    </filter>
-                    <filter id="mpNeonRoseGlow" x="-30%" y="-30%" width="160%" height="160%">
-                      <feGaussianBlur stdDeviation="1.5" result="blur"/>
-                      <feMerge>
-                        <feMergeNode in="blur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                      </feMerge>
-                    </filter>
-                  </defs>
-                  <path d="M11 4V28M21 4V28M4 11H28M4 21H28" stroke="#0891B2" stroke-width="0.5" stroke-dasharray="1.5 1.5" opacity="0.3"/>
-                  <g filter="url(#mpNeonCyanGlow)">
-                    <circle cx="12" cy="12" r="5.5" stroke="#06B6D4" stroke-width="2.5" opacity="0.5"/>
-                    <circle cx="12" cy="12" r="5.5" stroke="#E0F2FE" stroke-width="1.2"/>
-                    <circle cx="12" cy="12" r="3" stroke="#22D3EE" stroke-width="0.5" stroke-dasharray="2 1.5"/>
-                  </g>
-                  <g filter="url(#mpNeonRoseGlow)">
-                    <path d="M16 16L26 26M26 16L16 26" stroke="#F43F5E" stroke-width="2.8" stroke-linecap="round" opacity="0.5"/>
-                    <path d="M16 16L26 26M26 16L16 26" stroke="#FFE4E6" stroke-width="1.3" stroke-linecap="round"/>
-                    <circle cx="21" cy="21" r="0.9" fill="#FFFFFF"/>
-                  </g>
-                  <circle cx="27" cy="8" r="0.75" fill="#38BDF8" opacity="0.8"/>
-                  <circle cx="6" cy="24" r="0.75" fill="#FB7185" opacity="0.8"/>
-                </svg>
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-700/20 border border-cyan-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform mb-2.5">
+                <svg viewBox="0 0 32 32" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(6,182,212,0.7)]" fill="none"><line x1="6" y1="7" x2="18" y2="19" stroke="url(#xGrad)" stroke-width="3.2" stroke-linecap="round"/><line x1="18" y1="7" x2="6" y2="19" stroke="url(#xGrad)" stroke-width="3.2" stroke-linecap="round"/><circle cx="21" cy="20" r="7.5" stroke="url(#oGrad)" stroke-width="2.8" fill="none"/><circle cx="21" cy="20" r="3" fill="#F43F5E" opacity="0.25"/></svg>
               </div>
               <div class="text-xs font-bold text-white group-hover:text-cyan-300">Ca-rô Neon</div>
               <div class="text-[10px] text-slate-400 font-mono">2 Người</div>
@@ -19610,49 +19728,8 @@ function renderCashStackHTML(amount) {
 
             <!-- Game 4: Monopoly -->
             <button type="button" onclick="selectMpGame('monopoly')" id="mpGameCard_monopoly" class="mp-game-card group p-3 rounded-2xl bg-slate-900/60 border border-slate-800 text-left transition-all hover:border-cyan-500/50 relative cursor-pointer">
-              <div class="w-10 h-10 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner mb-2.5">
-                <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="mpEmeLeft" x1="6" y1="8" x2="16" y2="28" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stop-color="#34D399"/>
-                      <stop offset="40%" stop-color="#059669"/>
-                      <stop offset="100%" stop-color="#047857"/>
-                    </linearGradient>
-                    <linearGradient id="mpEmeRight" x1="16" y1="8" x2="26" y2="28" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stop-color="#059669"/>
-                      <stop offset="50%" stop-color="#047857"/>
-                      <stop offset="100%" stop-color="#064E3B"/>
-                    </linearGradient>
-                    <linearGradient id="mpGoldSpire" x1="14" y1="2" x2="18" y2="10" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stop-color="#FEF08A"/>
-                      <stop offset="50%" stop-color="#F59E0B"/>
-                      <stop offset="100%" stop-color="#B45309"/>
-                    </linearGradient>
-                    <filter id="mpMonopolyGlow" x="-20%" y="-20%" width="140%" height="140%">
-                      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#10B981" flood-opacity="0.45"/>
-                    </filter>
-                  </defs>
-                  <g filter="url(#mpMonopolyGlow)">
-                    <polygon points="16,25 27,21 16,17 5,21" fill="#064E3B" stroke="#059669" stroke-width="0.5"/>
-                    <polygon points="11,10 16,13 16,27 11,24" fill="url(#mpEmeLeft)" stroke="#34D399" stroke-width="0.5" stroke-linejoin="round"/>
-                    <polygon points="16,13 21,10 21,24 16,27" fill="url(#mpEmeRight)" stroke="#10B981" stroke-width="0.5" stroke-linejoin="round"/>
-                    <polygon points="6,15 11,18 11,24 6,21" fill="#047857" stroke="#10B981" stroke-width="0.4"/>
-                    <polygon points="6,15 8.5,13.5 11,15 8.5,16.5" fill="#34D399" stroke="#6EE7B7" stroke-width="0.4"/>
-                    <polygon points="21,18 26,15 26,21 21,24" fill="#064E3B" stroke="#059669" stroke-width="0.4"/>
-                    <polygon points="21,15 23.5,13.5 26,15 23.5,16.5" fill="#10B981" stroke="#34D399" stroke-width="0.4"/>
-                    <polygon points="16,8 21,10 16,13 11,10" fill="#6EE7B7" stroke="#A7F3D0" stroke-width="0.5"/>
-                    <polygon points="16,2 17.5,8 16,9.5 14.5,8" fill="url(#mpGoldSpire)" stroke="#FEF08A" stroke-width="0.4"/>
-                    <line x1="16" y1="2" x2="16" y2="0.8" stroke="#FEF08A" stroke-width="0.75" stroke-linecap="round"/>
-                    <circle cx="16" cy="0.8" r="0.6" fill="#FDE047"/>
-                    <polygon points="12.5,14.5 14.8,15.8 14.8,17 12.5,15.7" fill="#A7F3D0" opacity="0.9"/>
-                    <polygon points="12.5,17.5 14.8,18.8 14.8,20 12.5,18.7" fill="#FEF08A" opacity="0.95"/>
-                    <polygon points="12.5,20.5 14.8,21.8 14.8,23 12.5,21.7" fill="#A7F3D0" opacity="0.9"/>
-                    <polygon points="17.2,15.8 19.5,14.5 19.5,15.7 17.2,17" fill="#A7F3D0" opacity="0.9"/>
-                    <polygon points="17.2,18.8 19.5,17.5 19.5,18.7 17.2,20" fill="#FEF08A" opacity="0.95"/>
-                    <polygon points="17.2,21.8 19.5,20.5 19.5,21.7 17.2,23" fill="#A7F3D0" opacity="0.9"/>
-                    <circle cx="23" cy="7" r="0.7" fill="#FDE047"/>
-                  </g>
-                </svg>
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-700/20 border border-emerald-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform mb-2.5">
+                <svg viewBox="0 0 32 32" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(16,185,129,0.7)]" fill="none"><polygon points="16,3 23,7 16,11 9,7" fill="url(#monoRoof)" stroke="#FDE68A" stroke-width="0.7"/><polygon points="9,7 16,11 16,28 9,24" fill="url(#monoTower1)" stroke="#059669" stroke-width="0.7"/><polygon points="16,11 23,7 23,24 16,28" fill="url(#monoTower2)" stroke="#047857" stroke-width="0.7"/><line x1="12" y1="13" x2="14" y2="14" stroke="#FDE68A" stroke-width="1.2"/><line x1="12" y1="18" x2="14" y2="19" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="14" x2="20" y2="13" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="19" x2="20" y2="18" stroke="#FDE68A" stroke-width="1.2"/><polygon points="4,13 9,10 9,24 4,27" fill="#047857" stroke="#10B981" stroke-width="0.6"/><polygon points="23,10 28,13 28,27 23,24" fill="#065F46" stroke="#10B981" stroke-width="0.6"/></svg>
               </div>
               <div class="text-xs font-bold text-white group-hover:text-emerald-300">Cờ Tỷ Phú</div>
               <div class="text-[10px] text-slate-400 font-mono">2-4 Người</div>

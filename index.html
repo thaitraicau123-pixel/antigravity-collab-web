@@ -9775,6 +9775,7 @@
             handleMonoDialogChoice(shouldBail);
           } else {
             monoState.pendingAction = null;
+            checkAndTriggerMonoAutoPlay();
           }
           return;
         } else if (mode === 'buy') {
@@ -9869,8 +9870,11 @@
       }
 
       if (!monoState.pendingAction) return;
+      const act = monoState.pendingAction;
+      monoState.pendingAction = null;
+      monoState.lastActivityTime = Date.now();
 
-      if (monoState.pendingAction.type === 'jail_choice') {
+      if (act.type === 'jail_choice') {
         const curPlayer = monoState.players[monoState.turn];
         if (agreed) {
           if (curPlayer.cash >= 250) {
@@ -9880,16 +9884,19 @@
             updateMonopolyHUD();
             showToast(`🔓 ${curPlayer.name} đã nộp $250 bảo lãnh và được tự do!`);
             if (typeof addBattleLog === 'function') addBattleLog(`🔓 <b>${curPlayer.name}</b> nộp $250 bảo lãnh ra tù!`, 'jail');
+            monoState.isRolling = false;
             executeMono2dRoll();
           } else {
             showToast('❌ Không đủ $250, phải đổ xúc xắc tìm số đôi!');
+            monoState.isRolling = false;
             executeMono2dRoll();
           }
         } else {
+          monoState.isRolling = false;
           executeMono2dRoll();
         }
-      } else if (monoState.pendingAction.type === 'buy') {
-        const tile = monoState.pendingAction.tile;
+      } else if (act.type === 'buy') {
+        const tile = act.tile;
         const player = monoState.players[monoState.turn];
         if (agreed) {
           if (player.cash >= tile.price) {
@@ -9932,9 +9939,9 @@
           if (typeof addBattleLog === 'function') addBattleLog(`⏭️ <b>${player.name}</b> bỏ qua ${tile.name}.`, 'turn');
           finishMonoTurn();
         }
-      } else if (monoState.pendingAction.type === 'upgrade') {
-        const tile = monoState.pendingAction.tile;
-        const cost = monoState.pendingAction.cost;
+      } else if (act.type === 'upgrade') {
+        const tile = act.tile;
+        const cost = act.cost;
         const player = monoState.players[monoState.turn];
         if (agreed) {
           if (player.cash >= cost) {
@@ -9972,8 +9979,8 @@
         } else {
           finishMonoTurn();
         }
-      } else if (monoState.pendingAction.type === 'takeover') {
-        const { tile, cost, prevOwner } = monoState.pendingAction;
+      } else if (act.type === 'takeover') {
+        const { tile, cost, prevOwner } = act;
         const player = monoState.players[monoState.turn];
         if (agreed && player.cash >= cost && prevOwner) {
           player.cash -= cost;
@@ -10177,6 +10184,7 @@
       if (!player) return;
 
       monoState.isRolling = true;
+      monoState.lastActivityTime = Date.now();
       const rollBtn = document.getElementById('btnMono2dRoll');
       if (rollBtn) {
         rollBtn.disabled = true;
@@ -10264,6 +10272,7 @@
       if (monoState.stepIntervalId) clearInterval(monoState.stepIntervalId);
 
       monoState.stepIntervalId = setInterval(() => {
+        monoState.lastActivityTime = Date.now();
         player.pos = (player.pos + 1) % monoState.tiles.length;
         updateMonopolyPawns();
         const activePawnInner = document.querySelector('#pawnP' + (player.id + 1) + ' > div');
@@ -10295,6 +10304,7 @@
 
     // Handle Landing Tile (With Fast-Paced Business Tour Takeover & Emergency Debt Rescue)
     function handleMonoLanding(player) {
+      monoState.lastActivityTime = Date.now();
       const landedTile = monoState.tiles[player.pos];
       const isBotTurn = player.isBot;
 
@@ -10443,11 +10453,11 @@
 
             if (maxLiquidation >= rent) {
               // Player can liquidate assets to pay rent
-              if (!isBotTurn) {
+              if (!isBotTurn && !window.monoAutoPlay) {
                 showToast(`⚠️ Bạn không đủ tiền mặt trả $${rent.toLocaleString()}! Bảng Quản Lý Tài Sản được mở để bạn bán nhà hoặc thế chấp đất!`);
                 openMonoAssetManager(player.id, rent, owner);
               } else {
-                // Bot auto-liquidates until cash >= rent
+                // Auto-liquidate until cash >= rent (for Bot OR when Auto-Play is ON)
                 for (const t of ownedProps) {
                   while (t.level > 0 && player.cash < rent) {
                     const refund = Math.floor(t.price * 0.25);
@@ -10476,10 +10486,11 @@
                   recipient: owner,
                   amount: rent,
                   type: 'rent',
-                  desc: `🤖 ${player.name} đã thế chấp tài sản để trả $${rent.toLocaleString()} cho ${owner.name}!`,
+                  desc: `${player.isBot ? '🤖' : '🛡️'} ${player.name} đã thế chấp tài sản để trả $${rent.toLocaleString()} cho ${owner.name}!`,
                   onComplete: () => {
-                    showToast(`🤖 ${player.name} đã thế chấp tài sản trả đủ tiền thuê!`);
-                    monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 850);
+                    showToast(`${player.isBot ? '🤖' : '🛡️'} ${player.name} đã thế chấp tài sản trả đủ tiền thuê!`);
+                    const finishDelay = Math.max(40, Math.round(850 / (window.monoSpeed || monoState.speed || 1)));
+                    monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), finishDelay);
                   }
                 });
               }
@@ -10542,10 +10553,12 @@
       } else if (landedTile.type === 'start') {
         // Landing on START bonus
         showToast(`🏁 ${player.name} VỀ ĐÍCH XUẤT PHÁT! Nhận lương thương mại +$${BUSINESS_TOUR_SALARY}!`);
-        monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 750);
+        const finishDelay = Math.max(40, Math.round(750 / (window.monoSpeed || monoState.speed || 1)));
+        monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), finishDelay);
       } else if (landedTile.type === 'jail') {
         showToast(`🏛️ ${player.name} ghé thăm Trại Giam an toàn.`);
-        monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 750);
+        const finishDelay = Math.max(40, Math.round(750 / (window.monoSpeed || monoState.speed || 1)));
+        monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), finishDelay);
       } else if (landedTile.type === 'airport') {
         // World Tour Flight! Fly to a high-value unowned or upgradeable city + receive $300 bonus!
         const bonus = 300;
@@ -10564,7 +10577,8 @@
           destTile: destTile,
           onComplete: () => {
             showToast(`✈️ World Tour! ${player.name} nhận +$${bonus} và bay thẳng tới ${destTile.name}!`);
-            monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 750);
+            const finishDelay = Math.max(40, Math.round(750 / (window.monoSpeed || monoState.speed || 1)));
+            monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), finishDelay);
           }
         });
       } else if (landedTile.type === 'chance' || landedTile.type === 'fate') {
@@ -10692,9 +10706,12 @@
         }
       }
 
-      // Extra turn on doubles
+      // Extra turn on doubles (v4.1.0 Fix: ensure isRolling is false and auto-play re-triggers!)
       if (monoState.hasExtraTurn && !curPlayer.isBankrupt && curPlayer.inJail === 0) {
         monoState.hasExtraTurn = false;
+        monoState.isRolling = false;
+        monoState.pendingAction = null;
+        monoState.lastActivityTime = Date.now();
         showToast(`🎲 SỐ ĐÔI! ${curPlayer.name.toUpperCase()} ĐƯỢC ĐI THÊM LƯỢT!`);
         updateMonopolyPawns();
         updateMonopolyHUD();
@@ -10703,6 +10720,8 @@
         if (curPlayer.isBot) {
           const botDelay = Math.max(40, Math.round(700 / (window.monoSpeed || monoState.speed || 1)));
           monoState.botTimeoutId = setTimeout(() => executeMono2dRoll(), botDelay);
+        } else if (window.monoAutoPlay) {
+          checkAndTriggerMonoAutoPlay();
         }
         return;
       }
@@ -10727,6 +10746,9 @@
         }
       }
       monoState.turn = nextTurn;
+      monoState.isRolling = false;
+      monoState.pendingAction = null;
+      monoState.lastActivityTime = Date.now();
 
       updateMonopolyPawns();
       updateMonopolyHUD();
@@ -10762,7 +10784,7 @@
     function showMonoEventPopup({ type, title, desc, badge, amountLabel, amountVal, visualIcon, visualSvg, onConfirm }) {
       const overlay = document.getElementById('monoEventModalOverlay');
 
-      // Khi bật Tự Động Chơi, bỏ qua modal sự kiện (trừ gameover), ghi nhật ký và tiếp tục ngay
+      // Khi bật Tự Động Chơi, bỏ qua modal sự kiện (trừ gameover), ghi nhật ký và tiếp tục ngay (bất đồng bộ an toàn)
       if (window.monoAutoPlay && type !== 'gameover') {
         if (overlay) {
           overlay.classList.add('hidden');
@@ -10774,7 +10796,10 @@
           if (typeof addBattleLog === 'function') addBattleLog(logMsg, 'event');
           if (typeof showToast === 'function') showToast(badge ? `${badge} ${title}` : title);
         }
-        if (typeof onConfirm === 'function') onConfirm();
+        if (typeof onConfirm === 'function') {
+          const delay = Math.max(15, Math.round(80 / (window.monoSpeed || monoState.speed || 1)));
+          setTimeout(() => onConfirm(), delay);
+        }
         return;
       }
 
@@ -10904,6 +10929,7 @@
         if (monoState.botTimeoutId) {
           clearTimeout(monoState.botTimeoutId);
           monoState.botTimeoutId = null;
+      monoState.lastActivityTime = Date.now();
         }
         monoState.isRolling = false;
         if (monoState.players) {
@@ -11066,6 +11092,27 @@
       }
     }
 
+    function resolveMonoAutoPendingAction() {
+      if (!monoState.pendingAction) return;
+      const act = monoState.pendingAction;
+      const curP = monoState.players[monoState.turn];
+      if (!curP) return;
+
+      let accept = false;
+      if (act.type === 'buy') {
+        accept = curP.cash >= (act.tile.price + 150);
+      } else if (act.type === 'upgrade') {
+        const cost = act.cost || Math.floor(act.tile.price * 0.5);
+        accept = curP.cash >= (cost + 200);
+      } else if (act.type === 'takeover') {
+        accept = curP.cash >= (act.cost + 400);
+      } else if (act.type === 'jail_choice') {
+        accept = curP.cash >= 250;
+      }
+      handleMonoDialogChoice(accept);
+    }
+    window.resolveMonoAutoPendingAction = resolveMonoAutoPendingAction;
+
     function checkAndTriggerMonoAutoPlay() {
       if (!window.monoAutoPlay) return;
       if (monoAutoPlayTimer) {
@@ -11074,7 +11121,7 @@
       }
 
       const speed = window.monoSpeed || monoState.speed || 1;
-      const thinkDelay = Math.max(60, Math.round(600 / speed));
+      const thinkDelay = Math.max(30, Math.round(400 / speed));
 
       let isLocalTurn = false;
       if (window.isOnlineRoomMatch) {
@@ -11093,38 +11140,8 @@
       // 1. If currently showing a decision dialog or having pending action (buy, upgrade, takeover, jail)
       if (monoState.pendingAction) {
         monoAutoPlayTimer = setTimeout(() => {
-          if (!window.monoAutoPlay) return;
-          const act = monoState.pendingAction;
-          if (!act) return;
-
-          if (act.type === 'buy') {
-            const tile = act.tile;
-            if (player.cash >= tile.price + 150) {
-              handleMonoDialogChoice(true);
-            } else {
-              handleMonoDialogChoice(false);
-            }
-          } else if (act.type === 'upgrade') {
-            const cost = act.cost || Math.floor(act.tile.price * 0.5);
-            if (player.cash >= cost + 200) {
-              handleMonoDialogChoice(true);
-            } else {
-              handleMonoDialogChoice(false);
-            }
-          } else if (act.type === 'takeover') {
-            const cost = act.cost;
-            if (player.cash >= cost + 400) {
-              handleMonoDialogChoice(true);
-            } else {
-              handleMonoDialogChoice(false);
-            }
-          } else if (act.type === 'jail_choice') {
-            if (player.cash >= 600) {
-              handleMonoDialogChoice(true);
-            } else {
-              handleMonoDialogChoice(false);
-            }
-          }
+          if (!window.monoAutoPlay || !monoState.pendingAction) return;
+          resolveMonoAutoPendingAction();
         }, thinkDelay);
         return;
       }
@@ -11135,7 +11152,7 @@
         monoAutoPlayTimer = setTimeout(() => {
           if (!window.monoAutoPlay) return;
           closeMonoEventModal();
-        }, Math.max(50, Math.round(700 / speed)));
+        }, Math.max(30, Math.round(350 / speed)));
         return;
       }
 
@@ -11154,6 +11171,126 @@
         }, thinkDelay);
       }
     }
+
+    // =========================================================================
+    // SELF-HEALING AUTO-PLAY & BOT WATCHDOG ENGINE (v4.1.0)
+    // Ensures zero freezes even at 20x-25x ultra speeds or doubles roll chains
+    // =========================================================================
+    function runMonopolyWatchdog() {
+      if (typeof activeTab !== 'undefined' && activeTab !== 'monopoly') return;
+      if (!window.monoState || !monoState.players || monoState.gameOver) return;
+
+      const now = Date.now();
+      if (!monoState.lastActivityTime) monoState.lastActivityTime = now;
+      const idleElapsed = now - monoState.lastActivityTime;
+      const curSpeed = window.monoSpeed || monoState.speed || 1;
+      const curPlayer = monoState.players[monoState.turn];
+      if (!curPlayer || curPlayer.isBankrupt) return;
+
+      let isLocalTurn = false;
+      if (window.isOnlineRoomMatch) {
+        isLocalTurn = (monoState.turn === window.myRoomPlayerIndex);
+      } else if (monoState.mode === 'bot') {
+        isLocalTurn = (monoState.turn === 0);
+      } else {
+        isLocalTurn = true;
+      }
+
+      // TRƯỜNG HỢP 4: monoState.isRolling bị kẹt quá 3500ms mà không có bước nhảy ô mới
+      if (monoState.isRolling && idleElapsed > 3500) {
+        console.warn('[MonoWatchdog] isRolling stuck >3500ms, auto-recovering...');
+        monoState.isRolling = false;
+        if (monoState.stepIntervalId) {
+          clearInterval(monoState.stepIntervalId);
+          monoState.stepIntervalId = null;
+        }
+        monoState.lastActivityTime = now;
+        updateMonopolyPawns();
+        updateMonopolyHUD();
+        setMonoDialogMode('ready');
+        if (window.monoAutoPlay && isLocalTurn) {
+          checkAndTriggerMonoAutoPlay();
+        }
+        return;
+      }
+
+      // TRƯỜNG HỢP 2: Đang có monoState.pendingAction của người chơi local quá 300ms khi bật Auto-Play
+      if (window.monoAutoPlay && isLocalTurn && monoState.pendingAction && idleElapsed > 300) {
+        monoState.lastActivityTime = now;
+        resolveMonoAutoPendingAction();
+        return;
+      }
+
+      // TRƯỜNG HỢP 1: Đứng ở nút Đổ Xúc Xắc khi bật Auto-Play
+      const rollWaitThreshold = Math.max(220, Math.round(850 / curSpeed));
+      if (window.monoAutoPlay && isLocalTurn && !monoState.isRolling && !monoState.pendingAction && idleElapsed > rollWaitThreshold) {
+        const eventModal = document.getElementById('monoEventModalOverlay');
+        if (eventModal && !eventModal.classList.contains('hidden')) {
+          closeMonoEventModal();
+        }
+        const decisionBox = document.getElementById('mono2dDecisionBox') || document.getElementById('monoDecisionBox');
+        if (decisionBox && !decisionBox.classList.contains('hidden')) {
+          decisionBox.classList.add('hidden');
+          decisionBox.classList.remove('flex');
+        }
+
+        monoState.lastActivityTime = now;
+        executeMono2dRoll();
+        return;
+      }
+
+      // TRƯỜNG HỢP 3: Lượt của Bot AI bị đứng lượt quá 1200ms
+      if (!window.isOnlineRoomMatch && curPlayer.isBot && !curPlayer.isBankrupt && idleElapsed > 1200) {
+        monoState.isRolling = false;
+        monoState.lastActivityTime = now;
+        if (monoState.botTimeoutId) {
+          clearTimeout(monoState.botTimeoutId);
+          monoState.botTimeoutId = null;
+        }
+        if (curPlayer.inJail > 0 && curPlayer.cash >= 250) {
+          curPlayer.cash -= 250;
+          curPlayer.inJail = 0;
+          triggerMonoFloatingCash(curPlayer.id, -250);
+          updateMonopolyHUD();
+        }
+        executeMono2dRoll();
+        return;
+      }
+    }
+
+    function runDiceQuestWatchdog() {
+      if (typeof activeTab !== 'undefined' && activeTab !== 'dice') return;
+      if (!window.diceAutoPlay) return;
+
+      const now = Date.now();
+      if (!window.diceLastActivityTime) window.diceLastActivityTime = now;
+      const idleElapsed = now - window.diceLastActivityTime;
+      const curSpeed = window.diceSpeed || 1;
+
+      // isDiceRolling stuck for > 4000ms
+      if (typeof isDiceRolling !== 'undefined' && isDiceRolling && idleElapsed > 4000) {
+        isDiceRolling = false;
+        window.diceLastActivityTime = now;
+      }
+
+      const isHumanTurn = typeof isSpectatorMode !== 'undefined' && !isSpectatorMode && (currentTurn === 1 || currentOpponent === 'human');
+      const isOnlineMyTurn = window.isOnlineRoomMatch && (currentTurn - 1 === window.myRoomPlayerIndex);
+
+      if ((isHumanTurn || isOnlineMyTurn) && !isDiceRolling && idleElapsed > Math.max(280, Math.floor(650 / curSpeed))) {
+        window.diceLastActivityTime = now;
+        handleDiceClickWithTiming();
+      }
+    }
+
+    if (window.monoWatchdogInterval) clearInterval(window.monoWatchdogInterval);
+    window.monoWatchdogInterval = setInterval(() => {
+      try {
+        runMonopolyWatchdog();
+        runDiceQuestWatchdog();
+      } catch (e) {
+        console.error('[Watchdog Error]', e);
+      }
+    }, 350);
 
     // Dice Speed & Auto-Play Engine (1x - 25x)
     window.diceSpeed = 1;
@@ -11533,7 +11670,10 @@
           addBattleLog(`💸 ${desc}`, 'transfer');
         }
 
-        if (doneCb) doneCb();
+        if (doneCb) {
+          const delay = Math.max(15, Math.round(80 / (window.monoSpeed || monoState.speed || 1)));
+          setTimeout(() => doneCb(), delay);
+        }
         return;
       }
 
@@ -11639,7 +11779,10 @@
           showToast(`⛓️ ${player ? player.name : 'Người chơi'}: ${reason}`);
           if (typeof addBattleLog === 'function') addBattleLog(`⛓️ <b>${player ? player.name : 'Người chơi'}</b>: ${reason}`, 'jail');
         }
-        if (doneCb) doneCb();
+        if (doneCb) {
+          const delay = Math.max(15, Math.round(80 / (window.monoSpeed || monoState.speed || 1)));
+          setTimeout(() => doneCb(), delay);
+        }
         return;
       }
 
@@ -11731,7 +11874,10 @@
           showToast(`✈️ World Tour! ${player.name} bay thẳng tới ${destTile.name}!`);
           if (typeof addBattleLog === 'function') addBattleLog(`✈️ <b>${player.name}</b> bay tới <b>${destTile.name}</b>!`, 'warp');
         }
-        if (doneCb) doneCb();
+        if (doneCb) {
+          const delay = Math.max(15, Math.round(80 / (window.monoSpeed || monoState.speed || 1)));
+          setTimeout(() => doneCb(), delay);
+        }
         return;
       }
 
@@ -11819,6 +11965,10 @@
     let monoAssetDebtCreditor = null;
 
     function openMonoAssetManager(targetPlayerIdx = null, emergencyDebt = 0, creditor = null) {
+      if (window.monoAutoPlay) {
+        closeMonoAssetManager();
+        return;
+      }
       const modal = document.getElementById('monoAssetManagerModal');
       if (!modal) return;
 

@@ -1140,8 +1140,8 @@
   </div>
 
   <!-- ================= TOP NAVIGATION BAR ================= -->
-  <header class="sticky top-0 z-40 w-full bg-[#080D1A]/95 backdrop-blur-xl border-b border-board-border/60 px-3 sm:px-6 lg:px-8 py-2.5">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+  <header class="sticky top-0 z-40 w-full bg-[#080D1A]/95 backdrop-blur-xl border-b border-board-border/60 px-2 sm:px-4 lg:px-6 py-2.5">
+    <div class="w-full max-w-[1600px] mx-auto px-2 sm:px-4 lg:px-6 flex items-center justify-between gap-2 sm:gap-4">
       
       <!-- Left: Brand Logo & Navigation Tabs -->
       <div class="flex items-center gap-3 sm:gap-5 shrink-0">
@@ -1185,23 +1185,23 @@
 
         <!-- Navigation Menu Tabs (Desktop) -->
         <nav class="hidden lg:flex items-center gap-1 bg-black/50 p-1 rounded-2xl border border-board-border/60 text-xs font-bold shrink-0" id="mainNavBar">
-          <button id="navTabLobby" onclick="switchMainTab('lobby')" class="btn-spring px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white flex items-center gap-1.5 shadow-md shadow-amber-700/30 transition-all font-bold whitespace-nowrap">
+          <button id="navTabLobby" onclick="switchMainTab('lobby')" class="btn-spring px-2.5 xl:px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white flex items-center gap-1.5 shadow-md shadow-amber-700/30 transition-all font-bold whitespace-nowrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-300"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="currentColor" fill-opacity="0.25"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
             <span>Sảnh Game</span>
           </button>
-          <button id="navTabArena" onclick="switchMainTab('arena')" class="btn-spring px-3 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-1.5 transition-all font-semibold whitespace-nowrap">
+          <button id="navTabArena" onclick="switchMainTab('arena')" class="btn-spring px-2.5 xl:px-3 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-1.5 transition-all font-bold whitespace-nowrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-400"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/></svg>
             <span>Bàn Đấu</span>
           </button>
-          <button id="navTabLeaderboard" onclick="switchMainTab('leaderboard')" class="btn-spring px-3 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-1.5 transition-all whitespace-nowrap">
+          <button id="navTabLeaderboard" onclick="switchMainTab('leaderboard')" class="btn-spring px-2.5 xl:px-3 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-1.5 transition-all font-bold whitespace-nowrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-400"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1h10v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34"/><path d="M6 4h12v5a6 6 0 0 1-12 0V4z"/></svg>
             <span>Bảng Phong Thần</span>
           </button>
-          <button id="navTabVIP" onclick="switchMainTab('vip')" class="btn-spring px-3 py-1.5 rounded-xl text-slate-300 hover:text-amber-300 hover:bg-amber-500/10 flex items-center gap-1.5 transition-all whitespace-nowrap">
+          <button id="navTabVIP" onclick="switchMainTab('vip')" class="btn-spring px-2.5 xl:px-3 py-1.5 rounded-xl text-slate-300 hover:text-amber-300 hover:bg-amber-500/10 flex items-center gap-1.5 transition-all font-bold whitespace-nowrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-400"><path d="M2 4l3 12h14l3-12-5 6-5-8-5 8-5-6z"/><circle cx="12" cy="18" r="1.5" fill="currentColor"/></svg>
             <span>Hội Viên VIP</span>
           </button>
-          <button id="navTabRules" onclick="switchMainTab('rules')" class="btn-spring px-3 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-1.5 transition-all whitespace-nowrap">
+          <button id="navTabRules" onclick="switchMainTab('rules')" class="btn-spring px-2.5 xl:px-3 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-1.5 transition-all font-bold whitespace-nowrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-cyan-400"><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h11a2 2 0 0 0 2-2v-2H6v2a2 2 0 0 0 2 2z"/><path d="M4 17V3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
             <span>Luật Chơi</span>
           </button>
@@ -1215,18 +1215,18 @@
         <!-- Multiplayer Room Button in Global Header -->
         <button onclick="openMultiplayerModal()" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500/15 via-teal-500/10 to-amber-500/15 border border-cyan-500/40 text-xs font-bold text-cyan-300 hover:border-cyan-300 hover:text-white transition-all shadow-sm cursor-pointer" title="Tạo hoặc vào phòng chơi nhiều người qua mã 6 số / P2P">
           <i data-lucide="radio" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span class="hidden sm:inline">Phòng Chơi</span>
+          <span class="hidden md:inline">Phòng Chơi</span>
           <span class="px-1.5 py-0.2 rounded-md bg-cyan-400/20 text-cyan-300 text-[10px] font-mono">P2P</span>
         </button>
 
-        <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
+        <button onclick="openModal('versionModal')" class="btn-spring hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-[11px] font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
           <span id="headerVersionPill" class="font-bold">v4.0.8</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
         <!-- Player Economy Wallet (Coins & Gems) & Rewards Modal Trigger -->
-        <div onclick="openModal('rewardsModal')" class="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl bg-board-tray border border-amber-500/30 hover:border-amber-400 text-xs font-bold shadow-inner shrink-0 cursor-pointer group transition-all" title="Bấm xem Cơ Cấu Trao Thưởng Trận Đấu (Xu & Kim Cương)">
+        <div onclick="openModal('rewardsModal')" class="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-1.5 rounded-xl bg-board-tray border border-amber-500/30 hover:border-amber-400 text-xs font-bold shadow-inner shrink-0 cursor-pointer group transition-all" title="Bấm xem Cơ Cấu Trao Thưởng Trận Đấu (Xu & Kim Cương)">
           <div class="flex items-center gap-1 text-amber-400" title="Vàng hoàng gia">
             <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-current">
               <circle cx="12" cy="12" r="10" stroke="#F59E0B" stroke-width="1.5" fill="#B45309"/>
@@ -1244,7 +1244,7 @@
               <polygon points="21,11 16,5 12,11" fill="#0284C7" opacity="0.7"/>
             </svg> <span id="userGems" class="font-mono">0</span>
           </div>
-          <span class="hidden xl:inline-block px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-500/40 ml-0.5 group-hover:scale-105 transition-transform">🎁 Thưởng</span>
+          <span class="hidden 2xl:inline-block px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-500/40 ml-0.5 group-hover:scale-105 transition-transform">🎁 Thưởng</span>
         </div>
 
         <!-- Sound Toggle -->
@@ -1253,7 +1253,7 @@
         </button>
 
         <!-- User Authentication & Profile Widget -->
-        <div id="authArea" class="shrink-0">
+        <div id="authArea" class="shrink-0 pl-1.5 sm:pl-2 border-l border-board-border/40">
           <!-- Guest Button -->
           <button id="btnLoginTrigger" onclick="openAuthModal('signup')" class="btn-spring px-3 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-xs shadow-md shadow-amber-700/30 border border-amber-400/40 flex items-center gap-1.5 whitespace-nowrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
@@ -1263,16 +1263,16 @@
           <!-- User Logged Widget -->
           <div id="userProfileWidget" class="hidden relative">
             <button onclick="toggleProfileDropdown()" class="btn-spring flex items-center gap-2 p-1.5 pr-2.5 rounded-xl bg-board-tray hover:bg-slate-800 border border-board-border text-xs">
-              <div id="userAvatarSmall" class="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-700 text-white font-bold flex items-center justify-center text-xs shadow-sm shrink-0">
-                MD
+              <div class="relative shrink-0"><div id="userAvatarSmall" class="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-700 text-white font-bold flex items-center justify-center text-xs shadow-sm">
+                MD</div><span class="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 border border-[#080D1A]"></span>
               </div>
-              <span id="navUserName" class="font-bold text-white max-w-[85px] sm:max-w-[110px] truncate">Minh Dev</span>
-              <span id="navUserBadge" class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold font-mono shrink-0">ONLINE</span>
+              <span id="navUserName" class="font-bold text-white max-w-[65px] sm:max-w-[95px] xl:max-w-[120px] truncate">Minh Dev</span>
+              <span id="navUserBadge" class="hidden xl:inline-block text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold font-mono shrink-0">ONLINE</span>
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i>
             </button>
 
             <!-- Dropdown Menu -->
-            <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-52 rounded-2xl bg-board-tray border border-board-border shadow-2xl p-1.5 z-50 text-xs space-y-1">
+            <div id="profileDropdown" class="hidden absolute right-0 top-full mt-1.5 w-52 rounded-2xl bg-board-tray border border-board-border shadow-2xl p-1.5 z-50 text-xs space-y-1">
               <div class="px-3 py-2 border-b border-board-border text-[11px] text-slate-400 truncate">
                 Đã xác thực: <b class="text-amber-400" id="dropdownEmail">user@email.com</b>
               </div>
@@ -1608,7 +1608,7 @@
       </div>
 
       <!-- UNIFIED ARENA MATCH CONSOLE (BẢNG ĐIỀU KHIỂN TRẬN ĐẤU TẬP TRUNG) -->
-      <div id="arenaMatchConsole" class="w-full max-w-[1600px] mb-3 p-2.5 sm:p-3 rounded-2xl bg-[#0B101E]/90 border border-amber-500/30 shadow-xl backdrop-blur-md flex flex-wrap items-center justify-between gap-2.5 relative z-50">
+      <div id="arenaMatchConsole" class="w-full max-w-[1600px] mb-3 p-2.5 sm:p-3 rounded-2xl bg-[#0B101E]/90 border border-amber-500/30 shadow-xl backdrop-blur-md flex flex-wrap items-center justify-between gap-2 relative z-50">
         
         <!-- Left: Return to Lobby & Direct 4-Game Switcher Pills -->
         <div class="flex items-center gap-2 sm:gap-2.5 shrink-0 flex-wrap">
@@ -1641,13 +1641,6 @@
           </div>
 
           <!-- Dynamic Active Game Badge -->
-          <!-- Direct Multiplayer P2P Room Button in Arena Console -->
-          <button onclick="openMultiplayerModal()" class="btn-spring px-2.5 py-1 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/40 text-cyan-300 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all" title="Mở phòng chơi nhiều người P2P">
-            <i data-lucide="radio" class="w-3.5 h-3.5 text-cyan-400"></i>
-            <span class="hidden lg:inline">Phòng Chơi</span>
-            <span class="px-1 rounded bg-cyan-400/20 text-[10px] font-mono">P2P</span>
-          </button>
-
           <div id="arenaGameTitle" class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-cinzel text-xs font-bold shadow-inner">
             <i data-lucide="dice-5" class="w-4 h-4 text-amber-400"></i>
             <span class="tracking-wider">XÚC XẮC 20 Ô HOÀNG KIM</span>
@@ -4552,7 +4545,7 @@
         <button onclick="closeArenaExitConfirmModal()" class="flex-1 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-bold text-xs border border-slate-600 transition-all cursor-pointer shadow-sm">
           Tiếp Tục Chơi
         </button>
-        <button onclick="confirmExitArenaToLobby()" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-black text-xs border border-rose-400/50 shadow-lg shadow-rose-600/40 transition-all cursor-pointer">
+        <button id="btnConfirmExitArena" onclick="confirmExitArenaToLobby()" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 active:scale-95 text-white font-black text-xs border border-rose-400/50 shadow-lg shadow-rose-600/40 hover:shadow-rose-500/50 transition-all duration-200 cursor-pointer">
           Xác Nhận Thoát
         </button>
       </div>
@@ -5778,6 +5771,9 @@
       const dest = targetTab || 'lobby';
 
       // 1. Dừng ngay lập tức 100% các interval, timeout, animation loop, audio loop
+      if (typeof stopMonopolyTimers === 'function') {
+        stopMonopolyTimers();
+      }
       if (typeof monoAutoPlayTimer !== 'undefined' && monoAutoPlayTimer) {
         clearTimeout(monoAutoPlayTimer);
         monoAutoPlayTimer = null;
@@ -5809,11 +5805,21 @@
           clearTimeout(monoState.diceRollTimeoutId);
           monoState.diceRollTimeoutId = null;
         }
+        monoState.isGameOver = true;
         monoState.isRolling = false;
         monoState.pendingAction = null;
         monoState.eventCallback = null;
+        if (monoState.players && Array.isArray(monoState.players)) {
+          monoState.players.forEach(p => { p.properties = []; p.pos = 0; });
+        }
       }
       window.isDiceRolling = false;
+
+      // Reset trạng thái caro/cờ:
+      window.tttGameOver = true;
+      if (Array.isArray(window.tttBoard)) {
+        window.tttBoard = [null,null,null,null,null,null,null,null,null];
+      }
 
       // 2. Tắt hoàn toàn cờ
       window.monoAutoPlay = false;
@@ -5824,6 +5830,7 @@
       // 3. Hủy bỏ trạng thái trận đấu dở dang (KHÔNG lưu stats, KHÔNG cộng trừ điểm, KHÔNG trao thưởng)
       if (typeof closeMonoEventModal === 'function') closeMonoEventModal();
       if (typeof closeMonoAssetManager === 'function') closeMonoAssetManager();
+      closeArenaExitConfirmModal();
 
       const activeModals = [
         'monoCashTransferOverlay', 'monoCashTransferModal', 'mono2dDecisionBox',
@@ -5865,7 +5872,7 @@
       }
 
       // 5. Chuyển sạch về Sảnh chính
-      switchMainTab(dest);
+      switchMainTab(dest, true);
       if (typeof showToast === 'function') {
         showToast('🏳️ Đã thoát ván đấu và dừng mọi hoạt động chạy ngầm.');
       }
@@ -9381,8 +9388,8 @@
       }
     };
 
-    function switchMainTab(tab) {
-      if (window.currentMainTab === 'arena' && tab !== 'arena' && typeof isMatchInProgress === 'function' && isMatchInProgress()) {
+    function switchMainTab(tab, force = false) {
+      if (!force && window.currentMainTab === 'arena' && tab !== 'arena' && typeof isMatchInProgress === 'function' && isMatchInProgress()) {
         requestExitArenaToLobby(tab);
         return;
       }

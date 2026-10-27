@@ -23,3 +23,6 @@ Thumbs.db
 
 .next/
 next-env.d.ts
+
+# Scratch scripts
+scratch/

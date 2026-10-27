@@ -466,7 +466,17 @@
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
+    /* Centered 2.5D Tile Building: anchored squarely inside its own property plot without bleeding into adjacent tiles */
+    .mono-board-25d .mono-tile-building-3d {
+      transform: rotateZ(-25deg) rotateX(-30deg) translateZ(4px);
+      transform-origin: 50% 55%;
+      transform-style: preserve-3d;
+      filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.65));
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
     .mono-board-2d .mono-upright-3d,
+    .mono-board-2d .mono-tile-building-3d,
     .mono-board-2d #pawnP1 > div,
     .mono-board-2d #pawnP2 > div,
     .mono-board-2d #pawnP3 > div,
@@ -535,7 +545,7 @@
 
   
     
-    /* === JAIL GATE SLAM ANIMATION (v3.9.2) === */
+    /* === JAIL GATE SLAM ANIMATION (v3.9.5) === */
     @keyframes monoGateSlamLeft {
       0% { transform: translateX(-100%); }
       70% { transform: translateX(2.5%); }
@@ -573,7 +583,7 @@
       animation: monoGateScreenShake 0.4s ease-out 0.42s;
     }
 
-    /* === AIRPLANE FLYBY & CASH TRANSFER ANIMATIONS (v3.9.2) === */
+    /* === AIRPLANE FLYBY & CASH TRANSFER ANIMATIONS (v3.9.5) === */
 
     @keyframes monoAirplaneFlight {
       0% {
@@ -603,7 +613,7 @@
       animation: monoAirplaneFlight 2.0s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
     }
 
-    /* === 100% GPU HARDWARE-ACCELERATED 60FPS CASH FLIGHT & PAWN GLIDE (v3.9.2) === */
+    /* === 100% GPU HARDWARE-ACCELERATED 60FPS CASH FLIGHT & PAWN GLIDE (v3.9.5) === */
     @keyframes monoCashFlightArc60fps {
       0% {
         transform: translate3d(-135px, -50%, 0) scale3d(0.85, 0.85, 1) rotate(-5deg);
@@ -763,7 +773,7 @@
 
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v3.9.2</span>
+          <span id="headerVersionPill" class="font-bold">v3.9.5</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -2400,7 +2410,7 @@
             <!-- ================= 2.5D DIAMOND ISOMETRIC MONOPOLY ARENA (LINE LET'S GET RICH STYLE) ================= -->
       <div id="monopolyView" class="hidden relative w-full flex-col items-center justify-center p-2 sm:p-4 my-auto select-none overflow-visible max-w-7xl mx-auto min-h-[720px]">
         
-        <!-- ================= 4-CORNER BUSINESS TOUR HERO PORTRAITS & 3D CASH PILES (v3.9.2) ================= -->
+        <!-- ================= 4-CORNER BUSINESS TOUR HERO PORTRAITS & 3D CASH PILES (v3.9.5) ================= -->
         <!-- Top-Left: Player 1 (Red Hooded Lady / Tiên) -->
         <div id="monoCornerPod_0" class="absolute top-2 sm:top-3 left-2 sm:left-3 z-30 flex items-center gap-2.5 bg-[#0C1524]/95 border-2 border-rose-500/80 rounded-2xl p-2 sm:p-2.5 shadow-2xl backdrop-blur-md transition-all duration-300">
           <div id="monoCornerFloat_0" class="absolute -top-6 left-0 w-full flex justify-center pointer-events-none z-40"></div>
@@ -2710,6 +2720,67 @@
         </div>
 
         <div id="monoViewportContainer" class="tabletop-viewport-container w-full flex items-center justify-center overflow-visible py-4 sm:py-6 relative">
+        <!-- ================= SCREEN-SPACE ASSET MANAGER MODAL (Thế Chấp / Bán Nhà / Chuộc Đất / Phá Sản - v3.9.5) ================= -->
+        <div id="monoAssetManagerModal" class="hidden absolute inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-slate-950/85 backdrop-blur-md animate-fade-in pointer-events-auto">
+          <div class="w-full max-w-2xl bg-[#0B132B]/98 border-2 border-amber-400 rounded-3xl p-4 sm:p-6 shadow-[0_0_60px_rgba(0,0,0,0.95)] flex flex-col max-h-[88vh]">
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-700/80">
+              <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl bg-amber-400/20 border border-amber-400/50 flex items-center justify-center text-xl">🏦</div>
+                <div>
+                  <h3 class="text-white font-black text-sm sm:text-base uppercase tracking-wide" id="monoAssetModalTitle">QUẢN LÝ TÀI SẢN • THẾ CHẤP & BÁN NHÀ</h3>
+                  <p class="text-[11px] text-slate-300" id="monoAssetModalSub">Bán nhà hoàn 50% vốn • Thế chấp đất nhận 50% giá mua • Chuộc đất 55%</p>
+                </div>
+              </div>
+              <button onclick="closeMonoAssetManager()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-bold text-xs border border-slate-600 cursor-pointer">
+                ✕ Đóng
+              </button>
+            </div>
+
+            <!-- Emergency Debt Alert Banner (Shown when player must raise cash to pay rent) -->
+            <div id="monoDebtRescueBanner" class="hidden mb-3 p-3 rounded-2xl bg-rose-950/90 border-2 border-rose-500 text-rose-200 text-xs flex items-center justify-between gap-3">
+              <div>
+                <div class="font-black text-rose-300 uppercase">⚠️ CẢNH BÁO THIẾU TIỀN MẶT THANH TOÁN NỢ!</div>
+                <div id="monoDebtRescueText" class="text-[11px] mt-0.5">Hãy Bán Nhà hoặc Thế Chấp Đất để đủ tiền trả nợ, nếu không bạn sẽ bị Phá Sản!</div>
+              </div>
+              <button onclick="confirmEmergencyDebtPayment()" id="btnPayDebtNow" class="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs whitespace-nowrap cursor-pointer shadow-lg">
+                Thanh Toán Ngay
+              </button>
+            </div>
+
+            <!-- Player Cash & Net Worth Summary Bar -->
+            <div class="grid grid-cols-3 gap-2 mb-3 text-center">
+              <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700/80">
+                <div class="text-[10px] text-slate-400 font-bold uppercase">Tiền Mặt Hiện Có</div>
+                <div class="text-sm sm:text-base font-chakra font-black text-emerald-400" id="monoAssetCashVal">$3,500</div>
+              </div>
+              <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700/80">
+                <div class="text-[10px] text-slate-400 font-bold uppercase">Bất Động Sản</div>
+                <div class="text-sm sm:text-base font-chakra font-black text-amber-300" id="monoAssetCountVal">0 Ô Đất</div>
+              </div>
+              <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700/80">
+                <div class="text-[10px] text-slate-400 font-bold uppercase">Tổng Tài Sản</div>
+                <div class="text-sm sm:text-base font-chakra font-black text-cyan-300" id="monoAssetNetWorthVal">$3,500</div>
+              </div>
+            </div>
+
+            <!-- Owned Properties List (Sell House / Mortgage / Unmortgage) -->
+            <div id="monoAssetPropertiesList" class="flex-1 overflow-y-auto space-y-2 pr-1 min-h-[180px] max-h-[320px]">
+              <!-- Rendered dynamically via renderMonoAssetManagerList() -->
+            </div>
+
+            <!-- Bottom Footer: Declare Bankruptcy & Close -->
+            <div class="pt-3 mt-3 border-t border-slate-700/80 flex flex-wrap items-center justify-between gap-2">
+              <button onclick="triggerManualBankruptcy()" class="px-4 py-2.5 rounded-xl bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/50 font-black text-xs cursor-pointer transition-all flex items-center gap-1.5">
+                <span>🏳️</span>
+                <span>Tuyên Bố Phá Sản</span>
+              </button>
+              <button onclick="closeMonoAssetManager()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xs cursor-pointer shadow-lg border border-white">
+                Hoàn Tất & Tiếp Tục
+              </button>
+            </div>
+          </div>
+        </div>
+
         <!-- Floating Crystal-Clear HUD Inspector -->
         <div id="monoTopTileInspector" class="absolute top-1 sm:top-2 left-1/2 -translate-x-1/2 z-40 px-4 py-1.5 rounded-2xl bg-[#090F1E]/95 border-2 border-amber-400/50 shadow-[0_10px_35px_rgba(0,0,0,0.85)] backdrop-blur-md flex items-center gap-3 transition-all duration-200 pointer-events-none min-w-[300px] max-w-lg justify-center">
           <span class="text-xl sm:text-2xl filter drop-shadow" id="monoInspectIcon">🗺️</span>
@@ -2740,7 +2811,7 @@
             </div>
 
             <!-- Arcade Tactile Golden Roll Button (Massive Hit Target, 0ms Delay, 100% Clickable) -->
-            <button onclick="executeMono2dRoll()" id="btnMono2dRoll" class="group relative px-8 sm:px-12 py-3.5 sm:py-4 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-sm sm:text-base border-2 border-white shadow-[0_8px_0_#b45309,0_16px_35px_rgba(245,158,11,0.7)] hover:shadow-[0_8px_0_#b45309,0_20px_45px_rgba(245,158,11,0.9)] active:translate-y-1 active:shadow-[0_2px_0_#b45309,0_8px_20px_rgba(245,158,11,0.6)] transition-all cursor-pointer flex items-center justify-center gap-2.5 pointer-events-auto select-none touch-manipulation">
+            <button onclick="executeMono2dRoll()" id="btnMono2dRoll" class="group relative px-8 sm:px-12 py-3 sm:py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-sm sm:text-base border-2 border-white shadow-[0_8px_0_#b45309,0_16px_35px_rgba(245,158,11,0.7)] hover:shadow-[0_8px_0_#b45309,0_20px_45px_rgba(245,158,11,0.9)] active:translate-y-1 active:shadow-[0_2px_0_#b45309,0_8px_20px_rgba(245,158,11,0.6)] transition-all cursor-pointer flex items-center justify-center gap-2.5 pointer-events-auto select-none touch-manipulation">
               <span class="text-lg sm:text-xl group-hover:rotate-12 transition-transform">🎲</span>
               <span class="tracking-wider uppercase font-black" id="btnMono2dRollText">ĐỔ XÚC XẮC</span>
               <span class="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded bg-black/20 text-[10px] text-slate-900 font-mono font-bold ml-1 border border-black/10">Space</span>
@@ -2751,6 +2822,18 @@
               <span class="text-sm group-hover:rotate-12 transition-transform">🤖</span>
               <span id="monoAutoPlayBoardText">TỰ ĐỘNG CHƠI: TẮT</span>
             </button>
+
+            <!-- Quick Action Bar: Thế Chấp / Bán Nhà / Phá Sản (v3.9.5) -->
+            <div class="flex items-center gap-2 mt-0.5">
+              <button onclick="openMonoAssetManager()" class="px-3.5 py-1.5 rounded-xl bg-[#090F1E]/95 hover:bg-slate-800 text-amber-300 border-2 border-amber-400/60 font-black text-[11px] sm:text-xs shadow-lg flex items-center gap-1.5 cursor-pointer active:scale-95 transition-all" title="Quản lý bất động sản: Bán Nhà, Thế Chấp hoặc Chuộc Đất">
+                <span>🏦</span>
+                <span>Thế Chấp / Bán Nhà</span>
+              </button>
+              <button onclick="triggerManualBankruptcy()" class="px-3 py-1.5 rounded-xl bg-[#090F1E]/95 hover:bg-rose-950 text-rose-400 border-2 border-rose-500/60 font-black text-[11px] sm:text-xs shadow-lg flex items-center gap-1 cursor-pointer active:scale-95 transition-all" title="Tuyên bố phá sản và kết thúc lượt">
+                <span>🏳️</span>
+                <span>Phá Sản</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -3200,7 +3283,7 @@
                   <span>Đổ 2 Xúc Xắc & Cú Đôi (Double):</span>
                 </div>
                 <div class="text-[11px] text-teal-100/80 pl-5">
-                  Gieo trúng 2 mặt giống nhau được đi thêm lượt! Đổ đôi 3 lần liên tiếp bị đưa vào Đảo Hoang.
+                  Gieo trúng 2 mặt giống nhau được đi thêm lượt! Đổ đôi 3 lần liên tiếp bị đưa vào Trại Giam.
                 </div>
               </div>
             </div>
@@ -4183,7 +4266,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.9.2</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v3.9.5</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -8154,7 +8237,7 @@
       { id: 8, r: 12, c: 4, name: 'HÀ TĨNH', type: 'city', group: 'g2', price: 180, rent: [110, 270, 620], color: '#0ea5e9' },
       { id: 9, r: 12, c: 3, name: 'CƠ HỘI', vnName: 'CƠ HỘI', type: 'chance', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-amber-500' },
       { id: 10, r: 12, c: 2, name: 'ĐÔNG HÀ', type: 'city', group: 'g2', price: 200, rent: [120, 300, 680], color: '#0ea5e9' },
-      { id: 11, r: 12, c: 1, name: 'LOST ISLAND', vnName: 'TRẠI GIAM', type: 'jail', isCorner: true, bg: 'bg-[#38bdf8]', text: 'text-slate-950', icon: '🏝️' },
+      { id: 11, r: 12, c: 1, name: 'TRẠI GIAM', vnName: 'TRẠI GIAM', type: 'jail', isCorner: true, bg: 'bg-[#1e293b]', text: 'text-amber-300', icon: '🏛️' },
 
       // LEFT EDGE (12 rows: row 11 down to row 2 at col 1 -> +2 tiles added: HUẾ & ĐÀ LẠT)
       { id: 12, r: 11, c: 1, name: 'HUẾ', type: 'city', group: 'g3', price: 220, rent: [130, 330, 750], color: '#f59e0b' },
@@ -8209,7 +8292,7 @@
     const MONOPOLY_FATE_CARDS = [
       { name: 'Thừa Kế Tập Đoàn', desc: 'Nhận khoản cổ phần thừa kế từ Chủ Tịch Tập Đoàn!', amount: 450, icon: '👑' },
       { name: 'Đấu Thầu Thắng Lớn', desc: 'Trúng thầu dự án cao tốc liên tỉnh!', amount: 300, icon: '🏗️' },
-      { name: 'Lễ Hội Du Lịch (x2)', desc: 'Tổ chức lễ hội quốc tế! Nhận thưởng +$250 và kích hoạt x2 tiền thuê!', amount: 250, action: 'festival', icon: '🎪' },
+      { name: 'Quảng Bá Du Lịch', desc: 'Thành phố tài trợ chiến dịch quảng bá du lịch quốc tế!', amount: 300, icon: '🌟' },
       { name: 'Khởi Nghiệp Thành Công', desc: 'Gọi vốn vòng Series A thành công rực rỡ!', amount: 200, icon: '💵' },
       { name: 'Khủng Hoảng Tài Chính', desc: 'Thị trường chứng khoán điều chỉnh mạnh, hao hụt vốn!', amount: -350, icon: '📉' },
       { name: 'Kiểm Toán Độc Lập', desc: 'Chi trả phí thuê tập đoàn kiểm toán quốc tế!', amount: -250, icon: '📊' },
@@ -8237,7 +8320,6 @@
       turn: 0,
       round: 1,
       lastRollSum: 9,
-      festivalTileId: 32, // Default Festival x2 city
       isRolling: false,
       speed: 1,
       is25D: true,
@@ -8252,22 +8334,29 @@
       if (monoState && monoState.tiles) {
         monoState.tiles.forEach(t => {
           if (t.owner === player.id) {
-            const lvl = t.level || 1;
-            propVal += t.price + (lvl > 1 ? Math.floor(t.price * 0.5 * (lvl - 1)) : 0);
+            if (t.isMortgaged) {
+              propVal += Math.floor(t.price * 0.5);
+            } else {
+              const lvl = t.level || 1;
+              propVal += t.price + (lvl > 1 ? Math.floor(t.price * 0.5 * (lvl - 1)) : 0);
+            }
           }
         });
       }
       return player.cash + propVal;
     }
 
-    // Calculate dynamic rent with Color Group Monopoly (x2) & Festival City (x2)
+    // Calculate dynamic rent (Returns 0 if mortgaged, applies Color Group Monopoly x1.5)
     function getMonoTileRent(tile) {
       if (!tile || tile.owner === null || tile.owner === undefined) {
         return tile && tile.rent ? tile.rent[0] : 0;
       }
+      if (tile.isMortgaged) {
+        return 0; // Đất đang thế chấp không thu tiền thuê
+      }
       let baseRent = 0;
       if (tile.type === 'station') {
-        const ownedResorts = monoState.tiles.filter(t => t.type === 'station' && t.owner === tile.owner).length;
+        const ownedResorts = monoState.tiles.filter(t => t.type === 'station' && t.owner === tile.owner && !t.isMortgaged).length;
         const idx = Math.max(0, Math.min(2, ownedResorts - 1));
         baseRent = tile.rent ? (tile.rent[idx] || 180) : 180;
       } else {
@@ -8276,14 +8365,10 @@
         // Check full color group monopoly -> x1.5 rent!
         if (tile.group) {
           const groupTiles = monoState.tiles.filter(t => t.group === tile.group);
-          if (groupTiles.length > 1 && groupTiles.every(t => t.owner === tile.owner)) {
+          if (groupTiles.length > 1 && groupTiles.every(t => t.owner === tile.owner && !t.isMortgaged)) {
             baseRent = Math.floor(baseRent * 1.5);
           }
         }
-      }
-      // Check Festival x2 multiplier
-      if (monoState.festivalTileId === tile.id) {
-        baseRent *= 2;
       }
       return baseRent;
     }
@@ -8543,12 +8628,124 @@
       `;
     }
 
+    // Dynamic Wealth Pile SVG Generator (1 Bag = $1,000, 1 Gold Coin = $100, 10 Gold Coins auto-convert to 1 Bag)
+    function getDynamicWealthPileSVG(cashAmount) {
+      const cash = Math.max(0, cashAmount || 0);
+      const bags = Math.floor(cash / 1000);
+      const goldCoins = Math.floor((cash % 1000) / 100); // 0 to 9 coins
+      const displayBags = Math.min(bags, 4);
+
+      return `
+        <div class="flex flex-col items-center justify-center pointer-events-none select-none">
+          <svg width="108" height="88" viewBox="0 0 120 95" fill="none" class="filter drop-shadow-[0_8px_12px_rgba(0,0,0,0.65)]">
+            <defs>
+              <linearGradient id="wealthSackGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="35%" stop-color="#f8fafc"/>
+                <stop offset="70%" stop-color="#e2e8f0"/>
+                <stop offset="100%" stop-color="#94a3b8"/>
+              </linearGradient>
+              <linearGradient id="wealthGoldGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#fef08a"/>
+                <stop offset="45%" stop-color="#f59e0b"/>
+                <stop offset="100%" stop-color="#b45309"/>
+              </linearGradient>
+              <radialGradient id="wealthShadow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="rgba(0,0,0,0.6)"/>
+                <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+              </radialGradient>
+            </defs>
+
+            <!-- Base Ground Shadow -->
+            <ellipse cx="60" cy="85" rx="52" ry="9" fill="url(#wealthShadow)" />
+
+            <!-- ================= DYNAMIC BAGS OF CASH ($1,000 / Bag) ================= -->
+            ${bags === 0 ? `
+              <!-- Empty state small money purse -->
+              <g transform="translate(42, 45)">
+                <ellipse cx="18" cy="25" rx="16" ry="12" fill="#cbd5e1" stroke="#64748b" stroke-width="1.2"/>
+                <text x="18" y="28" font-size="12" font-weight="900" fill="#475569" text-anchor="middle">$</text>
+              </g>
+            ` : `
+              ${Array.from({ length: displayBags }).map((_, idx) => {
+                const offsets = [
+                  { x: 38, y: 15, scale: 1 },
+                  { x: 18, y: 22, scale: 0.9 },
+                  { x: 58, y: 24, scale: 0.92 },
+                  { x: 38, y: 28, scale: 0.85 }
+                ];
+                const pos = offsets[idx] || { x: 38, y: 20, scale: 1 };
+                return `
+                  <g transform="translate(${pos.x}, ${pos.y}) scale(${pos.scale})">
+                    <!-- Cash bills peek out -->
+                    <rect x="14" y="0" width="16" height="10" rx="1" fill="#86efac" stroke="#16a34a" stroke-width="0.8" transform="rotate(-10)"/>
+                    <rect x="22" y="0" width="16" height="10" rx="1" fill="#bbf7d0" stroke="#15803d" stroke-width="0.8" transform="rotate(8)"/>
+                    <!-- Canvas Sack Body -->
+                    <path d="M12,18 C4,28 0,52 2,62 C4,68 10,70 25,70 C40,70 46,68 48,62 C50,52 46,28 38,18 Z" fill="url(#wealthSackGrad)" stroke="#cbd5e1" stroke-width="1"/>
+                    <path d="M10,12 Q25,18 40,12 L35,22 L15,22 Z" fill="url(#wealthSackGrad)" stroke="#cbd5e1" stroke-width="0.8"/>
+                    <!-- Tied Golden-Brown Rope -->
+                    <rect x="15" y="19" width="20" height="2.5" rx="1" fill="#f59e0b" stroke="#92400e" stroke-width="0.6"/>
+                    <!-- Green Dollar Sign -->
+                    <text x="25" y="52" font-size="24" font-weight="900" fill="#15803d" text-anchor="middle" opacity="0.85">$</text>
+                  </g>
+                `;
+              }).join('')}
+              ${bags > displayBags ? `
+                <!-- Additional Bags Count Badge -->
+                <g transform="translate(82, 38)">
+                  <rect x="0" y="0" width="26" height="14" rx="7" fill="#15803d" stroke="#ffffff" stroke-width="1.2"/>
+                  <text x="13" y="10" font-size="9" font-weight="900" fill="#ffffff" text-anchor="middle">+${bags - displayBags}</text>
+                </g>
+              ` : ''}
+            `}
+
+            <!-- ================= DYNAMIC GOLD COINS (0 to 9 coins, $100 / Coin) ================= -->
+            ${goldCoins > 0 ? `
+              <!-- Gold Coin Tower 1 (up to 5 coins) -->
+              <g transform="translate(10, 48)">
+                ${Array.from({ length: Math.min(5, goldCoins) }).map((_, idx) => {
+                  const cy = 30 - idx * 4.5;
+                  return `
+                    <rect x="0" y="${cy}" width="20" height="4.5" rx="1.5" fill="url(#wealthGoldGrad)" stroke="#92400e" stroke-width="0.5"/>
+                    <ellipse cx="10" cy="${cy}" rx="10" ry="2.8" fill="#fef08a" stroke="#d97706" stroke-width="0.4"/>
+                  `;
+                }).join('')}
+              </g>
+
+              <!-- Gold Coin Tower 2 (remaining coins 6 to 9) -->
+              ${goldCoins > 5 ? `
+                <g transform="translate(24, 54)">
+                  ${Array.from({ length: goldCoins - 5 }).map((_, idx) => {
+                    const cy = 24 - idx * 4.5;
+                    return `
+                      <rect x="0" y="${cy}" width="18" height="4.5" rx="1.5" fill="url(#wealthGoldGrad)" stroke="#92400e" stroke-width="0.5"/>
+                      <ellipse cx="9" cy="${cy}" rx="9" ry="2.6" fill="#fef08a" stroke="#d97706" stroke-width="0.4"/>
+                    `;
+                  }).join('')}
+                </g>
+              ` : ''}
+
+              <!-- Leaning Front Gold Coin with $ -->
+              <g transform="translate(22, 75) rotate(-16)">
+                <ellipse cx="0" cy="0" rx="9.5" ry="7.5" fill="url(#wealthGoldGrad)" stroke="#ffffff" stroke-width="0.8"/>
+                <text x="0" y="3" font-size="8.5" font-weight="900" fill="#92400e" text-anchor="middle">$</text>
+              </g>
+            ` : ''}
+          </svg>
+          <div class="mt-0.5 px-2 py-0.5 rounded-full bg-[#0B132B]/95 border border-amber-400/70 text-amber-300 font-chakra font-black text-[10px] sm:text-[11px] shadow-lg flex items-center gap-1">
+            <span>💰</span>
+            <span>${bags} Bao • ${goldCoins} Xu Vàng</span>
+          </div>
+        </div>
+      `;
+    }
+
     function getSideCashAndIngotPileSVG(cashAmount) {
-      return getMoneyBagAndGoldCoinsSVG(cashAmount, 106, 86);
+      return getDynamicWealthPileSVG(cashAmount);
     }
 
     // =========================================================================
-    // 2. AUTHENTIC BUSINESS TOUR 2.5D ISOMETRIC BUILDINGS & RESORTS (v3.9.2)
+    // 2. AUTHENTIC BUSINESS TOUR 2.5D ISOMETRIC BUILDINGS & RESORTS (v3.9.5)
     // =========================================================================
     // Directly modeled on media_1793028219505_4ba5abef.png:
     // - Bright green lawn pad (#84cc16) with thick white/stone isometric curb (#f8fafc / #cbd5e1)
@@ -8690,38 +8887,75 @@
       }
     }
 
-    // Festival Banner Arch SVG (Like the yellow "FESTIVAL" arch over Shanghai/Paris/Sydney in Reference Image)
-    function getFestivalArchSVG() {
+    // 2.5D Prison Corner Model with Stone Fortress, Steel Watchtower & Heavy Iron Bars (Ô #11 TRẠI GIAM)
+    function getPrisonCornerSVG() {
       return `
-        <div class="absolute -top-8 left-1/2 -translate-x-1/2 z-30 pointer-events-none mono-upright-3d">
-          <svg width="64" height="42" viewBox="0 0 80 52" fill="none" class="filter drop-shadow-[0_6px_8px_rgba(0,0,0,0.6)]">
-            <!-- Left & Right White Poles -->
-            <line x1="12" y1="50" x2="12" y2="8" stroke="#ffffff" stroke-width="2.5"/>
-            <line x1="68" y1="50" x2="68" y2="8" stroke="#ffffff" stroke-width="2.5"/>
-            <!-- Colorful Bunting Flags -->
-            <polygon points="12,26 18,22 15,30" fill="#ef4444"/>
-            <polygon points="22,22 28,19 25,27" fill="#3b82f6"/>
-            <polygon points="56,22 62,25 59,29" fill="#eab308"/>
-            <!-- Golden Curved Festival Banner -->
-            <path d="M12,12 Q40,22 68,12 L68,22 Q40,32 12,22 Z" fill="#f59e0b" stroke="#ffffff" stroke-width="1.2"/>
-            <text x="40" y="22" font-size="7.5" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="0.5">x2 LỄ HỘI</text>
+        <div class="mono-upright-3d -mt-3.5 flex flex-col items-center pointer-events-none select-none">
+          <svg width="68" height="68" viewBox="0 0 80 80" fill="none" class="filter drop-shadow-[0_10px_12px_rgba(0,0,0,0.85)]">
+            <defs>
+              <linearGradient id="prisonWallGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#334155"/>
+                <stop offset="50%" stop-color="#1e293b"/>
+                <stop offset="100%" stop-color="#0f172a"/>
+              </linearGradient>
+              <linearGradient id="prisonRoofGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#dc2626"/>
+                <stop offset="100%" stop-color="#991b1b"/>
+              </linearGradient>
+              <linearGradient id="ironBarGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#475569"/>
+                <stop offset="50%" stop-color="#e2e8f0"/>
+                <stop offset="100%" stop-color="#1e293b"/>
+              </linearGradient>
+            </defs>
+            <!-- Isometric Stone Platform Base -->
+            <polygon points="6,50 40,68 74,50 40,32" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+            <polygon points="6,50 40,68 40,73 6,55" fill="#0f172a"/>
+            <polygon points="40,68 74,50 74,55 40,73" fill="#020617"/>
+
+            <!-- Central Fortress Cell Block Walls -->
+            <polygon points="18,44 40,56 40,24 18,12" fill="url(#prisonWallGrad)" stroke="#475569" stroke-width="1"/>
+            <polygon points="40,56 62,44 62,12 40,24" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+
+            <!-- Red Watchtower Roof with Battlements -->
+            <polygon points="14,14 40,28 66,14 40,0" fill="url(#prisonRoofGrad)" stroke="#fca5a5" stroke-width="1.2"/>
+            <!-- Flashing Red Security Beacon on Tower Spire -->
+            <line x1="40" y1="0" x2="40" y2="-6" stroke="#94a3b8" stroke-width="1.5"/>
+            <circle cx="40" cy="-6" r="3" fill="#ef4444" stroke="#ffffff" stroke-width="0.8"/>
+
+            <!-- Heavy Iron Bars Vault / Cell Grille (Song Sắt Trại Giam) -->
+            <polygon points="23,43 37,50 37,30 23,22" fill="#050811"/>
+            <line x1="26" y1="24" x2="26" y2="44" stroke="url(#ironBarGrad)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="30" y1="26" x2="30" y2="47" stroke="url(#ironBarGrad)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="34" y1="29" x2="34" y2="49" stroke="url(#ironBarGrad)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="23" y1="31" x2="37" y2="38" stroke="#64748b" stroke-width="1.8"/>
+            <line x1="23" y1="39" x2="37" y2="46" stroke="#64748b" stroke-width="1.8"/>
+            <!-- Heavy Golden/Steel Padlock -->
+            <rect x="28.5" y="36" width="5" height="5" rx="1" fill="#f59e0b" stroke="#78350f" stroke-width="0.6"/>
+            <circle cx="31" cy="38.5" r="0.8" fill="#451a03"/>
           </svg>
+          <span class="px-1.5 py-0.2 rounded bg-red-600 text-white font-black text-[8px] tracking-wider uppercase shadow -mt-1 border border-white/40">TRẠI GIAM</span>
         </div>
       `;
     }
 
-    // Upright 2.5D House HTML for Game Board Tiles (Clean Business Tour Style: Model + compact number tag [1]/[2]/[3])
-    function getUpright3DHouseHTML(level, ownerIdx, isResort = false) {
+    // Centered 2.5D House HTML for Game Board Tiles (v3.9.5: perfectly centered within tile plot, 100% inside boundary)
+    function getUpright3DHouseHTML(level, ownerIdx, isResort = false, isMortgaged = false) {
       const cfg = MONOPOLY_PRESET_CONFIGS[ownerIdx % 4] || MONOPOLY_PRESET_CONFIGS[0];
-      const svgSize = isResort ? 58 : (level === 1 ? 58 : (level === 2 ? 64 : 72));
+      const svgSize = isResort ? 46 : (level === 1 ? 40 : (level === 2 ? 46 : 50));
       return `
-        <div class="absolute -top-7 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center pointer-events-none z-20 mono-upright-3d">
-          <!-- Compact Business Tour Level Tag (e.g. [3] box in Chicago from reference image) -->
-          <div class="relative">
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-20 mono-tile-building-3d">
+          <div class="relative flex items-center justify-center">
             ${getBusinessTourHouseSVG(level, ownerIdx, svgSize, isResort)}
-            <div class="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded bg-white text-slate-950 font-black text-[9px] sm:text-[10px] flex items-center justify-center shadow-md" style="border: 2px solid ${cfg.color}">
-              ${level}
+            <!-- Compact Business Tour Level Tag -->
+            <div class="absolute -top-1 -right-1 w-4 h-4 rounded bg-white text-slate-950 font-black text-[9px] flex items-center justify-center shadow-md border-2" style="border-color: ${cfg.color}">
+              ${isResort ? 'R' : level}
             </div>
+            ${isMortgaged ? `
+              <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 px-1.5 py-0.2 rounded bg-rose-700 text-white font-black text-[7px] tracking-wider uppercase shadow border border-white whitespace-nowrap">
+                THẾ CHẤP
+              </div>
+            ` : ''}
           </div>
         </div>
       `;
@@ -8828,7 +9062,7 @@
       }, 1400);
     }
 
-    // Special Tile SVGs (Rainbow Chance Wheel, Lost Island Oasis, World Championships Stage, World Tour Airport)
+    // Special Tile SVGs (Rainbow Chance Wheel, Prison Watchtower 3D, World Tour Airport)
     function getRainbowChanceWheelSVG() {
       return `
         <svg width="38" height="38" viewBox="0 0 60 60" class="filter drop-shadow">
@@ -8859,6 +9093,11 @@
 
         tile.addEventListener('mouseenter', () => updateInspectHUD(t.id));
         tile.addEventListener('mouseleave', () => resetInspectHUD());
+        tile.addEventListener('click', () => {
+          if (t.owner !== null && t.owner !== undefined && t.owner === monoState.turn && !monoState.players[monoState.turn].isBot) {
+            openMonoAssetManager(monoState.turn);
+          }
+        });
 
         if (t.isCorner) {
           tile.className = 'bg-gradient-to-b from-[#f8fafc] to-[#e2e8f0] rounded-xl flex flex-col items-center justify-between p-1 border-2 border-[#64748b] text-center font-black relative overflow-visible shadow-[0_5px_0_#64748b] select-none cursor-pointer';
@@ -8873,11 +9112,7 @@
               </div>
             `;
           } else if (t.type === 'jail') {
-            cornerArt = `
-              <div class="mono-upright-3d -mt-4 flex flex-col items-center">
-                <span class="text-2xl sm:text-3xl filter drop-shadow">🏝️</span>
-              </div>
-            `;
+            cornerArt = getPrisonCornerSVG();
           } else if (t.type === 'airport') {
             cornerArt = `
               <div class="mono-upright-3d -mt-5 flex flex-col items-center">
@@ -8915,7 +9150,7 @@
           const owner = isOwned ? monoState.players[t.owner] : null;
           const lvl = t.level || 0;
           const isResort = (t.type === 'station');
-          const isFestival = (monoState.festivalTileId === t.id);
+          const isMortgaged = !!t.isMortgaged;
 
           tile.className = 'bg-gradient-to-b from-[#f8fafc] via-[#f1f5f9] to-[#e2e8f0] rounded-xl flex flex-col justify-between p-1 border-2 relative overflow-visible shadow-[0_4px_0_#64748b] select-none transition-all duration-300 cursor-pointer ' + (isOwned ? 'ring-2' : 'border-[#94a3b8] hover:border-amber-500');
           tile.style.transformStyle = 'preserve-3d';
@@ -8927,26 +9162,31 @@
 
           let houseHTML = '';
           if (isOwned && lvl > 0) {
-            houseHTML = getUpright3DHouseHTML(lvl, t.owner, isResort);
+            houseHTML = getUpright3DHouseHTML(lvl, t.owner, isResort, isMortgaged);
+          } else if (isOwned && isMortgaged) {
+            houseHTML = `
+              <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+                <span class="px-1.5 py-0.5 rounded bg-rose-700 text-white font-black text-[7.5px] uppercase tracking-wider border border-white shadow">
+                  THẾ CHẤP
+                </span>
+              </div>
+            `;
           }
 
-          const festivalHTML = isFestival ? getFestivalArchSVG() : '';
           const currentRent = getMonoTileRent(t);
 
           // Bold Business Tour Price/Rent Typography at Outer Curb Edge
           const priceRentTag = isOwned
-            ? `<span class="text-[10px] sm:text-[12px] font-chakra font-black text-slate-950 tracking-tight">${isFestival ? '🔥' : ''}$${currentRent.toLocaleString()}</span>`
+            ? `<span class="text-[10px] sm:text-[12px] font-chakra font-black ${isMortgaged ? 'text-rose-600' : 'text-slate-950'} tracking-tight">${isMortgaged ? 'THẾ CHẤP' : '$' + currentRent.toLocaleString()}</span>`
             : `<span class="text-[10px] sm:text-[12px] font-chakra font-black text-slate-900 tracking-tight">$${t.price.toLocaleString()}</span>`;
 
           tile.innerHTML = `
             <!-- Top Color Strip / Lawn Turf Plot -->
             <div class="w-full h-3 sm:h-3.5 rounded-t-md shrink-0 flex items-center justify-between px-1 shadow-inner" style="background: ${isOwned && owner ? owner.color : t.color};">
               <span class="text-[6px] sm:text-[7px] font-black text-white uppercase drop-shadow">${isOwned && owner ? owner.name.slice(0, 5) : (isResort ? 'RESORT' : '')}</span>
-              ${isFestival ? '<span class="text-[7px] font-black bg-amber-300 text-black px-1 rounded">x2</span>' : ''}
             </div>
 
-            <!-- 2.5D Upright Building & Optional Festival Arch -->
-            ${festivalHTML}
+            <!-- 2.5D Centered Building -->
             ${houseHTML}
 
             <!-- City Name & Bold Price (Business Tour Sidewalk Style) -->
@@ -8990,7 +9230,7 @@
       if (t.isCorner) {
         levelEl.textContent = 'Ô ĐẶC BIỆT';
         levelEl.className = 'text-[9px] font-black text-amber-300 px-1.5 py-0.2 rounded bg-amber-400/20 border border-amber-400/40';
-        subEl.innerHTML = '<span class="text-amber-300 font-bold">' + (t.type === "start" ? "Nhận lương +$400 & Tổ chức Lễ Hội x2" : (t.type === "jail" ? "Đảo Hoang / Trại Giam (Bảo lãnh $250)" : (t.type === "airport" ? "World Tour Tân An (+$300 trợ cấp)" : "Vào tù ngay lập tức!"))) + '</span>';
+        subEl.innerHTML = '<span class="text-amber-300 font-bold">' + (t.type === "start" ? "Nhận lương thương mại +$400" : (t.type === "jail" ? "Trại Giam Song Sắt (Bảo lãnh $250)" : (t.type === "airport" ? "World Tour Tân An (+$300 trợ cấp)" : "Bị bắt giam ngay lập tức!"))) + '</span>';
         if (t.id === 22) {
           subEl.innerHTML += ' <button onclick="triggerMonoAirplaneFlyby({ player: monoState.players[monoState.turn], destTile: monoState.tiles[22] })" class="ml-2 px-2.5 py-0.5 rounded-lg bg-amber-400 text-slate-950 font-black text-[9px] hover:bg-yellow-300 cursor-pointer shadow-md border border-white pointer-events-auto">✈️ Bay Thử</button>';
         }
@@ -9548,7 +9788,7 @@
       }, stepIntervalTime);
     }
 
-    // Handle Landing Tile (With Fast-Paced Business Tour Takeover & Festival Mechanics)
+    // Handle Landing Tile (With Fast-Paced Business Tour Takeover & Emergency Debt Rescue)
     function handleMonoLanding(player) {
       const landedTile = monoState.tiles[player.pos];
       const isBotTurn = player.isBot;
@@ -9619,69 +9859,154 @@
             monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 650);
           }
         } else {
-          // Pay Rent to Opponent + Check Business Tour Hostile Takeover (if level < 3)
+          // Pay Rent to Opponent + Emergency Debt & Asset Rescue (v3.9.5)
           const owner = monoState.players[landedTile.owner];
           const rent = getMonoTileRent(landedTile);
 
-          const actualPaid = Math.min(player.cash, rent);
-          player.cash = Math.max(0, player.cash - rent);
-          owner.cash += actualPaid;
-
-          if (player.cash === 0) {
-            player.bankruptTo = owner.id;
+          // If rent is 0 (tile is mortgaged), rent is free!
+          if (rent <= 0) {
+            showToast(`🛡️ ${landedTile.name} đang thế chấp, ${player.name} được miễn tiền thuê!`);
+            if (isBotTurn) {
+              monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 600);
+            } else {
+              finishMonoTurn();
+            }
+            return;
           }
 
-          triggerMonoFloatingCash(player.id, -actualPaid);
-          triggerMonoFloatingCash(owner.id, actualPaid);
-          updateMonopolyHUD();
-          try { soundTone(200, 'sawtooth', 0.2, 0.2); } catch(e) {}
+          // Case 1: Player has enough cash to pay rent directly
+          if (player.cash >= rent) {
+            player.cash -= rent;
+            owner.cash += rent;
+            triggerMonoFloatingCash(player.id, -rent);
+            triggerMonoFloatingCash(owner.id, rent);
+            updateMonopolyHUD();
+            try { soundTone(200, 'sawtooth', 0.2, 0.2); } catch(e) {}
 
-          triggerMonoCashTransfer({
-            payer: player,
-            recipient: owner,
-            amount: actualPaid,
-            type: 'rent',
-            desc: `${player.name} trả tiền thuê $${actualPaid.toLocaleString()} cho ${owner.name} tại ${landedTile.name}!`,
-            onComplete: () => {
-              // Check if player can perform Hostile Takeover (only on city Lv.1 or Lv.2, like Business Tour!)
-              const takeoverCost = Math.floor(landedTile.price * (0.9 + (landedTile.level || 1) * 0.4));
-              const canTakeover = landedTile.type === 'city' && (landedTile.level || 1) < 3 && player.cash >= takeoverCost;
+            triggerMonoCashTransfer({
+              payer: player,
+              recipient: owner,
+              amount: rent,
+              type: 'rent',
+              desc: `${player.name} trả tiền thuê $${rent.toLocaleString()} cho ${owner.name} tại ${landedTile.name}!`,
+              onComplete: () => {
+                const takeoverCost = Math.floor(landedTile.price * (0.9 + (landedTile.level || 1) * 0.4));
+                const canTakeover = landedTile.type === 'city' && (landedTile.level || 1) < 3 && player.cash >= takeoverCost;
 
-              if (!isBotTurn) {
-                if (canTakeover) {
-                  setMonoDialogMode('takeover', { tile: landedTile, cost: takeoverCost });
+                if (!isBotTurn) {
+                  if (canTakeover) {
+                    setMonoDialogMode('takeover', { tile: landedTile, cost: takeoverCost });
+                  } else {
+                    showMonoEventPopup({
+                      type: 'rent',
+                      badge: '💸 NỘP TIỀN THUÊ ĐẤT!',
+                      title: `Đất Của ${owner.name}`,
+                      desc: `${player.name} đã trả $${rent.toLocaleString()} tiền thuê cho ${owner.name} tại ${landedTile.name} (Cấp ${landedTile.level || 1})!`,
+                      visualIcon: '💸',
+                      amountLabel: 'Khoản tiền thuê:',
+                      amountVal: -rent,
+                      onConfirm: () => finishMonoTurn()
+                    });
+                  }
                 } else {
-                  showMonoEventPopup({
-                    type: 'rent',
-                    badge: '💸 NỘP TIỀN THUÊ ĐẤT!',
-                    title: `Đất Của ${owner.name}`,
-                    desc: `${player.name} đã trả $${actualPaid.toLocaleString()} tiền thuê cho ${owner.name} tại ${landedTile.name} (Cấp ${landedTile.level || 1})!`,
-                    visualIcon: '💸',
-                    amountLabel: 'Khoản tiền thuê:',
-                    amountVal: -actualPaid,
-                    onConfirm: () => finishMonoTurn()
-                  });
+                  if (canTakeover && player.cash >= takeoverCost + 350) {
+                    player.cash -= takeoverCost;
+                    owner.cash += takeoverCost;
+                    owner.properties = owner.properties.filter(id => id !== landedTile.id);
+                    landedTile.owner = player.id;
+                    player.properties.push(landedTile.id);
+                    triggerMonoFloatingCash(player.id, -takeoverCost);
+                    triggerMonoFloatingCash(owner.id, takeoverCost);
+                    renderMonopolyBoard();
+                    updateMonopolyHUD();
+                    showToast(`⚔️ ${player.name} chi $${takeoverCost} THÂU TÓM luôn ${landedTile.name} của ${owner.name}!`);
+                  } else {
+                    showToast(`💸 ${player.name} trả $${rent.toLocaleString()} tiền thuê ${landedTile.name} cho ${owner.name}!`);
+                  }
+                  monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 800);
                 }
-              } else {
-                // Bot Takeover AI: if Bot has plenty of cash, it takes over the opponent's city!
-                if (canTakeover && player.cash >= takeoverCost + 350) {
-                  player.cash -= takeoverCost;
-                  owner.cash += takeoverCost;
-                  owner.properties = owner.properties.filter(id => id !== landedTile.id);
-                  landedTile.owner = player.id;
-                  player.properties.push(landedTile.id);
-                  triggerMonoFloatingCash(player.id, -takeoverCost);
-                  triggerMonoFloatingCash(owner.id, takeoverCost);
-                  renderMonopolyBoard();
-                  updateMonopolyHUD();
-                  showToast(`⚔️ ${player.name} chi $${takeoverCost} THÂU TÓM luôn ${landedTile.name} của ${owner.name}!`);
-                } else {
-                  showToast(`💸 ${player.name} trả $${actualPaid.toLocaleString()} tiền thuê ${landedTile.name} cho ${owner.name}!`);
-                }
-                monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 800);
               }
+            });
+          } else {
+            // Case 2: Insufficient cash -> Check liquidation value
+            let maxLiquidation = player.cash;
+            const ownedProps = monoState.tiles.filter(t => t.owner === player.id);
+            ownedProps.forEach(t => {
+              if (t.level > 0) maxLiquidation += t.level * Math.floor(t.price * 0.25);
+              if (!t.isMortgaged) maxLiquidation += Math.floor(t.price * 0.5);
+            });
+
+            if (maxLiquidation >= rent) {
+              // Player can liquidate assets to pay rent
+              if (!isBotTurn) {
+                showToast(`⚠️ Bạn không đủ tiền mặt trả $${rent.toLocaleString()}! Bảng Quản Lý Tài Sản được mở để bạn bán nhà hoặc thế chấp đất!`);
+                openMonoAssetManager(player.id, rent, owner);
+              } else {
+                // Bot auto-liquidates until cash >= rent
+                for (const t of ownedProps) {
+                  while (t.level > 0 && player.cash < rent) {
+                    const refund = Math.floor(t.price * 0.25);
+                    t.level -= 1;
+                    player.cash += refund;
+                  }
+                }
+                for (const t of ownedProps) {
+                  if (!t.isMortgaged && player.cash < rent && (t.level || 0) === 0) {
+                    const mortgageVal = Math.floor(t.price * 0.5);
+                    t.isMortgaged = true;
+                    player.cash += mortgageVal;
+                  }
+                }
+                renderMonopolyBoard();
+                updateMonopolyHUD();
+
+                player.cash -= rent;
+                owner.cash += rent;
+                triggerMonoFloatingCash(player.id, -rent);
+                triggerMonoFloatingCash(owner.id, rent);
+                updateMonopolyHUD();
+
+                triggerMonoCashTransfer({
+                  payer: player,
+                  recipient: owner,
+                  amount: rent,
+                  type: 'rent',
+                  desc: `🤖 ${player.name} đã thế chấp tài sản để trả $${rent.toLocaleString()} cho ${owner.name}!`,
+                  onComplete: () => {
+                    showToast(`🤖 ${player.name} đã thế chấp tài sản trả đủ tiền thuê!`);
+                    monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 850);
+                  }
+                });
+              }
+            } else {
+              // Case 3: Inevitable bankruptcy
+              player.bankruptTo = owner.id;
+              const remainingCash = player.cash;
+              player.cash = 0;
+              owner.cash += remainingCash;
+              player.isBankrupt = true;
+
+              ownedProps.forEach(t => {
+                t.owner = owner.id;
+                owner.properties.push(t.id);
+              });
+              player.properties = [];
+
+              renderMonopolyBoard();
+              updateMonopolyHUD();
+
+              showMonoEventPopup({
+                type: 'rent',
+                badge: '🏳️ PHÁ SẢN TOÀN BỘ!',
+                title: `${player.name} Đã Phá Sản`,
+                desc: `Không đủ khả năng chi trả $${rent.toLocaleString()} cho ${owner.name}! Toàn bộ tài sản đã được chuyển giao cho ${owner.name}.`,
+                visualIcon: '🏳️',
+                amountLabel: 'Tiền mặt còn lại:',
+                amountVal: -remainingCash,
+                onConfirm: () => finishMonoTurn()
+              });
             }
-          });
+          }
         }
       } else if (landedTile.type === 'gotojail') {
         player.pos = 11;
@@ -9710,19 +10035,11 @@
           }
         });
       } else if (landedTile.type === 'start') {
-        // Landing on START triggers Festival x2 on player's best property!
-        if (player.properties.length > 0) {
-          const bestPropId = player.properties[player.properties.length - 1];
-          monoState.festivalTileId = bestPropId;
-          const festTile = monoState.tiles[bestPropId];
-          renderMonopolyBoard();
-          showToast(`🎪 LỄ HỘI x2! ${player.name} tổ chức Lễ Hội nhân đôi tiền thuê tại ${festTile.name}!`);
-        } else {
-          showToast(`🌟 ${player.name} dừng chân tại Xuất Phát!`);
-        }
-        monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 800);
+        // Landing on START bonus
+        showToast(`🏁 ${player.name} VỀ ĐÍCH XUẤT PHÁT! Nhận lương thương mại +$${BUSINESS_TOUR_SALARY}!`);
+        monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 750);
       } else if (landedTile.type === 'jail') {
-        showToast(`🏝️ ${player.name} ghé thăm Đảo Hoang / Trại Giam an toàn.`);
+        showToast(`🏛️ ${player.name} ghé thăm Trại Giam an toàn.`);
         monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 750);
       } else if (landedTile.type === 'airport') {
         // World Tour Flight! Fly to a high-value unowned or upgradeable city + receive $300 bonus!
@@ -9771,11 +10088,6 @@
             onComplete: () => finishMonoTurn()
           });
           return;
-        }
-
-        if (card.action === 'festival' && player.properties.length > 0) {
-          monoState.festivalTileId = player.properties[0];
-          renderMonopolyBoard();
         }
 
         if (card.amount >= 0) {
@@ -10457,7 +10769,6 @@
       monoState.turn = 0;
       monoState.round = 1;
       monoState.lastRollSum = 9;
-      monoState.festivalTileId = 32; // TP.HCM starts with Festival x2 arch
       monoState.isRolling = false;
       monoState.hasExtraTurn = false;
       monoState.doublesStreak = 0;
@@ -10500,7 +10811,7 @@
     window.getBusinessTourCharacterSVG = getBusinessTourCharacterSVG;
 
     // =========================================================================
-    // DYNAMIC CASH DENOMINATIONS & ANIMATIONS (v3.9.2)
+    // DYNAMIC CASH DENOMINATIONS & ANIMATIONS (v3.9.5)
     // Breakdown: $1,000 bundles, $100 gold coins, $50 silver coins
     // =========================================================================
 
@@ -10550,20 +10861,64 @@
       `;
     }
 
-    // Render 3D Stacks of Dollars, Gold Coins & Silver Coins
+    // Render 3D Stacks of Dollars ($1,000/bag), Gold Coins ($100/coin) & Silver Coins ($25/coin)
     function renderCashStackHTML(amount) {
-      const bagsCount = amount >= 600 ? 2 : 1;
+      const amt = Math.max(0, amount || 0);
+      const bags = Math.floor(amt / 1000);
+      const goldCoins = Math.floor((amt % 1000) / 100);
+      const silverCoins = Math.max(0, Math.floor((amt % 100) / 25));
+
+      const displayBags = Math.min(3, bags);
+      const displayGold = Math.min(5, goldCoins);
+      const displaySilver = Math.min(4, silverCoins);
+
       return `
         <div class="flex flex-col items-center justify-center pointer-events-none select-none">
-          <div class="flex items-end -space-x-5">
-            ${Array.from({ length: bagsCount }).map((_, i) => `
-              <div class="${i === 1 ? 'scale-90 -translate-y-1' : ''}">
-                ${getMoneyBagAndGoldCoinsSVG(amount, 128, 104)}
+          <div class="flex items-end -space-x-4">
+            ${displayBags > 0 ? Array.from({ length: displayBags }).map((_, i) => `
+              <div class="scale-90 ${i > 0 ? '-translate-y-1' : ''}">
+                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" class="filter drop-shadow-[0_8px_10px_rgba(0,0,0,0.6)]">
+                  <ellipse cx="32" cy="58" rx="26" ry="5" fill="rgba(0,0,0,0.4)"/>
+                  <rect x="20" y="4" width="14" height="10" rx="1" fill="#86efac" stroke="#16a34a" stroke-width="0.8" transform="rotate(-8)"/>
+                  <path d="M16,20 C8,28 4,48 6,56 C8,60 14,62 28,62 C42,62 48,60 50,56 C52,48 48,28 40,20 Z" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+                  <rect x="18" y="19" width="20" height="3" rx="1" fill="#f59e0b" stroke="#92400e" stroke-width="0.7"/>
+                  <text x="28" y="48" font-size="22" font-weight="900" fill="#15803d" text-anchor="middle">$</text>
+                </svg>
               </div>
-            `).join('')}
+            `).join('') : ''}
+
+            ${displayGold > 0 || (displayBags === 0 && displaySilver === 0) ? `
+              <div class="scale-95">
+                <svg width="42" height="54" viewBox="0 0 42 54" fill="none" class="filter drop-shadow">
+                  ${Array.from({ length: Math.max(1, displayGold) }).map((_, idx) => {
+                    const cy = 44 - idx * 5;
+                    return `
+                      <rect x="6" y="${cy}" width="30" height="5" rx="1.5" fill="#f59e0b" stroke="#92400e" stroke-width="0.6"/>
+                      <ellipse cx="21" cy="${cy}" rx="15" ry="3.5" fill="#fef08a" stroke="#d97706" stroke-width="0.5"/>
+                    `;
+                  }).join('')}
+                  <text x="21" y="52" font-size="8" font-weight="900" fill="#78350f" text-anchor="middle">$100</text>
+                </svg>
+              </div>
+            ` : ''}
+
+            ${displaySilver > 0 ? `
+              <div class="scale-90">
+                <svg width="36" height="46" viewBox="0 0 36 46" fill="none" class="filter drop-shadow">
+                  ${Array.from({ length: displaySilver }).map((_, idx) => {
+                    const cy = 36 - idx * 4.5;
+                    return `
+                      <rect x="4" y="${cy}" width="28" height="4.5" rx="1.5" fill="#94a3b8" stroke="#475569" stroke-width="0.6"/>
+                      <ellipse cx="18" cy="${cy}" rx="14" ry="3.2" fill="#f1f5f9" stroke="#64748b" stroke-width="0.5"/>
+                    `;
+                  }).join('')}
+                  <text x="18" y="44" font-size="7.5" font-weight="900" fill="#334155" text-anchor="middle">XU BẠC</text>
+                </svg>
+              </div>
+            ` : ''}
           </div>
-          <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 font-chakra font-black text-xs shadow-lg border-2 border-white -mt-2">
-            $${amount.toLocaleString()}
+          <span class="px-3 py-1 rounded-full bg-amber-400 text-slate-950 font-chakra font-black text-xs shadow-lg border-2 border-white -mt-2">
+            $${amt.toLocaleString()} (${bags > 0 ? bags + ' Bao • ' : ''}${goldCoins} Xu Vàng)
           </span>
         </div>
       `;
@@ -10801,6 +11156,324 @@
         }
       }
     });
+
+
+    // =========================================================================
+    // ASSET MANAGER ENGINE (Thế Chấp / Chuộc Đất / Bán Nhà / Phá Sản - v3.9.5)
+    // =========================================================================
+    let monoAssetEmergencyDebt = 0;
+    let monoAssetDebtCreditor = null;
+
+    function openMonoAssetManager(targetPlayerIdx = null, emergencyDebt = 0, creditor = null) {
+      const modal = document.getElementById('monoAssetManagerModal');
+      if (!modal) return;
+
+      const pIdx = (targetPlayerIdx !== null) ? targetPlayerIdx : monoState.turn;
+      const curPlayer = monoState.players[pIdx];
+      if (!curPlayer || curPlayer.isBankrupt) return;
+
+      monoAssetEmergencyDebt = emergencyDebt;
+      monoAssetDebtCreditor = creditor;
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      renderMonoAssetManagerList(curPlayer);
+    }
+    window.openMonoAssetManager = openMonoAssetManager;
+
+    function closeMonoAssetManager() {
+      const modal = document.getElementById('monoAssetManagerModal');
+      if (!modal) return;
+
+      const curPlayer = monoState.players[monoState.turn];
+      if (monoAssetEmergencyDebt > 0 && curPlayer.cash < monoAssetEmergencyDebt) {
+        showToast(`⚠️ Bạn đang nợ $${monoAssetEmergencyDebt.toLocaleString()}! Hãy bán nhà hoặc thế chấp để thanh toán!`);
+        return;
+      }
+
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      monoAssetEmergencyDebt = 0;
+      monoAssetDebtCreditor = null;
+    }
+    window.closeMonoAssetManager = closeMonoAssetManager;
+
+    function renderMonoAssetManagerList(player) {
+      const curPlayer = player || monoState.players[monoState.turn];
+      if (!curPlayer) return;
+
+      const cashEl = document.getElementById('monoAssetCashVal');
+      const countEl = document.getElementById('monoAssetCountVal');
+      const netWorthEl = document.getElementById('monoAssetNetWorthVal');
+      const listEl = document.getElementById('monoAssetPropertiesList');
+      const debtBanner = document.getElementById('monoDebtRescueBanner');
+      const debtText = document.getElementById('monoDebtRescueText');
+      const btnPayDebt = document.getElementById('btnPayDebtNow');
+
+      if (cashEl) cashEl.textContent = '$' + curPlayer.cash.toLocaleString();
+      if (countEl) countEl.textContent = curPlayer.properties.length + ' Ô Đất';
+      if (netWorthEl) netWorthEl.textContent = '$' + getMonoPlayerNetWorth(curPlayer).toLocaleString();
+
+      // Emergency Debt Warning Banner
+      if (monoAssetEmergencyDebt > 0 && debtBanner) {
+        debtBanner.classList.remove('hidden');
+        const creditorName = monoAssetDebtCreditor ? monoAssetDebtCreditor.name : 'Ngân Hàng';
+        const remaining = Math.max(0, monoAssetEmergencyDebt - curPlayer.cash);
+        if (debtText) {
+          debtText.innerHTML = `Bạn cần nộp <strong class="text-white">$${monoAssetEmergencyDebt.toLocaleString()}</strong> cho ${creditorName}. Hiện còn thiếu <strong class="text-amber-300">$${remaining.toLocaleString()}</strong>!`;
+        }
+        if (btnPayDebt) {
+          if (curPlayer.cash >= monoAssetEmergencyDebt) {
+            btnPayDebt.disabled = false;
+            btnPayDebt.className = 'px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs whitespace-nowrap cursor-pointer shadow-lg animate-pulse';
+            btnPayDebt.textContent = 'Thanh Toán Ngay ✓';
+          } else {
+            btnPayDebt.disabled = true;
+            btnPayDebt.className = 'px-3.5 py-2 rounded-xl bg-slate-700 text-slate-400 font-black text-xs whitespace-nowrap cursor-not-allowed opacity-60';
+            btnPayDebt.textContent = `Thiếu $${remaining.toLocaleString()}`;
+          }
+        }
+      } else if (debtBanner) {
+        debtBanner.classList.add('hidden');
+      }
+
+      if (!listEl) return;
+      listEl.innerHTML = '';
+
+      const ownedTiles = monoState.tiles.filter(t => t.owner === curPlayer.id);
+
+      if (ownedTiles.length === 0) {
+        listEl.innerHTML = `
+          <div class="py-8 text-center text-slate-400 text-xs flex flex-col items-center justify-center gap-2">
+            <span class="text-3xl">🏜️</span>
+            <span>Bạn chưa sở hữu bất động sản nào để thế chấp hoặc bán!</span>
+          </div>
+        `;
+        return;
+      }
+
+      ownedTiles.forEach(t => {
+        const item = document.createElement('div');
+        item.className = 'p-3 rounded-2xl bg-slate-900/90 border border-slate-700/80 flex items-center justify-between gap-3 shadow-md';
+
+        const isResort = (t.type === 'station');
+        const lvl = t.level || 0;
+        const isMortgaged = !!t.isMortgaged;
+        const upgradeCost = Math.floor(t.price * 0.5);
+        const sellRefund = Math.floor(upgradeCost * 0.5); // 50% of upgrade cost
+        const mortgageVal = Math.floor(t.price * 0.5);   // 50% of land price
+        const unmortgageCost = Math.floor(t.price * 0.55); // 55% to buy back
+
+        let actionsHTML = '';
+
+        if (isMortgaged) {
+          // Can Unmortgage (Chuộc đất)
+          const canAffordUnmortgage = (curPlayer.cash >= unmortgageCost);
+          actionsHTML = `
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-rose-900/70 text-rose-300 border border-rose-600 font-bold text-[10px]">ĐANG THẾ CHẤP</span>
+              <button onclick="unmortgageMonoTile(${t.id})" ${!canAffordUnmortgage ? 'disabled' : ''} class="${canAffordUnmortgage ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 cursor-pointer shadow-md' : 'bg-slate-800 text-slate-500 cursor-not-allowed opacity-60'} px-3 py-1.5 rounded-xl font-black text-xs flex items-center gap-1 transition-all">
+                <span>🔓</span>
+                <span>Chuộc Đất (-$${unmortgageCost})</span>
+              </button>
+            </div>
+          `;
+        } else {
+          // Not mortgaged: can Sell House (if lvl > 0) or Mortgage Land (if lvl === 0)
+          if (lvl > 0 && !isResort) {
+            actionsHTML = `
+              <div class="flex items-center gap-2">
+                <button onclick="sellMonoHouse(${t.id})" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs flex items-center gap-1 cursor-pointer shadow-md transition-all">
+                  <span>🏚️</span>
+                  <span>Bán 1 Nhà (+$${sellRefund})</span>
+                </button>
+              </div>
+            `;
+          } else {
+            actionsHTML = `
+              <div class="flex items-center gap-2">
+                <button onclick="mortgageMonoTile(${t.id})" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-black text-xs flex items-center gap-1 cursor-pointer shadow-md transition-all">
+                  <span>🏦</span>
+                  <span>Thế Chấp Đất (+$${mortgageVal})</span>
+                </button>
+              </div>
+            `;
+          }
+        }
+
+        item.innerHTML = `
+          <div class="flex items-center gap-2.5">
+            <div class="w-3.5 h-10 rounded-md shrink-0" style="background: ${t.color || '#3b82f6'};"></div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-white font-black text-xs sm:text-sm uppercase tracking-wide">${t.name}</span>
+                <span class="px-1.5 py-0.2 rounded bg-slate-800 border border-slate-600 text-slate-300 font-bold text-[9px]">${isResort ? 'RESORT' : 'CẤP ' + lvl}</span>
+              </div>
+              <div class="text-[10px] text-slate-400 mt-0.5">
+                Giá gốc: $${t.price} • Tiền thuê: ${isMortgaged ? '<span class="text-rose-400">$0 (Thế chấp)</span>' : '<span class="text-emerald-400">$' + getMonoTileRent(t) + '</span>'}
+              </div>
+            </div>
+          </div>
+          ${actionsHTML}
+        `;
+        listEl.appendChild(item);
+      });
+    }
+    window.renderMonoAssetManagerList = renderMonoAssetManagerList;
+
+    function sellMonoHouse(tileId) {
+      const curPlayer = monoState.players[monoState.turn];
+      const tile = monoState.tiles.find(t => t.id === tileId);
+      if (!curPlayer || !tile || tile.owner !== curPlayer.id || tile.level <= 0 || tile.isMortgaged) return;
+
+      const upgradeCost = Math.floor(tile.price * 0.5);
+      const refund = Math.floor(upgradeCost * 0.5); // 50% refund
+
+      tile.level -= 1;
+      curPlayer.cash += refund;
+
+      try { soundTone(600, 'triangle', 0.2, 0.2); } catch(e) {}
+      triggerMonoFloatingCash(curPlayer.id, refund);
+      renderMonopolyBoard();
+      updateMonopolyHUD();
+      renderMonoAssetManagerList(curPlayer);
+      showToast(`🏚️ Đã bán 1 cấp nhà tại ${tile.name}, nhận lại +$${refund}!`);
+    }
+    window.sellMonoHouse = sellMonoHouse;
+
+    function mortgageMonoTile(tileId) {
+      const curPlayer = monoState.players[monoState.turn];
+      const tile = monoState.tiles.find(t => t.id === tileId);
+      if (!curPlayer || !tile || tile.owner !== curPlayer.id || tile.isMortgaged) return;
+      if (tile.level > 0) {
+        showToast(`⚠️ Phải bán hết nhà trên ${tile.name} trước khi thế chấp đất!`);
+        return;
+      }
+
+      const mortgageVal = Math.floor(tile.price * 0.5);
+      tile.isMortgaged = true;
+      curPlayer.cash += mortgageVal;
+
+      try { soundTone(520, 'square', 0.2, 0.2); } catch(e) {}
+      triggerMonoFloatingCash(curPlayer.id, mortgageVal);
+      renderMonopolyBoard();
+      updateMonopolyHUD();
+      renderMonoAssetManagerList(curPlayer);
+      showToast(`🏦 Đã thế chấp ${tile.name} cho Ngân Hàng, nhận ngay +$${mortgageVal}! (Tạm ngưng thu tiền thuê)`);
+    }
+    window.mortgageMonoTile = mortgageMonoTile;
+
+    function unmortgageMonoTile(tileId) {
+      const curPlayer = monoState.players[monoState.turn];
+      const tile = monoState.tiles.find(t => t.id === tileId);
+      if (!curPlayer || !tile || tile.owner !== curPlayer.id || !tile.isMortgaged) return;
+
+      const unmortgageCost = Math.floor(tile.price * 0.55);
+      if (curPlayer.cash < unmortgageCost) {
+        showToast(`⚠️ Không đủ tiền chuộc đất! Cần $${unmortgageCost.toLocaleString()}.`);
+        return;
+      }
+
+      curPlayer.cash -= unmortgageCost;
+      tile.isMortgaged = false;
+
+      try { soundTone(880, 'sine', 0.25, 0.2); } catch(e) {}
+      triggerMonoFloatingCash(curPlayer.id, -unmortgageCost);
+      renderMonopolyBoard();
+      updateMonopolyHUD();
+      renderMonoAssetManagerList(curPlayer);
+      showToast(`🔓 Đã chuộc lại ${tile.name} (-$${unmortgageCost})! Ô đất tiếp tục thu tiền thuê bình thường.`);
+    }
+    window.unmortgageMonoTile = unmortgageMonoTile;
+
+    function confirmEmergencyDebtPayment() {
+      const curPlayer = monoState.players[monoState.turn];
+      if (!curPlayer || monoAssetEmergencyDebt <= 0) return;
+
+      if (curPlayer.cash < monoAssetEmergencyDebt) {
+        showToast(`⚠️ Chưa đủ tiền! Hãy bán thêm nhà hoặc thế chấp để có đủ $${monoAssetEmergencyDebt.toLocaleString()}!`);
+        return;
+      }
+
+      const debt = monoAssetEmergencyDebt;
+      const creditor = monoAssetDebtCreditor;
+
+      curPlayer.cash -= debt;
+      if (creditor && !creditor.isBankrupt) {
+        creditor.cash += debt;
+        triggerMonoFloatingCash(creditor.id, debt);
+      }
+      triggerMonoFloatingCash(curPlayer.id, -debt);
+
+      const modal = document.getElementById('monoAssetManagerModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+      monoAssetEmergencyDebt = 0;
+      monoAssetDebtCreditor = null;
+
+      updateMonopolyHUD();
+
+      // Trigger cash transfer flight
+      triggerMonoCashTransfer({
+        payer: curPlayer,
+        recipient: creditor || 'bank',
+        amount: debt,
+        type: 'rent',
+        desc: `${curPlayer.name} đã thanh toán thành công $${debt.toLocaleString()} nợ!`,
+        onComplete: () => {
+          showToast(`✓ Đã thanh toán khoản nợ $${debt.toLocaleString()}!`);
+          finishMonoTurn();
+        }
+      });
+    }
+    window.confirmEmergencyDebtPayment = confirmEmergencyDebtPayment;
+
+    function triggerManualBankruptcy() {
+      const curPlayer = monoState.players[monoState.turn];
+      if (!curPlayer || curPlayer.isBankrupt) return;
+
+      const ok = confirm(`🏳️ ${curPlayer.name}, bạn có chắc chắn muốn TUYÊN BỐ PHÁ SẢN không?`);
+      if (!ok) return;
+
+      const modal = document.getElementById('monoAssetManagerModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+      monoAssetEmergencyDebt = 0;
+      monoAssetDebtCreditor = null;
+
+      curPlayer.cash = 0;
+      curPlayer.isBankrupt = true;
+
+      // Transfer properties
+      const creditor = (curPlayer.bankruptTo !== undefined && curPlayer.bankruptTo !== null) ? monoState.players[curPlayer.bankruptTo] : null;
+      if (creditor && !creditor.isBankrupt) {
+        monoState.tiles.forEach(t => {
+          if (t.owner === curPlayer.id) {
+            t.owner = creditor.id;
+            creditor.properties.push(t.id);
+          }
+        });
+      } else {
+        monoState.tiles.forEach(t => {
+          if (t.owner === curPlayer.id) {
+            t.owner = null;
+            t.level = 0;
+            t.isMortgaged = false;
+          }
+        });
+      }
+      curPlayer.properties = [];
+
+      renderMonopolyBoard();
+      updateMonopolyHUD();
+      showToast(`🏳️ ${curPlayer.name} đã tuyên bố PHÁ SẢN!`);
+      finishMonoTurn();
+    }
+    window.triggerManualBankruptcy = triggerManualBankruptcy;
 
     window.finishMonoTurn = finishMonoTurn;
     window.toggleMonoSpeedBtn = toggleMonoSpeedBtn;
@@ -12800,7 +13473,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v3.9.2'
+      currentVersion: 'v3.9.5'
     };
 
     let allChangelogItems = [];
@@ -13527,7 +14200,7 @@
     "sha": "cc13f60",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.9.2",
+    "version": "v3.9.5",
     "title": "feat: deploy Cyber Board Game UI (Animate UI edition) to GitHub Pages",
     "details": [
       "feat: deploy Cyber Board Game UI (Animate UI edition) to GitHub Pages"
@@ -13538,7 +14211,7 @@
     "sha": "0056d54",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.9.2",
+    "version": "v3.9.5",
     "title": "fix(gh-pages): add standalone Monaco Editor Web IDE for GitHub Pages deployment",
     "details": [
       "fix(gh-pages): add standalone Monaco Editor Web IDE for GitHub Pages deployment"

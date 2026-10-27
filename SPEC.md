@@ -855,3 +855,41 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
 ### 3. Expanded 44-Tile (12x12 Grid) Board (+2 Tiles Per Edge)
 - Upgraded `#mono2dBoardWrapper` from `10x10` (36 tiles) to `12x12` (**44 perimeter tiles** = **+2 tiles per edge**), expanding `#mono2dCentralArena` to `col-start-2 col-end-12 row-start-2 row-end-12`.
 - Added 8 new cities and resorts across the 4 edges: **Cà Mau, Bạc Liêu, Huế, Đà Lạt, Đà Nẵng, Sapa, Côn Đảo Resort, Vĩnh Phúc, Bắc Ninh**.
+
+
+---
+
+## Part 34: Business Tour 2.5D Complete Polish & Asset Management Engine (`v3.9.5`)
+
+### 1. Architectural Highlights (`argon-flash-orchestrator`)
+- **Loại Bỏ Hoàn Toàn Cơ Chế & Đồ Họa `x2 LỄ HỘI`**:
+  - Gỡ bỏ hoàn toàn cổng vòm màu vàng `getFestivalArchSVG()`, biến `monoState.festivalTileId`, thẻ `Lễ Hội Du Lịch (x2)`, và hệ số nhân lễ hội trong `getMonoTileRent()`.
+  - Thay thế bằng thẻ sự kiện tích cực `Quảng Bá Du Lịch (+$300)` và giữ bàn cờ thông thoáng, tập trung 100% vào các công trình 2.5D.
+
+- **Mô Hình Nhà Ngục Tháp Canh Song Sắt 3D Trại Giam (`getPrisonCornerSVG()`)**:
+  - Thay thế biểu tượng Ô #11 Đảo Hoang (`LOST ISLAND`, `🏝️`) bằng **`TRẠI GIAM`** với mô hình kiến trúc Nhà Ngục 2.5D chân thực:
+    - Nền đá tảng kiên cố xám đen (`#1e293b`, `#0f172a`).
+    - Khối tháp pháo canh gác màu đỏ thẫm có lỗ châu mai và đèn báo động an ninh đỏ rực nhấp nháy trên đỉnh.
+    - Cổng buồng giam tối với hàng song sắt đúc đặc (`#475569` → `#e2e8f0` metallic highlight) đan dọc ngang cùng ổ khóa thép vàng kiên cố.
+    - Nhãn dán đỏ nổi bật `TRẠI GIAM`.
+
+- **Căn Giữa Mô Hình Nhà 2.5D Nằm Gọn 100% Trong Lòng Ô Đất**:
+  - Sửa lỗi sử dụng `absolute -top-7` và `translateZ(28px)` khiến mô hình bị trồi lệch sang ô bên cạnh trên mặt phẳng xoay 2.5D (`rotateX(30deg) rotateZ(25deg)`).
+  - Thiết lập class chuyên dụng `.mono-tile-building-3d` kết hợp `transform: rotateZ(-25deg) rotateX(-30deg) translateZ(4px); transform-origin: 50% 55%;` và neo tâm tuyệt đối (`inset-0 flex items-center justify-center`).
+  - Tỷ lệ kích thước chuẩn từ 40px–46px, đảm bảo nhà Cấp 1, Cấp 2, Cấp 3 và Resort nằm gọn 100% trong đường biên ô đất kèm huy hiệu cấp độ nhỏ gọn `[1]`, `[2]`, `[3]`, `[R]`.
+
+- **Chồng Tiền 3D Biến Đổi Động Theo Mệnh Giá Tài Sản (`getDynamicWealthPileSVG` & `renderCashStackHTML`)**:
+  - **Quy tắc chuyển hóa tự động**: `1 Bao Tiền = $1,000`, `1 Đồng Xu Vàng = $100`. Khi tích lũy đủ 10 đồng xu vàng (+$1,000), hệ thống tự động gom thành +1 Bao Tiền trắng in logo `$`.
+  - **Chồng tiền 4 góc sân đấu**: Hiển thị linh hoạt số bao tiền (`Math.floor(cash / 1000)`) xếp so le cùng các cột đồng xu vàng (`Math.floor((cash % 1000) / 100)`) và huy hiệu thông tin chi tiết: `3 Bao • 5 Xu Vàng` (tương ứng $3,500 vốn khởi nghiệp).
+  - **Hiệu ứng chuyển tiền bay 60fps**: Tách bạch chính xác số lượng **Bao Tiền Trắng ($1,000)**, **Đồng Xu Vàng ($100)**, và **Đồng Xu Bạc ($25)** bay mượt mà vào Ngân Hàng hoặc Đối Thủ.
+
+- **Hệ Thống Quản Lý Tài Sản Toàn Diện (Asset Management System)**:
+  - **Modal Quản Lý Bất Động Sản (`#monoAssetManagerModal`)**: Mở nhanh qua nút `🏦 Thế Chấp / Bán Nhà` ở cụm điều khiển trung tâm hoặc click trực tiếp vào ô đất thuộc quyền sở hữu.
+  - **Bán Nhà (`sellMonoHouse` / `🏚️ Bán Nhà`))**: Hạ cấp nhà (`Lv.3 → Lv.2 → Lv.1`), hoàn lại **50% chi phí nâng cấp** từ Ngân Hàng.
+  - **Thế Chấp Đất (`mortgageMonoTile` / `🏦 Thế Chấp`))**: Áp dụng khi đất đã bán hết nhà; thế chấp cho Ngân Hàng nhận ngay **50% giá đất** (`isMortgaged = true`, gắn biển `THẾ CHẤP` đỏ, miễn thu tiền thuê khi đối thủ dẫm vào).
+  - **Chuộc Đất (`unmortgageMonoTile` / `🔓 Chuộc Đất`))**: Chuộc lại bất động sản với mức phí **55%** (50% gốc + 10% phí ngân hàng).
+  - **Tự Động Cứu Nguy Nợ & Bảng Phá Sản (`confirmEmergencyDebtPayment`, `triggerManualBankruptcy`)**:
+    - Khi người chơi dẫm vào ô đối thủ mà thiếu tiền mặt, hệ thống tự động tính toán tổng năng lực thanh lý (tiền mặt + 50% tiền bán nhà + 50% tiền thế chấp).
+    - Nếu đủ năng lực: Tự động kích hoạt Bảng Cứu Nguy Nợ để người chơi bán nhà/thế chấp gom đủ tiền trả nợ, tránh bị xử thua oan uổng.
+    - Đối với Bot AI: Tự động thanh lý nhà cấp cao và thế chấp tài sản để thanh toán tiền thuê mượt mà.
+    - Cung cấp nút `🏳️ Phá Sản` chủ động khi kỳ thủ muốn đầu hàng danh dự.

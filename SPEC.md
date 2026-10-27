@@ -984,3 +984,24 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
 - **Cân Bằng Thời Lượng Ván Đấu: 35 Vòng (10 - 15 Phút Tối Đa)**:
   - Tăng số vòng thi đấu `BUSINESS_TOUR_MAX_ROUNDS = 35` (thay vì 15 vòng quá ngắn chỉ ~5 phút).
   - Với thời lượng trung bình ~21.5s/vòng (1 Human + 3 Bots), ván cờ đạt chuẩn từ 10 đến 15 phút. Nhờ cơ chế Độc Quyền Dãy Màu x2.0 - x4.0, nhiều ván đấu sẽ kết thúc sớm đầy mãn nhãn bằng phá sản đối thủ (Last Tycoon Standing) ở phút thứ 10 - 12!
+
+
+### v4.1.1 (2026-10-27) - Maximize Board Zoom, Corner-Docked Cash Piles & Interactive Property Deed Details Modal
+- **Phóng To Bàn Cờ Cực Đại & Tối Ưu Bố Cục Màn Hình (Maximized Board Scale & Ergonomics)**:
+  - Phóng to khung bàn cờ #mono2dBoardWrapper lên kích thước cực đại:
+    - Ở chế độ Thường: Mở rộng từ `min(58vh, 44vw, 620px)` lên `min(74vh, 56vw, 820px)`, tăng scale góc nghiêng 2.5D `.mono-board-25d` từ `scale(0.82)` lên `scale(0.95)` (+34% diện tích hiển thị).
+    - Ở chế độ Fullscreen: Mở rộng từ `min(74vh, 52vw, 760px)` lên `min(90vh, 72vw, 980px)`, tăng scale góc nghiêng 2.5D từ `scale(0.88)` lên `scale(1.08)` (+50% diện tích hiển thị), biến bàn cờ thành tâm điểm chiếm trọn màn hình 16:9 sắc nét, dễ nhìn và dễ đọc từng ô chữ.
+- **Kéo Túi Tiền & Chồng Xu 3D Ra Sát 4 Góc (Corner Wings Docking)**:
+  - Di dời 4 cụm túi tiền nhung vàng và chồng thỏi xu 3D `#monoSideCashPile_0..3` từ vị trí giữa cạnh bàn cờ ra bám sát 4 góc màn hình (`top-[85px]/bottom-[88px]`, `left-2/right-2` tới `xl:left-14/xl:right-14`).
+  - Đặt gọn gàng ngay sát thẻ người chơi (`#monoCornerPod_0..3`), giải phóng 100% khoảng trống hai bên và giữa sân khấu cho bàn cờ mở rộng tối đa mà không bị che khuất tầm nhìn.
+- **Tính Năng Click Vào Bất Kỳ Ô Nào Để Mở Modal Thẻ Bất Động Sản Chi Tiết (Interactive Property Deed Modal)**:
+  - Click vào **bất kỳ ô nào trên 44 ô** (không chỉ đất của mình mà cả đất đối thủ, đất trống, hoặc ô góc đặc biệt: Sân bay, Trại giam Alcatraz, Xuất phát, Interpol, Vòng quay cơ hội) sẽ mở ngay `openMonoTileDetailsModal(tileId)`:
+    - **Header Thẻ Bất Động Sản**: Dải màu nhận diện, Icon địa danh, Tên thành phố, Quốc gia/Tọa độ và Huy hiệu phân hạng khu vực (`Khu Thượng Lưu`, `Khu Bình Dân`, `Resort Độc Quyền`, `Ô Đặc Biệt`).
+    - **Thẻ Chủ Sở Hữu & Tình Trạng**: Avatar chủ nhà, Tên, Cấp độ nhà hiện tại (Cấp 1 - 3), Trạng thái thế chấp / còn trống, và Tiền thuê hiện tại.
+    - **Bảng Biểu Phí & Tiền Thuê Toàn Diện**: Hiển thị rõ tiền thuê ở cả 3 cấp độ (Đất Trống, 2 Nhà, Khách Sạn), tiền thuê siêu cấp khi Độc Quyền Dãy Màu (`🔥 ĐQ: $...`), chi phí nâng cấp nhà, giá trị thế chấp cho Ngân Hàng và chi phí chuộc lại.
+    - **Nội Dung Ô Đặc Biệt**: Đối với Sân bay World Tour, Trại giam Alcatraz, Vạch Start hay Interpol đều có cẩm nang luật chơi chi tiết, mức phí bảo lãnh, tiền lương và cơ chế ngẫu nhiên.
+    - **Bộ Phím Tương Tác Nhanh**:
+      - Nút **"Quản Lý BĐS Này"**: Bật ngay bảng Quản Lý Bất Động Sản nếu ô đất đó thuộc quyền sở hữu của người chơi đang đến lượt.
+      - Nút **"Bay Thử Ngay"**: Thử nghiệm chuyến bay chuyên cơ trực quan khi xem ô Sân Bay Tân An (Tile 22).
+      - Nút **"✕ Đóng (Esc)"** hoặc click ngoài nền mờ để đóng thẻ.
+  - **Bảo Vệ Watchdog Hoạt Động**: Cập nhật biến kiểm tra `isDetailsModalOpen` trong hệ thống Watchdog để ngăn Bot AI tự động nhảy lượt khi người chơi đang xem thông tin ô đất.

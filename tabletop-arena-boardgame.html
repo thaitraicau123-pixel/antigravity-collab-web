@@ -441,7 +441,7 @@
     }
 
     .mono-board-25d {
-      transform: perspective(1400px) rotateX(30deg) rotateZ(25deg) scale(0.82);
+      transform: perspective(1400px) rotateX(28deg) rotateZ(25deg) scale(0.95);
       transform-style: preserve-3d;
       box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.95), 0 0 60px rgba(16, 185, 129, 0.25);
       transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.6s ease;
@@ -939,10 +939,10 @@
 
     /* Board scaling: bounded strictly by viewport height to guarantee zero vertical scroll */
     #mono2dBoardWrapper {
-      width: min(58vh, 44vw, 620px) !important;
-      height: min(58vh, 44vw, 620px) !important;
-      max-width: min(58vh, 44vw, 620px) !important;
-      max-height: min(58vh, 44vw, 620px) !important;
+      width: min(74vh, 56vw, 820px) !important;
+      height: min(74vh, 56vw, 820px) !important;
+      max-width: min(74vh, 56vw, 820px) !important;
+      max-height: min(74vh, 56vw, 820px) !important;
       aspect-ratio: 1 / 1 !important;
       margin: auto !important;
     }
@@ -1003,10 +1003,14 @@
     }
 
     body.mono-fullscreen-active #mono2dBoardWrapper {
-      width: min(74vh, 52vw, 760px) !important;
-      height: min(74vh, 52vw, 760px) !important;
-      max-width: min(74vh, 52vw, 760px) !important;
-      max-height: min(74vh, 52vw, 760px) !important;
+      width: min(90vh, 72vw, 980px) !important;
+      height: min(90vh, 72vw, 980px) !important;
+      max-width: min(90vh, 72vw, 980px) !important;
+      max-height: min(90vh, 72vw, 980px) !important;
+    }
+
+    body.mono-fullscreen-active .mono-board-25d {
+      transform: perspective(1400px) rotateX(28deg) rotateZ(25deg) scale(1.08) !important;
     }
 
     body.mono-fullscreen-active #btnMonoExitFullscreen {
@@ -1021,7 +1025,7 @@
 
     body.mono-fullscreen-active #monoSideCashPile_0,
     body.mono-fullscreen-active #monoSideCashPile_1 {
-      top: 20% !important;
+      top: 130px !important;
     }
 
   </style>
@@ -2845,11 +2849,11 @@
           </div>
         </div>
 
-        <!-- ================= 4 BUSINESS TOUR 3D CASH & SILVER INGOT PILES FLANKING THE BOARD ================= -->
-        <div id="monoSideCashPile_0" class="hidden md:flex absolute top-[16%] left-[12%] lg:left-[15%] xl:left-[18%] z-20 pointer-events-none select-none flex-col items-center"></div>
-        <div id="monoSideCashPile_1" class="hidden md:flex absolute top-[16%] right-[12%] lg:right-[15%] xl:right-[18%] z-20 pointer-events-none select-none flex-col items-center"></div>
-        <div id="monoSideCashPile_2" class="hidden md:flex absolute bottom-[15%] left-[12%] lg:left-[15%] xl:left-[18%] z-20 pointer-events-none select-none flex-col items-center"></div>
-        <div id="monoSideCashPile_3" class="hidden md:flex absolute bottom-[15%] right-[12%] lg:right-[15%] xl:right-[18%] z-20 pointer-events-none select-none flex-col items-center"></div>
+        <!-- ================= 2. BUSINESS TOUR 3D CASH & SILVER INGOT PILES (v4.1.1 DOCKED AT 4 CORNER WINGS SÁT GÓC) ================= -->
+        <div id="monoSideCashPile_0" class="hidden md:flex absolute top-[85px] sm:top-[95px] left-2 sm:left-4 lg:left-8 xl:left-14 z-20 pointer-events-none select-none flex-col items-center scale-90 origin-top-left"></div>
+        <div id="monoSideCashPile_1" class="hidden md:flex absolute top-[85px] sm:top-[95px] right-2 sm:right-4 lg:right-8 xl:right-14 z-20 pointer-events-none select-none flex-col items-center scale-90 origin-top-right"></div>
+        <div id="monoSideCashPile_2" class="hidden md:flex absolute bottom-[88px] sm:bottom-[98px] left-2 sm:left-4 lg:left-8 xl:left-14 z-20 pointer-events-none select-none flex-col items-center scale-90 origin-bottom-left"></div>
+        <div id="monoSideCashPile_3" class="hidden md:flex absolute bottom-[88px] sm:bottom-[98px] right-2 sm:right-4 lg:right-8 xl:right-14 z-20 pointer-events-none select-none flex-col items-center scale-90 origin-bottom-right"></div>
 
         <!-- Screen-Space Interactive Decision Modal (100% Clickable, Direct Hit-Testing) -->
         <div id="mono2dDecisionBox" class="hidden absolute inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm animate-fade-in pointer-events-auto">
@@ -3100,6 +3104,40 @@
 
         <div id="monoViewportContainer" class="tabletop-viewport-container w-full flex items-center justify-center overflow-visible py-4 sm:py-6 relative">
         <!-- ================= SCREEN-SPACE ASSET MANAGER MODAL (Thế Chấp / Bán Nhà / Chuộc Đất / Phá Sản - v3.9.5) ================= -->
+        <!-- ================= 5. FULL PROPERTY DEED & TILE DETAILS MODAL (v4.1.1) ================= -->
+        <div id="monoTileDetailsModal" class="hidden fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-5 bg-slate-950/85 backdrop-blur-md animate-fade-in pointer-events-auto select-none" onclick="if(event.target === this) closeMonoTileDetailsModal()">
+          <div class="w-full max-w-lg bg-gradient-to-b from-[#0B132B] via-[#0F1C3F] to-[#070D1D] border-2 border-amber-400 rounded-3xl p-4 sm:p-6 shadow-[0_0_60px_rgba(0,0,0,0.95),0_0_35px_rgba(245,158,11,0.25)] flex flex-col max-h-[90vh] overflow-y-auto relative text-slate-100" onclick="event.stopPropagation()">
+            <!-- Top Color Stripe Accent -->
+            <div id="monoTileDetailsStripe" class="w-full h-3 rounded-t-xl mb-3 shadow-inner bg-amber-500"></div>
+
+            <!-- Modal Header -->
+            <div class="flex items-start justify-between pb-3 mb-3 border-b border-slate-700/80 gap-3">
+              <div class="flex items-center gap-3">
+                <div id="monoTileDetailsIcon" class="w-12 h-12 rounded-2xl bg-slate-800 border-2 border-white/60 flex items-center justify-center text-2xl shadow-lg shrink-0">🏙️</div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h3 id="monoTileDetailsName" class="text-white font-chakra font-black text-lg sm:text-xl uppercase tracking-wider drop-shadow">NEW YORK</h3>
+                    <span id="monoTileDetailsTierBadge" class="px-2 py-0.5 rounded-lg text-[10px] font-black uppercase border shadow">Khu Thượng Lưu</span>
+                  </div>
+                  <p id="monoTileDetailsSub" class="text-xs text-slate-300 font-medium">Mỹ • Trung Tâm Tài Chính Phố Wall</p>
+                </div>
+              </div>
+              <button onclick="closeMonoTileDetailsModal()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-black text-sm border border-slate-600 flex items-center justify-center cursor-pointer shrink-0 transition-transform active:scale-95" title="Đóng cửa sổ">
+                ✕
+              </button>
+            </div>
+
+            <!-- Owner & Status Box -->
+            <div id="monoTileDetailsOwnerCard" class="mb-4 p-3 rounded-2xl bg-slate-900/90 border border-slate-700/80 flex items-center justify-between gap-3 shadow-inner"></div>
+
+            <!-- Dynamic Body (Financial / Rent Table or Special Rules) -->
+            <div id="monoTileDetailsBody" class="flex-1 flex flex-col gap-3"></div>
+
+            <!-- Bottom Modal Actions -->
+            <div id="monoTileDetailsActions" class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-end gap-2.5"></div>
+          </div>
+        </div>
+
         <div id="monoAssetManagerModal" class="hidden absolute inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-slate-950/85 backdrop-blur-md animate-fade-in pointer-events-auto">
           <div class="w-full max-w-2xl bg-[#0B132B]/98 border-2 border-amber-400 rounded-3xl p-4 sm:p-6 shadow-[0_0_60px_rgba(0,0,0,0.95)] flex flex-col max-h-[88vh]">
             <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-700/80">
@@ -10102,9 +10140,7 @@
         tile.addEventListener('mouseenter', () => updateInspectHUD(t.id));
         tile.addEventListener('mouseleave', () => resetInspectHUD());
         tile.addEventListener('click', () => {
-          if (t.owner !== null && t.owner !== undefined && t.owner === monoState.turn && !monoState.players[monoState.turn].isBot) {
-            openMonoAssetManager(monoState.turn);
-          }
+          openMonoTileDetailsModal(t.id);
         });
 
         if (t.isCorner) {
@@ -11961,7 +11997,9 @@ function playMonoDiceTumbleSFX(durationMs) {
       const isJailModalOpen = jailOverlay && !jailOverlay.classList.contains('hidden');
       const airplaneOverlay = document.getElementById('monoAirplaneOverlay');
       const isAirplaneModalOpen = airplaneOverlay && !airplaneOverlay.classList.contains('hidden');
-      const isAnyModalActive = isCashModalOpen || isEventModalOpen || isJailModalOpen || isAirplaneModalOpen;
+      const detailsModal = document.getElementById('monoTileDetailsModal');
+      const isDetailsModalOpen = detailsModal && !detailsModal.classList.contains('hidden');
+      const isAnyModalActive = isCashModalOpen || isEventModalOpen || isJailModalOpen || isAirplaneModalOpen || isDetailsModalOpen;
 
       // When animations or modals are active, keep lastActivityTime fresh
       if (isAnyModalActive || monoState.stepIntervalId) {
@@ -12745,6 +12783,224 @@ function renderCashStackHTML(amount) {
     // =========================================================================
     let monoAssetEmergencyDebt = 0;
     let monoAssetDebtCreditor = null;
+
+    function openMonoTileDetailsModal(tileId) {
+      const t = monoState.tiles[tileId];
+      if (!t) return;
+      const modal = document.getElementById('monoTileDetailsModal');
+      if (!modal) return;
+
+      const stripe = document.getElementById('monoTileDetailsStripe');
+      const icon = document.getElementById('monoTileDetailsIcon');
+      const name = document.getElementById('monoTileDetailsName');
+      const tierBadge = document.getElementById('monoTileDetailsTierBadge');
+      const sub = document.getElementById('monoTileDetailsSub');
+      const ownerCard = document.getElementById('monoTileDetailsOwnerCard');
+      const body = document.getElementById('monoTileDetailsBody');
+      const actions = document.getElementById('monoTileDetailsActions');
+
+      if (stripe) stripe.style.background = t.color || '#f59e0b';
+      if (icon) icon.textContent = t.icon || '🏙️';
+      if (name) name.textContent = t.name;
+      if (sub) sub.textContent = t.vnName ? (t.vnName + ' • Ô #' + t.id) : ('Ô #' + t.id + ' • Tọa độ [' + t.r + ', ' + t.c + ']');
+
+      const monoInfo = getMonoTileMonopolyStatus(t);
+      if (tierBadge) {
+        if (monoInfo) {
+          tierBadge.textContent = monoInfo.tag;
+          tierBadge.className = 'px-2 py-0.5 rounded-lg text-[10px] font-black uppercase border shadow ' + monoInfo.badgeBg;
+          tierBadge.style.display = 'inline-block';
+        } else if (t.isCorner) {
+          tierBadge.textContent = 'Ô ĐẶC BIỆT';
+          tierBadge.className = 'px-2 py-0.5 rounded-lg text-[10px] font-black uppercase border shadow bg-amber-400/20 text-amber-300 border-amber-400/50';
+          tierBadge.style.display = 'inline-block';
+        } else if (t.type === 'station') {
+          tierBadge.textContent = 'RESORT BIỂN ĐỘC QUYỀN';
+          tierBadge.className = 'px-2 py-0.5 rounded-lg text-[10px] font-black uppercase border shadow bg-sky-400/20 text-sky-300 border-sky-400/50';
+          tierBadge.style.display = 'inline-block';
+        } else {
+          tierBadge.style.display = 'none';
+        }
+      }
+
+      // Owner Box
+      const isOwned = (t.owner !== null && t.owner !== undefined);
+      const owner = isOwned ? monoState.players[t.owner] : null;
+      const lvl = t.level || 0;
+      const curRent = getMonoTileRent(t);
+
+      if (ownerCard) {
+        if (isOwned && owner) {
+          const isMortgaged = !!t.isMortgaged;
+          ownerCard.innerHTML = '<div class="flex items-center gap-2.5">' +
+            '<div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl border-2 shadow" style="background: ' + owner.color + '30; border-color: ' + owner.color + ';">' + (owner.avatar || '👤') + '</div>' +
+            '<div>' +
+              '<div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Chủ Sở Hữu</div>' +
+              '<div class="text-white font-black text-sm flex items-center gap-1.5">' +
+                '<span style="color: ' + owner.color + ';">' + owner.name + '</span>' +
+                '<span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-slate-800 text-amber-300 border border-slate-700">Cấp ' + lvl + '/3</span>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="text-right">' +
+            '<div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Tiền Thuê Hiện Tại</div>' +
+            '<div class="text-base font-chakra font-black ' + (isMortgaged ? 'text-rose-500' : 'text-emerald-400') + '">' + (isMortgaged ? 'ĐANG THẾ CHẤP' : '$' + curRent.toLocaleString()) + '</div>' +
+          '</div>';
+        } else if (t.type === 'city' || t.type === 'station') {
+          ownerCard.innerHTML = '<div class="flex items-center gap-2.5">' +
+            '<div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center text-xl text-emerald-400 shadow">🌱</div>' +
+            '<div>' +
+              '<div class="text-emerald-400 font-black text-sm uppercase">ĐẤT TRỐNG CHƯA CÓ CHỦ</div>' +
+              '<div class="text-[11px] text-slate-300">Có thể mua & xây nhà ngay khi dừng chân.</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="text-right">' +
+            '<div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Giá Mua Đất</div>' +
+            '<div class="text-base font-chakra font-black text-amber-300">$' + t.price.toLocaleString() + '</div>' +
+          '</div>';
+        } else {
+          ownerCard.innerHTML = '<div class="flex items-center gap-2.5">' +
+            '<div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/50 flex items-center justify-center text-xl text-amber-300 shadow">⭐</div>' +
+            '<div>' +
+              '<div class="text-amber-300 font-black text-sm uppercase">' + t.name + '</div>' +
+              '<div class="text-[11px] text-slate-300">Ô địa danh đặc biệt trên bàn cờ World Tour.</div>' +
+            '</div>' +
+          '</div>';
+        }
+      }
+
+      // Detailed Body Breakdown
+      if (body) {
+        if (t.type === 'city') {
+          const mult = (monoInfo && monoInfo.mult) ? monoInfo.mult : 2.0;
+          const r0 = t.rent ? t.rent[0] : Math.floor(t.price * 0.5);
+          const r1 = t.rent ? t.rent[1] : Math.floor(t.price * 1.2);
+          const r2 = t.rent ? t.rent[2] : Math.floor(t.price * 2.5);
+          const upCost = Math.floor(t.price * 0.5);
+          const mortgageVal = Math.floor(t.price * 0.5);
+          const redeemVal = Math.floor(t.price * 0.55);
+
+          body.innerHTML = '<div class="rounded-2xl bg-slate-900/70 border border-slate-700/60 p-3 flex flex-col gap-2 shadow-inner">' +
+            '<div class="flex items-center justify-between text-xs font-bold text-amber-300 pb-1.5 border-b border-slate-800">' +
+              '<span>📊 BẢNG BIỂU PHÍ & TIỀN THUÊ ĐẤT</span>' +
+              '<span class="text-[10px] text-slate-400">Nâng cấp: +$' + upCost.toLocaleString() + '/cấp</span>' +
+            '</div>' +
+            '<div class="grid grid-cols-3 gap-1.5 text-center text-xs">' +
+              '<div class="p-2 rounded-xl bg-slate-800/80 border border-slate-700">' +
+                '<div class="text-[10px] text-slate-400 font-bold">Đất Trống (Lv.1)</div>' +
+                '<div class="font-chakra font-black text-white text-sm">$' + r0.toLocaleString() + '</div>' +
+                '<div class="text-[9px] text-amber-300 font-bold mt-0.5">🔥 ĐQ: $' + Math.floor(r0 * mult).toLocaleString() + '</div>' +
+              '</div>' +
+              '<div class="p-2 rounded-xl bg-slate-800/80 border border-slate-700">' +
+                '<div class="text-[10px] text-slate-400 font-bold">2 Nhà (Lv.2)</div>' +
+                '<div class="font-chakra font-black text-white text-sm">$' + r1.toLocaleString() + '</div>' +
+                '<div class="text-[9px] text-amber-300 font-bold mt-0.5">🔥 ĐQ: $' + Math.floor(r1 * mult).toLocaleString() + '</div>' +
+              '</div>' +
+              '<div class="p-2 rounded-xl bg-slate-800/80 border border-slate-700">' +
+                '<div class="text-[10px] text-amber-400 font-black">Khách Sạn (Lv.3)</div>' +
+                '<div class="font-chakra font-black text-amber-400 text-sm">$' + r2.toLocaleString() + '</div>' +
+                '<div class="text-[9px] text-rose-400 font-black mt-0.5">🔥 ĐQ: $' + Math.floor(r2 * mult).toLocaleString() + '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="mt-1 flex items-center justify-between text-[11px] text-slate-300 bg-slate-950/60 p-2 rounded-xl border border-slate-800">' +
+              '<span>🏦 Thế chấp Ngân Hàng: <b class="text-amber-400 font-chakra">+$' + mortgageVal.toLocaleString() + '</b></span>' +
+              '<span>Phí chuộc lại: <b class="text-sky-400 font-chakra">-$' + redeemVal.toLocaleString() + '</b></span>' +
+            '</div>' +
+          '</div>';
+        } else if (t.type === 'station') {
+          body.innerHTML = '<div class="rounded-2xl bg-slate-900/70 border border-slate-700/60 p-3 flex flex-col gap-2 shadow-inner">' +
+            '<div class="flex items-center justify-between text-xs font-bold text-sky-300 pb-1.5 border-b border-slate-800">' +
+              '<span>🏖️ BIỂU PHÍ NGHỈ DƯỠNG (RESORT BIỂN)</span>' +
+              '<span class="text-[10px] text-amber-300 font-bold">Thâu tóm 3/3 Resort = Thắng ván!</span>' +
+            '</div>' +
+            '<div class="grid grid-cols-4 gap-1.5 text-center text-xs">' +
+              '<div class="p-2 rounded-xl bg-slate-800/80 border border-slate-700">' +
+                '<div class="text-[9px] text-slate-400 font-bold">1 Resort</div>' +
+                '<div class="font-chakra font-black text-white text-xs sm:text-sm">$170</div>' +
+              '</div>' +
+              '<div class="p-2 rounded-xl bg-slate-800/80 border border-slate-700">' +
+                '<div class="text-[9px] text-slate-400 font-bold">2 Resort</div>' +
+                '<div class="font-chakra font-black text-white text-xs sm:text-sm">$380</div>' +
+              '</div>' +
+              '<div class="p-2 rounded-xl bg-slate-800/80 border border-slate-700">' +
+                '<div class="text-[9px] text-amber-300 font-bold">3 Resort</div>' +
+                '<div class="font-chakra font-black text-amber-300 text-xs sm:text-sm">$780</div>' +
+              '</div>' +
+              '<div class="p-2 rounded-xl bg-slate-800/80 border border-slate-700">' +
+                '<div class="text-[9px] text-emerald-400 font-bold">Trọn Bộ 4</div>' +
+                '<div class="font-chakra font-black text-emerald-400 text-xs sm:text-sm">$1,400</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+        } else if (t.type === 'airport') {
+          body.innerHTML = '<div class="rounded-2xl bg-slate-900/70 border border-slate-700/60 p-3.5 flex flex-col gap-2.5 text-xs text-slate-200 shadow-inner">' +
+            '<div class="text-sm font-black text-amber-300 flex items-center gap-1.5">' +
+              '<span>✈️ WORLD TOUR AIRPORT (SÂN BAY QUỐC TẾ)</span>' +
+            '</div>' +
+            '<p class="leading-relaxed">Mỗi khi ghé thăm, nhận ngay trợ cấp du lịch <b class="text-emerald-400 font-chakra">+$300</b> và chuyên cơ đưa bạn bay ngẫu nhiên tới bất kỳ ô nào trên 44 ô!</p>' +
+            '<p class="text-amber-200 leading-relaxed font-bold">⚡ Ngay khi hạ cánh ô đích, kích hoạt mua đất, nâng cấp nhà, hoặc rút thẻ cơ hội ngay!</p>' +
+          '</div>';
+        } else if (t.type === 'jail') {
+          body.innerHTML = '<div class="rounded-2xl bg-slate-900/70 border border-slate-700/60 p-3.5 flex flex-col gap-2.5 text-xs text-slate-200 shadow-inner">' +
+            '<div class="text-sm font-black text-rose-400 flex items-center gap-1.5">' +
+              '<span>🏛️ TRẠI GIAM ALCATRAZ (SONG SẮT)</span>' +
+            '</div>' +
+            '<p class="leading-relaxed">Tạm giữ tối đa 3 lượt. Mỗi lượt đến phiên, người chơi có 2 phương án:</p>' +
+            '<ul class="list-disc pl-5 space-y-1 text-slate-300">' +
+              '<li>Nộp bảo lãnh <b class="text-amber-300 font-chakra">$250</b> để tự do ngay lập tức.</li>' +
+              '<li>Đổ xúc xắc tìm số đôi (cặp số giống nhau) để vượt ngục miễn phí!</li>' +
+            '</ul>' +
+          '</div>';
+        } else if (t.type === 'start') {
+          body.innerHTML = '<div class="rounded-2xl bg-slate-900/70 border border-slate-700/60 p-3.5 flex flex-col gap-2 text-xs text-slate-200 shadow-inner">' +
+            '<div class="text-sm font-black text-lime-400 flex items-center gap-1.5">' +
+              '<span>🏁 VẠCH XUẤT PHÁT (START)</span>' +
+            '</div>' +
+            '<p class="leading-relaxed">Mỗi khi hoàn thành 1 vòng đua 44 ô và đi qua hoặc dừng chân tại đây, Ngân Hàng cấp lương thương mại <b class="text-lime-300 font-chakra text-sm">+$400</b> trực tiếp vào ví!</p>' +
+          '</div>';
+        } else if (t.type === 'gotojail') {
+          body.innerHTML = '<div class="rounded-2xl bg-slate-900/70 border border-slate-700/60 p-3.5 flex flex-col gap-2 text-xs text-slate-200 shadow-inner">' +
+            '<div class="text-sm font-black text-rose-400 flex items-center gap-1.5">' +
+              '<span>⛓️ INTERPOL BẮT GIAM</span>' +
+            '</div>' +
+            '<p class="leading-relaxed">Cảnh sát Interpol phát lệnh truy nã khẩn cấp! Áp giải thẳng vào Trại Giam Alcatraz mà không được nhận lương START.</p>' +
+          '</div>';
+        } else {
+          body.innerHTML = '<div class="rounded-2xl bg-slate-900/70 border border-slate-700/60 p-3.5 flex flex-col gap-2 text-xs text-slate-200 shadow-inner">' +
+            '<div class="text-sm font-black text-amber-300 flex items-center gap-1.5">' +
+              '<span>🎡 VÒNG QUAY CƠ HỘI & VẬN MỆNH</span>' +
+            '</div>' +
+            '<p class="leading-relaxed">Rút 1 thẻ may rủi ngẫu nhiên: Cổ tức đầu tư, Trúng thầu, Hoàn thuế, Chi phí bảo trì, Lệnh truy nã hoặc Vé bay World Tour miễn phí!</p>' +
+          '</div>';
+        }
+      }
+
+      // Action buttons
+      if (actions) {
+        let actionHtml = '';
+        if (isOwned && t.owner === monoState.turn && !monoState.players[monoState.turn].isBot) {
+          actionHtml += '<button onclick="closeMonoTileDetailsModal(); openMonoAssetManager(monoState.turn);" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs cursor-pointer shadow-md">🏦 Quản Lý BĐS Này</button>';
+        }
+        if (t.id === 22) {
+          actionHtml += '<button onclick="closeMonoTileDetailsModal(); triggerMonoAirplaneFlyby({ player: monoState.players[monoState.turn], destTile: monoState.tiles[22] });" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-black text-xs cursor-pointer shadow-md">✈️ Bay Thử Ngay</button>';
+        }
+        actionHtml += '<button onclick="closeMonoTileDetailsModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-600 cursor-pointer">✕ Đóng (Esc)</button>';
+        actions.innerHTML = actionHtml;
+      }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeMonoTileDetailsModal() {
+      const modal = document.getElementById('monoTileDetailsModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+    window.openMonoTileDetailsModal = openMonoTileDetailsModal;
+    window.closeMonoTileDetailsModal = closeMonoTileDetailsModal;
 
     function openMonoAssetManager(targetPlayerIdx = null, emergencyDebt = 0, creditor = null) {
       if (window.monoAutoPlay) {

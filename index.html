@@ -3267,7 +3267,7 @@
               <div class="w-full flex items-center justify-between z-10 text-[9px] sm:text-[10px]">
                 <div class="flex items-center gap-1.5 bg-[#0f172a]/90 px-3 py-1 rounded-xl border-2 border-white/80 font-black shadow-lg">
                   <span class="text-amber-400">🏆</span>
-                  <span class="text-white tracking-wide" id="monoTurnStatusText">VÒNG 1/15 • BẢN ĐỒ 44 Ô • THÂU TÓM BĐS & PHÁ SẢN ĐỐI THỦ</span>
+                  <span class="text-white tracking-wide" id="monoTurnStatusText">VÒNG 1/35 • BẢN ĐỒ 44 Ô QUỐC TẾ • THÂU TÓM BĐS & PHÁ SẢN ĐỐI THỦ</span>
                 </div>
                 <div class="flex items-center gap-1.5">
                   <button onclick="event.stopPropagation(); restartMonopolyGame()" class="px-2.5 py-1 rounded-xl bg-[#0f172a]/90 hover:bg-slate-800 text-amber-300 font-black border-2 border-white/70 text-[10px] cursor-pointer shadow-md" title="Khởi động lại ván cờ">⏻ Ván Mới</button>
@@ -3279,7 +3279,7 @@
               <!-- Bottom Victory Progress Hint -->
               <div class="w-full flex items-center justify-center z-10 pointer-events-none">
                 <div class="px-3 py-0.5 rounded-full bg-[#0f172a]/80 border border-white/50 text-[8px] sm:text-[9px] font-extrabold text-amber-200 tracking-wider uppercase shadow">
-                  ⚡ Bản Đồ 44 Ô Mở Rộng (12x12) • Thâu Tóm Độc Quyền Resort • Phá Sản Đối Thủ Hoặc Dẫn Đầu Sau 15 Vòng!
+                  ⚡ Bản Đồ 44 Ô Quốc Tế (12x12) • Thâu Tóm Độc Quyền Dãy Màu (x2.0 - x4.0) & Resort Biển • Phá Sản Đối Thủ (10-15 Phút)!
                 </div>
               </div>
 
@@ -9150,65 +9150,79 @@
     // =========================================================================
     // CỜ TỶ PHÚ 2.5D DIAMOND ISOMETRIC ARENA ENGINE (V3.7.0 - 3D HOUSES & BEACONS)
     // =========================================================================
+    const MONOPOLY_ZONE_CONFIG = {
+      g1:  { tier: 'budget',    name: 'Bình Dân',   mult: 2.0, tag: 'Khu Bình Dân (x2.0 Thuê)',    badgeBg: 'bg-emerald-950/80 text-emerald-300 border-emerald-500/50' },
+      g2:  { tier: 'emerging',  name: 'Trung Lưu',  mult: 2.5, tag: 'Khu Trung Lưu (x2.5 Thuê)',   badgeBg: 'bg-sky-950/80 text-sky-300 border-sky-500/50' },
+      g3:  { tier: 'developed', name: 'Di Sản',     mult: 3.0, tag: 'Khu Di Sản (x3.0 Thuê)',      badgeBg: 'bg-amber-950/80 text-amber-300 border-amber-500/50' },
+      g4:  { tier: 'modern',    name: 'Hiện Đại',   mult: 3.5, tag: 'Khu Hiện Đại (x3.5 Thuê)',    badgeBg: 'bg-orange-950/80 text-orange-300 border-orange-500/50' },
+      g5:  { tier: 'luxury',    name: 'Thượng Lưu', mult: 4.0, tag: 'Khu Thượng Lưu (x4.0 Thuê)',  badgeBg: 'bg-rose-950/80 text-rose-300 border-rose-500/50' },
+      g6:  { tier: 'modern',    name: 'Hiện Đại',   mult: 3.5, tag: 'Khu Hiện Đại (x3.5 Thuê)',    badgeBg: 'bg-purple-950/80 text-purple-300 border-purple-500/50' },
+      g7:  { tier: 'luxury',    name: 'Thượng Lưu', mult: 4.0, tag: 'Khu Thượng Lưu (x4.0 Thuê)',  badgeBg: 'bg-indigo-950/80 text-indigo-300 border-indigo-500/50' },
+      g11: { tier: 'luxury',    name: 'Siêu Giàu',  mult: 4.0, tag: 'Khu Siêu Giàu (x4.0 Thuê)',   badgeBg: 'bg-blue-950/80 text-blue-300 border-blue-500/50' },
+      g8:  { tier: 'modern',    name: 'Hiện Đại',   mult: 3.5, tag: 'Khu Hiện Đại (x3.5 Thuê)',    badgeBg: 'bg-teal-950/80 text-teal-300 border-teal-500/50' },
+      g9:  { tier: 'developed', name: 'Phát Triển', mult: 3.0, tag: 'Khu Phát Triển (x3.0 Thuê)', badgeBg: 'bg-green-950/80 text-green-300 border-green-500/50' },
+      g10: { tier: 'emerging',  name: 'Trung Lưu',  mult: 2.5, tag: 'Khu Trung Lưu (x2.5 Thuê)',   badgeBg: 'bg-yellow-950/80 text-yellow-300 border-yellow-500/50' }
+    };
+
     const MONOPOLY_2D_TILES = [
-      // BOTTOM EDGE (12 cols: col 12 down to col 1 at row 12 -> +2 tiles added: CÀ MAU & BẠC LIÊU)
+      // BOTTOM EDGE (12 cols: col 12 down to col 1 at row 12)
       { id: 0, r: 12, c: 12, name: 'START', vnName: 'XUẤT PHÁT', type: 'start', isCorner: true, bg: 'bg-[#e2e8f0]', text: 'text-slate-900', icon: '🏁' },
-      { id: 1, r: 12, c: 11, name: 'CÀ MAU', type: 'city', group: 'g1', price: 100, rent: [60, 150, 350], color: '#22c55e' },
-      { id: 2, r: 12, c: 10, name: 'BẠC LIÊU', type: 'city', group: 'g1', price: 110, rent: [65, 165, 380], color: '#22c55e' },
-      { id: 3, r: 12, c: 9, name: 'NINH BÌNH', type: 'city', group: 'g1', price: 120, rent: [70, 180, 420], color: '#22c55e' },
+      { id: 1, r: 12, c: 11, name: 'CAIRO', type: 'city', group: 'g1', price: 100, rent: [60, 150, 350], color: '#22c55e', icon: '🏛️' },
+      { id: 2, r: 12, c: 10, name: 'NEW DELHI', type: 'city', group: 'g1', price: 110, rent: [65, 165, 380], color: '#22c55e', icon: '🕌' },
+      { id: 3, r: 12, c: 9, name: 'MANILA', type: 'city', group: 'g1', price: 120, rent: [70, 180, 420], color: '#22c55e', icon: '🌴' },
       { id: 4, r: 12, c: 8, name: 'VẬN MỆNH', vnName: 'VẬN MỆNH', type: 'fate', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-rose-500' },
-      { id: 5, r: 12, c: 7, name: 'THANH HÓA', type: 'city', group: 'g2', price: 140, rent: [80, 210, 480], color: '#10b981' },
-      { id: 6, r: 12, c: 6, name: 'BÃI BIỂN BALI', type: 'station', group: 'resort', price: 280, rent: [170, 380, 780, 1400], color: '#0284c7', icon: '🏖️' },
-      { id: 7, r: 12, c: 5, name: 'VINH', type: 'city', group: 'g2', price: 160, rent: [95, 240, 550], color: '#10b981' },
-      { id: 8, r: 12, c: 4, name: 'HÀ TĨNH', type: 'city', group: 'g2', price: 180, rent: [110, 270, 620], color: '#0ea5e9' },
+      { id: 5, r: 12, c: 7, name: 'BANGKOK', type: 'city', group: 'g2', price: 140, rent: [80, 210, 480], color: '#0ea5e9', icon: '🛕' },
+      { id: 6, r: 12, c: 6, name: 'BALI RESORT', type: 'station', group: 'resort', price: 280, rent: [170, 380, 780, 1400], color: '#0284c7', icon: '🏖️' },
+      { id: 7, r: 12, c: 5, name: 'JAKARTA', type: 'city', group: 'g2', price: 160, rent: [95, 240, 550], color: '#0ea5e9', icon: '🏙️' },
+      { id: 8, r: 12, c: 4, name: 'KUALA LUMPUR', type: 'city', group: 'g2', price: 180, rent: [110, 270, 620], color: '#0ea5e9', icon: '🗼' },
       { id: 9, r: 12, c: 3, name: 'CƠ HỘI', vnName: 'CƠ HỘI', type: 'chance', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-amber-500' },
-      { id: 10, r: 12, c: 2, name: 'ĐÔNG HÀ', type: 'city', group: 'g2', price: 200, rent: [120, 300, 680], color: '#0ea5e9' },
-      { id: 11, r: 12, c: 1, name: 'TRẠI GIAM', vnName: 'TRẠI GIAM', type: 'jail', isCorner: true, bg: 'bg-[#1e293b]', text: 'text-amber-300', icon: '🏛️' },
+      { id: 10, r: 12, c: 2, name: 'SINGAPORE', type: 'city', group: 'g2', price: 200, rent: [120, 300, 680], color: '#0ea5e9', icon: '🦁' },
+      { id: 11, r: 12, c: 1, name: 'ALCATRAZ', vnName: 'TRẠI GIAM', type: 'jail', isCorner: true, bg: 'bg-[#1e293b]', text: 'text-amber-300', icon: '🏛️' },
 
-      // LEFT EDGE (12 rows: row 11 down to row 2 at col 1 -> +2 tiles added: HUẾ & ĐÀ LẠT)
-      { id: 12, r: 11, c: 1, name: 'HUẾ', type: 'city', group: 'g3', price: 220, rent: [130, 330, 750], color: '#f59e0b' },
-      { id: 13, r: 10, c: 1, name: 'HỘI AN', type: 'city', group: 'g3', price: 240, rent: [145, 360, 820], color: '#f59e0b' },
-      { id: 14, r: 9, c: 1, name: 'QUY NHƠN', type: 'city', group: 'g3', price: 260, rent: [155, 390, 880], color: '#f59e0b' },
+      // LEFT EDGE (10 rows: row 11 down to row 2 at col 1)
+      { id: 12, r: 11, c: 1, name: 'ATHENS', type: 'city', group: 'g3', price: 220, rent: [130, 330, 750], color: '#f59e0b', icon: '🏛️' },
+      { id: 13, r: 10, c: 1, name: 'ROME', type: 'city', group: 'g3', price: 240, rent: [145, 360, 820], color: '#f59e0b', icon: '🏟️' },
+      { id: 14, r: 9, c: 1, name: 'MADRID', type: 'city', group: 'g3', price: 260, rent: [155, 390, 880], color: '#f59e0b', icon: '🐂' },
       { id: 15, r: 8, c: 1, name: 'CƠ HỘI', vnName: 'CƠ HỘI', type: 'chance', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-amber-500' },
-      { id: 16, r: 7, c: 1, name: 'VỊNH HẠ LONG', type: 'station', group: 'resort', price: 280, rent: [170, 380, 780, 1400], color: '#0284c7', icon: '🏝️' },
-      { id: 17, r: 6, c: 1, name: 'PHAN THIẾT', type: 'city', group: 'g4', price: 300, rent: [180, 450, 1000], color: '#f97316' },
-      { id: 18, r: 5, c: 1, name: 'NHA TRANG', type: 'city', group: 'g4', price: 320, rent: [195, 480, 1080], color: '#f97316' },
-      { id: 19, r: 4, c: 1, name: 'ĐÀ LẠT', type: 'city', group: 'g4', price: 350, rent: [210, 520, 1180], color: '#f97316' },
-      { id: 20, r: 3, c: 1, name: 'VŨNG TÀU', type: 'city', group: 'g5', price: 400, rent: [240, 600, 1350], color: '#e11d48' },
-      { id: 21, r: 2, c: 1, name: 'BIÊN HÒA', type: 'city', group: 'g5', price: 420, rent: [250, 630, 1420], color: '#e11d48' },
+      { id: 16, r: 7, c: 1, name: 'HAWAII RESORT', type: 'station', group: 'resort', price: 280, rent: [170, 380, 780, 1400], color: '#0284c7', icon: '🏝️' },
+      { id: 17, r: 6, c: 1, name: 'AMSTERDAM', type: 'city', group: 'g4', price: 300, rent: [180, 450, 1000], color: '#f97316', icon: '🌷' },
+      { id: 18, r: 5, c: 1, name: 'BERLIN', type: 'city', group: 'g4', price: 320, rent: [195, 480, 1080], color: '#f97316', icon: '🏛️' },
+      { id: 19, r: 4, c: 1, name: 'VIENNA', type: 'city', group: 'g4', price: 350, rent: [210, 520, 1180], color: '#f97316', icon: '🎻' },
+      { id: 20, r: 3, c: 1, name: 'LONDON', type: 'city', group: 'g5', price: 400, rent: [240, 600, 1350], color: '#e11d48', icon: '🕰️' },
+      { id: 21, r: 2, c: 1, name: 'PARIS', type: 'city', group: 'g5', price: 420, rent: [250, 630, 1420], color: '#e11d48', icon: '🗼' },
 
-      // TOP EDGE (12 cols: col 1 up to col 12 at row 1 -> +2 tiles added: ĐÀ NẴNG & SAPA)
-      { id: 22, r: 1, c: 1, name: 'TÂN AN', vnName: 'WORLD TOUR', type: 'airport', isCorner: true, bg: 'bg-[#0284c7]', text: 'text-white', icon: '✈️' },
-      { id: 23, r: 1, c: 2, name: 'CẦN THƠ', type: 'city', group: 'g6', price: 360, rent: [215, 530, 1180], color: '#a855f7' },
-      { id: 24, r: 1, c: 3, name: 'ĐÀ NẴNG', type: 'city', group: 'g6', price: 450, rent: [270, 670, 1500], color: '#a855f7' },
+      // TOP EDGE (12 cols: col 1 up to col 12 at row 1)
+      { id: 22, r: 1, c: 1, name: 'WORLD TOUR', vnName: 'SÂN BAY', type: 'airport', isCorner: true, bg: 'bg-[#0284c7]', text: 'text-white', icon: '✈️' },
+      { id: 23, r: 1, c: 2, name: 'SYDNEY', type: 'city', group: 'g6', price: 360, rent: [215, 530, 1180], color: '#a855f7', icon: '🎭' },
+      { id: 24, r: 1, c: 3, name: 'TORONTO', type: 'city', group: 'g6', price: 450, rent: [270, 670, 1500], color: '#a855f7', icon: '🍁' },
       { id: 25, r: 1, c: 4, name: 'CƠ HỘI', vnName: 'CƠ HỘI', type: 'chance', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-amber-500' },
-      { id: 26, r: 1, c: 5, name: 'HÒA BÌNH', type: 'city', group: 'g6', price: 300, rent: [180, 440, 980], color: '#9333ea' },
-      { id: 27, r: 1, c: 6, name: 'ĐẢO PHÚ QUỐC', type: 'station', group: 'resort', price: 280, rent: [170, 380, 780, 1400], color: '#0284c7', icon: '🏖️' },
-      { id: 28, r: 1, c: 7, name: 'HẢI DƯƠNG', type: 'city', group: 'g7', price: 320, rent: [190, 470, 1050], color: '#4f46e5' },
-      { id: 29, r: 1, c: 8, name: 'SAPA', type: 'city', group: 'g7', price: 380, rent: [230, 570, 1280], color: '#4f46e5' },
+      { id: 26, r: 1, c: 5, name: 'SEOUL', type: 'city', group: 'g6', price: 300, rent: [180, 440, 980], color: '#a855f7', icon: '🏯' },
+      { id: 27, r: 1, c: 6, name: 'MALDIVES RESORT', type: 'station', group: 'resort', price: 280, rent: [170, 380, 780, 1400], color: '#0284c7', icon: '🏖️' },
+      { id: 28, r: 1, c: 7, name: 'THƯỢNG HẢI', type: 'city', group: 'g7', price: 320, rent: [190, 470, 1050], color: '#4f46e5', icon: '🌃' },
+      { id: 29, r: 1, c: 8, name: 'TOKYO', type: 'city', group: 'g7', price: 380, rent: [230, 570, 1280], color: '#4f46e5', icon: '🗻' },
       { id: 30, r: 1, c: 9, name: 'VẬN MỆNH', vnName: 'VẬN MỆNH', type: 'fate', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-rose-500' },
-      { id: 31, r: 1, c: 10, name: 'HÀ NỘI', type: 'city', group: 'g7', price: 580, rent: [350, 860, 1900], color: '#4f46e5' },
-      { id: 32, r: 1, c: 11, name: 'TP.HCM', type: 'city', group: 'g5', price: 650, rent: [390, 950, 2100], color: '#e11d48' },
-      { id: 33, r: 1, c: 12, name: 'VÔ TÙ', vnName: 'BẮT GIAM', type: 'gotojail', isCorner: true, bg: 'bg-[#312e81]', text: 'text-amber-300', icon: '⛓️' },
+      { id: 31, r: 1, c: 10, name: 'DUBAI', type: 'city', group: 'g11', price: 580, rent: [350, 860, 1900], color: '#1d4ed8', icon: '🏰' },
+      { id: 32, r: 1, c: 11, name: 'NEW YORK', type: 'city', group: 'g11', price: 650, rent: [390, 950, 2100], color: '#1d4ed8', icon: '🗽' },
+      { id: 33, r: 1, c: 12, name: 'INTERPOL', vnName: 'BẮT GIAM', type: 'gotojail', isCorner: true, bg: 'bg-[#312e81]', text: 'text-amber-300', icon: '⛓️' },
 
-      // RIGHT EDGE (12 rows: row 2 up to row 11 at col 12 -> +2 tiles added: THÁI NGUYÊN, CÔN ĐẢO RESORT, VĨNH PHÚC, BẮC NINH)
-      { id: 34, r: 2, c: 12, name: 'THÁI NGUYÊN', type: 'city', group: 'g8', price: 300, rent: [180, 440, 980], color: '#0d9488' },
-      { id: 35, r: 3, c: 12, name: 'BẮC GIANG', type: 'city', group: 'g8', price: 280, rent: [165, 410, 920], color: '#0d9488' },
-      { id: 36, r: 4, c: 12, name: 'LẠNG SƠN', type: 'city', group: 'g8', price: 280, rent: [165, 410, 920], color: '#0d9488' },
-      { id: 37, r: 5, c: 12, name: 'QUẢNG NINH', type: 'city', group: 'g9', price: 260, rent: [155, 390, 860], color: '#16a34a' },
-      { id: 38, r: 6, c: 12, name: 'CÔN ĐẢO', type: 'station', group: 'resort', price: 280, rent: [170, 380, 780, 1400], color: '#0284c7', icon: '🏖️' },
-      { id: 39, r: 7, c: 12, name: 'HẢI PHÒNG', type: 'city', group: 'g9', price: 240, rent: [140, 350, 780], color: '#16a34a' },
+      // RIGHT EDGE (10 rows: row 2 up to row 11 at col 12)
+      { id: 34, r: 2, c: 12, name: 'SAN FRANCISCO', type: 'city', group: 'g8', price: 300, rent: [180, 440, 980], color: '#0d9488', icon: '🌉' },
+      { id: 35, r: 3, c: 12, name: 'LOS ANGELES', type: 'city', group: 'g8', price: 280, rent: [165, 410, 920], color: '#0d9488', icon: '🎬' },
+      { id: 36, r: 4, c: 12, name: 'LAS VEGAS', type: 'city', group: 'g8', price: 280, rent: [165, 410, 920], color: '#0d9488', icon: '🎰' },
+      { id: 37, r: 5, c: 12, name: 'RIO DE JANEIRO', type: 'city', group: 'g9', price: 260, rent: [155, 390, 860], color: '#16a34a', icon: '🇧🇷' },
+      { id: 38, r: 6, c: 12, name: 'SANTORINI RESORT', type: 'station', group: 'resort', price: 280, rent: [170, 380, 780, 1400], color: '#0284c7', icon: '🏖️' },
+      { id: 39, r: 7, c: 12, name: 'BUENOS AIRES', type: 'city', group: 'g9', price: 240, rent: [140, 350, 780], color: '#16a34a', icon: '💃' },
       { id: 40, r: 8, c: 12, name: 'CƠ HỘI', vnName: 'CƠ HỘI', type: 'chance', icon: '🎡', bg: 'bg-[#f8fafc]', iconColor: 'text-amber-500' },
-      { id: 41, r: 9, c: 12, name: 'VĨNH PHÚC', type: 'city', group: 'g10', price: 210, rent: [125, 310, 700], color: '#ca8a04' },
-      { id: 42, r: 10, c: 12, name: 'BẮC NINH', type: 'city', group: 'g10', price: 190, rent: [115, 280, 640], color: '#ca8a04' },
-      { id: 43, r: 11, c: 12, name: 'HÀ NAM', type: 'city', group: 'g10', price: 150, rent: [90, 220, 500], color: '#ca8a04' }
+      { id: 41, r: 9, c: 12, name: 'CAPE TOWN', type: 'city', group: 'g10', price: 210, rent: [125, 310, 700], color: '#ca8a04', icon: '🇿🇦' },
+      { id: 42, r: 10, c: 12, name: 'ISTANBUL', type: 'city', group: 'g10', price: 190, rent: [115, 280, 640], color: '#ca8a04', icon: '🕌' },
+      { id: 43, r: 11, c: 12, name: 'DOHA', type: 'city', group: 'g10', price: 150, rent: [90, 220, 500], color: '#ca8a04', icon: '🇶🇦' }
     ];
 
     const MONOPOLY_CHANCE_CARDS = [
       { name: 'Cổ Tức Đầu Tư', desc: 'Quỹ đầu tư Business Tour chia lợi nhuận đột biến!', amount: 350, icon: '🎉' },
       { name: 'Giải Thưởng Đô Thị', desc: 'Khu nghỉ dưỡng của bạn đạt giải Kiến Trúc Vàng!', amount: 300, icon: '🏆' },
       { name: 'Hoàn Thuế Thương Mại', desc: 'Sở Tài Chính hoàn trả thuế xuất nhập khẩu!', amount: 250, icon: '💰' },
-      { name: 'Vé Bay World Tour', desc: 'Nhận tài trợ chuyến bay thương gia tới thẳng Sân Bay Tân An!', action: 'fly_airport', amount: 200, icon: '✈️' },
+      { name: 'Vé Bay World Tour', desc: 'Nhận tài trợ chuyến bay thương gia tới thẳng Sân Bay Quốc Tế World Tour!', action: 'fly_airport', amount: 200, icon: '✈️' },
       { name: 'Thuế Độc Quyền', desc: 'Đóng thuế chống độc quyền thương mại đô thị (10% tài sản)!', amount: -350, icon: '🏛️' },
       { name: 'Chi Phí Bảo Trì', desc: 'Nâng cấp hệ thống điện ngầm cho các tòa nhà!', amount: -250, icon: '🔧' },
       { name: 'Phạt Vi Phạm Giao Thông', desc: 'Đoàn xe hộ tống chạy quá tốc độ quy định!', amount: -200, icon: '🚔' },
@@ -9236,7 +9250,7 @@
     const BUSINESS_TOUR_STARTING_CASH = 3500;
     const BUSINESS_TOUR_SALARY = 400;
     const BUSINESS_TOUR_TARGET_NET_WORTH = Infinity; // v4.0.9: Bỏ trần $8,500 - Chơi đến khi phá sản, độc quyền resort hoặc hết 15 vòng
-    const BUSINESS_TOUR_MAX_ROUNDS = 15;
+    const BUSINESS_TOUR_MAX_ROUNDS = 35; // v4.1.0: Cân bằng thời lượng 10-15 phút
 
     let monoState = {
       playerCount: 4,
@@ -9273,6 +9287,26 @@
     }
 
     // Calculate dynamic rent (Returns 0 if mortgaged, applies Color Group Monopoly x1.5)
+    function getMonoTileMonopolyStatus(tile) {
+      if (!tile || !tile.group || typeof MONOPOLY_ZONE_CONFIG === 'undefined' || !MONOPOLY_ZONE_CONFIG[tile.group]) return null;
+      const groupTiles = (monoState.tiles || []).filter(t => t.group === tile.group);
+      if (groupTiles.length <= 1) return null;
+      const zone = MONOPOLY_ZONE_CONFIG[tile.group];
+      const ownerId = tile.owner;
+      const isMonopoly = (ownerId !== null && ownerId !== undefined) && groupTiles.every(t => t.owner === ownerId && !t.isMortgaged);
+      return {
+        isMonopoly: isMonopoly,
+        zone: zone,
+        mult: zone.mult || 2.0,
+        tier: zone.tier,
+        name: zone.name,
+        tag: zone.tag,
+        badgeBg: zone.badgeBg,
+        totalCount: groupTiles.length,
+        ownedCount: (ownerId !== null && ownerId !== undefined) ? groupTiles.filter(t => t.owner === ownerId).length : 0
+      };
+    }
+
     function getMonoTileRent(tile) {
       if (!tile || tile.owner === null || tile.owner === undefined) {
         return tile && tile.rent ? tile.rent[0] : 0;
@@ -9283,16 +9317,17 @@
       let baseRent = 0;
       if (tile.type === 'station') {
         const ownedResorts = monoState.tiles.filter(t => t.type === 'station' && t.owner === tile.owner && !t.isMortgaged).length;
-        const idx = Math.max(0, Math.min(2, ownedResorts - 1));
+        const idx = Math.max(0, Math.min(3, ownedResorts - 1));
         baseRent = tile.rent ? (tile.rent[idx] || 180) : 180;
       } else {
         const lvl = Math.max(1, Math.min(3, tile.level || 1));
         baseRent = tile.rent ? (tile.rent[lvl - 1] || tile.rent[0]) : Math.floor(tile.price * 0.5);
-        // Check full color group monopoly -> x1.5 rent!
-        if (tile.group) {
+        // v4.1.0: Độc quyền dãy màu theo phân hạng Nhà Giàu / Nhà Nghèo (x2.0 -> x4.0)
+        if (tile.group && typeof MONOPOLY_ZONE_CONFIG !== 'undefined' && MONOPOLY_ZONE_CONFIG[tile.group]) {
           const groupTiles = monoState.tiles.filter(t => t.group === tile.group);
           if (groupTiles.length > 1 && groupTiles.every(t => t.owner === tile.owner && !t.isMortgaged)) {
-            baseRent = Math.floor(baseRent * 1.5);
+            const zone = MONOPOLY_ZONE_CONFIG[tile.group];
+            baseRent = Math.floor(baseRent * (zone.mult || 2.0));
           }
         }
       }
@@ -10147,16 +10182,18 @@
           }
 
           const currentRent = getMonoTileRent(t);
+          const monoStatus = getMonoTileMonopolyStatus(t);
+          const isFullMonopoly = !!(monoStatus && monoStatus.isMonopoly);
 
           // Bold Business Tour Price/Rent Typography at Outer Curb Edge
           const priceRentTag = isOwned
-            ? `<span class="text-[10px] sm:text-[12px] font-chakra font-black ${isMortgaged ? 'text-rose-600' : 'text-slate-950'} tracking-tight">${isMortgaged ? 'THẾ CHẤP' : '$' + currentRent.toLocaleString()}</span>`
+            ? `<span class="text-[10px] sm:text-[12px] font-chakra font-black ${isMortgaged ? 'text-rose-600' : (isFullMonopoly ? 'text-amber-600 font-black' : 'text-slate-950')} tracking-tight">${isMortgaged ? 'THẾ CHẤP' : '$' + currentRent.toLocaleString()}</span>`
             : `<span class="text-[10px] sm:text-[12px] font-chakra font-black text-slate-900 tracking-tight">$${t.price.toLocaleString()}</span>`;
 
           tile.innerHTML = `
             <!-- Top Color Strip / Lawn Turf Plot -->
             <div class="w-full h-3 sm:h-3.5 rounded-t-md shrink-0 flex items-center justify-between px-1 shadow-inner" style="background: ${isOwned && owner ? owner.color : t.color};">
-              <span class="text-[6px] sm:text-[7px] font-black text-white uppercase drop-shadow">${isOwned && owner ? owner.name.slice(0, 5) : (isResort ? 'RESORT' : '')}</span>
+              <span class="text-[6px] sm:text-[7px] font-black text-white uppercase drop-shadow">${isOwned && owner ? owner.name.slice(0, 5) : (isResort ? 'RESORT' : '')}</span>${monoStatus && monoStatus.isMonopoly ? '<span class="text-[6px] font-black text-amber-200 uppercase drop-shadow animate-pulse">🔥x' + monoStatus.mult + '</span>' : ''}
             </div>
 
             <!-- 2.5D Centered Building -->
@@ -10203,7 +10240,7 @@
       if (t.isCorner) {
         levelEl.textContent = 'Ô ĐẶC BIỆT';
         levelEl.className = 'text-[9px] font-black text-amber-300 px-1.5 py-0.2 rounded bg-amber-400/20 border border-amber-400/40';
-        subEl.innerHTML = '<span class="text-amber-300 font-bold">' + (t.type === "start" ? "Nhận lương thương mại +$400" : (t.type === "jail" ? "Trại Giam Song Sắt (Bảo lãnh $250)" : (t.type === "airport" ? "World Tour Tân An (+$300 & bay ngẫu nhiên đến 1 ô bất kỳ)" : "Bị bắt giam ngay lập tức!"))) + '</span>';
+        subEl.innerHTML = '<span class="text-amber-300 font-bold">' + (t.type === "start" ? "Nhận lương thương mại +$400" : (t.type === "jail" ? "Trại Giam Song Sắt (Bảo lãnh $250)" : (t.type === "airport" ? "World Tour Airport (+$300 & bay ngẫu nhiên đến 1 ô bất kỳ)" : "Bị bắt giam ngay lập tức!"))) + '</span>';
         if (t.id === 22) {
           subEl.innerHTML += ' <button onclick="triggerMonoAirplaneFlyby({ player: monoState.players[monoState.turn], destTile: monoState.tiles[22] })" class="ml-2 px-2.5 py-0.5 rounded-lg bg-amber-400 text-slate-950 font-black text-[9px] hover:bg-yellow-300 cursor-pointer shadow-md border border-white pointer-events-auto">✈️ Bay Thử</button>';
         }
@@ -10215,12 +10252,21 @@
         levelEl.textContent = 'CẤP ' + lvl + '/3';
         levelEl.className = 'text-[9px] font-black text-amber-300 px-1.5 py-0.2 rounded bg-amber-400/20 border border-amber-400/40';
         const curRent = getMonoTileRent(t).toLocaleString();
-        subEl.innerHTML = '<span>Chủ: <b style="color:' + owner.color + '">' + owner.name + '</b></span> <span class="text-slate-500">•</span> <span>Tiền thuê: <b class="text-emerald-400 font-chakra">$' + curRent + '</b></span>';
+        const monoInfo = getMonoTileMonopolyStatus(t);
+        let monopolyBadge = '';
+        if (monoInfo && monoInfo.isMonopoly) {
+          monopolyBadge = ' <span class="px-1.5 py-0.2 rounded ' + monoInfo.badgeBg + ' text-[8px] font-black border uppercase">🔥 Độc Quyền x' + monoInfo.mult + '</span>';
+        } else if (monoInfo) {
+          monopolyBadge = ' <span class="text-[8px] text-slate-400 font-bold">(' + monoInfo.ownedCount + '/' + monoInfo.totalCount + ' ' + monoInfo.name + ')</span>';
+        }
+        subEl.innerHTML = '<span>Chủ: <b style="color:' + owner.color + '">' + owner.name + '</b></span> <span class="text-slate-500">•</span> <span>Tiền thuê: <b class="text-emerald-400 font-chakra">$' + curRent + '</b></span>' + monopolyBadge;
       } else {
         levelEl.textContent = 'ĐẤT TRỐNG';
         levelEl.className = 'text-[9px] font-black text-emerald-300 px-1.5 py-0.2 rounded bg-emerald-400/20 border border-emerald-400/40';
         const startRent = (t.rent ? t.rent[0] : 0).toLocaleString();
-        subEl.innerHTML = '<span>Giá mua: <b class="text-amber-400 font-chakra">$' + t.price.toLocaleString() + '</b></span> <span class="text-slate-500">•</span> <span>Thuê Lv.1: <b class="text-emerald-400 font-chakra">$' + startRent + '</b></span>';
+        const monoInfo = getMonoTileMonopolyStatus(t);
+        const zoneTag = monoInfo ? ' <span class="px-1.5 py-0.2 rounded ' + monoInfo.badgeBg + ' text-[8px] font-black border uppercase">' + monoInfo.tag + '</span>' : '';
+        subEl.innerHTML = '<span>Giá mua: <b class="text-amber-400 font-chakra">$' + t.price.toLocaleString() + '</b></span> <span class="text-slate-500">•</span> <span>Thuê Lv.1: <b class="text-emerald-400 font-chakra">$' + startRent + '</b></span>' + zoneTag;
       }
     }
 
@@ -11072,7 +11118,12 @@ function playMonoDiceTumbleSFX(durationMs) {
               recipient: owner,
               amount: rent,
               type: 'rent',
-              desc: `${player.name} trả tiền thuê $${rent.toLocaleString()} cho ${owner.name} tại ${landedTile.name}!`,
+              desc: (() => {
+                const mInfo = getMonoTileMonopolyStatus(landedTile);
+                return (mInfo && mInfo.isMonopoly)
+                  ? `🔥 [ĐỘC QUYỀN ${mInfo.name.toUpperCase()} x${mInfo.mult}] ${player.name} trả tiền thuê $${rent.toLocaleString()} cho ${owner.name} tại ${landedTile.name}!`
+                  : `${player.name} trả tiền thuê $${rent.toLocaleString()} cho ${owner.name} tại ${landedTile.name}!`;
+              })(),
               onComplete: () => {
                 const takeoverCost = Math.floor(landedTile.price * (0.9 + (landedTile.level || 1) * 0.4));
                 const canTakeover = landedTile.type === 'city' && (landedTile.level || 1) < 3 && player.cash >= takeoverCost;
@@ -11081,12 +11132,16 @@ function playMonoDiceTumbleSFX(durationMs) {
                   if (canTakeover) {
                     setMonoDialogMode('takeover', { tile: landedTile, cost: takeoverCost });
                   } else {
+                    const mInfo = getMonoTileMonopolyStatus(landedTile);
+                    const isMono = mInfo && mInfo.isMonopoly;
                     showMonoEventPopup({
                       type: 'rent',
-                      badge: '💸 NỘP TIỀN THUÊ ĐẤT!',
-                      title: `Đất Của ${owner.name}`,
-                      desc: `${player.name} đã trả $${rent.toLocaleString()} tiền thuê cho ${owner.name} tại ${landedTile.name} (Cấp ${landedTile.level || 1})!`,
-                      visualIcon: '💸',
+                      badge: isMono ? `🔥 ĐỘC QUYỀN ${mInfo.name.toUpperCase()} (x${mInfo.mult})!` : '💸 NỘP TIỀN THUÊ ĐẤT!',
+                      title: isMono ? `Độc Quyền ${mInfo.name} - ${owner.name}` : `Đất Của ${owner.name}`,
+                      desc: isMono
+                        ? `⚡ ${owner.name} thâu tóm trọn bộ ${mInfo.name} (${mInfo.tag})! Tiền thuê tăng vọt x${mInfo.mult}: $${rent.toLocaleString()}!`
+                        : `${player.name} đã trả $${rent.toLocaleString()} tiền thuê cho ${owner.name} tại ${landedTile.name} (Cấp ${landedTile.level || 1})!`,
+                      visualIcon: isMono ? '🔥' : '💸',
                       amountLabel: 'Khoản tiền thuê:',
                       amountVal: -rent,
                       onConfirm: () => finishMonoTurn()
@@ -11436,7 +11491,7 @@ function playMonoDiceTumbleSFX(durationMs) {
         if (monoState.round > BUSINESS_TOUR_MAX_ROUNDS) {
           const richest = [...monoState.players].filter(p => !p.isBankrupt).sort((a, b) => getMonoPlayerNetWorth(b) - getMonoPlayerNetWorth(a))[0];
           if (richest) {
-            declareMonoWinner(richest, `⏱️ Đã hoàn tất 15 vòng đua Business Tour! ${richest.name} dẫn đầu bảng xếp hạng tài sản!`);
+            declareMonoWinner(richest, `⏱️ Đã hoàn tất 35 vòng đua Business Tour Quốc Tế! ${richest.name} dẫn đầu bảng xếp hạng tài sản!`);
             return;
           }
         }

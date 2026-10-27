@@ -966,3 +966,21 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
     - Thâu tóm độc quyền 3/3 Khu Nghỉ Dưỡng Biển (Resort Monopoly).
     - Hoặc phân định ngôi vương bằng Tổng tài sản sau khi kết thúc trọn vẹn 15 vòng đấu đầy kịch tính!
   - Cập nhật toàn bộ thanh trạng thái (`#monoTurnStatusText`), gợi ý chiến thắng và bảng thông báo luật cờ.
+
+### v4.1.0 (2026-10-27) - World Famous Landmarks & Color Monopoly Multipliers by Wealth Tier (x2.0 - x4.0) & 35-Round Balance
+- **Bản Đồ 44 Ô Quốc Tế (World Tour Deluxe 44 Tiles)**:
+  - Nâng cấp toàn diện tên các ô trên bàn cờ thành các địa danh, kỳ quan và siêu đô thị lừng danh toàn cầu:
+    - 4 Resort Biển Độc Quyền: `BALI RESORT`, `HAWAII RESORT`, `MALDIVES RESORT`, `SANTORINI RESORT`.
+    - Sân bay: `WORLD TOUR AIRPORT`, Trại giam: `ALCATRAZ JAIL`, Bắt giam: `INTERPOL`.
+    - 32 Đô thị quốc tế phân bổ liền kề theo vùng địa lý: Cairo, New Delhi, Manila, Bangkok, Jakarta, Kuala Lumpur, Singapore, Athens, Rome, Madrid, Amsterdam, Berlin, Vienna, London, Paris, Sydney, Toronto, Seoul, Thượng Hải, Tokyo, Dubai, New York, San Francisco, Los Angeles, Las Vegas, Rio de Janeiro, Buenos Aires, Cape Town, Istanbul, Doha.
+- **Hệ Thống Độc Quyền Dãy Màu Phân Cấp Nhà Giàu / Nhà Nghèo (x2.0 - x4.0 Tiền Thuê)**:
+  - Khi một người chơi sở hữu trọn bộ các ô đất cùng màu cạnh nhau (Color Group Monopoly) và không bị thế chấp:
+    - 🛖 **Khu Bình Dân (Nhà Nghèo - g1: Cairo, New Delhi, Manila)**: Tiền thuê **x2.0**
+    - 🏘️ **Khu Trung Lưu (g2, g10: Bangkok, Jakarta, Singapore, Cape Town, Istanbul, Doha)**: Tiền thuê **x2.5**
+    - 🏢 **Khu Di Sản & Thương Mại (g3, g9: Athens, Rome, Madrid, Rio de Janeiro, Buenos Aires)**: Tiền thuê **x3.0**
+    - 🌆 **Khu Hiện Đại & Khá Giả (g4, g6, g8: Amsterdam, Berlin, Vienna, Sydney, Toronto, Seoul, SF, LA, Vegas)**: Tiền thuê **x3.5**
+    - 💎 **Khu Thượng Lưu (Nhà Giàu Siêu VIP - g5: London & Paris, g7: Thượng Hải & Tokyo, g11: Dubai & New York)**: Tiền thuê vọt lên **x4.0 (Gấp 4 lần!)**
+  - Hiển thị hiệu ứng trực quan ngọn lửa phát sáng `🔥x{mult}` trên viền ô đất, huy hiệu cấp bậc trên thanh Inspector HUD và Popup sự kiện nộp tiền phạt siêu cấp.
+- **Cân Bằng Thời Lượng Ván Đấu: 35 Vòng (10 - 15 Phút Tối Đa)**:
+  - Tăng số vòng thi đấu `BUSINESS_TOUR_MAX_ROUNDS = 35` (thay vì 15 vòng quá ngắn chỉ ~5 phút).
+  - Với thời lượng trung bình ~21.5s/vòng (1 Human + 3 Bots), ván cờ đạt chuẩn từ 10 đến 15 phút. Nhờ cơ chế Độc Quyền Dãy Màu x2.0 - x4.0, nhiều ván đấu sẽ kết thúc sớm đầy mãn nhãn bằng phá sản đối thủ (Last Tycoon Standing) ở phút thứ 10 - 12!

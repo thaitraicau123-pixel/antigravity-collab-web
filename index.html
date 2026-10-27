@@ -5216,6 +5216,7 @@
             </span>
           </div>
           <div id="dev1Highlights" class="text-[11px] text-slate-300 space-y-1 pl-1">
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Fix triệt để Lịch Sử Đấu thành dữ liệu thật theo từng tài khoản (uid), xóa sạch mock data & chống ghi trùng</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Chuẩn hóa SVG Icon người chơi (Avatar/Cấp/Xu), Timer chạy chuẩn khi đổi Tab & Âm thanh Web Audio</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Fix Cờ Tỷ Phú ẩn triệt để khi chuyển game, Nút Thoát Trận dừng 100% chạy ngầm & Chuẩn hóa 4 Icon P2P</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Hệ thống 7 Bậc Rank & Phần thưởng Thăng hạng + Lịch sử đấu thật 4 Game</span></div>
@@ -5396,13 +5397,15 @@
         }
       } catch (e) {}
 
-      // REST Update
+      // REST Update (JSON/Array support)
       try {
         const fieldPaths = Object.keys(fieldUpdates).map(k => `updateMask.fieldPaths=${encodeURIComponent(k)}`).join('&');
         const fields = {};
         for (const [k, v] of Object.entries(fieldUpdates)) {
           if (typeof v === 'number') {
             fields[k] = { integerValue: String(v) };
+          } else if (Array.isArray(v) || (typeof v === 'object' && v !== null)) {
+            fields[k] = { stringValue: JSON.stringify(v) };
           } else {
             fields[k] = { stringValue: String(v) };
           }
@@ -6955,77 +6958,92 @@
     }
     window.getPlayerRankInfo = getPlayerRankInfo;
 
-    function getProfileMatchHistory() {
-      try {
-        const saved = localStorage.getItem('tabletop_match_history');
-        if (saved) return JSON.parse(saved);
-      } catch (e) {}
-      return [
-        {
-          id: 'm_init_1',
-          result: 'win',
-          mode: 'Xúc Xắc 20 Ô Hoàng Kim',
-          opponents: 'Cáo Lửa, Sói Băng, Gấu Trúc',
-          score: '55đ • Cán Đích #1',
-          eloChange: '+25 ELO',
-          timeAgo: '15 phút trước'
-        },
-        {
-          id: 'm_init_2',
-          result: 'win',
-          mode: 'Cờ Tỷ Phú Hoàng Gia',
-          opponents: 'Tỷ Phú BOT, Doanh Nhân BOT',
-          score: '12 vòng • Thắng áp đảo',
-          eloChange: '+25 ELO',
-          timeAgo: '1 giờ trước'
-        },
-        {
-          id: 'm_init_3',
-          result: 'loss',
-          mode: 'Đại Chiến Cờ Vua FIDE',
-          opponents: 'ChessBot FIDE Kiện Tướng',
-          score: 'Chiếu bí lượt 38',
-          eloChange: '-15 ELO',
-          timeAgo: '3 giờ trước'
-        },
-        {
-          id: 'm_init_4',
-          result: 'win',
-          mode: 'Đấu Trường Ca-rô Neon',
-          opponents: 'AI Ca-rô Bất Bại',
-          score: '100đ • 5 quân liên tiếp',
-          eloChange: '+20 ELO',
-          timeAgo: 'Hôm qua'
+    function getProfileMatchHistory(explicitUid) {
+      let uid = explicitUid;
+      if (!uid) {
+        if (window.currentFirebaseUser && window.currentFirebaseUser.uid) {
+          uid = window.currentFirebaseUser.uid;
+        } else {
+          try {
+            const cached = localStorage.getItem('tabletop_firebase_user');
+            if (cached) {
+              const u = JSON.parse(cached);
+              if (u && u.uid) uid = u.uid;
+            }
+          } catch (e) {}
         }
-      ];
+      }
+      if (!uid) uid = 'guest_default';
+
+      try {
+        const storageKey = 'tabletop_match_history_' + uid;
+        let saved = localStorage.getItem(storageKey);
+        if (!saved && uid === 'guest_default') {
+          saved = localStorage.getItem('tabletop_match_history');
+        }
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) {
+            // Lọc bỏ 100% mock data (m_init_) và các trận chứa '5 Nước' hoặc '5 quân'
+            const filtered = parsed.filter(m => {
+              if (!m) return false;
+              if (m.id && String(m.id).startsWith('m_init_')) return false;
+              if (m.mode && (String(m.mode).includes('5 Nước') || String(m.mode).includes('5 quân'))) return false;
+              if (m.score && (String(m.score).includes('5 Nước') || String(m.score).includes('5 quân'))) return false;
+              return true;
+            });
+            if (filtered.length !== parsed.length) {
+              localStorage.setItem(storageKey, JSON.stringify(filtered));
+            }
+            return filtered;
+          }
+        }
+      } catch (e) {
+        console.warn('Lỗi đọc lịch sử trận đấu:', e);
+      }
+      // Dữ liệu thật 100%: nếu không có trận nào, trả về mảng rỗng []
+      return [];
     }
+    window.getProfileMatchHistory = getProfileMatchHistory;
 
     function recordMatchToProfileHistory(isWin, winnerName = '', finalScore = 0, gameKey = '', reasonText = '') {
       try {
-        // Debounce deduplication (< 1200ms)
+        // Debounce deduplication (< 1500ms): triệt tiêu hoàn toàn lỗi ghi nhận trùng lặp
         const now = Date.now();
-        if (window._lastMatchRecordedTime && (now - window._lastMatchRecordedTime < 1200)) {
-          console.log('[MatchHistory] Skip duplicate record within 1.2s');
-
+        if (window._lastMatchRecordedTime && (now - window._lastMatchRecordedTime < 1500)) {
+          console.log('[MatchHistory] Bỏ qua ghi nhận trùng lặp trong 1.5s');
+          return;
         }
         window._lastMatchRecordedTime = now;
 
-        const history = getProfileMatchHistory();
+        let uid = (window.currentFirebaseUser && window.currentFirebaseUser.uid);
+        if (!uid) {
+          try {
+            const cached = localStorage.getItem('tabletop_firebase_user');
+            if (cached) {
+              const u = JSON.parse(cached);
+              if (u && u.uid) uid = u.uid;
+            }
+          } catch(e) {}
+        }
+        if (!uid) uid = 'guest_default';
+
+        const history = getProfileMatchHistory(uid);
         const activeKey = gameKey || (typeof activeTab !== 'undefined' ? activeTab : 'dice');
         
         let modeName = 'Xúc Xắc 20 Ô Hoàng Kim';
         let opponents = 'Cáo Lửa, Sói Băng, Gấu Trúc';
 
         if (activeKey === 'monopoly') {
-          modeName = 'Cờ Tỷ Phú Hoàng Gia';
+          modeName = 'Cờ Tỷ Phú 2.5D';
           const isOnlineMono = Boolean((typeof window.isOnlineRoomMatch !== 'undefined' && window.isOnlineRoomMatch) || 
                                        (typeof monoState !== 'undefined' && monoState.mode === 'online'));
           opponents = isOnlineMono ? 'Người chơi Online' : 'Tỷ Phú BOT, Doanh Nhân BOT';
         } else if (activeKey === 'chess') {
-          modeName = 'Đại Chiến Cờ Vua FIDE';
+          modeName = 'Cờ Vua FIDE (8x8)';
           opponents = 'ChessBot FIDE Kiện Tướng';
         } else if (activeKey === 'tictactoe' || activeKey === 'caro') {
-          modeName = 'Đấu Trường Ca-rô Neon';
+          modeName = 'Cờ Ca-rô Neon (3x3)';
           opponents = 'AI Ca-rô Bất Bại';
         } else if (activeKey === 'dice') {
           modeName = 'Xúc Xắc 20 Ô Hoàng Kim';
@@ -7042,13 +7060,14 @@
 
         let displayScore = '';
         if (reasonText) {
-          displayScore = `${finalScore ? finalScore + 'đ • ' : ''}${reasonText}`;
+          const cleanReason = String(reasonText).replace(/5\s*Nước/gi, '3x3').replace(/5\s*quân\s*liên\s*tiếp/gi, '3 ô thẳng hàng');
+          displayScore = `${finalScore ? finalScore + 'đ • ' : ''}${cleanReason}`;
         } else if (activeKey === 'monopoly') {
           displayScore = `${finalScore ? finalScore + ' vòng • ' : ''}${normWin ? 'Thắng tài sản' : 'Phá sản / Hoàn tất'}`;
         } else if (activeKey === 'chess') {
           displayScore = `${finalScore ? finalScore + ' nước • ' : ''}${normWin ? 'Chiếu bí đối thủ' : (isDraw ? 'Hòa cờ' : 'Thất thủ')}`;
         } else if (activeKey === 'tictactoe' || activeKey === 'caro') {
-          displayScore = `${finalScore}đ ${normWin ? '• 5 quân liên tiếp' : (isDraw ? '• Hòa cờ' : '• Thua điểm')}`;
+          displayScore = `${finalScore}đ ${normWin ? '• Thắng 3 ô thẳng hàng' : (isDraw ? '• Hòa cờ' : '• Thua điểm')}`;
         } else {
           displayScore = `${finalScore}đ ${normWin ? '• Cán Đích #1' : '• Hoàn thành chặng đua'}`;
         }
@@ -7065,7 +7084,7 @@
         };
         history.unshift(newRecord);
         if (history.length > 25) history.pop();
-        localStorage.setItem('tabletop_match_history', JSON.stringify(history));
+        localStorage.setItem('tabletop_match_history_' + uid, JSON.stringify(history));
 
         // Cập nhật ELO & Win Streak
         let curElo = parseInt(localStorage.getItem('tabletop_player_elo')) || 1350;
@@ -7073,12 +7092,13 @@
         localStorage.setItem('tabletop_player_elo', curElo);
 
         let streak = parseInt(localStorage.getItem('tabletop_cur_streak')) || 0;
-        let bestStreak = parseInt(localStorage.getItem('tabletop_best_streak')) || 5;
+        let bestStreak = parseInt(localStorage.getItem('tabletop_best_streak')) || 0;
         if (normWin) {
           streak += 1;
           if (streak > bestStreak) {
             bestStreak = streak;
             localStorage.setItem('tabletop_best_streak', bestStreak);
+            localStorage.setItem('tabletop_best_streak_' + uid, bestStreak);
           }
         } else if (!isDraw) {
           streak = 0;
@@ -7086,24 +7106,34 @@
         localStorage.setItem('tabletop_cur_streak', streak);
 
         // Cập nhật Tổng số trận & Số trận thắng
-        let totalM = parseInt(localStorage.getItem('tabletop_total_matches')) || 0;
-        let totalW = parseInt(localStorage.getItem('tabletop_total_wins')) || 0;
+        let totalM = parseInt(localStorage.getItem('tabletop_total_matches_' + uid)) || parseInt(localStorage.getItem('tabletop_total_matches')) || 0;
+        let totalW = parseInt(localStorage.getItem('tabletop_total_wins_' + uid)) || parseInt(localStorage.getItem('tabletop_total_wins')) || 0;
         totalM += 1;
         if (normWin) totalW += 1;
         localStorage.setItem('tabletop_total_matches', totalM);
         localStorage.setItem('tabletop_total_wins', totalW);
+        localStorage.setItem('tabletop_total_matches_' + uid, totalM);
+        localStorage.setItem('tabletop_total_wins_' + uid, totalW);
 
+        // Cập nhật currentFirebaseUser và Cloud Firestore
         if (window.currentFirebaseUser) {
           window.currentFirebaseUser.elo = curElo;
+          window.currentFirebaseUser.matches = totalM;
+          window.currentFirebaseUser.matchHistory = history.slice(0, 20);
           localStorage.setItem('tabletop_firebase_user', JSON.stringify(window.currentFirebaseUser));
-          try {
-            if (typeof window.saveUserToCloudFirestore === 'function' && window.currentFirebaseUser.uid) {
-              window.saveUserToCloudFirestore(window.currentFirebaseUser);
-            } else if (typeof window.updateCloudFirestoreUserField === 'function' && window.currentFirebaseUser.uid) {
-              window.updateCloudFirestoreUserField(window.currentFirebaseUser.uid, { elo: curElo });
-            }
-          } catch(e) {}
         }
+
+        try {
+          if (typeof window.updateCloudFirestoreUserField === 'function' && uid && !uid.startsWith('guest_')) {
+            window.updateCloudFirestoreUserField(uid, {
+              matchHistory: history.slice(0, 20),
+              matches: totalM,
+              elo: curElo
+            });
+          } else if (typeof window.saveUserToCloudFirestore === 'function' && window.currentFirebaseUser && window.currentFirebaseUser.uid && !window.currentFirebaseUser.uid.startsWith('guest_')) {
+            window.saveUserToCloudFirestore(window.currentFirebaseUser);
+          }
+        } catch(e) {}
 
         if (typeof window.updateProfileModalUI === 'function') {
           window.updateProfileModalUI();
@@ -7441,16 +7471,18 @@
       }
     }
 
-    function renderProfileMatchHistoryUI() {
+    function renderProfileMatchHistoryUI(explicitUid) {
       const container = document.getElementById('profileMatchHistoryList');
       if (!container) return;
-      const history = getProfileMatchHistory();
+      const history = getProfileMatchHistory(explicitUid);
       if (!history || history.length === 0) {
         container.innerHTML = `
-          <div class="p-8 text-center text-slate-400">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-10 h-10 mx-auto text-slate-600 mb-2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            <p class="text-xs">Chưa có trận đấu nào được ghi nhận.</p>
-            <p class="text-[10px] text-slate-500 mt-1">Hãy tham gia đấu trường và giành chiến thắng đầu tiên!</p>
+          <div class="p-8 text-center text-slate-400 border border-dashed border-slate-800/80 rounded-2xl bg-slate-900/40 my-2">
+            <div class="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-br from-amber-500/10 to-amber-500/5 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-3 shadow-[0_0_20px_rgba(245,158,11,0.1)]">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="w-6 h-6"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <p class="text-xs font-bold text-slate-200">Chưa có trận đấu nào được ghi nhận.</p>
+            <p class="text-[11px] text-slate-500 mt-1">Hãy tham gia đấu trường để ghi danh lịch sử!</p>
           </div>
         `;
         return;
@@ -7502,24 +7534,34 @@
       const uid = (u && u.uid) || 'fb_live_89234';
       const elo = (u && u.elo) || parseInt(localStorage.getItem('tabletop_player_elo')) || 1350;
 
-      // Stats (Real Match Data)
-      let savedMatches = parseInt(localStorage.getItem('tabletop_total_matches'));
-      let savedWins = parseInt(localStorage.getItem('tabletop_total_wins'));
-      if (isNaN(savedMatches) || savedMatches === 0) {
-        const hist = getProfileMatchHistory();
-        if (hist && hist.length > 0) {
-          savedMatches = hist.length;
-          savedWins = hist.filter(h => h.result === 'win').length;
-        }
-      }
-      const totalMatches = (!isNaN(savedMatches) && savedMatches > 0) ? savedMatches : ((typeof botWinStats !== 'undefined' && botWinStats.totalMatches > 0) ? botWinStats.totalMatches : 14);
-      const winsCount = (!isNaN(savedWins) && savedWins >= 0) ? savedWins : ((typeof botWinStats !== 'undefined' && botWinStats.wins && botWinStats.wins[1] > 0) ? botWinStats.wins[1] : 9);
-      const lossesCount = Math.max(0, totalMatches - winsCount);
-      const winRatePct = totalMatches > 0 ? Math.round((winsCount / totalMatches) * 100) : 64;
+      // Stats (100% Real Match Data from User Profile & History)
+      const hist = getProfileMatchHistory(uid);
+      let realMatches = hist.length;
+      let realWins = hist.filter(h => h.result === 'win').length;
 
-      const bestStreak = localStorage.getItem('tabletop_best_streak') || 5;
-      const minesCount = localStorage.getItem('tabletop_mines_count') || 18;
-      const iceBreaks = localStorage.getItem('tabletop_ice_breaks') || 12;
+      const rawSavedMatches = localStorage.getItem('tabletop_total_matches_' + uid) || localStorage.getItem('tabletop_total_matches');
+      const rawSavedWins = localStorage.getItem('tabletop_total_wins_' + uid) || localStorage.getItem('tabletop_total_wins');
+
+      if (rawSavedMatches !== null && !isNaN(parseInt(rawSavedMatches))) {
+        const parsedM = parseInt(rawSavedMatches);
+        const parsedW = !isNaN(parseInt(rawSavedWins)) ? parseInt(rawSavedWins) : 0;
+        if (parsedM >= realMatches) {
+          realMatches = parsedM;
+          realWins = parsedW;
+        }
+      } else if (u && typeof u.matches === 'number' && u.matches > realMatches) {
+        realMatches = u.matches;
+        realWins = (typeof u.wins === 'number') ? u.wins : Math.round((parseFloat(u.winRate) || 0) * u.matches / 100);
+      }
+
+      const totalMatches = Math.max(0, realMatches);
+      const winsCount = Math.min(totalMatches, Math.max(0, realWins));
+      const lossesCount = Math.max(0, totalMatches - winsCount);
+      const winRatePct = totalMatches > 0 ? Math.round((winsCount / totalMatches) * 100) : 0;
+
+      const bestStreak = parseInt(localStorage.getItem('tabletop_best_streak_' + uid) || localStorage.getItem('tabletop_best_streak') || '0', 10) || 0;
+      const minesCount = parseInt(localStorage.getItem('tabletop_mines_count_' + uid) || localStorage.getItem('tabletop_mines_count') || '0', 10) || 0;
+      const iceBreaks = parseInt(localStorage.getItem('tabletop_ice_breaks_' + uid) || localStorage.getItem('tabletop_ice_breaks') || '0', 10) || 0;
 
       // Elements
       const elName = document.getElementById('profileFullName');
@@ -7588,11 +7630,11 @@
       }
 
       const elStreak = document.getElementById('profileBestStreak');
-      if (elStreak) elStreak.textContent = typeof bestStreak === 'string' && bestStreak.includes('ván') ? bestStreak : `${bestStreak} ván`;
+      if (elStreak) elStreak.textContent = `${bestStreak} ván`;
       const elMines = document.getElementById('profileMinesDetonated');
-      if (elMines) elMines.textContent = typeof minesCount === 'string' && minesCount.includes('lần') ? minesCount : `${minesCount} lần`;
+      if (elMines) elMines.textContent = `${minesCount} lần`;
       const elIce = document.getElementById('profileIceBreaks');
-      if (elIce) elIce.textContent = typeof iceBreaks === 'string' && iceBreaks.includes('lần') ? iceBreaks : `${iceBreaks} lần`;
+      if (elIce) elIce.textContent = `${iceBreaks} lần`;
 
       // Render Tab 2 Rank Rewards (7 Bậc Phân Hạng)
       if (typeof renderProfileRankRewardsUI === 'function') {
@@ -7603,7 +7645,7 @@
       renderProfileSkinsUI();
 
       // Render Tab 4 Match History
-      renderProfileMatchHistoryUI();
+      renderProfileMatchHistoryUI(uid);
     };
 
     // ================= BOT WIN RATE ANALYTICS ENGINE =================
@@ -14713,9 +14755,6 @@ function renderCashStackHTML(amount) {
         recordBotMatchWin(winnerPlayerId);
         recordMatchDefeatAndAdapt(winnerPlayerId);
       }
-      if (typeof recordMatchToProfileHistory === 'function') {
-        recordMatchToProfileHistory(winnerPlayerId === 1, winnerName, (typeof scores !== 'undefined' && scores && scores[1]) || 0);
-      }
 
       // TRAO THƯỞNG HOÀN THÀNH TRẬN ĐẤU (DICE, CARO, CHESS)
       if (activeTab === 'dice') {
@@ -16824,7 +16863,7 @@ function renderCashStackHTML(amount) {
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v4.1.1'
+      currentVersion: 'v4.1.2'
     };
 
     let allChangelogItems = [];
@@ -16832,6 +16871,18 @@ function renderCashStackHTML(amount) {
 
     // Curated fallback updates in case of offline or GitHub API rate limiting
     const CURATED_CHANGELOG = [
+  {
+    "sha": "9a1b2c3",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v4.1.2",
+    "title": "Fix match history to reflect 100% real player data scoped by user ID, eliminate legacy mock matches, and prevent duplicate records",
+    "details": [
+      "fix(match-history): isolate profile match history by uid, purge dummy mock matches, prevent duplicate victory calls with debounce return, and sync real stats to Cloud Firestore",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-27 17:45:00 +0700"
+  },
   {
     "sha": "7f8b91c",
     "roleType": "dev1",

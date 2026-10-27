@@ -5149,7 +5149,7 @@
               -- Commits
             </span>
           </div>
-          <div class="text-[11px] text-slate-300 space-y-1 pl-1">
+          <div id="dev1Highlights" class="text-[11px] text-slate-300 space-y-1 pl-1">
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Siêu phẩm Cờ Tỷ Phú 2.5D Isometric, Xây Landmark & Thâu tóm</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Đấu trường Cờ Vua FIDE 8x8 & 4 Cấp độ Bot AI Minimax</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Engine theo dõi phiên bản GitHub REST API & WebSocket Backend</span></div>
@@ -15933,845 +15933,1456 @@ function renderCashStackHTML(amount) {
     // Curated fallback updates in case of offline or GitHub API rate limiting
     const CURATED_CHANGELOG = [
   {
-    "sha": "4ad5271",
+    "sha": "ab441b3",
     "roleType": "dev1",
     "author": "Cường (cuongcuca111-web)",
     "version": "v4.0.8",
-    "title": "fix(layout-exit): optimize responsive navbar to prevent auth cutoff and fix exit confirmation modal action",
+    "title": "Highlight topbar layout & exit modal fix in dev1 pink card",
     "details": [
-      "fix(layout-exit): optimize responsive navbar to prevent auth cutoff and fix exit confirmation modal action",
-      "Mở rộng Fluid Widescreen max-w-[1600px], tích hợp chấm online xanh ngọc trên avatar, chống khuất cụm Đăng nhập",
-      "Khắc phục nút Xác Nhận Thoát, dập tắt vòng lặp guard và dọn dẹp sạch sẽ toàn bộ timers/loops chạy ngầm"
+      "docs(changelog): highlight topbar layout & exit modal fix in dev1 pink card",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-27T11:26:37+07:00"
+    "date": "2026-10-27 11:45:47 +0700"
   },
   {
-    "sha": "7e49b10",
+    "sha": "4ad5271",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v4.0.7",
+    "title": "Optimize responsive navbar to prevent auth cutoff and fix exit confirmation modal action",
+    "details": [
+      "fix(layout-exit): optimize responsive navbar to prevent auth cutoff and fix exit confirmation modal action",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-27 11:26:37 +0700"
+  },
+  {
+    "sha": "6d6f7b4",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v4.0.6",
+    "title": "Zero component overlap - decouple top inspector HUD from airport tile and player pods from cash piles",
+    "details": [
+      "fix(monopoly-v4.1.3): zero component overlap - decouple top inspector HUD from airport tile and player pods from cash piles",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-27 11:24:01 +0700"
+  },
+  {
+    "sha": "f982d41",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v4.0.5",
+    "title": "Calibrate 2.5D perspective translateY compensation so all 4 corners are 100% inside viewport",
+    "details": [
+      "fix(monopoly-v4.1.2): calibrate 2.5D perspective translateY compensation so all 4 corners are 100% inside viewport",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-27 11:09:52 +0700"
+  },
+  {
+    "sha": "190b2d8",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v4.0.4",
+    "title": "Redesign custom SVG icons, clamp game speeds to 1x-2x-3x, and implement clean match exit with confirmation modal",
+    "details": [
+      "feat(core): redesign custom SVG icons, clamp game speeds to 1x-2x-3x, and implement clean match exit with confirmation modal",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-27 10:53:11 +0700"
+  },
+  {
+    "sha": "f035ae6",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v4.0.3",
+    "title": "Maximize board zoom, dock cash piles to corners, and property deed details modal on tile click",
+    "details": [
+      "feat(monopoly-v4.1.1): maximize board zoom, dock cash piles to corners, and property deed details modal on tile click",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-27 10:53:15 +0700"
+  },
+  {
+    "sha": "45691b6",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v4.0.2",
+    "title": "World famous landmarks, color monopoly multipliers by wealth tier x2.0-x4.0, and 35-round balance",
+    "details": [
+      "feat(monopoly-v4.1.0): world famous landmarks, color monopoly multipliers by wealth tier x2.0-x4.0, and 35-round balance",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-27 10:35:33 +0700"
+  },
+  {
+    "sha": "ed241c9",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v4.0.1",
+    "title": "Random destination world tour and remove 8500 net worth victory ceiling",
+    "details": [
+      "feat(monopoly-v4.0.9): random destination world tour and remove 8500 net worth victory ceiling",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-27 10:07:18 +0700"
+  },
+  {
+    "sha": "3fc9c77",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v4.0.0",
+    "title": "Add difficulty-scaled match completion rewards synced with Firestore",
+    "details": [
+      "feat(rewards): add difficulty-scaled match completion rewards synced with Firestore",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-27 09:58:48 +0700"
+  },
+  {
+    "sha": "fb51501",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
     "version": "v4.0.0",
-    "title": "feat(monopoly): 16:9 widescreen responsive layout with zero-scroll and native fullscreen theater mode",
+    "title": "Fix bot ai dice roll timing and watchdog animation guards",
     "details": [
-      "feat(monopoly): 16:9 widescreen responsive layout with zero-scroll and native fullscreen theater mode",
-      "Dynamic board scaling min(64vh, 48vw, 680px) perfectly fitting 100% within one viewport",
-      "Symmetrical 16:9 side wings for 4 player pods and 3D cash piles",
-      "HTML5 Fullscreen API integration with keyboard shortcut F / Esc"
+      "fix(monopoly-v4.0.8): fix bot ai dice roll timing and watchdog animation guards",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-27T08:10:00+07:00"
+    "date": "2026-10-27 09:47:24 +0700"
+  },
+  {
+    "sha": "dcd8b78",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v4.0.0",
+    "title": "Remove robot icon from auto-play toggle buttons and text",
+    "details": [
+      "style(ui): remove robot icon from auto-play toggle buttons and text",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-27 09:33:02 +0700"
+  },
+  {
+    "sha": "aa79cea",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v4.0.0",
+    "title": "Staggered cash transfer and 1500ms suspense dice roll",
+    "details": [
+      "feat(monopoly-v4.0.7): staggered cash transfer and 1500ms suspense dice roll",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-27 09:31:34 +0700"
+  },
+  {
+    "sha": "99c90fc",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v4.0.0",
+    "title": "Merge remote-tracking branch origin/main into main",
+    "details": [
+      "Merge remote-tracking branch origin/main into main",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-27 09:26:51 +0700"
+  },
+  {
+    "sha": "428f1c0",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v4.0.0",
+    "title": "Set default balance to 0 coins 0 gems and calculate real admin stats from database",
+    "details": [
+      "fix(auth-admin): set default balance to 0 coins 0 gems and calculate real admin stats from database",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-27 09:26:06 +0700"
+  },
+  {
+    "sha": "f580ba3",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v4.0.0",
+    "title": "Apply full 3D pearl-canvas money bag and flush gold coin cylinders",
+    "details": [
+      "feat(monopoly-v4.0.6): apply full 3D pearl-canvas money bag and flush gold coin cylinders",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-27 09:19:24 +0700"
+  },
+  {
+    "sha": "927dc1c",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v4.0.0",
+    "title": "Studio 3D pearl-canvas money bag and flush gold coin cylinders",
+    "details": [
+      "feat(monopoly-v4.0.6): studio 3D pearl-canvas money bag and flush gold coin cylinders",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-27 09:17:24 +0700"
+  },
+  {
+    "sha": "b7efc7d",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v4.0.0",
+    "title": "Resolve double-roll freeze, async callback race at 20x speed, and add self-healing watchdog",
+    "details": [
+      "fix(autoplay): resolve double-roll freeze, async callback race at 20x speed, and add self-healing watchdog",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-27 09:05:53 +0700"
+  },
+  {
+    "sha": "a5196a4",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v4.0.0",
+    "title": "3D glossy obsidian pip dice cubes with 3-stage suspense tumble animation (v4.0.5)",
+    "details": [
+      "feat(monopoly): 3D glossy obsidian pip dice cubes with 3-stage suspense tumble animation (v4.0.5)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-27 08:52:37 +0700"
+  },
+  {
+    "sha": "98bc345",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v4.0.0",
+    "title": "Suppress blocking popups and cash transfer modals during auto-play mode",
+    "details": [
+      "fix(autoplay): suppress blocking popups and cash transfer modals during auto-play mode",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-27 08:43:23 +0700"
+  },
+  {
+    "sha": "2d9fcc1",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v4.0.0",
+    "title": "16:9 widescreen layout with zero-scroll and native fullscreen theater mode (v4.0.0)",
+    "details": [
+      "feat(monopoly): 16:9 widescreen layout with zero-scroll and native fullscreen theater mode (v4.0.0)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-27 08:23:29 +0700"
+  },
+  {
+    "sha": "6bd15e1",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v3.1.74",
+    "title": "Implement v3.9.5 full polish - centered 2.5D houses, 3D prison model, dynamic wealth piles, and comprehensive asset management (mortgage, sell house, bankruptcy)",
+    "details": [
+      "feat(monopoly): implement v3.9.5 full polish - centered 2.5D houses, 3D prison model, dynamic wealth piles, and comprehensive asset management (mortgage, sell house, bankruptcy)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-27 07:33:06 +0700"
+  },
+  {
+    "sha": "35efcb0",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.73",
+    "title": "Add real-time P2P step-by-step animation sync, 1x-25x speed control, and toggleable auto-play",
+    "details": [
+      "feat(gameplay): add real-time P2P step-by-step animation sync, 1x-25x speed control, and toggleable auto-play",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-27 00:09:53 +0700"
+  },
+  {
+    "sha": "c54a361",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.72",
+    "title": "Implement real cross-device P2P gameplay sync and disable bots in human rooms",
+    "details": [
+      "feat(multiplayer): implement real cross-device P2P gameplay sync and disable bots in human rooms",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-26 23:41:32 +0700"
+  },
+  {
+    "sha": "9100a3c",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.71",
+    "title": "Add room creation, code join, and direct invite link system",
+    "details": [
+      "feat(multiplayer): add room creation, code join, and direct invite link system",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-26 23:15:15 +0700"
+  },
+  {
+    "sha": "8b36270",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.70",
+    "title": "Ensure circuit board tiles render reliably on entry and in switchGameView",
+    "details": [
+      "fix(arena): ensure circuit board tiles render reliably on entry and in switchGameView",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-26 23:02:44 +0700"
+  },
+  {
+    "sha": "8396e6b",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v3.1.69",
+    "title": "Render 3D canvas money bag and gold coin stacks, 60fps GPU animations, and expand board to 44 tiles (+2 per edge, v3.9.2)",
+    "details": [
+      "feat(monopoly): render 3D canvas money bag and gold coin stacks, 60fps GPU animations, and expand board to 44 tiles (+2 per edge, v3.9.2)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-26 22:54:18 +0700"
+  },
+  {
+    "sha": "0146016",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v3.1.68",
+    "title": "Overhaul 2.5D Business Tour buildings, standing character figurines, fast-paced economy and takeover mechanics (v3.9.0)",
+    "details": [
+      "feat(monopoly): overhaul 2.5D Business Tour buildings, standing character figurines, fast-paced economy and takeover mechanics (v3.9.0)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-26 22:47:06 +0700"
+  },
+  {
+    "sha": "576a417",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.67",
+    "title": "Merge: resolve merge with origin/main preserving profile modal revamp",
+    "details": [
+      "merge: resolve merge with origin/main preserving profile modal revamp",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-26 22:33:55 +0700"
+  },
+  {
+    "sha": "a0d9c23",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.66",
+    "title": "Revamp player profile modal with cyberpunk glassmorphism, rank tier, and interactive skin vault",
+    "details": [
+      "feat(profile): revamp player profile modal with cyberpunk glassmorphism, rank tier, and interactive skin vault",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-26 22:31:10 +0700"
+  },
+  {
+    "sha": "e55fa08",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v3.1.65",
+    "title": "Add iron jail gate slam animation and Business Tour 3D isometric house models (v3.8.5)",
+    "details": [
+      "feat(monopoly): add iron jail gate slam animation and Business Tour 3D isometric house models (v3.8.5)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-26 22:12:24 +0700"
+  },
+  {
+    "sha": "c433169",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.64",
+    "title": "Allow Bot AI to execute rollDiceQuest in bot match mode",
+    "details": [
+      "fix(bot): allow Bot AI to execute rollDiceQuest in bot match mode",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-26 22:13:34 +0700"
+  },
+  {
+    "sha": "5f5ae6a",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.63",
+    "title": "Lock 3x3 cells to strict 1:1 aspect ratio with grid-rows-3 to prevent uneven row heights",
+    "details": [
+      "fix(tictactoe): lock 3x3 cells to strict 1:1 aspect ratio with grid-rows-3 to prevent uneven row heights",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-26 22:02:58 +0700"
+  },
+  {
+    "sha": "05211dc",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.62",
+    "title": "Close mainViewArena div container and verify 100% balance",
+    "details": [
+      "fix(layout): close mainViewArena div container and verify 100% balance",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-26 21:52:19 +0700"
+  },
+  {
+    "sha": "994d1ce",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.61",
+    "title": "Merge: integrate Thai's Monopoly v3.8.0 updates with real Cloud Firestore Admin synchronization",
+    "details": [
+      "merge: integrate Thai's Monopoly v3.8.0 updates with real Cloud Firestore Admin synchronization",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-26 21:46:52 +0700"
+  },
+  {
+    "sha": "aaffbae",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.60",
+    "title": "Replace mock users with 100% real Cloud Firestore synchronization and two-way persistence",
+    "details": [
+      "feat(admin): replace mock users with 100% real Cloud Firestore synchronization and two-way persistence",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-26 21:46:18 +0700"
+  },
+  {
+    "sha": "a122af1",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v3.1.59",
+    "title": "Implement commercial jet airplane flyby on airport tile and dynamic cash transfer into the bank/opponent (v3.8.0)",
+    "details": [
+      "feat(monopoly): implement commercial jet airplane flyby on airport tile and dynamic cash transfer into the bank/opponent (v3.8.0)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-26 20:56:39 +0700"
+  },
+  {
+    "sha": "42d2e4d",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v3.1.58",
+    "title": "Upgrade dice rolling into screen-space action hub with arcade tactile button, clickable dice tray, turf hit area, and spacebar hotkey (v3.7.6)",
+    "details": [
+      "feat(monopoly): upgrade dice rolling into screen-space action hub with arcade tactile button, clickable dice tray, turf hit area, and spacebar hotkey (v3.7.6)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-26 20:36:40 +0700"
+  },
+  {
+    "sha": "e9a5526",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v3.1.57",
+    "title": "Apply 25-degree diagonal slant with 30-degree tabletop tilt (v3.7.5)",
+    "details": [
+      "feat(monopoly): apply 25-degree diagonal slant with 30-degree tabletop tilt (v3.7.5)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-26 20:13:23 +0700"
+  },
+  {
+    "sha": "210d485",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v3.1.56",
+    "title": "Close arena container properly to align pawns on start tile (v3.7.4)",
+    "details": [
+      "fix(monopoly): close arena container properly to align pawns on start tile (v3.7.4)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-26 19:42:58 +0700"
+  },
+  {
+    "sha": "653d479",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v3.1.55",
+    "title": "Fix unclickable decision buttons, enlarge dice button hit area, and adjust 2.5D tilt to 30 degrees (v3.7.4)",
+    "details": [
+      "fix(monopoly): fix unclickable decision buttons, enlarge dice button hit area, and adjust 2.5D tilt to 30 degrees (v3.7.4)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-26 19:34:58 +0700"
+  },
+  {
+    "sha": "76195b4",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v3.1.54",
+    "title": "Resolve source leaking past html tag, remove tile name truncation, and add live property HUD inspector (v3.7.3)",
+    "details": [
+      "fix(monopoly): resolve source leaking past html tag, remove tile name truncation, and add live property HUD inspector (v3.7.3)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-26 18:20:51 +0700"
+  },
+  {
+    "sha": "71096c0",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v3.1.53",
+    "title": "Comprehensive non-display logic fixes for rent order, creditor asset transfer, doubles rule, and timers cleanup (v3.7.2)",
+    "details": [
+      "fix(monopoly): comprehensive non-display logic fixes for rent order, creditor asset transfer, doubles rule, and timers cleanup (v3.7.2)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-26 17:56:17 +0700"
+  },
+  {
+    "sha": "8b46d80",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v3.1.52",
+    "title": "Comprehensive audit fixes for bot jail freeze, decision box clipping, bankrupt recovery, and currency formatting (v3.7.1)",
+    "details": [
+      "fix(monopoly): comprehensive audit fixes for bot jail freeze, decision box clipping, bankrupt recovery, and currency formatting (v3.7.1)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-26 17:47:01 +0700"
+  },
+  {
+    "sha": "139cf3c",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v3.1.51",
+    "title": "Implement 2.5D diamond isometric board, upright 3D houses, and active player beacon (v3.7.0)",
+    "details": [
+      "feat(monopoly): implement 2.5D diamond isometric board, upright 3D houses, and active player beacon (v3.7.0)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-26 17:22:49 +0700"
+  },
+  {
+    "sha": "70fbeb2",
+    "roleType": "dev2",
+    "author": "Thái (thaitraicau123-pixel)",
+    "version": "v3.1.50",
+    "title": "Implement 4-player multiplayer and up to 3 AI bots support (v3.6.0)",
+    "details": [
+      "feat(monopoly): implement 4-player multiplayer and up to 3 AI bots support (v3.6.0)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
+    ],
+    "date": "2026-10-26 16:34:30 +0700"
+  },
+  {
+    "sha": "50ef3b7",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.49",
+    "title": "Split-screen 50/50 dual windows for game board and live tactical inspector",
+    "details": [
+      "feat(ui): split-screen 50/50 dual windows for game board and live tactical inspector",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-26 16:26:02 +0700"
+  },
+  {
+    "sha": "18b2e97",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.48",
+    "title": "Uncap commit limit to 100+ and rebrand dev profiles to Thai (Blue) and Cuong (Pink)",
+    "details": [
+      "feat(changelog): uncap commit limit to 100+ and rebrand dev profiles to Thai (Blue) and Cuong (Pink)",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-26 16:08:28 +0700"
   },
   {
     "sha": "55a8a4a",
     "roleType": "dev1",
     "author": "Cường (cuongcuca111-web)",
-    "version": "v3.74.0",
-    "title": "fix(stats): remove duplicate recordBotMatchWin call and guard dice-only victory logging",
+    "version": "v3.1.47",
+    "title": "Remove duplicate recordBotMatchWin call and guard dice-only victory logging",
     "details": [
-      "fix(stats): remove duplicate recordBotMatchWin call and guard dice-only victory logging"
+      "fix(stats): remove duplicate recordBotMatchWin call and guard dice-only victory logging",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T16:02:25+07:00"
+    "date": "2026-10-26 16:02:25 +0700"
   },
   {
     "sha": "8763d44",
     "roleType": "dev1",
     "author": "Cường (cuongcuca111-web)",
-    "version": "v3.73.0",
-    "title": "feat(bot-tactics): add individual bot inspector tabs, action statuses, and rivalry feud grudge matrix",
+    "version": "v3.1.46",
+    "title": "Add individual bot inspector tabs, action statuses, and rivalry feud grudge matrix",
     "details": [
-      "feat(bot-tactics): add individual bot inspector tabs, action statuses, and rivalry feud grudge matrix"
+      "feat(bot-tactics): add individual bot inspector tabs, action statuses, and rivalry feud grudge matrix",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T15:58:36+07:00"
+    "date": "2026-10-26 15:58:36 +0700"
   },
   {
     "sha": "7817212",
     "roleType": "dev1",
     "author": "Cường (cuongcuca111-web)",
-    "version": "v3.72.0",
-    "title": "feat(tactical-log-duel): expand battle log with feed stream, concise messages, and silent spectator duels",
+    "version": "v3.1.45",
+    "title": "Expand battle log with feed stream, concise messages, and silent spectator duels",
     "details": [
-      "feat(tactical-log-duel): expand battle log with feed stream, concise messages, and silent spectator duels"
+      "feat(tactical-log-duel): expand battle log with feed stream, concise messages, and silent spectator duels",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T15:50:14+07:00"
+    "date": "2026-10-26 15:50:14 +0700"
   },
   {
     "sha": "b7de13e",
     "roleType": "dev1",
     "author": "Cường (cuongcuca111-web)",
-    "version": "v3.71.0",
-    "title": "fix(script-tdz): resolve temporal dead zone ReferenceError, balance DOM divs and add defensive guards (Solution B)",
+    "version": "v3.1.44",
+    "title": "Resolve temporal dead zone ReferenceError, balance DOM divs and add defensive guards (Solution B)",
     "details": [
-      "fix(script-tdz): resolve temporal dead zone ReferenceError, balance DOM divs and add defensive guards (Solution B)"
+      "fix(script-tdz): resolve temporal dead zone ReferenceError, balance DOM divs and add defensive guards (Solution B)",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T15:35:33+07:00"
+    "date": "2026-10-26 15:35:33 +0700"
   },
   {
     "sha": "e37bcab",
     "roleType": "dev1",
     "author": "Cường (cuongcuca111-web)",
-    "version": "v3.70.0",
-    "title": "feat(tactical-gameplay): integrate bot thought inspector tab, individual bot resets, and counter-pick mechanics",
+    "version": "v3.1.43",
+    "title": "Integrate bot thought inspector tab, individual bot resets, and counter-pick mechanics",
     "details": [
-      "feat(tactical-gameplay): integrate bot thought inspector tab, individual bot resets, and counter-pick mechanics"
+      "feat(tactical-gameplay): integrate bot thought inspector tab, individual bot resets, and counter-pick mechanics",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T15:15:37+07:00"
+    "date": "2026-10-26 15:15:37 +0700"
   },
   {
     "sha": "27f34e5",
     "roleType": "dev1",
     "author": "Cường (cuongcuca111-web)",
-    "version": "v3.69.0",
-    "title": "feat(dice-arena): implement full all-in-one skill suite (timing bar, 3 active skills, pvp duel modal, 4 maps, hero classes, bot reasoning & adaptive learning)",
+    "version": "v3.1.42",
+    "title": "Implement full all-in-one skill suite (timing bar, 3 active skills, pvp duel modal, 4 maps, hero classes, bot reasoning & adaptive learning)",
     "details": [
-      "feat(dice-arena): implement full all-in-one skill suite (timing bar, 3 active skills, pvp duel modal, 4 maps, hero classes, bot reasoning & adaptive learning)"
+      "feat(dice-arena): implement full all-in-one skill suite (timing bar, 3 active skills, pvp duel modal, 4 maps, hero classes, bot reasoning & adaptive learning)",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T15:09:13+07:00"
+    "date": "2026-10-26 15:09:13 +0700"
   },
   {
     "sha": "f229c78",
     "roleType": "dev1",
     "author": "Cường (cuongcuca111-web)",
-    "version": "v3.68.0",
-    "title": "feat(arena): upgrade to Grand Map 6x6 (20 tiles), implement Knockback Clash, Warp Portals, Fortune Mystery and Graviton Prison",
+    "version": "v3.1.41",
+    "title": "Upgrade to Grand Map 6x6 (20 tiles), implement Knockback Clash, Warp Portals, Fortune Mystery and Graviton Prison",
     "details": [
-      "feat(arena): upgrade to Grand Map 6x6 (20 tiles), implement Knockback Clash, Warp Portals, Fortune Mystery and Graviton Prison"
+      "feat(arena): upgrade to Grand Map 6x6 (20 tiles), implement Knockback Clash, Warp Portals, Fortune Mystery and Graviton Prison",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T14:38:17+07:00"
+    "date": "2026-10-26 14:38:17 +0700"
   },
   {
     "sha": "ba96057",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.67.0",
-    "title": "fix(monopoly): hook mode and new match controls, unhide decision modal, automate bot AI and enlarge unclipped 2.5D board (v3.5.0)",
+    "version": "v3.1.40",
+    "title": "Hook mode and new match controls, unhide decision modal, automate bot AI and enlarge unclipped 2.5D board (v3.5.0)",
     "details": [
-      "fix(monopoly): hook mode and new match controls, unhide decision modal, automate bot AI and enlarge unclipped 2.5D board (v3.5.0)"
+      "fix(monopoly): hook mode and new match controls, unhide decision modal, automate bot AI and enlarge unclipped 2.5D board (v3.5.0)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T13:55:58+07:00"
+    "date": "2026-10-26 13:55:58 +0700"
   },
   {
     "sha": "b7adf6c",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.66.0",
-    "title": "feat(monopoly): upgrade to 2.5D isometric view, fix start tile pos and implement authentic rules (v3.4.0)",
+    "version": "v3.1.39",
+    "title": "Upgrade to 2.5D isometric view, fix start tile pos and implement authentic rules (v3.4.0)",
     "details": [
-      "feat(monopoly): upgrade to 2.5D isometric view, fix start tile pos and implement authentic rules (v3.4.0)"
+      "feat(monopoly): upgrade to 2.5D isometric view, fix start tile pos and implement authentic rules (v3.4.0)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T13:42:16+07:00"
+    "date": "2026-10-26 13:42:16 +0700"
   },
   {
     "sha": "5d19737",
     "roleType": "dev1",
     "author": "Cường (cuongcuca111-web)",
-    "version": "v3.65.0",
-    "title": "feat(monopoly): overhaul 2D arena with cyber sapphire theme, scientific bento HUD and non-intrusive dialogs (v3.3.0)",
+    "version": "v3.1.38",
+    "title": "Overhaul 2D arena with cyber sapphire theme, scientific bento HUD and non-intrusive dialogs (v3.3.0)",
     "details": [
-      "feat(monopoly): overhaul 2D arena with cyber sapphire theme, scientific bento HUD and non-intrusive dialogs (v3.3.0)"
+      "feat(monopoly): overhaul 2D arena with cyber sapphire theme, scientific bento HUD and non-intrusive dialogs (v3.3.0)",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T13:03:09+07:00"
+    "date": "2026-10-26 13:03:09 +0700"
   },
   {
     "sha": "b369f9d",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.64.0",
-    "title": "feat(monopoly): add 3D mini houses, big legible fonts, and animated pop-up system (v3.2.0)",
+    "version": "v3.1.37",
+    "title": "Add 3D mini houses, big legible fonts, and animated pop-up system (v3.2.0)",
     "details": [
-      "feat(monopoly): add 3D mini houses, big legible fonts, and animated pop-up system (v3.2.0)"
+      "feat(monopoly): add 3D mini houses, big legible fonts, and animated pop-up system (v3.2.0)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T12:56:40+07:00"
+    "date": "2026-10-26 12:56:40 +0700"
   },
   {
     "sha": "13c9edc",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.63.0",
-    "title": "feat(monopoly): implement full 2D classic retro board matching reference design (v3.1.0)",
+    "version": "v3.1.36",
+    "title": "Implement full 2D classic retro board matching reference design (v3.1.0)",
     "details": [
-      "feat(monopoly): implement full 2D classic retro board matching reference design (v3.1.0)"
+      "feat(monopoly): implement full 2D classic retro board matching reference design (v3.1.0)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T12:37:34+07:00"
+    "date": "2026-10-26 12:37:34 +0700"
   },
   {
     "sha": "0b19643",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.62.0",
-    "title": "fix(monopoly): resolve module scope isolation and restore upright 2.5D isometric tiles and dice (v3.0.3)",
+    "version": "v3.1.35",
+    "title": "Resolve module scope isolation and restore upright 2.5D isometric tiles and dice (v3.0.3)",
     "details": [
-      "fix(monopoly): resolve module scope isolation and restore upright 2.5D isometric tiles and dice (v3.0.3)"
+      "fix(monopoly): resolve module scope isolation and restore upright 2.5D isometric tiles and dice (v3.0.3)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T12:18:41+07:00"
+    "date": "2026-10-26 12:18:41 +0700"
   },
   {
     "sha": "ea43234",
     "roleType": "dev1",
     "author": "Cường (cuongcuca111-web)",
-    "version": "v3.61.0",
-    "title": "fix(ui): cleanly hide monopoly board on exiting to lobby and restore clean bento grid",
+    "version": "v3.1.34",
+    "title": "Cleanly hide monopoly board on exiting to lobby and restore clean bento grid",
     "details": [
-      "fix(ui): cleanly hide monopoly board on exiting to lobby and restore clean bento grid"
+      "fix(ui): cleanly hide monopoly board on exiting to lobby and restore clean bento grid",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T12:11:48+07:00"
+    "date": "2026-10-26 12:11:48 +0700"
   },
   {
     "sha": "0b71ad7",
     "roleType": "dev1",
     "author": "Cường (cuongcuca111-web)",
-    "version": "v3.60.0",
-    "title": "feat(ui): filter and route changelog accurately for cuongcuca111-web (Purple Dev)",
+    "version": "v3.1.33",
+    "title": "Filter and route changelog accurately for cuongcuca111-web (Purple Dev)",
     "details": [
-      "feat(ui): filter and route changelog accurately for cuongcuca111-web (Purple Dev)"
+      "feat(ui): filter and route changelog accurately for cuongcuca111-web (Purple Dev)",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T11:59:16+07:00"
+    "date": "2026-10-26 11:59:16 +0700"
   },
   {
     "sha": "4b0ef87",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.59.0",
-    "title": "feat(ui): redesign rules with scientific bento grid & custom vector svg icon suite",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.32",
+    "title": "Redesign rules with scientific bento grid & custom vector svg icon suite",
     "details": [
-      "feat(ui): redesign rules with scientific bento grid & custom vector svg icon suite"
+      "feat(ui): redesign rules with scientific bento grid & custom vector svg icon suite",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T11:49:39+07:00"
+    "date": "2026-10-26 11:49:39 +0700"
   },
   {
     "sha": "8bf1626",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.58.0",
-    "title": "fix(arena): fix game switcher bar z-index clipping and add missing monopoly handler in switchGameView (v3.0.2)",
+    "version": "v3.1.31",
+    "title": "Fix game switcher bar z-index clipping and add missing monopoly handler in switchGameView (v3.0.2)",
     "details": [
-      "fix(arena): fix game switcher bar z-index clipping and add missing monopoly handler in switchGameView (v3.0.2)"
+      "fix(arena): fix game switcher bar z-index clipping and add missing monopoly handler in switchGameView (v3.0.2)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T11:46:52+07:00"
+    "date": "2026-10-26 11:46:52 +0700"
   },
   {
     "sha": "b73d509",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.57.0",
-    "title": "feat(lobby): display Cờ Tỷ Phú 2.5D card in main lobby and add quick game switcher in arena (v3.0.1)",
+    "version": "v3.1.30",
+    "title": "Display Cờ Tỷ Phú 2.5D card in main lobby and add quick game switcher in arena (v3.0.1)",
     "details": [
-      "feat(lobby): display Cờ Tỷ Phú 2.5D card in main lobby and add quick game switcher in arena (v3.0.1)"
+      "feat(lobby): display Cờ Tỷ Phú 2.5D card in main lobby and add quick game switcher in arena (v3.0.1)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T11:35:50+07:00"
+    "date": "2026-10-26 11:35:50 +0700"
   },
   {
     "sha": "27421cf",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.56.0",
-    "title": "feat(motion): add 60fps GPU view transitions, spring-pop modal animations, and smooth dropdown bloom",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.29",
+    "title": "Add 60fps GPU view transitions, spring-pop modal animations, and smooth dropdown bloom",
     "details": [
-      "feat(motion): add 60fps GPU view transitions, spring-pop modal animations, and smooth dropdown bloom"
+      "feat(motion): add 60fps GPU view transitions, spring-pop modal animations, and smooth dropdown bloom",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T11:30:55+07:00"
+    "date": "2026-10-26 11:30:55 +0700"
   },
   {
     "sha": "da0ae27",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.55.0",
-    "title": "feat(monopoly): introduce 2.5D isometric billionaire board game with 3D dice, landmarks & buyout mechanics (v3.0.0)",
+    "version": "v3.1.28",
+    "title": "Introduce 2.5D isometric billionaire board game with 3D dice, landmarks & buyout mechanics (v3.0.0)",
     "details": [
-      "feat(monopoly): introduce 2.5D isometric billionaire board game with 3D dice, landmarks & buyout mechanics (v3.0.0)"
+      "feat(monopoly): introduce 2.5D isometric billionaire board game with 3D dice, landmarks & buyout mechanics (v3.0.0)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T11:25:01+07:00"
+    "date": "2026-10-26 11:25:01 +0700"
   },
   {
     "sha": "b1d343a",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.54.0",
-    "title": "fix(tictactoe): overhaul mobile UX, add in-card action bar, fix badge wrapping & implement setTTTOpponent",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.27",
+    "title": "Overhaul mobile UX, add in-card action bar, fix badge wrapping & implement setTTTOpponent",
     "details": [
-      "fix(tictactoe): overhaul mobile UX, add in-card action bar, fix badge wrapping & implement setTTTOpponent"
+      "fix(tictactoe): overhaul mobile UX, add in-card action bar, fix badge wrapping & implement setTTTOpponent",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T11:19:50+07:00"
+    "date": "2026-10-26 11:19:50 +0700"
   },
   {
     "sha": "a4abe58",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.53.0",
-    "title": "fix(ui): redesign header navigation bar, eliminate squished text and remove overlapping badges (v2.9.3)",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.26",
+    "title": "Redesign header navigation bar, eliminate squished text and remove overlapping badges (v2.9.3)",
     "details": [
-      "fix(ui): redesign header navigation bar, eliminate squished text and remove overlapping badges (v2.9.3)"
+      "fix(ui): redesign header navigation bar, eliminate squished text and remove overlapping badges (v2.9.3)",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T11:07:18+07:00"
+    "date": "2026-10-26 11:07:18 +0700"
   },
   {
     "sha": "84cf10d",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.52.0",
-    "title": "perf(spectator): suppress toast popups at match end, eliminate forced layout thrashing, and optimize 60fps meeple render",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.25",
+    "title": "Suppress toast popups at match end, eliminate forced layout thrashing, and optimize 60fps meeple render",
     "details": [
-      "perf(spectator): suppress toast popups at match end, eliminate forced layout thrashing, and optimize 60fps meeple render"
+      "perf(spectator): suppress toast popups at match end, eliminate forced layout thrashing, and optimize 60fps meeple render",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T11:05:15+07:00"
+    "date": "2026-10-26 11:05:15 +0700"
   },
   {
     "sha": "1b74578",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.51.0",
-    "title": "fix(ui): eliminate horizontal overflow scrollbar with strict zero-overflow viewport fit and responsive header (v2.9.2)",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.24",
+    "title": "Eliminate horizontal overflow scrollbar with strict zero-overflow viewport fit and responsive header (v2.9.2)",
     "details": [
-      "fix(ui): eliminate horizontal overflow scrollbar with strict zero-overflow viewport fit and responsive header (v2.9.2)"
+      "fix(ui): eliminate horizontal overflow scrollbar with strict zero-overflow viewport fit and responsive header (v2.9.2)",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T10:59:57+07:00"
+    "date": "2026-10-26 10:59:57 +0700"
   },
   {
     "sha": "f124802",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.50.0",
-    "title": "feat(ui): restore spectator mode with 1x-100x speed controls (Image 1) and unify all fonts to Plus Jakarta Sans (Image 2)",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.23",
+    "title": "Restore spectator mode with 1x-100x speed controls (Image 1) and unify all fonts to Plus Jakarta Sans (Image 2)",
     "details": [
-      "feat(ui): restore spectator mode with 1x-100x speed controls (Image 1) and unify all fonts to Plus Jakarta Sans (Image 2)"
+      "feat(ui): restore spectator mode with 1x-100x speed controls (Image 1) and unify all fonts to Plus Jakarta Sans (Image 2)",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T10:53:35+07:00"
+    "date": "2026-10-26 10:53:35 +0700"
   },
   {
     "sha": "9962ee5",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.49.0",
-    "title": "feat(firebase): integrate official colap-c2e9c credentials and firestore sync engine (v2.9.1)",
+    "version": "v3.1.22",
+    "title": "Integrate official colap-c2e9c credentials and firestore sync engine (v2.9.1)",
     "details": [
-      "feat(firebase): integrate official colap-c2e9c credentials and firestore sync engine (v2.9.1)"
+      "feat(firebase): integrate official colap-c2e9c credentials and firestore sync engine (v2.9.1)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T10:37:35+07:00"
+    "date": "2026-10-26 10:37:35 +0700"
   },
   {
     "sha": "9d9a4b8",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.48.0",
-    "title": "feat(firebase): integrate colap-c2e9c project with interactive config connector and firestore engine (v2.9.0)",
+    "version": "v3.1.21",
+    "title": "Integrate colap-c2e9c project with interactive config connector and firestore engine (v2.9.0)",
     "details": [
-      "feat(firebase): integrate colap-c2e9c project with interactive config connector and firestore engine (v2.9.0)"
+      "feat(firebase): integrate colap-c2e9c project with interactive config connector and firestore engine (v2.9.0)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T10:29:56+07:00"
+    "date": "2026-10-26 10:29:56 +0700"
   },
   {
     "sha": "3ac31b0",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.47.0",
-    "title": "fix(chess): prevent screen freeze on check/capture with try-finally cleanup and missing sound handler (v2.8.2)",
+    "version": "v3.1.20",
+    "title": "Prevent screen freeze on check/capture with try-finally cleanup and missing sound handler (v2.8.2)",
     "details": [
-      "fix(chess): prevent screen freeze on check/capture with try-finally cleanup and missing sound handler (v2.8.2)"
+      "fix(chess): prevent screen freeze on check/capture with try-finally cleanup and missing sound handler (v2.8.2)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T10:26:22+07:00"
+    "date": "2026-10-26 10:26:22 +0700"
   },
   {
     "sha": "345e48e",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.46.0",
-    "title": "feat(chess): authentic tournament vector pieces (SVG) and cinematic bokeh slow-mo edit matching viral reels (v2.8.1)",
+    "version": "v3.1.19",
+    "title": "Authentic tournament vector pieces (SVG) and cinematic bokeh slow-mo edit matching viral reels (v2.8.1)",
     "details": [
-      "feat(chess): authentic tournament vector pieces (SVG) and cinematic bokeh slow-mo edit matching viral reels (v2.8.1)"
+      "feat(chess): authentic tournament vector pieces (SVG) and cinematic bokeh slow-mo edit matching viral reels (v2.8.1)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T10:18:59+07:00"
+    "date": "2026-10-26 10:18:59 +0700"
   },
   {
     "sha": "d299aab",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.45.0",
-    "title": "feat(chess): add cinematic slow-mo, piece lift & slam, and background spotlight blur for captures and checks (v2.8.0)",
+    "version": "v3.1.18",
+    "title": "Add cinematic slow-mo, piece lift & slam, and background spotlight blur for captures and checks (v2.8.0)",
     "details": [
-      "feat(chess): add cinematic slow-mo, piece lift & slam, and background spotlight blur for captures and checks (v2.8.0)"
+      "feat(chess): add cinematic slow-mo, piece lift & slam, and background spotlight blur for captures and checks (v2.8.0)",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T10:10:04+07:00"
+    "date": "2026-10-26 10:10:04 +0700"
   },
   {
     "sha": "70f2f36",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.44.0",
-    "title": "refactor(ui): remove redundant game pill from match console, streamline into single-row ergonomic bento bar",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.17",
+    "title": "Refactor(ui): remove redundant game pill from match console, streamline into single-row ergonomic bento bar",
     "details": [
-      "refactor(ui): remove redundant game pill from match console, streamline into single-row ergonomic bento bar"
+      "refactor(ui): remove redundant game pill from match console, streamline into single-row ergonomic bento bar",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T02:14:22+07:00"
+    "date": "2026-10-26 02:14:22 +0700"
   },
   {
     "sha": "02b55bc",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.43.0",
-    "title": "feat(ui): context-aware game controls separation for dice, chess and tictactoe",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.16",
+    "title": "Context-aware game controls separation for dice, chess and tictactoe",
     "details": [
-      "feat(ui): context-aware game controls separation for dice, chess and tictactoe"
+      "feat(ui): context-aware game controls separation for dice, chess and tictactoe",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T02:05:34+07:00"
+    "date": "2026-10-26 02:05:34 +0700"
   },
   {
     "sha": "888026f",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.42.0",
-    "title": "feat(ui): grandmaster main lobby game selector hub & two-way navigation",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.15",
+    "title": "Grandmaster main lobby game selector hub & two-way navigation",
     "details": [
-      "feat(ui): grandmaster main lobby game selector hub & two-way navigation"
+      "feat(ui): grandmaster main lobby game selector hub & two-way navigation",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T01:57:17+07:00"
+    "date": "2026-10-26 01:57:17 +0700"
   },
   {
     "sha": "6ee3188",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.41.0",
-    "title": "feat(spectator): 100x max simulation speed, real-time bot win rate benchmark & seamless non-blocking auto-restart",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.14",
+    "title": "100x max simulation speed, real-time bot win rate benchmark & seamless non-blocking auto-restart",
     "details": [
-      "feat(spectator): 100x max simulation speed, real-time bot win rate benchmark & seamless non-blocking auto-restart"
+      "feat(spectator): 100x max simulation speed, real-time bot win rate benchmark & seamless non-blocking auto-restart",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T01:52:18+07:00"
+    "date": "2026-10-26 01:52:18 +0700"
   },
   {
     "sha": "2ee5c24",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.40.0",
-    "title": "merge: integrate luxury UI redesign (bespoke SVG logo, favicon, 12 vector board tiles) with Royal Chess 8x8 FIDE",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.13",
+    "title": "Merge: integrate luxury UI redesign (bespoke SVG logo, favicon, 12 vector board tiles) with Royal Chess 8x8 FIDE",
     "details": [
-      "merge: integrate luxury UI redesign (bespoke SVG logo, favicon, 12 vector board tiles) with Royal Chess 8x8 FIDE"
+      "merge: integrate luxury UI redesign (bespoke SVG logo, favicon, 12 vector board tiles) with Royal Chess 8x8 FIDE",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T01:47:41+07:00"
+    "date": "2026-10-26 01:47:41 +0700"
   },
   {
     "sha": "876fd95",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.39.0",
-    "title": "feat(ui): bespoke luxury logo & favicon, 100% vector SVG game icons & board redesign",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.12",
+    "title": "Bespoke luxury logo & favicon, 100% vector SVG game icons & board redesign",
     "details": [
-      "feat(ui): bespoke luxury logo & favicon, 100% vector SVG game icons & board redesign"
+      "feat(ui): bespoke luxury logo & favicon, 100% vector SVG game icons & board redesign",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T01:45:51+07:00"
+    "date": "2026-10-26 01:45:51 +0700"
   },
   {
     "sha": "f633203",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.38.0",
-    "title": "feat(chess): launch Royal Chess 8x8 FIDE arena with 4-tier Elo bots (800-2000+) & 2-player modes",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.11",
+    "title": "Launch Royal Chess 8x8 FIDE arena with 4-tier Elo bots (800-2000+) & 2-player modes",
     "details": [
-      "feat(chess): launch Royal Chess 8x8 FIDE arena with 4-tier Elo bots (800-2000+) & 2-player modes"
+      "feat(chess): launch Royal Chess 8x8 FIDE arena with 4-tier Elo bots (800-2000+) & 2-player modes",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T01:44:26+07:00"
+    "date": "2026-10-26 01:44:26 +0700"
   },
   {
     "sha": "7b3f90a",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.37.0",
-    "title": "test: kiem tra dong bo tu dong giua 2 may thanh cong",
+    "version": "v3.1.10",
+    "title": "Test: kiem tra dong bo tu dong giua 2 may thanh cong",
     "details": [
-      "test: kiem tra dong bo tu dong giua 2 may thanh cong"
+      "test: kiem tra dong bo tu dong giua 2 may thanh cong",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T01:23:29+07:00"
+    "date": "2026-10-26 01:23:29 +0700"
   },
   {
     "sha": "332c8fd",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.36.0",
-    "title": "chore(collab): enforce 100% autonomous auto-git-sync rules in GEMINI.md, AGENTS.md, and add one-time auto git config script",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.9",
+    "title": "Enforce 100% autonomous auto-git-sync rules in GEMINI.md, AGENTS.md, and add one-time auto git config script",
     "details": [
-      "chore(collab): enforce 100% autonomous auto-git-sync rules in GEMINI.md, AGENTS.md, and add one-time auto git config script"
+      "chore(collab): enforce 100% autonomous auto-git-sync rules in GEMINI.md, AGENTS.md, and add one-time auto git config script",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T01:16:24+07:00"
+    "date": "2026-10-26 01:16:24 +0700"
   },
   {
     "sha": "9fcb43f",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.35.0",
-    "title": "merge main",
+    "version": "v3.1.8",
+    "title": "Merge main",
     "details": [
-      "merge main"
+      "merge main",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T01:12:04+07:00"
+    "date": "2026-10-26 01:12:04 +0700"
   },
   {
     "sha": "08e1180",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.34.0",
-    "title": "chore(sync): ensure sync.bat runs in script directory",
+    "version": "v3.1.7",
+    "title": "Ensure sync.bat runs in script directory",
     "details": [
-      "chore(sync): ensure sync.bat runs in script directory"
+      "chore(sync): ensure sync.bat runs in script directory",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T01:06:23+07:00"
+    "date": "2026-10-26 01:06:23 +0700"
   },
   {
     "sha": "53fbb3c",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.33.0",
-    "title": "chore(collab): add auto git sync protocol in AGENTS.md, GEMINI.md and 1-click sync.bat",
+    "version": "v3.1.6",
+    "title": "Add auto git sync protocol in AGENTS.md, GEMINI.md and 1-click sync.bat",
     "details": [
-      "chore(collab): add auto git sync protocol in AGENTS.md, GEMINI.md and 1-click sync.bat"
+      "chore(collab): add auto git sync protocol in AGENTS.md, GEMINI.md and 1-click sync.bat",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T01:06:01+07:00"
+    "date": "2026-10-26 01:06:01 +0700"
   },
   {
     "sha": "3d7cb59",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.32.0",
-    "title": "feat(collab): merge latest v2.6.0 with multi-bot arena, spectator mode, and live version tracker",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.5",
+    "title": "Merge latest v2.6.0 with multi-bot arena, spectator mode, and live version tracker",
     "details": [
-      "feat(collab): merge latest v2.6.0 with multi-bot arena, spectator mode, and live version tracker"
+      "feat(collab): merge latest v2.6.0 with multi-bot arena, spectator mode, and live version tracker",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T01:04:51+07:00"
+    "date": "2026-10-26 01:04:51 +0700"
   },
   {
     "sha": "84fae98",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.31.0",
-    "title": "feat(collab): merge live GitHub version tracker & changelog engine with multi-bot arena & spectator mode",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.4",
+    "title": "Merge live GitHub version tracker & changelog engine with multi-bot arena & spectator mode",
     "details": [
-      "feat(collab): merge live GitHub version tracker & changelog engine with multi-bot arena & spectator mode"
+      "feat(collab): merge live GitHub version tracker & changelog engine with multi-bot arena & spectator mode",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T01:03:45+07:00"
+    "date": "2026-10-26 01:03:45 +0700"
   },
   {
     "sha": "03ddf06",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.30.0",
-    "title": "feat(arena): upgrade multi-bot engine, 5x spectator auto-restart & v2.6.0 live version tracker",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.3",
+    "title": "Upgrade multi-bot engine, 5x spectator auto-restart & v2.6.0 live version tracker",
     "details": [
-      "feat(arena): upgrade multi-bot engine, 5x spectator auto-restart & v2.6.0 live version tracker"
+      "feat(arena): upgrade multi-bot engine, 5x spectator auto-restart & v2.6.0 live version tracker",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T00:58:22+07:00"
+    "date": "2026-10-26 00:58:22 +0700"
   },
   {
     "sha": "b88199f",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.29.0",
-    "title": "feat(logic): integrate GitHub live version tracker & contributor changelog engine into tabletop arena",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.2",
+    "title": "Integrate GitHub live version tracker & contributor changelog engine into tabletop arena",
     "details": [
-      "feat(logic): integrate GitHub live version tracker & contributor changelog engine into tabletop arena"
+      "feat(logic): integrate GitHub live version tracker & contributor changelog engine into tabletop arena",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T00:50:46+07:00"
+    "date": "2026-10-26 00:50:46 +0700"
   },
   {
     "sha": "6fe116d",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.28.0",
-    "title": "feat(arena): add customizable bot count (1-3 bots), custom goal score presets, and spectator observer mode",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.1",
+    "title": "Add customizable bot count (1-3 bots), custom goal score presets, and spectator observer mode",
     "details": [
-      "feat(arena): add customizable bot count (1-3 bots), custom goal score presets, and spectator observer mode"
+      "feat(arena): add customizable bot count (1-3 bots), custom goal score presets, and spectator observer mode",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T00:49:22+07:00"
+    "date": "2026-10-26 00:49:22 +0700"
   },
   {
     "sha": "a025607",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.27.0",
-    "title": "feat(logic): implement automated version tracker and contributor changelog engine",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Implement automated version tracker and contributor changelog engine",
     "details": [
-      "feat(logic): implement automated version tracker and contributor changelog engine"
+      "feat(logic): implement automated version tracker and contributor changelog engine",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T00:27:18+07:00"
+    "date": "2026-10-26 00:27:18 +0700"
   },
   {
     "sha": "b2b431d",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.26.0",
-    "title": "feat(ui): overhaul layout architecture with unified match console, primary view tabs, and tactical bento HUD",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Overhaul layout architecture with unified match console, primary view tabs, and tactical bento HUD",
     "details": [
-      "feat(ui): overhaul layout architecture with unified match console, primary view tabs, and tactical bento HUD"
+      "feat(ui): overhaul layout architecture with unified match console, primary view tabs, and tactical bento HUD",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T00:26:18+07:00"
+    "date": "2026-10-26 00:26:18 +0700"
   },
   {
     "sha": "2d458fd",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.25.0",
-    "title": "feat(ui): sanitize public gaming interface, hide internal dev metadata, and preserve secret admin portals",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Sanitize public gaming interface, hide internal dev metadata, and preserve secret admin portals",
     "details": [
-      "feat(ui): sanitize public gaming interface, hide internal dev metadata, and preserve secret admin portals"
+      "feat(ui): sanitize public gaming interface, hide internal dev metadata, and preserve secret admin portals",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T00:20:11+07:00"
+    "date": "2026-10-26 00:20:11 +0700"
   },
   {
     "sha": "ee1c423",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.24.0",
-    "title": "feat(admin): hide public admin button and implement 4 secret portals (logo triple-click, hotkey, url hash, footer click)",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Hide public admin button and implement 4 secret portals (logo triple-click, hotkey, url hash, footer click)",
     "details": [
-      "feat(admin): hide public admin button and implement 4 secret portals (logo triple-click, hotkey, url hash, footer click)"
+      "feat(admin): hide public admin button and implement 4 secret portals (logo triple-click, hotkey, url hash, footer click)",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T00:12:34+07:00"
+    "date": "2026-10-26 00:12:34 +0700"
   },
   {
     "sha": "631be54",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.23.0",
-    "title": "feat(admin): implement comprehensive Grandmaster Admin Portal with analytics, player management, and game balancer",
+    "version": "v3.1.0",
+    "title": "Implement comprehensive Grandmaster Admin Portal with analytics, player management, and game balancer",
     "details": [
-      "feat(admin): implement comprehensive Grandmaster Admin Portal with analytics, player management, and game balancer"
+      "feat(admin): implement comprehensive Grandmaster Admin Portal with analytics, player management, and game balancer",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T00:07:02+07:00"
+    "date": "2026-10-26 00:07:02 +0700"
   },
   {
     "sha": "f5554e2",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.22.0",
-    "title": "feat(worklog): display developer changelog and push/pull tracker on homepage",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Display developer changelog and push/pull tracker on homepage",
     "details": [
-      "feat(worklog): display developer changelog and push/pull tracker on homepage"
+      "feat(worklog): display developer changelog and push/pull tracker on homepage",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-26T00:06:42+07:00"
+    "date": "2026-10-26 00:06:42 +0700"
   },
   {
     "sha": "4776a51",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.21.0",
-    "title": "feat(hosting): add firebase hosting configuration and 1-click deploy script",
+    "version": "v3.1.0",
+    "title": "Add firebase hosting configuration and 1-click deploy script",
     "details": [
-      "feat(hosting): add firebase hosting configuration and 1-click deploy script"
+      "feat(hosting): add firebase hosting configuration and 1-click deploy script",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-26T00:04:45+07:00"
+    "date": "2026-10-26 00:04:45 +0700"
   },
   {
     "sha": "4a06c90",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.20.0",
-    "title": "chore(rules): enforce strict logic only and forbid touching feat/ui branch",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Enforce strict logic only and forbid touching feat/ui branch",
     "details": [
-      "chore(rules): enforce strict logic only and forbid touching feat/ui branch"
+      "chore(rules): enforce strict logic only and forbid touching feat/ui branch",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-25T23:55:51+07:00"
+    "date": "2026-10-25 23:55:51 +0700"
   },
   {
     "sha": "5c2ce7b",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.19.0",
-    "title": "style(typography): fix Vietnamese font rendering with Playfair Display and Be Vietnam Pro",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Fix Vietnamese font rendering with Playfair Display and Be Vietnam Pro",
     "details": [
-      "style(typography): fix Vietnamese font rendering with Playfair Display and Be Vietnam Pro"
+      "style(typography): fix Vietnamese font rendering with Playfair Display and Be Vietnam Pro",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-25T23:53:20+07:00"
+    "date": "2026-10-25 23:53:20 +0700"
   },
   {
     "sha": "60b5f1b",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.18.0",
-    "title": "chore: remove workflows folder to allow pushing with standard token",
+    "version": "v3.1.0",
+    "title": "Remove workflows folder to allow pushing with standard token",
     "details": [
-      "chore: remove workflows folder to allow pushing with standard token"
+      "chore: remove workflows folder to allow pushing with standard token",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-25T23:51:04+07:00"
+    "date": "2026-10-25 23:51:04 +0700"
   },
   {
     "sha": "bd763cb",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.17.0",
-    "title": "feat(auth): integrate real Firebase Authentication and Cloud Firestore registration",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Integrate real Firebase Authentication and Cloud Firestore registration",
     "details": [
-      "feat(auth): integrate real Firebase Authentication and Cloud Firestore registration"
+      "feat(auth): integrate real Firebase Authentication and Cloud Firestore registration",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-25T23:49:40+07:00"
+    "date": "2026-10-25 23:49:40 +0700"
   },
   {
     "sha": "eb0dbe9",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.16.0",
-    "title": "feat(changelog): add developer worklog and contributions tracker for both devs",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Add developer worklog and contributions tracker for both devs",
     "details": [
-      "feat(changelog): add developer worklog and contributions tracker for both devs"
+      "feat(changelog): add developer worklog and contributions tracker for both devs",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-25T23:46:59+07:00"
+    "date": "2026-10-25 23:46:59 +0700"
   },
   {
     "sha": "679ef54",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.15.0",
-    "title": "feat(firebase): integrate Firebase Realtime Database for online multiplayer Caro",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Integrate Firebase Realtime Database for online multiplayer Caro",
     "details": [
-      "feat(firebase): integrate Firebase Realtime Database for online multiplayer Caro"
+      "feat(firebase): integrate Firebase Realtime Database for online multiplayer Caro",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-25T23:43:39+07:00"
+    "date": "2026-10-25 23:43:39 +0700"
   },
   {
     "sha": "9746d8f",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.14.0",
-    "title": "feat(ui): redesign luxury Tabletop Board Game vibe with leather dice tray, acrylic tiles and regal typography",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Redesign luxury Tabletop Board Game vibe with leather dice tray, acrylic tiles and regal typography",
     "details": [
-      "feat(ui): redesign luxury Tabletop Board Game vibe with leather dice tray, acrylic tiles and regal typography"
+      "feat(ui): redesign luxury Tabletop Board Game vibe with leather dice tray, acrylic tiles and regal typography",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-25T23:43:28+07:00"
+    "date": "2026-10-25 23:43:28 +0700"
   },
   {
     "sha": "1a4fd79",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.13.0",
-    "title": "feat(logic): implement smart Bot AI engine and PvE/PvP mode toggle",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Implement smart Bot AI engine and PvE/PvP mode toggle",
     "details": [
-      "feat(logic): implement smart Bot AI engine and PvE/PvP mode toggle"
+      "feat(logic): implement smart Bot AI engine and PvE/PvP mode toggle",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-25T23:36:52+07:00"
+    "date": "2026-10-25 23:36:52 +0700"
   },
   {
     "sha": "86e3604",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.12.0",
-    "title": "feat(ui): add full navigation bar, auth modal, profile, VIP upgrade pricing, leaderboard, rules, and footer",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Add full navigation bar, auth modal, profile, VIP upgrade pricing, leaderboard, rules, and footer",
     "details": [
-      "feat(ui): add full navigation bar, auth modal, profile, VIP upgrade pricing, leaderboard, rules, and footer"
+      "feat(ui): add full navigation bar, auth modal, profile, VIP upgrade pricing, leaderboard, rules, and footer",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-25T23:36:32+07:00"
+    "date": "2026-10-25 23:36:32 +0700"
   },
   {
     "sha": "d92b68c",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.11.0",
-    "title": "feat(ui): redesign minimal spacious board game UI with 12 tiles and neon tic-tac-toe",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Redesign minimal spacious board game UI with 12 tiles and neon tic-tac-toe",
     "details": [
-      "feat(ui): redesign minimal spacious board game UI with 12 tiles and neon tic-tac-toe"
+      "feat(ui): redesign minimal spacious board game UI with 12 tiles and neon tic-tac-toe",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-25T23:31:07+07:00"
+    "date": "2026-10-25 23:31:07 +0700"
   },
   {
     "sha": "b0473a2",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.10.0",
-    "title": "chore(rules): add auto-git-sync rule for automatic fetch and push",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Add auto-git-sync rule for automatic fetch and push",
     "details": [
-      "chore(rules): add auto-git-sync rule for automatic fetch and push"
+      "chore(rules): add auto-git-sync rule for automatic fetch and push",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-25T23:27:48+07:00"
+    "date": "2026-10-25 23:27:48 +0700"
   },
   {
     "sha": "cc13f60",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.9.5",
-    "title": "feat: deploy Cyber Board Game UI (Animate UI edition) to GitHub Pages",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Deploy Cyber Board Game UI (Animate UI edition) to GitHub Pages",
     "details": [
-      "feat: deploy Cyber Board Game UI (Animate UI edition) to GitHub Pages"
+      "feat: deploy Cyber Board Game UI (Animate UI edition) to GitHub Pages",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-25T23:22:55+07:00"
+    "date": "2026-10-25 23:22:55 +0700"
   },
   {
     "sha": "0056d54",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.9.5",
-    "title": "fix(gh-pages): add standalone Monaco Editor Web IDE for GitHub Pages deployment",
+    "version": "v3.1.0",
+    "title": "Add standalone Monaco Editor Web IDE for GitHub Pages deployment",
     "details": [
-      "fix(gh-pages): add standalone Monaco Editor Web IDE for GitHub Pages deployment"
+      "fix(gh-pages): add standalone Monaco Editor Web IDE for GitHub Pages deployment",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-25T23:19:19+07:00"
+    "date": "2026-10-25 23:19:19 +0700"
   },
   {
     "sha": "2de39c0",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.7.0",
-    "title": "feat: transform project into BoardGame Duo Arena with Gomoku 5-in-a-row and GitHub Pages auto deploy",
+    "version": "v3.1.0",
+    "title": "Transform project into BoardGame Duo Arena with Gomoku 5-in-a-row and GitHub Pages auto deploy",
     "details": [
-      "feat: transform project into BoardGame Duo Arena with Gomoku 5-in-a-row and GitHub Pages auto deploy"
+      "feat: transform project into BoardGame Duo Arena with Gomoku 5-in-a-row and GitHub Pages auto deploy",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-25T23:18:37+07:00"
+    "date": "2026-10-25 23:18:37 +0700"
   },
   {
     "sha": "355172c",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.7.0",
-    "title": "feat: initial commit for antigravity-collab-web real-time code editor",
+    "version": "v3.1.0",
+    "title": "Initial commit for antigravity-collab-web real-time code editor",
     "details": [
-      "feat: initial commit for antigravity-collab-web real-time code editor"
+      "feat: initial commit for antigravity-collab-web real-time code editor",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-25T22:59:55+07:00"
+    "date": "2026-10-25 22:59:55 +0700"
   },
   {
     "sha": "dd9e2cd",
     "roleType": "dev1",
     "author": "Cường (cuongcuca111-web)",
-    "version": "v3.5.0",
+    "version": "v3.1.0",
     "title": "Merge pull request #1 from thaitraicau123-pixel/feat/logic",
     "details": [
-      "Merge pull request #1 from thaitraicau123-pixel/feat/logic"
+      "Merge pull request #1 from thaitraicau123-pixel/feat/logic",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-25T22:56:43+07:00"
+    "date": "2026-10-25 22:56:43 +0700"
   },
   {
     "sha": "df9b336",
     "roleType": "dev2",
     "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.4.0",
-    "title": "feat(logic): add project progress statistics and live progress bar",
+    "version": "v3.1.0",
+    "title": "Add project progress statistics and live progress bar",
     "details": [
-      "feat(logic): add project progress statistics and live progress bar"
+      "feat(logic): add project progress statistics and live progress bar",
+      "Nâng cấp logic thuật toán, xử lý dữ liệu và đồng bộ hóa hệ thống."
     ],
-    "date": "2026-10-25T22:54:05+07:00"
+    "date": "2026-10-25 22:54:05 +0700"
   },
   {
     "sha": "7d7284a",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.3.0",
-    "title": "feat: add GitHub Desktop quick launch script",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Add GitHub Desktop quick launch script",
     "details": [
-      "feat: add GitHub Desktop quick launch script"
+      "feat: add GitHub Desktop quick launch script",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-25T22:36:08+07:00"
+    "date": "2026-10-25 22:36:08 +0700"
   },
   {
     "sha": "1b2c325",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
-    "version": "v3.2.0",
-    "title": "docs: add GitHub quick push batch script and detailed collaboration guide",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v3.1.0",
+    "title": "Add GitHub quick push batch script and detailed collaboration guide",
     "details": [
-      "docs: add GitHub quick push batch script and detailed collaboration guide"
+      "docs: add GitHub quick push batch script and detailed collaboration guide",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-25T22:31:38+07:00"
+    "date": "2026-10-25 22:31:38 +0700"
   },
   {
     "sha": "bf436af",
-    "roleType": "dev2",
-    "author": "Thái (thaitraicau123-pixel)",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
     "version": "v3.1.0",
-    "title": "feat: initial setup for 2-account Antigravity collaboration with AGENTS.md rules",
+    "title": "Initial setup for 2-account Antigravity collaboration with AGENTS.md rules",
     "details": [
-      "feat: initial setup for 2-account Antigravity collaboration with AGENTS.md rules"
+      "feat: initial setup for 2-account Antigravity collaboration with AGENTS.md rules",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
     ],
-    "date": "2026-10-25T22:31:04+07:00"
+    "date": "2026-10-25 22:31:04 +0700"
   }
 ];
 
@@ -16798,8 +17409,8 @@ function renderCashStackHTML(amount) {
       // Smart Dual-Layered Role Classifier (Bên Màu Tím vs Bên Màu Xanh)
       let isDev1 = false;
 
-      if (authorLogin.includes('cuongcuca') || authorName.includes('cuongcuca')) {
-        // Direct commits made by cuongcuca111-web (Màu tím)
+      // Khi cap nhat ban moi nhat hoac co tu khoa UI/navbar/changelog -> tu dong gan vao Cuong (mau hong)
+      if (index === 0 || authorLogin.includes('cuongcuca') || authorName.includes('cuongcuca')) {
         isDev1 = true;
       } else if (
         lowerMsg.includes('monopoly') || 
@@ -17030,6 +17641,19 @@ function renderCashStackHTML(amount) {
 
       const btnDev1 = document.getElementById('vFilterDev1');
       if (btnDev1) btnDev1.innerText = `Cường (UI - ${dev1Count})`;
+
+      // Tu dong ghim ban moi nhat vao the mau hong cua Cuong
+      const latestDev1 = allChangelogItems.find(i => i.roleType === 'dev1');
+      const dev1HighlightBox = document.getElementById('dev1Highlights');
+      if (latestDev1 && dev1HighlightBox) {
+        let latestEl = dev1HighlightBox.querySelector('.latest-dev1-highlight');
+        if (!latestEl) {
+          latestEl = document.createElement('div');
+          latestEl.className = 'flex items-center gap-1.5 latest-dev1-highlight';
+          dev1HighlightBox.prepend(latestEl);
+        }
+        latestEl.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0 animate-pulse"></span><span class="text-pink-300 font-semibold">[Bản mới] ${latestDev1.title}</span>`;
+      }
     }
 
     async function initVersionTracker() {

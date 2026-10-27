@@ -508,7 +508,7 @@
     }
 
     .mono-board-25d {
-      transform: perspective(1400px) rotateX(28deg) rotateZ(25deg) translateY(-2.5%) scale(0.76);
+      transform: perspective(1400px) rotateX(28deg) rotateZ(25deg) translateY(-1%) scale(0.79);
       transform-style: preserve-3d;
       box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.95), 0 0 60px rgba(16, 185, 129, 0.25);
       transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.6s ease;
@@ -527,19 +527,27 @@
     .mono-board-25d #pawnP2 > div,
     .mono-board-25d #pawnP3 > div,
     .mono-board-25d #pawnP4 > div {
-      transform: rotateZ(-25deg) rotateX(-30deg) translateZ(28px);
+      transform: rotateZ(-25deg) rotateX(-28deg) translateZ(26px);
+      transform-origin: bottom center;
       transform-style: preserve-3d;
-      filter: drop-shadow(0 16px 12px rgba(0, 0, 0, 0.9));
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      filter: drop-shadow(-8px 16px 12px rgba(0, 0, 0, 0.85)) drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* Centered 2.5D Tile Building: anchored squarely inside its own property plot without bleeding into adjacent tiles */
+    /* Centered 3D Tile Building: True Isometric Pop-up with depth */
     .mono-board-25d .mono-tile-building-3d {
-      transform: rotateZ(-25deg) rotateX(-30deg) translateZ(4px);
-      transform-origin: 50% 55%;
+      transform: rotateZ(-25deg) rotateX(-28deg) translateZ(14px);
+      transform-origin: 50% 65%;
       transform-style: preserve-3d;
-      filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.65));
-      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      filter: drop-shadow(-8px 16px 14px rgba(0, 0, 0, 0.88)) drop-shadow(0 3px 6px rgba(0,0,0,0.5));
+    }
+
+    /* Business Tour 3D Airport & Control Tower on Airport Tile */
+    .mono-board-25d .mono-airplane-3d {
+      transform: rotateZ(-25deg) rotateX(-28deg) translateZ(16px);
+      transform-origin: center center;
+      transform-style: preserve-3d;
+      filter: drop-shadow(-8px 16px 12px rgba(0, 0, 0, 0.85)) drop-shadow(0 2px 4px rgba(0,0,0,0.5));
     }
 
     .mono-board-2d .mono-upright-3d,
@@ -1015,10 +1023,10 @@
 
     /* Board scaling: bounded strictly by viewport height to guarantee zero vertical scroll */
     #mono2dBoardWrapper {
-      width: min(64vh, 52vw, 720px) !important;
-      height: min(64vh, 52vw, 720px) !important;
-      max-width: min(64vh, 52vw, 720px) !important;
-      max-height: min(64vh, 52vw, 720px) !important;
+      width: min(67vh, 53vw, 750px) !important;
+      height: min(67vh, 53vw, 750px) !important;
+      max-width: min(67vh, 53vw, 750px) !important;
+      max-height: min(67vh, 53vw, 750px) !important;
       aspect-ratio: 1 / 1 !important;
       margin: auto !important;
     }
@@ -1079,18 +1087,18 @@
     }
 
     body.mono-fullscreen-active #mono2dBoardWrapper {
-      width: min(76vh, 64vw, 820px) !important;
-      height: min(76vh, 64vw, 820px) !important;
-      max-width: min(76vh, 64vw, 820px) !important;
-      max-height: min(76vh, 64vw, 820px) !important;
+      width: min(79vh, 65vw, 850px) !important;
+      height: min(79vh, 65vw, 850px) !important;
+      max-width: min(79vh, 65vw, 850px) !important;
+      max-height: min(79vh, 65vw, 850px) !important;
     }
 
     body.mono-fullscreen-active .mono-board-25d {
-      transform: perspective(1400px) rotateX(28deg) rotateZ(25deg) translateY(-4%) scale(0.80) !important;
+      transform: perspective(1400px) rotateX(28deg) rotateZ(25deg) translateY(-2.5%) scale(0.82) !important;
     }
 
     body.mono-fullscreen-active #monoTopTileInspector {
-      top: 6px !important;
+      top: 2px !important;
     }
 
     body.mono-fullscreen-active #btnMonoExitFullscreen {
@@ -11386,143 +11394,292 @@
     // - Cream/white isometric walls (#ffffff & #e2e8f0), dark navy window panes (#0f172a)
     // - Vibrant player-colored roofs (Crimson Pink/Red, Ocean Blue, Amber Orange, Emerald Green)
     // - Lush 3D trees next to buildings
-    function getBusinessTourHouseSVG(level, ownerIdx, size = 64, isResort = false) {
-      const cfg = MONOPOLY_PRESET_CONFIGS[ownerIdx % 4] || MONOPOLY_PRESET_CONFIGS[0];
+        // =========================================================================
+    // 1. BUSINESS TOUR AIRPORT CORNER (Airliner Jet + Air Traffic Control Tower)
+    // =========================================================================
+    function getBusinessTourAirportSVG(size = 62) {
+      return `
+        <svg width="${size}" height="${size}" viewBox="0 0 100 100" fill="none" class="overflow-visible select-none pointer-events-none">
+          <!-- Dark Asphalt Runway Tarmac Ground -->
+          <polygon points="6,68 50,91 94,68 50,45" fill="#1e293b" stroke="#475569" stroke-width="1.8"/>
+          <!-- Runway White Centerline Dashes -->
+          <line x1="28" y1="56" x2="36" y2="61" stroke="#ffffff" stroke-width="2.5" stroke-dasharray="4 2"/>
+          <line x1="42" y1="64" x2="52" y2="70" stroke="#ffffff" stroke-width="2.5" stroke-dasharray="4 2"/>
+          <line x1="58" y1="73" x2="70" y2="80" stroke="#ffffff" stroke-width="2.5" stroke-dasharray="4 2"/>
+
+          <!-- ================= AIR TRAFFIC CONTROL TOWER (ĐÀI KHÔNG LƯU) ================= -->
+          <!-- Tower Base Platform -->
+          <polygon points="62,54 78,63 88,57 72,48" fill="#334155" stroke="#64748b" stroke-width="1"/>
+          <!-- Tower Shaft Walls (Solid White / Shaded Grey) -->
+          <polygon points="68,51 76,55 76,28 68,24" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+          <polygon points="76,55 84,50 84,23 76,28" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.2"/>
+          <!-- Red Band Ring on Tower -->
+          <polygon points="68,36 76,40 84,35 76,31" fill="#ef4444"/>
+
+          <!-- Observation Cab (Buồng Kính Kiểm Soát 360 độ) -->
+          <polygon points="64,26 76,33 88,26 76,19" fill="#0f172a" stroke="#64748b" stroke-width="1.2"/>
+          <polygon points="64,26 76,33 76,20 64,13" fill="#0284c7" stroke="#ffffff" stroke-width="1"/>
+          <polygon points="76,33 88,26 88,13 76,20" fill="#38bdf8" stroke="#ffffff" stroke-width="1"/>
+          <!-- Cab Conical Roof -->
+          <polygon points="62,14 76,21 88,14 76,06" fill="#ef4444" stroke="#ffffff" stroke-width="1.2"/>
+          <!-- Rotating Radar & Beacon -->
+          <line x1="76" y1="06" x2="76" y2="-02" stroke="#ffffff" stroke-width="2"/>
+          <circle cx="76" cy="-02" r="2.5" fill="#ef4444" stroke="#ffffff" stroke-width="0.8"/>
+
+          <!-- ================= COMMERCIAL PASSENGER AIRLINER (CHUYÊN CƠ HÀNH KHÁCH) ================= -->
+          <!-- Airplane Ground Shadow -->
+          <polygon points="14,64 48,77 58,66 24,53" fill="#0f172a" opacity="0.5"/>
+
+          <!-- Fuselage (Thân Máy Bay Trắng Thuôn Dài) -->
+          <!-- Left Fuselage Facade -->
+          <polygon points="12,56 46,70 54,61 20,47" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+          <!-- Top Fuselage Ridge -->
+          <polygon points="20,47 54,61 60,54 26,40" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+          <!-- Nose Cone (Mũi Máy Bay Khum Tròn) -->
+          <polygon points="12,56 16,58 20,47" fill="#0284c7"/>
+
+          <!-- Blue Airline Cheatline & Passenger Windows -->
+          <polygon points="18,54 48,65 48,63 18,52" fill="#0284c7"/>
+          <circle cx="24" cy="53" r="1" fill="#ffffff"/>
+          <circle cx="28" cy="54.5" r="1" fill="#ffffff"/>
+          <circle cx="32" cy="56" r="1" fill="#ffffff"/>
+          <circle cx="36" cy="57.5" r="1" fill="#ffffff"/>
+          <circle cx="40" cy="59" r="1" fill="#ffffff"/>
+          <circle cx="44" cy="60.5" r="1" fill="#ffffff"/>
+
+          <!-- Cockpit Glass Windscreen -->
+          <polygon points="14,54 18,52 18,48 14,50" fill="#38bdf8" stroke="#ffffff" stroke-width="0.8"/>
+
+          <!-- Swept-back Wings -->
+          <!-- Left Main Wing -->
+          <polygon points="28,58 10,72 16,74 36,62" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+          <!-- Right Main Wing -->
+          <polygon points="34,48 44,32 48,34 40,51" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.2"/>
+
+          <!-- Jet Engines under Wing -->
+          <rect x="22" y="64" width="7" height="4" rx="2" fill="#64748b" stroke="#ffffff" stroke-width="0.8"/>
+          <circle cx="22" cy="66" r="1.8" fill="#0284c7"/>
+
+          <!-- Vertical Tail Fin & Stabilizers in Blue & Gold -->
+          <polygon points="50,58 64,36 58,34 46,54" fill="#0284c7" stroke="#ffffff" stroke-width="1.2"/>
+          <polygon points="54,42 62,38 60,35 52,39" fill="#facc15"/>
+          <polygon points="50,56 60,60 58,62 48,58" fill="#64748b"/>
+        </svg>
+      `;
+    }
+    function get3DAirplaneSVG(size = 62) {
+      return getBusinessTourAirportSVG(size);
+    }
+    window.getBusinessTourAirportSVG = getBusinessTourAirportSVG;
+    window.get3DAirplaneSVG = get3DAirplaneSVG;
+
+    function getBusinessTourHouseSVG(level, ownerIdx = 0, size = 68, isResort = false) {
+      const configs = [
+        { primary: '#ef4444', bright: '#f87171', dark: '#b91c1c', wall: '#ffffff', wallDark: '#cbd5e1' }, // Red (Tiên)
+        { primary: '#0284c7', bright: '#38bdf8', dark: '#0369a1', wall: '#ffffff', wallDark: '#cbd5e1' }, // Sky Blue (Kỳ Lân)
+        { primary: '#ea580c', bright: '#fb923c', dark: '#9a3412', wall: '#ffffff', wallDark: '#cbd5e1' }, // Orange (Rồng Lửa)
+        { primary: '#10b981', bright: '#34d399', dark: '#047857', wall: '#ffffff', wallDark: '#cbd5e1' }  // Emerald (Tổng Tài)
+      ];
+      const c = configs[ownerIdx % 4];
 
       if (isResort) {
-        // Business Tour Beach Resort (Like DUBAI / BALI in Reference Image: Sandy beach, blue water pool, palm tree & beach cabana!)
+        // TROPICAL BEACH BUNGALOW RESORT (Tham chiếu Business Tour: Chòi mái lá, rặng dừa, bãi cát, biển xanh)
         return `
-          <svg width="${size}" height="${size}" viewBox="0 0 90 90" fill="none" class="filter drop-shadow-[0_10px_12px_rgba(0,0,0,0.65)]">
-            <!-- Isometric White Stone Curb Base -->
-            <polygon points="8,58 45,76 82,58 45,40" fill="#38bdf8" stroke="#ffffff" stroke-width="2"/>
-            <polygon points="8,58 45,76 45,81 8,63" fill="#cbd5e1"/>
-            <polygon points="45,76 82,58 82,63 45,81" fill="#94a3b8"/>
-            <!-- Golden Sand Island -->
-            <polygon points="16,56 45,70 72,57 45,44" fill="#fde047"/>
-            <!-- Resort Bungalow with Player-Colored Roof -->
-            <polygon points="28,54 45,62 45,44 28,36" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.8"/>
-            <polygon points="45,62 62,54 62,36 45,44" fill="#e2e8f0" stroke="#94a3b8" stroke-width="0.8"/>
-            <polygon points="24,38 45,47 66,38 45,26" fill="${cfg.color}" stroke="#ffffff" stroke-width="1.5"/>
-            <!-- Tropical Palm Tree -->
-            <path d="M64,56 Q68,40 62,26" stroke="#78350f" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <path d="M62,26 Q52,22 48,28 M62,26 Q62,16 70,20 M62,26 Q74,26 74,34" stroke="#16a34a" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <svg width="${size}" height="${size}" viewBox="0 0 100 100" fill="none" class="overflow-visible select-none pointer-events-none">
+            <!-- Ground Shadow -->
+            <ellipse cx="50" cy="74" rx="42" ry="16" fill="#0f172a" opacity="0.45"/>
+            
+            <!-- Turquoise Ocean Lagoon Border -->
+            <polygon points="10,68 50,88 90,68 50,48" fill="#0284c7" stroke="#38bdf8" stroke-width="2"/>
+            <polygon points="10,68 50,88 50,92 10,72" fill="#0369a1"/>
+            <polygon points="50,88 90,68 90,72 50,92" fill="#075985"/>
+
+            <!-- Golden Sand Island Atoll -->
+            <polygon points="16,66 50,83 84,66 50,50" fill="#fde047" stroke="#fef08a" stroke-width="1.5"/>
+
+            <!-- Wooden Stilts for Bungalow -->
+            <line x1="32" y1="62" x2="32" y2="70" stroke="#78350f" stroke-width="3" stroke-linecap="round"/>
+            <line x1="48" y1="70" x2="48" y2="78" stroke="#78350f" stroke-width="3" stroke-linecap="round"/>
+            <line x1="62" y1="62" x2="62" y2="70" stroke="#78350f" stroke-width="3" stroke-linecap="round"/>
+
+            <!-- Wooden Platform Deck -->
+            <polygon points="26,58 48,68 68,58 46,49" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+
+            <!-- Bungalow Hut Solid Walls -->
+            <polygon points="32,54 46,60 46,44 32,38" fill="#fde68a" stroke="#d97706" stroke-width="1"/>
+            <polygon points="46,60 62,54 62,38 46,44" fill="#fcd34d" stroke="#d97706" stroke-width="1"/>
+            <!-- Hut Entrance & Window -->
+            <rect x="36" y="44" width="6" height="12" fill="#78350f" rx="1"/>
+            <rect x="50" y="42" width="6" height="6" fill="#0284c7" stroke="#ffffff" stroke-width="1" rx="1"/>
+
+            <!-- Conical Thatched Palm Roof -->
+            <polygon points="22,42 46,50 46,18" fill="#b45309" stroke="#78350f" stroke-width="1.5"/>
+            <polygon points="46,50 72,42 46,18" fill="#d97706" stroke="#78350f" stroke-width="1.5"/>
+            <polygon points="22,42 46,18 46,50" fill="#f59e0b" stroke="#78350f" stroke-width="1.2"/>
+            <line x1="46" y1="18" x2="46" y2="12" stroke="#78350f" stroke-width="2"/>
+            <circle cx="46" cy="12" r="2.5" fill="#ef4444"/>
+
+            <!-- Tall Curved Palm Tree -->
+            <path d="M72,70 Q80,50 76,32" stroke="#78350f" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+            <!-- Palm Fronds (Solid Green Leaves) -->
+            <path d="M76,32 Q88,26 94,34 Q86,34 76,32" fill="#15803d" stroke="#166534" stroke-width="1"/>
+            <path d="M76,32 Q84,18 78,12 Q76,22 76,32" fill="#22c55e" stroke="#166534" stroke-width="1"/>
+            <path d="M76,32 Q66,20 60,26 Q68,30 76,32" fill="#16a34a" stroke="#166534" stroke-width="1"/>
+            <path d="M76,32 Q74,38 66,42 Q72,36 76,32" fill="#15803d" stroke="#166534" stroke-width="1"/>
+            <!-- Coconuts -->
+            <circle cx="75" cy="34" r="2" fill="#451a03"/>
+            <circle cx="78" cy="35" r="2" fill="#451a03"/>
+
+            <!-- Striped Red & White Beach Umbrella -->
+            <line x1="22" y1="64" x2="22" y2="52" stroke="#ffffff" stroke-width="2"/>
+            <path d="M12,52 Q22,42 32,52 Z" fill="#ef4444" stroke="#ffffff" stroke-width="1"/>
+            <path d="M17,52 Q22,42 27,52 Z" fill="#ffffff"/>
           </svg>
         `;
       }
 
       if (level === 1) {
-        // LEVEL 1: Business Tour Cozy 2.5D Suburban House + Yard Tree on Green Lawn Base (Like TOKYO / GRANADA)
+        // LEVEL 1: CUTE SINGLE COTTAGE (Tham chiếu Business Tour: 1 căn nhà mái ngói đỏ/màu tươi tắn, tường trắng kem, cửa sổ kính xanh, cây cỏ)
         return `
-          <svg width="${size}" height="${size}" viewBox="0 0 90 90" fill="none" class="filter drop-shadow-[0_10px_12px_rgba(0,0,0,0.65)]">
-            <!-- Isometric White Curb & Green Turf Pad -->
-            <polygon points="8,60 45,78 82,60 45,42" fill="#84cc16" stroke="#ffffff" stroke-width="2.2"/>
-            <polygon points="8,60 45,78 45,83 8,65" fill="#e2e8f0"/>
-            <polygon points="45,78 82,60 82,65 45,83" fill="#94a3b8"/>
+          <svg width="${size}" height="${size}" viewBox="0 0 100 100" fill="none" class="overflow-visible select-none pointer-events-none">
+            <!-- 3D Shadow on Ground -->
+            <polygon points="12,68 50,88 88,68 50,48" fill="#0f172a" opacity="0.45"/>
 
-            <!-- 3D Garden Tree on Left Lawn -->
-            <ellipse cx="23" cy="58" rx="6" ry="3" fill="rgba(0,0,0,0.25)"/>
-            <rect x="21.5" y="49" width="3" height="9" fill="#78350f"/>
-            <circle cx="23" cy="45" r="7" fill="#22c55e"/>
-            <circle cx="21" cy="43" r="5" fill="#4ade80"/>
+            <!-- 3D Green Lawn Platform Base with Crisp White Curb -->
+            <polygon points="14,64 50,83 86,64 50,45" fill="#84cc16" stroke="#ffffff" stroke-width="2.5"/>
+            <polygon points="14,64 50,83 50,88 14,69" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+            <polygon points="50,83 86,64 86,69 50,88" fill="#94a3b8" stroke="#64748b" stroke-width="1"/>
 
-            <!-- Main House Isometric Cream/White Walls -->
-            <polygon points="30,58 50,68 50,44 30,34" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-            <polygon points="50,68 68,59 68,35 50,44" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+            <!-- Front Garden Bush with Flowers -->
+            <circle cx="26" cy="62" r="7" fill="#15803d" stroke="#166534" stroke-width="1"/>
+            <circle cx="28" cy="60" r="5" fill="#22c55e"/>
+            <circle cx="24" cy="59" r="1.8" fill="#fef08a"/>
+            <circle cx="29" cy="63" r="1.8" fill="#f43f5e"/>
 
-            <!-- Dark Contrast Windows & Door (Signature Business Tour look) -->
-            <polygon points="35,52 40,54.5 40,46 35,43.5" fill="#0f172a"/>
-            <polygon points="43,56 48,58.5 48,50 43,47.5" fill="#0f172a"/>
-            <polygon points="54,66 60,63 60,51 54,54" fill="#334155"/>
-            <polygon points="62,54 66,52 66,44 62,46" fill="#0f172a"/>
+            <!-- SOLID HOUSE WALLS (Left Light Facade + Right Shadow Facade) -->
+            <polygon points="32,60 54,71 54,42 32,31" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+            <polygon points="54,71 76,60 76,31 54,42" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.5"/>
 
-            <!-- Pitched Gable Roof in Vibrant Player Color with White Trim -->
-            <polygon points="27,35 50,46 59,30 36,19" fill="${cfg.bright}" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
-            <polygon points="50,46 71,36 59,30" fill="${cfg.roof}" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
-            <!-- White Gable Triangle -->
-            <polygon points="50,44 68,35 59,30" fill="#f8fafc" stroke="#cbd5e1" stroke-width="0.8"/>
-            <!-- Chimney -->
-            <polygon points="38,26 43,28 43,19 38,17" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.8"/>
-            <polygon points="37,17 44,20 44,17 37,14" fill="${cfg.roof}"/>
-          </svg>
-        `;
-      } else if (level === 2) {
-        // LEVEL 2: Business Tour Twin Villa Compound (2-Story Main Villa + Side Cottage + Garden Tree, like LONDON / SYDNEY / PARIS)
-        return `
-          <svg width="${size}" height="${size}" viewBox="0 0 96 96" fill="none" class="filter drop-shadow-[0_12px_15px_rgba(0,0,0,0.7)]">
-            <!-- Isometric White Curb & Bright Green Turf Pad -->
-            <polygon points="6,64 48,84 90,64 48,44" fill="#84cc16" stroke="#ffffff" stroke-width="2.4"/>
-            <polygon points="6,64 48,84 48,89 6,69" fill="#e2e8f0"/>
-            <polygon points="48,84 90,64 90,69 48,89" fill="#94a3b8"/>
+            <!-- Solid Front Door with Gold Handle -->
+            <polygon points="38,59 45,62.5 45,49 38,45.5" fill="#78350f" stroke="#451a03" stroke-width="1"/>
+            <circle cx="43.5" cy="56" r="1" fill="#facc15"/>
 
-            <!-- Back 2-Story Villa Tower -->
-            <polygon points="22,58 44,68 44,30 22,20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-            <polygon points="44,68 62,59 62,21 44,30" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
-            <!-- Windows Row 1 & Row 2 (Crisp Dark Grid) -->
-            <polygon points="26,38 31,40.5 31,32 26,29.5" fill="#0f172a"/>
-            <polygon points="34,42 39,44.5 39,36 34,33.5" fill="#0f172a"/>
-            <polygon points="26,51 31,53.5 31,45 26,42.5" fill="#0f172a"/>
-            <polygon points="34,55 39,57.5 39,49 34,46.5" fill="#0f172a"/>
-            <polygon points="48,42 56,38 56,30 48,34" fill="#0f172a"/>
-            <polygon points="48,55 56,51 56,43 48,47" fill="#0f172a"/>
-            <!-- Villa Sloped Roof in Player Color -->
-            <polygon points="19,21 44,32 53,16 28,5" fill="${cfg.bright}" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"/>
-            <polygon points="44,32 65,22 53,16" fill="${cfg.roof}" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"/>
+            <!-- Glazed Windows with White Crossbars -->
+            <polygon points="59,57 69,52 69,42 59,47" fill="#0284c7" stroke="#ffffff" stroke-width="1.5"/>
+            <polygon points="60,55 68,51 68,43 60,47" fill="#38bdf8"/>
+            <line x1="64" y1="45" x2="64" y2="53" stroke="#ffffff" stroke-width="1"/>
+            <line x1="59.5" y1="49.5" x2="68.5" y2="45" stroke="#ffffff" stroke-width="1"/>
 
-            <!-- Front Side Annex House -->
-            <polygon points="44,72 62,80 62,60 44,52" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-            <polygon points="62,80 78,72 78,52 62,60" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
-            <polygon points="48,68 56,71.5 56,63 48,59.5" fill="#0f172a"/>
-            <polygon points="66,72 73,68.5 73,60 66,63.5" fill="#0f172a"/>
-            <polygon points="42,53 62,62 70,49 50,40" fill="${cfg.color}" stroke="#ffffff" stroke-width="1.4" stroke-linejoin="round"/>
-            <polygon points="62,62 80,53 70,49" fill="${cfg.roofDark}" stroke="#ffffff" stroke-width="1.4" stroke-linejoin="round"/>
+            <!-- Red Brick Chimney with White Smoke -->
+            <polygon points="40,28 46,31 46,18 40,15" fill="#dc2626" stroke="#991b1b" stroke-width="1"/>
+            <polygon points="40,15 46,18 51,15 45,12" fill="#b91c1c"/>
+            <circle cx="43" cy="9" r="3" fill="#ffffff" opacity="0.9"/>
+            <circle cx="47" cy="4" r="4.2" fill="#ffffff" opacity="0.75"/>
 
-            <!-- Lush Green Tree -->
-            <circle cx="22" cy="58" r="6.5" fill="#16a34a"/>
-            <circle cx="20" cy="56" r="4.5" fill="#4ade80"/>
-          </svg>
-        `;
-      } else {
-        // LEVEL 3: Business Tour Multi-Building Skyscraper & Luxury Complex (Like HONG KONG / NEW YORK / CHICAGO in Reference Image)
-        return `
-          <svg width="${size}" height="${size}" viewBox="0 0 100 110" fill="none" class="filter drop-shadow-[0_14px_18px_rgba(0,0,0,0.8)]">
-            <!-- Isometric White Curb & Bright Green Turf Pad -->
-            <polygon points="6,74 50,96 94,74 50,52" fill="#84cc16" stroke="#ffffff" stroke-width="2.5"/>
-            <polygon points="6,74 50,96 50,101 6,79" fill="#e2e8f0"/>
-            <polygon points="50,96 94,74 94,79 50,101" fill="#94a3b8"/>
-
-            <!-- Tall High-Rise Skyscraper Tower (Left/Center) -->
-            <polygon points="20,70 46,83 46,22 20,9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
-            <polygon points="46,83 68,72 68,11 46,22" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.2"/>
-            <!-- Skyscraper Colored Flat/Stepped Roof Crown -->
-            <polygon points="20,9 46,22 68,11 42,-2" fill="${cfg.color}" stroke="#ffffff" stroke-width="1.8"/>
-            <polygon points="27,9 46,18 61,11 42,2" fill="${cfg.bright}"/>
-
-            <!-- 4 Floors of Crisp Dark Window Grids -->
-            ${[0, 13, 26, 39].map(yOff => `
-              <polygon points="24,${24 + yOff} 31,${27.5 + yOff} 31,${20 + yOff} 24,${16.5 + yOff}" fill="#0f172a"/>
-              <polygon points="35,${29.5 + yOff} 42,${33 + yOff} 42,${25.5 + yOff} 35,${22 + yOff}" fill="#0f172a"/>
-              <polygon points="50,${32 + yOff} 56,${29 + yOff} 56,${21.5 + yOff} 50,${24.5 + yOff}" fill="#1e293b"/>
-              <polygon points="59,${27.5 + yOff} 65,${24.5 + yOff} 65,${17 + yOff} 59,${20 + yOff}" fill="#1e293b"/>
-            `).join('')}
-
-            <!-- Secondary Luxury Villa Wing (Front Right, like NEW YORK / SYDNEY) -->
-            <polygon points="46,88 66,98 66,68 46,58" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-            <polygon points="66,98 84,89 84,59 66,68" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
-            <polygon points="44,59 66,70 75,56 53,45" fill="${cfg.bright}" stroke="#ffffff" stroke-width="1.5"/>
-            <polygon points="66,70 86,60 75,56" fill="${cfg.roof}" stroke="#ffffff" stroke-width="1.5"/>
-            <polygon points="51,78 59,82 59,72 51,68" fill="#0f172a"/>
-            <polygon points="70,84 79,79.5 79,70 70,74.5" fill="#0f172a"/>
-
-            <!-- Landscaping Trees -->
-            <circle cx="18" cy="70" r="6.5" fill="#15803d"/>
-            <circle cx="16" cy="68" r="4.5" fill="#4ade80"/>
+            <!-- 3D PITCHED GABLE ROOF IN SOLID PLAYER COLOR (Left Bright / Right Dark) -->
+            <polygon points="28,32 54,45 66,26 40,13" fill="${c.bright}" stroke="#ffffff" stroke-width="2.2" stroke-linejoin="round"/>
+            <polygon points="54,45 80,32 66,26" fill="${c.dark}" stroke="#ffffff" stroke-width="2.2" stroke-linejoin="round"/>
+            <!-- Front Gable Peak -->
+            <polygon points="54,42 76,31 66,26" fill="${c.primary}" stroke="#ffffff" stroke-width="1.2"/>
           </svg>
         `;
       }
+
+      if (level === 2) {
+        // LEVEL 2: TWIN VILLA / DOUBLE ROOF (Tham chiếu Business Tour: 2 căn liền kề / biệt thự 2 mái giật cấp, ban công)
+        return `
+          <svg width="${size}" height="${size}" viewBox="0 0 100 100" fill="none" class="overflow-visible select-none pointer-events-none">
+            <!-- 3D Shadow -->
+            <polygon points="8,68 50,90 92,68 50,46" fill="#0f172a" opacity="0.45"/>
+
+            <!-- Lawn Base Platform with Double Curb -->
+            <polygon points="10,64 50,85 90,64 50,43" fill="#84cc16" stroke="#ffffff" stroke-width="2.5"/>
+            <polygon points="10,64 50,85 50,90 10,69" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+            <polygon points="50,85 90,64 90,69 50,90" fill="#94a3b8" stroke="#64748b" stroke-width="1"/>
+
+            <!-- LEFT WING BUILDING -->
+            <polygon points="20,58 38,67 38,42 20,33" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+            <polygon points="38,67 52,60 52,35 38,42" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.2"/>
+            <polygon points="16,35 38,46 48,31 26,20" fill="${c.bright}" stroke="#ffffff" stroke-width="2"/>
+            <polygon points="38,46 56,37 48,31" fill="${c.dark}" stroke="#ffffff" stroke-width="2"/>
+            <!-- Left Door -->
+            <polygon points="26,57 32,60 32,49 26,46" fill="#78350f"/>
+
+            <!-- RIGHT WING BUILDING (TALLER MAIN VILLA) -->
+            <polygon points="44,65 68,77 68,38 44,26" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+            <polygon points="68,77 86,68 86,29 68,38" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.5"/>
+
+            <!-- Windows with Blue Glass -->
+            <polygon points="48,54 56,58 56,47 48,43" fill="#0284c7" stroke="#ffffff" stroke-width="1.2"/>
+            <polygon points="58,59 65,62.5 65,51.5 58,48" fill="#0284c7" stroke="#ffffff" stroke-width="1.2"/>
+            <polygon points="72,64 80,60 80,48 72,52" fill="#0284c7" stroke="#ffffff" stroke-width="1.2"/>
+
+            <!-- White Balcony Railing on 2nd Floor -->
+            <polygon points="46,45 66,55 66,49 46,39" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+            <line x1="50" y1="41" x2="50" y2="47" stroke="#94a3b8" stroke-width="1.2"/>
+            <line x1="56" y1="44" x2="56" y2="50" stroke="#94a3b8" stroke-width="1.2"/>
+            <line x1="62" y1="47" x2="62" y2="53" stroke="#94a3b8" stroke-width="1.2"/>
+
+            <!-- MAIN HIGH GABLE ROOF IN PLAYER COLOR -->
+            <polygon points="40,28 68,42 78,20 50,06" fill="${c.bright}" stroke="#ffffff" stroke-width="2.4" stroke-linejoin="round"/>
+            <polygon points="68,42 90,31 78,20" fill="${c.dark}" stroke="#ffffff" stroke-width="2.4" stroke-linejoin="round"/>
+            <polygon points="68,38 86,29 78,20" fill="${c.primary}" stroke="#ffffff" stroke-width="1.2"/>
+
+            <!-- Weather Vane / Finial Spire -->
+            <line x1="64" y1="13" x2="64" y2="4" stroke="#facc15" stroke-width="2"/>
+            <polygon points="64,4 70,6 64,8" fill="#ef4444"/>
+          </svg>
+        `;
+      }
+
+      // LEVEL 3: GRAND 3-STORY HOTEL / PALATIAL VILLA (Tham chiếu Business Tour: Khách sạn 3 tầng bề thế, nhiều mái ngói, cột trụ, sang trọng)
+      return `
+        <svg width="${size}" height="${size}" viewBox="0 0 100 100" fill="none" class="overflow-visible select-none pointer-events-none">
+          <!-- 3D Shadow -->
+          <polygon points="6,68 50,91 94,68 50,45" fill="#0f172a" opacity="0.5"/>
+
+          <!-- Polished Marble & Lawn Platform -->
+          <polygon points="8,63 50,85 92,63 50,41" fill="#84cc16" stroke="#ffffff" stroke-width="2.8"/>
+          <polygon points="8,63 50,85 50,91 8,69" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+          <polygon points="50,85 92,63 92,69 50,91" fill="#94a3b8" stroke="#64748b" stroke-width="1"/>
+
+          <!-- TOWERING 3-TIER MAIN FAÇADE (Pure Solid Cream White & Shaded Grey) -->
+          <polygon points="26,65 52,78 52,24 26,11" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.8"/>
+          <polygon points="52,78 78,65 78,11 52,24" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.8"/>
+
+          <!-- Grand Arched Entrance with Golden Columns -->
+          <polygon points="36,70 46,75 46,55 36,50" fill="#0f172a" stroke="#facc15" stroke-width="1.5"/>
+          <path d="M36,50 Q41,47 46,55" stroke="#facc15" stroke-width="1.5" fill="none"/>
+          <polygon points="46,75 50,73 50,53 46,55" fill="#1e293b"/>
+
+          <!-- 6 Panoramic Glazed Windows with Golden Sills -->
+          <!-- Floor 2 -->
+          <polygon points="30,46 36,49 36,37 30,34" fill="#0284c7" stroke="#ffffff" stroke-width="1.2"/>
+          <polygon points="40,51 48,55 48,43 40,39" fill="#0284c7" stroke="#ffffff" stroke-width="1.2"/>
+          <polygon points="56,58 64,54 64,42 56,46" fill="#0284c7" stroke="#ffffff" stroke-width="1.2"/>
+          <polygon points="68,52 74,49 74,37 68,40" fill="#0284c7" stroke="#ffffff" stroke-width="1.2"/>
+          <!-- Floor 3 -->
+          <polygon points="34,31 44,36 44,25 34,20" fill="#38bdf8" stroke="#ffffff" stroke-width="1.2"/>
+          <polygon points="60,39 70,34 70,23 60,28" fill="#38bdf8" stroke="#ffffff" stroke-width="1.2"/>
+
+          <!-- Signboard "HOTEL" -->
+          <polygon points="32,23 52,33 52,28 32,18" fill="#0f172a" stroke="#facc15" stroke-width="1.2"/>
+          <text x="42" y="27" font-size="4" font-weight="900" fill="#facc15" font-family="sans-serif" text-anchor="middle" transform="rotate(26, 42, 27)">HOTEL</text>
+
+          <!-- GRAND MANSION MULTI-FACETED ROOF IN PLAYER COLOR -->
+          <polygon points="22,13 52,28 66,03 36,-12" fill="${c.bright}" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"/>
+          <polygon points="52,28 82,13 66,03" fill="${c.dark}" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"/>
+          <polygon points="52,24 78,11 66,03" fill="${c.primary}" stroke="#ffffff" stroke-width="1.5"/>
+
+          <!-- Golden Spire Crown & Flying Pennant Flag -->
+          <line x1="51" y1="08" x2="51" y2="-12" stroke="#facc15" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="51" cy="-12" r="3" fill="#facc15" stroke="#ffffff" stroke-width="1"/>
+          <polygon points="51,-12 62,-16 51,-20" fill="${c.primary}" stroke="#ffffff" stroke-width="1"/>
+        </svg>
+      `;
     }
 
-    // 2.5D Prison Corner Model with Stone Fortress, Steel Watchtower & Heavy Iron Bars (Ô #11 TRẠI GIAM)
-    function getPrisonCornerSVG() {
+function getPrisonCornerSVG() {
       return `
         <div class="mono-upright-3d -mt-3.5 flex flex-col items-center pointer-events-none select-none">
           <svg width="68" height="68" viewBox="0 0 80 80" fill="none" class="filter drop-shadow-[0_10px_12px_rgba(0,0,0,0.85)]">
@@ -11610,94 +11767,241 @@
     // =========================================================================
     // Full-body 2.5D standing characters with suits, heads, hairstyles, arms, legs & 3D base
     // matching the standing businessman/characters in media_1793028219505_4ba5abef.png
-    function getBusinessTourCharacterSVG(playerIdx, isCurTurn) {
-      const cfg = MONOPOLY_PRESET_CONFIGS[playerIdx % 4] || MONOPOLY_PRESET_CONFIGS[0];
+        function getBusinessTourCharacterSVG(playerIdx, isCurTurn = false) {
+      if (playerIdx === 0) {
+        // P0: HIGH ELF MAGE (Tham chiếu ảnh 2: Nữ hoàng Elf tóc bạch kim dài, váy xanh ngọc xẻ tà, vương miện vàng)
+        return `
+          <svg width="64" height="84" viewBox="0 0 70 95" fill="none" class="overflow-visible select-none pointer-events-none">
+            <!-- Ground Contact Shadow -->
+            <ellipse cx="35" cy="88" rx="20" ry="6" fill="#0f172a" opacity="0.45"/>
+            ${isCurTurn ? `
+              <!-- Active Celestial Halo -->
+              <ellipse cx="35" cy="88" rx="24" ry="7" fill="none" stroke="#facc15" stroke-width="2.5" stroke-dasharray="4 2"/>
+            ` : ''}
 
-      // Distinct hair & outfit styling per character
-      const hairColors = ['#9f1239', '#38bdf8', '#dc2626', '#0f172a'];
-      const suitColors = ['#e11d48', '#0284c7', '#ea580c', '#10b981'];
-      const tieColors  = ['#fde047', '#f43f5e', '#fef08a', '#38bdf8'];
-      const skinColors = ['#fde68a', '#f8fafc', '#fed7aa', '#fbbf24'];
+            <!-- Long Platinum Blonde Hair Back -->
+            <path d="M22,32 C18,52 20,74 24,80 C28,74 27,52 26,38 Z" fill="#fef08a" stroke="#ca8a04" stroke-width="1"/>
+            <path d="M48,32 C52,52 50,74 46,80 C42,74 43,52 44,38 Z" fill="#fef08a" stroke="#ca8a04" stroke-width="1"/>
 
-      const hair = hairColors[playerIdx % 4];
-      const suit = suitColors[playerIdx % 4];
-      const tie  = tieColors[playerIdx % 4];
-      const skin = skinColors[playerIdx % 4];
+            <!-- Flowing Emerald Green Gown with Gold Trim -->
+            <path d="M26,50 L20,84 L50,84 L44,50 Z" fill="#15803d" stroke="#166534" stroke-width="1.2"/>
+            <path d="M25,50 C29,66 31,76 33,84 L37,84 C39,76 41,66 45,50 Z" fill="#16a34a"/>
+            <!-- Golden Waist Belt & Gem -->
+            <rect x="27" y="48" width="16" height="4" rx="2" fill="#facc15" stroke="#ca8a04" stroke-width="1"/>
+            <circle cx="35" cy="50" r="2.2" fill="#ef4444"/>
 
+            <!-- Torso & Golden Bustier -->
+            <polygon points="28,34 42,34 44,50 26,50" fill="#15803d" stroke="#166534" stroke-width="1"/>
+            <polygon points="29,35 41,35 39,43 31,43" fill="#facc15" stroke="#ca8a04" stroke-width="0.8"/>
+
+            <!-- Slender Arms & Golden Bracers -->
+            <!-- Left Arm holding Magic Glow -->
+            <path d="M28,36 L18,48 L14,44" stroke="#fde68a" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <rect x="15" y="44" width="4" height="4" fill="#facc15" rx="1"/>
+            <!-- Magic Glowing Orb in hand -->
+            <circle cx="12" cy="42" r="5" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+            <circle cx="12" cy="42" r="2" fill="#ffffff"/>
+            <!-- Right Arm -->
+            <path d="M42,36 L52,48 L56,44" stroke="#fde68a" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <rect x="51" y="44" width="4" height="4" fill="#facc15" rx="1"/>
+
+            <!-- Head, Neck & Fair Skin -->
+            <rect x="32" y="28" width="6" height="6" fill="#fde68a"/>
+            <ellipse cx="35" cy="22" rx="10" ry="11" fill="#fde68a" stroke="#d97706" stroke-width="1"/>
+
+            <!-- Pointed Elf Ears -->
+            <polygon points="24,20 17,14 25,24" fill="#fde68a" stroke="#d97706" stroke-width="0.8"/>
+            <polygon points="46,20 53,14 45,24" fill="#fde68a" stroke="#d97706" stroke-width="0.8"/>
+
+            <!-- Platinum Front Hair & Tiara -->
+            <path d="M24,18 C28,10 42,10 46,18 C42,14 28,14 24,18 Z" fill="#fef08a"/>
+            <polygon points="25,16 35,8 45,16 35,13" fill="#facc15" stroke="#ffffff" stroke-width="0.8"/>
+            <circle cx="35" cy="11" r="1.5" fill="#38bdf8"/>
+
+            <!-- Beautiful Eyes & Lips -->
+            <ellipse cx="31" cy="22" rx="2" ry="2.6" fill="#0f172a"/>
+            <ellipse cx="39" cy="22" rx="2" ry="2.6" fill="#0f172a"/>
+            <circle cx="31.8" cy="21.2" r="0.9" fill="#ffffff"/>
+            <circle cx="39.8" cy="21.2" r="0.9" fill="#ffffff"/>
+            <ellipse cx="28" cy="25" rx="2" ry="1" fill="#f43f5e" opacity="0.6"/>
+            <ellipse cx="42" cy="25" rx="2" ry="1" fill="#f43f5e" opacity="0.6"/>
+            <path d="M33,28 Q35,30 37,28" stroke="#be123c" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+          </svg>
+        `;
+      }
+
+      if (playerIdx === 1) {
+        // P1: SKELETON LICH / NECROMANCER (Tham chiếu ảnh 2: Áo choàng đen huyền bí, giáp xương vàng, đầu lâu mắt xanh, cánh năng lượng vút cao)
+        return `
+          <svg width="64" height="84" viewBox="0 0 70 95" fill="none" class="overflow-visible select-none pointer-events-none">
+            <!-- Ground Shadow -->
+            <ellipse cx="35" cy="88" rx="20" ry="6" fill="#0f172a" opacity="0.45"/>
+            ${isCurTurn ? `
+              <ellipse cx="35" cy="88" rx="24" ry="7" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="4 2"/>
+            ` : ''}
+
+            <!-- RADIATING ETHEREAL ENERGY WINGS (Tham chiếu ảnh 2: Đôi cánh năng lượng vút cao) -->
+            <polygon points="35,40 18,10 24,24 10,22 22,38" fill="#38bdf8" stroke="#ffffff" stroke-width="1.2"/>
+            <polygon points="35,40 52,10 46,24 60,22 48,38" fill="#38bdf8" stroke="#ffffff" stroke-width="1.2"/>
+            <polygon points="35,40 12,02 20,18 28,34" fill="#facc15" stroke="#ffffff" stroke-width="1"/>
+            <polygon points="35,40 58,02 50,18 42,34" fill="#facc15" stroke="#ffffff" stroke-width="1"/>
+
+            <!-- Black Necromancer Robe / Cloak -->
+            <path d="M25,48 L18,85 L52,85 L45,48 Z" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+            <path d="M26,50 C31,64 35,76 35,85 C35,76 39,64 44,50 Z" fill="#1e293b"/>
+
+            <!-- Golden Ribcage Armor Plates (Giáp Xương Sườn Vàng) -->
+            <rect x="28" y="36" width="14" height="14" rx="2" fill="#020617"/>
+            <line x1="30" y1="39" x2="40" y2="39" stroke="#facc15" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="29" y1="43" x2="41" y2="43" stroke="#facc15" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="31" y1="47" x2="39" y2="47" stroke="#facc15" stroke-width="2.2" stroke-linecap="round"/>
+            <!-- Golden Belt with Skull Buckle -->
+            <rect x="26" y="50" width="18" height="4" fill="#ca8a04"/>
+            <circle cx="35" cy="52" r="3" fill="#f8fafc" stroke="#0f172a" stroke-width="0.8"/>
+
+            <!-- Bony Arms in Dark Sleeves -->
+            <path d="M26,38 L16,48 L18,56" stroke="#0f172a" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <line x1="18" y1="56" x2="20" y2="60" stroke="#f8fafc" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M44,38 L54,48 L52,56" stroke="#0f172a" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <line x1="52" y1="56" x2="50" y2="60" stroke="#f8fafc" stroke-width="2.5" stroke-linecap="round"/>
+
+            <!-- Black Cowl Hood -->
+            <path d="M22,30 C20,12 28,6 35,6 C42,6 50,12 48,30 C44,18 26,18 22,30 Z" fill="#0f172a" stroke="#facc15" stroke-width="1.4"/>
+
+            <!-- White Bone Skull Face with Glowing Blue Eyes -->
+            <ellipse cx="35" cy="22" rx="9" ry="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+            <!-- Eye Sockets with Cyan Energy -->
+            <ellipse cx="31.5" cy="21" rx="2.8" ry="3.2" fill="#020617"/>
+            <ellipse cx="38.5" cy="21" rx="2.8" ry="3.2" fill="#020617"/>
+            <circle cx="31.5" cy="21" r="1.5" fill="#38bdf8"/>
+            <circle cx="38.5" cy="21" r="1.5" fill="#38bdf8"/>
+            <circle cx="31.5" cy="21" r="0.6" fill="#ffffff"/>
+            <circle cx="38.5" cy="21" r="0.6" fill="#ffffff"/>
+            <!-- Nasal Cavity & Teeth -->
+            <polygon points="35,24 33.5,27 36.5,27" fill="#020617"/>
+            <rect x="32" y="28" width="6" height="3" fill="#020617"/>
+            <line x1="34" y1="28" x2="34" y2="31" stroke="#f8fafc" stroke-width="1"/>
+            <line x1="36" y1="28" x2="36" y2="31" stroke="#f8fafc" stroke-width="1"/>
+          </svg>
+        `;
+      }
+
+      if (playerIdx === 2) {
+        // P2: RED DEMON BARBARIAN (Tham chiếu ảnh 2: Quỷ đỏ cơ bắp cuồn cuộn, sừng nhọn vàng, giáp vai rực lửa cháy)
+        return `
+          <svg width="64" height="84" viewBox="0 0 70 95" fill="none" class="overflow-visible select-none pointer-events-none">
+            <!-- Ground Shadow -->
+            <ellipse cx="35" cy="88" rx="22" ry="6" fill="#0f172a" opacity="0.45"/>
+            ${isCurTurn ? `
+              <ellipse cx="35" cy="88" rx="26" ry="7" fill="none" stroke="#f97316" stroke-width="2.5" stroke-dasharray="4 2"/>
+            ` : ''}
+
+            <!-- Muscular Legs & Barbarian Boots -->
+            <rect x="25" y="66" width="7" height="18" rx="3" fill="#b91c1c" stroke="#7f1d1d" stroke-width="1"/>
+            <rect x="38" y="66" width="7" height="18" rx="3" fill="#b91c1c" stroke="#7f1d1d" stroke-width="1"/>
+            <rect x="23" y="78" width="10" height="8" rx="2" fill="#78350f"/>
+            <rect x="37" y="78" width="10" height="8" rx="2" fill="#78350f"/>
+
+            <!-- Barbarian Loincloth with Skull Belt -->
+            <polygon points="26,56 44,56 41,72 29,72" fill="#78350f" stroke="#451a03" stroke-width="1"/>
+            <rect x="24" y="54" width="22" height="4" fill="#451a03"/>
+            <circle cx="35" cy="56" r="3" fill="#facc15" stroke="#78350f" stroke-width="1"/>
+
+            <!-- Powerful Crimson Muscular Torso -->
+            <polygon points="23,36 47,36 43,56 27,56" fill="#dc2626" stroke="#991b1b" stroke-width="1.5"/>
+            <!-- Pectoral & Abdominal Muscles -->
+            <path d="M26,42 Q30,46 35,42 Q40,46 44,42" stroke="#7f1d1d" stroke-width="2" fill="none"/>
+            <line x1="35" y1="42" x2="35" y2="54" stroke="#7f1d1d" stroke-width="1.8"/>
+
+            <!-- BLAZING FIRE PAULDRON ON SHOULDER (Tham chiếu ảnh 2: Giáp vai rực lửa cháy) -->
+            <!-- Right Shoulder: Spiked Steel Plate with Fire Flames -->
+            <polygon points="46,36 58,32 56,44 46,42" fill="#ea580c" stroke="#7c2d12" stroke-width="1.2"/>
+            <!-- Burning Fire Flames -->
+            <polygon points="48,32 54,16 57,28 62,20 60,34" fill="#facc15" stroke="#f97316" stroke-width="1"/>
+            <polygon points="50,30 54,20 57,28" fill="#ffffff"/>
+            <!-- Right Muscular Arm -->
+            <path d="M48,40 L56,54 L52,64" stroke="#dc2626" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+            <rect x="49" y="58" width="6" height="6" fill="#78350f" rx="1"/>
+
+            <!-- Left Muscular Arm & Spiked Gauntlet -->
+            <path d="M22,38 L14,52 L18,62" stroke="#dc2626" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+            <rect x="15" y="56" width="6" height="6" fill="#78350f" rx="1"/>
+
+            <!-- Demon Head & Thick Neck -->
+            <rect x="31" y="28" width="8" height="8" fill="#b91c1c"/>
+            <ellipse cx="35" cy="22" rx="11" ry="10" fill="#dc2626" stroke="#991b1b" stroke-width="1.5"/>
+
+            <!-- CURVED GOLDEN DEMON HORNS (Sừng Ma Vương) -->
+            <path d="M26,18 Q14,14 16,04 Q22,12 28,15 Z" fill="#facc15" stroke="#ca8a04" stroke-width="1.2"/>
+            <path d="M44,18 Q56,14 54,04 Q48,12 42,15 Z" fill="#facc15" stroke="#ca8a04" stroke-width="1.2"/>
+
+            <!-- Fierce Eyes & Fangs -->
+            <polygon points="29,20 34,22 29,24" fill="#fef08a"/>
+            <polygon points="41,20 36,22 41,24" fill="#fef08a"/>
+            <circle cx="31.5" cy="22" r="1.2" fill="#020617"/>
+            <circle cx="38.5" cy="22" r="1.2" fill="#020617"/>
+            <!-- Snarl & White Fangs -->
+            <path d="M30,27 Q35,31 40,27" stroke="#451a03" stroke-width="2" fill="none"/>
+            <polygon points="31,27 32,29 33,27" fill="#ffffff"/>
+            <polygon points="37,27 38,29 39,27" fill="#ffffff"/>
+          </svg>
+        `;
+      }
+
+      // P3: EXECUTIVE BILLIONAIRE (Tham chiếu Business Tour ảnh 3: Quý ông doanh nhân vest đỏ bordeaux, sơ mi trắng mở cúc, tóc vuốt bóng bẩy, giày tây)
       return `
-        <svg width="56" height="74" viewBox="0 0 64 86" fill="none" class="filter drop-shadow-[0_12px_10px_rgba(0,0,0,0.75)]">
-          <!-- Glowing 3D Isometric Pedestal Base -->
-          <ellipse cx="32" cy="78" rx="18" ry="6" fill="rgba(0,0,0,0.55)"/>
-          <ellipse cx="32" cy="75" rx="15" ry="5" fill="${suit}" stroke="#ffffff" stroke-width="2"/>
-          ${isCurTurn ? `<ellipse cx="32" cy="75" rx="20" ry="7" fill="none" stroke="#facc15" stroke-width="2" stroke-dasharray="4 3"/>` : ''}
+        <svg width="64" height="84" viewBox="0 0 70 95" fill="none" class="overflow-visible select-none pointer-events-none">
+          <!-- Ground Shadow -->
+          <ellipse cx="35" cy="88" rx="20" ry="6" fill="#0f172a" opacity="0.45"/>
+          ${isCurTurn ? `
+            <ellipse cx="35" cy="88" rx="24" ry="7" fill="none" stroke="#10b981" stroke-width="2.5" stroke-dasharray="4 2"/>
+          ` : ''}
 
-          <!-- Standing Legs & Dress Shoes -->
-          <path d="M26,56 L25,73 L29,74 L31,58 Z" fill="#1e293b"/>
-          <path d="M38,56 L39,73 L35,74 L33,58 Z" fill="#0f172a"/>
-          <ellipse cx="26" cy="74" rx="4" ry="2" fill="#090d16"/>
-          <ellipse cx="38" cy="74" rx="4" ry="2" fill="#090d16"/>
+          <!-- Long Slender Legs in Black Tailored Trousers -->
+          <rect x="28" y="58" width="6" height="26" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+          <rect x="36" y="58" width="6" height="26" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+          <!-- Polished Black Oxford Shoes -->
+          <polygon points="26,84 34,84 35,87 25,87" fill="#020617"/>
+          <polygon points="36,84 44,84 45,87 35,87" fill="#020617"/>
 
-          <!-- 2.5D Tailored Suit Torso & Jacket -->
-          <path d="M20,38 C20,35 44,35 44,38 L41,58 L23,58 Z" fill="${suit}" stroke="#ffffff" stroke-width="1.2"/>
-          <!-- White Dress Shirt V-Neck & Tie -->
-          <polygon points="27,37 37,37 32,49" fill="#ffffff"/>
-          <polygon points="30.5,38 33.5,38 34,51 32,54 30,51" fill="${tie}"/>
+          <!-- Sophisticated Bordeaux Red Suit Jacket (Tham chiếu nhân vật Business Tour) -->
+          <polygon points="23,34 47,34 44,60 26,60" fill="#be123c" stroke="#881337" stroke-width="1.5"/>
 
-          <!-- Left & Right Arms (Dynamic Business Pose) -->
-          <path d="M20,38 L14,50 L18,52 L23,42 Z" fill="${suit}" stroke="#ffffff" stroke-width="0.8"/>
-          <circle cx="16" cy="52" r="2.8" fill="${skin}"/>
-          <path d="M44,38 L50,48 L46,51 L41,42 Z" fill="${suit}" stroke="#ffffff" stroke-width="0.8"/>
-          <circle cx="48" cy="50" r="2.8" fill="${skin}"/>
+          <!-- Crisp White Open-Collar Shirt & Gold Tie/Necklace -->
+          <polygon points="31,34 39,34 36,46 34,46" fill="#ffffff"/>
+          <polygon points="34,40 36,40 35,46" fill="#facc15"/>
 
-          <!-- Proportionate 2.5D Head -->
-          <rect x="29" y="31" width="6" height="6" fill="${skin}"/>
-          <path d="M20,18 C20,10 44,10 44,18 C44,29 39,34 32,34 C25,34 20,29 20,18 Z" fill="${skin}" stroke="#475569" stroke-width="0.8"/>
+          <!-- Black Peak Lapels -->
+          <polygon points="24,34 31,34 33,48 27,46" fill="#0f172a"/>
+          <polygon points="46,34 39,34 37,48 43,46" fill="#0f172a"/>
 
-          <!-- Character-Specific 2.5D Crown / Hood / Spiky Hair -->
-          ${playerIdx === 0 ? `
-            <!-- P1: Crimson Hood (Like Red Hooded Lady) -->
-            <path d="M17,24 C16,8 24,4 32,4 C40,4 48,8 47,24 C45,14 39,11 32,11 C25,11 19,14 17,24 Z" fill="#e11d48" stroke="#ffffff" stroke-width="1"/>
-          ` : playerIdx === 1 ? `
-            <!-- P2: Unicorn Golden Horn & Azure Crest -->
-            <path d="M19,19 C19,9 45,9 45,19 C41,13 23,13 19,19 Z" fill="#0284c7"/>
-            <polygon points="29,11 32,1 35,11" fill="#fde047" stroke="#ca8a04" stroke-width="1"/>
-          ` : playerIdx === 2 ? `
-            <!-- P3: Dragon Golden Horns & Flame Hair -->
-            <path d="M19,19 C18,8 46,8 45,19 C40,13 24,13 19,19 Z" fill="#dc2626"/>
-            <polygon points="22,12 17,3 27,10" fill="#fde047" stroke="#b45309" stroke-width="0.8"/>
-            <polygon points="42,12 47,3 37,10" fill="#fde047" stroke="#b45309" stroke-width="0.8"/>
-          ` : `
-            <!-- P4: Slick Spiky Businessman Hair (Like Las Vegas Pawn in Reference Image) -->
-            <path d="M18,20 C17,9 26,4 34,6 C42,4 47,10 45,20 C42,13 36,11 30,12 C24,12 20,15 18,20 Z" fill="#0f172a"/>
-          `}
+          <!-- Left Arm in Pocket -->
+          <path d="M24,36 L18,48 L26,56" stroke="#be123c" stroke-width="5" stroke-linecap="round" fill="none"/>
+          <!-- Right Arm hanging with Gold Watch -->
+          <path d="M46,36 L52,48 L50,60" stroke="#be123c" stroke-width="5" stroke-linecap="round" fill="none"/>
+          <rect x="49" y="56" width="3" height="2" fill="#facc15"/>
+          <circle cx="50" cy="62" r="2.5" fill="#fde68a"/>
 
-          <!-- Expressive Eyes & Confident Smile -->
-          <circle cx="27" cy="21" r="1.8" fill="#0f172a"/>
-          <circle cx="37" cy="21" r="1.8" fill="#0f172a"/>
-          <circle cx="27.5" cy="20.5" r="0.6" fill="#ffffff"/>
-          <circle cx="37.5" cy="20.5" r="0.6" fill="#ffffff"/>
-          <path d="M28,27 Q32,30 36,27" stroke="#78350f" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <!-- Neck & Head with Handsome Smirk -->
+          <rect x="32" y="28" width="6" height="6" fill="#fde68a"/>
+          <ellipse cx="35" cy="21" rx="9" ry="10" fill="#fde68a" stroke="#d97706" stroke-width="1"/>
+
+          <!-- Business Tour Slick Anime Haircut (Tóc vuốt bóng bẩy phong trần) -->
+          <path d="M24,19 C23,8 33,4 43,6 C48,8 47,15 45,21 C41,13 36,11 28,13 Z" fill="#1e293b"/>
+          <polygon points="43,6 48,1 46,9" fill="#1e293b"/>
+          <polygon points="37,4 40,0 41,7" fill="#1e293b"/>
+
+          <!-- Confident Eyes & Billionaire Smile -->
+          <ellipse cx="31" cy="20" rx="1.8" ry="2.2" fill="#0f172a"/>
+          <ellipse cx="39" cy="20" rx="1.8" ry="2.2" fill="#0f172a"/>
+          <circle cx="31.6" cy="19.4" r="0.7" fill="#ffffff"/>
+          <circle cx="39.6" cy="19.4" r="0.7" fill="#ffffff"/>
+          <path d="M32,25 Q36,29 39,26" stroke="#991b1b" stroke-width="1.8" fill="none" stroke-linecap="round"/>
         </svg>
       `;
     }
 
-    function triggerMonoFloatingCash(playerIdx, amount) {
-      const container = document.getElementById(`monoCornerFloat_${playerIdx}`);
-      if (!container) return;
-
-      const el = document.createElement('div');
-      const isPos = amount > 0;
-      el.className = `font-chakra font-black text-sm sm:text-base drop-shadow-md animate-float-cash ${isPos ? 'text-emerald-400' : 'text-rose-400'}`;
-      el.textContent = `${isPos ? '+' : ''}$${amount}`;
-      container.appendChild(el);
-
-      setTimeout(() => {
-        if (el.parentNode) el.parentNode.removeChild(el);
-      }, 1400);
-    }
-
-    // Special Tile SVGs (Rainbow Chance Wheel, Prison Watchtower 3D, World Tour Airport)
-    function getRainbowChanceWheelSVG() {
+function getRainbowChanceWheelSVG() {
       return `
         <svg width="38" height="38" viewBox="0 0 60 60" class="filter drop-shadow">
           <circle cx="30" cy="30" r="26" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
@@ -11747,8 +12051,8 @@
             cornerArt = getPrisonCornerSVG();
           } else if (t.type === 'airport') {
             cornerArt = `
-              <div class="mono-upright-3d -mt-5 flex flex-col items-center">
-                <span class="text-2xl sm:text-3xl filter drop-shadow">✈️</span>
+              <div class="mono-airplane-3d -mt-6 flex flex-col items-center">
+                ${getBusinessTourAirportSVG(60)}
               </div>
             `;
           } else {

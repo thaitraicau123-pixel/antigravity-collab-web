@@ -1035,3 +1035,41 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
          - **Chế độ Fullscreen**: Cụm trên đặt `top: 158px !important;`, cụm dưới đặt `bottom: 118px !important;`.
        - Kết quả: Tạo khoảng cách cố định rộng **22-25px** giữa thẻ người chơi và túi tiền ở cả 4 góc. Toàn bộ miệng túi nhung, ánh hào quang, thỏi xu vàng và bệ nhãn hiển thị trọn vẹn 100%, không còn bất kỳ sự chồng đè nào.
   - **Bảo toàn 100% điều kiện 4 góc**: Cả 4 góc bàn cờ (START, ALCATRAZ, AIRPORT, INTERPOL) tiếp tục nằm trọn vẹn 100% bên trong khung nhìn màn hình.
+
+### v4.1.4 (2026-10-27) - 3D Isometric Architecture, 3D Figurine Pawns, 3D Supersonic Jet Airliner & Precision Viewport Layout
+- **Thanh Thông Tin Đất Nâng Sát Mép Trên (#monoTopTileInspector)**:
+  - Nâng thanh HUD Inspector lên sát mép trên màn hình (`top: 2px !important;`), viền bo siêu mỏng và padding tối ưu (`py-1 px-3.5`).
+  - Mở rộng khoảng cách đệm không gian giữa mép đáy thanh HUD và đỉnh ô Sân Bay lên **>40px**, tạo tầm nhìn thoáng đãng tuyệt đối cho toàn bộ bàn cờ.
+- **Tối Ưu Phóng To Bàn Cờ & Kéo Xuống Nhẹ**:
+  - Bàn cờ phóng to tối đa theo tỷ lệ an toàn:
+    - **Fullscreen**: `width: min(79vh, 65vw, 850px)`, `transform: perspective(1400px) rotateX(28deg) rotateZ(25deg) translateY(-2.5%) scale(0.82) !important;`.
+    - **Chế độ Thường**: `width: min(67vh, 53vw, 750px)`, `transform: perspective(1400px) rotateX(28deg) rotateZ(25deg) translateY(-1%) scale(0.79)`.
+  - **Đảm bảo 100% 4 góc nằm trọn vẹn trong màn hình**:
+    - Ô **START (Vạch Xuất Phát)** ở góc dưới: Trọn vẹn trong màn hình, cách mép dưới 20-25px.
+    - Ô **ALCATRAZ (Trại Giam)** ở góc trái: Nằm trọn vẹn với mô hình Tháp Canh 3D đá xám, song sắt và đèn hải đăng đỏ.
+    - Ô **SÂN BAY QUỐC TẾ (World Tour)** ở góc trên: Nằm trọn vẹn với mô hình Chuyên Cơ Phản Lực Siêu Thanh 3D.
+    - Ô **INTERPOL (Bắt Giam)** ở góc phải: Nằm trọn vẹn với xích sắt và còng số 8.
+- **Nâng Cấp Toàn Diện Mô Hình 3D Nổi Khối Lập Thể (True 3D Isometric Pop-up Models)**:
+  - Quân cờ người chơi 3D Figurine bệ hoàng kim đa tầng (`getBusinessTourCharacterSVG`).
+  - Chuyên cơ phản lực siêu thanh 3D trên đường băng (`getBusinessTourAirportSVG`).
+  - Hệ thống nhà 3D Isometric Levels 1 - 3 và Resort biển dừa nhiệt đới.
+
+### v4.1.5 (2026-10-27) - Business Tour 3D Solid Opaque Visuals & Airport Corner Overhaul
+- **Triệt Tiêu 100% Lỗi Trong Suốt (Zero-Transparency Opaque Architecture)**:
+  - Khắc phục lỗi gradient ID tĩnh trùng lặp (`wallLight_1`, `lawnGrad_1`, `charHeadGrad_...`) trên 44 ô cờ khiến SVG Renderer của trình duyệt bị xung đột và rơi vào trạng thái `fill: transparent`.
+  - Chuyển đổi 100% hình khối kiến trúc và nhân vật sang kỹ thuật tô màu lập thể trực tiếp (Direct Hex Shading): Nóc sáng nhất (`#ffffff`, `#f8fafc`), mặt đón sáng (`#ffffff`, `#cbd5e1`), mặt khuất sáng (`#cbd5e1`, `#94a3b8`), loại bỏ triệt để mọi nguy cơ bị trong suốt hoặc lộ nền.
+- **Hệ Thống Nhà 3D Chuẩn Business Tour (Levels 1 - 3 & Resort Biển)**:
+  - **Cấp 1 - Nhà Trệt Ngói Xinh Xắn (Business Tour Single Cottage)**: Tường trắng kem đặc 100%, mái ngói dốc màu người chơi tươi tắn, cửa chính gỗ viền nâu vàng, cửa sổ kính xanh lam đón sáng, ống khói đỏ có khói trắng và bụi cây cảnh trước hiên.
+  - **Cấp 2 - Biệt Thự 2 Gian Song Lập (Business Tour Twin Villa)**: 2 khối nhà liền kề giật cấp, 2 mái ngói cao thấp, ban công tầng 2 với lan can trắng, nhiều ô cửa sổ kính xanh.
+  - **Cấp 3 - Khách Sạn 3 Tầng Hoàng Gia (Business Tour Grand Hotel)**: 3 tầng bề thế, cổng vòm chào đón khách với cột vàng, 6 cửa sổ kính toàn cảnh, biển hiệu "HOTEL" sắc nét, mái ngói vát lớn và cột cờ vươn cao.
+  - **Resort - Bungalow Bãi Biển Nhiệt Đới (Tropical Beach Resort)**: Chòi gỗ mái lá cọ hình nón, cọc gỗ trên bãi cát vàng thoai thoải, rặng dừa nhiệt đới 3D, làn sóng biển lam ngọc và dù che nắng sọc đỏ trắng.
+- **Quân Cờ Nhân Vật Toàn Thân Chuẩn Business Tour (4 Full-Body Isometric Champions)**:
+  - Loại bỏ hoàn toàn đế cờ búp bê to dẹt, thay bằng nhân vật toàn thân đứng tự nhiên trên ô đất với bóng đổ tiếp xúc thực tế:
+    - **P0 - Tiên (High Elf Sorceress)**: Nữ thần Tiên tộc tóc bạch kim dài buông xõa, váy dạ hội xanh ngọc lục bảo viền vàng xẻ tà, tai nhọn yêu tinh, vương miện và tay nâng khối cầu pháp thuật lấp lánh.
+    - **P1 - Kỳ Lân AI (Skeleton Lich / Necromancer)**: Áo choàng pháp sư đen huyền bí, giáp xương sườn kim loại vàng, đầu lâu trắng với mắt xanh ma mị, đôi cánh năng lượng thánh linh vàng/xanh vát cao.
+    - **P2 - Rồng Lửa AI (Red Demon Barbarian)**: Chiến binh quỷ đỏ cơ bắp cuồn cuộn, sừng nhọn ma vương màu vàng, giáp vai rực lửa cháy bập bùng, thắt lưng da đầu lâu dũng mãnh.
+    - **P3 - Tổng Tài AI (Executive Billionaire)**: Quý ông doanh nhân Business Tour lịch lãm với áo vest đỏ bordeaux, sơ mi trắng mở cúc, cà vạt, mái tóc vuốt bóng bẩy phong trần, quần âu và giày tây đen bóng.
+- **Đại Tu Ô Góc Sân Bay Quốc Tế (Business Tour World Tour Airport Corner)**:
+  - **Chuyên Cơ Thương Mại Hành Khách (Airliner Passenger Jet)**: Thân máy bay màu trắng sữa thuôn dài, dải tem xanh navy dọc thân, các ô cửa sổ hành khách liên tiếp, buồng lái kính cong, 2 động cơ phản lực dưới cánh xuôi, cánh đuôi đứng vững chãi.
+  - **Đài Kiểm Soát Không Lưu (Air Traffic Control Tower)**: Tháp hình trụ vững chãi với buồng kính quan sát 360 độ màu xanh lam, chóp mái nón đỏ có ăng-ten radar quay quét.
+  - **Đường Băng Kẻ Vạch (Tarmac Markings)**: Mặt sân bay bê tông xám đậm kẻ vạch sơn trắng dẫn hướng cất hạ cánh.

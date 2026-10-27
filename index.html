@@ -532,7 +532,7 @@
     }
 
     /* =========================================================================
-       3D GLOSSY OBSIDIAN PIP DICE CUBE & CYAN AURA TUMBLE PHYSICS (v4.0.6)
+       3D GLOSSY OBSIDIAN PIP DICE CUBE & CYAN AURA TUMBLE PHYSICS (v4.0.7)
        ========================================================================= */
     .mono-die-scene {
       width: 44px;
@@ -638,23 +638,30 @@
     .pip-bc { grid-area: 3 / 2; }
     .pip-br { grid-area: 3 / 3; }
 
-    /* Airborne Parabolic Hop & Cyan Backlight Burst during Roll */
+    /* Airborne Parabolic Hop & Cyan Backlight Burst during 1500ms Roll (v4.0.7) */
     @keyframes monoDieAirborneHop {
       0% {
         transform: translate3d(0, 0, 0) scale(1);
         filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.7));
       }
-      28% {
-        transform: translate3d(0, -20px, 0) scale(1.22);
-        filter: drop-shadow(0 0 18px rgba(34, 211, 238, 0.95)) drop-shadow(0 18px 14px rgba(0, 0, 0, 0.85));
+      22% {
+        transform: translate3d(0, -25px, 0) scale(1.24);
+        filter: drop-shadow(0 0 22px rgba(34, 211, 238, 0.95)) drop-shadow(0 20px 16px rgba(0, 0, 0, 0.85));
       }
-      58% {
-        transform: translate3d(0, 3px, 0) scale(1.04);
-        filter: drop-shadow(0 0 14px rgba(34, 211, 238, 0.8)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8));
+      46% {
+        transform: translate3d(0, 4px, 0) scale(0.95);
+        filter: drop-shadow(0 0 16px rgba(34, 211, 238, 0.8)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8));
       }
-      76% {
-        transform: translate3d(0, -8px, 0) scale(1.1);
-        filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.85)) drop-shadow(0 10px 10px rgba(0, 0, 0, 0.8));
+      68% {
+        transform: translate3d(0, -13px, 0) scale(1.10);
+        filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.85)) drop-shadow(0 10px 10px rgba(0, 0, 0, 0.8));
+      }
+      85% {
+        transform: translate3d(0, 2px, 0) scale(0.98);
+        filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.7));
+      }
+      93% {
+        transform: translate3d(0, -4px, 0) scale(1.02);
       }
       100% {
         transform: translate3d(0, 0, 0) scale(1);
@@ -663,9 +670,8 @@
     }
 
     .mono-die-bouncing {
-      animation: monoDieAirborneHop 0.92s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+      animation: monoDieAirborneHop 1.5s cubic-bezier(0.2, 0.65, 0.35, 1) forwards;
     }
-
     /* Cyan Electric Aura on Dice Tray during Rolling */
     .mono-tray-rolling-aura {
       border-color: #22d3ee !important;
@@ -762,26 +768,89 @@
       animation: monoAirplaneFlight 2.0s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
     }
 
-    /* === 100% GPU HARDWARE-ACCELERATED 60FPS CASH FLIGHT & PAWN GLIDE (v3.9.5) === */
-    @keyframes monoCashFlightArc60fps {
+    /* === 100% GPU HARDWARE-ACCELERATED 60FPS STAGGERED CASH FLIGHT (v4.0.7) === */
+
+    /* Staggered spawn of cash transfer items beside payer pod */
+    .mono-transfer-stagger-coins {
+      transform-origin: 50px 105px;
+      animation: monoTransferItemSpawn var(--mono-stagger-dur, 0.45s) cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--mono-transfer-duration, 2.3s) * 0.04) both;
+    }
+    .mono-transfer-stagger-sack {
+      transform-origin: 120px 95px;
+      animation: monoTransferItemSpawn var(--mono-stagger-dur, 0.48s) cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--mono-transfer-duration, 2.3s) * 0.16) both;
+    }
+    .mono-transfer-stagger-badge {
+      animation: monoTransferBadgeSpawn var(--mono-stagger-dur, 0.42s) cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--mono-transfer-duration, 2.3s) * 0.28) both;
+    }
+
+    @keyframes monoTransferItemSpawn {
       0% {
-        transform: translate3d(-135px, -50%, 0) scale3d(0.85, 0.85, 1) rotate(-5deg);
         opacity: 0;
+        transform: translateY(32px) scale(0.25);
       }
-      12% {
-        transform: translate3d(-115px, -54%, 0) scale3d(1, 1, 1) rotate(-2deg);
+      65% {
         opacity: 1;
-      }
-      50% {
-        transform: translate3d(0px, -74%, 0) scale3d(1.12, 1.12, 1) rotate(2deg);
-        opacity: 1;
-      }
-      86% {
-        transform: translate3d(115px, -54%, 0) scale3d(0.95, 0.95, 1) rotate(4deg);
-        opacity: 1;
+        transform: translateY(-8px) scale(1.15);
       }
       100% {
-        transform: translate3d(140px, -50%, 0) scale3d(0.55, 0.55, 1) rotate(8deg);
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes monoTransferBadgeSpawn {
+      0% {
+        opacity: 0;
+        transform: scale(0.2) translateY(16px);
+      }
+      65% {
+        opacity: 1;
+        transform: scale(1.15) translateY(-3px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* 4-Stage 60fps Arc Flight: Appear beside Payer -> Consolidate into 1 Body -> Glide to Recipient -> Absorb */
+    @keyframes monoCashFlightArc60fps {
+      /* Stage 1: Appear beside payer stack-by-stack (0% -> 42%) */
+      0% {
+        transform: translate3d(-125px, -50%, 0) scale3d(0.95, 0.95, 1);
+        opacity: 1;
+      }
+      36% {
+        transform: translate3d(-125px, -50%, 0) scale3d(1, 1, 1);
+        opacity: 1;
+      }
+      /* Stage 2: Consolidate into 1 unified radiant body (42% -> 50%) */
+      42% {
+        transform: translate3d(-125px, -50%, 0) scale3d(1.10, 1.10, 1);
+        filter: drop-shadow(0 0 28px rgba(250, 204, 21, 0.95));
+        opacity: 1;
+      }
+      48% {
+        transform: translate3d(-120px, -52%, 0) scale3d(1.02, 1.02, 1);
+        opacity: 1;
+      }
+      /* Stage 3: Parabolic Flight Arc across arena (50% -> 88%) */
+      68% {
+        transform: translate3d(0px, -78%, 0) scale3d(1.18, 1.18, 1) rotate(3deg);
+        filter: drop-shadow(0 0 32px rgba(250, 204, 21, 0.95));
+        opacity: 1;
+      }
+      88% {
+        transform: translate3d(120px, -52%, 0) scale3d(1.02, 1.02, 1) rotate(-1deg);
+        opacity: 1;
+      }
+      /* Stage 4: Absorb into Recipient (88% -> 100%) */
+      95% {
+        transform: translate3d(125px, -50%, 0) scale3d(0.85, 0.85, 1);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translate3d(128px, -50%, 0) scale3d(0.45, 0.45, 1);
         opacity: 0;
       }
     }
@@ -789,12 +858,27 @@
     .mono-cash-flying {
       left: 50% !important;
       top: 50% !important;
-      will-change: transform, opacity;
+      will-change: transform, opacity, filter;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      animation: monoCashFlightArc60fps 1.25s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation: monoCashFlightArc60fps var(--mono-transfer-duration, 2.3s) cubic-bezier(0.25, 0.85, 0.25, 1) forwards;
     }
 
+    @keyframes monoRecipientPulse {
+      0%, 82% {
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+      }
+      90% {
+        transform: translate3d(0, -6px, 0) scale3d(1.18, 1.18, 1);
+      }
+      100% {
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+      }
+    }
+
+    .mono-recipient-pulsing {
+      animation: monoRecipientPulse var(--mono-transfer-duration, 2.3s) ease-out forwards;
+    }
     /* 60FPS Smooth Character Hop & Glide on Board */
     @keyframes monoPawnHop60fps {
       0% {
@@ -1032,7 +1116,7 @@
 
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v4.0.6</span>
+          <span id="headerVersionPill" class="font-bold">v4.0.7</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -3072,7 +3156,7 @@
         <div id="monoCenterControls" class="absolute inset-0 flex items-center justify-center pointer-events-none z-30 select-none">
           <div class="flex flex-col items-center justify-center gap-2.5 sm:gap-3 pointer-events-auto">
             
-            <!-- Clickable 3D Glossy Obsidian Pip Dice Tray (Tap to Roll - v4.0.6) -->
+            <!-- Clickable 3D Glossy Obsidian Pip Dice Tray (Tap to Roll - v4.0.7) -->
             <div onclick="executeMono2dRoll()" id="monoDiceTrayBox" class="flex items-center gap-3.5 bg-[#050A14]/95 px-5 py-2.5 rounded-2xl border-2 border-cyan-400/80 shadow-[0_0_28px_rgba(6,182,212,0.45)] backdrop-blur-md cursor-pointer hover:border-cyan-300 hover:scale-105 active:scale-95 transition-all select-none touch-manipulation group" title="Bấm vào khay xúc xắc 3D hoặc nhấn Space để tung xúc xắc">
               <!-- Hidden numeric holders for 100% P2P sync compatibility -->
               <span id="monoDice1Val" class="hidden">6</span>
@@ -4574,7 +4658,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v4.0.6</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v4.0.7</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -8789,7 +8873,7 @@
       }
     }
 
-    // 3D Studio Masterpiece White Canvas Money Bag ($) with Vintage Banknotes + Tall Flush Gold Coin Cylinders & Embossed "$" Coins (v4.0.6)
+    // 3D Studio Masterpiece White Canvas Money Bag ($) with Vintage Banknotes + Tall Flush Gold Coin Cylinders & Embossed "$" Coins (v4.0.7)
     let __wealthSvgUidCounter = 0;
 
     function buildWealthSharedDefs(uid) {
@@ -10071,7 +10155,7 @@
     }
 
     // =========================================================================
-    // 3D OBSIDIAN PIP DICE ROTATION & SUSPENSE TUMBLE ENGINE (v4.0.6)
+    // 3D OBSIDIAN PIP DICE ROTATION & SUSPENSE TUMBLE ENGINE (v4.0.7)
     // =========================================================================
     let monoDiceSpinRound = 0;
 
@@ -10085,20 +10169,20 @@
       4: { rx: -14, ry: 106, rz: 0 }
     };
 
-    function playMonoDiceTumbleSFX(durationMs) {
+function playMonoDiceTumbleSFX(durationMs) {
       try {
-        const steps = 6;
+        const steps = 9;
         const baseInterval = durationMs / (steps + 1);
         for (let i = 0; i < steps; i++) {
           setTimeout(() => {
-            const freq = 320 + Math.floor(Math.random() * 240) + (i * 35);
-            soundTone(freq, 'triangle', 0.035, 0.08);
-          }, Math.round(i * baseInterval * (0.85 + i * 0.05)));
+            const freq = 340 + Math.floor(Math.random() * 200) + (i * 24);
+            soundTone(freq, 'triangle', 0.035, 0.075);
+          }, Math.round(i * baseInterval * (0.88 + i * 0.03)));
         }
       } catch (e) {}
     }
 
-    function setMono3DDiceVisual(d1, d2, animate = true, durationMs = 920) {
+    function setMono3DDiceVisual(d1, d2, animate = true, durationMs = 1500) {
       const d1El = document.getElementById('monoDice1Val');
       const d2El = document.getElementById('monoDice2Val');
       if (d1El) d1El.textContent = d1;
@@ -10114,21 +10198,21 @@
 
       if (animate) {
         monoDiceSpinRound++;
-        // Die 1 and Die 2 spin with slightly different multi-axis revolutions for natural physics
-        const turnX1 = monoDiceSpinRound * 1080; // 3 full X flips per roll
-        const turnY1 = monoDiceSpinRound * 1440; // 4 full Y spins per roll
-        const turnZ1 = monoDiceSpinRound * 360;
+        // Rich multi-axis continuous revolutions matching 1500ms tumble physics
+        const turnX1 = monoDiceSpinRound * 1440;
+        const turnY1 = monoDiceSpinRound * 1800;
+        const turnZ1 = monoDiceSpinRound * 720;
 
-        const turnX2 = monoDiceSpinRound * 1440; // 4 full X flips per roll
-        const turnY2 = monoDiceSpinRound * 1080; // 3 full Y spins per roll
-        const turnZ2 = -(monoDiceSpinRound * 360);
+        const turnX2 = monoDiceSpinRound * 1800;
+        const turnY2 = monoDiceSpinRound * 1440;
+        const turnZ2 = -(monoDiceSpinRound * 720);
 
         if (cube1) {
-          cube1.style.transition = `transform ${durationMs}ms cubic-bezier(0.15, 0.88, 0.28, 1.08)`;
+          cube1.style.transition = `transform ${durationMs}ms cubic-bezier(0.15, 0.88, 0.24, 1.05)`;
           cube1.style.transform = `rotateX(${a1.rx + turnX1}deg) rotateY(${a1.ry + turnY1}deg) rotateZ(${a1.rz + turnZ1}deg)`;
         }
         if (cube2) {
-          cube2.style.transition = `transform ${durationMs}ms cubic-bezier(0.15, 0.88, 0.28, 1.08)`;
+          cube2.style.transition = `transform ${durationMs}ms cubic-bezier(0.15, 0.88, 0.24, 1.05)`;
           cube2.style.transform = `rotateX(${a2.rx + turnX2}deg) rotateY(${a2.ry + turnY2}deg) rotateZ(${a2.rz + turnZ2}deg)`;
         }
         if (scene1) {
@@ -10140,7 +10224,7 @@
         if (scene2) {
           scene2.classList.remove('mono-die-bouncing');
           void scene2.offsetWidth;
-          scene2.style.animationDuration = `${Math.round(durationMs * 1.04)}ms`;
+          scene2.style.animationDuration = `${Math.round(durationMs * 1.03)}ms`;
           scene2.classList.add('mono-die-bouncing');
         }
       } else {
@@ -10159,16 +10243,16 @@
 
     function animateMono3DDiceRoll(d1, d2, onComplete) {
       const monoSpd = window.monoSpeed || monoState.speed || 1;
-      // Full suspense 920ms at 1x speed; scales smoothly when speed boost (2x..25x) is active
-      const rollDuration = Math.max(140, Math.round(920 / Math.pow(monoSpd, 0.75)));
-      const settlePause = Math.max(40, Math.round(240 / Math.pow(monoSpd, 0.8)));
+      // Full suspense 1500ms at 1x speed for clear observation (v4.0.7)
+      const rollDuration = Math.max(200, Math.round(1500 / Math.pow(monoSpd, 0.75)));
+      const settlePause = Math.max(60, Math.round(420 / Math.pow(monoSpd, 0.8)));
 
       const tray = document.getElementById('monoDiceTrayBox');
       const sumEl = document.getElementById('monoDiceSumVal');
       const sumLabel = document.getElementById('monoDiceSumLabel');
       const rollBtnText = document.getElementById('btnMono2dRollText');
 
-      // Stage 1: Hide total sum ('...') & ignite Cyan Aura while dice tumble in 3D
+      // Stage 1: Hide total sum ('•••') & ignite Cyan Aura while dice tumble in 3D for 1500ms
       if (tray) {
         tray.classList.remove('mono-tray-impact');
         tray.classList.add('mono-tray-rolling-aura');
@@ -10190,7 +10274,7 @@
 
       if (monoState.diceRollTimeoutId) clearTimeout(monoState.diceRollTimeoutId);
 
-      // Stage 2: Dice land & lock onto dotted faces -> Reveal Total & Doubles
+      // Stage 2: Dice land & lock onto dotted faces after 1500ms -> Reveal Total & Doubles
       monoState.diceRollTimeoutId = setTimeout(() => {
         const totalSteps = d1 + d2;
         const isDoubles = (d1 === d2);
@@ -10223,15 +10307,14 @@
           soundTone(isDoubles ? 880 : 660, 'triangle', 0.12, 0.18);
         } catch (e) {}
 
-        // Stage 3: Brief beat so player clearly sees the settled dotted faces before pawn hops
+        // Stage 3: Generous settle pause (420ms) so player clearly sees the settled dotted faces before pawn hops
         monoState.diceRollTimeoutId = setTimeout(() => {
           monoState.diceRollTimeoutId = null;
           if (typeof onComplete === 'function') onComplete();
         }, settlePause);
       }, rollDuration);
     }
-
-    // Execute 2.5D Roll Dice
+        // Execute 2.5D Roll Dice
     function executeMono2dRoll() {
       if (monoState.isRolling) return;
       if (window.isOnlineRoomMatch && window.myRoomPlayerIndex !== monoState.turn) {
@@ -11638,8 +11721,8 @@
       `;
     }
 
-    // Render 3D Studio Stacks of Dollars ($1,000/bag), Flush Gold Coin Cylinders ($100/coin) & Silver Coins ($25/coin) (v4.0.6)
-    function renderCashStackHTML(amount) {
+    // Render 3D Studio Stacks of Dollars ($1,000/bag), Flush Gold Coin Cylinders ($100/coin) & Silver Coins ($25/coin) (v4.0.7)
+function renderCashStackHTML(amount) {
       const amt = Math.max(0, amount || 0);
       const bags = Math.floor(amt / 1000);
       const goldCoins = Math.floor((amt % 1000) / 100);
@@ -11647,14 +11730,18 @@
       const uid = 'xfr_' + (++__wealthSvgUidCounter);
 
       return `
-        <div class="flex flex-col items-center justify-center pointer-events-none select-none">
+        <div class="mono-transfer-unified-stack flex flex-col items-center justify-center pointer-events-none select-none">
           <svg width="144" height="108" viewBox="0 0 176 132" fill="none" class="filter drop-shadow-[0_14px_22px_rgba(0,0,0,0.82)]">
             ${buildWealthSharedDefs(uid)}
             <ellipse cx="90" cy="116" rx="76" ry="11.5" fill="url(#wealthGroundShadow_${uid})" />
 
-            ${buildSingle3DMoneySackGroup(uid, 76, 9, 1.07)}
+            <!-- Túi tiền xuất hiện (Stagger Item 2) -->
+            <g class="mono-transfer-stagger-sack">
+              ${buildSingle3DMoneySackGroup(uid, 76, 9, 1.07)}
+            </g>
 
-            <g>
+            <!-- Chồng xu vàng xuất hiện (Stagger Item 1) -->
+            <g class="mono-transfer-stagger-coins">
               ${buildFlushGoldCoinCylinder(uid, 74, 104, Math.min(15, 10 + goldCoins), 13.8, 2.5, 3.7)}
               ${buildFlushGoldCoinCylinder(uid, 50, 106, Math.min(11, 7 + Math.floor(goldCoins * 0.6)), 13.8, 2.5, 3.7)}
               ${buildFlushGoldCoinCylinder(uid, 27, 108, 6, 13.8, 2.5, 3.7)}
@@ -11667,15 +11754,18 @@
               ${buildLeaningEmbossedGoldCoin(uid, 81, 104, 22,  14.8, 11.0, 3.2)}
             </g>
           </svg>
-          <span class="px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 text-slate-950 font-chakra font-black text-xs shadow-[0_6px_16px_rgba(245,158,11,0.5)] border-2 border-white -mt-2">
-            $${amt.toLocaleString()} (${bags > 0 ? bags + ' Bao • ' : ''}${goldCoins} Xu Vàng${silverCoins > 0 ? ' • ' + silverCoins + ' Xu Bạc' : ''})
-          </span>
+          <!-- Huy hiệu số tiền xuất hiện (Stagger Item 3) -->
+          <div class="mono-transfer-stagger-badge -mt-2">
+            <span class="px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 text-slate-950 font-chakra font-black text-xs shadow-[0_6px_16px_rgba(245,158,11,0.5)] border-2 border-white">
+              $${amt.toLocaleString()} (${bags > 0 ? bags + ' Bao • ' : ''}${goldCoins} Xu Vàng${silverCoins > 0 ? ' • ' + silverCoins + ' Xu Bạc' : ''})
+            </span>
+          </div>
         </div>
       `;
     }
 
-    // Trigger Dynamic Cash Transfer Animation
-    function triggerMonoCashTransfer(opts) {
+    // Trigger Dynamic Cash Transfer Animation with Staggered Stacks & Consolidated Flight (v4.0.7)
+        function triggerMonoCashTransfer(opts) {
       opts = opts || {};
       const payer = opts.payer;
       const recipient = opts.recipient;
@@ -11699,7 +11789,6 @@
           modal.classList.remove('flex');
         }
 
-        // Chỉ chạy hiệu ứng số tiền bay nhẹ trên góc thẻ người chơi
         if (payer && typeof triggerMonoFloatingCash === 'function') {
           const payerId = (typeof payer === 'object' && payer !== null && payer.id !== undefined) ? payer.id : payer;
           triggerMonoFloatingCash(payerId, -amount);
@@ -11765,39 +11854,57 @@
         if (descEl) descEl.textContent = desc || `${payer.name} đã trả ${amount.toLocaleString()} tiền thuê cho ${recipient.name}.`;
       }
 
-      // 3. Show Overlay first and force layout reflow so children render actively
+      // Timing: 2300ms base animation at 1x so player comfortably follows each stack and flight (v4.0.7)
+      const speedFactor = window.monoSpeed || monoState.speed || 1;
+      const transferDurationMs = Math.max(400, Math.round(2300 / Math.pow(speedFactor, 0.82)));
+      const staggerDur = (transferDurationMs * 0.22 / 1000).toFixed(2) + 's';
+
+      // 3. Show Overlay first and force layout reflow
       overlay.classList.remove('hidden');
       overlay.classList.add('flex');
       void overlay.offsetWidth;
 
-      // 4. Render Cash Stack & Trigger Flight
+      // 4. Render Cash Stack with Staggered Classes & Flight
       if (stackContainer) {
         stackContainer.innerHTML = renderCashStackHTML(amount);
+        stackContainer.style.setProperty('--mono-transfer-duration', `${transferDurationMs}ms`);
+        stackContainer.style.setProperty('--mono-stagger-dur', staggerDur);
         stackContainer.classList.remove('mono-cash-flying');
         void stackContainer.offsetWidth; // Reflow
         stackContainer.classList.add('mono-cash-flying');
       }
 
-      // 5. Pulse Recipient
+      // 5. Pulse Recipient synchronized with arrival (88% of flight)
       if (recipPod) {
+        recipPod.style.setProperty('--mono-transfer-duration', `${transferDurationMs}ms`);
         recipPod.classList.remove('mono-recipient-pulsing');
         void recipPod.offsetWidth;
         recipPod.classList.add('mono-recipient-pulsing');
       }
 
-      // Play Sound: Cash flutter + Coin Clink
+      // Synchronized Sound Effects for Staggered Spawn -> Consolidation -> Arrival
       try {
-        soundTone(580, 'triangle', 0.1, 0.2);
-        setTimeout(() => soundTone(880, 'sine', 0.15, 0.25), 200);
-        setTimeout(() => soundTone(1320, 'sine', 0.15, 0.3), 500);
+        // Step 1: Coins spawn pop (4%)
+        setTimeout(() => soundTone(720, 'triangle', 0.04, 0.12), Math.round(transferDurationMs * 0.04));
+        // Step 2: Money Sack spawns with soft thud (16%)
+        setTimeout(() => soundTone(460, 'sine', 0.06, 0.16), Math.round(transferDurationMs * 0.16));
+        // Step 3: Badge spawns with shine (28%)
+        setTimeout(() => soundTone(880, 'sine', 0.06, 0.18), Math.round(transferDurationMs * 0.28));
+        // Step 4: Consolidation & Takeoff whoosh (44%)
+        setTimeout(() => soundTone(550, 'triangle', 0.08, 0.22), Math.round(transferDurationMs * 0.44));
+        // Step 5: Arrival chimes at recipient (88%)
+        setTimeout(() => {
+          soundTone(1040, 'triangle', 0.10, 0.20);
+          setTimeout(() => soundTone(1320, 'sine', 0.12, 0.26), 110);
+        }, Math.round(transferDurationMs * 0.88));
       } catch(e) {}
 
-      // Auto close after animation finishes (speed scaled)
-      const cashAnimDuration = Math.max(180, Math.round(1450 / (window.monoSpeed || monoState.speed || 1)));
+      // Auto close after animation finishes + comfortable reading beat (speed scaled)
+      const cashAnimDuration = transferDurationMs + Math.max(80, Math.round(320 / Math.pow(speedFactor, 0.85)));
       setTimeout(() => {
         overlay.classList.add('hidden');
         overlay.classList.remove('flex');
-        if (onComplete) onComplete();
+        if (doneCb) doneCb();
       }, cashAnimDuration);
     }
     window.triggerMonoCashTransfer = triggerMonoCashTransfer;
@@ -14534,7 +14641,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v4.0.6'
+      currentVersion: 'v4.0.7'
     };
 
     let allChangelogItems = [];

@@ -941,3 +941,7 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
 ### v4.0.6 — 3D Studio Money Bag & Flush Gold Coin Cylinders Polish
 - Upgraded `getMoneyBagAndGoldCoinsSVG`, `getDynamicWealthPileSVG`, and `renderCashStackHTML` with 1:1 studio-grade 3D Pearl-Ivory Canvas Money Bag (pinched bottom ears, soft cloth collar pleats, vintage US Dollar banknotes, braided golden hemp rope with side loops, and classic olive-gold `$` emblem) + 3 tall stepping flush gold coin cylinders + 4 foreground leaning embossed `$` gold coins.
 - Unique SVG gradient IDs per instance (`uid`) prevent DOM ID collisions across the 4 player wealth corners and the 60fps Cash Transfer Modal.
+
+### v4.0.7 — Staggered Cash Transfer Animation & 1500ms Suspense Dice Roll
+- **1500ms 3D Suspense Dice Roll**: Tăng thời gian lăn xúc xắc lên 1500ms (ở tốc độ 1x) với 9 nhịp âm thanh lạch cạch va đập giảm tốc dần (decelerating tumble) + nhịp nghỉ sau dừng 420ms giúp người chơi theo dõi kết quả xúc xắc rõ ràng và hồi hộp hơn.
+- **Staggered Cash Transfer Animation**: Tiền chuyển xuất hiện lần lượt từng phần tử bên người trả (Chồng xu vàng nảy lên trước -> Túi tiền vải bố 3D nảy lên tiếp theo -> Huy hiệu số tiền bung sáng), sau đó rung nhẹ gom thành 1 thể đồng nhất tỏa hào quang vàng kim rồi mới lướt bay parabol sang người nhận.

@@ -532,7 +532,7 @@
     }
 
     /* =========================================================================
-       3D GLOSSY OBSIDIAN PIP DICE CUBE & CYAN AURA TUMBLE PHYSICS (v4.0.6)
+       3D GLOSSY OBSIDIAN PIP DICE CUBE & CYAN AURA TUMBLE PHYSICS (v4.0.7)
        ========================================================================= */
     .mono-die-scene {
       width: 44px;
@@ -638,23 +638,30 @@
     .pip-bc { grid-area: 3 / 2; }
     .pip-br { grid-area: 3 / 3; }
 
-    /* Airborne Parabolic Hop & Cyan Backlight Burst during Roll */
+    /* Airborne Parabolic Hop & Cyan Backlight Burst during 1500ms Roll (v4.0.7) */
     @keyframes monoDieAirborneHop {
       0% {
         transform: translate3d(0, 0, 0) scale(1);
         filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.7));
       }
-      28% {
-        transform: translate3d(0, -20px, 0) scale(1.22);
-        filter: drop-shadow(0 0 18px rgba(34, 211, 238, 0.95)) drop-shadow(0 18px 14px rgba(0, 0, 0, 0.85));
+      22% {
+        transform: translate3d(0, -25px, 0) scale(1.24);
+        filter: drop-shadow(0 0 22px rgba(34, 211, 238, 0.95)) drop-shadow(0 20px 16px rgba(0, 0, 0, 0.85));
       }
-      58% {
-        transform: translate3d(0, 3px, 0) scale(1.04);
-        filter: drop-shadow(0 0 14px rgba(34, 211, 238, 0.8)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8));
+      46% {
+        transform: translate3d(0, 4px, 0) scale(0.95);
+        filter: drop-shadow(0 0 16px rgba(34, 211, 238, 0.8)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8));
       }
-      76% {
-        transform: translate3d(0, -8px, 0) scale(1.1);
-        filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.85)) drop-shadow(0 10px 10px rgba(0, 0, 0, 0.8));
+      68% {
+        transform: translate3d(0, -13px, 0) scale(1.10);
+        filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.85)) drop-shadow(0 10px 10px rgba(0, 0, 0, 0.8));
+      }
+      85% {
+        transform: translate3d(0, 2px, 0) scale(0.98);
+        filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.7));
+      }
+      93% {
+        transform: translate3d(0, -4px, 0) scale(1.02);
       }
       100% {
         transform: translate3d(0, 0, 0) scale(1);
@@ -663,9 +670,8 @@
     }
 
     .mono-die-bouncing {
-      animation: monoDieAirborneHop 0.92s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+      animation: monoDieAirborneHop 1.5s cubic-bezier(0.2, 0.65, 0.35, 1) forwards;
     }
-
     /* Cyan Electric Aura on Dice Tray during Rolling */
     .mono-tray-rolling-aura {
       border-color: #22d3ee !important;
@@ -762,26 +768,89 @@
       animation: monoAirplaneFlight 2.0s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
     }
 
-    /* === 100% GPU HARDWARE-ACCELERATED 60FPS CASH FLIGHT & PAWN GLIDE (v3.9.5) === */
-    @keyframes monoCashFlightArc60fps {
+    /* === 100% GPU HARDWARE-ACCELERATED 60FPS STAGGERED CASH FLIGHT (v4.0.7) === */
+
+    /* Staggered spawn of cash transfer items beside payer pod */
+    .mono-transfer-stagger-coins {
+      transform-origin: 50px 105px;
+      animation: monoTransferItemSpawn var(--mono-stagger-dur, 0.45s) cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--mono-transfer-duration, 2.3s) * 0.04) both;
+    }
+    .mono-transfer-stagger-sack {
+      transform-origin: 120px 95px;
+      animation: monoTransferItemSpawn var(--mono-stagger-dur, 0.48s) cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--mono-transfer-duration, 2.3s) * 0.16) both;
+    }
+    .mono-transfer-stagger-badge {
+      animation: monoTransferBadgeSpawn var(--mono-stagger-dur, 0.42s) cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--mono-transfer-duration, 2.3s) * 0.28) both;
+    }
+
+    @keyframes monoTransferItemSpawn {
       0% {
-        transform: translate3d(-135px, -50%, 0) scale3d(0.85, 0.85, 1) rotate(-5deg);
         opacity: 0;
+        transform: translateY(32px) scale(0.25);
       }
-      12% {
-        transform: translate3d(-115px, -54%, 0) scale3d(1, 1, 1) rotate(-2deg);
+      65% {
         opacity: 1;
-      }
-      50% {
-        transform: translate3d(0px, -74%, 0) scale3d(1.12, 1.12, 1) rotate(2deg);
-        opacity: 1;
-      }
-      86% {
-        transform: translate3d(115px, -54%, 0) scale3d(0.95, 0.95, 1) rotate(4deg);
-        opacity: 1;
+        transform: translateY(-8px) scale(1.15);
       }
       100% {
-        transform: translate3d(140px, -50%, 0) scale3d(0.55, 0.55, 1) rotate(8deg);
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes monoTransferBadgeSpawn {
+      0% {
+        opacity: 0;
+        transform: scale(0.2) translateY(16px);
+      }
+      65% {
+        opacity: 1;
+        transform: scale(1.15) translateY(-3px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* 4-Stage 60fps Arc Flight: Appear beside Payer -> Consolidate into 1 Body -> Glide to Recipient -> Absorb */
+    @keyframes monoCashFlightArc60fps {
+      /* Stage 1: Appear beside payer stack-by-stack (0% -> 42%) */
+      0% {
+        transform: translate3d(-125px, -50%, 0) scale3d(0.95, 0.95, 1);
+        opacity: 1;
+      }
+      36% {
+        transform: translate3d(-125px, -50%, 0) scale3d(1, 1, 1);
+        opacity: 1;
+      }
+      /* Stage 2: Consolidate into 1 unified radiant body (42% -> 50%) */
+      42% {
+        transform: translate3d(-125px, -50%, 0) scale3d(1.10, 1.10, 1);
+        filter: drop-shadow(0 0 28px rgba(250, 204, 21, 0.95));
+        opacity: 1;
+      }
+      48% {
+        transform: translate3d(-120px, -52%, 0) scale3d(1.02, 1.02, 1);
+        opacity: 1;
+      }
+      /* Stage 3: Parabolic Flight Arc across arena (50% -> 88%) */
+      68% {
+        transform: translate3d(0px, -78%, 0) scale3d(1.18, 1.18, 1) rotate(3deg);
+        filter: drop-shadow(0 0 32px rgba(250, 204, 21, 0.95));
+        opacity: 1;
+      }
+      88% {
+        transform: translate3d(120px, -52%, 0) scale3d(1.02, 1.02, 1) rotate(-1deg);
+        opacity: 1;
+      }
+      /* Stage 4: Absorb into Recipient (88% -> 100%) */
+      95% {
+        transform: translate3d(125px, -50%, 0) scale3d(0.85, 0.85, 1);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translate3d(128px, -50%, 0) scale3d(0.45, 0.45, 1);
         opacity: 0;
       }
     }
@@ -789,12 +858,27 @@
     .mono-cash-flying {
       left: 50% !important;
       top: 50% !important;
-      will-change: transform, opacity;
+      will-change: transform, opacity, filter;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      animation: monoCashFlightArc60fps 1.25s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation: monoCashFlightArc60fps var(--mono-transfer-duration, 2.3s) cubic-bezier(0.25, 0.85, 0.25, 1) forwards;
     }
 
+    @keyframes monoRecipientPulse {
+      0%, 82% {
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+      }
+      90% {
+        transform: translate3d(0, -6px, 0) scale3d(1.18, 1.18, 1);
+      }
+      100% {
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+      }
+    }
+
+    .mono-recipient-pulsing {
+      animation: monoRecipientPulse var(--mono-transfer-duration, 2.3s) ease-out forwards;
+    }
     /* 60FPS Smooth Character Hop & Glide on Board */
     @keyframes monoPawnHop60fps {
       0% {
@@ -1032,7 +1116,7 @@
 
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v4.0.6</span>
+          <span id="headerVersionPill" class="font-bold">v4.0.7</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -1044,7 +1128,7 @@
               <circle cx="12" cy="12" r="6" stroke="#FEF08A" stroke-width="1" fill="#F59E0B"/>
               <text x="12" y="15" font-size="8" font-family="monospace" font-weight="900" fill="#78350F" text-anchor="middle">G</text>
             </svg>
-            <span id="userCoins" class="font-mono">2.450</span>
+            <span id="userCoins" class="font-mono">0</span>
           </div>
           <div class="h-3 w-px bg-slate-700"></div>
           <div class="flex items-center gap-1 text-cyan-400" title="Kim cương quý tộc">
@@ -1053,7 +1137,7 @@
               <polygon points="8,5 16,5 12,11" fill="#A5F3FC" opacity="0.8"/>
               <polygon points="3,11 8,5 12,11" fill="#38BDF8" opacity="0.6"/>
               <polygon points="21,11 16,5 12,11" fill="#0284C7" opacity="0.7"/>
-            </svg> <span id="userGems" class="font-mono">150</span>
+            </svg> <span id="userGems" class="font-mono">0</span>
           </div>
         </div>
 
@@ -3072,7 +3156,7 @@
         <div id="monoCenterControls" class="absolute inset-0 flex items-center justify-center pointer-events-none z-30 select-none">
           <div class="flex flex-col items-center justify-center gap-2.5 sm:gap-3 pointer-events-auto">
             
-            <!-- Clickable 3D Glossy Obsidian Pip Dice Tray (Tap to Roll - v4.0.6) -->
+            <!-- Clickable 3D Glossy Obsidian Pip Dice Tray (Tap to Roll - v4.0.7) -->
             <div onclick="executeMono2dRoll()" id="monoDiceTrayBox" class="flex items-center gap-3.5 bg-[#050A14]/95 px-5 py-2.5 rounded-2xl border-2 border-cyan-400/80 shadow-[0_0_28px_rgba(6,182,212,0.45)] backdrop-blur-md cursor-pointer hover:border-cyan-300 hover:scale-105 active:scale-95 transition-all select-none touch-manipulation group" title="Bấm vào khay xúc xắc 3D hoặc nhấn Space để tung xúc xắc">
               <!-- Hidden numeric holders for 100% P2P sync compatibility -->
               <span id="monoDice1Val" class="hidden">6</span>
@@ -4267,9 +4351,9 @@
                     <i data-lucide="users" class="w-4 h-4"></i>
                   </div>
                 </div>
-                <div class="text-2xl font-black text-white font-mono" id="statAdminPlayers">1,284</div>
-                <div class="text-[11px] text-emerald-400 flex items-center gap-1 mt-1">
-                  <span>▲ +18 hôm nay</span> <span class="text-slate-500">• Đang hoạt động</span>
+                <div class="text-2xl font-black text-white font-mono" id="statAdminPlayers">0</div>
+                <div class="text-[11px] text-emerald-400 flex items-center gap-1 mt-1" id="statAdminPlayersSubtitle">
+                  <span>● Đang hoạt động</span> <span class="text-slate-500">• Tổng số tài khoản đã đăng ký trên hệ thống</span>
                 </div>
               </div>
 
@@ -4280,9 +4364,9 @@
                     <i data-lucide="dices" class="w-4 h-4"></i>
                   </div>
                 </div>
-                <div class="text-2xl font-black text-amber-400 font-mono" id="statAdminMatches">8,492</div>
-                <div class="text-[11px] text-slate-400 flex items-center gap-1 mt-1">
-                  <span>🎲 Xúc xắc: 5,232</span> <span class="text-slate-500">• ⭕ Ca-rô: 3,260</span>
+                <div class="text-2xl font-black text-amber-400 font-mono" id="statAdminMatches">0</div>
+                <div class="text-[11px] text-slate-400 flex items-center gap-1 mt-1" id="statAdminMatchesSubtitle">
+                  <span>🎲 Xúc xắc: 0</span> <span class="text-slate-500">• ⭕ Ca-rô: 0 • ♟️ Cờ: 0 • 🎩 Tỷ phú: 0</span>
                 </div>
               </div>
 
@@ -4293,9 +4377,9 @@
                     <i data-lucide="coins" class="w-4 h-4"></i>
                   </div>
                 </div>
-                <div class="text-2xl font-black text-emerald-400 font-mono" id="statAdminEconomy">3.8M 🪙</div>
-                <div class="text-[11px] text-cyan-400 flex items-center gap-1 mt-1">
-                  <span>💎 45,280 Đá quý</span> <span class="text-slate-500">• Tỉ lệ lạm phát: Thấp</span>
+                <div class="text-2xl font-black text-emerald-400 font-mono" id="statAdminEconomy">0 🪙 / 0 💎</div>
+                <div class="text-[11px] text-cyan-400 flex items-center gap-1 mt-1" id="statAdminEconomySubtitle">
+                  <span>🪙 0 Xu • 💎 0 Kim cương</span> <span class="text-slate-500">• Toàn bộ tài khoản</span>
                 </div>
               </div>
 
@@ -4327,34 +4411,34 @@
                     <i data-lucide="pie-chart" class="w-4 h-4 text-amber-400"></i>
                     Tỷ Lệ Chiến Thắng Toàn Đấu Trường
                   </h4>
-                  <span class="text-xs text-slate-400 font-mono">Dữ liệu 1,000 ván gần nhất</span>
+                  <span class="text-xs text-slate-400 font-mono" id="statAdminWinRateScope">Chưa có dữ liệu trận đấu (0 ván)</span>
                 </div>
-                <div class="space-y-3 text-xs">
+                <div class="space-y-3 text-xs" id="statAdminWinRateContainer">
                   <div>
                     <div class="flex justify-between text-slate-300 mb-1">
                       <span>Kỳ Thủ Con Người Thắng</span>
-                      <span class="font-bold text-cyan-400 font-mono">64% (640 ván)</span>
+                      <span class="font-bold text-cyan-400 font-mono" id="statAdminHumanWinText">0% (0 ván)</span>
                     </div>
                     <div class="w-full h-3 bg-black/40 rounded-full overflow-hidden border border-white/5">
-                      <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" style="width: 64%"></div>
+                      <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full transition-all duration-500" id="statAdminHumanWinBar" style="width: 0%"></div>
                     </div>
                   </div>
                   <div>
                     <div class="flex justify-between text-slate-300 mb-1">
                       <span>Trí Tuệ Nhân Tạo (BOT) Thắng</span>
-                      <span class="font-bold text-rose-400 font-mono">28% (280 ván)</span>
+                      <span class="font-bold text-rose-400 font-mono" id="statAdminBotWinText">0% (0 ván)</span>
                     </div>
                     <div class="w-full h-3 bg-black/40 rounded-full overflow-hidden border border-white/5">
-                      <div class="h-full bg-gradient-to-r from-rose-500 to-amber-500 rounded-full" style="width: 28%"></div>
+                      <div class="h-full bg-gradient-to-r from-rose-500 to-amber-500 rounded-full transition-all duration-500" id="statAdminBotWinBar" style="width: 0%"></div>
                     </div>
                   </div>
                   <div>
                     <div class="flex justify-between text-slate-300 mb-1">
                       <span>Ván Cờ Ca-rô Hòa</span>
-                      <span class="font-bold text-slate-400 font-mono">8% (80 ván)</span>
+                      <span class="font-bold text-slate-400 font-mono" id="statAdminDrawWinText">0% (0 ván)</span>
                     </div>
                     <div class="w-full h-3 bg-black/40 rounded-full overflow-hidden border border-white/5">
-                      <div class="h-full bg-slate-600 rounded-full" style="width: 8%"></div>
+                      <div class="h-full bg-slate-600 rounded-full transition-all duration-500" id="statAdminDrawWinBar" style="width: 0%"></div>
                     </div>
                   </div>
                 </div>
@@ -4574,7 +4658,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v4.0.6</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v4.0.7</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -4770,8 +4854,8 @@
           displayName: { stringValue: String(userData.displayName || userData.email?.split('@')[0] || 'Kỳ Thủ') },
           email: { stringValue: String(userData.email || '') },
           role: { stringValue: String(userData.role || (userData.email === 'minhcuong111@gmail.com' ? 'Admin' : 'Tân Thủ')) },
-          coins: { integerValue: String(userData.coins !== undefined ? userData.coins : 2450) },
-          gems: { integerValue: String(userData.gems !== undefined ? userData.gems : 150) },
+          coins: { integerValue: String(userData.coins !== undefined ? userData.coins : 0) },
+          gems: { integerValue: String(userData.gems !== undefined ? userData.gems : 0) },
           elo: { integerValue: String(userData.elo !== undefined ? userData.elo : 1200) },
           level: { integerValue: String(userData.level || 1) },
           matches: { integerValue: String(userData.matches || 0) },
@@ -4842,8 +4926,8 @@
             uid: user.uid,
             displayName: user.displayName || user.email.split('@')[0],
             email: user.email,
-            coins: 2450,
-            gems: 150,
+            coins: 0,
+            gems: 0,
             elo: 1200,
             matches: 0,
             winRate: "0%"
@@ -4859,6 +4943,15 @@
             }
           } catch (e) {
             console.warn("Firestore Read Note:", e.message);
+          }
+
+          // If legacy default balance (2450 coins & 150 gems), reset to 0
+          if (userData.coins === 2450 && userData.gems === 150) {
+            userData.coins = 0;
+            userData.gems = 0;
+            if (window.updateCloudFirestoreUserField && userData.uid) {
+              window.updateCloudFirestoreUserField(userData.uid, { coins: 0, gems: 0 });
+            }
           }
 
           window.currentFirebaseUser = userData;
@@ -4925,8 +5018,8 @@
             uid: user.uid,
             displayName: displayName,
             email: email,
-            coins: 2450,
-            gems: 150,
+            coins: 0,
+            gems: 0,
             elo: 1200,
             level: 1,
             vip: true,
@@ -4981,8 +5074,8 @@
             uid: user.uid,
             displayName: user.displayName || displayName,
             email: email,
-            coins: 2450,
-            gems: 150,
+            coins: 0,
+            gems: 0,
             elo: 1200,
             matches: 0,
             winRate: "0%"
@@ -5026,8 +5119,8 @@
           uid: user.uid,
           displayName: user.displayName || 'Google Champion',
           email: user.email,
-          coins: 3000,
-          gems: 200,
+          coins: 0,
+          gems: 0,
           elo: 1350
         };
         try {
@@ -5054,8 +5147,8 @@
           uid: user.uid,
           displayName: user.displayName || 'GitHub Master',
           email: user.email,
-          coins: 3000,
-          gems: 200,
+          coins: 0,
+          gems: 0,
           elo: 1350
         };
         try {
@@ -5361,8 +5454,8 @@
       document.getElementById('profileUidDisplay').textContent = userData.uid || 'fb_live';
       document.getElementById('leaderboardMyRankName').textContent = `${userData.displayName} (Bạn)`;
 
-      if (userData.coins) document.getElementById('userCoins').textContent = Number(userData.coins).toLocaleString();
-      if (userData.gems) document.getElementById('userGems').textContent = Number(userData.gems).toLocaleString();
+      if (userData.coins !== undefined && userData.coins !== null) document.getElementById('userCoins').textContent = Number(userData.coins).toLocaleString();
+      if (userData.gems !== undefined && userData.gems !== null) document.getElementById('userGems').textContent = Number(userData.gems).toLocaleString();
 
       const initials = userData.displayName.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
       document.getElementById('userAvatarSmall').textContent = initials;
@@ -5401,8 +5494,8 @@
         uid: 'fb_' + Math.random().toString(36).substring(2, 11),
         displayName: name,
         email: `${name.toLowerCase().replace(/\s+/g, '')}@${provider.toLowerCase()}.com`,
-        coins: 3000,
-        gems: 200,
+        coins: 0,
+        gems: 0,
         elo: 1350
       };
       localStorage.setItem('tabletop_firebase_user', JSON.stringify(firestoreUserData));
@@ -6009,6 +6102,7 @@
         if (txtEl) txtEl.textContent = `${wins} ván (${pct}%)`;
         if (barEl) barEl.style.width = `${pct}%`;
       }
+      if (typeof updateAdminStatsUI === 'function') updateAdminStatsUI();
     }
 
     // ================= BESPOKE LUXURY VECTOR ICON ENGINE =================
@@ -8320,6 +8414,7 @@
       document.getElementById('tttScoreX').textContent = tttScores.X;
       document.getElementById('tttScoreO').textContent = tttScores.O;
       document.getElementById('tttScoreDraw').textContent = tttScores.draw;
+      if (typeof updateAdminStatsUI === 'function') updateAdminStatsUI();
     }
 
     // ================= MAIN NAVIGATION TABS (LOBBY, ARENA, LEADERBOARDS, VIP, RULES) =================
@@ -8778,7 +8873,7 @@
       }
     }
 
-    // 3D Studio Masterpiece White Canvas Money Bag ($) with Vintage Banknotes + Tall Flush Gold Coin Cylinders & Embossed "$" Coins (v4.0.6)
+    // 3D Studio Masterpiece White Canvas Money Bag ($) with Vintage Banknotes + Tall Flush Gold Coin Cylinders & Embossed "$" Coins (v4.0.7)
     let __wealthSvgUidCounter = 0;
 
     function buildWealthSharedDefs(uid) {
@@ -10060,7 +10155,7 @@
     }
 
     // =========================================================================
-    // 3D OBSIDIAN PIP DICE ROTATION & SUSPENSE TUMBLE ENGINE (v4.0.6)
+    // 3D OBSIDIAN PIP DICE ROTATION & SUSPENSE TUMBLE ENGINE (v4.0.7)
     // =========================================================================
     let monoDiceSpinRound = 0;
 
@@ -10074,20 +10169,20 @@
       4: { rx: -14, ry: 106, rz: 0 }
     };
 
-    function playMonoDiceTumbleSFX(durationMs) {
+function playMonoDiceTumbleSFX(durationMs) {
       try {
-        const steps = 6;
+        const steps = 9;
         const baseInterval = durationMs / (steps + 1);
         for (let i = 0; i < steps; i++) {
           setTimeout(() => {
-            const freq = 320 + Math.floor(Math.random() * 240) + (i * 35);
-            soundTone(freq, 'triangle', 0.035, 0.08);
-          }, Math.round(i * baseInterval * (0.85 + i * 0.05)));
+            const freq = 340 + Math.floor(Math.random() * 200) + (i * 24);
+            soundTone(freq, 'triangle', 0.035, 0.075);
+          }, Math.round(i * baseInterval * (0.88 + i * 0.03)));
         }
       } catch (e) {}
     }
 
-    function setMono3DDiceVisual(d1, d2, animate = true, durationMs = 920) {
+    function setMono3DDiceVisual(d1, d2, animate = true, durationMs = 1500) {
       const d1El = document.getElementById('monoDice1Val');
       const d2El = document.getElementById('monoDice2Val');
       if (d1El) d1El.textContent = d1;
@@ -10103,21 +10198,21 @@
 
       if (animate) {
         monoDiceSpinRound++;
-        // Die 1 and Die 2 spin with slightly different multi-axis revolutions for natural physics
-        const turnX1 = monoDiceSpinRound * 1080; // 3 full X flips per roll
-        const turnY1 = monoDiceSpinRound * 1440; // 4 full Y spins per roll
-        const turnZ1 = monoDiceSpinRound * 360;
+        // Rich multi-axis continuous revolutions matching 1500ms tumble physics
+        const turnX1 = monoDiceSpinRound * 1440;
+        const turnY1 = monoDiceSpinRound * 1800;
+        const turnZ1 = monoDiceSpinRound * 720;
 
-        const turnX2 = monoDiceSpinRound * 1440; // 4 full X flips per roll
-        const turnY2 = monoDiceSpinRound * 1080; // 3 full Y spins per roll
-        const turnZ2 = -(monoDiceSpinRound * 360);
+        const turnX2 = monoDiceSpinRound * 1800;
+        const turnY2 = monoDiceSpinRound * 1440;
+        const turnZ2 = -(monoDiceSpinRound * 720);
 
         if (cube1) {
-          cube1.style.transition = `transform ${durationMs}ms cubic-bezier(0.15, 0.88, 0.28, 1.08)`;
+          cube1.style.transition = `transform ${durationMs}ms cubic-bezier(0.15, 0.88, 0.24, 1.05)`;
           cube1.style.transform = `rotateX(${a1.rx + turnX1}deg) rotateY(${a1.ry + turnY1}deg) rotateZ(${a1.rz + turnZ1}deg)`;
         }
         if (cube2) {
-          cube2.style.transition = `transform ${durationMs}ms cubic-bezier(0.15, 0.88, 0.28, 1.08)`;
+          cube2.style.transition = `transform ${durationMs}ms cubic-bezier(0.15, 0.88, 0.24, 1.05)`;
           cube2.style.transform = `rotateX(${a2.rx + turnX2}deg) rotateY(${a2.ry + turnY2}deg) rotateZ(${a2.rz + turnZ2}deg)`;
         }
         if (scene1) {
@@ -10129,7 +10224,7 @@
         if (scene2) {
           scene2.classList.remove('mono-die-bouncing');
           void scene2.offsetWidth;
-          scene2.style.animationDuration = `${Math.round(durationMs * 1.04)}ms`;
+          scene2.style.animationDuration = `${Math.round(durationMs * 1.03)}ms`;
           scene2.classList.add('mono-die-bouncing');
         }
       } else {
@@ -10148,16 +10243,16 @@
 
     function animateMono3DDiceRoll(d1, d2, onComplete) {
       const monoSpd = window.monoSpeed || monoState.speed || 1;
-      // Full suspense 920ms at 1x speed; scales smoothly when speed boost (2x..25x) is active
-      const rollDuration = Math.max(140, Math.round(920 / Math.pow(monoSpd, 0.75)));
-      const settlePause = Math.max(40, Math.round(240 / Math.pow(monoSpd, 0.8)));
+      // Full suspense 1500ms at 1x speed for clear observation (v4.0.7)
+      const rollDuration = Math.max(200, Math.round(1500 / Math.pow(monoSpd, 0.75)));
+      const settlePause = Math.max(60, Math.round(420 / Math.pow(monoSpd, 0.8)));
 
       const tray = document.getElementById('monoDiceTrayBox');
       const sumEl = document.getElementById('monoDiceSumVal');
       const sumLabel = document.getElementById('monoDiceSumLabel');
       const rollBtnText = document.getElementById('btnMono2dRollText');
 
-      // Stage 1: Hide total sum ('...') & ignite Cyan Aura while dice tumble in 3D
+      // Stage 1: Hide total sum ('•••') & ignite Cyan Aura while dice tumble in 3D for 1500ms
       if (tray) {
         tray.classList.remove('mono-tray-impact');
         tray.classList.add('mono-tray-rolling-aura');
@@ -10179,7 +10274,7 @@
 
       if (monoState.diceRollTimeoutId) clearTimeout(monoState.diceRollTimeoutId);
 
-      // Stage 2: Dice land & lock onto dotted faces -> Reveal Total & Doubles
+      // Stage 2: Dice land & lock onto dotted faces after 1500ms -> Reveal Total & Doubles
       monoState.diceRollTimeoutId = setTimeout(() => {
         const totalSteps = d1 + d2;
         const isDoubles = (d1 === d2);
@@ -10212,15 +10307,14 @@
           soundTone(isDoubles ? 880 : 660, 'triangle', 0.12, 0.18);
         } catch (e) {}
 
-        // Stage 3: Brief beat so player clearly sees the settled dotted faces before pawn hops
+        // Stage 3: Generous settle pause (420ms) so player clearly sees the settled dotted faces before pawn hops
         monoState.diceRollTimeoutId = setTimeout(() => {
           monoState.diceRollTimeoutId = null;
           if (typeof onComplete === 'function') onComplete();
         }, settlePause);
       }, rollDuration);
     }
-
-    // Execute 2.5D Roll Dice
+        // Execute 2.5D Roll Dice
     function executeMono2dRoll() {
       if (monoState.isRolling) return;
       if (window.isOnlineRoomMatch && window.myRoomPlayerIndex !== monoState.turn) {
@@ -10688,10 +10782,22 @@
     function declareMonoWinner(winner, winReasonText) {
       stopMonopolyTimers();
       if (winner.id === 0 && window.currentFirebaseUser) {
-        window.currentFirebaseUser.coins = (window.currentFirebaseUser.coins || 2450) + 300;
+        window.currentFirebaseUser.coins = (window.currentFirebaseUser.coins || 0) + 300;
         const coinEl = document.getElementById('userCoins');
         if (coinEl) coinEl.textContent = Number(window.currentFirebaseUser.coins).toLocaleString();
       }
+      try {
+        const monoMatchCount = Number(localStorage.getItem('tabletop_mono_match_count') || 0) + 1;
+        localStorage.setItem('tabletop_mono_match_count', monoMatchCount);
+        if (winner.id === 0) {
+          const mw = Number(localStorage.getItem('tabletop_mono_human_wins') || 0) + 1;
+          localStorage.setItem('tabletop_mono_human_wins', mw);
+        } else {
+          const mb = Number(localStorage.getItem('tabletop_mono_bot_wins') || 0) + 1;
+          localStorage.setItem('tabletop_mono_bot_wins', mb);
+        }
+        if (typeof updateAdminStatsUI === 'function') updateAdminStatsUI();
+      } catch (e) {}
       showMonoEventPopup({
         type: 'gameover',
         badge: '👑 NHÀ VÔ ĐỊCH BUSINESS TOUR!',
@@ -11615,8 +11721,8 @@
       `;
     }
 
-    // Render 3D Studio Stacks of Dollars ($1,000/bag), Flush Gold Coin Cylinders ($100/coin) & Silver Coins ($25/coin) (v4.0.6)
-    function renderCashStackHTML(amount) {
+    // Render 3D Studio Stacks of Dollars ($1,000/bag), Flush Gold Coin Cylinders ($100/coin) & Silver Coins ($25/coin) (v4.0.7)
+function renderCashStackHTML(amount) {
       const amt = Math.max(0, amount || 0);
       const bags = Math.floor(amt / 1000);
       const goldCoins = Math.floor((amt % 1000) / 100);
@@ -11624,14 +11730,18 @@
       const uid = 'xfr_' + (++__wealthSvgUidCounter);
 
       return `
-        <div class="flex flex-col items-center justify-center pointer-events-none select-none">
+        <div class="mono-transfer-unified-stack flex flex-col items-center justify-center pointer-events-none select-none">
           <svg width="144" height="108" viewBox="0 0 176 132" fill="none" class="filter drop-shadow-[0_14px_22px_rgba(0,0,0,0.82)]">
             ${buildWealthSharedDefs(uid)}
             <ellipse cx="90" cy="116" rx="76" ry="11.5" fill="url(#wealthGroundShadow_${uid})" />
 
-            ${buildSingle3DMoneySackGroup(uid, 76, 9, 1.07)}
+            <!-- Túi tiền xuất hiện (Stagger Item 2) -->
+            <g class="mono-transfer-stagger-sack">
+              ${buildSingle3DMoneySackGroup(uid, 76, 9, 1.07)}
+            </g>
 
-            <g>
+            <!-- Chồng xu vàng xuất hiện (Stagger Item 1) -->
+            <g class="mono-transfer-stagger-coins">
               ${buildFlushGoldCoinCylinder(uid, 74, 104, Math.min(15, 10 + goldCoins), 13.8, 2.5, 3.7)}
               ${buildFlushGoldCoinCylinder(uid, 50, 106, Math.min(11, 7 + Math.floor(goldCoins * 0.6)), 13.8, 2.5, 3.7)}
               ${buildFlushGoldCoinCylinder(uid, 27, 108, 6, 13.8, 2.5, 3.7)}
@@ -11644,15 +11754,18 @@
               ${buildLeaningEmbossedGoldCoin(uid, 81, 104, 22,  14.8, 11.0, 3.2)}
             </g>
           </svg>
-          <span class="px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 text-slate-950 font-chakra font-black text-xs shadow-[0_6px_16px_rgba(245,158,11,0.5)] border-2 border-white -mt-2">
-            $${amt.toLocaleString()} (${bags > 0 ? bags + ' Bao • ' : ''}${goldCoins} Xu Vàng${silverCoins > 0 ? ' • ' + silverCoins + ' Xu Bạc' : ''})
-          </span>
+          <!-- Huy hiệu số tiền xuất hiện (Stagger Item 3) -->
+          <div class="mono-transfer-stagger-badge -mt-2">
+            <span class="px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 text-slate-950 font-chakra font-black text-xs shadow-[0_6px_16px_rgba(245,158,11,0.5)] border-2 border-white">
+              $${amt.toLocaleString()} (${bags > 0 ? bags + ' Bao • ' : ''}${goldCoins} Xu Vàng${silverCoins > 0 ? ' • ' + silverCoins + ' Xu Bạc' : ''})
+            </span>
+          </div>
         </div>
       `;
     }
 
-    // Trigger Dynamic Cash Transfer Animation
-    function triggerMonoCashTransfer(opts) {
+    // Trigger Dynamic Cash Transfer Animation with Staggered Stacks & Consolidated Flight (v4.0.7)
+        function triggerMonoCashTransfer(opts) {
       opts = opts || {};
       const payer = opts.payer;
       const recipient = opts.recipient;
@@ -11676,7 +11789,6 @@
           modal.classList.remove('flex');
         }
 
-        // Chỉ chạy hiệu ứng số tiền bay nhẹ trên góc thẻ người chơi
         if (payer && typeof triggerMonoFloatingCash === 'function') {
           const payerId = (typeof payer === 'object' && payer !== null && payer.id !== undefined) ? payer.id : payer;
           triggerMonoFloatingCash(payerId, -amount);
@@ -11742,39 +11854,57 @@
         if (descEl) descEl.textContent = desc || `${payer.name} đã trả ${amount.toLocaleString()} tiền thuê cho ${recipient.name}.`;
       }
 
-      // 3. Show Overlay first and force layout reflow so children render actively
+      // Timing: 2300ms base animation at 1x so player comfortably follows each stack and flight (v4.0.7)
+      const speedFactor = window.monoSpeed || monoState.speed || 1;
+      const transferDurationMs = Math.max(400, Math.round(2300 / Math.pow(speedFactor, 0.82)));
+      const staggerDur = (transferDurationMs * 0.22 / 1000).toFixed(2) + 's';
+
+      // 3. Show Overlay first and force layout reflow
       overlay.classList.remove('hidden');
       overlay.classList.add('flex');
       void overlay.offsetWidth;
 
-      // 4. Render Cash Stack & Trigger Flight
+      // 4. Render Cash Stack with Staggered Classes & Flight
       if (stackContainer) {
         stackContainer.innerHTML = renderCashStackHTML(amount);
+        stackContainer.style.setProperty('--mono-transfer-duration', `${transferDurationMs}ms`);
+        stackContainer.style.setProperty('--mono-stagger-dur', staggerDur);
         stackContainer.classList.remove('mono-cash-flying');
         void stackContainer.offsetWidth; // Reflow
         stackContainer.classList.add('mono-cash-flying');
       }
 
-      // 5. Pulse Recipient
+      // 5. Pulse Recipient synchronized with arrival (88% of flight)
       if (recipPod) {
+        recipPod.style.setProperty('--mono-transfer-duration', `${transferDurationMs}ms`);
         recipPod.classList.remove('mono-recipient-pulsing');
         void recipPod.offsetWidth;
         recipPod.classList.add('mono-recipient-pulsing');
       }
 
-      // Play Sound: Cash flutter + Coin Clink
+      // Synchronized Sound Effects for Staggered Spawn -> Consolidation -> Arrival
       try {
-        soundTone(580, 'triangle', 0.1, 0.2);
-        setTimeout(() => soundTone(880, 'sine', 0.15, 0.25), 200);
-        setTimeout(() => soundTone(1320, 'sine', 0.15, 0.3), 500);
+        // Step 1: Coins spawn pop (4%)
+        setTimeout(() => soundTone(720, 'triangle', 0.04, 0.12), Math.round(transferDurationMs * 0.04));
+        // Step 2: Money Sack spawns with soft thud (16%)
+        setTimeout(() => soundTone(460, 'sine', 0.06, 0.16), Math.round(transferDurationMs * 0.16));
+        // Step 3: Badge spawns with shine (28%)
+        setTimeout(() => soundTone(880, 'sine', 0.06, 0.18), Math.round(transferDurationMs * 0.28));
+        // Step 4: Consolidation & Takeoff whoosh (44%)
+        setTimeout(() => soundTone(550, 'triangle', 0.08, 0.22), Math.round(transferDurationMs * 0.44));
+        // Step 5: Arrival chimes at recipient (88%)
+        setTimeout(() => {
+          soundTone(1040, 'triangle', 0.10, 0.20);
+          setTimeout(() => soundTone(1320, 'sine', 0.12, 0.26), 110);
+        }, Math.round(transferDurationMs * 0.88));
       } catch(e) {}
 
-      // Auto close after animation finishes (speed scaled)
-      const cashAnimDuration = Math.max(180, Math.round(1450 / (window.monoSpeed || monoState.speed || 1)));
+      // Auto close after animation finishes + comfortable reading beat (speed scaled)
+      const cashAnimDuration = transferDurationMs + Math.max(80, Math.round(320 / Math.pow(speedFactor, 0.85)));
       setTimeout(() => {
         overlay.classList.add('hidden');
         overlay.classList.remove('flex');
-        if (onComplete) onComplete();
+        if (doneCb) doneCb();
       }, cashAnimDuration);
     }
     window.triggerMonoCashTransfer = triggerMonoCashTransfer;
@@ -12706,8 +12836,15 @@
             const uid = (f.uid && f.uid.stringValue) || docId;
             const email = (f.email && f.email.stringValue) || '';
             const displayName = (f.displayName && f.displayName.stringValue) || (email ? email.split('@')[0] : 'Kỳ Thủ');
-            const coins = f.coins ? (f.coins.integerValue ? Number(f.coins.integerValue) : Number(f.coins.doubleValue || 0)) : 2450;
-            const gems = f.gems ? (f.gems.integerValue ? Number(f.gems.integerValue) : Number(f.gems.doubleValue || 0)) : 150;
+            let coins = f.coins ? (f.coins.integerValue ? Number(f.coins.integerValue) : Number(f.coins.doubleValue || 0)) : 0;
+            let gems = f.gems ? (f.gems.integerValue ? Number(f.gems.integerValue) : Number(f.gems.doubleValue || 0)) : 0;
+            if (coins === 2450 && gems === 150) {
+              coins = 0;
+              gems = 0;
+              if (window.updateCloudFirestoreUserField && uid) {
+                window.updateCloudFirestoreUserField(uid, { coins: 0, gems: 0 });
+              }
+            }
             const elo = f.elo ? (f.elo.integerValue ? Number(f.elo.integerValue) : Number(f.elo.doubleValue || 0)) : 1200;
             const role = (f.role && f.role.stringValue) || (email === 'minhcuong111@gmail.com' ? 'Admin' : 'Tân Thủ');
             const status = (f.status && f.status.stringValue) || 'active';
@@ -12746,8 +12883,8 @@
               name: d.displayName || d.name || (d.email ? d.email.split('@')[0] : 'Kỳ Thủ'),
               email: d.email || '',
               role: d.role || (d.email === 'minhcuong111@gmail.com' ? 'Admin' : 'Tân Thủ'),
-              coins: d.coins !== undefined ? Number(d.coins) : 2450,
-              gems: d.gems !== undefined ? Number(d.gems) : 150,
+              coins: (d.coins === 2450 && d.gems === 150) ? 0 : (d.coins !== undefined ? Number(d.coins) : 0),
+              gems: (d.coins === 2450 && d.gems === 150) ? 0 : (d.gems !== undefined ? Number(d.gems) : 0),
               elo: d.elo !== undefined ? Number(d.elo) : 1200,
               winRate: d.winRate ? parseInt(d.winRate) : 0,
               matches: d.matches !== undefined ? Number(d.matches) : 0,
@@ -12771,8 +12908,8 @@
             name: u.displayName || 'Kỳ Thủ Hiện Tại',
             email: u.email || '',
             role: u.role || 'Admin',
-            coins: u.coins !== undefined ? Number(u.coins) : 2450,
-            gems: u.gems !== undefined ? Number(u.gems) : 150,
+            coins: (u.coins === 2450 && u.gems === 150) ? 0 : (u.coins !== undefined ? Number(u.coins) : 0),
+            gems: (u.coins === 2450 && u.gems === 150) ? 0 : (u.gems !== undefined ? Number(u.gems) : 0),
             elo: u.elo !== undefined ? Number(u.elo) : 1200,
             winRate: u.winRate ? parseInt(u.winRate) : 0,
             matches: u.matches || 0,
@@ -12785,21 +12922,8 @@
 
       adminPlayersList = realPlayers;
 
-      // Update badge counts and metrics
-      const badge = document.getElementById('adminBadgePlayerCount');
-      if (badge) badge.textContent = adminPlayersList.length;
-      
-      const tabBadge = document.getElementById('adminPlayerTabBadge');
-      if (tabBadge) tabBadge.textContent = adminPlayersList.length;
-
-      const statPl = document.getElementById('statAdminPlayers');
-      if (statPl) statPl.textContent = adminPlayersList.length.toLocaleString();
-
-      const totalCoins = adminPlayersList.reduce((acc, p) => acc + (p.coins || 0), 0);
-      const totalGems = adminPlayersList.reduce((acc, p) => acc + (p.gems || 0), 0);
-      const statEc = document.getElementById('statAdminEconomy');
-      if (statEc) statEc.textContent = `${totalCoins.toLocaleString()} 🪙 / ${totalGems.toLocaleString()} 💎`;
-
+      // Update badge counts and metrics from real database
+      updateAdminStatsUI();
       renderAdminPlayersTable();
 
       setTimeout(() => {
@@ -12831,8 +12955,10 @@
       const email = document.getElementById('newPlayerEmail').value.trim();
       const role = document.getElementById('newPlayerRole').value;
       const elo = Number(document.getElementById('newPlayerElo').value) || 1200;
-      const coins = Number(document.getElementById('newPlayerCoins').value) || 2450;
-      const gems = Number(document.getElementById('newPlayerGems').value) || 150;
+      const rawCoins = document.getElementById('newPlayerCoins').value;
+      const rawGems = document.getElementById('newPlayerGems').value;
+      const coins = rawCoins !== '' ? Math.max(0, Number(rawCoins) || 0) : 0;
+      const gems = rawGems !== '' ? Math.max(0, Number(rawGems) || 0) : 0;
 
       const newUid = 'usr_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 7);
 
@@ -12969,20 +13095,103 @@
       lucide.createIcons();
     };
 
-    function renderAdminAll() {
-      // Real Metrics
-      const totalCoins = adminPlayersList.reduce((acc, p) => acc + (p.coins || 0), 0);
-      const totalGems = adminPlayersList.reduce((acc, p) => acc + (p.gems || 0), 0);
-      
+    window.updateAdminStatsUI = function() {
+      // 1. Thẻ 1: Tổng Kỳ Thủ (Total Players) - Dữ liệu thật 100%
       const statPl = document.getElementById('statAdminPlayers');
       if (statPl) statPl.textContent = adminPlayersList.length.toLocaleString();
 
       const badge = document.getElementById('adminBadgePlayerCount');
       if (badge) badge.textContent = adminPlayersList.length;
 
+      const tabBadge = document.getElementById('adminPlayerTabBadge');
+      if (tabBadge) tabBadge.textContent = adminPlayersList.length;
+
+      const subPl = document.getElementById('statAdminPlayersSubtitle');
+      if (subPl) {
+        const activeCount = adminPlayersList.filter(p => p.status === 'active').length;
+        subPl.innerHTML = `<span>● ${activeCount} kỳ thủ online/active</span> <span class="text-slate-500">• Tổng số tài khoản đã đăng ký trên hệ thống</span>`;
+      }
+
+      // 2. Thẻ 2: Ván Cờ Đã Đấu (Matches Played) - Dữ liệu thật 100%
+      const diceMatches = (typeof botWinStats !== 'undefined' && botWinStats.totalMatches) || 0;
+      const tttMatches = (typeof tttScores !== 'undefined' && ((tttScores.X || 0) + (tttScores.O || 0) + (tttScores.draw || 0))) || 0;
+      const chessRecordCount = Number(localStorage.getItem('tabletop_chess_match_count') || 0);
+      const monoMatchCount = Number(localStorage.getItem('tabletop_mono_match_count') || 0);
+      const totalRealMatches = diceMatches + tttMatches + chessRecordCount + monoMatchCount;
+
+      const statMatches = document.getElementById('statAdminMatches');
+      if (statMatches) statMatches.textContent = totalRealMatches.toLocaleString();
+
+      const subMatches = document.getElementById('statAdminMatchesSubtitle');
+      if (subMatches) {
+        subMatches.innerHTML = `<span>🎲 Xúc xắc: ${diceMatches.toLocaleString()}</span> <span class="text-slate-500">• ⭕ Ca-rô: ${tttMatches.toLocaleString()} • ♟️ Cờ: ${chessRecordCount.toLocaleString()} • 🎩 Tỷ phú: ${monoMatchCount.toLocaleString()}</span>`;
+      }
+
+      // 3. Thẻ 3: Kinh Tế Lưu Hành (Circulation Economy) - Dữ liệu thật 100%
+      const totalCoins = adminPlayersList.reduce((acc, p) => acc + (p.coins || 0), 0);
+      const totalGems = adminPlayersList.reduce((acc, p) => acc + (p.gems || 0), 0);
       const statEc = document.getElementById('statAdminEconomy');
       if (statEc) statEc.textContent = `${totalCoins.toLocaleString()} 🪙 / ${totalGems.toLocaleString()} 💎`;
 
+      const subEc = document.getElementById('statAdminEconomySubtitle');
+      if (subEc) {
+        subEc.innerHTML = `<span>🪙 ${totalCoins.toLocaleString()} Xu • 💎 ${totalGems.toLocaleString()} Kim cương</span> <span class="text-slate-500">• Toàn bộ tài khoản</span>`;
+      }
+
+      // 4. Thẻ 4: Tỷ Lệ Chiến Thắng Toàn Đấu Trường (Win Rates) - Dữ liệu thật 100%
+      const diceHumanWins = (typeof botWinStats !== 'undefined' && botWinStats.wins && botWinStats.wins[1]) || 0;
+      const tttHumanWins = (typeof tttScores !== 'undefined' && tttScores.X) || 0;
+      const chessHumanWins = Number(localStorage.getItem('tabletop_chess_human_wins') || 0);
+      const monoHumanWins = Number(localStorage.getItem('tabletop_mono_human_wins') || 0);
+      const totalHumanWins = diceHumanWins + tttHumanWins + chessHumanWins + monoHumanWins;
+
+      const diceBotWins = (typeof botWinStats !== 'undefined' && botWinStats.wins ? ((botWinStats.wins[2] || 0) + (botWinStats.wins[3] || 0) + (botWinStats.wins[4] || 0)) : 0);
+      const tttBotWins = (typeof tttScores !== 'undefined' && tttScores.O) || 0;
+      const chessBotWins = Number(localStorage.getItem('tabletop_chess_bot_wins') || 0);
+      const monoBotWins = Number(localStorage.getItem('tabletop_mono_bot_wins') || 0);
+      const totalBotWins = diceBotWins + tttBotWins + chessBotWins + monoBotWins;
+
+      const tttDraws = (typeof tttScores !== 'undefined' && tttScores.draw) || 0;
+      const chessDraws = Number(localStorage.getItem('tabletop_chess_draws') || 0);
+      const totalDraws = tttDraws + chessDraws;
+
+      const statScope = document.getElementById('statAdminWinRateScope');
+      const humanText = document.getElementById('statAdminHumanWinText');
+      const humanBar = document.getElementById('statAdminHumanWinBar');
+      const botText = document.getElementById('statAdminBotWinText');
+      const botBar = document.getElementById('statAdminBotWinBar');
+      const drawText = document.getElementById('statAdminDrawWinText');
+      const drawBar = document.getElementById('statAdminDrawWinBar');
+
+      if (totalRealMatches > 0) {
+        const humanPct = Math.round((totalHumanWins / totalRealMatches) * 100);
+        const botPct = Math.round((totalBotWins / totalRealMatches) * 100);
+        const drawPct = Math.max(0, 100 - humanPct - botPct);
+
+        if (statScope) statScope.textContent = `Dữ liệu thực tế: ${totalRealMatches.toLocaleString()} ván đã đấu`;
+        if (humanText) humanText.textContent = `${humanPct}% (${totalHumanWins.toLocaleString()} ván)`;
+        if (humanBar) humanBar.style.width = `${humanPct}%`;
+
+        if (botText) botText.textContent = `${botPct}% (${totalBotWins.toLocaleString()} ván)`;
+        if (botBar) botBar.style.width = `${botPct}%`;
+
+        if (drawText) drawText.textContent = `${drawPct}% (${totalDraws.toLocaleString()} ván)`;
+        if (drawBar) drawBar.style.width = `${drawPct}%`;
+      } else {
+        if (statScope) statScope.textContent = `Chưa có dữ liệu trận đấu (0 ván)`;
+        if (humanText) humanText.textContent = `0% (0 ván)`;
+        if (humanBar) humanBar.style.width = `0%`;
+
+        if (botText) botText.textContent = `0% (0 ván)`;
+        if (botBar) botBar.style.width = `0%`;
+
+        if (drawText) drawText.textContent = `0% (0 ván)`;
+        if (drawBar) drawBar.style.width = `0%`;
+      }
+    };
+
+    function renderAdminAll() {
+      updateAdminStatsUI();
       renderAdminPlayersTable();
       populateBalancerForm();
       renderAdminLogsFeed();
@@ -14271,15 +14480,38 @@
 
     function handleChessGameOver() {
       stopChessTimer();
-      if (chessGame.in_checkmate()) {
-        const winner = (chessGame.turn() === 'w') ? 'Đen (Black)' : 'Trắng (White)';
-        const title = `${winner} Chiếu Bí Toàn Thắng! 👑`;
-        const desc = `Một thế cờ xuất sắc đã kết liễu trận đấu sau ${chessGame.history().length} nước đi!`;
-        showVictory(winner);
-        soundTone(659, 'triangle', 0.2, 0.2);
-        setTimeout(() => soundTone(880, 'triangle', 0.35, 0.25), 150);
-      } else if (chessGame.in_draw()) {
-        showVictory('Hòa Cờ (Draw)');
+      try {
+        const chessRecordCount = Number(localStorage.getItem('tabletop_chess_match_count') || 0) + 1;
+        localStorage.setItem('tabletop_chess_match_count', chessRecordCount);
+        if (chessGame.in_checkmate()) {
+          const winner = (chessGame.turn() === 'w') ? 'Đen (Black)' : 'Trắng (White)';
+          if (chessMode === 'bot') {
+            if (chessGame.turn() === 'b') {
+              const hw = Number(localStorage.getItem('tabletop_chess_human_wins') || 0) + 1;
+              localStorage.setItem('tabletop_chess_human_wins', hw);
+            } else {
+              const bw = Number(localStorage.getItem('tabletop_chess_bot_wins') || 0) + 1;
+              localStorage.setItem('tabletop_chess_bot_wins', bw);
+            }
+          } else {
+            const hw = Number(localStorage.getItem('tabletop_chess_human_wins') || 0) + 1;
+            localStorage.setItem('tabletop_chess_human_wins', hw);
+          }
+          showVictory(winner);
+          soundTone(659, 'triangle', 0.2, 0.2);
+          setTimeout(() => soundTone(880, 'triangle', 0.35, 0.25), 150);
+        } else if (chessGame.in_draw()) {
+          const cd = Number(localStorage.getItem('tabletop_chess_draws') || 0) + 1;
+          localStorage.setItem('tabletop_chess_draws', cd);
+          showVictory('Hòa Cờ (Draw)');
+        }
+        if (typeof updateAdminStatsUI === 'function') updateAdminStatsUI();
+      } catch (e) {
+        if (chessGame.in_checkmate()) {
+          showVictory((chessGame.turn() === 'w') ? 'Đen (Black)' : 'Trắng (White)');
+        } else if (chessGame.in_draw()) {
+          showVictory('Hòa Cờ (Draw)');
+        }
       }
     }
 
@@ -14409,7 +14641,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v4.0.6'
+      currentVersion: 'v4.0.7'
     };
 
     let allChangelogItems = [];
@@ -16832,6 +17064,14 @@
       if (cached) {
         try {
           const u = JSON.parse(cached);
+          if (u.coins === 2450 && u.gems === 150) {
+            u.coins = 0;
+            u.gems = 0;
+            localStorage.setItem('tabletop_firebase_user', JSON.stringify(u));
+            if (window.updateCloudFirestoreUserField && u.uid) {
+              window.updateCloudFirestoreUserField(u.uid, { coins: 0, gems: 0 });
+            }
+          }
           window.currentFirebaseUser = u;
           window.applyUserUI(u);
         } catch (e) {}
@@ -17128,11 +17368,11 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-slate-300 font-bold mb-1">Số Vàng 🪙 Ban Đầu:</label>
-            <input type="number" id="newPlayerCoins" value="2450" min="0" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-amber-300 focus:outline-none focus:border-emerald-500 font-mono font-bold">
+            <input type="number" id="newPlayerCoins" value="0" min="0" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-amber-300 focus:outline-none focus:border-emerald-500 font-mono font-bold">
           </div>
           <div>
             <label class="block text-slate-300 font-bold mb-1">Số Đá Quý 💎 Ban Đầu:</label>
-            <input type="number" id="newPlayerGems" value="150" min="0" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-cyan-300 focus:outline-none focus:border-emerald-500 font-mono font-bold">
+            <input type="number" id="newPlayerGems" value="0" min="0" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-slate-700 text-cyan-300 focus:outline-none focus:border-emerald-500 font-mono font-bold">
           </div>
         </div>
 

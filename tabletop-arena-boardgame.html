@@ -110,6 +110,73 @@
       }
     }
 
+    @keyframes viewFadeExit {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(14px) scale(0.985);
+        filter: blur(4px);
+      }
+    }
+
+    .view-fade-exit {
+      animation: viewFadeExit 0.22s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      will-change: opacity, transform, filter;
+      pointer-events: none;
+    }
+
+    @keyframes modalPopIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.92) translateY(8px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-pop-in {
+      animation: modalPopIn 0.22s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
+      will-change: opacity, transform;
+    }
+
+    @keyframes modalPopOut {
+      0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.92) translateY(10px);
+      }
+    }
+
+    .modal-pop-out {
+      animation: modalPopOut 0.18s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      will-change: opacity, transform;
+    }
+
+    @keyframes backdropFadeOut {
+      0% {
+        opacity: 1;
+        backdrop-filter: blur(8px);
+      }
+      100% {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+      }
+    }
+
+    .backdrop-fade-out {
+      animation: backdropFadeOut 0.18s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      will-change: opacity, backdrop-filter;
+    }
+
     /* Modal Backdrop Smooth Transition */
     .modal-backdrop-smooth {
       transition: opacity var(--t-speed-norm) var(--ease-soft),
@@ -1230,7 +1297,7 @@
 
         <button onclick="openModal('versionModal')" class="btn-spring hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-[11px] font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v4.0.8</span>
+          <span id="headerVersionPill" class="font-bold">v4.1.3</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -1622,7 +1689,7 @@
         <!-- Left: Return to Lobby & Direct 4-Game Switcher Pills -->
         <div class="flex items-center gap-2 sm:gap-2.5 shrink-0 flex-wrap">
           <!-- Back to Main Menu Button (With Confirmation Guard) -->
-          <button onclick="requestExitArenaToLobby('lobby')" class="btn-spring px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Quay về Sảnh Game (Xác nhận an toàn)">
+          <button onclick="if(window.soundTone) soundTone(440, 'sine', 0.06, 0.08); requestExitArenaToLobby('lobby')" class="btn-spring px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm active:scale-90 hover:scale-105 active:rotate-[-2deg] transition-all duration-150 cursor-pointer" title="Quay về Sảnh Game (Xác nhận an toàn)">
             <i data-lucide="arrow-left" class="w-4 h-4 text-amber-400"></i>
             <span class="hidden xs:inline">Sảnh Game</span>
           </button>
@@ -4564,8 +4631,8 @@
 
   <!-- ================= MODAL CƠ CẤU GIẢI THƯỞNG BÀN CỜ ================= -->
     <!-- ================= ARENA EXIT CONFIRMATION MODAL (#arenaExitConfirmModal) ================= -->
-  <div id="arenaExitConfirmModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in pointer-events-auto">
-    <div class="w-full max-w-md bg-[#0B132B]/98 border-2 border-rose-500/80 rounded-3xl p-6 shadow-[0_0_60px_rgba(244,63,94,0.35)] flex flex-col items-center text-center relative overflow-hidden">
+  <div id="arenaExitConfirmModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md pointer-events-auto">
+    <div id="arenaExitConfirmCard" class="w-full max-w-md bg-[#0B132B]/98 border-2 border-rose-500/80 rounded-3xl p-6 shadow-[0_0_60px_rgba(244,63,94,0.35)] flex flex-col items-center text-center relative overflow-hidden">
       <!-- Glow ambient -->
       <div class="absolute -top-12 -right-12 w-36 h-36 bg-rose-500/15 rounded-full blur-3xl pointer-events-none"></div>
       
@@ -4592,10 +4659,10 @@
 
       <!-- Action Buttons -->
       <div class="w-full flex items-center justify-center gap-3">
-        <button onclick="closeArenaExitConfirmModal()" class="flex-1 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-bold text-xs border border-slate-600 transition-all cursor-pointer shadow-sm">
+        <button onclick="if(window.soundTone) soundTone(520, 'sine', 0.05, 0.06); closeArenaExitConfirmModal()" class="flex-1 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 hover:text-white font-bold text-xs border border-slate-600 transition-all cursor-pointer shadow-sm">
           Tiếp Tục Chơi
         </button>
-        <button id="btnConfirmExitArena" onclick="confirmExitArenaToLobby()" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 active:scale-95 text-white font-black text-xs border border-rose-400/50 shadow-lg shadow-rose-600/40 hover:shadow-rose-500/50 transition-all duration-200 cursor-pointer">
+        <button id="btnConfirmExitArena" onclick="if(window.soundTone) soundTone(320, 'sawtooth', 0.08, 0.1); confirmExitArenaToLobby()" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 active:scale-95 text-white font-black text-xs border border-rose-400/50 shadow-lg shadow-rose-600/40 hover:shadow-rose-500/50 transition-all duration-200 cursor-pointer">
           Xác Nhận Thoát
         </button>
       </div>
@@ -5078,39 +5145,151 @@
                 </div>
               </div>
 
-              <!-- Card 2: Economy & Operational Controls -->
-              <div class="rounded-2xl p-4 bg-board-tray border border-board-border space-y-4">
-                <div class="flex items-center gap-2 pb-2 border-b border-board-border">
-                  <i data-lucide="badge-dollar-sign" class="w-4 h-4 text-emerald-400"></i>
-                  <h4 class="font-cinzel text-sm font-bold text-white">Chính Sách Thưởng & Vận Hành</h4>
+              <!-- Card 2: Economy & Operational Controls (Bento Grid Win Rewards) -->
+              <div class="md:col-span-2 rounded-2xl p-4 sm:p-5 bg-board-tray border border-board-border space-y-4">
+                <div class="flex items-center justify-between pb-2 border-b border-board-border">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="award" class="w-4 h-4 text-amber-400"></i>
+                    <h4 class="font-cinzel text-sm font-bold text-white tracking-wide">⚙️ TÙY CHỈNH PHẦN THƯỞNG CHIẾN THẮNG & HỆ SỐ SỰ KIỆN</h4>
+                  </div>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold">4 GAME REALTIME</span>
                 </div>
 
-                <div class="space-y-3 text-xs">
-                  <div>
-                    <label class="block font-bold text-slate-300 mb-1">Xu Vàng Thưởng Mỗi Ván Thắng (🪙)</label>
-                    <input type="number" id="cfgWinCoins" value="100" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-board-border text-white text-xs font-mono">
-                  </div>
-                  <div>
-                    <label class="block font-bold text-slate-300 mb-1">Điểm ELO Thưởng Khi Hạ BOT</label>
-                    <input type="number" id="cfgWinElo" value="25" class="w-full px-3 py-2 rounded-xl bg-black/60 border border-board-border text-white text-xs font-mono">
-                  </div>
+                <!-- Hidden inputs for backward compatibility -->
+                <input type="hidden" id="cfgWinCoins" value="250">
+                <input type="hidden" id="cfgWinElo" value="25">
 
-                  <div class="p-3 rounded-xl bg-black/40 border border-board-border flex items-center justify-between">
-                    <div>
-                      <div class="font-bold text-slate-200">Chế Độ Bảo Trì Bàn Cờ</div>
-                      <div class="text-[11px] text-slate-400">Bật biểu ngữ thông báo bảo trì toàn hệ thống</div>
+                <!-- Row 1: Global Event Boost Multiplier -->
+                <div class="p-3.5 rounded-xl bg-black/40 border border-amber-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <div class="text-xs font-bold text-amber-300 flex items-center gap-1.5">
+                      <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
+                      <span>Hệ Số Nhân Sự Kiện Toàn Server (Global Event Boost Multiplier)</span>
                     </div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" id="cfgMaintenance" class="sr-only peer">
-                      <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-rose-600"></div>
-                    </label>
+                    <div class="text-[11px] text-slate-400 mt-0.5">Hệ số nhân thưởng trực tiếp Xu (🪙), Kim Cương (💎) và ELO (⭐) khi chiến thắng các bộ môn</div>
+                  </div>
+                  <div class="shrink-0">
+                    <select id="cfgRewardMultiplier" class="w-full sm:w-auto px-3 py-1.5 rounded-xl bg-slate-900 border border-amber-500/40 text-amber-300 font-bold font-mono text-xs focus:ring-1 focus:ring-amber-400 outline-none cursor-pointer">
+                      <option value="1.0">1.0x - Mặc định chuẩn</option>
+                      <option value="1.2">1.2x - Cuối Tuần Sôi Động (+20%)</option>
+                      <option value="1.5">1.5x - Lễ Hội & Tri Ân (+50%)</option>
+                      <option value="2.0">2.0x - Sự Kiện Vàng x2 Phần Thưởng (+100%)</option>
+                    </select>
                   </div>
                 </div>
 
-                <div class="pt-2">
-                  <button onclick="handleSaveGameConfig()" class="btn-spring w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-black text-xs shadow-lg shadow-amber-600/30 flex items-center justify-center gap-2">
+                <!-- Row 2: Bento Grid 4 Game Victory Rewards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                  <!-- Game 1: Dice 20 Cells -->
+                  <div class="p-3 rounded-xl bg-black/50 border border-amber-500/30 flex flex-col justify-between space-y-2">
+                    <div class="flex items-center gap-2 pb-1.5 border-b border-board-border">
+                      <span class="text-base">🎲</span>
+                      <div class="font-bold text-amber-300 text-[11px] truncate" title="Xúc Xắc 20 Ô Hoàng Kim">Xúc Xắc 20 Ô</div>
+                    </div>
+                    <div class="space-y-1.5">
+                      <div>
+                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Thưởng Thắng Xu (🪙)</span></label>
+                        <input type="number" id="cfgRewardDiceCoins" value="250" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                      </div>
+                      <div>
+                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Kim Cương (💎)</span></label>
+                        <input type="number" id="cfgRewardDiceGems" value="15" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                      </div>
+                      <div>
+                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Điểm ELO (⭐)</span></label>
+                        <input type="number" id="cfgRewardDiceElo" value="30" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Game 2: Chess FIDE -->
+                  <div class="p-3 rounded-xl bg-black/50 border border-indigo-500/30 flex flex-col justify-between space-y-2">
+                    <div class="flex items-center gap-2 pb-1.5 border-b border-board-border">
+                      <span class="text-base">♟️</span>
+                      <div class="font-bold text-indigo-300 text-[11px] truncate" title="Cờ Vua FIDE Kiện Tướng">Cờ Vua FIDE</div>
+                    </div>
+                    <div class="space-y-1.5">
+                      <div>
+                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Thưởng Thắng Xu (🪙)</span></label>
+                        <input type="number" id="cfgRewardChessCoins" value="400" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                      </div>
+                      <div>
+                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Kim Cương (💎)</span></label>
+                        <input type="number" id="cfgRewardChessGems" value="25" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                      </div>
+                      <div>
+                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Điểm ELO (⭐)</span></label>
+                        <input type="number" id="cfgRewardChessElo" value="40" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Game 3: TicTacToe Neon -->
+                  <div class="p-3 rounded-xl bg-black/50 border border-cyan-500/30 flex flex-col justify-between space-y-2">
+                    <div class="flex items-center gap-2 pb-1.5 border-b border-board-border">
+                      <span class="text-base">❌</span>
+                      <div class="font-bold text-cyan-300 text-[11px] truncate" title="Cờ Ca-rô Neon Hoàng Gia">Ca-rô Neon</div>
+                    </div>
+                    <div class="space-y-1.5">
+                      <div>
+                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Thưởng Thắng Xu (🪙)</span></label>
+                        <input type="number" id="cfgRewardTTTCoins" value="100" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                      </div>
+                      <div>
+                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Kim Cương (💎)</span></label>
+                        <input type="number" id="cfgRewardTTTGems" value="5" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                      </div>
+                      <div>
+                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Điểm ELO (⭐)</span></label>
+                        <input type="number" id="cfgRewardTTTElo" value="20" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Game 4: Monopoly 2.5D -->
+                  <div class="p-3 rounded-xl bg-black/50 border border-emerald-500/30 flex flex-col justify-between space-y-2">
+                    <div class="flex items-center gap-2 pb-1.5 border-b border-board-border">
+                      <span class="text-base">🎩</span>
+                      <div class="font-bold text-emerald-300 text-[11px] truncate" title="Cờ Tỷ Phú 2.5D Business Tour">Cờ Tỷ Phú 2.5D</div>
+                    </div>
+                    <div class="space-y-1.5">
+                      <div>
+                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Thưởng Thắng Xu (🪙)</span></label>
+                        <input type="number" id="cfgRewardMonoCoins" value="600" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                      </div>
+                      <div>
+                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Kim Cương (💎)</span></label>
+                        <input type="number" id="cfgRewardMonoGems" value="40" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                      </div>
+                      <div>
+                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Điểm ELO (⭐)</span></label>
+                        <input type="number" id="cfgRewardMonoElo" value="50" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Operational Controls: Maintenance Mode -->
+                <div class="p-3 rounded-xl bg-black/40 border border-board-border flex items-center justify-between">
+                  <div>
+                    <div class="font-bold text-slate-200 text-xs">Chế Độ Bảo Trì Bàn Cờ</div>
+                    <div class="text-[11px] text-slate-400">Bật biểu ngữ thông báo bảo trì toàn hệ thống</div>
+                  </div>
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="cfgMaintenance" class="sr-only peer">
+                    <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-rose-600"></div>
+                  </label>
+                </div>
+
+                <!-- Action Button Row -->
+                <div class="pt-2 flex flex-col sm:flex-row gap-2">
+                  <button onclick="handleSaveGameConfig()" class="btn-spring flex-1 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-black text-xs shadow-lg shadow-amber-600/30 flex items-center justify-center gap-2 cursor-pointer">
                     <i data-lucide="save" class="w-4 h-4"></i>
-                    <span>Lưu Cấu Hình & Áp Dụng Ngay Lập Tức</span>
+                    <span>Lưu Cấu Hình Thưởng & Áp Dụng Ngay</span>
+                  </button>
+                  <button onclick="resetDefaultRewardConfig()" class="btn-spring px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-bold text-xs border border-slate-600/60 flex items-center justify-center gap-1.5 cursor-pointer" title="Khôi phục thông số phần thưởng gốc">
+                    <i data-lucide="rotate-ccw" class="w-4 h-4 text-slate-400"></i>
+                    <span>Khôi Phục Mặc Định</span>
                   </button>
                 </div>
               </div>
@@ -5216,6 +5395,8 @@
             </span>
           </div>
           <div id="dev1Highlights" class="text-[11px] text-slate-300 space-y-1 pl-1">
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0 animate-pulse"></span><span class="text-pink-300 font-semibold">[v4.1.3] Transition & Animation out cực mượt khi thoát trận đấu, GPU fade-exit & modal spring pop-out</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>[v4.1.3] Cổng Admin: Bento Grid tùy chỉnh phần thưởng chiến thắng & Hệ số sự kiện toàn Server cho 4 bộ môn cờ</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Fix triệt để Lịch Sử Đấu thành dữ liệu thật theo từng tài khoản (uid), xóa sạch mock data & chống ghi trùng</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Chuẩn hóa SVG Icon người chơi (Avatar/Cấp/Xu), Timer chạy chuẩn khi đổi Tab & Âm thanh Web Audio</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Fix Cờ Tỷ Phú ẩn triệt để khi chuyển game, Nút Thoát Trận dừng 100% chạy ngầm & Chuẩn hóa 4 Icon P2P</span></div>
@@ -5915,9 +6096,17 @@
       window.pendingSwitchGameTab = null;
       if (window.currentMainTab === 'arena' || (typeof isMatchInProgress === 'function' && isMatchInProgress())) {
         const modal = document.getElementById('arenaExitConfirmModal');
+        const card = document.getElementById('arenaExitConfirmCard');
         if (modal) {
-          modal.classList.remove('hidden');
+          modal.classList.remove('hidden', 'backdrop-fade-out');
           modal.classList.add('flex');
+          if (card) {
+            card.classList.remove('modal-pop-out');
+            card.classList.add('modal-pop-in');
+          }
+          if (typeof soundTone === 'function') {
+            soundTone(340, 'triangle', 0.1, 0.12);
+          }
         } else {
           terminateActiveGameCleanly(window.pendingExitTargetTab);
         }
@@ -5927,30 +6116,45 @@
     }
     window.requestExitArenaToLobby = requestExitArenaToLobby;
 
-    function closeArenaExitConfirmModal() {
+    function closeArenaExitConfirmModal(callback) {
       const modal = document.getElementById('arenaExitConfirmModal');
-      if (modal) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
+      const card = document.getElementById('arenaExitConfirmCard');
+      if (modal && !modal.classList.contains('hidden')) {
+        if (card) {
+          card.classList.remove('modal-pop-in');
+          card.classList.add('modal-pop-out');
+        }
+        modal.classList.add('backdrop-fade-out');
+        setTimeout(() => {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex', 'backdrop-fade-out');
+          if (card) {
+            card.classList.remove('modal-pop-out', 'modal-pop-in');
+          }
+          if (typeof callback === 'function') callback();
+        }, 180);
+      } else {
+        if (typeof callback === 'function') callback();
       }
     }
     window.closeArenaExitConfirmModal = closeArenaExitConfirmModal;
 
     function confirmExitArenaToLobby() {
-      closeArenaExitConfirmModal();
-      if (window.pendingSwitchGameTab) {
-        const nextGame = window.pendingSwitchGameTab;
-        window.pendingSwitchGameTab = null;
-        stopAllBackgroundGameProcesses();
-        if (typeof switchGameView === 'function') {
-          switchGameView(nextGame, true);
+      closeArenaExitConfirmModal(() => {
+        if (window.pendingSwitchGameTab) {
+          const nextGame = window.pendingSwitchGameTab;
+          window.pendingSwitchGameTab = null;
+          stopAllBackgroundGameProcesses();
+          if (typeof switchGameView === 'function') {
+            switchGameView(nextGame, true);
+          }
+          if (typeof showToast === 'function') {
+            showToast('🏳️ Đã dừng hẳn game cũ và chuyển sang bàn đấu mới.');
+          }
+        } else {
+          terminateActiveGameCleanly(window.pendingExitTargetTab || 'lobby');
         }
-        if (typeof showToast === 'function') {
-          showToast('🏳️ Đã dừng hẳn game cũ và chuyển sang bàn đấu mới.');
-        }
-      } else {
-        terminateActiveGameCleanly(window.pendingExitTargetTab || 'lobby');
-      }
+      });
     }
     window.confirmExitArenaToLobby = confirmExitArenaToLobby;
 
@@ -6060,10 +6264,22 @@
         toggleMonopolyFullscreen(false);
       }
 
-      // 5. Chuyển sạch về Sảnh chính
-      switchMainTab(dest, true);
-      if (typeof showToast === 'function') {
-        showToast('🏳️ Đã thoát ván đấu và dừng mọi hoạt động chạy ngầm.');
+      // 5. Chuyển sạch về Sảnh chính với hiệu ứng GPU view-fade-exit siêu mượt
+      const mainViewArena = document.getElementById('mainViewArena');
+      if (mainViewArena && !mainViewArena.classList.contains('hidden')) {
+        mainViewArena.classList.add('view-fade-exit');
+        setTimeout(() => {
+          switchMainTab(dest, true);
+          mainViewArena.classList.remove('view-fade-exit');
+          if (typeof showToast === 'function') {
+            showToast('🏳️ Đã thoát ván đấu và dừng mọi hoạt động chạy ngầm.');
+          }
+        }, 200);
+      } else {
+        switchMainTab(dest, true);
+        if (typeof showToast === 'function') {
+          showToast('🏳️ Đã thoát ván đấu và dừng mọi hoạt động chạy ngầm.');
+        }
       }
     }
     window.terminateActiveGameCleanly = terminateActiveGameCleanly;
@@ -6131,20 +6347,25 @@
       let skipReward = false;
       let note = reasonText || '';
 
+      const rCfg = (window.adminRewardsConfig && window.adminRewardsConfig[gameKey]) || null;
+      const eventMult = (window.adminRewardsConfig && Number(window.adminRewardsConfig.multiplier)) || 1.0;
+
       if (gameKey === 'tictactoe') {
-        // 1. Ca-rô (tictactoe): Thắng +100🪙/+5💎, Hòa +30🪙/+1💎, Thua +15🪙/0💎.
+        // 1. Ca-rô (tictactoe): Thắng theo cấu hình Admin (mặc định +100🪙/+5💎/+20⭐), Hòa +30🪙/+1💎, Thua +15🪙/0💎.
         if (normOutcome === 'win') {
-          coins = 100;
-          gems = 5;
+          const baseCoins = rCfg ? rCfg.winCoins : 100;
+          const baseGems = rCfg ? rCfg.winGems : 5;
+          coins = Math.round(baseCoins * computedMult * eventMult);
+          gems = Math.round(baseGems * computedMult * eventMult);
         } else if (normOutcome === 'draw') {
-          coins = 30;
-          gems = 1;
+          coins = Math.round(30 * eventMult);
+          gems = Math.max(1, Math.round(1 * eventMult));
         } else if (normOutcome === 'loss') {
-          coins = 15;
+          coins = Math.round(15 * eventMult);
           gems = 0;
         }
       } else if (gameKey === 'dice') {
-        // 2. Xúc Xắc 20 Ô (dice): Hệ số 1 + (botCount - 1)*0.3 (Online P2P = 1.6x). Thắng +250🪙/+15💎 (x hệ số), Thua +40🪙/+2💎.
+        // 2. Xúc Xắc 20 Ô (dice): Hệ số 1 + (botCount - 1)*0.3 (Online P2P = 1.6x). Thắng theo Admin (mặc định +250🪙/+15💎/+30⭐), Thua +40🪙/+2💎.
         const isOnline = Boolean((typeof window.isOnlineRoomMatch !== 'undefined' && window.isOnlineRoomMatch) || 
                                  (typeof currentOpponent !== 'undefined' && currentOpponent === 'online'));
         if (computedMult === 1) {
@@ -6156,35 +6377,39 @@
           }
         }
         if (normOutcome === 'win') {
-          coins = Math.round(250 * computedMult);
-          gems = Math.round(15 * computedMult);
+          const baseCoins = rCfg ? rCfg.winCoins : 250;
+          const baseGems = rCfg ? rCfg.winGems : 15;
+          coins = Math.round(baseCoins * computedMult * eventMult);
+          gems = Math.round(baseGems * computedMult * eventMult);
         } else if (normOutcome === 'loss') {
-          coins = 40;
-          gems = 2;
+          coins = Math.round(40 * eventMult);
+          gems = Math.round(2 * eventMult);
         }
       } else if (gameKey === 'chess') {
-        // 3. Cờ Vua (chess): Thắng +400🪙/+25💎, Hòa +120🪙/+8💎, Thua (đủ >=6 half-moves) +50🪙/+3💎.
+        // 3. Cờ Vua (chess): Thắng theo Admin (mặc định +400🪙/+25💎/+40⭐), Hòa +120🪙/+8💎, Thua (đủ >=6 half-moves) +50🪙/+3💎.
         let halfMoves = 0;
         if (typeof chessGame !== 'undefined' && chessGame && typeof chessGame.history === 'function') {
           try { halfMoves = chessGame.history().length; } catch(e) {}
         }
         if (normOutcome === 'win') {
-          coins = 400;
-          gems = 25;
+          const baseCoins = rCfg ? rCfg.winCoins : 400;
+          const baseGems = rCfg ? rCfg.winGems : 25;
+          coins = Math.round(baseCoins * computedMult * eventMult);
+          gems = Math.round(baseGems * computedMult * eventMult);
         } else if (normOutcome === 'draw') {
-          coins = 120;
-          gems = 8;
+          coins = Math.round(120 * eventMult);
+          gems = Math.round(8 * eventMult);
         } else if (normOutcome === 'loss') {
           if (halfMoves >= 6) {
-            coins = 50;
-            gems = 3;
+            coins = Math.round(50 * eventMult);
+            gems = Math.round(3 * eventMult);
           } else {
             skipReward = true;
             note = note || 'Thua trước 6 nước đi (chưa đủ điều kiện thưởng)';
           }
         }
       } else if (gameKey === 'monopoly') {
-        // 4. Cờ Tỷ Phú (monopoly): Hệ số 2P=1.0x, 3P=1.4x, 4P/Online=1.8x. Thắng +600🪙/+40💎 (x hệ số, tới 1080🪙/72💎), Thua (hoàn thành trận, cấm thưởng nếu bấm Phá Sản sớm ở vòng <=2) +80🪙/+5💎.
+        // 4. Cờ Tỷ Phú (monopoly): Hệ số 2P=1.0x, 3P=1.4x, 4P/Online=1.8x. Thắng theo Admin (mặc định +600🪙/+40💎/+50⭐), Thua +80🪙/+5💎.
         const isOnlineMono = Boolean((typeof window.isOnlineRoomMatch !== 'undefined' && window.isOnlineRoomMatch) || 
                                      (typeof monoState !== 'undefined' && monoState.mode === 'online'));
         const pCount = (typeof monoState !== 'undefined' && monoState.playerCount) ? monoState.playerCount : 2;
@@ -6199,15 +6424,17 @@
         }
         const currentRound = (typeof monoState !== 'undefined' && monoState.round) ? monoState.round : 1;
         if (normOutcome === 'win') {
-          coins = Math.round(600 * computedMult);
-          gems = Math.round(40 * computedMult);
+          const baseCoins = rCfg ? rCfg.winCoins : 600;
+          const baseGems = rCfg ? rCfg.winGems : 40;
+          coins = Math.round(baseCoins * computedMult * eventMult);
+          gems = Math.round(baseGems * computedMult * eventMult);
         } else if (normOutcome === 'loss') {
           if (currentRound <= 2 && (note.includes('phá sản sớm') || note.includes('vòng <= 2'))) {
             skipReward = true;
             note = 'Phá sản sớm ở vòng <= 2 (không tính thưởng)';
           } else {
-            coins = 80;
-            gems = 5;
+            coins = Math.round(80 * eventMult);
+            gems = Math.round(5 * eventMult);
           }
         }
       }
@@ -6274,6 +6501,15 @@
       window.currentFirebaseUser.coins = Math.max(0, (parseInt(window.currentFirebaseUser.coins, 10) || 0) + coins);
       window.currentFirebaseUser.gems = Math.max(0, (parseInt(window.currentFirebaseUser.gems, 10) || 0) + gems);
 
+      // Thưởng ELO khi chiến thắng theo cấu hình Admin
+      let earnedElo = 0;
+      if (normOutcome === 'win' && rCfg && rCfg.winElo) {
+        earnedElo = Math.round(rCfg.winElo * eventMult);
+        window.currentFirebaseUser.elo = Math.max(0, (parseInt(window.currentFirebaseUser.elo, 10) || 1200) + earnedElo);
+        const uEloInTable = document.getElementById('leaderboardUserEloInTable');
+        if (uEloInTable) uEloInTable.textContent = `${Number(window.currentFirebaseUser.elo).toLocaleString()} ELO`;
+      }
+
       // Cache local
       try {
         localStorage.setItem('tabletop_firebase_user', JSON.stringify(window.currentFirebaseUser));
@@ -6293,6 +6529,7 @@
         if (p) {
           p.coins = window.currentFirebaseUser.coins;
           p.gems = window.currentFirebaseUser.gems;
+          if (earnedElo > 0) p.elo = window.currentFirebaseUser.elo;
           if (typeof renderAdminPlayersTable === 'function') renderAdminPlayersTable();
         }
       }
@@ -6305,17 +6542,19 @@
         if (typeof window.saveUserToCloudFirestore === 'function' && window.currentFirebaseUser.uid) {
           window.saveUserToCloudFirestore(window.currentFirebaseUser);
         } else if (typeof window.updateCloudFirestoreUserField === 'function' && window.currentFirebaseUser.uid) {
-          window.updateCloudFirestoreUserField(window.currentFirebaseUser.uid, {
+          const updateFields = {
             coins: window.currentFirebaseUser.coins,
             gems: window.currentFirebaseUser.gems
-          });
+          };
+          if (earnedElo > 0) updateFields.elo = window.currentFirebaseUser.elo;
+          window.updateCloudFirestoreUserField(window.currentFirebaseUser.uid, updateFields);
         }
       } catch(e) {
         console.warn('[MatchReward] Firestore write note:', e);
       }
 
       // Hiển thị badge thưởng trong Victory/Endgame Modal
-      window.updateMatchRewardModalBadge(gameKey, normOutcome, coins, gems, computedMult);
+      window.updateMatchRewardModalBadge(gameKey, normOutcome, coins, gems, computedMult * eventMult);
 
       // Hiển thị Toast thông báo
       const gameNames = {
@@ -6327,10 +6566,12 @@
       const gName = gameNames[gameKey] || gameKey;
       const outcomeText = normOutcome === 'win' ? 'Chiến Thắng' : (normOutcome === 'draw' ? 'Hòa Trận' : 'Hoàn Thành Trận');
       if (typeof showToast === 'function') {
-        showToast(`🎁 [${gName}] ${outcomeText}: +${coins.toLocaleString()} 🪙 & +${gems.toLocaleString()} 💎 (${computedMult.toFixed(1)}x)!`);
+        const eloMsg = earnedElo > 0 ? ` & +${earnedElo} ⭐ ELO` : '';
+        const boostMsg = eventMult > 1.0 ? ` [Sự kiện ${eventMult.toFixed(1)}x]` : '';
+        showToast(`🎁 [${gName}] ${outcomeText}${boostMsg}: +${coins.toLocaleString()} 🪙 & +${gems.toLocaleString()} 💎${eloMsg}!`);
       }
 
-      return { coins, gems, mult: computedMult, outcome: normOutcome, gameKey };
+      return { coins, gems, elo: earnedElo, mult: computedMult * eventMult, outcome: normOutcome, gameKey };
     };
 
     window.openRewardsModal = function() {
@@ -14897,16 +15138,44 @@ function renderCashStackHTML(amount) {
     let adminUnlocked = false;
     let adminActiveTab = 'analytics';
 
+    const DEFAULT_ADMIN_REWARDS_CONFIG = {
+      multiplier: 1.0,
+      dice: { winCoins: 250, winGems: 15, winElo: 30 },
+      chess: { winCoins: 400, winGems: 25, winElo: 40 },
+      tictactoe: { winCoins: 100, winGems: 5, winElo: 20 },
+      monopoly: { winCoins: 600, winGems: 40, winElo: 50 }
+    };
+
+    window.adminRewardsConfig = (function() {
+      try {
+        const saved = localStorage.getItem('tabletop_admin_game_rewards');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          return Object.assign({}, DEFAULT_ADMIN_REWARDS_CONFIG, parsed);
+        }
+      } catch(e) {}
+      return JSON.parse(JSON.stringify(DEFAULT_ADMIN_REWARDS_CONFIG));
+    })();
+
     let adminGameConfig = {
       targetScore: 50,
       starReward: 15,
       treasureReward: 20,
       keyReward: 30,
       blackholePenalty: 15,
-      winCoins: 100,
-      winElo: 25,
-      isMaintenance: false
+      winCoins: 250,
+      winElo: 30,
+      isMaintenance: false,
+      gameRewards: window.adminRewardsConfig
     };
+
+    // Khôi phục cấu hình admin đã lưu nếu có
+    try {
+      const savedAdminCfg = localStorage.getItem('tabletop_admin_config');
+      if (savedAdminCfg) {
+        Object.assign(adminGameConfig, JSON.parse(savedAdminCfg));
+      }
+    } catch(e) {}
 
     // 100% REAL CLOUD FIRESTORE PLAYER LIST (colap-c2e9c)
     let adminPlayersList = [];
@@ -15492,9 +15761,42 @@ function renderCashStackHTML(amount) {
       if (tReward) tReward.value = adminGameConfig.treasureReward;
       if (kReward) kReward.value = adminGameConfig.keyReward;
       if (bPenalty) bPenalty.value = adminGameConfig.blackholePenalty;
-      if (wCoins) wCoins.value = adminGameConfig.winCoins;
-      if (wElo) wElo.value = adminGameConfig.winElo;
+      if (wCoins) wCoins.value = adminGameConfig.winCoins || 250;
+      if (wElo) wElo.value = adminGameConfig.winElo || 30;
       if (maint) maint.checked = adminGameConfig.isMaintenance;
+
+      // Nạp các giá trị từ adminRewardsConfig vào các input Bento Grid 4 game
+      const rCfg = window.adminRewardsConfig || DEFAULT_ADMIN_REWARDS_CONFIG;
+      const multEl = document.getElementById('cfgRewardMultiplier');
+      if (multEl) multEl.value = String(Number(rCfg.multiplier || 1.0).toFixed(1));
+
+      const dCoins = document.getElementById('cfgRewardDiceCoins');
+      const dGems = document.getElementById('cfgRewardDiceGems');
+      const dElo = document.getElementById('cfgRewardDiceElo');
+      if (dCoins) dCoins.value = (rCfg.dice && rCfg.dice.winCoins !== undefined) ? rCfg.dice.winCoins : 250;
+      if (dGems) dGems.value = (rCfg.dice && rCfg.dice.winGems !== undefined) ? rCfg.dice.winGems : 15;
+      if (dElo) dElo.value = (rCfg.dice && rCfg.dice.winElo !== undefined) ? rCfg.dice.winElo : 30;
+
+      const cCoins = document.getElementById('cfgRewardChessCoins');
+      const cGems = document.getElementById('cfgRewardChessGems');
+      const cElo = document.getElementById('cfgRewardChessElo');
+      if (cCoins) cCoins.value = (rCfg.chess && rCfg.chess.winCoins !== undefined) ? rCfg.chess.winCoins : 400;
+      if (cGems) cGems.value = (rCfg.chess && rCfg.chess.winGems !== undefined) ? rCfg.chess.winGems : 25;
+      if (cElo) cElo.value = (rCfg.chess && rCfg.chess.winElo !== undefined) ? rCfg.chess.winElo : 40;
+
+      const tCoins = document.getElementById('cfgRewardTTTCoins');
+      const tGems = document.getElementById('cfgRewardTTTGems');
+      const tElo = document.getElementById('cfgRewardTTTElo');
+      if (tCoins) tCoins.value = (rCfg.tictactoe && rCfg.tictactoe.winCoins !== undefined) ? rCfg.tictactoe.winCoins : 100;
+      if (tGems) tGems.value = (rCfg.tictactoe && rCfg.tictactoe.winGems !== undefined) ? rCfg.tictactoe.winGems : 5;
+      if (tElo) tElo.value = (rCfg.tictactoe && rCfg.tictactoe.winElo !== undefined) ? rCfg.tictactoe.winElo : 20;
+
+      const mCoins = document.getElementById('cfgRewardMonoCoins');
+      const mGems = document.getElementById('cfgRewardMonoGems');
+      const mElo = document.getElementById('cfgRewardMonoElo');
+      if (mCoins) mCoins.value = (rCfg.monopoly && rCfg.monopoly.winCoins !== undefined) ? rCfg.monopoly.winCoins : 600;
+      if (mGems) mGems.value = (rCfg.monopoly && rCfg.monopoly.winGems !== undefined) ? rCfg.monopoly.winGems : 40;
+      if (mElo) mElo.value = (rCfg.monopoly && rCfg.monopoly.winElo !== undefined) ? rCfg.monopoly.winElo : 50;
     }
 
     window.updateTargetScoreLabel = function(val) {
@@ -15503,22 +15805,78 @@ function renderCashStackHTML(amount) {
     };
 
     window.handleSaveGameConfig = function() {
-      adminGameConfig.targetScore = parseInt(document.getElementById('cfgTargetScore').value, 10) || 50;
-      adminGameConfig.starReward = parseInt(document.getElementById('cfgStarReward').value, 10) || 15;
-      adminGameConfig.treasureReward = parseInt(document.getElementById('cfgTreasureReward').value, 10) || 20;
-      adminGameConfig.keyReward = parseInt(document.getElementById('cfgKeyReward').value, 10) || 30;
-      adminGameConfig.blackholePenalty = parseInt(document.getElementById('cfgBlackholePenalty').value, 10) || 15;
-      adminGameConfig.winCoins = parseInt(document.getElementById('cfgWinCoins').value, 10) || 100;
-      adminGameConfig.winElo = parseInt(document.getElementById('cfgWinElo').value, 10) || 25;
-      adminGameConfig.isMaintenance = document.getElementById('cfgMaintenance').checked;
+      adminGameConfig.targetScore = parseInt(document.getElementById('cfgTargetScore')?.value, 10) || 50;
+      adminGameConfig.starReward = parseInt(document.getElementById('cfgStarReward')?.value, 10) || 15;
+      adminGameConfig.treasureReward = parseInt(document.getElementById('cfgTreasureReward')?.value, 10) || 20;
+      adminGameConfig.keyReward = parseInt(document.getElementById('cfgKeyReward')?.value, 10) || 30;
+      adminGameConfig.blackholePenalty = parseInt(document.getElementById('cfgBlackholePenalty')?.value, 10) || 15;
+      adminGameConfig.winCoins = parseInt(document.getElementById('cfgRewardDiceCoins')?.value || document.getElementById('cfgWinCoins')?.value, 10) || 250;
+      adminGameConfig.winElo = parseInt(document.getElementById('cfgRewardDiceElo')?.value || document.getElementById('cfgWinElo')?.value, 10) || 30;
+      adminGameConfig.isMaintenance = document.getElementById('cfgMaintenance')?.checked || false;
 
+      // Đọc bảng phần thưởng 4 game và hệ số sự kiện
+      const multVal = parseFloat(document.getElementById('cfgRewardMultiplier')?.value) || 1.0;
+      window.adminRewardsConfig = {
+        multiplier: multVal,
+        dice: {
+          winCoins: parseInt(document.getElementById('cfgRewardDiceCoins')?.value, 10) || 250,
+          winGems: parseInt(document.getElementById('cfgRewardDiceGems')?.value, 10) || 15,
+          winElo: parseInt(document.getElementById('cfgRewardDiceElo')?.value, 10) || 30
+        },
+        chess: {
+          winCoins: parseInt(document.getElementById('cfgRewardChessCoins')?.value, 10) || 400,
+          winGems: parseInt(document.getElementById('cfgRewardChessGems')?.value, 10) || 25,
+          winElo: parseInt(document.getElementById('cfgRewardChessElo')?.value, 10) || 40
+        },
+        tictactoe: {
+          winCoins: parseInt(document.getElementById('cfgRewardTTTCoins')?.value, 10) || 100,
+          winGems: parseInt(document.getElementById('cfgRewardTTTGems')?.value, 10) || 5,
+          winElo: parseInt(document.getElementById('cfgRewardTTTElo')?.value, 10) || 20
+        },
+        monopoly: {
+          winCoins: parseInt(document.getElementById('cfgRewardMonoCoins')?.value, 10) || 600,
+          winGems: parseInt(document.getElementById('cfgRewardMonoGems')?.value, 10) || 40,
+          winElo: parseInt(document.getElementById('cfgRewardMonoElo')?.value, 10) || 50
+        }
+      };
+
+      adminGameConfig.gameRewards = window.adminRewardsConfig;
       localStorage.setItem('tabletop_admin_config', JSON.stringify(adminGameConfig));
+      localStorage.setItem('tabletop_admin_game_rewards', JSON.stringify(window.adminRewardsConfig));
+
+      // Đồng bộ Cloud Firestore document system_config/game_rewards
+      try {
+        const projectId = "colap-c2e9c";
+        const cfgUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/system_config/game_rewards`;
+        fetch(cfgUrl, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fields: {
+              multiplier: { doubleValue: multVal },
+              updatedAt: { timestampValue: new Date().toISOString() },
+              rewardsJson: { stringValue: JSON.stringify(window.adminRewardsConfig) }
+            }
+          })
+        }).catch(err => console.warn('[Firestore] Config sync note:', err));
+      } catch(e) {}
+
       applyAdminConfigToGame();
       renderCircuitBoard();
 
-      adminAddLog('CONFIG', `Cập nhật cấu hình bàn cờ: Cán đích ${adminGameConfig.targetScore}đ, Bảo trì: ${adminGameConfig.isMaintenance ? 'Bật' : 'Tắt'}.`);
-      showToast('💾 Cấu hình bàn cờ đã được áp dụng ngay lập tức!');
-      soundTone(659, 'triangle', 0.15, 0.15);
+      adminAddLog('REWARD', `Đã cập nhật bảng thưởng 4 bộ môn & hệ số ${window.adminRewardsConfig.multiplier}x.`);
+      showToast(`💾 Đã lưu cấu hình thưởng 4 game & hệ số ${window.adminRewardsConfig.multiplier}x thành công!`);
+      if (typeof soundTone === 'function') soundTone(659, 'triangle', 0.15, 0.15);
+    };
+
+    window.resetDefaultRewardConfig = function() {
+      window.adminRewardsConfig = JSON.parse(JSON.stringify(DEFAULT_ADMIN_REWARDS_CONFIG));
+      localStorage.setItem('tabletop_admin_game_rewards', JSON.stringify(window.adminRewardsConfig));
+      if (adminGameConfig) adminGameConfig.gameRewards = window.adminRewardsConfig;
+      populateBalancerForm();
+      adminAddLog('REWARD', 'Đã khôi phục bảng phần thưởng 4 game về mặc định ban đầu.');
+      showToast('🔄 Đã khôi phục cài đặt thưởng 4 game về mặc định!');
+      if (typeof soundTone === 'function') soundTone(440, 'sine', 0.1, 0.12);
     };
 
     function renderAdminLogsFeed() {
@@ -16863,7 +17221,7 @@ function renderCashStackHTML(amount) {
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v4.1.2'
+      currentVersion: 'v4.1.3'
     };
 
     let allChangelogItems = [];
@@ -16871,6 +17229,19 @@ function renderCashStackHTML(amount) {
 
     // Curated fallback updates in case of offline or GitHub API rate limiting
     const CURATED_CHANGELOG = [
+  {
+    "sha": "b4e21a8",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v4.1.3",
+    "title": "Smooth Exit Transitions & Admin Custom Win Rewards Engine",
+    "details": [
+      "feat(arena-exit): add GPU-accelerated viewFadeExit transition (14px slide, blur, scale-down), spring pop-in/pop-out modal confirmation, and soft Web Audio click feedback",
+      "feat(admin-rewards): Bento grid admin controls for victory Xu (🪙), Kim Cương (💎), Elo (⭐) across 4 boardgames with global event boost multiplier (1.0x - 2.0x) synced to local & Cloud Firestore",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-27 18:30:00 +0700"
+  },
   {
     "sha": "9a1b2c3",
     "roleType": "dev1",
@@ -18611,6 +18982,9 @@ function renderCashStackHTML(amount) {
     };
 
     function updateChangelogStats() {
+      const vPill = document.getElementById('headerVersionPill');
+      if (vPill) vPill.textContent = GITHUB_TRACKER_CONFIG.currentVersion || 'v4.1.3';
+
       const dev2Count = allChangelogItems.filter(i => i.roleType === 'dev2').length;
       const dev1Count = allChangelogItems.filter(i => i.roleType === 'dev1').length;
 

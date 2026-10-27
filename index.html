@@ -1683,358 +1683,345 @@
         </div>
       </div>
 
-      <!-- UNIFIED ARENA MATCH CONSOLE (BẢNG ĐIỀU KHIỂN TRẬN ĐẤU TẬP TRUNG) -->
-      <div id="arenaMatchConsole" class="w-full max-w-[1600px] mb-3 p-2.5 sm:p-3 rounded-2xl bg-[#0B101E]/95 border border-amber-500/30 shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-md flex flex-wrap items-center justify-between gap-2.5 relative z-50">
+      <!-- UNIFIED ARENA MATCH CONSOLE (BẢNG ĐIỀU KHIỂN TRẬN ĐẤU TẬP TRUNG 2 TẦNG CHUẨN ESPORTS) -->
+      <div id="arenaMatchConsole" class="w-full max-w-[1600px] mb-3 p-2.5 sm:p-3 rounded-2xl bg-[#0B101E]/95 border border-amber-500/30 shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-md flex flex-col gap-2.5 relative z-50">
         
-        <!-- PHÍA TRÁI: NÚT VỀ SẢNH + SWITCHER 4 GAME + BADGE TÊN GAME + PHÒNG P2P -->
-        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0 flex-wrap">
-          <!-- Back to Main Menu Button (With Confirmation Guard) -->
-          <button onclick="requestExitArenaToLobby('lobby')" class="btn-spring px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Quay về Sảnh Game (Xác nhận an toàn)">
-            <i data-lucide="arrow-left" class="w-4 h-4 text-amber-400"></i>
-            <span class="hidden xs:inline">Sảnh Game</span>
-          </button>
+        <!-- ================= TẦNG 1: TOP BAR (ĐIỀU HƯỚNG & TIỆN ÍCH TOÀN CỤC) ================= -->
+        <div id="arenaConsoleTier1" class="w-full flex items-center justify-between gap-2.5 flex-wrap pb-2.5 border-b border-amber-500/15">
+          <!-- PHÍA TRÁI: [<- Sảnh Game] | Tabs 4 Game | Badge Tên Game | [📡 Phòng P2P] -->
+          <div class="flex items-center gap-2 sm:gap-2.5 shrink-0 flex-wrap">
+            <!-- Back to Main Menu Button (With Confirmation Guard) -->
+            <button onclick="requestExitArenaToLobby('lobby')" class="btn-spring px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Quay về Sảnh Game (Xác nhận an toàn)">
+              <i data-lucide="arrow-left" class="w-4 h-4 text-amber-400"></i>
+              <span class="hidden xs:inline">Sảnh Game</span>
+            </button>
 
-          <div class="hidden sm:block h-6 w-px bg-board-border/80"></div>
+            <div class="hidden sm:block h-6 w-px bg-board-border/80"></div>
 
-          <!-- 4-Game Direct Switcher Pills (Bespoke SVG Vector Icons, 100% Crisp) -->
-          <div class="flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
-            <button onclick="requestSwitchGameView ? requestSwitchGameView('dice') : switchGameView('dice')" id="pillGameDice" class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1.5 transition-all whitespace-nowrap shadow-sm" title="Cờ Xúc Xắc 20 Ô Hoàng Kim">
-              <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)] shrink-0" fill="none"><polygon points="16,3 28,9 16,15 4,9" fill="url(#diceTopGrad)" stroke="#FEF08A" stroke-width="0.8"/><circle cx="16" cy="9" r="1.5" fill="#78350F"/><polygon points="4,9 16,15 16,29 4,23" fill="url(#diceLeftGrad)" stroke="#B45309" stroke-width="0.8"/><circle cx="8" cy="14" r="1.2" fill="#FDE68A"/><circle cx="12" cy="22" r="1.2" fill="#FDE68A"/><polygon points="16,15 28,9 28,23 16,29" fill="url(#diceRightGrad)" stroke="#D97706" stroke-width="0.8"/><circle cx="20" cy="18" r="1.2" fill="#78350F"/><circle cx="24" cy="14" r="1.2" fill="#78350F"/><circle cx="24" cy="22" r="1.2" fill="#78350F"/></svg>
-              <span class="hidden sm:inline">20 Ô</span>
-            </button>
-            <button onclick="requestSwitchGameView ? requestSwitchGameView('chess') : switchGameView('chess')" id="pillGameChess" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1.5 transition-all whitespace-nowrap" title="Cờ Vua FIDE">
-              <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(99,102,241,0.6)] shrink-0" fill="none"><path d="M7 28h18c-1-3-2-4-3-6-1-1-1-3 0-5 1-2 2-4 2-7 0-4-3-6-7-6-2 0-3 1-5 3-1-1-3-1-4 0-1 1-1 3-1 4 0 2 1 3 2 4l-1 2c-2 2-3 4-2 7 0 1 0 2 0 4h-1z" fill="url(#chessGrad)" stroke="#C7D2FE" stroke-width="1"/><circle cx="13" cy="12" r="1.2" fill="#E0E7FF"/><path d="M10 28h12v2H10z" fill="#818CF8"/></svg>
-              <span class="hidden sm:inline">Cờ Vua</span>
-            </button>
-            <button onclick="requestSwitchGameView ? requestSwitchGameView('tictactoe') : switchGameView('tictactoe')" id="pillGameTTT" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1.5 transition-all whitespace-nowrap" title="Cờ Ca-rô Neon">
-              <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(6,182,212,0.6)] shrink-0" fill="none"><line x1="6" y1="7" x2="18" y2="19" stroke="url(#xGrad)" stroke-width="3" stroke-linecap="round"/><line x1="18" y1="7" x2="6" y2="19" stroke="url(#xGrad)" stroke-width="3" stroke-linecap="round"/><circle cx="21" cy="20" r="7" stroke="url(#oGrad)" stroke-width="2.5" fill="none"/></svg>
-              <span class="hidden sm:inline">Ca-rô</span>
-            </button>
-            <button onclick="requestSwitchGameView ? requestSwitchGameView('monopoly') : switchGameView('monopoly')" id="pillGameMono" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1.5 transition-all whitespace-nowrap" title="Cờ Tỷ Phú 2.5D">
-              <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(16,185,129,0.6)] shrink-0" fill="none"><polygon points="16,3 23,7 16,11 9,7" fill="url(#monoRoof)" stroke="#FDE68A" stroke-width="0.7"/><polygon points="9,7 16,11 16,28 9,24" fill="url(#monoTower1)" stroke="#059669" stroke-width="0.7"/><polygon points="16,11 23,7 23,24 16,28" fill="url(#monoTower2)" stroke="#047857" stroke-width="0.7"/><line x1="12" y1="13" x2="14" y2="14" stroke="#FDE68A" stroke-width="1.2"/><line x1="12" y1="18" x2="14" y2="19" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="14" x2="20" y2="13" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="19" x2="20" y2="18" stroke="#FDE68A" stroke-width="1.2"/><polygon points="4,13 9,10 9,24 4,27" fill="#047857" stroke="#10B981" stroke-width="0.6"/><polygon points="23,10 28,13 28,27 23,24" fill="#065F46" stroke="#10B981" stroke-width="0.6"/></svg>
-              <span class="hidden sm:inline">Tỷ Phú</span>
+            <!-- 4-Game Direct Switcher Pills (Bespoke SVG Vector Icons, 100% Crisp) -->
+            <div class="flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
+              <button onclick="requestSwitchGameView ? requestSwitchGameView('dice') : switchGameView('dice')" id="pillGameDice" class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1.5 transition-all whitespace-nowrap shadow-sm" title="Cờ Xúc Xắc 20 Ô Hoàng Kim">
+                <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)] shrink-0" fill="none"><polygon points="16,3 28,9 16,15 4,9" fill="url(#diceTopGrad)" stroke="#FEF08A" stroke-width="0.8"/><circle cx="16" cy="9" r="1.5" fill="#78350F"/><polygon points="4,9 16,15 16,29 4,23" fill="url(#diceLeftGrad)" stroke="#B45309" stroke-width="0.8"/><circle cx="8" cy="14" r="1.2" fill="#FDE68A"/><circle cx="12" cy="22" r="1.2" fill="#FDE68A"/><polygon points="16,15 28,9 28,23 16,29" fill="url(#diceRightGrad)" stroke="#D97706" stroke-width="0.8"/><circle cx="20" cy="18" r="1.2" fill="#78350F"/><circle cx="24" cy="14" r="1.2" fill="#78350F"/><circle cx="24" cy="22" r="1.2" fill="#78350F"/></svg>
+                <span class="hidden sm:inline">20 Ô</span>
+              </button>
+              <button onclick="requestSwitchGameView ? requestSwitchGameView('chess') : switchGameView('chess')" id="pillGameChess" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1.5 transition-all whitespace-nowrap" title="Cờ Vua FIDE">
+                <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(99,102,241,0.6)] shrink-0" fill="none"><path d="M7 28h18c-1-3-2-4-3-6-1-1-1-3 0-5 1-2 2-4 2-7 0-4-3-6-7-6-2 0-3 1-5 3-1-1-3-1-4 0-1 1-1 3-1 4 0 2 1 3 2 4l-1 2c-2 2-3 4-2 7 0 1 0 2 0 4h-1z" fill="url(#chessGrad)" stroke="#C7D2FE" stroke-width="1"/><circle cx="13" cy="12" r="1.2" fill="#E0E7FF"/><path d="M10 28h12v2H10z" fill="#818CF8"/></svg>
+                <span class="hidden sm:inline">Cờ Vua</span>
+              </button>
+              <button onclick="requestSwitchGameView ? requestSwitchGameView('tictactoe') : switchGameView('tictactoe')" id="pillGameTTT" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1.5 transition-all whitespace-nowrap" title="Cờ Ca-rô Neon">
+                <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(6,182,212,0.6)] shrink-0" fill="none"><line x1="6" y1="7" x2="18" y2="19" stroke="url(#xGrad)" stroke-width="3" stroke-linecap="round"/><line x1="18" y1="7" x2="6" y2="19" stroke="url(#xGrad)" stroke-width="3" stroke-linecap="round"/><circle cx="21" cy="20" r="7" stroke="url(#oGrad)" stroke-width="2.5" fill="none"/></svg>
+                <span class="hidden sm:inline">Ca-rô</span>
+              </button>
+              <button onclick="requestSwitchGameView ? requestSwitchGameView('monopoly') : switchGameView('monopoly')" id="pillGameMono" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1.5 transition-all whitespace-nowrap" title="Cờ Tỷ Phú 2.5D">
+                <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(16,185,129,0.6)] shrink-0" fill="none"><polygon points="16,3 23,7 16,11 9,7" fill="url(#monoRoof)" stroke="#FDE68A" stroke-width="0.7"/><polygon points="9,7 16,11 16,28 9,24" fill="url(#monoTower1)" stroke="#059669" stroke-width="0.7"/><polygon points="16,11 23,7 23,24 16,28" fill="url(#monoTower2)" stroke="#047857" stroke-width="0.7"/><line x1="12" y1="13" x2="14" y2="14" stroke="#FDE68A" stroke-width="1.2"/><line x1="12" y1="18" x2="14" y2="19" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="14" x2="20" y2="13" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="19" x2="20" y2="18" stroke="#FDE68A" stroke-width="1.2"/><polygon points="4,13 9,10 9,24 4,27" fill="#047857" stroke="#10B981" stroke-width="0.6"/><polygon points="23,10 28,13 28,27 23,24" fill="#065F46" stroke="#10B981" stroke-width="0.6"/></svg>
+                <span class="hidden sm:inline">Tỷ Phú</span>
+              </button>
+            </div>
+
+            <!-- Dynamic Active Game Badge -->
+            <div id="arenaGameTitle" class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-cinzel text-xs font-bold shadow-inner">
+              <i data-lucide="dice-5" class="w-4 h-4 text-amber-400"></i>
+              <span class="tracking-wider">XÚC XẮC 20 Ô HOÀNG KIM</span>
+            </div>
+
+            <!-- P2P Room Button -->
+            <button onclick="openMultiplayerModal()" class="btn-spring px-2.5 py-1 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/40 text-cyan-300 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Mở phòng chơi nhiều người P2P">
+              <i data-lucide="radio" class="w-3.5 h-3.5 text-cyan-400"></i>
+              <span class="hidden 2xl:inline">Phòng Chơi</span>
+              <span class="px-1 rounded bg-cyan-400/20 text-[10px] font-mono">P2P</span>
             </button>
           </div>
 
-          <!-- Dynamic Active Game Badge -->
-          <div id="arenaGameTitle" class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-cinzel text-xs font-bold shadow-inner">
-            <i data-lucide="dice-5" class="w-4 h-4 text-amber-400"></i>
-            <span class="tracking-wider">XÚC XẮC 20 Ô HOÀNG KIM</span>
-          </div>
+          <!-- PHÍA PHẢI: [🔊 Âm Thanh] | [⚡ 1x/2x/3x] | [⛶ Toàn Màn Hình] | Chip Ví [🪙 Xu | 💎 Kim Cương] | DUY NHẤT 1 Nút [🚪 Thoát Trận] -->
+          <div id="arenaRightUtilityCluster" class="flex items-center gap-2 shrink-0 flex-wrap">
+            <!-- Quick Audio Mute / Unmute Toggle Button -->
+            <button onclick="toggleArenaAudioMute()" id="btnArenaAudioMute" class="btn-spring px-2.5 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Bật/Tắt âm thanh trò chơi">
+              <i data-lucide="volume-2" id="arenaAudioIcon" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span id="arenaAudioText" class="hidden sm:inline">Âm Thanh</span>
+            </button>
 
-          <!-- P2P Room Button -->
-          <button onclick="openMultiplayerModal()" class="btn-spring px-2.5 py-1 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/40 text-cyan-300 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all" title="Mở phòng chơi nhiều người P2P">
-            <i data-lucide="radio" class="w-3.5 h-3.5 text-cyan-400"></i>
-            <span class="hidden 2xl:inline">Phòng Chơi</span>
-            <span class="px-1 rounded bg-cyan-400/20 text-[10px] font-mono">P2P</span>
-          </button>
+            <!-- Arena Speed Cycle Button (1x / 2x / 3x) -->
+            <button onclick="cycleArenaSpeed()" id="btnArenaSpeedCycle" class="btn-spring px-2.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold flex items-center gap-1 shadow-sm transition-all cursor-pointer" title="Đổi tốc độ trận đấu (1x -> 2x -> 3x)">
+              <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block" fill="none"><path d="M13 2L4 13.5h7L9 22l11-12.5h-7L15 2h-2z" fill="#F59E0B" stroke="#FEF08A" stroke-width="1.2"/></svg>
+              <span id="arenaSpeedCycleText">1x</span>
+            </button>
+
+            <!-- Fullscreen Toggle Button (Universal for all 4 games) -->
+            <button onclick="toggleArenaFullscreen()" id="btnArenaFullscreen" class="btn-spring px-2.5 py-1.5 rounded-xl bg-indigo-900/60 hover:bg-indigo-700 text-indigo-200 hover:text-white border border-indigo-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Toàn Màn Hình Đấu Trường (Phím F hoặc Esc)">
+              <span class="text-sm">⛶</span>
+              <span id="arenaFullscreenText" class="hidden sm:inline">Toàn Màn Hình</span>
+            </button>
+
+            <!-- Player Balance HUD Chip (Coins & Gems) -->
+            <div id="arenaUserBalanceHUD" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-amber-500/30 text-xs font-mono font-bold shadow-inner" title="Số dư tài sản người chơi">
+              <span class="flex items-center gap-1 text-amber-400" title="Xu Hoàng Kim">
+                🪙 <span id="arenaUserCoins">1,500</span>
+              </span>
+              <span class="w-px h-3.5 bg-slate-700"></span>
+              <span class="flex items-center gap-1 text-cyan-400" title="Đá Quý Lam Ngọc">
+                💎 <span id="arenaUserGems">95</span>
+              </span>
+            </div>
+
+            <!-- DUY NHẤT 1 NÚT THOÁT TRẬN TẠI TẦNG 1 -->
+            <button onclick="requestExitArenaToLobby('lobby')" class="btn-spring px-3 py-1.5 rounded-xl bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 hover:text-white border border-rose-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Thoát trận đấu về sảnh chính (Xác nhận an toàn)">
+              <i data-lucide="log-out" class="w-3.5 h-3.5 text-rose-400"></i>
+              <span>Thoát Trận</span>
+            </button>
+          </div>
         </div>
 
-        <!-- KHU VỰC GIỮA: CONTEXT CONTROLS THEO GAME & LIVE MATCH SCORE HUD CHIPS -->
-        <div id="arenaCenterControlsWrapper" class="flex items-center gap-2 flex-wrap flex-1 justify-center min-w-[260px]">
-          <div id="ctxControlsDice" class="flex flex-wrap items-center gap-2">
-          <!-- Opponent Selector -->
-          <div class="flex items-center bg-board-tray p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
-            <span class="text-[11px] text-slate-400 px-1.5 flex items-center gap-1 font-semibold">
-              <i data-lucide="swords" class="w-3.5 h-3.5 text-amber-400"></i> Đấu Thủ:
-            </span>
-            <button onclick="setOpponent('bot')" id="btnBot" class="px-2.5 py-1 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition-all shadow-sm">
-              Đấu BOT
-            </button>
-            <button onclick="setOpponent('human')" id="btnHuman" class="px-2.5 py-1 rounded-md text-slate-400 hover:text-white font-semibold transition-all">
-              2 Người
-            </button>
-          </div>
+        <!-- ================= TẦNG 2: BOTTOM BAR (CONTROLS & LIVE HUD) ================= -->
+        <div id="arenaConsoleTier2" class="w-full flex items-center justify-between gap-3 flex-wrap">
+          <!-- PHÍA TRÁI: Context Controls theo game (ctxControlsDice, ctxControlsChess, ctxControlsTTT, ctxControlsMonopoly) -->
+          <div id="arenaCenterControlsWrapper" class="flex items-center gap-2 flex-wrap">
+            
+            <!-- Context 1: XÚC XẮC 20 Ô (#ctxControlsDice - ĐÃ XÓA Nút Thoát Trận trùng lặp) -->
+            <div id="ctxControlsDice" class="flex flex-wrap items-center gap-2">
+              <!-- Opponent Selector -->
+              <div class="flex items-center bg-board-tray p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
+                <span class="text-[11px] text-slate-400 px-1.5 flex items-center gap-1 font-semibold">
+                  <i data-lucide="swords" class="w-3.5 h-3.5 text-amber-400"></i> Đấu Thủ:
+                </span>
+                <button onclick="setOpponent('bot')" id="btnBot" class="px-2.5 py-1 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition-all shadow-sm">
+                  Đấu BOT
+                </button>
+                <button onclick="setOpponent('human')" id="btnHuman" class="px-2.5 py-1 rounded-md text-slate-400 hover:text-white font-semibold transition-all">
+                  2 Người
+                </button>
+              </div>
 
-          <!-- Bot Count Selector (Only in Bot Mode) -->
-          <div id="botCountWrapper" class="flex items-center bg-board-tray p-1 rounded-xl border border-rose-500/30 text-xs font-bold shadow-inner">
-            <span class="text-[11px] text-rose-400 px-1.5 flex items-center gap-1 font-semibold">
-              <i data-lucide="bot" class="w-3.5 h-3.5"></i> Số BOT:
-            </span>
-            <button onclick="setBotCount(1)" id="botCountBtn1" class="px-2 py-0.5 rounded-md bg-gradient-to-r from-rose-600 to-rose-700 text-white font-bold shadow-sm transition-all">1</button>
-            <button onclick="setBotCount(2)" id="botCountBtn2" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">2</button>
-            <button onclick="setBotCount(3)" id="botCountBtn3" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">3</button>
-          </div>
+              <!-- Bot Count Selector (Only in Bot Mode) -->
+              <div id="botCountWrapper" class="flex items-center bg-board-tray p-1 rounded-xl border border-rose-500/30 text-xs font-bold shadow-inner">
+                <span class="text-[11px] text-rose-400 px-1.5 flex items-center gap-1 font-semibold">
+                  <i data-lucide="bot" class="w-3.5 h-3.5"></i> Số BOT:
+                </span>
+                <button onclick="setBotCount(1)" id="botCountBtn1" class="px-2 py-0.5 rounded-md bg-gradient-to-r from-rose-600 to-rose-700 text-white font-bold shadow-sm transition-all">1</button>
+                <button onclick="setBotCount(2)" id="botCountBtn2" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">2</button>
+                <button onclick="setBotCount(3)" id="botCountBtn3" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">3</button>
+              </div>
 
-          <!-- Map Selector (4 Bản Đồ Chiến Thuật) -->
-          <div class="flex items-center bg-board-tray p-1 rounded-xl border border-cyan-500/40 text-xs font-bold shadow-inner">
-            <span class="text-[11px] text-cyan-400 px-1.5 flex items-center gap-1 font-semibold">
-              <i data-lucide="map" class="w-3.5 h-3.5"></i> Map:
-            </span>
-            <select id="mapSelector" onchange="switchGameMap(this.value)" class="bg-black/60 text-cyan-300 text-xs font-bold rounded-lg px-2 py-0.5 border border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-400 cursor-pointer">
-              <option value="nebula">🌌 Tinh Vân Hoàng Kim</option>
-              <option value="volcano">🌋 Đấu Trường Dung Nham</option>
-              <option value="cyber">🏙️ Thành Phố Neon Heist</option>
-              <option value="chrono">⏳ Mê Cung Thời Không</option>
-            </select>
-          </div>
+              <!-- Map Selector (4 Bản Đồ Chiến Thuật) -->
+              <div class="flex items-center bg-board-tray p-1 rounded-xl border border-cyan-500/40 text-xs font-bold shadow-inner">
+                <span class="text-[11px] text-cyan-400 px-1.5 flex items-center gap-1 font-semibold">
+                  <i data-lucide="map" class="w-3.5 h-3.5"></i> Map:
+                </span>
+                <select id="mapSelector" onchange="switchGameMap(this.value)" class="bg-black/60 text-cyan-300 text-xs font-bold rounded-lg px-2 py-0.5 border border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-400 cursor-pointer">
+                  <option value="nebula">🌌 Tinh Vân Hoàng Kim</option>
+                  <option value="volcano">🌋 Đấu Trường Dung Nham</option>
+                  <option value="cyber">🏙️ Thành Phố Neon Heist</option>
+                  <option value="chrono">⏳ Mê Cung Thời Không</option>
+                </select>
+              </div>
 
-          <!-- Hero Class Selector (Chọn Hệ Nhân Vật) -->
-          <div class="flex items-center bg-board-tray p-1 rounded-xl border border-purple-500/40 text-xs font-bold shadow-inner">
-            <span class="text-[11px] text-purple-400 px-1.5 flex items-center gap-1 font-semibold">
-              <i data-lucide="shield" class="w-3.5 h-3.5"></i> Hệ:
-            </span>
-            <select id="heroSelector" onchange="switchHeroClass(1, this.value)" class="bg-black/60 text-purple-300 text-xs font-bold rounded-lg px-2 py-0.5 border border-purple-500/40 focus:outline-none focus:ring-1 focus:ring-purple-400 cursor-pointer">
-              <option value="guardian">🛡️ Hiệp Sĩ (Giảm Sát Thương)</option>
-              <option value="assassin">🦊 Cáo Lửa (Sát Thủ Mìn Rẻ)</option>
-              <option value="chronomancer">🔮 Pháp Sư (5⚡ Warp Tự Do)</option>
-              <option value="hunter">💎 Thợ Săn (+20% Điểm Ngọc)</option>
-            </select>
-          </div>
+              <!-- Hero Class Selector (Chọn Hệ Nhân Vật) -->
+              <div class="flex items-center bg-board-tray p-1 rounded-xl border border-purple-500/40 text-xs font-bold shadow-inner">
+                <span class="text-[11px] text-purple-400 px-1.5 flex items-center gap-1 font-semibold">
+                  <i data-lucide="shield" class="w-3.5 h-3.5"></i> Hệ:
+                </span>
+                <select id="heroSelector" onchange="switchHeroClass(1, this.value)" class="bg-black/60 text-purple-300 text-xs font-bold rounded-lg px-2 py-0.5 border border-purple-500/40 focus:outline-none focus:ring-1 focus:ring-purple-400 cursor-pointer">
+                  <option value="guardian">🛡️ Hiệp Sĩ (Giảm Sát Thương)</option>
+                  <option value="assassin">🦊 Cáo Lửa (Sát Thủ Mìn Rẻ)</option>
+                  <option value="chronomancer">🔮 Pháp Sư (5⚡ Warp Tự Do)</option>
+                  <option value="hunter">💎 Thợ Săn (+20% Điểm Ngọc)</option>
+                </select>
+              </div>
 
-          <!-- Custom Goal Score Selector (Nâng độ khó: 50đ, 100đ Chuẩn, 150đ Thách Thức) -->
-          <div class="flex items-center bg-board-tray p-1 rounded-xl border border-amber-500/30 text-xs font-bold shadow-inner">
-            <span class="text-[11px] text-amber-400 px-1.5 flex items-center gap-1 font-semibold">
-              <i data-lucide="target" class="w-3.5 h-3.5"></i> Đích:
-            </span>
-            <button onclick="setGoalScore(50)" id="goalBtn50" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">50đ</button>
-            <button onclick="setGoalScore(100)" id="goalBtn100" class="px-2 py-0.5 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-sm font-bold transition-all">100đ ⭐</button>
-            <button onclick="setGoalScore(150)" id="goalBtn150" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">150đ 🔥</button>
-            <button onclick="promptCustomGoalScore()" id="goalBtnCustom" class="px-1.5 py-0.5 rounded-md text-amber-300/80 hover:text-amber-200 font-mono text-[10px] inline-flex items-center gap-1" title="Nhập điểm tùy biến"><i data-lucide="edit-3" class="w-2.5 h-2.5"></i> Khác</button>
-          </div>
+              <!-- Custom Goal Score Selector -->
+              <div class="flex items-center bg-board-tray p-1 rounded-xl border border-amber-500/30 text-xs font-bold shadow-inner">
+                <span class="text-[11px] text-amber-400 px-1.5 flex items-center gap-1 font-semibold">
+                  <i data-lucide="target" class="w-3.5 h-3.5"></i> Đích:
+                </span>
+                <button onclick="setGoalScore(50)" id="goalBtn50" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">50đ</button>
+                <button onclick="setGoalScore(100)" id="goalBtn100" class="px-2 py-0.5 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-sm font-bold transition-all">100đ ⭐</button>
+                <button onclick="setGoalScore(150)" id="goalBtn150" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition-all">150đ 🔥</button>
+                <button onclick="promptCustomGoalScore()" id="goalBtnCustom" class="px-1.5 py-0.5 rounded-md text-amber-300/80 hover:text-amber-200 font-mono text-[10px] inline-flex items-center gap-1" title="Nhập điểm tùy biến"><i data-lucide="edit-3" class="w-2.5 h-2.5"></i> Khác</button>
+              </div>
 
-          <!-- Spectator Mode Toggle -->
-          <button onclick="toggleSpectatorMode()" id="btnSpectator" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-cyan-300 border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm">
-            <i data-lucide="eye" class="w-3.5 h-3.5 text-cyan-400"></i>
-            <span id="spectatorBtnText">Quan Sát</span>
-          </button>
+              <!-- Spectator Mode Toggle -->
+              <button onclick="toggleSpectatorMode()" id="btnSpectator" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-cyan-300 border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                <i data-lucide="eye" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span id="spectatorBtnText">Quan Sát</span>
+              </button>
 
-          <!-- Dice Speed Selector (1x - 3x Standardized) -->
-          <div class="flex items-center bg-board-tray p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
-            <span class="text-[11px] text-amber-400 px-1.5 flex items-center gap-1 font-semibold">
-              <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block align-middle filter drop-shadow" fill="none"><path d="M13 2L4 13.5h7L9 22l11-12.5h-7L15 2h-2z" fill="#F59E0B" stroke="#FEF08A" stroke-width="1.2"/></svg> Tốc độ:
-            </span>
-            <div class="flex items-center gap-1">
-              <button onclick="setDiceSpeed(1)" id="diceSpeedBtn_1" class="px-2 py-0.5 rounded-md bg-amber-500 text-slate-950 font-bold shadow-sm transition cursor-pointer">1x</button>
-              <button onclick="setDiceSpeed(2)" id="diceSpeedBtn_2" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition cursor-pointer">2x</button>
-              <button onclick="setDiceSpeed(3)" id="diceSpeedBtn_3" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition cursor-pointer">3x</button>
+              <!-- Dice Speed Selector (1x - 3x Standardized) -->
+              <div class="flex items-center bg-board-tray p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
+                <span class="text-[11px] text-amber-400 px-1.5 flex items-center gap-1 font-semibold">
+                  <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block align-middle filter drop-shadow" fill="none"><path d="M13 2L4 13.5h7L9 22l11-12.5h-7L15 2h-2z" fill="#F59E0B" stroke="#FEF08A" stroke-width="1.2"/></svg> Tốc độ:
+                </span>
+                <div class="flex items-center gap-1">
+                  <button onclick="setDiceSpeed(1)" id="diceSpeedBtn_1" class="px-2 py-0.5 rounded-md bg-amber-500 text-slate-950 font-bold shadow-sm transition cursor-pointer">1x</button>
+                  <button onclick="setDiceSpeed(2)" id="diceSpeedBtn_2" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition cursor-pointer">2x</button>
+                  <button onclick="setDiceSpeed(3)" id="diceSpeedBtn_3" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition cursor-pointer">3x</button>
+                </div>
+              </div>
+
+              <!-- Dice Auto-Play Header Toggle -->
+              <button onclick="toggleDiceAutoPlay()" id="btnDiceAutoPlayHeader" class="btn-spring px-2.5 py-1 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Bật/Tắt tự động gieo xúc xắc">
+                <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block align-middle" fill="none"><circle cx="12" cy="12" r="9.5" stroke="currentColor" stroke-width="1.8" stroke-dasharray="8 4" stroke-linecap="round"/><path d="M13 3L6 13h5l-2 8 8-11h-5l2-7z" fill="currentColor"/></svg>
+                <span id="diceAutoPlayHeaderText">Tự Động: TẮT</span>
+              </button>
+
+              <!-- New Match Reset -->
+              <button onclick="handleReset()" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-200 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Ván Mới</span>
+              </button>
+            </div>
+
+            <!-- Context 2: CỜ VUA FIDE CONTROLS (#ctxControlsChess - ĐÃ XÓA Nút Thoát Trận trùng lặp) -->
+            <div id="ctxControlsChess" class="hidden flex flex-wrap items-center gap-2">
+              <!-- Chess Mode Selector -->
+              <div class="flex items-center bg-board-tray p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
+                <span class="text-[11px] text-slate-400 px-1.5 flex items-center gap-1">
+                  <i data-lucide="gamepad-2" class="w-3.5 h-3.5 text-amber-400"></i>
+                </span>
+                <button onclick="setChessMode('bot')" id="chessModeBtnBot" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition shadow-sm">
+                  Đấu BOT
+                </button>
+                <button onclick="setChessMode('local')" id="chessModeBtnLocal" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">
+                  2 Người
+                </button>
+                <button onclick="setChessMode('online')" id="chessModeBtnOnline" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">
+                  Online
+                </button>
+              </div>
+
+              <!-- Bot Elo Tier Selector -->
+              <div id="chessBotTierWrapper" class="flex items-center bg-board-tray p-1 rounded-xl border border-cyan-500/30 text-xs font-bold shadow-inner">
+                <span class="text-[11px] text-cyan-400 px-1.5 flex items-center gap-1 font-semibold">
+                  <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-400"></i> Elo:
+                </span>
+                <button onclick="setChessBotElo(800)" id="chessEloBtn800" class="px-1.5 py-0.5 rounded-md text-slate-400 hover:text-white transition font-mono text-[11px]" title="Tập sự (800)">800</button>
+                <button onclick="setChessBotElo(1200)" id="chessEloBtn1200" class="px-1.5 py-0.5 rounded-md text-slate-400 hover:text-white transition font-mono text-[11px]" title="Phong trào (1200)">1200</button>
+                <button onclick="setChessBotElo(1600)" id="chessEloBtn1600" class="px-1.5 py-0.5 rounded-md bg-gradient-to-r from-cyan-600 to-cyan-700 text-white font-bold transition shadow-sm font-mono text-[11px]" title="Kiện tướng (1600)">1600</button>
+                <button onclick="setChessBotElo(2000)" id="chessEloBtn2000" class="px-1.5 py-0.5 rounded-md text-rose-400 hover:text-rose-300 transition font-mono text-[11px] font-bold" title="Đại kiện tướng (2000)">2000 🔥</button>
+              </div>
+
+              <!-- Chess New Match -->
+              <button onclick="resetChessGame()" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-200 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-indigo-400"></i>
+                <span>Ván Mới</span>
+              </button>
+            </div>
+
+            <!-- Context 3: CA-RÔ NEON CONTROLS (#ctxControlsTTT - ĐÃ XÓA Nút Thoát Trận trùng lặp) -->
+            <div id="ctxControlsTTT" class="hidden flex flex-wrap items-center gap-2">
+              <!-- TTT Opponent Selector -->
+              <div class="flex items-center bg-board-tray p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
+                <span class="text-[11px] text-slate-400 px-1.5 flex items-center gap-1 font-semibold">
+                  <i data-lucide="swords" class="w-3.5 h-3.5 text-amber-400"></i> Đấu Thủ:
+                </span>
+                <button onclick="setTTTOpponent('bot')" id="tttBtnBot" class="px-2.5 py-1 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition shadow-sm">
+                  Đấu BOT
+                </button>
+                <button onclick="setTTTOpponent('human')" id="tttBtnHuman" class="px-2.5 py-1 rounded-md text-slate-400 hover:text-white font-semibold transition">
+                  2 Người
+                </button>
+              </div>
+
+              <!-- TTT AI Difficulty Selector (Only in Bot Mode) -->
+              <div id="tttDiffWrapper" class="flex items-center bg-board-tray p-1 rounded-xl border border-cyan-500/30 text-xs font-bold shadow-inner">
+                <span class="text-[11px] text-cyan-400 px-1.5 flex items-center gap-1 font-semibold">
+                  <i data-lucide="brain" class="w-3.5 h-3.5 text-cyan-400"></i> Độ Khó:
+                </span>
+                <button onclick="setTTTDifficulty('easy')" id="tttDiffEasy" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition font-mono text-[11px]">Cơ Bản</button>
+                <button onclick="setTTTDifficulty('hard')" id="tttDiffHard" class="px-2 py-0.5 rounded-md bg-gradient-to-r from-rose-600 to-rose-700 text-white font-bold transition shadow-sm font-mono text-[11px]">Bất Bại 🔥</button>
+              </div>
+
+              <!-- TTT Reset Game Button -->
+              <button onclick="resetTTTGame()" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-200 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Ván Mới</span>
+              </button>
+
+              <!-- TTT Reset Scores Button -->
+              <button onclick="resetTTTScores()" class="btn-spring px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold flex items-center gap-1" title="Đặt lại tỉ số X/O/Hòa">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5 text-slate-400"></i>
+                <span class="hidden sm:inline">Xóa Tỉ Số</span>
+              </button>
+            </div>
+
+            <!-- Context 4: CỜ TỶ PHÚ (MONOPOLY 3D) (#ctxControlsMonopoly) -->
+            <div id="ctxControlsMonopoly" class="hidden flex flex-wrap items-center gap-2">
+              <!-- Game Mode Pill -->
+              <div class="flex items-center bg-black/60 p-0.5 rounded-xl border border-board-border text-xs font-semibold">
+                <button onclick="setMonopolyMode('bot')" id="btnMonoModeBot" class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold transition-all shadow-sm">
+                  🤖 Đấu Với Bot
+                </button>
+                <button onclick="setMonopolyMode('local')" id="btnMonoModeLocal" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition-all">
+                  👥 Pass & Play
+                </button>
+              </div>
+
+              <!-- Player Count Selector (2P, 3P, 4P) -->
+              <div class="flex items-center bg-black/60 p-0.5 rounded-xl border border-board-border text-xs font-semibold">
+                <span class="px-2 text-slate-400 text-[11px]">Số người:</span>
+                <button onclick="setMonopolyPlayerCount(2)" id="btnMonoCount2" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition-all font-bold">2P</button>
+                <button onclick="setMonopolyPlayerCount(3)" id="btnMonoCount3" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition-all font-bold">3P</button>
+                <button onclick="setMonopolyPlayerCount(4)" id="btnMonoCount4" class="px-2 py-1 rounded-lg bg-emerald-600 text-white font-bold transition-all shadow-sm">4P</button>
+              </div>
+
+              <!-- Monopoly Speed Engine (1x - 3x Standardized) -->
+              <div class="flex items-center gap-1.5 bg-black/60 px-2.5 py-1 rounded-xl border border-board-border text-xs font-semibold shadow-inner">
+                <span class="text-amber-400 font-bold flex items-center gap-1 text-[11px]">
+                  <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block align-middle filter drop-shadow" fill="none"><path d="M13 2L4 13.5h7L9 22l11-12.5h-7L15 2h-2z" fill="#F59E0B" stroke="#FEF08A" stroke-width="1.2"/></svg> <span id="monoSpeedValText">1x</span>
+                </span>
+                <div class="flex items-center gap-1 ml-1">
+                  <button onclick="setMonoSpeed(1)" id="monoSpeedBtn_1" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500 text-slate-950 shadow-sm transition-all cursor-pointer">1x</button>
+                  <button onclick="setMonoSpeed(2)" id="monoSpeedBtn_2" class="px-2 py-0.5 rounded text-[10px] font-bold text-slate-400 hover:text-white transition-all cursor-pointer">2x</button>
+                  <button onclick="setMonoSpeed(3)" id="monoSpeedBtn_3" class="px-2 py-0.5 rounded text-[10px] font-bold text-slate-400 hover:text-white transition-all cursor-pointer">3x</button>
+                </div>
+              </div>
+
+              <!-- Monopoly Auto-Play Header Toggle -->
+              <button onclick="toggleMonoAutoPlay()" id="btnMonoAutoPlayHeader" class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Bật/Tắt tự động chơi Cờ Tỷ Phú">
+                <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block align-middle" fill="none"><circle cx="12" cy="12" r="9.5" stroke="currentColor" stroke-width="1.8" stroke-dasharray="8 4" stroke-linecap="round"/><path d="M13 3L6 13h5l-2 8 8-11h-5l2-7z" fill="currentColor"/></svg>
+                <span id="monoAutoPlayHeaderText">Tự Động: TẮT</span>
+              </button>
+
+              <!-- Quick Reset -->
+              <button onclick="restartMonopolyGame()" class="btn-spring px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-board-border text-xs flex items-center gap-1 shadow-sm" title="Bắt đầu ván mới">
+                <i data-lucide="rotate-ccw" class="w-3 h-3 text-amber-400"></i>
+                <span>Ván Mới</span>
+              </button>
             </div>
           </div>
 
-          <!-- Dice Auto-Play Header Toggle -->
-          <button onclick="toggleDiceAutoPlay()" id="btnDiceAutoPlayHeader" class="btn-spring px-2.5 py-1 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Bật/Tắt tự động gieo xúc xắc">
-            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block align-middle" fill="none"><circle cx="12" cy="12" r="9.5" stroke="currentColor" stroke-width="1.8" stroke-dasharray="8 4" stroke-linecap="round"/><path d="M13 3L6 13h5l-2 8 8-11h-5l2-7z" fill="currentColor"/></svg>
-            <span id="diceAutoPlayHeaderText">Tự Động: TẮT</span>
-          </button>
+          <!-- PHÍA PHẢI: Live Match HUD tương ứng game đang chơi -->
+          <div id="arenaActiveMatchHUDWrapper" class="flex items-center gap-2 shrink-0 ml-auto">
+            <!-- Dice 20 Ô Status Chip -->
+            <div id="arenaDiceStatusHUD" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-amber-500/40 text-xs font-semibold shadow-inner" title="Trạng thái ván Xúc Xắc">
+              <span class="flex items-center gap-1 text-amber-400">🎯 <span id="hudDiceTurnText" class="font-bold text-white">Lượt: P1 (Bạn)</span></span>
+              <span class="text-slate-600">|</span>
+              <span class="flex items-center gap-1 text-amber-300">🏆 Đích: <span id="hudDiceGoalText" class="font-mono font-bold text-cyan-300">100đ</span></span>
+            </div>
 
-          <!-- New Match Reset -->
-          <!-- Exit Match & Stop Background Button -->
-          <button onclick="requestExitArenaToLobby('lobby')" style="order: 9999;" class="btn-spring px-3 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer order-last" title="Xác nhận thoát trận và dừng hoàn toàn game chạy ngầm">
-            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
-            <span>Thoát Trận</span>
-          </button>
+            <!-- Chess Status Chip -->
+            <div id="arenaChessStatusHUD" class="hidden flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-indigo-500/40 text-xs font-semibold shadow-inner" title="Trạng thái ván Cờ Vua">
+              <span class="flex items-center gap-1 text-indigo-300">♟️ <span id="hudChessTurnText" class="font-bold text-white">Trắng Đi</span></span>
+              <span class="text-slate-600">|</span>
+              <span id="hudChessStateText" class="text-emerald-400 font-mono text-[11px] font-bold">Đang đấu</span>
+            </div>
 
-          <button onclick="handleReset()" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-200 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm">
-            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-amber-400"></i>
-            <span>Ván Mới</span>
-          </button>
-        </div>
+            <!-- Ca-rô Neon Score Chip -->
+            <div id="arenaTttScoreHUD" class="hidden flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-cyan-500/40 text-xs font-mono font-bold shadow-inner" title="Tỉ số trực tiếp Ca-rô">
+              <span class="flex items-center gap-1 text-cyan-300">⭕ X: <span id="hudTttScoreX" class="font-black text-cyan-400">0</span></span>
+              <span class="text-slate-600">|</span>
+              <span class="flex items-center gap-1 text-slate-300">⚖️ Hòa: <span id="hudTttScoreDraw" class="font-black text-slate-200">0</span></span>
+              <span class="text-slate-600">|</span>
+              <span class="flex items-center gap-1 text-rose-300">❌ O: <span id="hudTttScoreO" class="font-black text-rose-400">0</span></span>
+            </div>
 
-        <!-- Context 2: CỜ VUA FIDE CONTROLS (#ctxControlsChess) -->
-          <div id="ctxControlsChess" class="hidden flex flex-wrap items-center gap-2">
-          <!-- Chess Mode Selector -->
-          <div class="flex items-center bg-board-tray p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
-            <span class="text-[11px] text-slate-400 px-1.5 flex items-center gap-1">
-              <i data-lucide="gamepad-2" class="w-3.5 h-3.5 text-amber-400"></i>
-            </span>
-            <button onclick="setChessMode('bot')" id="chessModeBtnBot" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition shadow-sm">
-              Đấu BOT
-            </button>
-            <button onclick="setChessMode('local')" id="chessModeBtnLocal" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">
-              2 Người
-            </button>
-            <button onclick="setChessMode('online')" id="chessModeBtnOnline" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">
-              Online
-            </button>
-          </div>
-
-          <!-- Bot Elo Tier Selector -->
-          <div id="chessBotTierWrapper" class="flex items-center bg-board-tray p-1 rounded-xl border border-cyan-500/30 text-xs font-bold shadow-inner">
-            <span class="text-[11px] text-cyan-400 px-1.5 flex items-center gap-1 font-semibold">
-              <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-400"></i> Elo:
-            </span>
-            <button onclick="setChessBotElo(800)" id="chessEloBtn800" class="px-1.5 py-0.5 rounded-md text-slate-400 hover:text-white transition font-mono text-[11px]" title="Tập sự (800)">800</button>
-            <button onclick="setChessBotElo(1200)" id="chessEloBtn1200" class="px-1.5 py-0.5 rounded-md text-slate-400 hover:text-white transition font-mono text-[11px]" title="Phong trào (1200)">1200</button>
-            <button onclick="setChessBotElo(1600)" id="chessEloBtn1600" class="px-1.5 py-0.5 rounded-md bg-gradient-to-r from-cyan-600 to-cyan-700 text-white font-bold transition shadow-sm font-mono text-[11px]" title="Kiện tướng (1600)">1600</button>
-            <button onclick="setChessBotElo(2000)" id="chessEloBtn2000" class="px-1.5 py-0.5 rounded-md text-rose-400 hover:text-rose-300 transition font-mono text-[11px] font-bold" title="Đại kiện tướng (2000)">2000 🔥</button>
-          </div>
-
-          <!-- Chess New Match -->
-          <!-- Exit Match & Stop Background Button -->
-          <button onclick="requestExitArenaToLobby('lobby')" style="order: 9999;" class="btn-spring px-3 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer order-last" title="Xác nhận thoát trận và dừng hoàn toàn game chạy ngầm">
-            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
-            <span>Thoát Trận</span>
-          </button>
-
-          <button onclick="resetChessGame()" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-200 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm">
-            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-indigo-400"></i>
-            <span>Ván Mới</span>
-          </button>
-        </div>
-
-        <!-- Context 3: CA-RÔ NEON CONTROLS (#ctxControlsTTT) -->
-          <div id="ctxControlsTTT" class="hidden flex flex-wrap items-center gap-2">
-          <!-- TTT Opponent Selector -->
-          <div class="flex items-center bg-board-tray p-1 rounded-xl border border-board-border text-xs font-bold shadow-inner">
-            <span class="text-[11px] text-slate-400 px-1.5 flex items-center gap-1 font-semibold">
-              <i data-lucide="swords" class="w-3.5 h-3.5 text-amber-400"></i> Đấu Thủ:
-            </span>
-            <button onclick="setTTTOpponent('bot')" id="tttBtnBot" class="px-2.5 py-1 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition shadow-sm">
-              Đấu BOT
-            </button>
-            <button onclick="setTTTOpponent('human')" id="tttBtnHuman" class="px-2.5 py-1 rounded-md text-slate-400 hover:text-white font-semibold transition">
-              2 Người
-            </button>
-          </div>
-
-          <!-- TTT AI Difficulty Selector (Only in Bot Mode) -->
-          <div id="tttDiffWrapper" class="flex items-center bg-board-tray p-1 rounded-xl border border-cyan-500/30 text-xs font-bold shadow-inner">
-            <span class="text-[11px] text-cyan-400 px-1.5 flex items-center gap-1 font-semibold">
-              <i data-lucide="brain" class="w-3.5 h-3.5 text-cyan-400"></i> Độ Khó:
-            </span>
-            <button onclick="setTTTDifficulty('easy')" id="tttDiffEasy" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition font-mono text-[11px]">Cơ Bản</button>
-            <button onclick="setTTTDifficulty('hard')" id="tttDiffHard" class="px-2 py-0.5 rounded-md bg-gradient-to-r from-rose-600 to-rose-700 text-white font-bold transition shadow-sm font-mono text-[11px]">Bất Bại 🔥</button>
-          </div>
-
-          <!-- TTT Reset Game Button -->
-          <button onclick="resetTTTGame()" class="btn-spring px-3 py-1.5 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-200 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm">
-            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-amber-400"></i>
-            <span>Ván Mới</span>
-          </button>
-
-          <!-- TTT Reset Scores Button -->
-          <button onclick="resetTTTScores()" class="btn-spring px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold flex items-center gap-1" title="Đặt lại tỉ số X/O/Hòa">
-            <i data-lucide="trash-2" class="w-3.5 h-3.5 text-slate-400"></i>
-            <span class="hidden sm:inline">Xóa Tỉ Số</span>
-          </button>
-
-          <!-- Exit Match & Stop Background Button -->
-          <button onclick="requestExitArenaToLobby('lobby')" class="btn-spring px-3 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Xác nhận thoát trận và dừng hoàn toàn game chạy ngầm">
-            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
-            <span>Thoát Trận</span>
-          </button>
-        </div>
-
-        <!-- Context 4: SPECTATOR MODE CONTROLS (HIỂN THỊ CHUẨN ẢNH 1 KHI BẬT QUAN SÁT) -->
-        
-        <!-- Context Controls: CỜ TỶ PHÚ (MONOPOLY 3D) -->
-          <div id="ctxControlsMonopoly" class="hidden flex flex-wrap items-center gap-2">
-          <!-- Game Mode Pill -->
-          <div class="flex items-center bg-black/60 p-0.5 rounded-xl border border-board-border text-xs font-semibold">
-            <button onclick="setMonopolyMode('bot')" id="btnMonoModeBot" class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold transition-all shadow-sm">
-              🤖 Đấu Với Bot
-            </button>
-            <button onclick="setMonopolyMode('local')" id="btnMonoModeLocal" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition-all">
-              👥 Pass & Play
-            </button>
-          </div>
-
-          <!-- Player Count Selector (2P, 3P, 4P) -->
-          <div class="flex items-center bg-black/60 p-0.5 rounded-xl border border-board-border text-xs font-semibold">
-            <span class="px-2 text-slate-400 text-[11px]">Số người:</span>
-            <button onclick="setMonopolyPlayerCount(2)" id="btnMonoCount2" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition-all font-bold">2P</button>
-            <button onclick="setMonopolyPlayerCount(3)" id="btnMonoCount3" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition-all font-bold">3P</button>
-            <button onclick="setMonopolyPlayerCount(4)" id="btnMonoCount4" class="px-2 py-1 rounded-lg bg-emerald-600 text-white font-bold transition-all shadow-sm">4P</button>
-          </div>
-
-          <!-- Monopoly Speed Engine (1x - 3x Standardized) -->
-          <div class="flex items-center gap-1.5 bg-black/60 px-2.5 py-1 rounded-xl border border-board-border text-xs font-semibold shadow-inner">
-            <span class="text-amber-400 font-bold flex items-center gap-1 text-[11px]">
-              <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block align-middle filter drop-shadow" fill="none"><path d="M13 2L4 13.5h7L9 22l11-12.5h-7L15 2h-2z" fill="#F59E0B" stroke="#FEF08A" stroke-width="1.2"/></svg> <span id="monoSpeedValText">1x</span>
-            </span>
-            <div class="flex items-center gap-1 ml-1">
-              <button onclick="setMonoSpeed(1)" id="monoSpeedBtn_1" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500 text-slate-950 shadow-sm transition-all cursor-pointer">1x</button>
-              <button onclick="setMonoSpeed(2)" id="monoSpeedBtn_2" class="px-2 py-0.5 rounded text-[10px] font-bold text-slate-400 hover:text-white transition-all cursor-pointer">2x</button>
-              <button onclick="setMonoSpeed(3)" id="monoSpeedBtn_3" class="px-2 py-0.5 rounded text-[10px] font-bold text-slate-400 hover:text-white transition-all cursor-pointer">3x</button>
+            <!-- Monopoly Status Chip -->
+            <div id="arenaMonoStatusHUD" class="hidden flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-emerald-500/40 text-xs font-semibold shadow-inner" title="Trạng thái ván Cờ Tỷ Phú">
+              <span class="flex items-center gap-1 text-emerald-300">🎩 <span id="hudMonoTurnText" class="font-bold text-white">Lượt: Người 1</span></span>
+              <span class="text-slate-600">|</span>
+              <span class="text-amber-400 font-mono text-[11px]">Vòng <span id="hudMonoRoundText">1</span>/35</span>
             </div>
           </div>
-
-          <!-- Monopoly Auto-Play Header Toggle -->
-          <button onclick="toggleMonoAutoPlay()" id="btnMonoAutoPlayHeader" class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Bật/Tắt tự động chơi Cờ Tỷ Phú">
-            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block align-middle" fill="none"><circle cx="12" cy="12" r="9.5" stroke="currentColor" stroke-width="1.8" stroke-dasharray="8 4" stroke-linecap="round"/><path d="M13 3L6 13h5l-2 8 8-11h-5l2-7z" fill="currentColor"/></svg>
-            <span id="monoAutoPlayHeaderText">Tự Động: TẮT</span>
-          </button>
-
-          <!-- Quick Reset -->
-          <button onclick="restartMonopolyGame()" class="btn-spring px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-board-border text-xs flex items-center gap-1 shadow-sm" title="Bắt đầu ván mới">
-            <i data-lucide="rotate-ccw" class="w-3 h-3 text-amber-400"></i>
-            <span>Ván Mới</span>
-          </button>
-
-          
-
-          
         </div>
 
-          <!-- LIVE MATCH SCORE HUD CHIPS (HIỂN THỊ TRỰC TIẾP TRÊN THANH MENU) -->
-          <!-- Ca-rô Neon Score Chip -->
-          <div id="arenaTttScoreHUD" class="hidden flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-cyan-500/40 text-xs font-mono font-bold shadow-inner" title="Tỉ số trực tiếp Ca-rô">
-            <span class="flex items-center gap-1 text-cyan-300">⭕ X: <span id="hudTttScoreX" class="font-black text-cyan-400">0</span></span>
-            <span class="text-slate-600">|</span>
-            <span class="flex items-center gap-1 text-slate-300">⚖️ Hòa: <span id="hudTttScoreDraw" class="font-black text-slate-200">0</span></span>
-            <span class="text-slate-600">|</span>
-            <span class="flex items-center gap-1 text-rose-300">❌ O: <span id="hudTttScoreO" class="font-black text-rose-400">0</span></span>
-          </div>
-
-          <!-- Dice 20 Ô Status Chip -->
-          <div id="arenaDiceStatusHUD" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-amber-500/40 text-xs font-semibold shadow-inner" title="Trạng thái ván Xúc Xắc">
-            <span class="flex items-center gap-1 text-amber-400">🎯 <span id="hudDiceTurnText" class="font-bold text-white">Lượt: P1 (Bạn)</span></span>
-            <span class="text-slate-600">|</span>
-            <span class="flex items-center gap-1 text-amber-300">🏆 Đích: <span id="hudDiceGoalText" class="font-mono font-bold text-cyan-300">100đ</span></span>
-          </div>
-
-          <!-- Chess Status Chip -->
-          <div id="arenaChessStatusHUD" class="hidden flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-indigo-500/40 text-xs font-semibold shadow-inner" title="Trạng thái ván Cờ Vua">
-            <span class="flex items-center gap-1 text-indigo-300">♟️ <span id="hudChessTurnText" class="font-bold text-white">Trắng Đi</span></span>
-            <span class="text-slate-600">|</span>
-            <span id="hudChessStateText" class="text-emerald-400 font-mono text-[11px] font-bold">Đang đấu</span>
-          </div>
-
-          <!-- Monopoly Status Chip -->
-          <div id="arenaMonoStatusHUD" class="hidden flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-emerald-500/40 text-xs font-semibold shadow-inner" title="Trạng thái ván Cờ Tỷ Phú">
-            <span class="flex items-center gap-1 text-emerald-300">🎩 <span id="hudMonoTurnText" class="font-bold text-white">Lượt: Người 1</span></span>
-            <span class="text-slate-600">|</span>
-            <span class="text-amber-400 font-mono text-[11px]">Vòng <span id="hudMonoRoundText">1</span>/35</span>
-          </div>
-        </div>
-
-        <!-- CỤM UTILITY PHÍA PHẢI: QUICK AUDIO, ĐỔI TỐC ĐỘ 1X/2X/3X, TOÀN MÀN HÌNH, TÀI SẢN COINS/GEMS, NÚT THOÁT TRẬN (XÓA BỎ HOÀN TOÀN KHOẢNG TRỐNG THỪA) -->
-        <div id="arenaRightUtilityCluster" class="flex items-center gap-2 shrink-0 flex-wrap">
-          <!-- Quick Audio Mute / Unmute Toggle Button -->
-          <button onclick="toggleArenaAudioMute()" id="btnArenaAudioMute" class="btn-spring px-2.5 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Bật/Tắt âm thanh trò chơi">
-            <i data-lucide="volume-2" id="arenaAudioIcon" class="w-3.5 h-3.5 text-amber-400"></i>
-            <span id="arenaAudioText" class="hidden 2xl:inline">Âm Thanh</span>
-          </button>
-
-          <!-- Arena Speed Cycle Button (1x / 2x / 3x) -->
-          <button onclick="cycleArenaSpeed()" id="btnArenaSpeedCycle" class="btn-spring px-2.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold flex items-center gap-1 shadow-sm transition-all cursor-pointer" title="Đổi tốc độ trận đấu (1x -> 2x -> 3x)">
-            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block" fill="none"><path d="M13 2L4 13.5h7L9 22l11-12.5h-7L15 2h-2z" fill="#F59E0B" stroke="#FEF08A" stroke-width="1.2"/></svg>
-            <span id="arenaSpeedCycleText">1x</span>
-          </button>
-
-          <!-- Fullscreen Toggle Button (Universal for all 4 games) -->
-          <button onclick="toggleArenaFullscreen()" id="btnArenaFullscreen" class="btn-spring px-2.5 py-1.5 rounded-xl bg-indigo-900/60 hover:bg-indigo-700 text-indigo-200 hover:text-white border border-indigo-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Toàn Màn Hình Đấu Trường (Phím F hoặc Esc)">
-            <span class="text-sm">⛶</span>
-            <span id="arenaFullscreenText" class="hidden 2xl:inline">Toàn Màn Hình</span>
-          </button>
-
-          <!-- Player Balance HUD Chip (Coins & Gems) -->
-          <div id="arenaUserBalanceHUD" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-amber-500/30 text-xs font-mono font-bold shadow-inner" title="Số dư tài sản người chơi">
-            <span class="flex items-center gap-1 text-amber-400" title="Xu Hoàng Kim">
-              🪙 <span id="arenaUserCoins">1,500</span>
-            </span>
-            <span class="w-px h-3.5 bg-slate-700"></span>
-            <span class="flex items-center gap-1 text-cyan-400" title="Đá Quý Lam Ngọc">
-              💎 <span id="arenaUserGems">95</span>
-            </span>
-          </div>
-
-          <!-- Exit Match Button with Confirmation Modal -->
-          <button onclick="requestExitArenaToLobby('lobby')" class="btn-spring px-3 py-1.5 rounded-xl bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 hover:text-white border border-rose-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Thoát trận đấu về sảnh chính (Xác nhận an toàn)">
-            <i data-lucide="log-out" class="w-3.5 h-3.5 text-rose-400"></i>
-            <span>Thoát Trận</span>
-          </button>
-        </div>
       </div> <!-- Close #arenaMatchConsole properly here -->
 
       <!-- VIEW 1: DICE QUEST (12 Ô LỚN) -->
@@ -4191,22 +4178,6 @@
         </button>
       </div>
 
-      <!-- Quick 1-Click Social Sign-in -->
-      <div class="grid grid-cols-2 gap-3 mb-4">
-        <button onclick="handleGoogleSignIn()" class="btn-spring p-2.5 rounded-xl bg-board-tray border border-board-border hover:border-amber-500/50 flex items-center justify-center gap-2 text-xs font-bold text-slate-200">
-          <span>🌐</span> Google Auth
-        </button>
-        <button onclick="handleGithubSignIn()" class="btn-spring p-2.5 rounded-xl bg-board-tray border border-board-border hover:border-amber-500/50 flex items-center justify-center gap-2 text-xs font-bold text-slate-200">
-          <i data-lucide="github" class="w-4 h-4"></i> GitHub Auth
-        </button>
-      </div>
-
-      <div class="flex items-center gap-3 my-3">
-        <div class="h-px bg-slate-800 flex-1"></div>
-        <span class="text-[10px] uppercase font-bold text-slate-500 font-mono">Hoặc dùng Email & Mật khẩu</span>
-        <div class="h-px bg-slate-800 flex-1"></div>
-      </div>
-
       <!-- Firebase Auth Form -->
       <form id="firebaseAuthForm" onsubmit="handleFirebaseAuthSubmit(event)" class="space-y-3">
         <!-- Display Name (Only on Signup) -->
@@ -4236,37 +4207,6 @@
           <span id="authSpinner" class="hidden w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
         </button>
       </form>
-
-      <!-- Custom Firebase Config (Hidden for clean commercial UI) -->
-      <div id="customConfigWrapper" class="mt-4 pt-3 border-t border-board-border/60 text-center">
-        <button type="button" onclick="toggleFirebaseConfigBox()" class="text-[11px] text-amber-400 hover:text-amber-300 font-mono flex items-center justify-center gap-1.5 mx-auto bg-amber-500/10 hover:bg-amber-500/20 px-3 py-1.5 rounded-lg border border-amber-500/30 transition shadow-sm">
-          <i data-lucide="database" class="w-3.5 h-3.5 text-amber-400"></i>
-          <span>⚙️ Kết nối Firebase Project (colap-c2e9c)</span>
-        </button>
-
-        <div id="firebaseConfigBox" class="hidden mt-2.5 p-3.5 bg-slate-950/95 rounded-xl border border-amber-500/40 text-left shadow-2xl">
-          <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-white/10">
-            <span class="text-[11px] font-bold text-amber-300 flex items-center gap-1.5">
-              <i data-lucide="key" class="w-3 h-3 text-amber-400"></i>
-              Nhập Firebase API Key / Config
-            </span>
-            <span class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">colap-c2e9c</span>
-          </div>
-          <p class="text-[10px] text-slate-300 mb-1.5 leading-relaxed">
-            Dán đoạn mã <code>firebaseConfig</code> từ mục <b>⚙️ Project Settings</b> trên Firebase Console vào đây:
-          </p>
-          <textarea id="customConfigInput" rows="4" placeholder='{\n  "apiKey": "AIzaSy...",\n  "authDomain": "colap-c2e9c.firebaseapp.com",\n  "projectId": "colap-c2e9c"\n}' class="w-full p-2 bg-black/90 border border-slate-700 rounded-lg text-[10px] font-mono text-amber-200 placeholder-slate-600 focus:outline-none focus:border-amber-500"></textarea>
-          <div class="flex items-center justify-between mt-2">
-            <button type="button" onclick="saveCustomFirebaseConfig()" class="px-3.5 py-1.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white text-[11px] font-bold rounded-lg shadow-md border border-amber-400/30 transition flex items-center gap-1">
-              <i data-lucide="check-circle" class="w-3 h-3"></i>
-              Lưu & Kết Nối Ngay
-            </button>
-            <button type="button" onclick="toggleFirebaseConfigBox()" class="text-[10px] text-slate-400 hover:text-white">
-              Đóng
-            </button>
-          </div>
-        </div>
-      </div>
 
     </div>
   </div>
@@ -6531,6 +6471,17 @@
       const specBar = document.getElementById('spectatorControlBar');
       [cDice, cTTT, cChess, cMono, specBar].forEach(c => {
         if (c) c.classList.add('hidden');
+      });
+
+      const hudDice = document.getElementById('arenaDiceStatusHUD');
+      const hudChess = document.getElementById('arenaChessStatusHUD');
+      const hudTTT = document.getElementById('arenaTttScoreHUD');
+      const hudMono = document.getElementById('arenaMonoStatusHUD');
+      [hudDice, hudChess, hudTTT, hudMono].forEach(h => {
+        if (h) {
+          h.classList.add('hidden');
+          h.classList.remove('flex');
+        }
       });
 
       document.body.classList.remove('mono-view-active');
@@ -15156,6 +15107,12 @@ function renderCashStackHTML(amount) {
       const specBar = document.getElementById('spectatorControlBar');
       const titleEl = document.getElementById('arenaGameTitle');
 
+      // Live Match HUD Chips (Arena 2-Tier Cockpit)
+      const hudDice = document.getElementById('arenaDiceStatusHUD');
+      const hudChess = document.getElementById('arenaChessStatusHUD');
+      const hudTTT = document.getElementById('arenaTttScoreHUD');
+      const hudMono = document.getElementById('arenaMonoStatusHUD');
+
       // Hide all game views first (Defensive Clean Wipe)
       [vDice, vTTT, vChess, vMono].forEach(v => {
         if (v) {
@@ -15170,6 +15127,14 @@ function renderCashStackHTML(amount) {
         if (c) c.classList.add('hidden');
       });
 
+      // Hide all match HUD chips first (defensive isolation)
+      [hudDice, hudChess, hudTTT, hudMono].forEach(h => {
+        if (h) {
+          h.classList.add('hidden');
+          h.classList.remove('flex');
+        }
+      });
+
       if (tab === 'dice') {
         if (!isSpectatorMode) startTimingGauge();
         if (vDice) {
@@ -15177,6 +15142,10 @@ function renderCashStackHTML(amount) {
           vDice.classList.remove('hidden');
           void vDice.offsetWidth;
           vDice.classList.add('grid', 'view-fade-slide');
+        }
+        if (hudDice) {
+          hudDice.classList.remove('hidden');
+          hudDice.classList.add('flex');
         }
         if (isSpectatorMode) {
           if (cDice) cDice.classList.add('hidden');
@@ -15202,6 +15171,10 @@ function renderCashStackHTML(amount) {
           vTTT.classList.add('flex', 'view-fade-slide');
           renderTicTacToe();
         }
+        if (hudTTT) {
+          hudTTT.classList.remove('hidden');
+          hudTTT.classList.add('flex');
+        }
         if (cTTT) cTTT.classList.remove('hidden');
         if (specBar) specBar.classList.add('hidden');
         if (titleEl) {
@@ -15215,6 +15188,10 @@ function renderCashStackHTML(amount) {
           void vChess.offsetWidth;
           vChess.classList.add('flex', 'view-fade-slide');
           initChessGame();
+        }
+        if (hudChess) {
+          hudChess.classList.remove('hidden');
+          hudChess.classList.add('flex');
         }
         if (cChess) cChess.classList.remove('hidden');
         if (specBar) specBar.classList.add('hidden');
@@ -15232,6 +15209,10 @@ function renderCashStackHTML(amount) {
           if (typeof initMonopolyGame === 'function') {
             initMonopolyGame();
           }
+        }
+        if (hudMono) {
+          hudMono.classList.remove('hidden');
+          hudMono.classList.add('flex');
         }
         if (cMono) cMono.classList.remove('hidden');
         if (specBar) specBar.classList.add('hidden');

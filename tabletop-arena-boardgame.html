@@ -1120,8 +1120,8 @@
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
-        <!-- Player Economy Wallet (Coins & Gems) -->
-        <div class="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl bg-board-tray border border-board-border text-xs font-bold shadow-inner shrink-0">
+        <!-- Player Economy Wallet (Coins & Gems) & Rewards Modal Trigger -->
+        <div onclick="openModal('rewardsModal')" class="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl bg-board-tray border border-amber-500/30 hover:border-amber-400 text-xs font-bold shadow-inner shrink-0 cursor-pointer group transition-all" title="Bấm xem Cơ Cấu Trao Thưởng Trận Đấu (Xu & Kim Cương)">
           <div class="flex items-center gap-1 text-amber-400" title="Vàng hoàng gia">
             <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-current">
               <circle cx="12" cy="12" r="10" stroke="#F59E0B" stroke-width="1.5" fill="#B45309"/>
@@ -1139,6 +1139,7 @@
               <polygon points="21,11 16,5 12,11" fill="#0284C7" opacity="0.7"/>
             </svg> <span id="userGems" class="font-mono">0</span>
           </div>
+          <span class="hidden xl:inline-block px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-500/40 ml-0.5 group-hover:scale-105 transition-transform">🎁 Thưởng</span>
         </div>
 
         <!-- Sound Toggle -->
@@ -1456,6 +1457,10 @@
         </div>
 
         <div class="flex items-center gap-2.5">
+          <button onclick="openModal('rewardsModal')" class="btn-spring px-3.5 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 font-bold text-xs flex items-center gap-1.5 shadow-sm">
+            <i data-lucide="gift" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>Cơ Cấu Thưởng Trận</span>
+          </button>
           <button onclick="playRandomGame()" class="btn-spring px-4 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-amber-600/30">
             <i data-lucide="shuffle" class="w-3.5 h-3.5 text-amber-300"></i>
             <span>Chọn Game Ngẫu Nhiên</span>
@@ -3066,6 +3071,27 @@
               <span id="monoModalAmountLabel" class="text-slate-400 font-bold">Số tiền:</span>
               <span id="monoModalAmountVal" class="font-chakra font-black text-sm text-emerald-400">+$0</span>
             </div>
+            <!-- Monopoly Match Reward Badge -->
+            <div id="monoModalRewardBadge" class="hidden mb-4 p-3 rounded-2xl bg-gradient-to-r from-amber-500/15 via-emerald-500/15 to-cyan-500/15 border border-amber-500/40 shadow-inner flex-col items-center justify-center gap-1.5 w-full">
+              <div class="text-[11px] font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
+                <span>🎁 THƯỞNG HOÀN THÀNH BUSINESS TOUR</span>
+                <span id="monoRewardMultBadge" class="px-1.5 py-0.5 rounded bg-amber-500/30 text-amber-200 text-[10px] font-mono font-bold">1.0x</span>
+              </div>
+              <div class="flex items-center justify-center gap-4 text-base font-black font-chakra">
+                <div class="flex items-center gap-1.5 text-amber-400">
+                  <span>🪙</span>
+                  <span id="monoRewardCoins">+0</span>
+                  <span class="text-[10px] text-amber-300/80 font-normal">Xu</span>
+                </div>
+                <div class="h-3.5 w-px bg-slate-700"></div>
+                <div class="flex items-center gap-1.5 text-cyan-400">
+                  <span>💎</span>
+                  <span id="monoRewardGems">+0</span>
+                  <span class="text-[10px] text-cyan-300/80 font-normal">Kim Cương</span>
+                </div>
+              </div>
+            </div>
+
             <button onclick="closeMonoEventModal()" class="w-full py-2.5 sm:py-3 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-xs sm:text-sm shadow-[0_0_20px_rgba(245,158,11,0.5)] border-2 border-white cursor-pointer active:scale-95 transition-all">
               ĐỒNG Ý (TIẾP TỤC)
             </button>
@@ -3241,7 +3267,7 @@
               <div class="w-full flex items-center justify-between z-10 text-[9px] sm:text-[10px]">
                 <div class="flex items-center gap-1.5 bg-[#0f172a]/90 px-3 py-1 rounded-xl border-2 border-white/80 font-black shadow-lg">
                   <span class="text-amber-400">🏆</span>
-                  <span class="text-white tracking-wide" id="monoTurnStatusText">VÒNG 1/15 • 44 Ô • MỤC TIÊU: $8,500</span>
+                  <span class="text-white tracking-wide" id="monoTurnStatusText">VÒNG 1/15 • BẢN ĐỒ 44 Ô • THÂU TÓM BĐS & PHÁ SẢN ĐỐI THỦ</span>
                 </div>
                 <div class="flex items-center gap-1.5">
                   <button onclick="event.stopPropagation(); restartMonopolyGame()" class="px-2.5 py-1 rounded-xl bg-[#0f172a]/90 hover:bg-slate-800 text-amber-300 font-black border-2 border-white/70 text-[10px] cursor-pointer shadow-md" title="Khởi động lại ván cờ">⏻ Ván Mới</button>
@@ -3253,7 +3279,7 @@
               <!-- Bottom Victory Progress Hint -->
               <div class="w-full flex items-center justify-center z-10 pointer-events-none">
                 <div class="px-3 py-0.5 rounded-full bg-[#0f172a]/80 border border-white/50 text-[8px] sm:text-[9px] font-extrabold text-amber-200 tracking-wider uppercase shadow">
-                  ⚡ Bản Đồ 44 Ô Mở Rộng (12x12) • Đạt $8,500 Tài Sản • Độc Quyền 4 Resort • Hoặc Phá Sản Đối Thủ!
+                  ⚡ Bản Đồ 44 Ô Mở Rộng (12x12) • Thâu Tóm Độc Quyền Resort • Phá Sản Đối Thủ Hoặc Dẫn Đầu Sau 15 Vòng!
                 </div>
               </div>
 
@@ -3461,6 +3487,94 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-emerald-400"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 10a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v11H9V10z"/></svg>
           <span>4. Cờ Tỷ Phú 2.5D (Isometric)</span>
         </button>
+      </div>
+
+      <!-- BẢNG CƠ CẤU GIẢI THƯỞNG BÀN CỜ THEO ĐỘ KHÓ (XU 🪙 & KIM CƯƠNG 💎) -->
+      <div id="rulesRewardStructureCard" class="mb-6 p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-[#0d1627] via-[#101c33] to-[#0d1627] border border-amber-500/40 shadow-xl relative overflow-hidden">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-700/80">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-xl shadow-inner">
+              🎁
+            </div>
+            <div>
+              <h3 class="font-cinzel text-base sm:text-lg font-black text-white flex items-center gap-2">
+                CƠ CẤU GIẢI THƯỞNG HOÀN THÀNH TRẬN ĐẤU
+                <span class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono font-bold">FIRESTORE SYNC</span>
+              </h3>
+              <p class="text-xs text-slate-300">Nhận thưởng Xu (🪙) & Kim Cương (💎) tương xứng độ khó sau mỗi ván đấu trọn vẹn</p>
+            </div>
+          </div>
+          <button onclick="openModal('rewardsModal')" class="btn-spring px-3.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1.5 transition">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-300"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>Xem Chi Tiết Tỷ Lệ</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          <!-- Game 1: Ca-ro -->
+          <div class="p-4 rounded-2xl bg-black/40 border border-cyan-500/30 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-bold text-cyan-400 flex items-center gap-1">❌⭕ Ca-rô Neon</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono font-bold">3x3 Arena</span>
+              </div>
+              <div class="space-y-1.5 text-slate-300">
+                <div class="flex justify-between items-center"><span class="text-emerald-400 font-semibold">🏆 Thắng:</span><span class="font-mono font-bold text-white">+100🪙 / +5💎</span></div>
+                <div class="flex justify-between items-center"><span class="text-amber-400 font-semibold">🤝 Hòa:</span><span class="font-mono font-bold text-white">+30🪙 / +1💎</span></div>
+                <div class="flex justify-between items-center"><span class="text-rose-400 font-semibold">💔 Thua:</span><span class="font-mono font-bold text-white">+15🪙 / 0💎</span></div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-slate-400">Đấu trí 3x3 nhanh, nhận thưởng ngay khi kết thúc ván.</div>
+          </div>
+
+          <!-- Game 2: Dice -->
+          <div class="p-4 rounded-2xl bg-black/40 border border-amber-500/30 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-bold text-amber-400 flex items-center gap-1">🎲 Xúc Xắc 20 Ô</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono font-bold">1.0x - 1.6x</span>
+              </div>
+              <div class="space-y-1.5 text-slate-300">
+                <div class="flex justify-between items-center"><span class="text-emerald-400 font-semibold">🏆 Thắng:</span><span class="font-mono font-bold text-white">+250🪙 / +15💎 (x Hệ Số)</span></div>
+                <div class="flex justify-between items-center"><span class="text-rose-400 font-semibold">💔 Thua:</span><span class="font-mono font-bold text-white">+40🪙 / +2💎</span></div>
+                <div class="flex justify-between items-center"><span class="text-cyan-400 font-semibold">🌐 Online P2P:</span><span class="font-mono font-bold text-white">Hệ số 1.6x</span></div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-amber-300/80">Hệ số: 1 + (Bot-1)*0.3. Cấm thưởng Chế độ Khán Giả.</div>
+          </div>
+
+          <!-- Game 3: Chess -->
+          <div class="p-4 rounded-2xl bg-black/40 border border-purple-500/30 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-bold text-purple-400 flex items-center gap-1">♟️ Cờ Vua FIDE</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-mono font-bold">Chuẩn Quốc Tế</span>
+              </div>
+              <div class="space-y-1.5 text-slate-300">
+                <div class="flex justify-between items-center"><span class="text-emerald-400 font-semibold">🏆 Thắng:</span><span class="font-mono font-bold text-white">+400🪙 / +25💎</span></div>
+                <div class="flex justify-between items-center"><span class="text-amber-400 font-semibold">🤝 Hòa:</span><span class="font-mono font-bold text-white">+120🪙 / +8💎</span></div>
+                <div class="flex justify-between items-center"><span class="text-rose-400 font-semibold">💔 Thua:</span><span class="font-mono font-bold text-white">+50🪙 / +3💎</span></div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-purple-300/80">Điều kiện thưởng Thua: Hoàn thành tối thiểu &ge; 6 nước đi.</div>
+          </div>
+
+          <!-- Game 4: Monopoly -->
+          <div class="p-4 rounded-2xl bg-black/40 border border-emerald-500/30 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-bold text-emerald-400 flex items-center gap-1">🏰 Cờ Tỷ Phú 2.5D</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold">1.0x - 1.8x</span>
+              </div>
+              <div class="space-y-1.5 text-slate-300">
+                <div class="flex justify-between items-center"><span class="text-emerald-400 font-semibold">🏆 Thắng:</span><span class="font-mono font-bold text-white">Tới 1080🪙 / 72💎</span></div>
+                <div class="flex justify-between items-center"><span class="text-rose-400 font-semibold">💔 Thua:</span><span class="font-mono font-bold text-white">+80🪙 / +5💎</span></div>
+                <div class="flex justify-between items-center"><span class="text-amber-400 font-semibold">📊 Hệ số:</span><span class="font-mono font-bold text-white">2P: 1.0x | 3P: 1.4x | 4P: 1.8x</span></div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-rose-300/80">Cấm nhận thưởng nếu bấm Phá Sản sớm ở vòng &le; 2.</div>
+          </div>
+        </div>
       </div>
 
       <!-- 4-Column Balanced Bento Grid (Zero nesting bugs, equal visual hierarchy) -->
@@ -4237,9 +4351,180 @@
       <h3 class="font-cinzel text-2xl font-black text-white mb-1" id="vicTitle">Khúc Khải Hoàn!</h3>
       <p class="text-xs text-slate-300 mb-5" id="vicDesc">Bạn đã có màn đấu trí xuất chúng và xưng vương bàn cờ!</p>
       
+      <!-- Match Reward Badge -->
+      <div id="vicRewardBadge" class="hidden mb-4 p-3 rounded-2xl bg-gradient-to-r from-amber-500/15 via-emerald-500/15 to-cyan-500/15 border border-amber-500/40 shadow-inner flex flex-col items-center justify-center gap-1.5 animate-pulse">
+        <div class="text-[11px] font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
+          <span>🎁 THƯỞNG HOÀN THÀNH TRẬN</span>
+          <span id="vicRewardMultBadge" class="px-1.5 py-0.5 rounded bg-amber-500/30 text-amber-200 text-[10px] font-mono font-bold">1.0x</span>
+        </div>
+        <div class="flex items-center gap-4 text-base font-black font-chakra">
+          <div class="flex items-center gap-1.5 text-amber-400">
+            <span>🪙</span>
+            <span id="vicRewardCoins">+0</span>
+            <span class="text-[10px] text-amber-300/80 font-normal">Xu</span>
+          </div>
+          <div class="h-3.5 w-px bg-slate-700"></div>
+          <div class="flex items-center gap-1.5 text-cyan-400">
+            <span>💎</span>
+            <span id="vicRewardGems">+0</span>
+            <span class="text-[10px] text-cyan-300/80 font-normal">Kim Cương</span>
+          </div>
+        </div>
+      </div>
+
       <button onclick="handleReset()" class="btn-spring w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-black text-xs shadow-lg shadow-amber-600/40">
         Khởi Tranh Ván Mới 🎮
       </button>
+    </div>
+  </div>
+
+  <!-- ================= MODAL CƠ CẤU GIẢI THƯỞNG BÀN CỜ ================= -->
+  <div id="rewardsModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div id="rewardsCard" class="w-full max-w-2xl tabletop-mat rounded-3xl p-5 sm:p-7 shadow-2xl border border-amber-500/40 max-h-[90vh] flex flex-col transform scale-95 transition-transform duration-300 relative overflow-hidden">
+      <!-- Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-board-border mb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-500 to-yellow-600 p-0.5 shadow-lg shadow-amber-600/30 flex items-center justify-center">
+            <div class="w-full h-full bg-[#0E1526] rounded-[14px] flex items-center justify-center text-amber-400 text-xl">
+              🎁
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-cinzel text-lg sm:text-xl font-black text-white tracking-wide">
+                CƠ CẤU GIẢI THƯỞNG BÀN CỜ
+              </h3>
+              <span class="text-[9px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold uppercase tracking-wider font-mono">
+                XU 🪙 & KIM CƯƠNG 💎
+              </span>
+            </div>
+            <p class="text-xs text-slate-400">Hệ thống phân phối phần thưởng tự động tương xứng với độ khó từng trò chơi</p>
+          </div>
+        </div>
+        <button onclick="closeModal('rewardsModal')" class="p-2 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white transition-colors">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Content Bento Grid -->
+      <div class="space-y-3.5 overflow-y-auto max-h-[60vh] pr-1 no-scrollbar text-xs">
+        
+        <!-- Game 1: Ca-ro Neon -->
+        <div class="p-4 rounded-2xl bg-[#090F1E] border border-cyan-500/30">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-base">❌⭕</span>
+              <span class="font-black text-cyan-400 text-sm">1. Cờ Ca-rô Neon (3x3)</span>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono font-bold">Cơ Bản • 1.0x</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center text-[11px] font-chakra font-black">
+            <div class="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300">
+              <div class="text-[10px] text-slate-400 font-sans font-bold">THẮNG</div>
+              <div class="text-sm">+100 🪙</div>
+              <div class="text-[10px] text-cyan-300">+5 💎</div>
+            </div>
+            <div class="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300">
+              <div class="text-[10px] text-slate-400 font-sans font-bold">HÒA</div>
+              <div class="text-sm">+30 🪙</div>
+              <div class="text-[10px] text-cyan-300">+1 💎</div>
+            </div>
+            <div class="p-2 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300">
+              <div class="text-[10px] text-slate-400 font-sans font-bold">THUA</div>
+              <div class="text-sm">+15 🪙</div>
+              <div class="text-[10px] text-slate-500">+0 💎</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game 2: Xúc Xắc 20 Ô -->
+        <div class="p-4 rounded-2xl bg-[#090F1E] border border-amber-500/30">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-base">🎲</span>
+              <span class="font-black text-amber-400 text-sm">2. Đua Ngựa Xúc Xắc 20 Ô</span>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono font-bold">Hệ Số: 1.0x - 1.6x</span>
+          </div>
+          <p class="text-[11px] text-slate-400 mb-2">Hệ số độ khó: <code class="text-amber-300 font-mono">1 + (Số BOT - 1) * 0.3</code> (Đấu Online P2P cố định <code class="text-cyan-300 font-mono">1.6x</code>). <i>Cấm thưởng ở Chế độ Quan Sát (Spectator Mode).</i></p>
+          <div class="grid grid-cols-2 gap-2 text-center text-[11px] font-chakra font-black">
+            <div class="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300">
+              <div class="text-[10px] text-slate-400 font-sans font-bold">THẮNG (x HỆ SỐ)</div>
+              <div class="text-sm">+250 - 400 🪙</div>
+              <div class="text-[10px] text-cyan-300">+15 - 24 💎</div>
+            </div>
+            <div class="p-2 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300">
+              <div class="text-[10px] text-slate-400 font-sans font-bold">THUA (HOÀN THÀNH)</div>
+              <div class="text-sm">+40 🪙</div>
+              <div class="text-[10px] text-cyan-300">+2 💎</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game 3: Cờ Vua Quốc Tế -->
+        <div class="p-4 rounded-2xl bg-[#090F1E] border border-purple-500/30">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-base">♟️</span>
+              <span class="font-black text-purple-400 text-sm">3. Cờ Vua Quốc Tế (FIDE)</span>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-mono font-bold">Chiến Thuật Cao</span>
+          </div>
+          <p class="text-[11px] text-slate-400 mb-2">Điều kiện nhận thưởng Thua: Phải thi đấu tối thiểu <code class="text-purple-300 font-mono">&ge; 6 nước đi (half-moves)</code> để chống đầu hàng sớm.</p>
+          <div class="grid grid-cols-3 gap-2 text-center text-[11px] font-chakra font-black">
+            <div class="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300">
+              <div class="text-[10px] text-slate-400 font-sans font-bold">THẮNG</div>
+              <div class="text-sm">+400 🪙</div>
+              <div class="text-[10px] text-cyan-300">+25 💎</div>
+            </div>
+            <div class="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300">
+              <div class="text-[10px] text-slate-400 font-sans font-bold">HÒA</div>
+              <div class="text-sm">+120 🪙</div>
+              <div class="text-[10px] text-cyan-300">+8 💎</div>
+            </div>
+            <div class="p-2 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300">
+              <div class="text-[10px] text-slate-400 font-sans font-bold">THUA (&ge;6 NƯỚC)</div>
+              <div class="text-sm">+50 🪙</div>
+              <div class="text-[10px] text-cyan-300">+3 💎</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game 4: Cờ Tỷ Phú 2.5D -->
+        <div class="p-4 rounded-2xl bg-[#090F1E] border border-emerald-500/30">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-base">🏰</span>
+              <span class="font-black text-emerald-400 text-sm">4. Cờ Tỷ Phú 2.5D (Business Tour)</span>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold">Hệ Số: 1.0x - 1.8x</span>
+          </div>
+          <p class="text-[11px] text-slate-400 mb-2">Hệ số bàn cờ: <code class="text-emerald-300 font-mono">2 Người: 1.0x | 3 Người: 1.4x | 4 Người / Online: 1.8x</code>. Thắng tối đa lên tới <b class="text-amber-300">1080 🪙 / 72 💎</b>. <i>Cấm nhận thưởng nếu bấm Phá Sản sớm ở vòng &le; 2.</i></p>
+          <div class="grid grid-cols-2 gap-2 text-center text-[11px] font-chakra font-black">
+            <div class="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300">
+              <div class="text-[10px] text-slate-400 font-sans font-bold">THẮNG (x HỆ SỐ)</div>
+              <div class="text-sm">+600 - 1080 🪙</div>
+              <div class="text-[10px] text-cyan-300">+40 - 72 💎</div>
+            </div>
+            <div class="p-2 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300">
+              <div class="text-[10px] text-slate-400 font-sans font-bold">THUA (HOÀN THÀNH)</div>
+              <div class="text-sm">+80 🪙</div>
+              <div class="text-[10px] text-cyan-300">+5 💎</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Action -->
+      <div class="pt-4 mt-2 border-t border-board-border flex items-center justify-between gap-3">
+        <span class="text-[11px] text-slate-400 font-mono flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Khóa Chống Nhận Trùng Kích Hoạt
+        </span>
+        <button onclick="closeModal('rewardsModal')" class="btn-spring px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs shadow-lg shadow-amber-500/20">
+          Đã Hiểu & Thi Đấu 🎮
+        </button>
+      </div>
     </div>
   </div>
 
@@ -5221,6 +5506,249 @@
 
   <!-- ================= CORE GAMEPLAY & UI LOGIC ================= -->
   <script>
+    // ================= MATCH COMPLETION REWARD ENGINE (FIRESTORE SYNCED) =================
+    window.matchRewardClaimed = false;
+
+    window.updateMatchRewardModalBadge = function(gameKey, outcome, coins, gems, mult) {
+      const badge = document.getElementById('vicRewardBadge');
+      const coinEl = document.getElementById('vicRewardCoins');
+      const gemEl = document.getElementById('vicRewardGems');
+      const multEl = document.getElementById('vicRewardMultBadge');
+
+      if (coins > 0 || gems > 0) {
+        if (coinEl) coinEl.textContent = `+${Number(coins).toLocaleString()}`;
+        if (gemEl) gemEl.textContent = `+${Number(gems).toLocaleString()}`;
+        if (multEl) multEl.textContent = `${Number(mult).toFixed(1)}x`;
+        if (badge) {
+          badge.classList.remove('hidden');
+          badge.classList.add('flex');
+        }
+      } else {
+        if (badge) {
+          badge.classList.add('hidden');
+          badge.classList.remove('flex');
+        }
+      }
+
+      // Also update Monopoly modal badge
+      const monoBadge = document.getElementById('monoModalRewardBadge');
+      const monoCoinEl = document.getElementById('monoRewardCoins');
+      const monoGemEl = document.getElementById('monoRewardGems');
+      const monoMultEl = document.getElementById('monoRewardMultBadge');
+      if (monoBadge) {
+        if (coins > 0 || gems > 0) {
+          if (monoCoinEl) monoCoinEl.textContent = `+${Number(coins).toLocaleString()}`;
+          if (monoGemEl) monoGemEl.textContent = `+${Number(gems).toLocaleString()}`;
+          if (monoMultEl) monoMultEl.textContent = `${Number(mult).toFixed(1)}x`;
+          monoBadge.classList.remove('hidden');
+          monoBadge.classList.add('flex');
+        } else {
+          monoBadge.classList.add('hidden');
+          monoBadge.classList.remove('flex');
+        }
+      }
+    };
+
+    window.awardMatchCompletionReward = function(gameKey, outcome, difficultyMult = 1, reasonText = '') {
+      // 1. Anti-Duplicate Lock
+      if (window.matchRewardClaimed) {
+        console.log('[MatchReward] Trận này đã nhận thưởng rồi (Anti-duplicate lock active).');
+        return null;
+      }
+
+      // 2. Spectator Mode Guard
+      if (gameKey === 'dice' && typeof isSpectatorMode !== 'undefined' && isSpectatorMode) {
+        console.log('[MatchReward] Chế độ Quan Sát (Spectator Mode) cấm thưởng.');
+        return null;
+      }
+
+      const normOutcome = String(outcome || '').toLowerCase().trim(); // 'win' | 'draw' | 'loss'
+      let coins = 0;
+      let gems = 0;
+      let computedMult = Number(difficultyMult) || 1;
+      let skipReward = false;
+      let note = reasonText || '';
+
+      if (gameKey === 'tictactoe') {
+        // 1. Ca-rô (tictactoe): Thắng +100🪙/+5💎, Hòa +30🪙/+1💎, Thua +15🪙/0💎.
+        if (normOutcome === 'win') {
+          coins = 100;
+          gems = 5;
+        } else if (normOutcome === 'draw') {
+          coins = 30;
+          gems = 1;
+        } else if (normOutcome === 'loss') {
+          coins = 15;
+          gems = 0;
+        }
+      } else if (gameKey === 'dice') {
+        // 2. Xúc Xắc 20 Ô (dice): Hệ số 1 + (botCount - 1)*0.3 (Online P2P = 1.6x). Thắng +250🪙/+15💎 (x hệ số), Thua +40🪙/+2💎.
+        const isOnline = Boolean((typeof window.isOnlineRoomMatch !== 'undefined' && window.isOnlineRoomMatch) || 
+                                 (typeof currentOpponent !== 'undefined' && currentOpponent === 'online'));
+        if (computedMult === 1) {
+          if (isOnline) {
+            computedMult = 1.6;
+          } else {
+            const bCount = (typeof botCount !== 'undefined') ? botCount : 1;
+            computedMult = 1 + (bCount - 1) * 0.3;
+          }
+        }
+        if (normOutcome === 'win') {
+          coins = Math.round(250 * computedMult);
+          gems = Math.round(15 * computedMult);
+        } else if (normOutcome === 'loss') {
+          coins = 40;
+          gems = 2;
+        }
+      } else if (gameKey === 'chess') {
+        // 3. Cờ Vua (chess): Thắng +400🪙/+25💎, Hòa +120🪙/+8💎, Thua (đủ >=6 half-moves) +50🪙/+3💎.
+        let halfMoves = 0;
+        if (typeof chessGame !== 'undefined' && chessGame && typeof chessGame.history === 'function') {
+          try { halfMoves = chessGame.history().length; } catch(e) {}
+        }
+        if (normOutcome === 'win') {
+          coins = 400;
+          gems = 25;
+        } else if (normOutcome === 'draw') {
+          coins = 120;
+          gems = 8;
+        } else if (normOutcome === 'loss') {
+          if (halfMoves >= 6) {
+            coins = 50;
+            gems = 3;
+          } else {
+            skipReward = true;
+            note = note || 'Thua trước 6 nước đi (chưa đủ điều kiện thưởng)';
+          }
+        }
+      } else if (gameKey === 'monopoly') {
+        // 4. Cờ Tỷ Phú (monopoly): Hệ số 2P=1.0x, 3P=1.4x, 4P/Online=1.8x. Thắng +600🪙/+40💎 (x hệ số, tới 1080🪙/72💎), Thua (hoàn thành trận, cấm thưởng nếu bấm Phá Sản sớm ở vòng <=2) +80🪙/+5💎.
+        const isOnlineMono = Boolean((typeof window.isOnlineRoomMatch !== 'undefined' && window.isOnlineRoomMatch) || 
+                                     (typeof monoState !== 'undefined' && monoState.mode === 'online'));
+        const pCount = (typeof monoState !== 'undefined' && monoState.playerCount) ? monoState.playerCount : 2;
+        if (computedMult === 1) {
+          if (isOnlineMono || pCount >= 4) {
+            computedMult = 1.8;
+          } else if (pCount === 3) {
+            computedMult = 1.4;
+          } else {
+            computedMult = 1.0;
+          }
+        }
+        const currentRound = (typeof monoState !== 'undefined' && monoState.round) ? monoState.round : 1;
+        if (normOutcome === 'win') {
+          coins = Math.round(600 * computedMult);
+          gems = Math.round(40 * computedMult);
+        } else if (normOutcome === 'loss') {
+          if (currentRound <= 2 && (note.includes('phá sản sớm') || note.includes('vòng <= 2'))) {
+            skipReward = true;
+            note = 'Phá sản sớm ở vòng <= 2 (không tính thưởng)';
+          } else {
+            coins = 80;
+            gems = 5;
+          }
+        }
+      }
+
+      // Khóa nhận thưởng ván này
+      window.matchRewardClaimed = true;
+
+      if (skipReward || (coins === 0 && gems === 0)) {
+        console.log(`[MatchReward] Chưa đủ điều kiện nhận thưởng: ${note}`);
+        window.updateMatchRewardModalBadge(gameKey, normOutcome, 0, 0, computedMult);
+        return { coins: 0, gems: 0, skipped: true, note, mult: computedMult };
+      }
+
+      // Ensure currentFirebaseUser exists
+      if (!window.currentFirebaseUser) {
+        try {
+          const cached = localStorage.getItem('tabletop_firebase_user');
+          if (cached) window.currentFirebaseUser = JSON.parse(cached);
+        } catch(e) {}
+      }
+      if (!window.currentFirebaseUser) {
+        const gCoins = parseInt(localStorage.getItem('tabletop_guest_coins') || '0', 10);
+        const gGems = parseInt(localStorage.getItem('tabletop_guest_gems') || '0', 10);
+        window.currentFirebaseUser = {
+          uid: 'guest_' + (localStorage.getItem('tabletop_guest_id') || Math.random().toString(36).substring(2, 9)),
+          displayName: 'Kỳ Thủ',
+          email: 'guest@tabletop.io',
+          coins: gCoins,
+          gems: gGems,
+          role: 'Tân Thủ',
+          elo: 1200,
+          level: 1,
+          status: 'active'
+        };
+      }
+
+      // Cộng thật vào currentFirebaseUser
+      window.currentFirebaseUser.coins = Math.max(0, (parseInt(window.currentFirebaseUser.coins, 10) || 0) + coins);
+      window.currentFirebaseUser.gems = Math.max(0, (parseInt(window.currentFirebaseUser.gems, 10) || 0) + gems);
+
+      // Cache local
+      try {
+        localStorage.setItem('tabletop_firebase_user', JSON.stringify(window.currentFirebaseUser));
+        localStorage.setItem('tabletop_guest_coins', String(window.currentFirebaseUser.coins));
+        localStorage.setItem('tabletop_guest_gems', String(window.currentFirebaseUser.gems));
+      } catch(e) {}
+
+      // Cập nhật #userCoins, #userGems
+      const uCoins = document.getElementById('userCoins');
+      const uGems = document.getElementById('userGems');
+      if (uCoins) uCoins.textContent = Number(window.currentFirebaseUser.coins).toLocaleString();
+      if (uGems) uGems.textContent = Number(window.currentFirebaseUser.gems).toLocaleString();
+
+      // Cập nhật adminPlayersList + updateAdminStatsUI()
+      if (typeof adminPlayersList !== 'undefined' && Array.isArray(adminPlayersList)) {
+        const p = adminPlayersList.find(x => x.uid === window.currentFirebaseUser.uid || (x.email && x.email === window.currentFirebaseUser.email));
+        if (p) {
+          p.coins = window.currentFirebaseUser.coins;
+          p.gems = window.currentFirebaseUser.gems;
+          if (typeof renderAdminPlayersTable === 'function') renderAdminPlayersTable();
+        }
+      }
+      if (typeof updateAdminStatsUI === 'function') {
+        updateAdminStatsUI();
+      }
+
+      // Lưu lên Firestore
+      try {
+        if (typeof window.saveUserToCloudFirestore === 'function' && window.currentFirebaseUser.uid) {
+          window.saveUserToCloudFirestore(window.currentFirebaseUser);
+        } else if (typeof window.updateCloudFirestoreUserField === 'function' && window.currentFirebaseUser.uid) {
+          window.updateCloudFirestoreUserField(window.currentFirebaseUser.uid, {
+            coins: window.currentFirebaseUser.coins,
+            gems: window.currentFirebaseUser.gems
+          });
+        }
+      } catch(e) {
+        console.warn('[MatchReward] Firestore write note:', e);
+      }
+
+      // Hiển thị badge thưởng trong Victory/Endgame Modal
+      window.updateMatchRewardModalBadge(gameKey, normOutcome, coins, gems, computedMult);
+
+      // Hiển thị Toast thông báo
+      const gameNames = {
+        tictactoe: 'Ca-rô Neon',
+        dice: 'Xúc Xắc 20 Ô',
+        chess: 'Cờ Vua',
+        monopoly: 'Cờ Tỷ Phú'
+      };
+      const gName = gameNames[gameKey] || gameKey;
+      const outcomeText = normOutcome === 'win' ? 'Chiến Thắng' : (normOutcome === 'draw' ? 'Hòa Trận' : 'Hoàn Thành Trận');
+      if (typeof showToast === 'function') {
+        showToast(`🎁 [${gName}] ${outcomeText}: +${coins.toLocaleString()} 🪙 & +${gems.toLocaleString()} 💎 (${computedMult.toFixed(1)}x)!`);
+      }
+
+      return { coins, gems, mult: computedMult, outcome: normOutcome, gameKey };
+    };
+
+    window.openRewardsModal = function() {
+      openModal('rewardsModal');
+    };
+
     // Audio Synthesizer
     let audioCtx = null;
     let isSoundOn = true;
@@ -8259,6 +8787,7 @@
     }
 
     function resetTTTGame() {
+      window.matchRewardClaimed = false;
       tttBoard = Array(9).fill(null);
       tttTurn = 'X';
       tttGameOver = false;
@@ -8706,7 +9235,7 @@
 
     const BUSINESS_TOUR_STARTING_CASH = 3500;
     const BUSINESS_TOUR_SALARY = 400;
-    const BUSINESS_TOUR_TARGET_NET_WORTH = 8500;
+    const BUSINESS_TOUR_TARGET_NET_WORTH = Infinity; // v4.0.9: Bỏ trần $8,500 - Chơi đến khi phá sản, độc quyền resort hoặc hết 15 vòng
     const BUSINESS_TOUR_MAX_ROUNDS = 15;
 
     let monoState = {
@@ -9674,7 +10203,7 @@
       if (t.isCorner) {
         levelEl.textContent = 'Ô ĐẶC BIỆT';
         levelEl.className = 'text-[9px] font-black text-amber-300 px-1.5 py-0.2 rounded bg-amber-400/20 border border-amber-400/40';
-        subEl.innerHTML = '<span class="text-amber-300 font-bold">' + (t.type === "start" ? "Nhận lương thương mại +$400" : (t.type === "jail" ? "Trại Giam Song Sắt (Bảo lãnh $250)" : (t.type === "airport" ? "World Tour Tân An (+$300 trợ cấp)" : "Bị bắt giam ngay lập tức!"))) + '</span>';
+        subEl.innerHTML = '<span class="text-amber-300 font-bold">' + (t.type === "start" ? "Nhận lương thương mại +$400" : (t.type === "jail" ? "Trại Giam Song Sắt (Bảo lãnh $250)" : (t.type === "airport" ? "World Tour Tân An (+$300 & bay ngẫu nhiên đến 1 ô bất kỳ)" : "Bị bắt giam ngay lập tức!"))) + '</span>';
         if (t.id === 22) {
           subEl.innerHTML += ' <button onclick="triggerMonoAirplaneFlyby({ player: monoState.players[monoState.turn], destTile: monoState.tiles[22] })" class="ml-2 px-2.5 py-0.5 rounded-lg bg-amber-400 text-slate-950 font-black text-[9px] hover:bg-yellow-300 cursor-pointer shadow-md border border-white pointer-events-auto">✈️ Bay Thử</button>';
         }
@@ -10700,25 +11229,28 @@ function playMonoDiceTumbleSFX(durationMs) {
         const finishDelay = Math.max(40, Math.round(750 / (window.monoSpeed || monoState.speed || 1)));
         monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), finishDelay);
       } else if (landedTile.type === 'airport') {
-        // World Tour Flight! Fly to a high-value unowned or upgradeable city + receive $300 bonus!
+        // World Tour Flight: Random destination on EVERY visit across all 44 tiles (v4.0.9)
         const bonus = 300;
         player.cash += bonus;
         triggerMonoFloatingCash(player.id, bonus);
         updateMonopolyHUD();
 
-        // Pick a strategic target tile for World Tour flight
-        const unownedCities = monoState.tiles.filter(t => (t.type === 'city' || t.type === 'station') && t.owner === null);
-        const destTile = unownedCities.length > 0
-          ? unownedCities[Math.floor(Math.random() * unownedCities.length)]
-          : monoState.tiles[32]; // TP.HCM
+        // Randomly pick ANY destination tile on the 44-tile board (excluding airport itself and jail)
+        const eligibleTiles = monoState.tiles.filter(t => t.id !== landedTile.id && t.type !== 'airport' && t.type !== 'gotojail');
+        const destTile = eligibleTiles.length > 0
+          ? eligibleTiles[Math.floor(Math.random() * eligibleTiles.length)]
+          : monoState.tiles[0];
 
         triggerMonoAirplaneFlyby({
           player: player,
           destTile: destTile,
           onComplete: () => {
-            showToast(`✈️ World Tour! ${player.name} nhận +$${bonus} và bay thẳng tới ${destTile.name}!`);
-            const finishDelay = Math.max(40, Math.round(750 / (window.monoSpeed || monoState.speed || 1)));
-            monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), finishDelay);
+            showToast(`✈️ WORLD TOUR: ${player.name} nhận +${bonus} và bay ngẫu nhiên tới ${destTile.name}!`);
+            if (typeof addBattleLog === 'function') {
+              addBattleLog(`✈️ <b>${player.name}</b> bay World Tour ngẫu nhiên tới <b>${destTile.name}</b>!`, 'warp');
+            }
+            // Trigger landing interaction on destination tile (buy/upgrade/rent/chance/start)!
+            handleMonoLanding(player);
           }
         });
       } else if (landedTile.type === 'chance' || landedTile.type === 'fate') {
@@ -10780,15 +11312,24 @@ function playMonoDiceTumbleSFX(durationMs) {
     // Helper to trigger Victory Modal & Reward
     function declareMonoWinner(winner, winReasonText) {
       stopMonopolyTimers();
-      if (winner.id === 0 && window.currentFirebaseUser) {
-        window.currentFirebaseUser.coins = (window.currentFirebaseUser.coins || 0) + 300;
-        const coinEl = document.getElementById('userCoins');
-        if (coinEl) coinEl.textContent = Number(window.currentFirebaseUser.coins).toLocaleString();
+      const humanPlayerIndex = (window.isOnlineRoomMatch && window.myRoomPlayerIndex !== undefined) ? window.myRoomPlayerIndex : 0;
+      const isHumanWin = (winner.id === humanPlayerIndex);
+      const pCount = (monoState && monoState.playerCount) ? monoState.playerCount : 2;
+      const isOnlineMono = Boolean(window.isOnlineRoomMatch || (monoState && monoState.mode === 'online'));
+      const mult = (isOnlineMono || pCount >= 4) ? 1.8 : (pCount === 3 ? 1.4 : 1.0);
+      const humanPlayer = (monoState && monoState.players) ? monoState.players[humanPlayerIndex] : null;
+      const isEarlyManualBankrupt = Boolean(humanPlayer && humanPlayer.isManualBankrupt && (humanPlayer.bankruptRound <= 2));
+      const reason = isEarlyManualBankrupt ? 'phá sản sớm ở vòng <= 2' : (isHumanWin ? 'Đại Tỷ Phú vô địch' : 'Hoàn thành ván Cờ Tỷ Phú');
+      
+      let rewardRes = null;
+      if (typeof window.awardMatchCompletionReward === 'function') {
+        rewardRes = window.awardMatchCompletionReward('monopoly', isHumanWin ? 'win' : 'loss', mult, reason);
       }
+
       try {
         const monoMatchCount = Number(localStorage.getItem('tabletop_mono_match_count') || 0) + 1;
         localStorage.setItem('tabletop_mono_match_count', monoMatchCount);
-        if (winner.id === 0) {
+        if (isHumanWin) {
           const mw = Number(localStorage.getItem('tabletop_mono_human_wins') || 0) + 1;
           localStorage.setItem('tabletop_mono_human_wins', mw);
         } else {
@@ -10797,11 +11338,19 @@ function playMonoDiceTumbleSFX(durationMs) {
         }
         if (typeof updateAdminStatsUI === 'function') updateAdminStatsUI();
       } catch (e) {}
+
+      let rewardText = '';
+      if (rewardRes && !rewardRes.skipped && (rewardRes.coins > 0 || rewardRes.gems > 0)) {
+        rewardText = ` Bạn nhận thưởng +${rewardRes.coins.toLocaleString()} Xu 🪙 & +${rewardRes.gems.toLocaleString()} Kim Cương 💎 (${rewardRes.mult.toFixed(1)}x)!`;
+      } else if (isEarlyManualBankrupt) {
+        rewardText = ' (Phá sản sớm vòng 1-2: Không đủ điều kiện nhận thưởng hoàn thành).';
+      }
+
       showMonoEventPopup({
         type: 'gameover',
         badge: '👑 NHÀ VÔ ĐỊCH BUSINESS TOUR!',
         title: `${winner.name} Giành Chiến Thắng!`,
-        desc: `${winReasonText} Tổng tài sản đạt $${getMonoPlayerNetWorth(winner).toLocaleString()}!${winner.id === 0 ? ' Bạn được thưởng +300 Vàng 🪙!' : ''}`,
+        desc: `${winReasonText} Tổng tài sản đạt ${getMonoPlayerNetWorth(winner).toLocaleString()}!${rewardText}`,
         visualIcon: '🏆',
         amountLabel: 'Tổng Tài Sản Chung Cuộc:',
         amountVal: getMonoPlayerNetWorth(winner),
@@ -10849,12 +11398,7 @@ function playMonoDiceTumbleSFX(durationMs) {
             declareMonoWinner(p, `🏖️ ĐỘC QUYỀN DU LỊCH! ${p.name} đã thâu tóm trọn bộ 3/3 Khu Nghỉ Dưỡng Biển!`);
             return;
           }
-          // 3. Check Net Worth Target Victory ($8,500)
-          const nw = getMonoPlayerNetWorth(p);
-          if (nw >= BUSINESS_TOUR_TARGET_NET_WORTH) {
-            declareMonoWinner(p, `💎 ĐẠI TỶ PHÚ! ${p.name} đã cán mốc mục tiêu Tổng Tài Sản $${BUSINESS_TOUR_TARGET_NET_WORTH.toLocaleString()}!`);
-            return;
-          }
+          // v4.0.9: Đã bỏ trần tiền $8,500 - Trận đấu tiếp tục đến khi phá sản hoặc hết 15 vòng!
         }
       }
 
@@ -11007,6 +11551,11 @@ function playMonoDiceTumbleSFX(durationMs) {
       if (overlay) {
         overlay.classList.add('hidden');
         overlay.classList.remove('flex');
+      }
+      const monoBadge = document.getElementById('monoModalRewardBadge');
+      if (monoBadge) {
+        monoBadge.classList.add('hidden');
+        monoBadge.classList.remove('flex');
       }
       if (typeof monoState.eventCallback === 'function') {
         const cb = monoState.eventCallback;
@@ -11355,7 +11904,9 @@ function playMonoDiceTumbleSFX(durationMs) {
       const isEventModalOpen = eventOverlay && !eventOverlay.classList.contains('hidden');
       const jailOverlay = document.getElementById('monoJailGateOverlay');
       const isJailModalOpen = jailOverlay && !jailOverlay.classList.contains('hidden');
-      const isAnyModalActive = isCashModalOpen || isEventModalOpen || isJailModalOpen;
+      const airplaneOverlay = document.getElementById('monoAirplaneOverlay');
+      const isAirplaneModalOpen = airplaneOverlay && !airplaneOverlay.classList.contains('hidden');
+      const isAnyModalActive = isCashModalOpen || isEventModalOpen || isJailModalOpen || isAirplaneModalOpen;
 
       // When animations or modals are active, keep lastActivityTime fresh
       if (isAnyModalActive || monoState.stepIntervalId) {
@@ -11570,6 +12121,7 @@ function playMonoDiceTumbleSFX(durationMs) {
     }
 
     function initMonopolyGame() {
+      window.matchRewardClaimed = false;
       stopMonopolyTimers();
       if (monoState.mode === 'online' && window.mpRoomState?.currentRoom?.players) {
         const roomPlayers = window.mpRoomState.currentRoom.players;
@@ -12426,6 +12978,8 @@ function renderCashStackHTML(amount) {
 
       curPlayer.cash = 0;
       curPlayer.isBankrupt = true;
+      curPlayer.isManualBankrupt = true;
+      curPlayer.bankruptRound = (monoState && monoState.round) ? monoState.round : 1;
 
       // Transfer properties
       const creditor = (curPlayer.bankruptTo !== undefined && curPlayer.bankruptTo !== null) ? monoState.players[curPlayer.bankruptTo] : null;
@@ -12718,6 +13272,45 @@ function renderCashStackHTML(amount) {
       if (typeof recordMatchToProfileHistory === 'function') {
         recordMatchToProfileHistory(winnerPlayerId === 1, winnerName, (typeof scores !== 'undefined' && scores && scores[1]) || 0);
       }
+
+      // TRAO THƯỞNG HOÀN THÀNH TRẬN ĐẤU (DICE, CARO, CHESS)
+      if (activeTab === 'dice') {
+        if (!isSpectatorMode) {
+          const isHumanWin = Boolean(window.isOnlineRoomMatch
+            ? (winnerPlayerId === (window.myRoomPlayerIndex + 1))
+            : (winnerPlayerId === 1));
+          const isOnline = Boolean(window.isOnlineRoomMatch || (typeof currentOpponent !== 'undefined' && currentOpponent === 'online'));
+          const mult = isOnline ? 1.6 : (1 + ((typeof botCount !== 'undefined' ? botCount : 1) - 1) * 0.3);
+          window.awardMatchCompletionReward('dice', isHumanWin ? 'win' : 'loss', mult, isHumanWin ? 'Về đích đầu tiên Xúc Xắc 20 Ô' : 'Hoàn thành chặng đua Xúc Xắc 20 Ô');
+        }
+      } else if (activeTab === 'tictactoe') {
+        const isDraw = winnerName.includes('Hòa') || winnerName.includes('Draw');
+        let outcome = 'loss';
+        if (isDraw) {
+          outcome = 'draw';
+        } else {
+          const myName = (window.currentFirebaseUser && window.currentFirebaseUser.displayName) ? window.currentFirebaseUser.displayName : 'Người chơi X';
+          const isPlayerX = (typeof tttMode !== 'undefined' && tttMode === 'online') ? (window.myRoomPlayerIndex === 0) : true;
+          if (winnerName === myName || winnerName.includes('Người chơi X') || winnerName.includes('Quân X') || (isPlayerX && !winnerName.includes('Máy') && !winnerName.includes('Người chơi O') && !winnerName.includes('Quân O'))) {
+            outcome = 'win';
+          }
+        }
+        window.awardMatchCompletionReward('tictactoe', outcome, 1, outcome === 'win' ? 'Chiến thắng Ca-rô Neon' : (outcome === 'draw' ? 'Hòa ván Ca-rô' : 'Hoàn thành ván Ca-rô'));
+      } else if (activeTab === 'chess') {
+        const isDraw = winnerName.includes('Hòa') || winnerName.includes('Draw');
+        let outcome = 'loss';
+        if (isDraw) {
+          outcome = 'draw';
+        } else {
+          const wonWhite = winnerName.includes('Trắng') || winnerName.includes('White');
+          const wonBlack = winnerName.includes('Đen') || winnerName.includes('Black');
+          const myColor = (typeof chessPlayerColor !== 'undefined') ? chessPlayerColor : 'w';
+          if ((wonWhite && myColor === 'w') || (wonBlack && myColor === 'b')) {
+            outcome = 'win';
+          }
+        }
+        window.awardMatchCompletionReward('chess', outcome, 1, outcome === 'win' ? 'Chiếu bí đối thủ Cờ Vua' : (outcome === 'draw' ? 'Hòa ván Cờ Vua' : 'Hoàn thành ván Cờ Vua'));
+      }
       // 1. CHẾ ĐỘ QUAN SÁT (SPECTATOR MODE): BỎ HOÀN TOÀN POPUP KẾT THÚC VÁN (ẢNH 3)
       if (isSpectatorMode) {
         const miniLog = document.getElementById('miniLog');
@@ -12764,6 +13357,12 @@ function renderCashStackHTML(amount) {
 
     function handleReset() {
       closeModal('victoryModal');
+      window.matchRewardClaimed = false;
+      const vicBadge = document.getElementById('vicRewardBadge');
+      if (vicBadge) {
+        vicBadge.classList.add('hidden');
+        vicBadge.classList.remove('flex');
+      }
 
       if (activeTab === 'dice') {
         scores = { 1: 0, 2: 0, 3: 0, 4: 0 };
@@ -13670,6 +14269,7 @@ function renderCashStackHTML(amount) {
     }
 
     function resetChessGame() {
+      window.matchRewardClaimed = false;
       chessGame = new Chess();
       chessSelectedSquare = null;
       chessLegalMoves = [];

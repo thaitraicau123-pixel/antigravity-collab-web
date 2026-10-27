@@ -3267,7 +3267,7 @@
               <div class="w-full flex items-center justify-between z-10 text-[9px] sm:text-[10px]">
                 <div class="flex items-center gap-1.5 bg-[#0f172a]/90 px-3 py-1 rounded-xl border-2 border-white/80 font-black shadow-lg">
                   <span class="text-amber-400">🏆</span>
-                  <span class="text-white tracking-wide" id="monoTurnStatusText">VÒNG 1/15 • 44 Ô • MỤC TIÊU: $8,500</span>
+                  <span class="text-white tracking-wide" id="monoTurnStatusText">VÒNG 1/15 • BẢN ĐỒ 44 Ô • THÂU TÓM BĐS & PHÁ SẢN ĐỐI THỦ</span>
                 </div>
                 <div class="flex items-center gap-1.5">
                   <button onclick="event.stopPropagation(); restartMonopolyGame()" class="px-2.5 py-1 rounded-xl bg-[#0f172a]/90 hover:bg-slate-800 text-amber-300 font-black border-2 border-white/70 text-[10px] cursor-pointer shadow-md" title="Khởi động lại ván cờ">⏻ Ván Mới</button>
@@ -3279,7 +3279,7 @@
               <!-- Bottom Victory Progress Hint -->
               <div class="w-full flex items-center justify-center z-10 pointer-events-none">
                 <div class="px-3 py-0.5 rounded-full bg-[#0f172a]/80 border border-white/50 text-[8px] sm:text-[9px] font-extrabold text-amber-200 tracking-wider uppercase shadow">
-                  ⚡ Bản Đồ 44 Ô Mở Rộng (12x12) • Đạt $8,500 Tài Sản • Độc Quyền 4 Resort • Hoặc Phá Sản Đối Thủ!
+                  ⚡ Bản Đồ 44 Ô Mở Rộng (12x12) • Thâu Tóm Độc Quyền Resort • Phá Sản Đối Thủ Hoặc Dẫn Đầu Sau 15 Vòng!
                 </div>
               </div>
 
@@ -9235,7 +9235,7 @@
 
     const BUSINESS_TOUR_STARTING_CASH = 3500;
     const BUSINESS_TOUR_SALARY = 400;
-    const BUSINESS_TOUR_TARGET_NET_WORTH = 8500;
+    const BUSINESS_TOUR_TARGET_NET_WORTH = Infinity; // v4.0.9: Bỏ trần $8,500 - Chơi đến khi phá sản, độc quyền resort hoặc hết 15 vòng
     const BUSINESS_TOUR_MAX_ROUNDS = 15;
 
     let monoState = {
@@ -10203,7 +10203,7 @@
       if (t.isCorner) {
         levelEl.textContent = 'Ô ĐẶC BIỆT';
         levelEl.className = 'text-[9px] font-black text-amber-300 px-1.5 py-0.2 rounded bg-amber-400/20 border border-amber-400/40';
-        subEl.innerHTML = '<span class="text-amber-300 font-bold">' + (t.type === "start" ? "Nhận lương thương mại +$400" : (t.type === "jail" ? "Trại Giam Song Sắt (Bảo lãnh $250)" : (t.type === "airport" ? "World Tour Tân An (+$300 trợ cấp)" : "Bị bắt giam ngay lập tức!"))) + '</span>';
+        subEl.innerHTML = '<span class="text-amber-300 font-bold">' + (t.type === "start" ? "Nhận lương thương mại +$400" : (t.type === "jail" ? "Trại Giam Song Sắt (Bảo lãnh $250)" : (t.type === "airport" ? "World Tour Tân An (+$300 & bay ngẫu nhiên đến 1 ô bất kỳ)" : "Bị bắt giam ngay lập tức!"))) + '</span>';
         if (t.id === 22) {
           subEl.innerHTML += ' <button onclick="triggerMonoAirplaneFlyby({ player: monoState.players[monoState.turn], destTile: monoState.tiles[22] })" class="ml-2 px-2.5 py-0.5 rounded-lg bg-amber-400 text-slate-950 font-black text-[9px] hover:bg-yellow-300 cursor-pointer shadow-md border border-white pointer-events-auto">✈️ Bay Thử</button>';
         }
@@ -11229,25 +11229,28 @@ function playMonoDiceTumbleSFX(durationMs) {
         const finishDelay = Math.max(40, Math.round(750 / (window.monoSpeed || monoState.speed || 1)));
         monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), finishDelay);
       } else if (landedTile.type === 'airport') {
-        // World Tour Flight! Fly to a high-value unowned or upgradeable city + receive $300 bonus!
+        // World Tour Flight: Random destination on EVERY visit across all 44 tiles (v4.0.9)
         const bonus = 300;
         player.cash += bonus;
         triggerMonoFloatingCash(player.id, bonus);
         updateMonopolyHUD();
 
-        // Pick a strategic target tile for World Tour flight
-        const unownedCities = monoState.tiles.filter(t => (t.type === 'city' || t.type === 'station') && t.owner === null);
-        const destTile = unownedCities.length > 0
-          ? unownedCities[Math.floor(Math.random() * unownedCities.length)]
-          : monoState.tiles[32]; // TP.HCM
+        // Randomly pick ANY destination tile on the 44-tile board (excluding airport itself and jail)
+        const eligibleTiles = monoState.tiles.filter(t => t.id !== landedTile.id && t.type !== 'airport' && t.type !== 'gotojail');
+        const destTile = eligibleTiles.length > 0
+          ? eligibleTiles[Math.floor(Math.random() * eligibleTiles.length)]
+          : monoState.tiles[0];
 
         triggerMonoAirplaneFlyby({
           player: player,
           destTile: destTile,
           onComplete: () => {
-            showToast(`✈️ World Tour! ${player.name} nhận +$${bonus} và bay thẳng tới ${destTile.name}!`);
-            const finishDelay = Math.max(40, Math.round(750 / (window.monoSpeed || monoState.speed || 1)));
-            monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), finishDelay);
+            showToast(`✈️ WORLD TOUR: ${player.name} nhận +${bonus} và bay ngẫu nhiên tới ${destTile.name}!`);
+            if (typeof addBattleLog === 'function') {
+              addBattleLog(`✈️ <b>${player.name}</b> bay World Tour ngẫu nhiên tới <b>${destTile.name}</b>!`, 'warp');
+            }
+            // Trigger landing interaction on destination tile (buy/upgrade/rent/chance/start)!
+            handleMonoLanding(player);
           }
         });
       } else if (landedTile.type === 'chance' || landedTile.type === 'fate') {
@@ -11395,12 +11398,7 @@ function playMonoDiceTumbleSFX(durationMs) {
             declareMonoWinner(p, `🏖️ ĐỘC QUYỀN DU LỊCH! ${p.name} đã thâu tóm trọn bộ 3/3 Khu Nghỉ Dưỡng Biển!`);
             return;
           }
-          // 3. Check Net Worth Target Victory ($8,500)
-          const nw = getMonoPlayerNetWorth(p);
-          if (nw >= BUSINESS_TOUR_TARGET_NET_WORTH) {
-            declareMonoWinner(p, `💎 ĐẠI TỶ PHÚ! ${p.name} đã cán mốc mục tiêu Tổng Tài Sản $${BUSINESS_TOUR_TARGET_NET_WORTH.toLocaleString()}!`);
-            return;
-          }
+          // v4.0.9: Đã bỏ trần tiền $8,500 - Trận đấu tiếp tục đến khi phá sản hoặc hết 15 vòng!
         }
       }
 
@@ -11906,7 +11904,9 @@ function playMonoDiceTumbleSFX(durationMs) {
       const isEventModalOpen = eventOverlay && !eventOverlay.classList.contains('hidden');
       const jailOverlay = document.getElementById('monoJailGateOverlay');
       const isJailModalOpen = jailOverlay && !jailOverlay.classList.contains('hidden');
-      const isAnyModalActive = isCashModalOpen || isEventModalOpen || isJailModalOpen;
+      const airplaneOverlay = document.getElementById('monoAirplaneOverlay');
+      const isAirplaneModalOpen = airplaneOverlay && !airplaneOverlay.classList.contains('hidden');
+      const isAnyModalActive = isCashModalOpen || isEventModalOpen || isJailModalOpen || isAirplaneModalOpen;
 
       // When animations or modals are active, keep lastActivityTime fresh
       if (isAnyModalActive || monoState.stepIntervalId) {

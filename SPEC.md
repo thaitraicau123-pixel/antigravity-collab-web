@@ -950,3 +950,19 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
 - **Fix Bot AI Dice Rolling**: Sửa triệt để lỗi AI đổ xúc xắc bị chập chờn/kẹt do cơ chế tự cứu `runMonopolyWatchdog` trước đây có ngưỡng 1200ms quá ngắn so với thời gian lăn xúc xắc 1500ms + hoạt ảnh chuyển tiền 2300ms.
 - **Animation-Aware Watchdog Guard**: Bổ sung điều kiện bảo vệ tuyệt đối: Watchdog chỉ can thiệp khi Bot AI thực sự đứng lượt ở nút đổ (không đang lăn xúc xắc `!monoState.isRolling`, không đang nhảy ô `!monoState.stepIntervalId`, và không có modal chuyển tiền hay sự kiện nào đang chạy).
 - **Continuous Timestamp Refresh**: Cập nhật `monoState.lastActivityTime` xuyên suốt các giai đoạn của xúc xắc (1500ms lăn, 420ms chốt điểm) và chuyển tiền giúp ván đấu diễn ra mượt mà 100% không bao giờ bị ngắt quãng giữa chừng.
+
+### v4.0.9 (2026-10-27) - Random Destination World Tour & Removal of $8,500 Net Worth Ceiling
+- **Random Destination World Tour (Ô World Tour Sân Bay Bay Ngẫu Nhiên Mỗi Lượt)**:
+  - Mỗi khi bất kỳ người chơi nào đi vào ô Sân Bay Tân An (Tile ID 22), hệ thống tự động:
+    1. Cộng ngay tiền trợ cấp du lịch `+$300` vào tài khoản kèm hiệu ứng tiền bay nổi (`triggerMonoFloatingCash`).
+    2. Chọn ngẫu nhiên một ô đích đến hợp lệ trên toàn bộ bàn cờ 44 ô (`monoState.tiles.filter(t => t.id !== 22 && t.type !== 'airport' && t.type !== 'gotojail')`).
+    3. Kích hoạt hoạt ảnh chuyên cơ phản lực lướt qua bàn cờ (`triggerMonoAirplaneFlyby`) chở người chơi đến thẳng ô đích đã chọn.
+    4. Khi chuyên cơ hạ cánh tại ô đích ngẫu nhiên, lập tức kích hoạt tương tác hạ cánh của ô đó (`handleMonoLanding(player)`: Mua bất động sản còn trống, xây nâng cấp nhà/khách sạn, trả tiền thuê nếu vào đất đối thủ, rút thẻ Cơ Hội/Khí Vận, hoặc nhận lương START nếu bay trúng ô Khởi Hành).
+    5. Cập nhật Watchdog bảo vệ hoạt cảnh chuyến bay (`isAirplaneModalOpen`) để đảm bảo Bot AI không bị gián đoạn hay kẹt lượt.
+- **Bỏ Trần Thắng $8,500 (Removal of Net Worth Ceiling)**:
+  - Loại bỏ hoàn toàn mốc chiến thắng sớm $8,500 (`BUSINESS_TOUR_TARGET_NET_WORTH = Infinity`).
+  - Trận đấu tiếp tục gay cấn cho đến khi:
+    - Loại bỏ và làm phá sản đối thủ (Last Tycoon Standing).
+    - Thâu tóm độc quyền 3/3 Khu Nghỉ Dưỡng Biển (Resort Monopoly).
+    - Hoặc phân định ngôi vương bằng Tổng tài sản sau khi kết thúc trọn vẹn 15 vòng đấu đầy kịch tính!
+  - Cập nhật toàn bộ thanh trạng thái (`#monoTurnStatusText`), gợi ý chiến thắng và bảng thông báo luật cờ.

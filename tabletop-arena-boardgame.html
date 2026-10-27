@@ -64,22 +64,24 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
-      background-color: #071e17;
-      background-image: 
-        /* Stadium Top Floodlight Beam (Ánh đèn sân đấu rạng rỡ) */
-        radial-gradient(ellipse 75% 45% at 50% -5%, rgba(52, 211, 153, 0.28) 0%, rgba(16, 185, 129, 0.14) 50%, transparent 80%),
-        /* Championship Golden Trophy Glow (Ánh vàng cúp vô địch) */
-        radial-gradient(circle at 88% 18%, rgba(245, 158, 11, 0.16) 0%, transparent 42%),
-        /* Fresh Lime Turf Flare (Sân cỏ năng động rực rỡ) */
-        radial-gradient(circle at 12% 82%, rgba(132, 204, 22, 0.15) 0%, transparent 45%),
-        /* Ambient Center Stadium Pitch Glow */
-        radial-gradient(ellipse 65% 45% at 50% 50%, rgba(16, 185, 129, 0.09) 0%, transparent 70%),
-        /* Stadium Lawn Alternating Stripes (Sọc cỏ sân vận động thể thao) */
-        linear-gradient(180deg, rgba(16, 185, 129, 0.035) 50%, transparent 50%),
-        /* 2.5D Tactical Stadium Pitch Dots (Lưới tọa độ chiến thuật) */
-        radial-gradient(rgba(52, 211, 153, 0.22) 1.2px, transparent 1.2px);
-      background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 64px, 28px 28px;
-      background-attachment: fixed, fixed, fixed, fixed, fixed, fixed;
+      background-color: #F8FAFD;
+      /* Cartoon Gradients */
+      background-image:
+        /* 2D Cartoon Sunbeam Top Golden Aura (Ánh nắng rực rỡ 2D) */
+        radial-gradient(circle at 50% -5%, rgba(251, 191, 36, 0.18) 0%, rgba(253, 230, 138, 0.08) 42%, transparent 70%),
+        /* Playful Sky Cyan Aura (Quầng sáng anime xanh ngọc) */
+        radial-gradient(circle at 92% 16%, rgba(56, 189, 248, 0.14) 0%, transparent 40%),
+        /* Soft Sweet Pink Candy Aura (Sắc hồng kẹo ngọt pastel) */
+        radial-gradient(circle at 8% 82%, rgba(244, 114, 182, 0.12) 0%, transparent 42%),
+        /* Fresh Emerald Board Glow (Quầng sáng cỏ đấu trường 2D) */
+        radial-gradient(ellipse 70% 50% at 50% 52%, rgba(52, 211, 153, 0.10) 0%, transparent 75%),
+        /* Manga Comic Polka Dots (Chấm bi truyện tranh Nhật Bản 2D) */
+        radial-gradient(circle, rgba(148, 163, 184, 0.22) 1.5px, transparent 1.5px),
+        /* 2D Comic Boardgame Grid Lines (Lưới kẻ bàn cờ truyện tranh sắc nét) */
+        linear-gradient(90deg, rgba(226, 232, 240, 0.75) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(226, 232, 240, 0.75) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 24px 24px, 48px 48px, 48px 48px;
+      background-attachment: fixed, fixed, fixed, fixed, fixed, fixed, fixed;
     }
 
     /* Vietnamese Typography Excellence & Hierarchy */
@@ -281,12 +283,12 @@
 
     /* Tabletop Beveled Tile */
     .game-tile {
-      background: linear-gradient(145deg, #0e2920, #081d16);
-      border: 1px solid rgba(52, 211, 153, 0.15);
+      background: linear-gradient(145deg, #FFFFFF, #F1F5F9);
+      border: 2px solid #CBD5E1;
       box-shadow: 
-        0 4px 6px -1px rgba(0, 0, 0, 0.4),
-        0 2px 4px -2px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 4px 0 0 #94A3B8,
+        0 6px 12px -2px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
       transition: transform 0.22s var(--ease-soft), box-shadow 0.22s, border-color 0.2s;
     }
     @media (hover: hover) and (pointer: fine) {
@@ -305,12 +307,12 @@
 
     /* Dice Felt Tray */
     .dice-tray {
-      background: radial-gradient(circle, #0e2b21 0%, #061711 100%);
+      background: radial-gradient(circle, #FFFFFF 0%, #F1F5F9 100%);
       box-shadow: 
-        inset 0 4px 12px rgba(0, 0, 0, 0.8),
-        inset 0 0 0 2px rgba(217, 119, 6, 0.2),
-        0 8px 24px rgba(0, 0, 0, 0.6);
-      border: 2px solid #1c3e34;
+        inset 0 2px 6px rgba(15, 23, 42, 0.06),
+        0 4px 0 0 #CBD5E1,
+        0 8px 16px rgba(15, 23, 42, 0.08);
+      border: 2.5px solid #CBD5E1;
     }
 
     /* 3D Rolling Dice */
@@ -339,12 +341,60 @@
       box-shadow: 0 0 15px rgba(217, 119, 6, 0.08);
     }
     .tabletop-mat {
-      background: linear-gradient(180deg, rgba(13, 38, 30, 0.95) 0%, rgba(7, 24, 18, 0.98) 100%);
+      background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%) !important;
+      border: 2.5px solid #E2E8F0 !important;
+      border-radius: 1.5rem !important;
       box-shadow: 
-        0 20px 50px -10px rgba(0, 0, 0, 0.8),
-        0 0 0 1px rgba(52, 211, 153, 0.14),
-        0 0 35px -5px rgba(16, 185, 129, 0.15),
-        inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        0 6px 0 0 #CBD5E1,
+        0 14px 28px -4px rgba(15, 23, 42, 0.08),
+        inset 0 1px 2px rgba(255, 255, 255, 0.95) !important;
+      transition: transform 0.22s var(--ease-spring), box-shadow 0.22s var(--ease-spring), border-color 0.2s !important;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .tabletop-mat:hover {
+        transform: translateY(-5px) !important;
+        border-color: #F59E0B !important;
+        box-shadow: 
+          0 10px 0 0 #F59E0B,
+          0 20px 32px -4px rgba(245, 158, 11, 0.22),
+          inset 0 1px 2px rgba(255, 255, 255, 0.95) !important;
+      }
+    }
+    .tabletop-mat:active {
+      transform: translateY(2px) !important;
+      box-shadow: 0 3px 0 0 #CBD5E1 !important;
+    }
+
+    /* 2D Cartoon High-Contrast Typography & Stickers */
+    .tabletop-mat h3,
+    .tabletop-mat .font-cinzel {
+      color: #0F172A !important;
+      font-weight: 800 !important;
+    }
+    .tabletop-mat p {
+      color: #475569 !important;
+    }
+    .tabletop-mat .text-slate-300,
+    .tabletop-mat .text-slate-400 {
+      color: #334155 !important;
+    }
+
+    /* 2D Cartoon Main Lobby Hero Header & Badges */
+    #mainViewLobby h1 {
+      color: #0F172A !important;
+      filter: drop-shadow(0 3px 0 rgba(226, 232, 240, 0.95)) !important;
+    }
+    #mainViewLobby p.text-slate-300 {
+      color: #475569 !important;
+    }
+    .bg-board-tray {
+      background-color: #FFFFFF !important;
+      border-color: #E2E8F0 !important;
+      color: #1E293B !important;
+    }
+    .border-board-border { border-color: #E2E8F0 !important; } @media screen { .cartoon-2d-canvas {
+      border-color: #E2E8F0 !important;
+    }
     }
   
     /* Royal Chess Piece Styling */
@@ -1201,7 +1251,7 @@
 
   </style>
 </head>
-<body class="text-slate-100 min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black w-full max-w-full overflow-x-hidden">
+<body class="text-slate-800 min-h-screen flex flex-col antialiased selection:bg-amber-400 selection:text-slate-900 w-full max-w-full overflow-x-hidden">
 
   <!-- GLOBAL BESPOKE SVG GRADIENTS & ICON DEFINITIONS -->
   <svg id="globalSvgDefs" class="absolute w-0 h-0 overflow-hidden" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -1302,15 +1352,15 @@
   </div>
 
   <!-- ================= TOP NAVIGATION BAR ================= -->
-  <header class="sticky top-0 z-40 w-full bg-[#071e17]/90 backdrop-blur-xl border-b border-emerald-500/25 shadow-[0_4px_25px_rgba(4,120,87,0.15)] px-2 sm:px-4 lg:px-6 py-2.5">
+  <header class="sticky top-0 z-40 w-full bg-white/92 backdrop-blur-xl border-b-2 border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.06)] px-2 sm:px-4 lg:px-6 py-2.5">
     <div class="w-full max-w-[1600px] mx-auto px-2 sm:px-4 lg:px-6 flex items-center justify-between gap-2 sm:gap-4">
       
       <!-- Left: Brand Logo & Navigation Tabs -->
       <div class="flex items-center gap-3 sm:gap-5 shrink-0">
         <!-- Logo -->
         <div class="flex items-center gap-2.5 cursor-pointer group shrink-0" onclick="switchMainTab('lobby')" title="Về Sảnh Trò Chơi (Menu Chính)">
-          <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-600 to-amber-800 p-0.5 shadow-xl shadow-amber-600/30 flex items-center justify-center group-hover:scale-105 transition-transform" id="brandLogoIcon">
-            <div class="w-full h-full bg-[#071e17] rounded-[14px] flex items-center justify-center p-1 relative overflow-hidden">
+          <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 p-0.5 shadow-lg shadow-amber-500/25 flex items-center justify-center group-hover:scale-105 transition-transform" id="brandLogoIcon">
+            <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center p-1 relative overflow-hidden">
               <div class="absolute inset-0 bg-gradient-to-tr from-amber-500/10 via-transparent to-amber-300/20 pointer-events-none"></div>
               <svg viewBox="0 0 64 64" class="w-full h-full filter drop-shadow">
                 <defs>
@@ -1336,10 +1386,10 @@
             </div>
           </div>
           <div>
-            <span class="font-cinzel text-base sm:text-lg font-black tracking-wider text-white flex items-center gap-1.5">
-              TABLETOP<span class="text-amber-400">ARENA</span>
+            <span class="font-cinzel text-base sm:text-lg font-black tracking-wider text-slate-800 flex items-center gap-1.5">
+              TABLETOP<span class="text-amber-500">ARENA</span>
             </span>
-            <span class="text-[8px] sm:text-[9px] uppercase font-bold text-amber-500/80 tracking-widest block font-mono">
+            <span class="text-[8px] sm:text-[9px] uppercase font-bold text-amber-600/90 tracking-widest block font-mono">
               Grandmaster Board Club
             </span>
           </div>
@@ -1481,14 +1531,14 @@
       
       <!-- Lobby Hero Header -->
       <div class="w-full text-center mb-8 pt-2 relative">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold mb-3 shadow-inner">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-300 text-amber-700 text-xs font-bold mb-3 shadow-sm">
           <i data-lucide="crown" class="w-4 h-4 text-amber-400"></i>
           <span>GRANDMASTER GAME SELECTION HUB</span>
         </div>
-        <h1 class="font-cinzel text-3xl sm:text-5xl font-black text-white tracking-wide mb-3">
+        <h1 class="font-cinzel text-3xl sm:text-5xl font-black text-slate-900 drop-shadow-[0_4px_0_rgba(203,213,225,0.9)] tracking-wide mb-3">
           ĐẠI SẢNH <span class="bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 bg-clip-text text-transparent">TRÒ CHƠI</span>
         </h1>
-        <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto font-sans">
+        <p class="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto font-sans font-medium">
           Tuyển chọn các đấu trường cờ bàn thượng hạng. Chọn trò chơi bạn yêu thích để bắt đầu cuộc đấu trí cùng AI thông minh hoặc bạn bè!
         </p>
 
@@ -1503,7 +1553,7 @@
           </button>
         </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-2.5 mt-4 text-xs font-mono text-slate-300">
+        <div class="flex flex-wrap items-center justify-center gap-2.5 mt-4 text-xs font-mono text-slate-700 font-bold">
           <span class="px-2.5 py-1 rounded-xl bg-board-tray border border-board-border flex items-center gap-1.5 shadow-sm">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> 4 Đấu Trường Sẵn Sàng
           </span>
@@ -6331,10 +6381,59 @@
     // MATCH EXIT GUARD & CLEAN TERMINATION SYSTEM
     // =========================================================================
     window.pendingExitTargetTab = 'lobby';
+    window.hasPlayerActivelyPlayedInMatch = false;
     window.pendingSwitchGameTab = null;
 
     function isMatchInProgress() {
       if (window.currentMainTab !== 'arena') return false;
+
+      const currentTab = window.activeTab || (typeof activeTab !== 'undefined' ? activeTab : '');
+
+      if (currentTab === 'monopoly') {
+        if (window.monoState && (monoState.gameOver || monoState.isGameOver)) return false;
+        if (window.hasPlayerActivelyPlayedInMatch) return true;
+        if (window.monoState && !monoState.gameOver && !monoState.isGameOver) {
+          const hasActivity = (monoState.round > 1) || (monoState.turn > 0) ||
+            (Array.isArray(monoState.players) && monoState.players.some(p => (p.pos && p.pos > 0) || (p.properties && p.properties.length > 0))) ||
+            Boolean(monoState.isRolling);
+          if (hasActivity) return true;
+        }
+        return false;
+      }
+
+      if (currentTab === 'dice') {
+        const hasEnded = Object.values(scores || {}).some(s => s >= (typeof GOAL_SCORE !== 'undefined' ? GOAL_SCORE : 100));
+        if (hasEnded) return false;
+        if (window.hasPlayerActivelyPlayedInMatch) return true;
+        const hasStarted = Object.values(scores || {}).some(s => s > 0) ||
+          Object.values(positions || {}).some(p => p > 0) ||
+          Boolean(window.isDiceRolling);
+        return Boolean(hasStarted);
+      }
+
+      if (currentTab === 'chess') {
+        if (window.chessGame && typeof chessGame.game_over === 'function' && chessGame.game_over()) {
+          return false;
+        }
+        if (window.hasPlayerActivelyPlayedInMatch) return true;
+        if (window.chessGame && typeof chessGame.history === 'function') {
+          return chessGame.history().length > 0;
+        }
+        return false;
+      }
+
+      if (currentTab === 'tictactoe') {
+        if (window.tttGameOver) return false;
+        if (window.hasPlayerActivelyPlayedInMatch) return true;
+        if (Array.isArray(window.tttBoard) && window.tttBoard.some(c => c !== null && c !== '')) {
+          return true;
+        }
+        return false;
+      }
+
+      return false;
+      /* --- Old match checks superseded by smart action tracking --- */
+      /*
       if (activeTab === 'monopoly') {
         if (window.monoState && Array.isArray(monoState.players) && !monoState.gameOver && !monoState.isGameOver) return true;
         const mv = document.getElementById('monopolyView');
@@ -6377,7 +6476,8 @@
         const el = document.getElementById(id);
         return el && !el.classList.contains('hidden') && el.style.display !== 'none';
       });
-      if (anyGameVisible) return true;
+      */
+      return false;
       if (false) {
       }
       return false;
@@ -6386,6 +6486,7 @@
 
     function stopAllBackgroundGameProcesses() {
       window.isArenaGameTerminated = true;
+      window.hasPlayerActivelyPlayedInMatch = false;
 
       if (typeof stopMonopolyTimers === 'function') {
         stopMonopolyTimers();
@@ -6503,7 +6604,7 @@
     function requestExitArenaToLobby(targetTab) {
       window.pendingExitTargetTab = targetTab || 'lobby';
       window.pendingSwitchGameTab = null;
-      if (window.currentMainTab === 'arena' || (typeof isMatchInProgress === 'function' && isMatchInProgress())) {
+      if (typeof isMatchInProgress === 'function' && isMatchInProgress()) {
         const modal = document.getElementById('arenaExitConfirmModal');
         const card = document.getElementById('arenaExitConfirmCard');
         if (modal) {
@@ -6569,6 +6670,7 @@
 
     function terminateActiveGameCleanly(targetTab) {
       const dest = targetTab || 'lobby';
+      window.hasPlayerActivelyPlayedInMatch = false;
       stopAllBackgroundGameProcesses();
 
       // 1. Dừng ngay lập tức 100% các interval, timeout, animation loop, audio loop
@@ -9858,6 +9960,7 @@
     }
 
     async function rollDiceQuest(fixedRoll = null, isCrit = false) {
+      window.hasPlayerActivelyPlayedInMatch = true;
       if (isDiceRolling) return;
 
       const pName = getPlayerName(currentTurn);
@@ -10634,6 +10737,7 @@
     }
 
     function resetTTTGame() {
+      window.hasPlayerActivelyPlayedInMatch = false;
       window.matchRewardClaimed = false;
       tttBoard = Array(9).fill(null);
       tttTurn = 'X';
@@ -10673,6 +10777,7 @@
     }
 
     function handleTTTClick(idx) {
+      window.hasPlayerActivelyPlayedInMatch = true;
       if (tttBoard[idx] || tttGameOver) return;
 
       if (tttMode === 'online') {
@@ -10800,6 +10905,7 @@
     }
 
     function enterGameFromLobby(gameKey) {
+      window.hasPlayerActivelyPlayedInMatch = false;
       activeTab = gameKey;
       switchMainTab('arena');
       switchGameView(gameKey);
@@ -10876,7 +10982,14 @@
     };
 
     function switchMainTab(tab, force = false) {
-      if (!force && (window.currentMainTab === 'arena' || (typeof isMatchInProgress === 'function' && isMatchInProgress())) && tab !== 'arena') {
+      if (tab !== 'arena' && window.currentMainTab === 'arena') {
+        if (!force && typeof isMatchInProgress === 'function' && isMatchInProgress()) {
+          requestExitArenaToLobby(tab);
+          return;
+        }
+        stopAllBackgroundGameProcesses();
+      }
+      if (false) {
         requestExitArenaToLobby(tab);
         return;
       }
@@ -12936,6 +13049,7 @@ function playMonoDiceTumbleSFX(durationMs) {
       }, rollDuration);
     }
     function executeMono2dRoll() {
+      window.hasPlayerActivelyPlayedInMatch = true;
       if (monoState.isRolling) return;
       if (window.isOnlineRoomMatch && window.myRoomPlayerIndex !== monoState.turn) {
         showToast(`⏳ Chưa đến lượt bạn! Đang là lượt của ${monoState.players[monoState.turn]?.name}`);
@@ -14247,6 +14361,7 @@ function playMonoDiceTumbleSFX(durationMs) {
     }
 
     function initMonopolyGame() {
+      window.hasPlayerActivelyPlayedInMatch = false;
       window.matchRewardClaimed = false;
       stopMonopolyTimers();
       if (monoState.mode === 'online' && window.mpRoomState?.currentRoom?.players) {
@@ -15489,6 +15604,7 @@ function renderCashStackHTML(amount) {
       window.activeGameTab = tab;
       window.activeTab = tab;
       window.isArenaGameTerminated = false;
+      window.hasPlayerActivelyPlayedInMatch = false;
       if (!window.monoWatchdogInterval) {
         window.monoWatchdogInterval = setInterval(() => {
           try {
@@ -15782,6 +15898,7 @@ function renderCashStackHTML(amount) {
     }
 
     function handleReset() {
+      window.hasPlayerActivelyPlayedInMatch = false;
       closeModal('victoryModal');
       window.matchRewardClaimed = false;
       const vicBadge = document.getElementById('vicRewardBadge');
@@ -16834,6 +16951,7 @@ function renderCashStackHTML(amount) {
     }
 
     function resetChessGame() {
+      window.hasPlayerActivelyPlayedInMatch = false;
       window.matchRewardClaimed = false;
       chessGame = new Chess();
       chessSelectedSquare = null;
@@ -17364,6 +17482,7 @@ function renderCashStackHTML(amount) {
 
       // Execute real move
       const move = chessGame.move({ from, to, promotion });
+      window.hasPlayerActivelyPlayedInMatch = true;
       chessLastMove = { from, to };
 
       if (targetPiece) {

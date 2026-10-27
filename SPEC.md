@@ -1035,3 +1035,35 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
          - **Chế độ Fullscreen**: Cụm trên đặt `top: 158px !important;`, cụm dưới đặt `bottom: 118px !important;`.
        - Kết quả: Tạo khoảng cách cố định rộng **22-25px** giữa thẻ người chơi và túi tiền ở cả 4 góc. Toàn bộ miệng túi nhung, ánh hào quang, thỏi xu vàng và bệ nhãn hiển thị trọn vẹn 100%, không còn bất kỳ sự chồng đè nào.
   - **Bảo toàn 100% điều kiện 4 góc**: Cả 4 góc bàn cờ (START, ALCATRAZ, AIRPORT, INTERPOL) tiếp tục nằm trọn vẹn 100% bên trong khung nhìn màn hình.
+
+### v4.1.4 (2026-10-27) - 3D Isometric Architecture, 3D Figurine Pawns, 3D Supersonic Jet Airliner & Precision Viewport Layout
+- **Thanh Thông Tin Đất Nâng Sát Mép Trên (#monoTopTileInspector)**:
+  - Nâng thanh HUD Inspector lên sát mép trên màn hình (`top: 2px !important;`), viền bo siêu mỏng và padding tối ưu (`py-1 px-3.5`).
+  - Mở rộng khoảng cách đệm không gian giữa mép đáy thanh HUD và đỉnh ô Sân Bay lên **>40px**, tạo tầm nhìn thoáng đãng tuyệt đối cho toàn bộ bàn cờ.
+- **Tối Ưu Phóng To Bàn Cờ & Kéo Xuống Nhẹ**:
+  - Bàn cờ phóng to tối đa theo tỷ lệ an toàn:
+    - **Fullscreen**: `width: min(79vh, 65vw, 850px)`, `transform: perspective(1400px) rotateX(28deg) rotateZ(25deg) translateY(-2.5%) scale(0.82) !important;`.
+    - **Chế độ Thường**: `width: min(67vh, 53vw, 750px)`, `transform: perspective(1400px) rotateX(28deg) rotateZ(25deg) translateY(-1%) scale(0.79)`.
+  - **Đảm bảo 100% 4 góc nằm trọn vẹn trong màn hình**:
+    - Ô **START (Vạch Xuất Phát)** ở góc dưới: Trọn vẹn trong màn hình, cách mép dưới 20-25px.
+    - Ô **ALCATRAZ (Trại Giam)** ở góc trái: Nằm trọn vẹn với mô hình Tháp Canh 3D đá xám, song sắt và đèn hải đăng đỏ.
+    - Ô **SÂN BAY QUỐC TẾ (World Tour)** ở góc trên: Nằm trọn vẹn với mô hình Chuyên Cơ Phản Lực Siêu Thanh 3D.
+    - Ô **INTERPOL (Bắt Giam)** ở góc phải: Nằm trọn vẹn với xích sắt và còng số 8.
+- **Nâng Cấp Toàn Diện Mô Hình 3D Nổi Khối Lập Thể (True 3D Isometric Pop-up Models)**:
+  1. **Chuyên Cơ Phản Lực Siêu Thanh 3D (`get3DAirplaneSVG`)**:
+     - Thân vỏ hợp kim hàng không ánh kim đa sắc, buồng lái kính vòm cyan phản quang với bóng lóa gương.
+     - Cánh xuôi siêu thanh mạ viền sáng, 2 động cơ phản lực đôi dưới cánh, đuôi đứng vàng kim rực rỡ và bóng đổ 3D sâu trên bề mặt đường băng.
+     - Hiệu ứng animation bay lượn lơ lửng nhẹ nhàng `monoFloatJetAirliner`.
+  2. **Quân Cờ Người Chơi 3D Figurine Bệ Hoàng Kim (`getBusinessTourCharacterSVG`)**:
+     - Dựng đứng vuông góc với bề mặt bàn cờ 2.5D thông qua phép biến hình phản xoay (`rotateZ(-25deg) rotateX(-28deg) translateZ(26px)`).
+     - Búp bê tượng cờ nhân vật 3D nổi khối lập thể với đầu tròn, mắt lấp lánh phản quang, trang phục đặc trưng từng nhân vật (Mũ trùm nhung đỏ Tiên, Vương miện Kỳ Lân, Sừng rồng đỏ Rồng Lửa, Kính phi công & vest Tổng Tài).
+     - Bệ cờ hoàng kim 3 tầng đế đúc (Gold Tiered Pedestal) có bóng đổ tiếp xúc 3D chân thực trên mặt cỏ.
+  3. **Hệ Thống Kiến Trúc Nhà 3D Nổi Khối Isometric (`getBusinessTourHouseSVG`)**:
+     - **Cấp 1 - Biệt Thự Sân Vườn (Cottage Villa)**: Tường gạch lập thể 2 mặt sáng/tối, mái vát dập nổi viền ngói, ống khói gạch nung nghi ngút khói trắng, cây cảnh bonsai 3D trước hiên nhà.
+     - **Cấp 2 - Dinh Thự Song Lập (Duplex Townhouse)**: 2 tầng nổi khối, ban công kính lan can viền vàng sang trọng, cửa sổ mái hiên vòm, hồ bơi lát gạch lam ngọc mini bên hiên.
+     - **Cấp 3 - Khách Sạn Chọc Trời (Royal Skyscraper Hotel)**: Tòa cao ốc kính hiện đại với các dải đèn LED kính xanh, mái Penthouse vát kim cương vàng hoàng gia, bảng hiệu "HOTEL" phát quang và cột ăng-ten đèn beacon hàng không nhấp nháy đỏ.
+     - **Resort - Đảo Biệt Lập Nhiệt Đới (Tropical Beach Resort)**: Bungalow sàn gỗ mái lá cọ 3D, bãi cát trắng mịn thoai thoải, rặng dừa nhiệt đới 3D và làn sóng biển lam ngọc vỗ bờ.
+- **Khôi Phục & Đồng Bộ 100%**:
+  - Khôi phục hàm `getPrisonCornerSVG()` hiển thị tháp canh trại giam 3D Alcatraz, đảm bảo 44 ô cờ render toàn diện không lỗi.
+  - Kiểm tra cú pháp AST `verify_syntax_v385.js` đạt **PASS 100%**.
+  - Kiểm tra tính toàn vẹn SHA-256 Parity đồng nhất trên cả 3 file HTML.

@@ -893,3 +893,30 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
     - Nếu đủ năng lực: Tự động kích hoạt Bảng Cứu Nguy Nợ để người chơi bán nhà/thế chấp gom đủ tiền trả nợ, tránh bị xử thua oan uổng.
     - Đối với Bot AI: Tự động thanh lý nhà cấp cao và thế chấp tài sản để thanh toán tiền thuê mượt mà.
     - Cung cấp nút `🏳️ Phá Sản` chủ động khi kỳ thủ muốn đầu hàng danh dự.
+
+### v4.0.0 (2026-10-27) - Chuẩn Hóa Màn Hình 16:9 Widescreen & Tính Năng Toàn Màn Hình (Fullscreen Theater Mode)
+
+- **Tính Năng Toàn Màn Hình (Fullscreen Theater Mode API & Phím Tắt)**:
+  - **Tích Hợp HTML5 Fullscreen API Đa Nền Tảng**:
+    - Gọi chuẩn `requestFullscreen` (kèm vendor prefix fallbacks `webkitRequestFullscreen`, `msRequestFullscreen`) và `exitFullscreen`.
+    - Tích hợp nút **`⛶ Toàn Màn Hình`** tại thanh điều khiển Monopoly phía trên (`#btnMonoFullscreenHeader`) và nút icon **`⛶`** trực tiếp trên bảng điểm điện tử trung tâm bàn cờ (`#btnMonoFullscreenArena`).
+  - **Chế Độ Rạp Chiếu Phim (Theater Mode Class `.mono-fullscreen-active`)**:
+    - Khi kích hoạt Fullscreen, website tự động ẩn sạch sẽ Header Navbar, Footer, Banner bảo trì, và Bảng điều khiển trận đấu để dành trọn vẹn 100vw × 100vh cho bàn đấu cờ tỷ phú.
+    - Nền Radial Gradient siêu thực sâu thẳm (`#0d192e` → `#050a14` → `#020408`) tạo cảm giác như ngồi trước đấu trường chuyên nghiệp eSports.
+  - **Nút Thoát Nổi & Bàn Phím Tắt Tiện Lợi**:
+    - Nút thoát nổi góc trên bên phải: **`✕ Thu Nhỏ (Esc)`** (`#btnMonoExitFullscreen`), tự động căn chỉnh khoảng cách an toàn với thẻ người chơi góc trên.
+    - Hỗ trợ phím tắt bàn phím: Nhấn phím **`F`** để bật/tắt toàn màn hình nhanh; nhấn **`Esc`** để thu nhỏ về giao diện thường.
+    - Lắng nghe sự kiện hệ thống `fullscreenchange` và `webkitfullscreenchange` để đồng bộ tức thì trạng thái nút bấm khi người dùng nhấn Esc của trình duyệt.
+    - Hỗ trợ mở trực tiếp toàn màn hình qua URL: `?game=monopoly&fullscreen=1`.
+
+- **Kiến Trúc Bố Cục Chuẩn 16:9 Widescreen (Zero-Scroll Guarantee - 100% Khớp Trong 1 Màn Hình)**:
+  - **Khắc phục triệt để lỗi cuộn dọc (Zero-Scroll)**:
+    - Loại bỏ hoàn toàn thanh cuộn dọc khi chơi Cờ Tỷ Phú (`body.mono-view-active { overflow-y: hidden !important; }`).
+    - Tính toán chiều cao khả dụng chính xác cho `#monopolyView`: `height: calc(100vh - 215px); min-height: 480px; max-height: 880px; overflow: hidden;`.
+    - Sửa lỗi thẻ `#arenaMatchConsole` không đóng thẻ `</div>`, giúp thanh công cụ trở về chiều cao thanh mảnh 50px thay vì phình to 973px đè nén bàn cờ.
+  - **Co Giãn Bàn Cờ Động Theo Tỷ Lệ Chiều Dọc (`Dynamic Height-Bounded Scaling`)**:
+    - Bàn cờ 12×12 (`#mono2dBoardWrapper`) co giãn động theo công thức: `width: min(58vh, 44vw, 620px); height: min(58vh, 44vw, 620px); aspect-ratio: 1 / 1;` (trong Fullscreen: `min(74vh, 52vw, 760px)`).
+    - Nhờ góc nghiêng 2.5D Isometric (`rotateX(30deg) rotateZ(25deg) scale(0.82)`), chiều cao thực của khối kim cương chỉ chiếm ~380px–420px, để lại khoảng đệm an toàn rộng rãi phía trên cho HUD Inspector và phía dưới cho 2 thẻ người chơi P2 & P3.
+  - **Hệ Thống Cánh 2 Bên Cân Đối 16:9 (Symmetrical 16:9 Side Wings)**:
+    - 4 góc người chơi (`#monoCornerPod_0..3`) được phân bổ theo 2 cánh cân xứng: Cánh Trái (P0 Tiên & P2 Rồng Lửa) và Cánh Phải (P1 Kỳ Lân & P3 Tổng Tài) ôm sát bàn cờ (`lg:left-8 xl:left-14`, `lg:right-8 xl:right-14`), không bị dạt ra quá xa mép màn hình.
+    - 4 Chồng tiền 3D biến đổi động (`#monoSideCashPile_0..3`) nằm đồng bộ bên cạnh thẻ người chơi (`top-[16%]` / `bottom-[15%]`), tạo nên bố cục 16:9 hài hòa, sang trọng và chuẩn game AAA.

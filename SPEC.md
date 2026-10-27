@@ -920,3 +920,20 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
   - **Hệ Thống Cánh 2 Bên Cân Đối 16:9 (Symmetrical 16:9 Side Wings)**:
     - 4 góc người chơi (`#monoCornerPod_0..3`) được phân bổ theo 2 cánh cân xứng: Cánh Trái (P0 Tiên & P2 Rồng Lửa) và Cánh Phải (P1 Kỳ Lân & P3 Tổng Tài) ôm sát bàn cờ (`lg:left-8 xl:left-14`, `lg:right-8 xl:right-14`), không bị dạt ra quá xa mép màn hình.
     - 4 Chồng tiền 3D biến đổi động (`#monoSideCashPile_0..3`) nằm đồng bộ bên cạnh thẻ người chơi (`top-[16%]` / `bottom-[15%]`), tạo nên bố cục 16:9 hài hòa, sang trọng và chuẩn game AAA.
+
+### v4.0.5 (2026-10-27) - Xúc Xắc 3D Đen Bóng Chấm Trắng (3D Obsidian Pip Dice) & Nhịp Điệu Xoay Hồi Hộp 3 Giai Đoạn
+
+- **Khối Lập Phương Xúc Xắc 3D 6 Mặt Chấm Trắng (`preserve-3d` Glossy Obsidian Pip Cubes)**:
+  - Thay thế hoàn toàn 2 ô số phẳng bằng **2 khối lập phương 3D 6 mặt thật (`#monoDieCube1`, `#monoDieCube2`)** thiết kế theo mẫu xúc xắc đen bóng gương (`#04070e` → `#293548`), viền kính phản quang ánh bạc (`.mono-die-face::before`) và **các chấm tròn trắng phát sáng (`.mono-pip`)** bố trí chuẩn xác trên lưới 3×3 từ 1 chấm đến 6 chấm.
+  - Bổ sung lõi đặc `.mono-die-core` bên trong khối lập phương để khi xoay 3D ở mọi góc nghiêng luôn giữ độ đặc khối sắc nét.
+
+- **Nhịp Điệu Lăn Xúc Xắc Hồi Hộp 3 Giai Đoạn (`animateMono3DDiceRoll` - Loại Bỏ Nháy Số Lộ Kết Quả)**:
+  - **Giai đoạn 1 — Tung Xúc Xắc & Xoay Đa Trục 3D (~920ms ở tốc độ 1x)**:
+    - Khi bấm **ĐỔ XÚC XẮC** (hoặc phím `Space`), 2 viên xúc xắc bật nhảy lên không trung (`.mono-die-bouncing`) và xoay lộn nhào 3–4 vòng đa trục (`1080°–1440°` trên trục X, Y, Z) kèm hào quang **Cyan Electric Aura (`.mono-tray-rolling-aura`)** rực sáng quanh khay.
+    - Trong suốt lúc xúc xắc đang xoay, ô `Tổng` chuyển sang trạng thái chờ hồi hộp `ĐANG LĂN •••` (tuyệt đối không nháy số hay lộ kết quả trước).
+    - Phát chuỗi âm thanh xúc xắc va chạm giảm tốc dần (`playMonoDiceTumbleSFX`).
+  - **Giai đoạn 2 — Hạ Cánh & Khóa Mặt Chấm (~240ms)**:
+    - Hai khối lập phương giảm tốc mượt mà theo đường cong vật lý `cubic-bezier(0.15, 0.88, 0.28, 1.08)`, dừng chuẩn xác tại góc nghiêng 3D Isometric của mặt chấm `d1` và `d2`.
+    - Khay xúc xắc lóe sáng (`.mono-tray-impact`), phát âm thanh chốt điểm đanh gọn và lúc này mới bung số `Tổng` (kèm hiệu ứng `⚡ ĐÔI!` nếu đổ đôi).
+  - **Giai đoạn 3 — Nhân Vật Bắt Đầu Nhảy Ô**:
+    - Sau nhịp nghỉ ngắn 240ms để người chơi chiêm ngưỡng mặt chấm vừa dừng lại, nhân vật mới bắt đầu di chuyển từng bước trên bàn cờ.

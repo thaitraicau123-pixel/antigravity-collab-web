@@ -531,16 +531,165 @@
       animation: pulseGoldGlow 1.8s infinite;
     }
 
-    /* Dice 3D Roll Shake */
-    @keyframes monoDiceShake {
-      0% { transform: rotate(0deg) scale(1); }
-      25% { transform: rotate(-25deg) scale(1.15); }
-      50% { transform: rotate(20deg) scale(0.9); }
-      75% { transform: rotate(-15deg) scale(1.1); }
-      100% { transform: rotate(0deg) scale(1); }
+    /* =========================================================================
+       3D GLOSSY OBSIDIAN PIP DICE CUBE & CYAN AURA TUMBLE PHYSICS (v4.0.5)
+       ========================================================================= */
+    .mono-die-scene {
+      width: 44px;
+      height: 44px;
+      perspective: 320px;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
     }
-    .mono-dice-rolling {
-      animation: monoDiceShake 0.45s ease-in-out infinite;
+
+    .mono-die-cube {
+      width: 44px;
+      height: 44px;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(-14deg) rotateY(16deg) rotateZ(0deg);
+      transition: transform 0.92s cubic-bezier(0.15, 0.88, 0.28, 1.08);
+      will-change: transform;
+    }
+
+    /* Inner solid obsidian core to prevent corner gap bleed during 3D rotation */
+    .mono-die-core {
+      position: absolute;
+      inset: 3px;
+      background: #020617;
+      border-radius: 6px;
+      transform: translateZ(0px);
+      pointer-events: none;
+    }
+
+    .mono-die-face {
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      border-radius: 9px;
+      background: radial-gradient(circle at 30% 25%, #293548 0%, #0d131f 48%, #04070e 86%, #010206 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.34);
+      border-top-color: rgba(255, 255, 255, 0.68);
+      border-left-color: rgba(255, 255, 255, 0.56);
+      box-shadow:
+        inset 0 2px 4px rgba(255, 255, 255, 0.48),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.95),
+        0 0 10px rgba(34, 211, 238, 0.22);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      padding: 5.5px;
+      place-items: center;
+      backface-visibility: visible;
+      overflow: hidden;
+    }
+
+    /* High-gloss diagonal specular sheen matching reference photo */
+    .mono-die-face::before {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      border-radius: 7.5px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.08) 28%, transparent 48%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* 6 3D Cube Face Transforms (half-size = 22px) */
+    .mono-die-face.face-1 { transform: rotateY(0deg) translateZ(22px); }
+    .mono-die-face.face-6 { transform: rotateY(180deg) translateZ(22px); }
+    .mono-die-face.face-2 { transform: rotateX(90deg) translateZ(22px); }
+    .mono-die-face.face-5 { transform: rotateX(-90deg) translateZ(22px); }
+    .mono-die-face.face-3 { transform: rotateY(90deg) translateZ(22px); }
+    .mono-die-face.face-4 { transform: rotateY(-90deg) translateZ(22px); }
+
+    /* Pure White Glowing Recessed Pips (Chấm Trắng 3D) */
+    .mono-pip {
+      width: 7.5px;
+      height: 7.5px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ffffff 0%, #f8fafc 68%, #cbd5e1 100%);
+      box-shadow:
+        0 0 5px rgba(255, 255, 255, 0.95),
+        0 1px 2px rgba(0, 0, 0, 0.85),
+        inset 0 -1px 1.5px rgba(100, 116, 139, 0.45);
+      z-index: 2;
+      display: block;
+    }
+
+    /* Center pip on Face 1 is slightly larger & extra radiant */
+    .mono-die-face.face-1 .mono-pip {
+      width: 9.5px;
+      height: 9.5px;
+      box-shadow: 0 0 8px #ffffff, 0 0 14px rgba(56, 189, 248, 0.9), 0 1px 2px rgba(0, 0, 0, 0.85);
+    }
+
+    /* 3x3 Grid Positions for Pips */
+    .pip-tl { grid-area: 1 / 1; }
+    .pip-tc { grid-area: 1 / 2; }
+    .pip-tr { grid-area: 1 / 3; }
+    .pip-ml { grid-area: 2 / 1; }
+    .pip-mc { grid-area: 2 / 2; }
+    .pip-mr { grid-area: 2 / 3; }
+    .pip-bl { grid-area: 3 / 1; }
+    .pip-bc { grid-area: 3 / 2; }
+    .pip-br { grid-area: 3 / 3; }
+
+    /* Airborne Parabolic Hop & Cyan Backlight Burst during Roll */
+    @keyframes monoDieAirborneHop {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.7));
+      }
+      28% {
+        transform: translate3d(0, -20px, 0) scale(1.22);
+        filter: drop-shadow(0 0 18px rgba(34, 211, 238, 0.95)) drop-shadow(0 18px 14px rgba(0, 0, 0, 0.85));
+      }
+      58% {
+        transform: translate3d(0, 3px, 0) scale(1.04);
+        filter: drop-shadow(0 0 14px rgba(34, 211, 238, 0.8)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8));
+      }
+      76% {
+        transform: translate3d(0, -8px, 0) scale(1.1);
+        filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.85)) drop-shadow(0 10px 10px rgba(0, 0, 0, 0.8));
+      }
+      100% {
+        transform: translate3d(0, 0, 0) scale(1);
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.75));
+      }
+    }
+
+    .mono-die-bouncing {
+      animation: monoDieAirborneHop 0.92s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    }
+
+    /* Cyan Electric Aura on Dice Tray during Rolling */
+    .mono-tray-rolling-aura {
+      border-color: #22d3ee !important;
+      box-shadow:
+        0 0 35px rgba(34, 211, 238, 0.9),
+        0 0 70px rgba(6, 182, 212, 0.55),
+        inset 0 0 24px rgba(34, 211, 238, 0.38) !important;
+      background: radial-gradient(circle at 50% 50%, rgba(8, 51, 68, 0.95) 0%, rgba(5, 10, 20, 0.98) 80%) !important;
+    }
+
+    /* Settled Impact Flash when Dice Lock In */
+    @keyframes monoTrayImpactFlash {
+      0% {
+        box-shadow: 0 0 45px rgba(250, 204, 21, 0.95), 0 0 80px rgba(34, 211, 238, 0.8), inset 0 0 25px rgba(250, 204, 21, 0.5);
+        transform: scale(1.07);
+      }
+      100% {
+        box-shadow: 0 0 25px rgba(245, 158, 11, 0.5);
+        transform: scale(1);
+      }
+    }
+
+    .mono-tray-impact {
+      animation: monoTrayImpactFlash 0.38s ease-out forwards;
     }
 
   
@@ -883,7 +1032,7 @@
 
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v4.0.0</span>
+          <span id="headerVersionPill" class="font-bold">v4.0.5</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -2923,13 +3072,48 @@
         <div id="monoCenterControls" class="absolute inset-0 flex items-center justify-center pointer-events-none z-30 select-none">
           <div class="flex flex-col items-center justify-center gap-2.5 sm:gap-3 pointer-events-auto">
             
-            <!-- Clickable 3D Dice Tray (Tap to Roll) -->
-            <div onclick="executeMono2dRoll()" id="monoDiceTrayBox" class="flex items-center gap-2.5 bg-[#050A14]/95 px-4 py-2 rounded-2xl border-2 border-amber-400 shadow-[0_0_25px_rgba(245,158,11,0.5)] backdrop-blur-md cursor-pointer hover:border-yellow-300 hover:scale-105 active:scale-95 transition-all select-none touch-manipulation group" title="Bấm vào hộp xí ngầu hoặc nhấn Space để gieo">
-              <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-red-500 via-rose-600 to-red-700 text-white font-black flex items-center justify-center text-lg sm:text-xl shadow-[inset_0_2px_4px_rgba(255,255,255,0.4)] border border-white/50 group-hover:rotate-6 transition-transform" id="monoDice1Val">5</div>
-              <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-red-500 via-rose-600 to-red-700 text-white font-black flex items-center justify-center text-lg sm:text-xl shadow-[inset_0_2px_4px_rgba(255,255,255,0.4)] border border-white/50 group-hover:-rotate-6 transition-transform" id="monoDice2Val">4</div>
-              <div class="flex flex-col items-center pl-2 border-l border-white/20">
-                <span class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Tổng</span>
-                <span class="text-base sm:text-lg font-black text-amber-400 font-chakra" id="monoDiceSumVal">9</span>
+            <!-- Clickable 3D Glossy Obsidian Pip Dice Tray (Tap to Roll - v4.0.5) -->
+            <div onclick="executeMono2dRoll()" id="monoDiceTrayBox" class="flex items-center gap-3.5 bg-[#050A14]/95 px-5 py-2.5 rounded-2xl border-2 border-cyan-400/80 shadow-[0_0_28px_rgba(6,182,212,0.45)] backdrop-blur-md cursor-pointer hover:border-cyan-300 hover:scale-105 active:scale-95 transition-all select-none touch-manipulation group" title="Bấm vào khay xúc xắc 3D hoặc nhấn Space để tung xúc xắc">
+              <!-- Hidden numeric holders for 100% P2P sync compatibility -->
+              <span id="monoDice1Val" class="hidden">6</span>
+              <span id="monoDice2Val" class="hidden">4</span>
+              <div class="mono-die-scene" id="monoDieCube1Scene">
+                <div class="mono-die-cube" id="monoDieCube1" style="transform: rotateX(-14deg) rotateY(196deg) rotateZ(0deg);">
+                  <div class="mono-die-core"></div>
+                  <!-- Face 1 (1 dot) -->
+                  <div class="mono-die-face face-1"><span class="mono-pip pip-mc"></span></div>
+                  <!-- Face 6 (6 dots) -->
+                  <div class="mono-die-face face-6"><span class="mono-pip pip-tl"></span><span class="mono-pip pip-tr"></span><span class="mono-pip pip-ml"></span><span class="mono-pip pip-mr"></span><span class="mono-pip pip-bl"></span><span class="mono-pip pip-br"></span></div>
+                  <!-- Face 2 (2 dots) -->
+                  <div class="mono-die-face face-2"><span class="mono-pip pip-tl"></span><span class="mono-pip pip-br"></span></div>
+                  <!-- Face 5 (5 dots) -->
+                  <div class="mono-die-face face-5"><span class="mono-pip pip-tl"></span><span class="mono-pip pip-tr"></span><span class="mono-pip pip-mc"></span><span class="mono-pip pip-bl"></span><span class="mono-pip pip-br"></span></div>
+                  <!-- Face 3 (3 dots) -->
+                  <div class="mono-die-face face-3"><span class="mono-pip pip-tl"></span><span class="mono-pip pip-mc"></span><span class="mono-pip pip-br"></span></div>
+                  <!-- Face 4 (4 dots) -->
+                  <div class="mono-die-face face-4"><span class="mono-pip pip-tl"></span><span class="mono-pip pip-tr"></span><span class="mono-pip pip-bl"></span><span class="mono-pip pip-br"></span></div>
+                </div>
+              </div>
+              <div class="mono-die-scene" id="monoDieCube2Scene">
+                <div class="mono-die-cube" id="monoDieCube2" style="transform: rotateX(-14deg) rotateY(106deg) rotateZ(0deg);">
+                  <div class="mono-die-core"></div>
+                  <!-- Face 1 (1 dot) -->
+                  <div class="mono-die-face face-1"><span class="mono-pip pip-mc"></span></div>
+                  <!-- Face 6 (6 dots) -->
+                  <div class="mono-die-face face-6"><span class="mono-pip pip-tl"></span><span class="mono-pip pip-tr"></span><span class="mono-pip pip-ml"></span><span class="mono-pip pip-mr"></span><span class="mono-pip pip-bl"></span><span class="mono-pip pip-br"></span></div>
+                  <!-- Face 2 (2 dots) -->
+                  <div class="mono-die-face face-2"><span class="mono-pip pip-tl"></span><span class="mono-pip pip-br"></span></div>
+                  <!-- Face 5 (5 dots) -->
+                  <div class="mono-die-face face-5"><span class="mono-pip pip-tl"></span><span class="mono-pip pip-tr"></span><span class="mono-pip pip-mc"></span><span class="mono-pip pip-bl"></span><span class="mono-pip pip-br"></span></div>
+                  <!-- Face 3 (3 dots) -->
+                  <div class="mono-die-face face-3"><span class="mono-pip pip-tl"></span><span class="mono-pip pip-mc"></span><span class="mono-pip pip-br"></span></div>
+                  <!-- Face 4 (4 dots) -->
+                  <div class="mono-die-face face-4"><span class="mono-pip pip-tl"></span><span class="mono-pip pip-tr"></span><span class="mono-pip pip-bl"></span><span class="mono-pip pip-br"></span></div>
+                </div>
+              </div>
+              <div class="flex flex-col items-center pl-3 border-l border-white/20 min-w-[44px]">
+                <span class="text-[9px] text-cyan-300/90 font-bold uppercase tracking-wider" id="monoDiceSumLabel">Tổng</span>
+                <span class="text-base sm:text-xl font-black text-amber-400 font-chakra transition-transform duration-200" id="monoDiceSumVal">10</span>
               </div>
             </div>
 
@@ -3586,7 +3770,7 @@
             </button>
           </div>
         </div>
-      </div></div>
+      </div>
 
     </div>
   </div>
@@ -4390,7 +4574,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v4.0.0</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v4.0.5</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -6059,13 +6243,7 @@
         bg: '#0F172A', stroke: '#F59E0B', innerStroke: '#FDE68A', dotFill: '#F59E0B', dotStroke: '#FEF08A', glow: 'rgba(245, 158, 11, 0.7)', critFill: '#EF4444'
       };
       if (!roll || roll < 1 || roll > 6) {
-        return `<svg viewBox="0 0 64 64" class="w-12 h-12 sm:w-14 sm:h-14 filter drop-shadow">
-          <rect x="6" y="6" width="52" height="52" rx="14" fill="#1E293B" stroke="#F59E0B" stroke-width="3"/>
-          <circle cx="32" cy="32" r="7" fill="#F59E0B" opacity="0.25"/>
-          <path d="M32 16 L34 24 L42 26 L34 28 L32 36 L30 28 L22 26 L30 24 Z" fill="#FDE68A"/>
-          <circle cx="20" cy="20" r="3" fill="#D97706"/>
-          <circle cx="44" cy="44" r="3" fill="#D97706"/>
-        </svg>`;
+        roll = 6; // Always display authentic 6-pip dotted die face instead of star placeholder
       }
 
       const pips = {
@@ -6618,7 +6796,7 @@
 
       // ẨN TOÀN BỘ POPUP KHI ĐANG QUAN SÁT (SPECTATOR MODE) HOẶC KHI 2 BOT ĐẤU VỚI NHAU
       const isBotDuel = (challenger > 1 && defender > 1);
-      const shouldSilentDuel = isSpectatorMode || isBotDuel;
+      const shouldSilentDuel = isSpectatorMode || isBotDuel || Boolean(window.diceAutoPlay);
 
       if (shouldSilentDuel) {
         // Tự động phân định kết quả ngầm nhanh chóng, không che khuất bàn cờ!
@@ -9573,13 +9751,55 @@
 
     // Interactive Decision Dialog (Supports Buy, Upgrade, Jail Bail, and Business Tour Hostile Takeover!)
     function setMonoDialogMode(mode, data = {}) {
-      const box = document.getElementById('mono2dDecisionBox');
+      const box = document.getElementById('mono2dDecisionBox') || document.getElementById('monoDecisionBox');
       const title = document.getElementById('monoDialogTitle');
       const desc = document.getElementById('monoDialogDesc');
       const icon = document.getElementById('monoDialogIcon');
       const btnNo = document.getElementById('btnMonoDialogNo');
       const btnYes = document.getElementById('btnMonoDialogYes');
       if (!box || !title || !btnNo || !btnYes) return;
+
+      // Khi bật Tự Động Chơi (monoAutoPlay), ẩn hoàn toàn hộp thoại và tự động ra quyết định ngay
+      if (window.monoAutoPlay) {
+        if (box) {
+          box.classList.add('hidden');
+          box.classList.remove('flex');
+        }
+        const curPlayer = monoState.players[monoState.turn];
+        if (!curPlayer || curPlayer.isBankrupt) return;
+
+        if (mode === 'ready') {
+          if (curPlayer.inJail > 0) {
+            monoState.pendingAction = { type: 'jail_choice' };
+            const shouldBail = curPlayer.cash >= 250;
+            handleMonoDialogChoice(shouldBail);
+          } else {
+            monoState.pendingAction = null;
+          }
+          return;
+        } else if (mode === 'buy') {
+          const tile = data.tile;
+          monoState.pendingAction = { type: 'buy', tile: tile };
+          const shouldBuy = curPlayer.cash >= (tile.price + 150);
+          handleMonoDialogChoice(shouldBuy);
+          return;
+        } else if (mode === 'upgrade') {
+          const tile = data.tile;
+          const cost = Math.floor(tile.price * 0.5);
+          monoState.pendingAction = { type: 'upgrade', tile: tile, cost: cost };
+          const shouldUpgrade = curPlayer.cash >= (cost + 200);
+          handleMonoDialogChoice(shouldUpgrade);
+          return;
+        } else if (mode === 'takeover') {
+          const tile = data.tile;
+          const buyoutCost = data.cost;
+          const prevOwner = monoState.players[tile.owner];
+          monoState.pendingAction = { type: 'takeover', tile: tile, cost: buyoutCost, prevOwner: prevOwner };
+          const shouldTakeover = curPlayer.cash >= (buyoutCost + 400);
+          handleMonoDialogChoice(shouldTakeover);
+          return;
+        }
+      }
 
       if (mode === 'ready') {
         const curPlayer = monoState.players[monoState.turn];
@@ -9659,6 +9879,7 @@
             triggerMonoFloatingCash(curPlayer.id, -250);
             updateMonopolyHUD();
             showToast(`🔓 ${curPlayer.name} đã nộp $250 bảo lãnh và được tự do!`);
+            if (typeof addBattleLog === 'function') addBattleLog(`🔓 <b>${curPlayer.name}</b> nộp $250 bảo lãnh ra tù!`, 'jail');
             executeMono2dRoll();
           } else {
             showToast('❌ Không đủ $250, phải đổ xúc xắc tìm số đôi!');
@@ -9708,6 +9929,7 @@
           }
         } else {
           showToast(`${player.name} quyết định bỏ qua ô ${tile.name}.`);
+          if (typeof addBattleLog === 'function') addBattleLog(`⏭️ <b>${player.name}</b> bỏ qua ${tile.name}.`, 'turn');
           finishMonoTurn();
         }
       } else if (monoState.pendingAction.type === 'upgrade') {
@@ -9783,6 +10005,167 @@
       }
     }
 
+    // =========================================================================
+    // 3D OBSIDIAN PIP DICE ROTATION & SUSPENSE TUMBLE ENGINE (v4.0.5)
+    // =========================================================================
+    let monoDiceSpinRound = 0;
+
+    // Exact 3D Euler target angles (rx, ry, rz) for each die value 1..6 with isometric 3D bevel
+    const MONO_DIE_FACE_ANGLES = {
+      1: { rx: -14, ry: 16,  rz: 0 },
+      6: { rx: -14, ry: 196, rz: 0 },
+      2: { rx: -104, ry: 0,  rz: 14 },
+      5: { rx: 76,  ry: 0,   rz: -14 },
+      3: { rx: -14, ry: -74, rz: 0 },
+      4: { rx: -14, ry: 106, rz: 0 }
+    };
+
+    function playMonoDiceTumbleSFX(durationMs) {
+      try {
+        const steps = 6;
+        const baseInterval = durationMs / (steps + 1);
+        for (let i = 0; i < steps; i++) {
+          setTimeout(() => {
+            const freq = 320 + Math.floor(Math.random() * 240) + (i * 35);
+            soundTone(freq, 'triangle', 0.035, 0.08);
+          }, Math.round(i * baseInterval * (0.85 + i * 0.05)));
+        }
+      } catch (e) {}
+    }
+
+    function setMono3DDiceVisual(d1, d2, animate = true, durationMs = 920) {
+      const d1El = document.getElementById('monoDice1Val');
+      const d2El = document.getElementById('monoDice2Val');
+      if (d1El) d1El.textContent = d1;
+      if (d2El) d2El.textContent = d2;
+
+      const cube1 = document.getElementById('monoDieCube1');
+      const cube2 = document.getElementById('monoDieCube2');
+      const scene1 = document.getElementById('monoDieCube1Scene');
+      const scene2 = document.getElementById('monoDieCube2Scene');
+
+      const a1 = MONO_DIE_FACE_ANGLES[d1] || MONO_DIE_FACE_ANGLES[1];
+      const a2 = MONO_DIE_FACE_ANGLES[d2] || MONO_DIE_FACE_ANGLES[6];
+
+      if (animate) {
+        monoDiceSpinRound++;
+        // Die 1 and Die 2 spin with slightly different multi-axis revolutions for natural physics
+        const turnX1 = monoDiceSpinRound * 1080; // 3 full X flips per roll
+        const turnY1 = monoDiceSpinRound * 1440; // 4 full Y spins per roll
+        const turnZ1 = monoDiceSpinRound * 360;
+
+        const turnX2 = monoDiceSpinRound * 1440; // 4 full X flips per roll
+        const turnY2 = monoDiceSpinRound * 1080; // 3 full Y spins per roll
+        const turnZ2 = -(monoDiceSpinRound * 360);
+
+        if (cube1) {
+          cube1.style.transition = `transform ${durationMs}ms cubic-bezier(0.15, 0.88, 0.28, 1.08)`;
+          cube1.style.transform = `rotateX(${a1.rx + turnX1}deg) rotateY(${a1.ry + turnY1}deg) rotateZ(${a1.rz + turnZ1}deg)`;
+        }
+        if (cube2) {
+          cube2.style.transition = `transform ${durationMs}ms cubic-bezier(0.15, 0.88, 0.28, 1.08)`;
+          cube2.style.transform = `rotateX(${a2.rx + turnX2}deg) rotateY(${a2.ry + turnY2}deg) rotateZ(${a2.rz + turnZ2}deg)`;
+        }
+        if (scene1) {
+          scene1.classList.remove('mono-die-bouncing');
+          void scene1.offsetWidth;
+          scene1.style.animationDuration = `${durationMs}ms`;
+          scene1.classList.add('mono-die-bouncing');
+        }
+        if (scene2) {
+          scene2.classList.remove('mono-die-bouncing');
+          void scene2.offsetWidth;
+          scene2.style.animationDuration = `${Math.round(durationMs * 1.04)}ms`;
+          scene2.classList.add('mono-die-bouncing');
+        }
+      } else {
+        monoDiceSpinRound = 0;
+        if (cube1) {
+          cube1.style.transition = 'none';
+          cube1.style.transform = `rotateX(${a1.rx}deg) rotateY(${a1.ry}deg) rotateZ(${a1.rz}deg)`;
+        }
+        if (cube2) {
+          cube2.style.transition = 'none';
+          cube2.style.transform = `rotateX(${a2.rx}deg) rotateY(${a2.ry}deg) rotateZ(${a2.rz}deg)`;
+        }
+      }
+    }
+    window.setMono3DDiceVisual = setMono3DDiceVisual;
+
+    function animateMono3DDiceRoll(d1, d2, onComplete) {
+      const monoSpd = window.monoSpeed || monoState.speed || 1;
+      // Full suspense 920ms at 1x speed; scales smoothly when speed boost (2x..25x) is active
+      const rollDuration = Math.max(140, Math.round(920 / Math.pow(monoSpd, 0.75)));
+      const settlePause = Math.max(40, Math.round(240 / Math.pow(monoSpd, 0.8)));
+
+      const tray = document.getElementById('monoDiceTrayBox');
+      const sumEl = document.getElementById('monoDiceSumVal');
+      const sumLabel = document.getElementById('monoDiceSumLabel');
+      const rollBtnText = document.getElementById('btnMono2dRollText');
+
+      // Stage 1: Hide total sum ('...') & ignite Cyan Aura while dice tumble in 3D
+      if (tray) {
+        tray.classList.remove('mono-tray-impact');
+        tray.classList.add('mono-tray-rolling-aura');
+      }
+      if (sumLabel) {
+        sumLabel.textContent = 'ĐANG LĂN';
+        sumLabel.className = 'text-[8px] text-cyan-300 font-black uppercase tracking-wider animate-pulse';
+      }
+      if (sumEl) {
+        sumEl.textContent = '•••';
+        sumEl.className = 'text-base sm:text-xl font-black text-cyan-300 font-chakra animate-pulse';
+      }
+      if (rollBtnText) {
+        rollBtnText.textContent = 'ĐANG LĂN XÚC XẮC...';
+      }
+
+      playMonoDiceTumbleSFX(rollDuration);
+      setMono3DDiceVisual(d1, d2, true, rollDuration);
+
+      if (monoState.diceRollTimeoutId) clearTimeout(monoState.diceRollTimeoutId);
+
+      // Stage 2: Dice land & lock onto dotted faces -> Reveal Total & Doubles
+      monoState.diceRollTimeoutId = setTimeout(() => {
+        const totalSteps = d1 + d2;
+        const isDoubles = (d1 === d2);
+
+        if (tray) {
+          tray.classList.remove('mono-tray-rolling-aura');
+          tray.classList.add('mono-tray-impact');
+        }
+        if (sumLabel) {
+          sumLabel.textContent = isDoubles ? '⚡ ĐÔI!' : 'Tổng';
+          sumLabel.className = isDoubles
+            ? 'text-[9px] text-amber-300 font-black uppercase tracking-wider animate-bounce'
+            : 'text-[9px] text-cyan-300/90 font-bold uppercase tracking-wider';
+        }
+        if (sumEl) {
+          sumEl.textContent = totalSteps;
+          sumEl.className = isDoubles
+            ? 'text-lg sm:text-2xl font-black text-yellow-300 font-chakra scale-125 transition-transform duration-200 drop-shadow-[0_0_10px_rgba(250,204,21,0.9)]'
+            : 'text-base sm:text-xl font-black text-amber-400 font-chakra scale-110 transition-transform duration-200';
+          setTimeout(() => {
+            if (sumEl) sumEl.classList.remove('scale-125', 'scale-110');
+          }, 220);
+        }
+        if (rollBtnText) {
+          rollBtnText.textContent = 'ĐỔ XÚC XẮC';
+        }
+
+        // Crisp landing lock sound
+        try {
+          soundTone(isDoubles ? 880 : 660, 'triangle', 0.12, 0.18);
+        } catch (e) {}
+
+        // Stage 3: Brief beat so player clearly sees the settled dotted faces before pawn hops
+        monoState.diceRollTimeoutId = setTimeout(() => {
+          monoState.diceRollTimeoutId = null;
+          if (typeof onComplete === 'function') onComplete();
+        }, settlePause);
+      }, rollDuration);
+    }
+
     // Execute 2.5D Roll Dice
     function executeMono2dRoll() {
       if (monoState.isRolling) return;
@@ -9806,14 +10189,7 @@
       const isDoubles = (d1 === d2);
       monoState.lastRollSum = totalSteps;
 
-      const d1El = document.getElementById('monoDice1Val');
-      const d2El = document.getElementById('monoDice2Val');
-      const sumEl = document.getElementById('monoDiceSumVal');
-      if (d1El) d1El.textContent = d1;
-      if (d2El) d2El.textContent = d2;
-      if (sumEl) sumEl.textContent = totalSteps;
-
-      // Pre-Move Broadcast for Monopoly Online: send ROLL_START immediately before hopping!
+      // Pre-Move Broadcast for Monopoly Online: send ROLL_START so remote peers see the 3D dice tumble simultaneously!
       if (window.isOnlineRoomMatch && typeof window.pushOnlineGameState === 'function') {
         window.pushOnlineGameState('monopoly', {
           actionType: 'ROLL_START',
@@ -9829,9 +10205,9 @@
         });
       }
 
-      try { soundTone(520, 'square', 0.1, 0.15); } catch(e) {}
-
-      // Jail Check
+      // Trigger 3-Stage Suspense 3D Pip Dice Tumble before moving pawn!
+      animateMono3DDiceRoll(d1, d2, () => {
+        // Jail Check
       if (player.inJail > 0) {
         if (isDoubles) {
           player.inJail = 0;
@@ -9914,6 +10290,7 @@
           handleMonoLanding(player);
         }
       }, stepIntervalTime);
+      }); // End animateMono3DDiceRoll callback
     }
 
     // Handle Landing Tile (With Fast-Paced Business Tour Takeover & Emergency Debt Rescue)
@@ -10381,9 +10758,26 @@
       }
     }
 
-    // Show Event Popup
+    // Show Event Popup (Bỏ qua hiển thị khi Auto-Play, chỉ hiện khi Game Over)
     function showMonoEventPopup({ type, title, desc, badge, amountLabel, amountVal, visualIcon, visualSvg, onConfirm }) {
       const overlay = document.getElementById('monoEventModalOverlay');
+
+      // Khi bật Tự Động Chơi, bỏ qua modal sự kiện (trừ gameover), ghi nhật ký và tiếp tục ngay
+      if (window.monoAutoPlay && type !== 'gameover') {
+        if (overlay) {
+          overlay.classList.add('hidden');
+          overlay.classList.remove('flex');
+        }
+        monoState.eventCallback = null;
+        if (title || desc) {
+          const logMsg = badge ? `${badge} ${title}: ${desc || ''}` : `${title}: ${desc || ''}`;
+          if (typeof addBattleLog === 'function') addBattleLog(logMsg, 'event');
+          if (typeof showToast === 'function') showToast(badge ? `${badge} ${title}` : title);
+        }
+        if (typeof onConfirm === 'function') onConfirm();
+        return;
+      }
+
       if (!overlay) {
         if (onConfirm) onConfirm();
         return;
@@ -10503,6 +10897,10 @@
           clearInterval(monoState.stepIntervalId);
           monoState.stepIntervalId = null;
         }
+        if (monoState.diceRollTimeoutId) {
+          clearTimeout(monoState.diceRollTimeoutId);
+          monoState.diceRollTimeoutId = null;
+        }
         if (monoState.botTimeoutId) {
           clearTimeout(monoState.botTimeoutId);
           monoState.botTimeoutId = null;
@@ -10619,6 +11017,44 @@
       }
 
       if (isAuto) {
+        // Đóng ngay lập tức tất cả các popup đang mở trên màn hình
+        const cashOverlay = document.getElementById('monoCashTransferOverlay');
+        if (cashOverlay) { cashOverlay.classList.add('hidden'); cashOverlay.classList.remove('flex'); }
+        const cashModal = document.getElementById('monoCashTransferModal');
+        if (cashModal) { cashModal.classList.add('hidden'); cashModal.classList.remove('flex'); }
+
+        const decisionBox = document.getElementById('mono2dDecisionBox') || document.getElementById('monoDecisionBox');
+        if (decisionBox) { decisionBox.classList.add('hidden'); decisionBox.classList.remove('flex'); }
+
+        const jailOverlay = document.getElementById('monoJailGateOverlay') || document.getElementById('monoJailOverlay');
+        if (jailOverlay) { jailOverlay.classList.add('hidden'); jailOverlay.classList.remove('flex'); }
+
+        const airplaneOverlay = document.getElementById('monoAirplaneOverlay');
+        if (airplaneOverlay) { airplaneOverlay.classList.add('hidden'); airplaneOverlay.classList.remove('flex'); }
+
+        // Đóng ngay event modal nếu đang mở & gọi callback tiếp tục ván đấu
+        closeMonoEventModal();
+
+        // Tự động giải quyết quyết định đang chờ (nếu có)
+        if (monoState.pendingAction) {
+          const act = monoState.pendingAction;
+          const curP = monoState.players[monoState.turn];
+          if (curP) {
+            let accept = false;
+            if (act.type === 'buy') {
+              accept = curP.cash >= (act.tile.price + 150);
+            } else if (act.type === 'upgrade') {
+              const cost = act.cost || Math.floor(act.tile.price * 0.5);
+              accept = curP.cash >= (cost + 200);
+            } else if (act.type === 'takeover') {
+              accept = curP.cash >= (act.cost + 400);
+            } else if (act.type === 'jail_choice') {
+              accept = curP.cash >= 250;
+            }
+            handleMonoDialogChoice(accept);
+          }
+        }
+
         showToast('🤖 Đã BẬT Tự Động Chơi Cờ Tỷ Phú! Hệ thống sẽ tự gieo xúc xắc và mua đất thông minh.');
         checkAndTriggerMonoAutoPlay();
       } else {
@@ -10654,9 +11090,8 @@
       const player = monoState.players[monoState.turn];
       if (!player || player.isBankrupt) return;
 
-      // 1. If currently showing a decision dialog (buy, upgrade, takeover, jail)
-      const decisionBox = document.getElementById('mono2dDecisionBox');
-      if (decisionBox && !decisionBox.classList.contains('hidden') && monoState.pendingAction) {
+      // 1. If currently showing a decision dialog or having pending action (buy, upgrade, takeover, jail)
+      if (monoState.pendingAction) {
         monoAutoPlayTimer = setTimeout(() => {
           if (!window.monoAutoPlay) return;
           const act = monoState.pendingAction;
@@ -10781,6 +11216,13 @@
       }
 
       if (isAuto) {
+        // Đóng ngay popup quyết đấu nếu đang mở
+        const duelModal = document.getElementById('skillDuelModal');
+        if (duelModal) duelModal.classList.add('hidden');
+        if (typeof duelState !== 'undefined' && duelState.active && !duelState.winner) {
+          resolveDuelTimeout();
+        }
+
         showToast('🤖 Đã BẬT Tự Động Gieo Xúc Xắc 20 Ô!');
         checkAndTriggerDiceAutoPlay();
       } else {
@@ -11053,10 +11495,51 @@
     }
 
     // Trigger Dynamic Cash Transfer Animation
-    function triggerMonoCashTransfer({ payer, recipient, amount, type = 'buy', desc, onComplete }) {
-      const overlay = document.getElementById('monoCashTransferOverlay');
+    function triggerMonoCashTransfer(opts) {
+      opts = opts || {};
+      const payer = opts.payer;
+      const recipient = opts.recipient;
+      const amount = opts.amount || 0;
+      const type = opts.type || 'buy';
+      const desc = opts.desc;
+      const onComplete = opts.onComplete;
+      const onDone = opts.onDone;
+      const doneCb = (typeof onDone === 'function') ? onDone : (typeof onComplete === 'function' ? onComplete : null);
+
+      // KHI BẬT TỰ ĐỘNG CHƠI: TUYỆT ĐỐI KHÔNG mở modal #monoCashTransferModal/#monoCashTransferOverlay
+      if (window.monoAutoPlay) {
+        const overlay = document.getElementById('monoCashTransferOverlay') || document.getElementById('monoCashTransferModal');
+        if (overlay) {
+          overlay.classList.add('hidden');
+          overlay.classList.remove('flex');
+        }
+        const modal = document.getElementById('monoCashTransferModal');
+        if (modal) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+
+        // Chỉ chạy hiệu ứng số tiền bay nhẹ trên góc thẻ người chơi
+        if (payer && typeof triggerMonoFloatingCash === 'function') {
+          const payerId = (typeof payer === 'object' && payer !== null && payer.id !== undefined) ? payer.id : payer;
+          triggerMonoFloatingCash(payerId, -amount);
+        }
+        if (recipient && recipient !== 'bank' && typeof triggerMonoFloatingCash === 'function') {
+          const recipId = (typeof recipient === 'object' && recipient !== null && recipient.id !== undefined) ? recipient.id : recipient;
+          triggerMonoFloatingCash(recipId, amount);
+        }
+
+        if (desc && typeof addBattleLog === 'function') {
+          addBattleLog(`💸 ${desc}`, 'transfer');
+        }
+
+        if (doneCb) doneCb();
+        return;
+      }
+
+      const overlay = document.getElementById('monoCashTransferOverlay') || document.getElementById('monoCashTransferModal');
       if (!overlay) {
-        if (onComplete) onComplete();
+        if (doneCb) doneCb();
         return;
       }
 
@@ -11138,10 +11621,30 @@
 
     // Trigger Airplane Flyby Sequence (Tile 18 Sân Bay / Dịch Chuyển)
     
-    function triggerMonoJailGateAnimation({ player, reason, onComplete }) {
-      const overlay = document.getElementById('monoJailGateOverlay');
+    function triggerMonoJailGateAnimation(opts) {
+      opts = opts || {};
+      const player = opts.player;
+      const reason = opts.reason;
+      const onComplete = opts.onComplete;
+      const onDone = opts.onDone;
+      const doneCb = (typeof onDone === 'function') ? onDone : (typeof onComplete === 'function' ? onComplete : null);
+
+      const overlay = document.getElementById('monoJailGateOverlay') || document.getElementById('monoJailOverlay');
+      if (window.monoAutoPlay) {
+        if (overlay) {
+          overlay.classList.add('hidden');
+          overlay.classList.remove('flex');
+        }
+        if (reason) {
+          showToast(`⛓️ ${player ? player.name : 'Người chơi'}: ${reason}`);
+          if (typeof addBattleLog === 'function') addBattleLog(`⛓️ <b>${player ? player.name : 'Người chơi'}</b>: ${reason}`, 'jail');
+        }
+        if (doneCb) doneCb();
+        return;
+      }
+
       if (!overlay) {
-        if (onComplete) onComplete();
+        if (doneCb) doneCb();
         return;
       }
 
@@ -11207,10 +11710,33 @@
     }
     window.triggerMonoJailGateAnimation = triggerMonoJailGateAnimation;
 
-    function triggerMonoAirplaneFlyby({ player, destTile, onComplete }) {
+    function triggerMonoAirplaneFlyby(opts) {
+      opts = opts || {};
+      const player = opts.player;
+      const destTile = opts.destTile;
+      const onComplete = opts.onComplete;
+      const onDone = opts.onDone;
+      const doneCb = (typeof onDone === 'function') ? onDone : (typeof onComplete === 'function' ? onComplete : null);
+
       const overlay = document.getElementById('monoAirplaneOverlay');
+      if (window.monoAutoPlay) {
+        if (overlay) {
+          overlay.classList.add('hidden');
+          overlay.classList.remove('flex');
+        }
+        if (player && destTile) {
+          player.pos = destTile.id;
+          updateMonopolyPawns();
+          updateMonopolyHUD();
+          showToast(`✈️ World Tour! ${player.name} bay thẳng tới ${destTile.name}!`);
+          if (typeof addBattleLog === 'function') addBattleLog(`✈️ <b>${player.name}</b> bay tới <b>${destTile.name}</b>!`, 'warp');
+        }
+        if (doneCb) doneCb();
+        return;
+      }
+
       if (!overlay) {
-        if (onComplete) onComplete();
+        if (doneCb) doneCb();
         return;
       }
 
@@ -11718,6 +12244,10 @@
     window.restartMonopolyGame = restartMonopolyGame;
     window.showMonoEventPopup = showMonoEventPopup;
     window.closeMonoEventModal = closeMonoEventModal;
+    window.showMonoDecision = setMonoDialogMode;
+    window.setMonoDialogMode = setMonoDialogMode;
+    window.showMonoCardModal = showMonoEventPopup;
+    window.triggerMonoAirplaneAnimation = triggerMonoAirplaneFlyby;
 
     window.monoState = monoState;
     window.MONOPOLY_2D_TILES = MONOPOLY_2D_TILES;
@@ -13709,7 +14239,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v4.0.0'
+      currentVersion: 'v4.0.5'
     };
 
     let allChangelogItems = [];
@@ -15754,28 +16284,16 @@
       if (gameType === 'monopoly') {
         // A. Real-Time Pre-Move Broadcast: Opponent rolled the dice!
         if (payload.actionType === 'ROLL_START') {
-          const d1El = document.getElementById('monoDice1Val');
-          const d2El = document.getElementById('monoDice2Val');
-          const sumEl = document.getElementById('monoDiceSumVal');
-          const diceTray = document.getElementById('monoDiceTrayBox');
-          if (d1El) d1El.textContent = payload.d1;
-          if (d2El) d2El.textContent = payload.d2;
-          if (sumEl) sumEl.textContent = payload.totalSteps;
           monoState.lastRollSum = payload.totalSteps;
-
-          if (diceTray) {
-            diceTray.classList.add('scale-110', 'border-yellow-300');
-            setTimeout(() => diceTray.classList.remove('scale-110', 'border-yellow-300'), 400);
+          if (typeof animateMono3DDiceRoll === 'function') {
+            animateMono3DDiceRoll(payload.d1 || 1, payload.d2 || 1, () => {
+              if (payload.toast) showToast(payload.toast);
+              animateRemoteMonoMove(payload.rollerIdx, payload.fromPos, payload.totalSteps, payload.targetPos, () => {
+                updateMonopolyPawns();
+                updateMonopolyHUD();
+              });
+            });
           }
-          try { soundTone(520, 'square', 0.1, 0.15); } catch(e) {}
-
-          if (payload.toast) showToast(payload.toast);
-
-          // Animate remote pawn hopping step-by-step
-          animateRemoteMonoMove(payload.rollerIdx, payload.fromPos, payload.totalSteps, payload.targetPos, () => {
-            updateMonopolyPawns();
-            updateMonopolyHUD();
-          });
           return;
         }
 
@@ -15830,11 +16348,10 @@
         if (typeof payload.lastRollSum === 'number') monoState.lastRollSum = payload.lastRollSum;
 
         if (payload.d1 && payload.d2) {
-          const d1El = document.getElementById('monoDice1Val');
-          const d2El = document.getElementById('monoDice2Val');
+          if (typeof setMono3DDiceVisual === 'function') {
+            setMono3DDiceVisual(payload.d1, payload.d2, false);
+          }
           const sumEl = document.getElementById('monoDiceSumVal');
-          if (d1El) d1El.textContent = payload.d1;
-          if (d2El) d2El.textContent = payload.d2;
           if (sumEl) sumEl.textContent = payload.lastRollSum || (payload.d1 + payload.d2);
         }
 

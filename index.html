@@ -5166,6 +5166,7 @@
             </span>
           </div>
           <div class="text-[11px] text-slate-300 space-y-1 pl-1">
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Tối ưu Responsive Topbar (chống khuất Avatar/Auth) & Fix Modal Thoát Trận</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Hệ thống Chuyển cảnh 60fps GPU & Spring-pop 9 Modal</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Đại tu Bí Kíp Bento Grid 4 Bộ Môn & Bộ Icon SVG Độc Bản</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Nâng cấp Đa BOT AI (1-3 Bots), Tùy biến Đích & Khán Giả Tự Động</span></div>
@@ -15938,6 +15939,19 @@ function renderCashStackHTML(amount) {
 
     // Curated fallback updates in case of offline or GitHub API rate limiting
     const CURATED_CHANGELOG = [
+  {
+    "sha": "4ad5271",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v4.0.8",
+    "title": "fix(layout-exit): optimize responsive navbar to prevent auth cutoff and fix exit confirmation modal action",
+    "details": [
+      "fix(layout-exit): optimize responsive navbar to prevent auth cutoff and fix exit confirmation modal action",
+      "Mở rộng Fluid Widescreen max-w-[1600px], tích hợp chấm online xanh ngọc trên avatar, chống khuất cụm Đăng nhập",
+      "Khắc phục nút Xác Nhận Thoát, dập tắt vòng lặp guard và dọn dẹp sạch sẽ toàn bộ timers/loops chạy ngầm"
+    ],
+    "date": "2026-10-27T11:26:37+07:00"
+  },
   {
     "sha": "7e49b10",
     "roleType": "dev2",

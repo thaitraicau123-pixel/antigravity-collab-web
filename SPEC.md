@@ -1005,3 +1005,17 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
       - Nút **"Bay Thử Ngay"**: Thử nghiệm chuyến bay chuyên cơ trực quan khi xem ô Sân Bay Tân An (Tile 22).
       - Nút **"✕ Đóng (Esc)"** hoặc click ngoài nền mờ để đóng thẻ.
   - **Bảo Vệ Watchdog Hoạt Động**: Cập nhật biến kiểm tra `isDetailsModalOpen` trong hệ thống Watchdog để ngăn Bot AI tự động nhảy lượt khi người chơi đang xem thông tin ô đất.
+
+
+### v4.1.1b / v4.1.2 (2026-10-27) - 4-Corner Viewport Geometry Calibration & Asymmetry Perspective Compensation
+- **Cân Chỉnh Hình Học 4 Góc Nằm Trọn Vẹn 100% Trong Màn Hình (4-Corner Viewport Guarantee)**:
+  - Khắc phục hiện tượng góc dưới (Ô 0 - START) bị tràn ra ngoài mép dưới màn hình do hiệu ứng phối cảnh 3D perspective (`rotateX(28deg)` khiến nửa dưới bàn cờ bị phóng to và trôi xuống theo trục Y).
+  - Tích hợp độ bù quang học trục dọc `translateY(-6.5%)` (Fullscreen) và `translateY(-4%)` (Thường) để đưa tâm quang học bàn cờ về đúng trọng tâm thị giác màn hình:
+    - **Fullscreen**: Điều chỉnh kích thước khung `width: min(80vh, 66vw, 860px)`, góc xoay 2.5D `translateY(-6.5%) scale(0.82)`, đẩy thanh HUD `#monoTopTileInspector` lên `top: 8px`.
+    - **Chế độ Thường**: Điều chỉnh kích thước khung `width: min(68vh, 52vw, 760px)`, góc xoay 2.5D `translateY(-4%) scale(0.80)`.
+  - **Kết quả nghiệm thu thực tế**:
+    - Ô **START (Vạch Xuất Phát)** ở đáy: Nằm trọn vẹn bên trong màn hình, cách mép dưới 25-30px, hiển thị đầy đủ nhãn "XUẤT PHÁT", số tiền "+$400" và mũi tên xanh lá cây.
+    - Ô **SÂN BAY QUỐC TẾ (AIRPORT)** ở đỉnh: Nằm ngay ngắn dưới thanh HUD tiêu đề một khoảng thoáng đãng.
+    - Ô **TRẠI GIAM ALCATRAZ** ở góc trái: Nằm trọn vẹn trong màn hình, cách thẻ pod Rồng Lửa AI an toàn, không bị đè che.
+    - Ô **INTERPOL (BẮT GIAM)** ở góc phải: Nằm trọn vẹn trong màn hình.
+    - Cả 4 góc của bàn cờ đều hiển thị trọn vẹn 100% trong khung nhìn trên mọi độ phân giải (1080p, 768p, màn hình rộng 16:9).

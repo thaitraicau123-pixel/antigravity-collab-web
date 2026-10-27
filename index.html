@@ -441,7 +441,7 @@
     }
 
     .mono-board-25d {
-      transform: perspective(1400px) rotateX(28deg) rotateZ(25deg) scale(0.95);
+      transform: perspective(1400px) rotateX(28deg) rotateZ(25deg) translateY(-4%) scale(0.80);
       transform-style: preserve-3d;
       box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.95), 0 0 60px rgba(16, 185, 129, 0.25);
       transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.6s ease;
@@ -939,10 +939,10 @@
 
     /* Board scaling: bounded strictly by viewport height to guarantee zero vertical scroll */
     #mono2dBoardWrapper {
-      width: min(74vh, 56vw, 820px) !important;
-      height: min(74vh, 56vw, 820px) !important;
-      max-width: min(74vh, 56vw, 820px) !important;
-      max-height: min(74vh, 56vw, 820px) !important;
+      width: min(68vh, 52vw, 760px) !important;
+      height: min(68vh, 52vw, 760px) !important;
+      max-width: min(68vh, 52vw, 760px) !important;
+      max-height: min(68vh, 52vw, 760px) !important;
       aspect-ratio: 1 / 1 !important;
       margin: auto !important;
     }
@@ -1003,14 +1003,18 @@
     }
 
     body.mono-fullscreen-active #mono2dBoardWrapper {
-      width: min(90vh, 72vw, 980px) !important;
-      height: min(90vh, 72vw, 980px) !important;
-      max-width: min(90vh, 72vw, 980px) !important;
-      max-height: min(90vh, 72vw, 980px) !important;
+      width: min(80vh, 66vw, 860px) !important;
+      height: min(80vh, 66vw, 860px) !important;
+      max-width: min(80vh, 66vw, 860px) !important;
+      max-height: min(80vh, 66vw, 860px) !important;
     }
 
     body.mono-fullscreen-active .mono-board-25d {
-      transform: perspective(1400px) rotateX(28deg) rotateZ(25deg) scale(1.08) !important;
+      transform: perspective(1400px) rotateX(28deg) rotateZ(25deg) translateY(-6.5%) scale(0.82) !important;
+    }
+
+    body.mono-fullscreen-active #monoTopTileInspector {
+      top: 8px !important;
     }
 
     body.mono-fullscreen-active #btnMonoExitFullscreen {

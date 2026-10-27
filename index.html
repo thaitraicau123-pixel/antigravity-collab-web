@@ -3727,7 +3727,7 @@
 
     <!-- VIEWPORT 2: LEADERBOARDS (BẢNG PHONG THẦN CHUYÊN BIỆT) -->
     <div id="mainViewLeaderboard" class="hidden w-full max-w-4xl tabletop-mat rounded-3xl p-6 sm:p-8 shadow-2xl border border-board-border">
-      <div class="flex items-center justify-between mb-6 pb-4 border-b border-board-border">
+      <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-200">
         <div class="flex items-center gap-3">
           <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-2xl shadow-inner">
             🏆
@@ -3737,7 +3737,7 @@
             <p class="text-xs text-slate-400">Mùa giải Đấu Trí Mùa Thu 2026 • Vinh danh cao thủ</p>
           </div>
         </div>
-        <button onclick="switchMainTab('arena')" class="btn-spring px-4 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md">
+        <button onclick="switchMainTab('arena')" class="btn-spring px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-black text-xs flex items-center gap-1.5 shadow-md border-2 border-amber-600">
           <i data-lucide="arrow-left" class="w-4 h-4"></i>
           <span>Vào Bàn Đấu</span>
         </button>
@@ -3796,18 +3796,18 @@
     </div>
 
     <!-- VIEWPORT 3: VIP PRIVILEGES (HỘI VIÊN VIP CHUYÊN BIỆT) -->
-    <div id="mainViewVIP" class="hidden w-full max-w-4xl tabletop-mat rounded-3xl p-6 sm:p-8 shadow-2xl border border-amber-500/40">
-      <div class="flex items-center justify-between mb-6 pb-4 border-b border-board-border">
+    <div id="mainViewVIP" class="hidden w-full max-w-4xl bg-white/95 border-2 border-slate-300 shadow-2xl rounded-3xl p-6 sm:p-8 backdrop-blur-xl">
+      <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-200">
         <div class="flex items-center gap-3">
           <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-2xl shadow-inner">
             ⚡
           </div>
           <div>
-            <h2 class="font-cinzel text-xl sm:text-2xl font-black text-white">Đặc Quyền Hội Viên Hoàng Gia</h2>
-            <p class="text-xs text-slate-400">Nhận gấp bội Xu thưởng, mở khóa Skin cờ độc bản và huy hiệu Kiện Tướng</p>
+            <h2 class="font-cinzel text-xl sm:text-2xl font-black text-slate-900">Đặc Quyền Hội Viên Hoàng Gia</h2>
+            <p class="text-xs text-slate-600 font-bold mt-0.5">Nhận gấp bội Xu thưởng, mở khóa Skin cờ độc bản và huy hiệu Kiện Tướng</p>
           </div>
         </div>
-        <button onclick="switchMainTab('arena')" class="btn-spring px-4 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md">
+        <button onclick="switchMainTab('arena')" class="btn-spring px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-black text-xs flex items-center gap-1.5 shadow-md border-2 border-amber-600">
           <i data-lucide="arrow-left" class="w-4 h-4"></i>
           <span>Vào Bàn Đấu</span>
         </button>
@@ -3815,52 +3815,52 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <!-- Tier 1 -->
-        <div class="rounded-2xl p-5 bg-board-tray border border-board-border flex flex-col justify-between">
+        <div class="bg-white border-2 border-slate-200 hover:border-slate-300 shadow-sm rounded-2xl p-5 flex flex-col justify-between transition-all">
           <div>
-            <div class="text-xs font-bold text-slate-400 uppercase font-cinzel">Tân Thủ</div>
-            <div class="text-2xl font-black text-white my-2.5 font-mono">0đ</div>
-            <ul class="text-xs text-slate-300 space-y-2.5 mb-5">
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Bàn cờ 12 ô kinh điển</li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Cờ Ca-rô Neon 3x3</li>
-              <li class="flex items-center gap-2 text-slate-500"><i data-lucide="minus" class="w-4 h-4"></i> Không nhân thưởng Xu</li>
+            <div class="text-xs font-black text-slate-700 uppercase font-cinzel tracking-wider">Tân Thủ</div>
+            <div class="text-2xl font-black text-slate-900 my-2.5 font-mono">0đ</div>
+            <ul class="text-xs text-slate-800 font-bold space-y-2.5 mb-5">
+              <li class="flex items-center gap-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 shrink-0"><polyline points="20 6 9 17 4 12"/></svg> <span>Bàn cờ 12 ô kinh điển</span></li>
+              <li class="flex items-center gap-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 shrink-0"><polyline points="20 6 9 17 4 12"/></svg> <span>Cờ Ca-rô Neon 3x3</span></li>
+              <li class="flex items-center gap-2 text-slate-500 font-semibold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-slate-400 shrink-0"><line x1="5" y1="12" x2="19" y2="12"/></svg> <span>Không nhân thưởng Xu</span></li>
             </ul>
           </div>
-          <button class="w-full py-2.5 rounded-xl bg-slate-800 text-slate-400 text-xs font-bold cursor-default">
+          <button class="w-full py-2.5 rounded-xl bg-slate-100 border-2 border-slate-300 text-slate-700 text-xs font-black cursor-default shadow-sm">
             Gói Hiện Tại
           </button>
         </div>
 
         <!-- Tier 2 -->
-        <div class="rounded-2xl p-5 bg-gradient-to-b from-amber-950/70 to-board-tray border-2 border-amber-500 shadow-xl shadow-amber-600/20 flex flex-col justify-between relative">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-black font-black text-[9px] uppercase tracking-wider shadow">
+        <div class="bg-gradient-to-b from-amber-50 via-white to-amber-50/70 border-2 border-amber-500 shadow-xl shadow-amber-500/20 rounded-2xl p-5 flex flex-col justify-between relative transition-all">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-amber-500 text-white font-black text-[9px] uppercase tracking-wider shadow-md">
             Khuyên Dùng
           </div>
           <div>
-            <div class="text-xs font-bold text-amber-400 uppercase font-cinzel">Kiện Tướng PRO</div>
-            <div class="text-2xl font-black text-white my-2.5 font-mono">49.000đ<span class="text-xs font-normal text-slate-400">/tháng</span></div>
-            <ul class="text-xs text-slate-200 space-y-2.5 mb-5">
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> x2 Toàn bộ Xu & Đá quý</li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Khung avatar mạ vàng</li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Trọn bộ 5 xúc xắc acrylic</li>
+            <div class="text-xs font-black text-amber-800 uppercase font-cinzel tracking-wider">Kiện Tướng PRO</div>
+            <div class="text-2xl font-black text-slate-900 my-2.5 font-mono">49.000đ<span class="text-xs font-bold text-slate-500">/tháng</span></div>
+            <ul class="text-xs text-slate-800 font-bold space-y-2.5 mb-5">
+              <li class="flex items-center gap-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 shrink-0"><polyline points="20 6 9 17 4 12"/></svg> <span>x2 Toàn bộ Xu & Đá quý</span></li>
+              <li class="flex items-center gap-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 shrink-0"><polyline points="20 6 9 17 4 12"/></svg> <span>Khung avatar mạ vàng</span></li>
+              <li class="flex items-center gap-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 shrink-0"><polyline points="20 6 9 17 4 12"/></svg> <span>Trọn bộ 5 xúc xắc acrylic</span></li>
             </ul>
           </div>
-          <button onclick="confirmUpgrade('Kiện Tướng PRO')" class="btn-spring w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black text-xs font-black shadow-lg shadow-amber-600/30">
+          <button onclick="confirmUpgrade('Kiện Tướng PRO')" class="btn-spring w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white text-xs font-black shadow-lg shadow-amber-500/35 border-2 border-amber-600 active:scale-95 transition-all">
             Nâng Cấp Ngay
           </button>
         </div>
 
         <!-- Tier 3 -->
-        <div class="rounded-2xl p-5 bg-board-tray border border-amber-500/40 flex flex-col justify-between">
+        <div class="bg-white border-2 border-amber-300 hover:border-amber-400 shadow-sm rounded-2xl p-5 flex flex-col justify-between transition-all">
           <div>
-            <div class="text-xs font-bold text-amber-300 uppercase font-cinzel">Huyền Thoại VIP</div>
-            <div class="text-2xl font-black text-white my-2.5 font-mono">99.000đ<span class="text-xs font-normal text-slate-400">/tháng</span></div>
-            <ul class="text-xs text-slate-300 space-y-2.5 mb-5">
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> x3 Toàn bộ điểm ELO</li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Skin bàn cờ Gỗ Mun Hoàng Gia</li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Huy hiệu Grandmaster danh dự</li>
+            <div class="text-xs font-black text-amber-700 uppercase font-cinzel tracking-wider">Huyền Thoại VIP</div>
+            <div class="text-2xl font-black text-slate-900 my-2.5 font-mono">99.000đ<span class="text-xs font-bold text-slate-500">/tháng</span></div>
+            <ul class="text-xs text-slate-800 font-bold space-y-2.5 mb-5">
+              <li class="flex items-center gap-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 shrink-0"><polyline points="20 6 9 17 4 12"/></svg> <span>x3 Toàn bộ điểm ELO</span></li>
+              <li class="flex items-center gap-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 shrink-0"><polyline points="20 6 9 17 4 12"/></svg> <span>Skin bàn cờ Gỗ Mun Hoàng Gia</span></li>
+              <li class="flex items-center gap-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 shrink-0"><polyline points="20 6 9 17 4 12"/></svg> <span>Huy hiệu Grandmaster danh dự</span></li>
             </ul>
           </div>
-          <button onclick="confirmUpgrade('Huyền Thoại VIP')" class="btn-spring w-full py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold">
+          <button onclick="confirmUpgrade('Huyền Thoại VIP')" class="btn-spring w-full py-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-black border-2 border-amber-300 shadow-sm transition-all">
             Mở Gói Huyền Thoại
           </button>
         </div>
@@ -4389,38 +4389,38 @@
   </div>
 
   <!-- ================= MODAL PROFILE & FIRESTORE DATA ================= -->
-  <div id="profileModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
-    <div id="profileCard" class="w-full max-w-2xl bg-slate-950/90 backdrop-blur-2xl border border-amber-500/30 shadow-[0_0_50px_rgba(245,158,11,0.15)] rounded-3xl p-5 sm:p-7 relative text-slate-100 max-h-[92vh] flex flex-col transform scale-90 transition-transform duration-300">
+  <div id="profileModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div id="profileCard" class="w-full max-w-2xl bg-white/95 backdrop-blur-2xl border-2 border-slate-300 shadow-2xl rounded-3xl p-5 sm:p-7 relative text-slate-800 max-h-[92vh] flex flex-col transform scale-90 transition-transform duration-300">
       
       <!-- Close Button with frosted glass & rotate glow -->
-      <button onclick="closeModal('profileModal')" class="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-700/60 hover:border-amber-500/40 hover:rotate-90 transition-all duration-300 shadow-lg hover:shadow-amber-500/20 group z-10" title="Đóng bảng hồ sơ">
+      <button onclick="closeModal('profileModal')" class="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 border-2 border-slate-300 hover:rotate-90 transition-all duration-300 shadow-md group z-10" title="Đóng bảng hồ sơ">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
 
       <!-- Player Header with Dynamic Rank Aura -->
-      <div class="flex items-center gap-4 mb-4 pb-4 border-b border-slate-800/80 shrink-0">
+      <div class="flex items-center gap-4 mb-4 pb-4 border-b border-slate-200 shrink-0">
         <div id="profileAvatarWrapper" class="relative group shrink-0">
-          <div id="profileAvatarBig" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-700 border-2 border-amber-300/40 flex items-center justify-center text-white text-2xl sm:text-3xl font-black shadow-lg shadow-amber-600/30 font-cinzel transition-all duration-300">
+          <div id="profileAvatarBig" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 border-2 border-amber-300 flex items-center justify-center text-white text-2xl sm:text-3xl font-black shadow-md font-cinzel transition-all duration-300">
             MD
           </div>
-          <div id="profileRankAura" class="absolute -inset-1 rounded-2xl bg-amber-500/20 shadow-[0_0_25px_rgba(245,158,11,0.35)] filter blur-sm -z-10 transition-all duration-500"></div>
-          <div id="profileTierBadgeMini" class="absolute -bottom-1 -right-1 p-0.5 rounded-full bg-slate-900 border border-amber-500/50 shadow-md flex items-center justify-center"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block" fill="none"><circle cx="12" cy="12" r="10" fill="url(#hudRankGoldGrad)" stroke="#FEF08A" stroke-width="1.5"/><path d="M12 6.5l1.5 3 3.5.5-2.5 2.5.6 3.5-3.1-1.7-3.1 1.7.6-3.5-2.5-2.5 3.5-.5 1.5-3z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg></div>
+          <div id="profileRankAura" class="absolute -inset-1 rounded-2xl bg-amber-400/25 shadow-[0_0_20px_rgba(245,158,11,0.35)] filter blur-sm -z-10 transition-all duration-500"></div>
+          <div id="profileTierBadgeMini" class="absolute -bottom-1 -right-1 p-0.5 rounded-full bg-white border border-amber-400 shadow-md flex items-center justify-center"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block" fill="none"><circle cx="12" cy="12" r="10" fill="url(#hudRankGoldGrad)" stroke="#FEF08A" stroke-width="1.5"/><path d="M12 6.5l1.5 3 3.5.5-2.5 2.5.6 3.5-3.1-1.7-3.1 1.7.6-3.5-2.5-2.5 3.5-.5 1.5-3z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg></div>
         </div>
         <div class="min-w-0 flex-1">
           <div class="flex items-center gap-2 flex-wrap">
-            <h3 class="font-cinzel text-xl sm:text-2xl font-bold bg-gradient-to-r from-white via-amber-100 to-amber-300 bg-clip-text text-transparent truncate" id="profileFullName">Minh Dev</h3>
-            <span class="inline-flex items-center gap-1.5 text-[9px] font-black px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/40 shadow-[0_0_10px_rgba(16,185,129,0.25)]">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>ĐÃ XÁC THỰC
+            <h3 class="font-cinzel text-xl sm:text-2xl font-black text-slate-900 truncate" id="profileFullName">Minh Dev</h3>
+            <span class="inline-flex items-center gap-1.5 text-[9px] font-black px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border-2 border-emerald-400 shadow-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>ĐÃ XÁC THỰC
             </span>
           </div>
-          <p class="text-xs text-slate-400 font-mono mt-0.5 truncate" id="profileEmailDisplay">kythu@tabletop.io</p>
-          <div class="flex items-center gap-2 text-[11px] text-amber-400 font-medium mt-1.5 flex-wrap">
-            <div class="flex items-center gap-1 text-slate-300">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+          <p class="text-xs text-slate-500 font-mono font-semibold mt-0.5 truncate" id="profileEmailDisplay">kythu@tabletop.io</p>
+          <div class="flex items-center gap-2 text-[11px] text-slate-700 font-medium mt-1.5 flex-wrap">
+            <div class="flex items-center gap-1 text-slate-700 bg-slate-50 border-2 border-slate-200 px-2 py-0.5 rounded-lg shadow-sm font-bold">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-500"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
               <span>Mã Kỳ Thủ:</span>
-              <span id="profileUidDisplay" class="font-mono text-[10px] text-amber-300 bg-slate-900/90 px-2 py-0.5 rounded border border-slate-700/60 max-w-[130px] sm:max-w-[170px] truncate">fb_123456</span>
+              <span id="profileUidDisplay" class="font-mono text-[10px] text-amber-700 bg-white px-1.5 py-0.5 rounded border border-slate-200 max-w-[130px] sm:max-w-[170px] truncate">fb_123456</span>
             </div>
-            <div class="inline-flex items-center gap-1.5 text-amber-400 font-mono font-bold bg-slate-900/90 px-2 py-0.5 rounded border border-slate-700/60" title="Tài sản Xu"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block shrink-0 filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none"><circle cx="12" cy="12" r="10" fill="url(#hudGoldGrad)" stroke="#FEF08A" stroke-width="1"/><circle cx="12" cy="12" r="7.5" fill="url(#hudGoldInnerGrad)" stroke="#FDE68A" stroke-width="0.75" stroke-dasharray="1.5 1"/><path d="M12 7.2l1.2 2.5 2.8.4-2 2 .5 2.8L12 13.6l-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg><span id="userCoinsProfile">0</span> <span class="text-[9px] text-amber-300/80 font-normal">Xu</span></div><div class="inline-flex items-center gap-1.5 text-cyan-400 font-mono font-bold bg-slate-900/90 px-2 py-0.5 rounded border border-slate-700/60" title="Kim cương quý tộc"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block shrink-0 filter drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" fill="none"><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#hudGemGrad)" stroke="#A5F3FC" stroke-width="0.8"/><polygon points="6,4 18,4 15,10 9,10" fill="url(#hudGemTopGrad)" opacity="0.95"/><polygon points="9,10 15,10 12,21" fill="#E0F2FE" opacity="0.9"/></svg><span id="userGemsProfile">0</span> <span class="text-[9px] text-cyan-300/80 font-normal">KC</span></div><button onclick="copyPlayerUid()" id="btnCopyUid" class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-semibold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0" title="Sao chép Mã Kỳ Thủ">
+            <div class="inline-flex items-center gap-1.5 text-amber-700 font-mono font-bold bg-slate-50 border-2 border-slate-200 px-2 py-0.5 rounded-lg shadow-sm" title="Tài sản Xu"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block shrink-0 filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none"><circle cx="12" cy="12" r="10" fill="url(#hudGoldGrad)" stroke="#FEF08A" stroke-width="1"/><circle cx="12" cy="12" r="7.5" fill="url(#hudGoldInnerGrad)" stroke="#FDE68A" stroke-width="0.75" stroke-dasharray="1.5 1"/><path d="M12 7.2l1.2 2.5 2.8.4-2 2 .5 2.8L12 13.6l-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg><span id="userCoinsProfile" class="text-amber-800 font-black">0</span> <span class="text-[9px] text-slate-500 font-normal">Xu</span></div><div class="inline-flex items-center gap-1.5 text-cyan-700 font-mono font-bold bg-slate-50 border-2 border-slate-200 px-2 py-0.5 rounded-lg shadow-sm" title="Kim cương quý tộc"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block shrink-0 filter drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" fill="none"><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#hudGemGrad)" stroke="#A5F3FC" stroke-width="0.8"/><polygon points="6,4 18,4 15,10 9,10" fill="url(#hudGemTopGrad)" opacity="0.95"/><polygon points="9,10 15,10 12,21" fill="#E0F2FE" opacity="0.9"/></svg><span id="userGemsProfile" class="text-cyan-800 font-black">0</span> <span class="text-[9px] text-slate-500 font-normal">KC</span></div><button onclick="copyPlayerUid()" id="btnCopyUid" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-[10px] font-bold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 shadow-sm" title="Sao chép Mã Kỳ Thủ">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
               <span>Sao chép</span>
             </button>
@@ -4429,47 +4429,47 @@
       </div>
 
       <!-- Rank Tier & ELO Progress Bar -->
-      <div class="p-3.5 rounded-2xl bg-gradient-to-r from-slate-900/90 via-slate-850/80 to-slate-900/90 border border-slate-800 mb-4 shrink-0 shadow-inner">
+      <div class="p-3.5 rounded-2xl bg-slate-50 border-2 border-slate-200 mb-4 shrink-0 shadow-sm">
         <div class="flex items-center justify-between mb-1.5 flex-wrap gap-1">
           <div class="flex items-center gap-2">
             <span id="profileRankTierBadge" class="flex items-center justify-center"><svg viewBox="0 0 24 24" class="w-5 h-5 inline-block" fill="none"><circle cx="12" cy="12" r="10" fill="url(#hudRankGoldGrad)" stroke="#FEF08A" stroke-width="1.5"/><path d="M12 6.5l1.5 3 3.5.5-2.5 2.5.6 3.5-3.1-1.7-3.1 1.7.6-3.5-2.5-2.5 3.5-.5 1.5-3z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg></span>
             <div>
-              <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Bậc Phân Hạng</div>
-              <div id="profileRankTierName" class="font-cinzel text-xs sm:text-sm font-bold text-amber-400">Vàng Hoàng Kim</div>
+              <div class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Bậc Phân Hạng</div>
+              <div id="profileRankTierName" class="font-cinzel text-xs sm:text-sm font-black text-amber-800">Vàng Hoàng Kim</div>
             </div>
           </div>
           <div class="text-right">
-            <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Điểm Chiến Tích</div>
+            <div class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Điểm Chiến Tích</div>
             <div class="flex items-center gap-1 justify-end">
-              <span id="profileEloBarText" class="font-mono text-xs sm:text-sm font-black text-amber-300">1,350</span>
-              <span class="text-[10px] text-slate-400 font-semibold">ELO</span>
+              <span id="profileEloBarText" class="font-mono text-xs sm:text-sm font-black text-amber-700">1,350</span>
+              <span class="text-[10px] text-slate-500 font-bold">ELO</span>
             </div>
           </div>
         </div>
-        <div class="w-full bg-slate-950/90 rounded-full h-2.5 p-0.5 border border-slate-700/60 overflow-hidden relative">
-          <div id="profileEloProgressBar" class="h-full rounded-full bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-300 transition-all duration-700 shadow-[0_0_10px_rgba(245,158,11,0.5)]" style="width: 50%;"></div>
+        <div class="w-full bg-slate-200 rounded-full h-2.5 p-0.5 border border-slate-300 overflow-hidden relative">
+          <div id="profileEloProgressBar" class="h-full rounded-full bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-400 transition-all duration-700 shadow-sm" style="width: 50%;"></div>
         </div>
-        <div class="flex items-center justify-between text-[10px] text-slate-400 mt-1.5 font-mono">
+        <div class="flex items-center justify-between text-[10px] text-slate-600 mt-1.5 font-mono font-bold">
           <span id="profileEloProgressLabel">Mục tiêu: Bạch Kim Tinh Thể (1,800 ELO) • Còn 450 ELO</span>
-          <span id="profileEloProgressPct" class="text-amber-400 font-bold">50%</span>
+          <span id="profileEloProgressPct" class="text-amber-800 font-black">50%</span>
         </div>
       </div>
 
       <!-- Navigation Tabs (4 Tabs) -->
-      <div class="grid grid-cols-4 gap-1 p-1 rounded-2xl bg-slate-900/90 border border-slate-800 mb-3 shrink-0">
-        <button onclick="switchProfileTab('overview')" id="pTabBtnOverview" class="py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-[0_0_15px_rgba(245,158,11,0.15)] hover:-translate-y-0.5">
+      <div class="grid grid-cols-4 gap-1 p-1 rounded-2xl bg-slate-100 border-2 border-slate-200 mb-3 shrink-0">
+        <button onclick="switchProfileTab('overview')" id="pTabBtnOverview" class="py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-black transition-all duration-200 flex items-center justify-center gap-1 bg-white text-amber-800 border-2 border-amber-400 shadow-sm hover:-translate-y-0.5">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><path d="M3 3v18h18"></path><rect width="4" height="7" x="7" y="10" rx="1"></rect><rect width="4" height="12" x="15" y="5" rx="1"></rect></svg>
           <span class="truncate">Tổng Quan</span>
         </button>
-        <button onclick="switchProfileTab('ranks')" id="pTabBtnRanks" class="py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent hover:-translate-y-0.5">
+        <button onclick="switchProfileTab('ranks')" id="pTabBtnRanks" class="py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 text-slate-600 hover:text-amber-800 hover:bg-white/60 border border-transparent hover:-translate-y-0.5">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
           <span class="truncate">Bậc Rank</span>
         </button>
-        <button onclick="switchProfileTab('armory')" id="pTabBtnArmory" class="py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent hover:-translate-y-0.5">
+        <button onclick="switchProfileTab('armory')" id="pTabBtnArmory" class="py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 text-slate-600 hover:text-amber-800 hover:bg-white/60 border border-transparent hover:-translate-y-0.5">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"></polyline><line x1="13" y1="19" x2="19" y2="13"></line><line x1="16" y1="16" x2="20" y2="20"></line><line x1="19" y1="21" x2="21" y2="19"></line><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"></polyline><line x1="5" y1="14" x2="9" y2="18"></line><line x1="7" y1="17" x2="4" y2="20"></line><line x1="3" y1="19" x2="5" y2="21"></line></svg>
           <span class="truncate">Kho Skin</span>
         </button>
-        <button onclick="switchProfileTab('history')" id="pTabBtnHistory" class="py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent hover:-translate-y-0.5">
+        <button onclick="switchProfileTab('history')" id="pTabBtnHistory" class="py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 text-slate-600 hover:text-amber-800 hover:bg-white/60 border border-transparent hover:-translate-y-0.5">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 shrink-0"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
           <span class="truncate">Lịch Sử</span>
         </button>
@@ -4482,74 +4482,74 @@
         <div id="pTabOverview" class="space-y-3">
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <!-- Box 1: Matches -->
-            <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800/80 hover:border-slate-700 transition-all duration-200 hover:-translate-y-0.5 shadow-sm">
-              <div class="flex items-center justify-between text-slate-400">
-                <span class="text-[10px] uppercase font-bold tracking-wider">Số Ván Đấu</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-cyan-400"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><line x1="15" y1="13" x2="15.01" y2="13"></line><line x1="18" y1="11" x2="18.01" y2="11"></line><rect width="20" height="12" x="2" y="6" rx="6"></rect></svg>
+            <div class="p-3.5 rounded-2xl bg-white border-2 border-slate-200 hover:border-slate-300 transition-all duration-200 hover:-translate-y-0.5 shadow-sm">
+              <div class="flex items-center justify-between text-slate-500">
+                <span class="text-[10px] uppercase font-black tracking-wider">Số Ván Đấu</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-cyan-600"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><line x1="15" y1="13" x2="15.01" y2="13"></line><line x1="18" y1="11" x2="18.01" y2="11"></line><rect width="20" height="12" x="2" y="6" rx="6"></rect></svg>
               </div>
-              <div class="text-xl sm:text-2xl font-black text-white mt-1 font-mono" id="profileMatches">0</div>
-              <div class="text-[10px] text-slate-400 mt-1 flex items-center gap-2">
-                <span>Thắng: <b class="text-emerald-400" id="profileWinsCount">0</b></span>
+              <div class="text-xl sm:text-2xl font-black text-slate-900 mt-1 font-mono" id="profileMatches">0</div>
+              <div class="text-[11px] text-slate-600 font-bold mt-1 flex items-center gap-2">
+                <span>Thắng: <b class="text-emerald-600" id="profileWinsCount">0</b></span>
                 <span>•</span>
-                <span>Thua: <b class="text-rose-400" id="profileLossesCount">0</b></span>
+                <span>Thua: <b class="text-rose-600" id="profileLossesCount">0</b></span>
               </div>
             </div>
 
             <!-- Box 2: Win Rate -->
-            <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800/80 hover:border-slate-700 transition-all duration-200 hover:-translate-y-0.5 shadow-sm">
-              <div class="flex items-center justify-between text-slate-400">
-                <span class="text-[10px] uppercase font-bold tracking-wider">Tỷ Lệ Thắng</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-400"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path><circle cx="12" cy="12" r="4"></circle></svg>
+            <div class="p-3.5 rounded-2xl bg-white border-2 border-slate-200 hover:border-slate-300 transition-all duration-200 hover:-translate-y-0.5 shadow-sm">
+              <div class="flex items-center justify-between text-slate-500">
+                <span class="text-[10px] uppercase font-black tracking-wider">Tỷ Lệ Thắng</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path><circle cx="12" cy="12" r="4"></circle></svg>
               </div>
-              <div class="text-xl sm:text-2xl font-black text-emerald-400 mt-1 font-mono" id="profileWinRate">0%</div>
-              <div class="text-[10px] text-slate-400 mt-1">Dữ liệu đấu trường trực tiếp</div>
+              <div class="text-xl sm:text-2xl font-black text-emerald-600 mt-1 font-mono" id="profileWinRate">0%</div>
+              <div class="text-[11px] text-slate-600 font-bold mt-1">Dữ liệu đấu trường trực tiếp</div>
             </div>
 
             <!-- Box 3: ELO Points -->
-            <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800/80 hover:border-slate-700 transition-all duration-200 hover:-translate-y-0.5 shadow-sm">
-              <div class="flex items-center justify-between text-slate-400">
-                <span class="text-[10px] uppercase font-bold tracking-wider">Điểm ELO</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-amber-400"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+            <div class="p-3.5 rounded-2xl bg-white border-2 border-slate-200 hover:border-slate-300 transition-all duration-200 hover:-translate-y-0.5 shadow-sm">
+              <div class="flex items-center justify-between text-slate-500">
+                <span class="text-[10px] uppercase font-black tracking-wider">Điểm ELO</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-amber-600"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
               </div>
-              <div class="text-xl sm:text-2xl font-black text-amber-400 mt-1 font-mono" id="profileElo">1,200</div>
-              <div class="text-[10px] text-amber-300 font-semibold mt-1 truncate" id="profileRankTitle">Vàng Hoàng Kim</div>
+              <div class="text-xl sm:text-2xl font-black text-slate-900 mt-1 font-mono" id="profileElo">1,200</div>
+              <div class="text-[11px] text-amber-700 font-bold mt-1 truncate" id="profileRankTitle">Vàng Hoàng Kim</div>
             </div>
           </div>
 
           <!-- Box 4: Combat Masteries -->
-          <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800/80 shadow-sm">
-            <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider flex items-center gap-1.5 mb-2.5">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <div class="p-4 rounded-2xl bg-slate-50 border-2 border-slate-200 shadow-sm">
+            <div class="text-xs uppercase font-black text-amber-800 tracking-wider flex items-center gap-1.5 mb-2.5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-600"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
               <span>KỶ LỤC & CHIẾN TÍCH ĐẶC BIỆT</span>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-              <div class="p-2.5 rounded-xl bg-slate-950/60 border border-slate-800/60 flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+              <div class="p-2.5 rounded-xl bg-white border-2 border-slate-200 shadow-sm flex items-center gap-2.5 text-slate-800">
+                <div class="w-8 h-8 rounded-lg bg-amber-100 border border-amber-300 flex items-center justify-center text-amber-700 shrink-0">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
                 </div>
                 <div class="min-w-0">
-                  <div class="text-[10px] text-slate-400 truncate">Chuỗi Thắng Dài Nhất</div>
-                  <div class="text-sm font-bold text-amber-300 font-mono" id="profileBestStreak">5 ván</div>
+                  <div class="text-[10px] text-slate-500 font-semibold truncate">Chuỗi Thắng Dài Nhất</div>
+                  <div class="text-sm font-black text-slate-900 font-mono" id="profileBestStreak">5 ván</div>
                 </div>
               </div>
 
-              <div class="p-2.5 rounded-xl bg-slate-950/60 border border-slate-800/60 flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 shrink-0">
+              <div class="p-2.5 rounded-xl bg-white border-2 border-slate-200 shadow-sm flex items-center gap-2.5 text-slate-800">
+                <div class="w-8 h-8 rounded-lg bg-rose-100 border border-rose-300 flex items-center justify-center text-rose-700 shrink-0">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><circle cx="11" cy="13" r="9"></circle><path d="M14.35 4.65 16.3 2.7a2.41 2.41 0 0 1 3.4 0l1.6 1.6a2.4 2.4 0 0 1 0 3.4l-1.95 1.95"></path><path d="m22 2-1.5 1.5"></path></svg>
                 </div>
                 <div class="min-w-0">
-                  <div class="text-[10px] text-slate-400 truncate">Mìn Kích Nổ Chuẩn</div>
-                  <div class="text-sm font-bold text-rose-300 font-mono" id="profileMinesDetonated">18 lần</div>
+                  <div class="text-[10px] text-slate-500 font-semibold truncate">Mìn Kích Nổ Chuẩn</div>
+                  <div class="text-sm font-black text-slate-900 font-mono" id="profileMinesDetonated">18 lần</div>
                 </div>
               </div>
 
-              <div class="p-2.5 rounded-xl bg-slate-950/60 border border-slate-800/60 flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+              <div class="p-2.5 rounded-xl bg-white border-2 border-slate-200 shadow-sm flex items-center gap-2.5 text-slate-800">
+                <div class="w-8 h-8 rounded-lg bg-cyan-100 border border-cyan-300 flex items-center justify-center text-cyan-700 shrink-0">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>
                 </div>
                 <div class="min-w-0">
-                  <div class="text-[10px] text-slate-400 truncate">Lần Phá Băng</div>
-                  <div class="text-sm font-bold text-cyan-300 font-mono" id="profileIceBreaks">12 lần</div>
+                  <div class="text-[10px] text-slate-500 font-semibold truncate">Lần Phá Băng</div>
+                  <div class="text-sm font-black text-slate-900 font-mono" id="profileIceBreaks">12 lần</div>
                 </div>
               </div>
             </div>
@@ -4558,11 +4558,11 @@
 
         <!-- Tab 2: Rank Tiers & Rewards (7 Bậc Phân Hạng) -->
         <div id="pTabRanks" class="space-y-2.5 hidden">
-          <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
-            <span class="font-bold uppercase tracking-wider text-[10px] text-amber-400 flex items-center gap-1.5">
-              <span class="flex items-center gap-1.5"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block text-amber-400" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1h10v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34"/><path d="M6 4h12v5a6 6 0 0 1-12 0V4z"/></svg><span>Lộ Trình 7 Bậc Phân Hạng Hoàng Gia</span></span>
+          <div class="flex items-center justify-between text-xs text-slate-500 mb-1">
+            <span class="font-black uppercase tracking-wider text-[10px] text-amber-800 flex items-center gap-1.5">
+              <span class="flex items-center gap-1.5"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block text-amber-600" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1h10v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34"/><path d="M6 4h12v5a6 6 0 0 1-12 0V4z"/></svg><span>Lộ Trình 7 Bậc Phân Hạng Hoàng Gia</span></span>
             </span>
-            <span class="text-[10px] font-mono text-slate-400" id="profileRankClaimSummary">Đã nhận: 0/7 bậc</span>
+            <span class="text-[10px] font-mono font-bold text-slate-500" id="profileRankClaimSummary">Đã nhận: 0/7 bậc</span>
           </div>
           <div id="profileRankTiersList" class="space-y-2">
             <!-- Rendered via renderProfileRankRewardsUI() -->
@@ -4573,8 +4573,8 @@
         <div id="pTabArmory" class="space-y-4 hidden">
           <!-- Dice Skins Section -->
           <div>
-            <h4 class="text-xs font-bold text-amber-300 uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-cinzel">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-amber-400"><rect width="18" height="18" x="3" y="3" rx="4"></rect><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"></circle><circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"></circle></svg>
+            <h4 class="text-xs font-black text-amber-800 uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-cinzel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-amber-600"><rect width="18" height="18" x="3" y="3" rx="4"></rect><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"></circle><circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"></circle></svg>
               <span>Bộ Sưu Tập Xúc Xắc Độc Bản</span>
             </h4>
             <div id="profileDiceSkinsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -4584,8 +4584,8 @@
 
           <!-- Meeple Skins Section -->
           <div>
-            <h4 class="text-xs font-bold text-cyan-300 uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-cinzel">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-cyan-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <h4 class="text-xs font-black text-cyan-800 uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-cinzel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-cyan-600"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
               <span>Hình Chiếu Kỳ Thủ & Kỹ Năng Hệ</span>
             </h4>
             <div id="profileMeepleSkinsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -4596,9 +4596,9 @@
 
         <!-- Tab 4: Match History -->
         <div id="pTabHistory" class="space-y-2.5 hidden">
-          <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
-            <span class="font-bold uppercase tracking-wider text-[10px]">Nhật Ký Chiến Đấu Gần Nhất</span>
-            <span class="text-[10px] font-mono">Tự động đồng bộ</span>
+          <div class="flex items-center justify-between text-xs text-slate-500 mb-1">
+            <span class="font-black uppercase tracking-wider text-[10px] text-slate-700">Nhật Ký Chiến Đấu Gần Nhất</span>
+            <span class="text-[10px] font-mono font-bold text-slate-500">Tự động đồng bộ</span>
           </div>
           <div id="profileMatchHistoryList" class="space-y-2">
             <!-- Rendered via renderProfileMatchHistoryUI() -->
@@ -4608,8 +4608,8 @@
       </div>
 
       <!-- Bottom Action Bar -->
-      <div class="pt-3 mt-3 border-t border-slate-800/80 shrink-0">
-        <button onclick="closeModal('profileModal')" class="btn-spring w-full py-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-850 text-slate-200 text-xs font-bold border border-slate-700/80 hover:border-amber-500/40 transition-all duration-200 flex items-center justify-center gap-1.5 shadow-md hover:-translate-y-0.5">
+      <div class="pt-3 mt-3 border-t border-slate-200 shrink-0">
+        <button onclick="closeModal('profileModal')" class="btn-spring w-full py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-black border-2 border-slate-300 transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm hover:-translate-y-0.5 active:scale-95">
           <span>Đóng Bảng Hồ Sơ</span>
         </button>
       </div>
@@ -4635,7 +4635,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <div class="rounded-2xl p-4 bg-board-tray border border-board-border flex flex-col justify-between">
           <div>
-            <div class="text-xs font-bold text-slate-400 uppercase font-cinzel">Tân Thủ</div>
+            <div class="text-xs font-black text-slate-700 uppercase font-cinzel tracking-wider">Tân Thủ</div>
             <div class="text-xl font-black text-white my-2 font-mono">0đ</div>
             <ul class="text-[11px] text-slate-300 space-y-2 mb-4">
               <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Bàn cờ 12 ô kinh điển</li>
@@ -4653,7 +4653,7 @@
             Khuyên Dùng
           </div>
           <div>
-            <div class="text-xs font-bold text-amber-400 uppercase font-cinzel">Kiện Tướng PRO</div>
+            <div class="text-xs font-black text-amber-800 uppercase font-cinzel tracking-wider">Kiện Tướng PRO</div>
             <div class="text-xl font-black text-white my-2 font-mono">49.000đ<span class="text-xs font-normal text-slate-400">/tháng</span></div>
             <ul class="text-[11px] text-slate-200 space-y-2 mb-4">
               <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> x2 Toàn bộ Xu & Đá quý</li>
@@ -4668,7 +4668,7 @@
 
         <div class="rounded-2xl p-4 bg-board-tray border border-amber-500/30 flex flex-col justify-between">
           <div>
-            <div class="text-xs font-bold text-amber-300 uppercase font-cinzel">Huyền Thoại VIP</div>
+            <div class="text-xs font-black text-amber-700 uppercase font-cinzel tracking-wider">Huyền Thoại VIP</div>
             <div class="text-xl font-black text-white my-2 font-mono">99.000đ<span class="text-xs font-normal text-slate-400">/tháng</span></div>
             <ul class="text-[11px] text-slate-300 space-y-2 mb-4">
               <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> x3 Toàn bộ điểm ELO</li>
@@ -7975,14 +7975,14 @@
         const content = document.getElementById('pTab' + t.charAt(0).toUpperCase() + t.slice(1));
         if (t === tabName) {
           if (btn) {
-            btn.className = "py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-[0_0_15px_rgba(245,158,11,0.15)] hover:-translate-y-0.5";
+            btn.className = "py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-black transition-all duration-200 flex items-center justify-center gap-1 bg-white text-amber-800 border-2 border-amber-400 shadow-sm hover:-translate-y-0.5";
           }
           if (content) {
             content.classList.remove('hidden');
           }
         } else {
           if (btn) {
-            btn.className = "py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent hover:-translate-y-0.5";
+            btn.className = "py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 text-slate-600 hover:text-amber-800 hover:bg-white/60 border border-transparent hover:-translate-y-0.5";
           }
           if (content) {
             content.classList.add('hidden');
@@ -8090,7 +8090,7 @@
         let actionBtnHtml = '';
         if (isClaimed) {
           actionBtnHtml = `
-            <span class="px-3 py-1.5 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold flex items-center gap-1.5 shadow-sm">
+            <span class="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-800 border-2 border-emerald-300 text-[11px] font-black flex items-center gap-1.5 shadow-sm">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
               <span>Đã Nhận</span>
             </span>
@@ -8104,7 +8104,7 @@
           `;
         } else {
           actionBtnHtml = `
-            <span class="px-3 py-1.5 rounded-xl bg-slate-950/70 text-slate-500 border border-slate-800 text-[11px] font-semibold flex items-center gap-1.5 cursor-not-allowed">
+            <span class="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-400 border border-slate-300 text-[11px] font-bold flex items-center gap-1.5 cursor-not-allowed">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
               <span>Cần ${tier.minElo.toLocaleString()} ELO</span>
             </span>
@@ -8112,7 +8112,7 @@
         }
 
         return `
-          <div class="p-3 rounded-2xl ${isCurrent ? 'border-amber-500/60 shadow-[0_0_20px_rgba(245,158,11,0.2)] bg-gradient-to-r from-amber-500/10 via-slate-900/90 to-slate-950' : (isReached ? 'border-slate-700/80 bg-slate-900/80' : 'border-slate-800/60 bg-slate-950/40 opacity-75')} border transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:-translate-y-0.5">
+          <div class="p-3.5 rounded-2xl ${isCurrent ? 'border-2 border-amber-400 shadow-md bg-amber-50/70' : (isReached ? 'border-2 border-slate-200 bg-white shadow-sm' : 'border-2 border-slate-200 bg-slate-50/60 opacity-80')} transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:-translate-y-0.5">
             <div class="flex items-center gap-3 min-w-0">
               <div class="w-11 h-11 rounded-xl flex items-center justify-center text-xl shrink-0 ${tier.bgCls} border ${tier.borderCls} ${tier.auraCls}">
                 ${tier.tierBadge}
@@ -8120,21 +8120,21 @@
               <div class="min-w-0">
                 <div class="flex items-center gap-2 flex-wrap">
                   <span class="text-xs font-bold font-cinzel ${tier.colorCls}">${tier.tierName}</span>
-                  ${isCurrent ? '<span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Đang Ở Bậc Này</span>' : ''}
-                  ${!isReached ? '<span class="px-1.5 py-0.2 rounded text-[9px] font-medium bg-slate-800 text-slate-400">Chưa Đạt</span>' : ''}
+                  ${isCurrent ? '<span class="px-2 py-0.5 rounded-lg text-[9px] font-black bg-amber-100 text-amber-800 border border-amber-300 shadow-sm">Đang Ở Bậc Này</span>' : ''}
+                  ${!isReached ? '<span class="px-2 py-0.5 rounded-lg text-[9px] font-bold bg-slate-200 text-slate-600 border border-slate-300">Chưa Đạt</span>' : ''}
                 </div>
                 <div class="text-[10px] text-slate-400 font-mono mt-0.5">
-                  Mốc: <b class="text-slate-200">${tier.minElo.toLocaleString()} ${tier.maxElo < 9999 ? '- ' + tier.maxElo.toLocaleString() : '+'}</b> ELO
+                  Mốc: <b class="text-slate-800">${tier.minElo.toLocaleString()} ${tier.maxElo < 9999 ? '- ' + tier.maxElo.toLocaleString() : '+'}</b> ELO
                 </div>
-                <div class="text-[10px] text-slate-400 mt-0.5 line-clamp-1">${tier.desc}</div>
+                <div class="text-[10px] text-slate-500 mt-0.5 line-clamp-1 font-semibold">${tier.desc}</div>
               </div>
             </div>
-            <div class="flex items-center justify-between sm:justify-end gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-800/60">
+            <div class="flex items-center justify-between sm:justify-end gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-200">
               <div class="text-right">
-                <div class="text-[9px] uppercase tracking-wider text-slate-400 font-semibold">Gói Quà Bậc</div>
+                <div class="text-[9px] uppercase tracking-wider text-slate-500 font-black">Gói Quà Bậc</div>
                 <div class="flex items-center gap-1.5 mt-0.5 font-mono text-xs font-bold">
-                  <span class="text-amber-300 flex items-center gap-1">+${tier.rewardCoins.toLocaleString()} ${getHudCoinSVG('w-3.5 h-3.5')}</span>
-                  <span class="text-cyan-300 flex items-center gap-1">+${tier.rewardGems} ${getHudGemSVG('w-3.5 h-3.5')}</span>
+                  <span class="text-amber-800 font-black flex items-center gap-1">+${tier.rewardCoins.toLocaleString()} ${getHudCoinSVG('w-3.5 h-3.5')}</span>
+                  <span class="text-cyan-800 font-black flex items-center gap-1">+${tier.rewardGems} ${getHudGemSVG('w-3.5 h-3.5')}</span>
                 </div>
               </div>
               <div>
@@ -8190,9 +8190,9 @@
         diceContainer.innerHTML = skins.map(skin => {
           const isActive = (activeDiceSkin === skin.id);
           return `
-            <div class="p-3 rounded-2xl ${isActive ? 'border-amber-500/60 shadow-[0_0_20px_rgba(245,158,11,0.2)] bg-gradient-to-br from-amber-500/10 via-slate-900/90 to-slate-950' : 'border-slate-800 hover:border-slate-700 bg-slate-900/60'} border transition-all duration-200 flex flex-col justify-between hover:-translate-y-0.5">
+            <div class="p-3.5 rounded-2xl ${isActive ? 'border-2 border-amber-400 shadow-md bg-amber-50/70' : 'border-2 border-slate-200 hover:border-slate-300 bg-white shadow-sm'} transition-all duration-200 flex flex-col justify-between hover:-translate-y-0.5">
               <div class="flex items-center gap-3 mb-2.5">
-                <div class="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center p-1 bg-slate-950/80 border ${isActive ? 'border-amber-500/50' : 'border-slate-800'}">
+                <div class="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center p-1 bg-slate-100 border-2 ${isActive ? 'border-amber-400' : 'border-slate-200'}">
                   <svg viewBox="0 0 64 64" class="w-9 h-9 filter drop-shadow">
                     <rect x="6" y="6" width="52" height="52" rx="14" fill="${skin.bg}" stroke="${skin.stroke}" stroke-width="2.5"/>
                     <rect x="9" y="9" width="46" height="46" rx="11" fill="none" stroke="${skin.innerStroke}" stroke-width="0.8" opacity="0.4"/>
@@ -8203,20 +8203,20 @@
                 </div>
                 <div class="min-w-0 flex-1">
                   <div class="flex items-center justify-between gap-1">
-                    <div class="text-xs font-bold text-white truncate">${skin.name}</div>
+                    <div class="text-xs font-black text-slate-900 truncate">${skin.name}</div>
                     <span class="text-[9px] font-bold px-1.5 py-0.2 rounded ${skin.accentBadge}">${skin.id === 'gold' ? 'Cổ Điển' : 'Độc Bản'}</span>
                   </div>
-                  <div class="text-[10px] text-slate-400 mt-0.5 line-clamp-1">${skin.desc}</div>
+                  <div class="text-[10px] text-slate-500 mt-0.5 line-clamp-1 font-semibold">${skin.desc}</div>
                 </div>
               </div>
               <div>
                 ${isActive ? `
-                  <button disabled class="w-full py-1.5 px-3 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[11px] font-bold flex items-center justify-center gap-1.5 shadow-[0_0_10px_rgba(16,185,129,0.2)] cursor-default">
+                  <button disabled class="w-full py-2 px-3 rounded-xl bg-emerald-100 text-emerald-800 border-2 border-emerald-400 text-[11px] font-black flex items-center justify-center gap-1.5 shadow-sm cursor-default">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     <span>Đang Sử Dụng</span>
                   </button>
                 ` : `
-                  <button onclick="setProfileDiceSkin('${skin.id}')" class="w-full py-1.5 px-3 rounded-xl bg-slate-800 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 border border-slate-700 hover:border-amber-500/40 text-[11px] font-bold transition-all duration-200 flex items-center justify-center gap-1.5 hover:-translate-y-0.5 active:translate-y-0 shadow-sm">
+                  <button onclick="setProfileDiceSkin('${skin.id}')" class="w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-900 border-2 border-slate-300 hover:border-amber-400 text-[11px] font-bold transition-all duration-200 flex items-center justify-center gap-1.5 hover:-translate-y-0.5 active:translate-y-0 shadow-sm">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 8 12 12 14 14"></polyline></svg>
                     <span>Trang Bị Ngay</span>
                   </button>
@@ -8235,27 +8235,27 @@
         meepleContainer.innerHTML = heroes.map(hero => {
           const isActive = (curHeroId === hero.id);
           return `
-            <div class="p-3 rounded-2xl ${isActive ? 'border-cyan-500/60 shadow-[0_0_20px_rgba(6,182,212,0.2)] bg-gradient-to-br from-cyan-500/10 via-slate-900/90 to-slate-950' : 'border-slate-800 hover:border-slate-700 bg-slate-900/60'} border transition-all duration-200 flex flex-col justify-between hover:-translate-y-0.5">
+            <div class="p-3.5 rounded-2xl ${isActive ? 'border-2 border-cyan-400 shadow-md bg-cyan-50/70' : 'border-2 border-slate-200 hover:border-slate-300 bg-white shadow-sm'} transition-all duration-200 flex flex-col justify-between hover:-translate-y-0.5">
               <div class="flex items-center gap-3 mb-2.5">
-                <div class="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-xl bg-slate-950/80 border ${isActive ? 'border-cyan-500/50' : 'border-slate-800'}">
+                <div class="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-xl bg-slate-100 border-2 ${isActive ? 'border-cyan-400' : 'border-slate-200'}">
                   ${hero.icon}
                 </div>
                 <div class="min-w-0 flex-1">
                   <div class="flex items-center justify-between gap-1">
-                    <div class="text-xs font-bold text-white truncate">${hero.name}</div>
-                    <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">Hệ Phái</span>
+                    <div class="text-xs font-black text-slate-900 truncate">${hero.name}</div>
+                    <span class="text-[9px] font-black px-2 py-0.5 rounded-lg bg-cyan-100 text-cyan-800 border border-cyan-300">Hệ Phái</span>
                   </div>
-                  <div class="text-[10px] text-slate-400 mt-0.5 line-clamp-1">${hero.desc}</div>
+                  <div class="text-[10px] text-slate-500 mt-0.5 line-clamp-1 font-semibold">${hero.desc}</div>
                 </div>
               </div>
               <div>
                 ${isActive ? `
-                  <button disabled class="w-full py-1.5 px-3 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[11px] font-bold flex items-center justify-center gap-1.5 shadow-[0_0_10px_rgba(6,182,212,0.2)] cursor-default">
+                  <button disabled class="w-full py-2 px-3 rounded-xl bg-cyan-100 text-cyan-800 border-2 border-cyan-400 text-[11px] font-black flex items-center justify-center gap-1.5 shadow-sm cursor-default">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     <span>Đang Sử Dụng</span>
                   </button>
                 ` : `
-                  <button onclick="setProfileMeepleSkin('${hero.id}')" class="w-full py-1.5 px-3 rounded-xl bg-slate-800 hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 border border-slate-700 hover:border-cyan-500/40 text-[11px] font-bold transition-all duration-200 flex items-center justify-center gap-1.5 hover:-translate-y-0.5 active:translate-y-0 shadow-sm">
+                  <button onclick="setProfileMeepleSkin('${hero.id}')" class="w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-cyan-100 text-slate-700 hover:text-cyan-900 border-2 border-slate-300 hover:border-cyan-400 text-[11px] font-bold transition-all duration-200 flex items-center justify-center gap-1.5 hover:-translate-y-0.5 active:translate-y-0 shadow-sm">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 8 12 12 14 14"></polyline></svg>
                     <span>Trang Bị Ngay</span>
                   </button>
@@ -8273,11 +8273,11 @@
       const history = getProfileMatchHistory(explicitUid);
       if (!history || history.length === 0) {
         container.innerHTML = `
-          <div class="p-8 text-center text-slate-400 border border-dashed border-slate-800/80 rounded-2xl bg-slate-900/40 my-2">
-            <div class="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-br from-amber-500/10 to-amber-500/5 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-3 shadow-[0_0_20px_rgba(245,158,11,0.1)]">
+          <div class="p-8 text-center text-slate-500 border-2 border-dashed border-slate-300 rounded-2xl bg-slate-50 my-2">
+            <div class="w-12 h-12 mx-auto rounded-2xl bg-amber-100 border-2 border-amber-300 flex items-center justify-center text-amber-700 mb-3 shadow-sm">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="w-6 h-6"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             </div>
-            <p class="text-xs font-bold text-slate-200">Chưa có trận đấu nào được ghi nhận.</p>
+            <p class="text-xs font-black text-slate-800">Chưa có trận đấu nào được ghi nhận.</p>
             <p class="text-[11px] text-slate-500 mt-1">Hãy tham gia đấu trường để ghi danh lịch sử!</p>
           </div>
         `;
@@ -8287,29 +8287,29 @@
       container.innerHTML = history.map(item => {
         const isWin = (item.result === 'win');
         return `
-          <div class="p-3 rounded-2xl bg-slate-900/70 border border-slate-800/80 hover:border-slate-700/90 transition-all duration-200 flex items-center justify-between gap-3 hover:-translate-y-0.5 shadow-sm">
+          <div class="p-3.5 rounded-2xl bg-white border-2 border-slate-200 hover:border-slate-300 transition-all duration-200 flex items-center justify-between gap-3 hover:-translate-y-0.5 shadow-sm">
             <div class="flex items-center gap-3 min-w-0">
               <div class="shrink-0">
                 ${isWin ? `
-                  <span class="px-2 py-0.5 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-black flex items-center gap-1 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+                  <span class="px-2 py-0.5 rounded-lg bg-emerald-100 text-emerald-800 border-2 border-emerald-400 text-[10px] font-black flex items-center gap-1 shadow-sm">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     THẮNG
                   </span>
                 ` : `
-                  <span class="px-2 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 border border-rose-500/30 text-[10px] font-black flex items-center gap-1 shadow-[0_0_10px_rgba(244,63,94,0.2)]">
+                  <span class="px-2 py-0.5 rounded-lg bg-rose-100 text-rose-800 border-2 border-rose-400 text-[10px] font-black flex items-center gap-1 shadow-sm">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     THUA
                   </span>
                 `}
               </div>
               <div class="min-w-0">
-                <div class="text-xs font-bold text-white truncate">${item.mode}</div>
-                <div class="text-[10px] text-slate-400 font-mono mt-0.5 truncate">vs ${item.opponents} • ${item.timeAgo}</div>
+                <div class="text-xs font-black text-slate-900 truncate">${item.mode}</div>
+                <div class="text-[10px] text-slate-500 font-mono mt-0.5 truncate font-semibold">vs ${item.opponents} • ${item.timeAgo}</div>
               </div>
             </div>
             <div class="text-right shrink-0">
-              <div class="text-xs font-black font-mono ${isWin ? 'text-emerald-400' : 'text-rose-400'}">${item.eloChange}</div>
-              <div class="text-[10px] text-slate-400 font-mono mt-0.5">${item.score}</div>
+              <div class="text-xs font-black font-mono ${isWin ? 'text-emerald-700' : 'text-rose-700'}">${item.eloChange}</div>
+              <div class="text-[10px] text-slate-500 font-mono mt-0.5 font-bold">${item.score}</div>
             </div>
           </div>
         `;
@@ -8376,7 +8376,7 @@
       const elRankName = document.getElementById('profileRankTierName');
       if (elRankName) {
         elRankName.textContent = rankInfo.tierName;
-        elRankName.className = `font-cinzel text-xs sm:text-sm font-bold ${rankInfo.colorCls}`;
+        elRankName.className = `font-cinzel text-xs sm:text-sm font-black text-amber-800`;
       }
       const elRankBadge = document.getElementById('profileRankTierBadge');
       if (elRankBadge) elRankBadge.innerHTML = window.getHudRankBadgeSVG ? window.getHudRankBadgeSVG(rankInfo.tierKey, 'w-5 h-5') : rankInfo.tierBadge;
@@ -8422,7 +8422,7 @@
       const elRankTitle = document.getElementById('profileRankTitle');
       if (elRankTitle) {
         elRankTitle.textContent = rankInfo.tierName;
-        elRankTitle.className = `text-[10px] font-semibold mt-1 ${rankInfo.colorCls}`;
+        elRankTitle.className = `text-[11px] font-bold mt-1 text-amber-700`;
       }
 
       const elStreak = document.getElementById('profileBestStreak');

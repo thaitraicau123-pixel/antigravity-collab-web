@@ -1237,23 +1237,23 @@
         <!-- Player Economy Wallet (Coins & Gems) & Rewards Modal Trigger -->
         <div onclick="openModal('rewardsModal')" class="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-1.5 rounded-xl bg-board-tray border border-amber-500/30 hover:border-amber-400 text-xs font-bold shadow-inner shrink-0 cursor-pointer group transition-all" title="Bấm xem Cơ Cấu Trao Thưởng Trận Đấu (Xu & Kim Cương)">
           <div class="flex items-center gap-1 text-amber-400" title="Vàng hoàng gia">
-            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-current">
-              <circle cx="12" cy="12" r="10" stroke="#F59E0B" stroke-width="1.5" fill="#B45309"/>
-              <circle cx="12" cy="12" r="6" stroke="#FEF08A" stroke-width="1" fill="#F59E0B"/>
-              <text x="12" y="15" font-size="8" font-family="monospace" font-weight="900" fill="#78350F" text-anchor="middle">G</text>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 shrink-0 filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hudGoldGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FDE68A"/><stop offset="50%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#B45309"/></linearGradient><linearGradient id="hudGoldInnerGrad" x1="4" y1="4" x2="20" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#D97706"/><stop offset="100%" stop-color="#78350F"/></linearGradient></defs><circle cx="12" cy="12" r="10" fill="url(#hudGoldGrad)" stroke="#FEF08A" stroke-width="1"/><circle cx="12" cy="12" r="7.5" fill="url(#hudGoldInnerGrad)" stroke="#FDE68A" stroke-width="0.75" stroke-dasharray="1.5 1"/><path d="M12 7.2l1.2 2.5 2.8.4-2 2 .5 2.8L12 13.6l-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/>
+
+
+
             </svg>
             <span id="userCoins" class="font-mono">0</span>
           </div>
           <div class="h-3 w-px bg-slate-700"></div>
           <div class="flex items-center gap-1 text-cyan-400" title="Kim cương quý tộc">
-            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 filter drop-shadow">
-              <polygon points="8,5 16,5 21,11 12,21 3,11" fill="#06B6D4" stroke="#67E8F9" stroke-width="1.2"/>
-              <polygon points="8,5 16,5 12,11" fill="#A5F3FC" opacity="0.8"/>
-              <polygon points="3,11 8,5 12,11" fill="#38BDF8" opacity="0.6"/>
-              <polygon points="21,11 16,5 12,11" fill="#0284C7" opacity="0.7"/>
+            <svg viewBox="0 0 24 24" class="w-4 h-4 shrink-0 filter drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hudGemGrad" x1="2" y1="4" x2="22" y2="21" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#67E8F9"/><stop offset="40%" stop-color="#06B6D4"/><stop offset="100%" stop-color="#0284C7"/></linearGradient><linearGradient id="hudGemTopGrad" x1="6" y1="4" x2="18" y2="10" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#CFFAFE"/><stop offset="100%" stop-color="#A5F3FC"/></linearGradient></defs><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#hudGemGrad)" stroke="#A5F3FC" stroke-width="0.8"/><polygon points="6,4 18,4 15,10 9,10" fill="url(#hudGemTopGrad)" opacity="0.95"/><polygon points="6,4 9,10 2,10" fill="#38BDF8" opacity="0.75"/><polygon points="18,4 22,10 15,10" fill="#0284C7" opacity="0.85"/><polygon points="9,10 15,10 12,21" fill="#E0F2FE" opacity="0.9"/><polygon points="2,10 9,10 12,21" fill="#0891B2" opacity="0.7"/><polygon points="22,10 15,10 12,21" fill="#0369A1" opacity="0.8"/>
+
+
+
+
             </svg> <span id="userGems" class="font-mono">0</span>
           </div>
-          <span class="hidden 2xl:inline-block px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-500/40 ml-0.5 group-hover:scale-105 transition-transform">🎁 Thưởng</span>
+          <span class="hidden 2xl:inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-500/40 ml-0.5 group-hover:scale-105 transition-transform"><svg viewBox="0 0 24 24" class="w-3 h-3 inline-block" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect width="20" height="5" x="2" y="7"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg><span>Thưởng</span></span>
         </div>
 
         <!-- Sound Toggle -->
@@ -1272,12 +1272,12 @@
           <!-- User Logged Widget -->
           <div id="userProfileWidget" class="hidden relative">
             <button onclick="toggleProfileDropdown()" class="btn-spring flex items-center gap-2 p-1.5 pr-2.5 rounded-xl bg-board-tray hover:bg-slate-800 border border-board-border text-xs">
-              <div class="relative shrink-0"><div id="userAvatarSmall" class="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-700 text-white font-bold flex items-center justify-center text-xs shadow-sm">
+              <div class="relative shrink-0"><div id="userAvatarSmall" class="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-700 text-white font-bold flex items-center justify-center text-xs shadow-sm relative overflow-hidden border border-amber-400/40"><svg viewBox="0 0 24 24" class="absolute inset-0 w-full h-full pointer-events-none opacity-20" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hudAvatarGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FBBF24"/><stop offset="100%" stop-color="#B45309"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#hudAvatarGrad)"/></svg>
                 MD</div><span class="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 border border-[#080D1A]"></span>
               </div>
               <span id="navUserName" class="font-bold text-white max-w-[65px] sm:max-w-[95px] xl:max-w-[120px] truncate">Minh Dev</span>
-              <span id="navUserBadge" class="hidden xl:inline-block text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold font-mono shrink-0">ONLINE</span>
-              <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i>
+              <div id="userLevelBadge" class="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[10px] font-mono font-bold shrink-0"><svg viewBox="0 0 24 24" class="w-3 h-3 inline-block shrink-0" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hudLvlGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#D97706"/></linearGradient></defs><polygon points="12,2 15,8 22,9 17,14 18,21 12,17.5 6,21 7,14 2,9 9,8" fill="url(#hudLvlGrad)" stroke="#FEF08A" stroke-width="1"/></svg><span id="userLevel">Lv.1</span></div><span id="userRank" class="hidden">Vàng Hoàng Kim</span><span id="navUserBadge" class="hidden xl:inline-block text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold font-mono shrink-0">ONLINE</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-slate-400 shrink-0"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
 
             <!-- Dropdown Menu -->
@@ -1294,7 +1294,7 @@
                 Đại Sảnh Quản Trị (Admin)
               </button>
               <button onclick="switchMainTab('vip')" class="w-full px-3 py-2 rounded-xl hover:bg-slate-800 text-left flex items-center gap-2 text-amber-300">
-                <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-amber-400"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/></svg>
                 Đặc Quyền VIP
               </button>
               <div class="h-px bg-slate-800 my-1"></div>
@@ -4152,7 +4152,7 @@
             MD
           </div>
           <div id="profileRankAura" class="absolute -inset-1 rounded-2xl bg-amber-500/20 shadow-[0_0_25px_rgba(245,158,11,0.35)] filter blur-sm -z-10 transition-all duration-500"></div>
-          <div id="profileTierBadgeMini" class="absolute -bottom-1 -right-1 px-1.5 py-0.5 rounded-full text-[10px] font-black bg-slate-900 border border-amber-500/50 shadow-md">🥇</div>
+          <div id="profileTierBadgeMini" class="absolute -bottom-1 -right-1 p-0.5 rounded-full bg-slate-900 border border-amber-500/50 shadow-md flex items-center justify-center"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block" fill="none"><circle cx="12" cy="12" r="10" fill="url(#hudRankGoldGrad)" stroke="#FEF08A" stroke-width="1.5"/><path d="M12 6.5l1.5 3 3.5.5-2.5 2.5.6 3.5-3.1-1.7-3.1 1.7.6-3.5-2.5-2.5 3.5-.5 1.5-3z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg></div>
         </div>
         <div class="min-w-0 flex-1">
           <div class="flex items-center gap-2 flex-wrap">
@@ -4168,7 +4168,7 @@
               <span>Mã Kỳ Thủ:</span>
               <span id="profileUidDisplay" class="font-mono text-[10px] text-amber-300 bg-slate-900/90 px-2 py-0.5 rounded border border-slate-700/60 max-w-[130px] sm:max-w-[170px] truncate">fb_123456</span>
             </div>
-            <button onclick="copyPlayerUid()" id="btnCopyUid" class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-semibold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0" title="Sao chép Mã Kỳ Thủ">
+            <div class="inline-flex items-center gap-1.5 text-amber-400 font-mono font-bold bg-slate-900/90 px-2 py-0.5 rounded border border-slate-700/60" title="Tài sản Xu"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block shrink-0 filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none"><circle cx="12" cy="12" r="10" fill="url(#hudGoldGrad)" stroke="#FEF08A" stroke-width="1"/><circle cx="12" cy="12" r="7.5" fill="url(#hudGoldInnerGrad)" stroke="#FDE68A" stroke-width="0.75" stroke-dasharray="1.5 1"/><path d="M12 7.2l1.2 2.5 2.8.4-2 2 .5 2.8L12 13.6l-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg><span id="userCoinsProfile">0</span> <span class="text-[9px] text-amber-300/80 font-normal">Xu</span></div><div class="inline-flex items-center gap-1.5 text-cyan-400 font-mono font-bold bg-slate-900/90 px-2 py-0.5 rounded border border-slate-700/60" title="Kim cương quý tộc"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block shrink-0 filter drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" fill="none"><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#hudGemGrad)" stroke="#A5F3FC" stroke-width="0.8"/><polygon points="6,4 18,4 15,10 9,10" fill="url(#hudGemTopGrad)" opacity="0.95"/><polygon points="9,10 15,10 12,21" fill="#E0F2FE" opacity="0.9"/></svg><span id="userGemsProfile">0</span> <span class="text-[9px] text-cyan-300/80 font-normal">KC</span></div><button onclick="copyPlayerUid()" id="btnCopyUid" class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-semibold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0" title="Sao chép Mã Kỳ Thủ">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
               <span>Sao chép</span>
             </button>
@@ -4180,7 +4180,7 @@
       <div class="p-3.5 rounded-2xl bg-gradient-to-r from-slate-900/90 via-slate-850/80 to-slate-900/90 border border-slate-800 mb-4 shrink-0 shadow-inner">
         <div class="flex items-center justify-between mb-1.5 flex-wrap gap-1">
           <div class="flex items-center gap-2">
-            <span id="profileRankTierBadge" class="text-base">🥇</span>
+            <span id="profileRankTierBadge" class="flex items-center justify-center"><svg viewBox="0 0 24 24" class="w-5 h-5 inline-block" fill="none"><circle cx="12" cy="12" r="10" fill="url(#hudRankGoldGrad)" stroke="#FEF08A" stroke-width="1.5"/><path d="M12 6.5l1.5 3 3.5.5-2.5 2.5.6 3.5-3.1-1.7-3.1 1.7.6-3.5-2.5-2.5 3.5-.5 1.5-3z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg></span>
             <div>
               <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Bậc Phân Hạng</div>
               <div id="profileRankTierName" class="font-cinzel text-xs sm:text-sm font-bold text-amber-400">Vàng Hoàng Kim</div>
@@ -4308,7 +4308,7 @@
         <div id="pTabRanks" class="space-y-2.5 hidden">
           <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
             <span class="font-bold uppercase tracking-wider text-[10px] text-amber-400 flex items-center gap-1.5">
-              <span>🏆 Lộ Trình 7 Bậc Phân Hạng Hoàng Gia</span>
+              <span class="flex items-center gap-1.5"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block text-amber-400" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1h10v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34"/><path d="M6 4h12v5a6 6 0 0 1-12 0V4z"/></svg><span>Lộ Trình 7 Bậc Phân Hạng Hoàng Gia</span></span>
             </span>
             <span class="text-[10px] font-mono text-slate-400" id="profileRankClaimSummary">Đã nhận: 0/7 bậc</span>
           </div>
@@ -5216,6 +5216,7 @@
             </span>
           </div>
           <div id="dev1Highlights" class="text-[11px] text-slate-300 space-y-1 pl-1">
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Chuẩn hóa SVG Icon người chơi (Avatar/Cấp/Xu), Timer chạy chuẩn khi đổi Tab & Âm thanh Web Audio</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Fix Cờ Tỷ Phú ẩn triệt để khi chuyển game, Nút Thoát Trận dừng 100% chạy ngầm & Chuẩn hóa 4 Icon P2P</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Hệ thống 7 Bậc Rank & Phần thưởng Thăng hạng + Lịch sử đấu thật 4 Game</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Tối ưu Responsive Topbar (chống khuất Avatar/Auth) & Fix Modal Thoát Trận</span></div>
@@ -6280,8 +6281,8 @@
       // Cập nhật #userCoins, #userGems
       const uCoins = document.getElementById('userCoins');
       const uGems = document.getElementById('userGems');
-      if (uCoins) uCoins.textContent = Number(window.currentFirebaseUser.coins).toLocaleString();
-      if (uGems) uGems.textContent = Number(window.currentFirebaseUser.gems).toLocaleString();
+      if (uCoins) uCoins.textContent = Number(window.currentFirebaseUser.coins).toLocaleString(); const uCoinsProf = document.getElementById('userCoinsProfile'); if (uCoinsProf) uCoinsProf.textContent = Number(window.currentFirebaseUser.coins).toLocaleString();
+      if (uGems) uGems.textContent = Number(window.currentFirebaseUser.gems).toLocaleString(); const uGemsProf = document.getElementById('userGemsProfile'); if (uGemsProf) uGemsProf.textContent = Number(window.currentFirebaseUser.gems).toLocaleString();
 
       // Cập nhật adminPlayersList + updateAdminStatsUI()
       if (typeof adminPlayersList !== 'undefined' && Array.isArray(adminPlayersList)) {
@@ -6367,8 +6368,8 @@
 
       const uCoins = document.getElementById('userCoins');
       const uGems = document.getElementById('userGems');
-      if (uCoins) uCoins.textContent = Number(window.currentFirebaseUser.coins).toLocaleString();
-      if (uGems) uGems.textContent = Number(window.currentFirebaseUser.gems).toLocaleString();
+      if (uCoins) uCoins.textContent = Number(window.currentFirebaseUser.coins).toLocaleString(); const uCoinsProf = document.getElementById('userCoinsProfile'); if (uCoinsProf) uCoinsProf.textContent = Number(window.currentFirebaseUser.coins).toLocaleString();
+      if (uGems) uGems.textContent = Number(window.currentFirebaseUser.gems).toLocaleString(); const uGemsProf = document.getElementById('userGemsProfile'); if (uGemsProf) uGemsProf.textContent = Number(window.currentFirebaseUser.gems).toLocaleString();
 
       if (typeof adminPlayersList !== 'undefined' && Array.isArray(adminPlayersList)) {
         const p = adminPlayersList.find(x => x.uid === window.currentFirebaseUser.uid || (x.email && x.email === window.currentFirebaseUser.email));
@@ -6432,6 +6433,74 @@
         }
       }
     }
+
+    // UI Sound Effects (Zone C)
+    let lastUiHoverTick = 0;
+
+    function playUiHoverTick() {
+      if (!isSoundOn) return;
+      const now = Date.now();
+      if (now - lastUiHoverTick < 80) return;
+      lastUiHoverTick = now;
+      try {
+        initAudio();
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume().catch(() => {});
+        }
+        if (!audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.04);
+        g.gain.setValueAtTime(0.025, audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+        osc.connect(g);
+        g.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.04);
+      } catch (e) {}
+    }
+
+    function playUiClickTick() {
+      if (!isSoundOn) return;
+      try {
+        initAudio();
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume().catch(() => {});
+        }
+        if (!audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.05);
+        g.gain.setValueAtTime(0.035, audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+        osc.connect(g);
+        g.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.05);
+      } catch (e) {}
+    }
+
+    // Delegated UI Sound Listeners for Lobby & Multiplayer Controls
+    (function initUiSoundDelegation() {
+      const UI_SOUND_SELECTOR = '[onclick*="enterGameFromLobby"], [id^="pillGame"], [id^="mpGameCard_"]';
+      ['mouseover', 'click'].forEach((evtType) => {
+        document.addEventListener(evtType, (e) => {
+          const el = e.target && e.target.nodeType === 1 ? e.target : (e.target && e.target.parentElement);
+          const target = el && el.closest && el.closest(UI_SOUND_SELECTOR);
+          if (!target) return;
+          if (evtType === 'mouseover') {
+            if (e.relatedTarget && target.contains(e.relatedTarget)) return;
+            playUiHoverTick();
+          } else if (evtType === 'click') {
+            playUiClickTick();
+          }
+        }, { passive: true });
+      });
+    })();
 
     // Modal Manager
     function openModal(id) {
@@ -6623,10 +6692,10 @@
       document.getElementById('profileUidDisplay').textContent = userData.uid || 'fb_live';
       document.getElementById('leaderboardMyRankName').textContent = `${userData.displayName} (Bạn)`;
 
-      if (userData.coins !== undefined && userData.coins !== null) document.getElementById('userCoins').textContent = Number(userData.coins).toLocaleString();
-      if (userData.gems !== undefined && userData.gems !== null) document.getElementById('userGems').textContent = Number(userData.gems).toLocaleString();
+      if (userData.coins !== undefined && userData.coins !== null) { document.getElementById('userCoins').textContent = Number(userData.coins).toLocaleString(); const ucP = document.getElementById('userCoinsProfile'); if (ucP) ucP.textContent = Number(userData.coins).toLocaleString(); }
+      if (userData.gems !== undefined && userData.gems !== null) { document.getElementById('userGems').textContent = Number(userData.gems).toLocaleString(); const ugP = document.getElementById('userGemsProfile'); if (ugP) ugP.textContent = Number(userData.gems).toLocaleString(); }
 
-      const initials = userData.displayName.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+      const initials = (userData.displayName || 'MD').replace(/[^\p{L}\p{N}]/gu, '').substring(0, 2).toUpperCase() || 'MD'; const uLvl = document.getElementById('userLevel'); if (uLvl) uLvl.textContent = `Lv.${userData.level || 1}`;
       document.getElementById('userAvatarSmall').textContent = initials;
       document.getElementById('profileAvatarBig').textContent = initials;
       if (typeof window.updateProfileModalUI === 'function') {
@@ -6683,11 +6752,37 @@
     
     
     // ================= ADVANCED PLAYER PROFILE, 7-TIER RANK & ARMORY SYSTEM =================
+    window.getHudRankBadgeSVG = function(tierKey, size = "w-5 h-5") {
+      switch (tierKey) {
+        case 'bronze':
+          return `<svg viewBox="0 0 24 24" class="${size} inline-block filter drop-shadow-[0_0_4px_rgba(180,83,9,0.5)]" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hudRankBronzeGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#D97706"/><stop offset="100%" stop-color="#78350F"/></linearGradient></defs><circle cx="12" cy="12" r="10" fill="url(#hudRankBronzeGrad)" stroke="#B45309" stroke-width="1.5"/><path d="M12 6l2 4 4.5.5-3.3 3.2.8 4.3-4-2.2-4 2.2.8-4.3L5.5 10.5 10 10l2-4z" fill="#FDE68A" opacity="0.9"/></svg>`;
+        case 'silver':
+          return `<svg viewBox="0 0 24 24" class="${size} inline-block filter drop-shadow-[0_0_4px_rgba(148,163,184,0.5)]" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hudRankSilverGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F1F5F9"/><stop offset="50%" stop-color="#94A3B8"/><stop offset="100%" stop-color="#475569"/></linearGradient></defs><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="url(#hudRankSilverGrad)" stroke="#CBD5E1" stroke-width="1.5"/><polygon points="12,6 17,9.5 17,14.5 12,18 7,14.5 7,9.5" fill="#0F172A" opacity="0.4"/><circle cx="12" cy="12" r="2.5" fill="#F8FAFC"/></svg>`;
+        case 'gold':
+          return `<svg viewBox="0 0 24 24" class="${size} inline-block filter drop-shadow-[0_0_5px_rgba(245,158,11,0.6)]" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hudRankGoldGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FEF08A"/><stop offset="50%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#B45309"/></linearGradient></defs><circle cx="12" cy="12" r="10" fill="url(#hudRankGoldGrad)" stroke="#FEF08A" stroke-width="1.5"/><circle cx="12" cy="12" r="7" fill="none" stroke="#78350F" stroke-width="1" stroke-dasharray="2 1"/><path d="M12 6.5l1.5 3 3.5.5-2.5 2.5.6 3.5-3.1-1.7-3.1 1.7.6-3.5-2.5-2.5 3.5-.5 1.5-3z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg>`;
+        case 'platinum':
+          return `<svg viewBox="0 0 24 24" class="${size} inline-block filter drop-shadow-[0_0_5px_rgba(6,182,212,0.6)]" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hudRankPlatGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#CFFAFE"/><stop offset="50%" stop-color="#06B6D4"/><stop offset="100%" stop-color="#0E7490"/></linearGradient></defs><polygon points="12,2 22,12 12,22 2,12" fill="url(#hudRankPlatGrad)" stroke="#A5F3FC" stroke-width="1.5"/><polygon points="12,6 18,12 12,18 6,12" fill="#083344" opacity="0.4"/><circle cx="12" cy="12" r="2.5" fill="#E0F2FE"/></svg>`;
+        case 'diamond':
+          return `<svg viewBox="0 0 24 24" class="${size} inline-block filter drop-shadow-[0_0_6px_rgba(59,130,246,0.7)]" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hudRankDiaGrad" x1="2" y1="4" x2="22" y2="20" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#DBEAFE"/><stop offset="40%" stop-color="#3B82F6"/><stop offset="100%" stop-color="#1D4ED8"/></linearGradient></defs><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#hudRankDiaGrad)" stroke="#93C5FD" stroke-width="1.2"/><polygon points="6,4 18,4 15,10 9,10" fill="#EFF6FF" opacity="0.8"/><polygon points="9,10 15,10 12,21" fill="#BFDBFE" opacity="0.9"/></svg>`;
+        case 'master':
+          return `<svg viewBox="0 0 24 24" class="${size} inline-block filter drop-shadow-[0_0_6px_rgba(168,85,247,0.7)]" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hudRankMasterGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F3E8FF"/><stop offset="50%" stop-color="#A855F7"/><stop offset="100%" stop-color="#6B21A8"/></linearGradient></defs><circle cx="12" cy="12" r="9" fill="url(#hudRankMasterGrad)" stroke="#E9D5FF" stroke-width="1.5"/><path d="M12 5l2 4 4 1-3 3 1 4-4-2-4 2 1-4-3-3 4-1 2-4z" fill="#FAF5FF" opacity="0.85"/></svg>`;
+        case 'grandmaster':
+          return `<svg viewBox="0 0 24 24" class="${size} inline-block filter drop-shadow-[0_0_8px_rgba(244,63,94,0.8)]" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="hudRankGrandGrad" x1="2" y1="3" x2="22" y2="21" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FECDD3"/><stop offset="35%" stop-color="#F43F5E"/><stop offset="70%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#9F1239"/></linearGradient></defs><path d="M3 18h18v2.5H3z" fill="#BE123C" stroke="#FECDD3" stroke-width="0.8"/><path d="M4 17l2-11 4.5 5.5L12 4l1.5 7.5L18 6l2 11H4z" fill="url(#hudRankGrandGrad)" stroke="#FEF08A" stroke-width="1.2"/><circle cx="4" cy="6" r="1.5" fill="#FEF08A"/><circle cx="12" cy="4" r="1.8" fill="#FEF08A"/><circle cx="20" cy="6" r="1.5" fill="#FEF08A"/><circle cx="12" cy="14" r="1.8" fill="#FFFBEB"/></svg>`;
+        default:
+          return `<svg viewBox="0 0 24 24" class="${size} inline-block" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>`;
+      }
+    };
+    window.getHudCoinSVG = function(size = "w-3.5 h-3.5") {
+      return `<svg viewBox="0 0 24 24" class="${size} inline-block shrink-0 filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none"><circle cx="12" cy="12" r="10" fill="url(#hudGoldGrad)" stroke="#FEF08A" stroke-width="1"/><circle cx="12" cy="12" r="7.5" fill="url(#hudGoldInnerGrad)" stroke="#FDE68A" stroke-width="0.75" stroke-dasharray="1.5 1"/><path d="M12 7.2l1.2 2.5 2.8.4-2 2 .5 2.8L12 13.6l-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg>`;
+    };
+    window.getHudGemSVG = function(size = "w-3.5 h-3.5") {
+      return `<svg viewBox="0 0 24 24" class="${size} inline-block shrink-0 filter drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" fill="none"><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#hudGemGrad)" stroke="#A5F3FC" stroke-width="0.8"/><polygon points="6,4 18,4 15,10 9,10" fill="url(#hudGemTopGrad)" opacity="0.95"/><polygon points="9,10 15,10 12,21" fill="#E0F2FE" opacity="0.9"/></svg>`;
+    };
     const RANK_TIERS = [
       {
         tierKey: 'bronze',
         tierName: 'Đồng Đoàn',
-        tierBadge: '🥉',
+        tierBadge: getHudRankBadgeSVG('bronze'),
         minElo: 0,
         maxElo: 1199,
         rewardCoins: 200,
@@ -6702,7 +6797,7 @@
       {
         tierKey: 'silver',
         tierName: 'Bạc Đoàn',
-        tierBadge: '🥈',
+        tierBadge: getHudRankBadgeSVG('silver'),
         minElo: 1200,
         maxElo: 1499,
         rewardCoins: 500,
@@ -6717,7 +6812,7 @@
       {
         tierKey: 'gold',
         tierName: 'Vàng Hoàng Kim',
-        tierBadge: '🥇',
+        tierBadge: getHudRankBadgeSVG('gold'),
         minElo: 1500,
         maxElo: 1799,
         rewardCoins: 1000,
@@ -6732,7 +6827,7 @@
       {
         tierKey: 'platinum',
         tierName: 'Bạch Kim Tinh Thể',
-        tierBadge: '🔷',
+        tierBadge: getHudRankBadgeSVG('platinum'),
         minElo: 1800,
         maxElo: 2099,
         rewardCoins: 2000,
@@ -6747,7 +6842,7 @@
       {
         tierKey: 'diamond',
         tierName: 'Kim Cương Quý Tộc',
-        tierBadge: '💎',
+        tierBadge: getHudRankBadgeSVG('diamond'),
         minElo: 2100,
         maxElo: 2399,
         rewardCoins: 3500,
@@ -6762,7 +6857,7 @@
       {
         tierKey: 'master',
         tierName: 'Cao Thủ Huyền Thoại',
-        tierBadge: '🔮',
+        tierBadge: getHudRankBadgeSVG('master'),
         minElo: 2400,
         maxElo: 2699,
         rewardCoins: 5000,
@@ -6777,7 +6872,7 @@
       {
         tierKey: 'grandmaster',
         tierName: 'Đại Kiện Tướng Hoàng Gia',
-        tierBadge: '👑',
+        tierBadge: getHudRankBadgeSVG('grandmaster'),
         minElo: 2700,
         maxElo: 9999,
         rewardCoins: 10000,
@@ -6911,7 +7006,7 @@
         const now = Date.now();
         if (window._lastMatchRecordedTime && (now - window._lastMatchRecordedTime < 1200)) {
           console.log('[MatchHistory] Skip duplicate record within 1.2s');
-          return;
+
         }
         window._lastMatchRecordedTime = now;
 
@@ -7128,14 +7223,14 @@
         localStorage.setItem('tabletop_guest_gems', String(window.currentFirebaseUser.gems));
         const uCoins = document.getElementById('userCoins');
         const uGems = document.getElementById('userGems');
-        if (uCoins) uCoins.textContent = Number(window.currentFirebaseUser.coins).toLocaleString();
-        if (uGems) uGems.textContent = Number(window.currentFirebaseUser.gems).toLocaleString();
+        if (uCoins) uCoins.textContent = Number(window.currentFirebaseUser.coins).toLocaleString(); const ucP = document.getElementById('userCoinsProfile'); if (ucP) ucP.textContent = Number(window.currentFirebaseUser.coins).toLocaleString();
+        if (uGems) uGems.textContent = Number(window.currentFirebaseUser.gems).toLocaleString(); const ugP = document.getElementById('userGemsProfile'); if (ugP) ugP.textContent = Number(window.currentFirebaseUser.gems).toLocaleString();
       }
 
       // Audio & Toast chúc mừng
       soundTone(784, 'triangle', 0.2, 0.15);
       setTimeout(() => soundTone(1046, 'triangle', 0.35, 0.2), 120);
-      showToast(`🎉 CHÚC MỪNG! Đã nhận quà Thăng Hạng [${tier.tierName}]: +${tier.rewardCoins.toLocaleString()} 🪙 & +${tier.rewardGems} 💎!`, 3500);
+      showToast(`CHÚC MỪNG! Đã nhận quà Thăng Hạng [${tier.tierName}]: +${tier.rewardCoins.toLocaleString()} Xu & +${tier.rewardGems} Kim Cương!`, 3500);
 
       // Re-render UI
       window.renderProfileRankRewardsUI();
@@ -7212,8 +7307,8 @@
               <div class="text-right">
                 <div class="text-[9px] uppercase tracking-wider text-slate-400 font-semibold">Gói Quà Bậc</div>
                 <div class="flex items-center gap-1.5 mt-0.5 font-mono text-xs font-bold">
-                  <span class="text-amber-300">+${tier.rewardCoins.toLocaleString()} 🪙</span>
-                  <span class="text-cyan-300">+${tier.rewardGems} 💎</span>
+                  <span class="text-amber-300 flex items-center gap-1">+${tier.rewardCoins.toLocaleString()} ${getHudCoinSVG('w-3.5 h-3.5')}</span>
+                  <span class="text-cyan-300 flex items-center gap-1">+${tier.rewardGems} ${getHudGemSVG('w-3.5 h-3.5')}</span>
                 </div>
               </div>
               <div>
@@ -7446,9 +7541,9 @@
         elRankName.className = `font-cinzel text-xs sm:text-sm font-bold ${rankInfo.colorCls}`;
       }
       const elRankBadge = document.getElementById('profileRankTierBadge');
-      if (elRankBadge) elRankBadge.textContent = rankInfo.tierBadge;
+      if (elRankBadge) elRankBadge.innerHTML = window.getHudRankBadgeSVG ? window.getHudRankBadgeSVG(rankInfo.tierKey, 'w-5 h-5') : rankInfo.tierBadge;
       const elRankBadgeMini = document.getElementById('profileTierBadgeMini');
-      if (elRankBadgeMini) elRankBadgeMini.textContent = rankInfo.tierBadge;
+      if (elRankBadgeMini) elRankBadgeMini.innerHTML = window.getHudRankBadgeSVG ? window.getHudRankBadgeSVG(rankInfo.tierKey, 'w-3.5 h-3.5') : rankInfo.tierBadge; const elCoinsProf = document.getElementById('userCoinsProfile'); if (elCoinsProf) elCoinsProf.textContent = Number((u && u.coins) || 0).toLocaleString(); const elGemsProf = document.getElementById('userGemsProfile'); if (elGemsProf) elGemsProf.textContent = Number((u && u.gems) || 0).toLocaleString(); const elLvl = document.getElementById('userLevel'); if (elLvl) elLvl.textContent = `Lv.${(u && u.level) || 1}`; const elRank = document.getElementById('userRank'); if (elRank) elRank.textContent = rankInfo.tierName;
 
       const elEloBarText = document.getElementById('profileEloBarText');
       if (elEloBarText) elEloBarText.textContent = Number(elo).toLocaleString();
@@ -8048,21 +8143,65 @@
     let timingPos = 50; // 0 to 100
     let timingDir = 1.6; // step velocity
     let isTimingActive = false;
+    let timingStartTime = 0;
+
+    function updateTimingGaugeUI() {
+      const needle = document.getElementById('timingNeedle');
+      const status = document.getElementById('timingGaugeStatus');
+      if (needle) needle.style.left = timingPos + '%';
+      if (status) {
+        if (timingPos >= 46 && timingPos <= 54) {
+          status.textContent = '⭐ PERFECT (6)';
+          status.className = 'text-yellow-300 font-black uppercase drop-shadow-[0_0_8px_#fde047]';
+        } else if (timingPos < 34) {
+          status.textContent = 'BƯỚC 1 - 2';
+          status.className = 'text-emerald-400 font-extrabold uppercase';
+        } else if (timingPos > 66) {
+          status.textContent = 'BƯỚC 5 - 6';
+          status.className = 'text-amber-400 font-extrabold uppercase';
+        } else {
+          status.textContent = 'BƯỚC 3 - 4';
+          status.className = 'text-cyan-400 font-extrabold uppercase';
+        }
+      }
+    }
+
+    function syncTimingGaugePos(now = performance.now()) {
+      if (!isTimingActive) return;
+      const cycleMs = 2000;
+      const elapsed = (now - timingStartTime + 500) % cycleMs;
+      const progress = elapsed / (cycleMs / 2);
+      if (progress <= 1) {
+        timingPos = 2 + progress * 96;
+        timingDir = 1.6;
+      } else {
+        timingPos = 98 - (progress - 1) * 96;
+        timingDir = -1.6;
+      }
+      updateTimingGaugeUI();
+    }
 
     function startTimingGauge() {
       try {
         if (timingAnimId) cancelAnimationFrame(timingAnimId);
         isTimingActive = true;
+        timingStartTime = performance.now();
+        syncTimingGaugePos(timingStartTime);
         const needle = document.getElementById('timingNeedle');
         const status = document.getElementById('timingGaugeStatus');
 
         function step() {
           if (!isTimingActive) return;
-          timingPos += timingDir;
-          if (timingPos >= 98) { timingPos = 98; timingDir = -Math.abs(timingDir); }
-          else if (timingPos <= 2) { timingPos = 2; timingDir = Math.abs(timingDir); }
+          syncTimingGaugePos(performance.now());
+          timingAnimId = requestAnimationFrame(step);
+        }
+        const _ignoreOldStep = () => {
+          timingAnimId = requestAnimationFrame(step);
 
-          if (needle) needle.style.left = timingPos + '%';
+
+
+
+
 
           if (status) {
             if (timingPos >= 46 && timingPos <= 54) {
@@ -8119,6 +8258,7 @@
         if (window.myRoomPlayerIndex !== activeIdx) {
           showToast(`⏳ Chưa đến lượt bạn! Đang là lượt của ${getPlayerName(currentTurn)}.`);
           return;
+
         }
       } else if (currentOpponent === 'bot' && currentTurn !== 1) {
         return;
@@ -8134,6 +8274,7 @@
         if (window.myRoomPlayerIndex !== activeIdx) {
           showToast(`⏳ Chưa đến lượt bạn! Đang là lượt của ${getPlayerName(currentTurn)}.`);
           return;
+
         }
       } else if (currentOpponent === 'bot' && currentTurn !== 1) {
         showToast("⏳ Đang là lượt của Bot, vui lòng đợi...");
@@ -8186,6 +8327,7 @@
         if (window.myRoomPlayerIndex !== (p - 1)) {
           showToast(`⏳ Chưa đến lượt bạn! Đang là lượt của ${getPlayerName(p)}.`);
           return;
+
         }
       } else if (currentOpponent === 'bot' && p !== 1) {
         return;
@@ -8215,6 +8357,7 @@
         if (window.myRoomPlayerIndex !== (p - 1)) {
           showToast(`⏳ Chưa đến lượt bạn! Đang là lượt của ${getPlayerName(p)}.`);
           return;
+
         }
       } else if (currentOpponent === 'bot' && p !== 1) {
         return;
@@ -8455,19 +8598,28 @@
       }
 
       // 5s Countdown Timer
-      let timeLeft = 100;
+      const duelDurationMs = 5000;
+      duelState.endTime = Date.now() + duelDurationMs;
       if (timerBar) timerBar.style.width = '100%';
       soundTone(550, 'sawtooth', 0.2, 0.2);
 
       clearInterval(duelState.timer);
       duelState.timer = setInterval(() => {
-        timeLeft -= 2;
-        if (timerBar) timerBar.style.width = Math.max(0, timeLeft) + '%';
-        if (timeLeft <= 0) {
+        const remaining = Math.max(0, duelState.endTime - Date.now());
+        const pct = (remaining / duelDurationMs) * 100;
+        if (timerBar) timerBar.style.width = pct + '%';
+        if (remaining <= 0) {
+          clearInterval(duelState.timer);
+          duelState.timer = null;
+          resolveDuelTimeout();
+        }
+        if (false) {
+
+
           clearInterval(duelState.timer);
           resolveDuelTimeout();
         }
-      }, 100);
+      }, 50);
 
       // If Challenger or Defender is Bot, schedule bot action
       if (defender > 1 || isSpectatorMode) {
@@ -9070,12 +9222,17 @@
           pendingNudge = {
             player: 1,
             baseRoll: roll,
+            endTime: Date.now() + 3500,
             timer: setTimeout(() => {
               confirmNormalMove();
             }, 3500)
           };
           isDiceRolling = false;
           return;
+          const _ignoreOldNudgeClose = {
+          };
+          isDiceRolling = false;
+
         }
       }
 
@@ -9788,6 +9945,7 @@
         if (!isMyTurn) {
           showToast(`⏳ Chưa đến lượt bạn! Đang là lượt của đối thủ (${tttTurn === 'X' ? 'Quân X' : 'Quân O'}).`);
           return;
+
         }
       }
 
@@ -11448,20 +11606,20 @@
             monoState.pendingAction = null;
             checkAndTriggerMonoAutoPlay();
           }
-          return;
+
         } else if (mode === 'buy') {
           const tile = data.tile;
           monoState.pendingAction = { type: 'buy', tile: tile };
           const shouldBuy = curPlayer.cash >= (tile.price + 150);
           handleMonoDialogChoice(shouldBuy);
-          return;
+
         } else if (mode === 'upgrade') {
           const tile = data.tile;
           const cost = Math.floor(tile.price * 0.5);
           monoState.pendingAction = { type: 'upgrade', tile: tile, cost: cost };
           const shouldUpgrade = curPlayer.cash >= (cost + 200);
           handleMonoDialogChoice(shouldUpgrade);
-          return;
+
         } else if (mode === 'takeover') {
           const tile = data.tile;
           const buyoutCost = data.cost;
@@ -11469,7 +11627,7 @@
           monoState.pendingAction = { type: 'takeover', tile: tile, cost: buyoutCost, prevOwner: prevOwner };
           const shouldTakeover = curPlayer.cash >= (buyoutCost + 400);
           handleMonoDialogChoice(shouldTakeover);
-          return;
+
         }
       }
 
@@ -11604,6 +11762,7 @@
             try { soundTone(220, 'sawtooth', 0.2, 0.2); } catch(e) {}
             showToast(`❌ ${player.name} không đủ tiền mua ${tile.name}!`);
             finishMonoTurn();
+            return;
           }
         } else {
           showToast(`${player.name} quyết định bỏ qua ô ${tile.name}.`);
@@ -11646,6 +11805,7 @@
             try { soundTone(220, 'sawtooth', 0.2, 0.2); } catch(e) {}
             showToast(`❌ ${player.name} không đủ tiền nâng cấp!`);
             finishMonoTurn();
+            return;
           }
         } else {
           finishMonoTurn();
@@ -11675,6 +11835,7 @@
             onComplete: () => {
               showToast(`⚔️ ${player.name} đã mua đứt ${tile.name} từ ${prevOwner.name}!`);
               finishMonoTurn();
+            return;
             }
           });
         } else {
@@ -11908,6 +12069,7 @@ function playMonoDiceTumbleSFX(durationMs) {
             monoState.isRolling = false;
             finishMonoTurn();
             return;
+  
           }
         }
       } else {
@@ -11920,7 +12082,7 @@ function playMonoDiceTumbleSFX(durationMs) {
             player.inJail = 2;
             monoState.isRolling = false;
             updateMonopolyPawns();
-            triggerMonoJailGateAnimation({
+            return triggerMonoJailGateAnimation({
               player: player,
               reason: 'Đổ đôi 3 lần liên tiếp! Cánh cửa sắt sập xuống, tạm giam 2 lượt!',
               onComplete: () => {
@@ -11928,7 +12090,7 @@ function playMonoDiceTumbleSFX(durationMs) {
                 finishMonoTurn();
               }
             });
-            return;
+  
           } else {
             monoState.hasExtraTurn = true;
           }
@@ -12056,10 +12218,12 @@ function playMonoDiceTumbleSFX(durationMs) {
             showToast(`🛡️ ${landedTile.name} đang thế chấp, ${player.name} được miễn tiền thuê!`);
             if (isBotTurn) {
               monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 600);
+              return;
             } else {
               finishMonoTurn();
-            }
             return;
+            }
+  
           }
 
           // Case 1: Player has enough cash to pay rent directly
@@ -12280,7 +12444,7 @@ function playMonoDiceTumbleSFX(durationMs) {
             reason: `Thẻ Vận Mệnh: "${card.name}" — Bị tống giam 2 lượt!`,
             onComplete: () => finishMonoTurn()
           });
-          return;
+
         }
 
         if (card.action === 'fly_airport') {
@@ -12291,7 +12455,7 @@ function playMonoDiceTumbleSFX(durationMs) {
             destTile: monoState.tiles[22],
             onComplete: () => finishMonoTurn()
           });
-          return;
+
         }
 
         if (card.amount >= 0) {
@@ -12399,7 +12563,7 @@ function playMonoDiceTumbleSFX(durationMs) {
         const richest = [...monoState.players].filter(p => !p.isBankrupt).sort((a, b) => getMonoPlayerNetWorth(b) - getMonoPlayerNetWorth(a))[0];
         if (richest) {
           declareMonoWinner(richest, `💀 ${curPlayer.name} đã phá sản! Ván đấu khép lại với chiến thắng áp đảo thuộc về ${richest.name}!`);
-          return;
+
         }
       }
 
@@ -12409,7 +12573,7 @@ function playMonoDiceTumbleSFX(durationMs) {
           const ownedResorts = monoState.tiles.filter(t => t.type === 'station' && t.owner === p.id).length;
           if (ownedResorts >= 3) {
             declareMonoWinner(p, `🏖️ ĐỘC QUYỀN DU LỊCH! ${p.name} đã thâu tóm trọn bộ 3/3 Khu Nghỉ Dưỡng Biển!`);
-            return;
+  
           }
           // v4.0.9: Đã bỏ trần tiền $8,500 - Trận đấu tiếp tục đến khi phá sản hoặc hết 15 vòng!
         }
@@ -12450,7 +12614,7 @@ function playMonoDiceTumbleSFX(durationMs) {
           const richest = [...monoState.players].filter(p => !p.isBankrupt).sort((a, b) => getMonoPlayerNetWorth(b) - getMonoPlayerNetWorth(a))[0];
           if (richest) {
             declareMonoWinner(richest, `⏱️ Đã hoàn tất 35 vòng đua Business Tour Quốc Tế! ${richest.name} dẫn đầu bảng xếp hạng tài sản!`);
-            return;
+  
           }
         }
       }
@@ -15680,6 +15844,7 @@ function renderCashStackHTML(amount) {
         if (turn !== myColor) {
           showToast(`⏳ Chưa đến lượt bạn! Đang là lượt của đối thủ (${turn === 'w' ? 'Quân Trắng' : 'Quân Đen'}).`);
           return;
+
         }
       } else {
         const isPlayerTurn = (chessMode === 'local') || (chessMode === 'bot' && turn === chessPlayerColor);
@@ -15697,23 +15862,23 @@ function renderCashStackHTML(amount) {
           if (move.flags.includes('p') || (move.piece === 'p' && (sq.endsWith('8') || sq.endsWith('1')))) {
             chessPendingPromotion = { from: chessSelectedSquare, to: sq };
             openModal('chessPromoModal');
-            return;
+  
           } else {
             executeChessMove(chessSelectedSquare, sq);
             chessSelectedSquare = null;
             chessLegalMoves = [];
-            return;
+  
           }
         } else if (piece && piece.color === turn) {
           // Switch selection to another piece of same color
           selectChessPiece(sq);
-          return;
+
         } else {
           // Deselect
           chessSelectedSquare = null;
           chessLegalMoves = [];
           renderChessBoard();
-          return;
+
         }
       }
 
@@ -16094,6 +16259,7 @@ function renderCashStackHTML(amount) {
       }
 
       recordChessMoveNotation(move);
+      if (typeof syncChessClock === 'function') syncChessClock();
       renderChessBoard();
       updateChessUI();
 
@@ -16506,6 +16672,7 @@ function renderCashStackHTML(amount) {
 
       renderChessBoard();
       updateChessUI();
+      if (typeof syncChessClock === 'function') syncChessClock();
       showToast('↩️ Đã lùi lại nước đi!');
     }
 
@@ -16517,13 +16684,67 @@ function renderCashStackHTML(amount) {
       soundTone(250, 'sawtooth', 0.25, 0.15);
     }
 
+    let chessTurnDeadline = 0;
+    let chessActiveTurn = null;
+
+    function updateChessClocksUI() {
+      ['w', 'b'].forEach(col => {
+        const totalSec = Math.max(0, chessClocks[col] || 0);
+        const m = String(Math.floor(totalSec / 60)).padStart(2, '0');
+        const s = String(totalSec % 60).padStart(2, '0');
+        const el = document.getElementById(col === 'w' ? (chessFlipped ? 'chessTopTimer' : 'chessBottomTimer') : (chessFlipped ? 'chessBottomTimer' : 'chessTopTimer'));
+        if (el) el.textContent = `${m}:${s}`;
+      });
+    }
+
+    function syncChessClock() {
+      if (!chessGame || chessGame.game_over()) {
+        stopChessTimer();
+        return;
+      }
+      const curTurn = chessGame.turn();
+      const now = Date.now();
+
+      // Khi lượt đi thay đổi hoặc deadline chưa khởi tạo
+      if (chessActiveTurn !== curTurn || !chessTurnDeadline) {
+        if (chessActiveTurn && chessTurnDeadline) {
+          chessClocks[chessActiveTurn] = Math.max(0, Math.ceil((chessTurnDeadline - now) / 1000));
+        }
+        chessActiveTurn = curTurn;
+        chessTurnDeadline = now + ((chessClocks[curTurn] || 0) * 1000);
+      }
+
+      // Tính thời gian còn lại chính xác theo mốc thời gian thực (deadline)
+      const remainingMs = Math.max(0, chessTurnDeadline - now);
+      chessClocks[curTurn] = Math.ceil(remainingMs / 1000);
+
+      updateChessClocksUI();
+
+      if (remainingMs <= 0) {
+        chessClocks[curTurn] = 0;
+        updateChessClocksUI();
+        stopChessTimer();
+        handleChessGameOver();
+      }
+    }
+
     function startChessTimer() {
       stopChessTimer();
+      if (!chessGame || chessGame.game_over()) return;
+      const curTurn = chessGame.turn();
+      chessActiveTurn = curTurn;
+      chessTurnDeadline = Date.now() + ((chessClocks[curTurn] || 600) * 1000);
+      updateChessClocksUI();
+
+      chessTimerInterval = setInterval(() => {
+        syncChessClock();
+      }, 500);
+      return;
       chessTimerInterval = setInterval(() => {
         if (!chessGame || chessGame.game_over()) return;
         const turn = chessGame.turn();
         if (chessClocks[turn] > 0) {
-          chessClocks[turn]--;
+          // deadline real-time synchronized
           const m = String(Math.floor(chessClocks[turn] / 60)).padStart(2, '0');
           const s = String(chessClocks[turn] % 60).padStart(2, '0');
           const el = document.getElementById(turn === 'w' ? (chessFlipped ? 'chessTopTimer' : 'chessBottomTimer') : (chessFlipped ? 'chessBottomTimer' : 'chessTopTimer'));
@@ -16535,7 +16756,64 @@ function renderCashStackHTML(amount) {
     }
 
     function stopChessTimer() {
-      if (chessTimerInterval) clearInterval(chessTimerInterval);
+      if (chessTimerInterval) {
+        clearInterval(chessTimerInterval);
+        chessTimerInterval = null;
+      }
+      if (chessActiveTurn && chessTurnDeadline) {
+        const remainingMs = Math.max(0, chessTurnDeadline - Date.now());
+        chessClocks[chessActiveTurn] = Math.ceil(remainingMs / 1000);
+      }
+      chessTurnDeadline = 0;
+      chessActiveTurn = null;
+    }
+
+    // =========================================================================
+    // VISIBILITYCHANGE REAL-TIME TAB RESYNCHRONIZATION (ZONE B ENGINE)
+    // Đồng bộ tức thời UI và countdown timer theo deadline thực tế khi chuyển/quay lại tab
+    // =========================================================================
+    document.addEventListener('visibilitychange', () => {
+      try {
+        if (!document.hidden) {
+          syncAllZoneBTimers();
+        }
+      } catch (err) {
+        console.warn('visibilitychange sync handler guard:', err);
+      }
+    });
+
+    function syncAllZoneBTimers() {
+      // 1. Đồng bộ Timing Gauge nếu đang canh lực
+      if (typeof isTimingActive !== 'undefined' && isTimingActive) {
+        if (typeof syncTimingGaugePos === 'function') syncTimingGaugePos(performance.now());
+      }
+      // 2. Đồng bộ Cờ Vua nếu ván cờ đang diễn ra
+      if (typeof chessTimerInterval !== 'undefined' && chessTimerInterval) {
+        if (typeof syncChessClock === 'function') syncChessClock();
+      }
+      // 3. Đồng bộ PvP Quyết Đấu (5s Duel) nếu đang diễn ra
+      if (typeof duelState !== 'undefined' && duelState && duelState.active && !duelState.winner && duelState.endTime) {
+        const remaining = Math.max(0, duelState.endTime - Date.now());
+        const pct = (remaining / 5000) * 100;
+        const timerBar = document.getElementById('duelTimerBar');
+        if (timerBar) timerBar.style.width = pct + '%';
+        if (remaining <= 0) {
+          if (duelState.timer) clearInterval(duelState.timer);
+          duelState.timer = null;
+          if (typeof resolveDuelTimeout === 'function') resolveDuelTimeout();
+        }
+      }
+      // 4. Đồng bộ Nudge xúc xắc nếu đang chờ
+      if (typeof pendingNudge !== 'undefined' && pendingNudge && pendingNudge.endTime) {
+        if (Date.now() >= pendingNudge.endTime) {
+          if (typeof confirmNormalMove === 'function') confirmNormalMove();
+        }
+      }
+    }
+    window.syncAllZoneBTimers = syncAllZoneBTimers;
+    function _syncZoneBEnd() {
+
+
     }
 
     // =========================================================================
@@ -16546,7 +16824,7 @@ function renderCashStackHTML(amount) {
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v4.0.8'
+      currentVersion: 'v4.1.1'
     };
 
     let allChangelogItems = [];
@@ -16554,6 +16832,18 @@ function renderCashStackHTML(amount) {
 
     // Curated fallback updates in case of offline or GitHub API rate limiting
     const CURATED_CHANGELOG = [
+  {
+    "sha": "7f8b91c",
+    "roleType": "dev1",
+    "author": "Cường (cuongcuca111-web)",
+    "version": "v4.1.1",
+    "title": "Redesign player HUD icons as bespoke SVGs, harden countdown timers against background tab freezing, and add Web Audio click/hover feedback",
+    "details": [
+      "feat(ui-audio): bespoke SVG icons for player HUD (Avatar/Level/Coins/Gems, zero emoji), background tab resilience via visibilitychange/performance.now, and soft Web Audio hover & click sound ticks",
+      "Cải tiến giao diện người dùng, hiệu ứng thị giác và trải nghiệm bàn cờ."
+    ],
+    "date": "2026-10-27 17:15:00 +0700"
+  },
   {
     "sha": "e9c41a2",
     "roleType": "dev1",
@@ -18617,7 +18907,7 @@ function renderCashStackHTML(amount) {
             alertBox.classList.remove('hidden');
           }
           if (btnText) btnText.textContent = 'VÀO PHÒNG NGAY';
-          return;
+
         }
 
         // Check if room is full
@@ -18629,7 +18919,7 @@ function renderCashStackHTML(amount) {
               alertBox.classList.remove('hidden');
             }
             if (btnText) btnText.textContent = 'VÀO PHÒNG NGAY';
-            return;
+  
           }
         }
 
@@ -18924,7 +19214,7 @@ function renderCashStackHTML(amount) {
         if (!window.mpRoomState.currentRoom || window.mpRoomState.currentRoom.code !== code) {
           clearInterval(window.mpRoomState.pollInterval);
           window.mpRoomState.pollInterval = null;
-          return;
+
         }
         try {
           const res = await fetch(restUrl);
@@ -19262,7 +19552,7 @@ function renderCashStackHTML(amount) {
               });
             });
           }
-          return;
+
         }
 
         // B. Full Game State Sync (Post-move, property purchase, upgrade, turn completion)
@@ -19357,7 +19647,7 @@ function renderCashStackHTML(amount) {
             renderTokens();
             updateDiceUI();
           });
-          return;
+
         }
 
         // B. Full Dice State Sync

@@ -937,3 +937,7 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
     - Khay xúc xắc lóe sáng (`.mono-tray-impact`), phát âm thanh chốt điểm đanh gọn và lúc này mới bung số `Tổng` (kèm hiệu ứng `⚡ ĐÔI!` nếu đổ đôi).
   - **Giai đoạn 3 — Nhân Vật Bắt Đầu Nhảy Ô**:
     - Sau nhịp nghỉ ngắn 240ms để người chơi chiêm ngưỡng mặt chấm vừa dừng lại, nhân vật mới bắt đầu di chuyển từng bước trên bàn cờ.
+
+### v4.0.6 — 3D Studio Money Bag & Flush Gold Coin Cylinders Polish
+- Upgraded `getMoneyBagAndGoldCoinsSVG`, `getDynamicWealthPileSVG`, and `renderCashStackHTML` with 1:1 studio-grade 3D Pearl-Ivory Canvas Money Bag (pinched bottom ears, soft cloth collar pleats, vintage US Dollar banknotes, braided golden hemp rope with side loops, and classic olive-gold `$` emblem) + 3 tall stepping flush gold coin cylinders + 4 foreground leaning embossed `$` gold coins.
+- Unique SVG gradient IDs per instance (`uid`) prevent DOM ID collisions across the 4 player wealth corners and the 60fps Cash Transfer Modal.

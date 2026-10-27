@@ -532,7 +532,7 @@
     }
 
     /* =========================================================================
-       3D GLOSSY OBSIDIAN PIP DICE CUBE & CYAN AURA TUMBLE PHYSICS (v4.0.5)
+       3D GLOSSY OBSIDIAN PIP DICE CUBE & CYAN AURA TUMBLE PHYSICS (v4.0.6)
        ========================================================================= */
     .mono-die-scene {
       width: 44px;
@@ -1032,7 +1032,7 @@
 
         <button onclick="openModal('versionModal')" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="headerVersionPill" class="font-bold">v4.0.5</span>
+          <span id="headerVersionPill" class="font-bold">v4.0.6</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </button>
 
@@ -3072,7 +3072,7 @@
         <div id="monoCenterControls" class="absolute inset-0 flex items-center justify-center pointer-events-none z-30 select-none">
           <div class="flex flex-col items-center justify-center gap-2.5 sm:gap-3 pointer-events-auto">
             
-            <!-- Clickable 3D Glossy Obsidian Pip Dice Tray (Tap to Roll - v4.0.5) -->
+            <!-- Clickable 3D Glossy Obsidian Pip Dice Tray (Tap to Roll - v4.0.6) -->
             <div onclick="executeMono2dRoll()" id="monoDiceTrayBox" class="flex items-center gap-3.5 bg-[#050A14]/95 px-5 py-2.5 rounded-2xl border-2 border-cyan-400/80 shadow-[0_0_28px_rgba(6,182,212,0.45)] backdrop-blur-md cursor-pointer hover:border-cyan-300 hover:scale-105 active:scale-95 transition-all select-none touch-manipulation group" title="Bấm vào khay xúc xắc 3D hoặc nhấn Space để tung xúc xắc">
               <!-- Hidden numeric holders for 100% P2P sync compatibility -->
               <span id="monoDice1Val" class="hidden">6</span>
@@ -4574,7 +4574,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v4.0.5</span>
+              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-bold">v4.0.6</span>
             </div>
             <p class="text-[11px] text-slate-400">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
@@ -8778,269 +8778,316 @@
       }
     }
 
-    // 3D White Canvas Money Bag ($) with Green Dollar Bills + Ascending Gold Coin Towers & Leaning Gold Coins
-    // Directly modeled on media_1793028915317_3ea181a6.png!
-    function getMoneyBagAndGoldCoinsSVG(cashAmount = 3500, width = 104, height = 84) {
-      const scale = Math.max(1, Math.min(3, Math.ceil(cashAmount / 1200)));
+    // 3D Studio Masterpiece White Canvas Money Bag ($) with Vintage Banknotes + Tall Flush Gold Coin Cylinders & Embossed "$" Coins (v4.0.6)
+    let __wealthSvgUidCounter = 0;
+
+    function buildWealthSharedDefs(uid) {
       return `
-        <svg width="${width}" height="${height}" viewBox="0 0 160 130" fill="none" class="filter drop-shadow-[0_12px_16px_rgba(0,0,0,0.65)]">
-          <defs>
-            <!-- Soft 3D White Canvas Sack Gradient -->
-            <radialGradient id="sackCanvasGrad" cx="38%" cy="35%" r="65%">
-              <stop offset="0%" stop-color="#ffffff" />
-              <stop offset="55%" stop-color="#f1f5f9" />
-              <stop offset="85%" stop-color="#cbd5e1" />
-              <stop offset="100%" stop-color="#94a3b8" />
-            </radialGradient>
-            <!-- Metallic Gold Coin Rim Gradient -->
-            <linearGradient id="goldStackRim" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#b45309" />
-              <stop offset="28%" stop-color="#fde047" />
-              <stop offset="55%" stop-color="#f59e0b" />
-              <stop offset="80%" stop-color="#fef08a" />
-              <stop offset="100%" stop-color="#92400e" />
-            </linearGradient>
-            <!-- Gold Coin Face Gradient -->
-            <linearGradient id="goldCoinFace" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#fef08a" />
-              <stop offset="45%" stop-color="#facc15" />
-              <stop offset="100%" stop-color="#ca8a04" />
-            </linearGradient>
-          </defs>
+        <defs>
+          <!-- Warm Pearl-Ivory 3D Studio Canvas Sack Body Gradient -->
+          <radialGradient id="sackBodyGrad_${uid}" cx="36%" cy="34%" r="66%">
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="45%" stop-color="#fafaf9" />
+            <stop offset="76%" stop-color="#e7e5e4" />
+            <stop offset="92%" stop-color="#d6d3d1" />
+            <stop offset="100%" stop-color="#a8a29e" />
+          </radialGradient>
+          <!-- Soft Ruffled Collar Gradient -->
+          <linearGradient id="sackCollarGrad_${uid}" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="55%" stop-color="#f5f5f4" />
+            <stop offset="100%" stop-color="#d6d3d1" />
+          </linearGradient>
+          <!-- Soft Warm Pleat Shadow Gradient -->
+          <linearGradient id="pleatShadow_${uid}" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="rgba(168,162,158,0.12)" />
+            <stop offset="65%" stop-color="rgba(120,113,108,0.52)" />
+            <stop offset="100%" stop-color="rgba(87,83,78,0.72)" />
+          </linearGradient>
+          <!-- Right & Bottom Belly Ambient Shading -->
+          <linearGradient id="sackShadeGrad_${uid}" x1="15%" y1="15%" x2="95%" y2="95%">
+            <stop offset="0%" stop-color="rgba(168,162,158,0)" />
+            <stop offset="60%" stop-color="rgba(148,140,132,0.28)" />
+            <stop offset="100%" stop-color="rgba(87,83,78,0.62)" />
+          </linearGradient>
+          <!-- Braided Golden Hemp Rope Gradient -->
+          <linearGradient id="ropeGrad_${uid}" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#92400e" />
+            <stop offset="22%" stop-color="#f59e0b" />
+            <stop offset="48%" stop-color="#fde68a" />
+            <stop offset="75%" stop-color="#d97706" />
+            <stop offset="100%" stop-color="#78350f" />
+          </linearGradient>
+          <!-- Classic Olive-Gold / Bronze "$" Emblem Gradient -->
+          <linearGradient id="dollarEmblemGrad_${uid}" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#8c7f53" />
+            <stop offset="55%" stop-color="#756941" />
+            <stop offset="100%" stop-color="#594f2f" />
+          </linearGradient>
+          <!-- Vintage US Dollar Banknote Paper & Sage Ink Gradients -->
+          <linearGradient id="billPaper_${uid}" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f8faf5" />
+            <stop offset="55%" stop-color="#e4efe4" />
+            <stop offset="100%" stop-color="#c5dcc7" />
+          </linearGradient>
+          <linearGradient id="billInk_${uid}" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#52796f" />
+            <stop offset="50%" stop-color="#354f52" />
+            <stop offset="100%" stop-color="#2f3e46" />
+          </linearGradient>
+          <!-- Flush Cylindrical Gold Coin Stack Wall Gradient (Realistic Specular Highlight Band) -->
+          <linearGradient id="goldRimGrad_${uid}" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#78350f" />
+            <stop offset="16%" stop-color="#b45309" />
+            <stop offset="34%" stop-color="#facc15" />
+            <stop offset="50%" stop-color="#fef9c3" />
+            <stop offset="68%" stop-color="#eab308" />
+            <stop offset="86%" stop-color="#b45309" />
+            <stop offset="100%" stop-color="#652b0d" />
+          </linearGradient>
+          <!-- Gold Coin Top & Leaning Face Gradient -->
+          <linearGradient id="goldFaceGrad_${uid}" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fefce8" />
+            <stop offset="32%" stop-color="#fde047" />
+            <stop offset="72%" stop-color="#eab308" />
+            <stop offset="100%" stop-color="#ca8a04" />
+          </linearGradient>
+          <!-- Recessed Gold Coin Inner Dish Gradient -->
+          <linearGradient id="goldInnerDish_${uid}" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#eab308" />
+            <stop offset="48%" stop-color="#facc15" />
+            <stop offset="85%" stop-color="#fef08a" />
+            <stop offset="100%" stop-color="#fefce8" />
+          </linearGradient>
+          <!-- Soft Studio Ground Shadow -->
+          <radialGradient id="wealthGroundShadow_${uid}" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(0,0,0,0.68)" />
+            <stop offset="65%" stop-color="rgba(0,0,0,0.30)" />
+            <stop offset="100%" stop-color="rgba(0,0,0,0)" />
+          </radialGradient>
+        </defs>
+      `;
+    }
 
-          <!-- Ground Ambient Occlusion Shadow -->
-          <ellipse cx="82" cy="116" rx="68" ry="10" fill="rgba(0,0,0,0.45)" />
+    // Hero 3D White Canvas Money Bag (modeled 1:1 on media_1793028915317_3ea181a6.png)
+    function buildSingle3DMoneySackGroup(uid, tx, ty, scale = 1) {
+      return `
+        <g transform="translate(${tx}, ${ty}) scale(${scale})">
+          <!-- Ground Contact Shadow -->
+          <ellipse cx="44" cy="96" rx="38" ry="6.5" fill="rgba(0,0,0,0.45)" />
 
-          <!-- ==================== RIGHT SIDE: WHITE CANVAS MONEY SACK WITH GREEN BILLS & ROPE ==================== -->
-          <g transform="translate(68, 8)">
-            <!-- Green Dollar Bills Peeking Out of Top of Sack -->
-            <g transform="translate(20, 6) rotate(-14)">
-              <rect x="0" y="0" width="24" height="18" rx="1.5" fill="#dcfce7" stroke="#15803d" stroke-width="1.2"/>
-              <rect x="2.5" y="2.5" width="19" height="13" fill="none" stroke="#166534" stroke-width="0.9"/>
-              <circle cx="12" cy="9" r="3.5" fill="#15803d" opacity="0.5"/>
-            </g>
-            <g transform="translate(34, 4) rotate(10)">
-              <rect x="0" y="0" width="26" height="19" rx="1.5" fill="#bbf7d0" stroke="#14532d" stroke-width="1.2"/>
-              <rect x="2.5" y="2.5" width="21" height="14" fill="none" stroke="#15803d" stroke-width="0.9"/>
-              <circle cx="13" cy="9.5" r="4" fill="#166534" opacity="0.55"/>
-            </g>
-
-            <!-- Ruffled Canvas Bag Top Collar / Frill -->
-            <path d="M18,22 Q24,16 31,21 Q38,15 45,21 Q52,16 58,22 L50,35 L26,35 Z" fill="url(#sackCanvasGrad)" stroke="#cbd5e1" stroke-width="1"/>
-            <!-- Canvas Folds in Collar -->
-            <path d="M26,21 L31,33 M38,19 L38,33 M49,21 L44,33" stroke="#94a3b8" stroke-width="1.2" opacity="0.65" stroke-linecap="round"/>
-
-            <!-- Plump 3D White Canvas Sack Body -->
-            <path d="M25,34 C10,48 2,82 5,98 C7,106 16,108 38,108 C60,108 70,106 72,98 C74,84 64,48 51,34 Z" fill="url(#sackCanvasGrad)" stroke="#cbd5e1" stroke-width="1.2"/>
-            <!-- Soft 3D Shading Creases on Sack -->
-            <path d="M16,96 C14,76 22,52 29,37" stroke="#ffffff" stroke-width="3" fill="none" opacity="0.7" stroke-linecap="round"/>
-            <path d="M58,98 C62,82 56,55 48,37" stroke="#94a3b8" stroke-width="2.5" fill="none" opacity="0.45" stroke-linecap="round"/>
-
-            <!-- Golden-Brown Rope Tied Around Neck + Loops -->
-            <path d="M23,33 C11,29 8,42 13,50" stroke="#d97706" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-            <circle cx="13" cy="50" r="2.2" fill="#b45309"/>
-            <path d="M53,33 C65,29 68,42 63,50" stroke="#d97706" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-            <circle cx="63" cy="50" r="2.2" fill="#b45309"/>
-            <!-- Triple Wrapped Rope Cord -->
-            <rect x="23" y="31" width="30" height="3.2" rx="1.6" fill="#f59e0b" stroke="#92400e" stroke-width="0.8"/>
-            <rect x="22" y="34" width="32" height="3.2" rx="1.6" fill="#d97706" stroke="#78350f" stroke-width="0.8"/>
-            <rect x="24" y="37" width="28" height="2.8" rx="1.4" fill="#b45309" stroke="#78350f" stroke-width="0.7"/>
-
-            <!-- Bold Olive-Gold Dollar Sign ($) Printed on Sack Center -->
-            <text x="38" y="86" font-size="42" font-weight="900" font-family="Arial, sans-serif" fill="#85754e" text-anchor="middle" opacity="0.9">$</text>
+          <!-- Vintage US Dollar Banknotes Fanning Out From Sack Mouth -->
+          <!-- Left Angled Bill -->
+          <g transform="translate(17, 5) rotate(-17)">
+            <rect x="0" y="0" width="27" height="19" rx="1.2" fill="url(#billPaper_${uid})" stroke="#64748b" stroke-width="0.6"/>
+            <rect x="2.2" y="2.2" width="22.6" height="14.6" rx="0.6" fill="url(#billInk_${uid})" opacity="0.88"/>
+            <rect x="3.5" y="3.5" width="20" height="12" fill="url(#billPaper_${uid})" opacity="0.72"/>
+            <ellipse cx="13.5" cy="9.5" rx="4.5" ry="4" fill="url(#billInk_${uid})" opacity="0.75"/>
+            <circle cx="5.5" cy="5.5" r="1.2" fill="url(#billInk_${uid})" opacity="0.7"/>
+            <circle cx="21.5" cy="5.5" r="1.2" fill="url(#billInk_${uid})" opacity="0.7"/>
+          </g>
+          <!-- Right Overlapping Bill -->
+          <g transform="translate(34, 2) rotate(13)">
+            <rect x="0" y="0" width="29" height="20" rx="1.2" fill="url(#billPaper_${uid})" stroke="#64748b" stroke-width="0.6"/>
+            <rect x="2.2" y="2.2" width="24.6" height="15.6" rx="0.6" fill="url(#billInk_${uid})" opacity="0.9"/>
+            <rect x="3.6" y="3.6" width="21.8" height="12.8" fill="url(#billPaper_${uid})" opacity="0.7"/>
+            <ellipse cx="14.5" cy="10" rx="5" ry="4.2" fill="url(#billInk_${uid})" opacity="0.78"/>
+            <circle cx="6" cy="6" r="1.3" fill="url(#billInk_${uid})" opacity="0.7"/>
+            <circle cx="23" cy="6" r="1.3" fill="url(#billInk_${uid})" opacity="0.7"/>
           </g>
 
-          <!-- ==================== LEFT SIDE: 3 ASCENDING GOLD COIN TOWERS + LEANING "$" GOLD COINS ==================== -->
-          <!-- Back-Right Tallest Gold Coin Tower (12 coins high) -->
-          <g transform="translate(56, 52)">
-            ${Array.from({ length: 10 }).map((_, idx) => {
-              const cy = 50 - idx * 4.5;
-              return `
-                <rect x="0" y="${cy}" width="24" height="5" rx="2" fill="url(#goldStackRim)" stroke="#92400e" stroke-width="0.6"/>
-                <ellipse cx="12" cy="${cy}" rx="12" ry="3.2" fill="url(#goldCoinFace)" stroke="#fef08a" stroke-width="0.5"/>
-              `;
-            }).join('')}
-          </g>
+          <!-- Sculpted Ruffled Canvas Collar / Frill Crown -->
+          <path d="M18,17
+                   C21,14 26,15 30,18
+                   C34,13 41,12 46,16
+                   C51,12 58,12 63,15
+                   C67,13 70,15 70,18
+                   C68,24 62,29 57,33
+                   L31,33
+                   C26,29 20,23 18,17 Z"
+                fill="url(#sackCollarGrad_${uid})" stroke="#d6d3d1" stroke-width="0.9" stroke-linejoin="round"/>
 
-          <!-- Middle Gold Coin Tower (8 coins high) -->
-          <g transform="translate(34, 62)">
-            ${Array.from({ length: 7 }).map((_, idx) => {
-              const cy = 40 - idx * 4.5;
-              return `
-                <rect x="0" y="${cy}" width="24" height="5" rx="2" fill="url(#goldStackRim)" stroke="#92400e" stroke-width="0.6"/>
-                <ellipse cx="12" cy="${cy}" rx="12" ry="3.2" fill="url(#goldCoinFace)" stroke="#fef08a" stroke-width="0.5"/>
-              `;
-            }).join('')}
-          </g>
+          <!-- Soft Realistic 3D Cloth Folds Inside Collar (Matching Reference Photo) -->
+          <path d="M27,17 C29,22 33,28 36,32 L40,32 C38,27 34,21 31,17 Z" fill="url(#pleatShadow_${uid})"/>
+          <path d="M44,15 C44,21 44,27 45,32 L50,32 C50,26 51,20 51,14 Z" fill="url(#pleatShadow_${uid})"/>
+          <path d="M62,15 C59,21 56,27 53,32 L57,32 C61,27 65,22 67,16 Z" fill="url(#pleatShadow_${uid})" opacity="0.75"/>
 
-          <!-- Front-Left Short Gold Coin Tower (5 coins high) -->
-          <g transform="translate(14, 74)">
-            ${Array.from({ length: 5 }).map((_, idx) => {
-              const cy = 28 - idx * 4.5;
-              return `
-                <rect x="0" y="${cy}" width="24" height="5" rx="2" fill="url(#goldStackRim)" stroke="#92400e" stroke-width="0.6"/>
-                <ellipse cx="12" cy="${cy}" rx="12" ry="3.2" fill="url(#goldCoinFace)" stroke="#fef08a" stroke-width="0.5"/>
-              `;
-            }).join('')}
-          </g>
+          <!-- Main Plump Pear-Shaped 3D White Canvas Sack Body with Pinched Bottom Ears -->
+          <path d="M31,31
+                   C16,42 7,69 8,86
+                   C8,91 4,94 6,96
+                   C10,98 24,96 44,96
+                   C64,96 78,98 82,96
+                   C84,94 80,91 80,86
+                   C81,69 72,42 57,31 Z"
+                fill="url(#sackBodyGrad_${uid})" stroke="#d6d3d1" stroke-width="1" stroke-linejoin="round"/>
 
-          <!-- Base Flat Gold Coins in Foreground -->
-          <g transform="translate(4, 104)">
-            <rect x="0" y="3" width="22" height="5" rx="2" fill="url(#goldStackRim)" stroke="#92400e" stroke-width="0.6"/>
-            <ellipse cx="11" cy="3" rx="11" ry="3.5" fill="url(#goldCoinFace)"/>
-          </g>
-          <g transform="translate(18, 108)">
-            <rect x="0" y="3" width="24" height="5.5" rx="2" fill="url(#goldStackRim)" stroke="#92400e" stroke-width="0.6"/>
-            <ellipse cx="12" cy="3" rx="12" ry="4" fill="url(#goldCoinFace)"/>
-          </g>
-          <g transform="translate(62, 108)">
-            <rect x="0" y="3" width="24" height="5.5" rx="2" fill="url(#goldStackRim)" stroke="#92400e" stroke-width="0.6"/>
-            <ellipse cx="12" cy="3" rx="12" ry="4" fill="url(#goldCoinFace)"/>
-          </g>
+          <!-- Soft 3D Ambient Shading Along Right Belly & Base -->
+          <path d="M44,95.5 C64,95.5 77,97 81,95 C82,90 73,46 56,32 C66,52 67,79 57,89 C49,94 31,94 12,93 C22,95 33,95.5 44,95.5 Z"
+                fill="url(#sackShadeGrad_${uid})" opacity="0.8"/>
 
-          <!-- 4 Angled / Leaning Embossed Gold "$" Coins in Foreground (Exact match to reference image!) -->
-          <!-- Leaning Coin 1 (Left, tilted -28 deg) -->
-          <g transform="translate(26, 96) rotate(-28)">
-            <ellipse cx="0" cy="2.5" rx="13" ry="10" fill="#b45309" stroke="#78350f" stroke-width="0.8"/>
-            <ellipse cx="0" cy="0" rx="13" ry="10" fill="url(#goldCoinFace)" stroke="#fef08a" stroke-width="1.2"/>
-            <ellipse cx="0" cy="0" rx="9.5" ry="7" fill="none" stroke="#d97706" stroke-width="0.8"/>
-            <text x="0" y="4" font-size="11" font-weight="900" fill="#b45309" text-anchor="middle">$</text>
-          </g>
+          <!-- Soft Cloth Gather Folds Radiating Down From Rope Neck -->
+          <path d="M35,34 C31,42 27,51 25,60" stroke="#a8a29e" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.35"/>
+          <path d="M45,34 C45,42 46,50 47,57" stroke="#a8a29e" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.32"/>
+          <path d="M54,34 C59,43 64,53 66,64" stroke="#a8a29e" stroke-width="2.0" stroke-linecap="round" fill="none" opacity="0.42"/>
+          <!-- Specular Studio Highlight Along Left Belly -->
+          <path d="M18,84 C15,66 22,45 33,34" stroke="#ffffff" stroke-width="4.2" stroke-linecap="round" fill="none" opacity="0.88"/>
 
-          <!-- Leaning Coin 2 (Center-Low, tilted 18 deg) -->
-          <g transform="translate(48, 107) rotate(18)">
-            <ellipse cx="0" cy="2.5" rx="13" ry="9.5" fill="#b45309" stroke="#78350f" stroke-width="0.8"/>
-            <ellipse cx="0" cy="0" rx="13" ry="9.5" fill="url(#goldCoinFace)" stroke="#fef08a" stroke-width="1.2"/>
-            <ellipse cx="0" cy="0" rx="9.5" ry="6.8" fill="none" stroke="#d97706" stroke-width="0.8"/>
-            <text x="0" y="3.5" font-size="11" font-weight="900" fill="#b45309" text-anchor="middle">$</text>
-          </g>
+          <!-- Wide Graceful Golden Hemp Rope Loops & Knotted Ends on Left & Right Shoulders -->
+          <path d="M30,29 C13,25 9,38 14,49" stroke="url(#ropeGrad_${uid})" stroke-width="2.1" fill="none" stroke-linecap="round"/>
+          <circle cx="14.5" cy="49.5" r="2.3" fill="#b45309" stroke="#78350f" stroke-width="0.6"/>
+          <path d="M58,29 C75,25 79,38 74,49" stroke="url(#ropeGrad_${uid})" stroke-width="2.1" fill="none" stroke-linecap="round"/>
+          <circle cx="73.5" cy="49.5" r="2.3" fill="#b45309" stroke="#78350f" stroke-width="0.6"/>
 
-          <!-- Leaning Coin 3 (Center-High, tilted 22 deg) -->
-          <g transform="translate(56, 94) rotate(22)">
-            <ellipse cx="0" cy="2.5" rx="13.5" ry="10.5" fill="#b45309" stroke="#78350f" stroke-width="0.8"/>
-            <ellipse cx="0" cy="0" rx="13.5" ry="10.5" fill="url(#goldCoinFace)" stroke="#fef08a" stroke-width="1.2"/>
-            <ellipse cx="0" cy="0" rx="10" ry="7.5" fill="none" stroke="#d97706" stroke-width="0.8"/>
-            <text x="0" y="4" font-size="11.5" font-weight="900" fill="#b45309" text-anchor="middle">$</text>
-          </g>
+          <!-- Shadow Cast by Rope on Neck -->
+          <path d="M29,34.5 Q44,37.5 59,34.5" stroke="rgba(87,83,78,0.42)" stroke-width="2.6" fill="none" stroke-linecap="round"/>
 
-          <!-- Leaning Coin 4 (Right-Front in front of sack, tilted 20 deg) -->
-          <g transform="translate(74, 102) rotate(20)">
-            <ellipse cx="0" cy="2.5" rx="13.5" ry="10.5" fill="#b45309" stroke="#78350f" stroke-width="0.8"/>
-            <ellipse cx="0" cy="0" rx="13.5" ry="10.5" fill="url(#goldCoinFace)" stroke="#fef08a" stroke-width="1.2"/>
-            <ellipse cx="0" cy="0" rx="10" ry="7.5" fill="none" stroke="#d97706" stroke-width="0.8"/>
-            <text x="0" y="4" font-size="11.5" font-weight="900" fill="#b45309" text-anchor="middle">$</text>
+          <!-- Triple-Wrapped Golden Hemp Cord Around Neck -->
+          <rect x="28.5" y="27.5" width="31" height="2.8" rx="1.4" fill="url(#ropeGrad_${uid})" stroke="#92400e" stroke-width="0.6"/>
+          <rect x="27.5" y="30.0" width="33" height="2.9" rx="1.4" fill="url(#ropeGrad_${uid})" stroke="#78350f" stroke-width="0.6"/>
+          <rect x="29.0" y="32.5" width="30" height="2.6" rx="1.3" fill="url(#ropeGrad_${uid})" stroke="#78350f" stroke-width="0.6"/>
+          <!-- Rope Twist Texture -->
+          <path d="M33,27.8 L31,35 M38,27.8 L36,35 M43,27.8 L41,35 M48,27.8 L46,35 M53,27.8 L51,35" stroke="#fef9c3" stroke-width="0.7" opacity="0.6"/>
+
+          <!-- Bold Classic Olive-Gold "$" Emblem Printed on Sack Center -->
+          <g transform="translate(44, 68)">
+            <rect x="-2.6" y="-21" width="5.2" height="42" rx="1.2" fill="url(#dollarEmblemGrad_${uid})"/>
+            <path d="M9,-10 C9,-15 5,-17 0,-17 C-6,-17 -10,-14 -10,-9 C-10,-3 -5,-1 1,1 C7,3 11,5 11,11 C11,16 6,18 0,18 C-6,18 -10,15 -11,10"
+                  fill="none" stroke="url(#dollarEmblemGrad_${uid})" stroke-width="6.2" stroke-linecap="round"/>
           </g>
+        </g>
+      `;
+    }
+
+    // Flush Cylindrical 3D Gold Coin Stack Builder (Produces tall gleaming gold cylinders like reference image)
+    function buildFlushGoldCoinCylinder(uid, cx, bottomY, coinCount, rx = 13.8, ry = 2.5, sliceH = 3.7) {
+      if (coinCount <= 0) return '';
+      const totalH = coinCount * sliceH;
+      const topY = bottomY - totalH;
+      const x0 = cx - rx;
+      const w = rx * 2;
+
+      const slices = [];
+      for (let i = 1; i <= coinCount; i++) {
+        const sy = (bottomY - i * sliceH).toFixed(1);
+        slices.push(`<path d="M${x0},${sy} A${rx},${ry} 0 0,0 ${x0 + w},${sy}" fill="none" stroke="#92400e" stroke-width="0.7" opacity="0.88"/>`);
+        slices.push(`<path d="M${x0 + 2},${(sy - 0.6).toFixed(1)} A${rx},${ry} 0 0,0 ${x0 + w - 2},${(sy - 0.6).toFixed(1)}" fill="none" stroke="#fef9c3" stroke-width="0.5" opacity="0.65"/>`);
+      }
+
+      return `
+        <g>
+          <!-- Cylinder Drop Shadow -->
+          <ellipse cx="${cx}" cy="${bottomY + 1.5}" rx="${rx + 1}" ry="${ry + 1}" fill="rgba(0,0,0,0.40)"/>
+          <!-- Unified Extruded Metallic Gold Cylinder Wall -->
+          <path d="M${x0},${topY} L${x0},${bottomY} A${rx},${ry} 0 0,0 ${x0 + w},${bottomY} L${x0 + w},${topY} Z"
+                fill="url(#goldRimGrad_${uid})" stroke="#92400e" stroke-width="0.7"/>
+          <!-- Individual Coin Slice Rings -->
+          ${slices.join('')}
+          <!-- Top Gleaming Gold Coin Face -->
+          <ellipse cx="${cx}" cy="${topY}" rx="${rx}" ry="${ry}" fill="url(#goldFaceGrad_${uid})" stroke="#fef9c3" stroke-width="0.7"/>
+          <ellipse cx="${cx}" cy="${topY}" rx="${(rx * 0.76).toFixed(1)}" ry="${(ry * 0.68).toFixed(1)}" fill="none" stroke="#ca8a04" stroke-width="0.45"/>
+        </g>
+      `;
+    }
+
+    // Large Foreground Leaning / Tilted 3D Embossed "$" Gold Coin (Gold-on-gold embossed relief like reference image!)
+    function buildLeaningEmbossedGoldCoin(uid, tx, ty, angleDeg = -25, rx = 14.5, ry = 11.2, thickness = 3.2) {
+      return `
+        <g transform="translate(${tx}, ${ty}) rotate(${angleDeg})">
+          <!-- Soft Ground Shadow Beneath Coin -->
+          <ellipse cx="0.5" cy="${thickness + 3}" rx="${rx + 0.5}" ry="${ry * 0.65}" fill="rgba(0,0,0,0.45)"/>
+          <!-- Thick 3D Extruded Gold Rim -->
+          <ellipse cx="0" cy="${thickness}" rx="${rx}" ry="${ry}" fill="url(#goldRimGrad_${uid})" stroke="#92400e" stroke-width="0.75"/>
+          <!-- Outer Raised Bevel Face -->
+          <ellipse cx="0" cy="0" rx="${rx}" ry="${ry}" fill="url(#goldFaceGrad_${uid})" stroke="#fef9c3" stroke-width="1.1"/>
+          <!-- Inner Recessed Dish with Soft Gold Rim -->
+          <ellipse cx="0" cy="0" rx="${(rx * 0.77).toFixed(1)}" ry="${(ry * 0.76).toFixed(1)}" fill="url(#goldInnerDish_${uid})" stroke="#ca8a04" stroke-width="0.75"/>
+          <!-- Specular Diagonal Glint -->
+          <path d="M-${(rx * 0.45).toFixed(1)},-${(ry * 0.45).toFixed(1)} L${(rx * 0.35).toFixed(1)},${(ry * 0.35).toFixed(1)}" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" opacity="0.48"/>
+          <!-- Gold-on-Gold Embossed "$" Relief -->
+          <text x="-0.5" y="3.3" font-size="12.5" font-weight="900" font-family="'Arial Black', sans-serif" fill="#b45309" text-anchor="middle" opacity="0.55">$</text>
+          <text x="0.6" y="4.1" font-size="12.5" font-weight="900" font-family="'Arial Black', sans-serif" fill="#fef9c3" text-anchor="middle" opacity="0.95">$</text>
+          <text x="0" y="3.6" font-size="12.5" font-weight="900" font-family="'Arial Black', sans-serif" fill="#d97706" text-anchor="middle" opacity="0.88">$</text>
+        </g>
+      `;
+    }
+
+    function getMoneyBagAndGoldCoinsSVG(cashAmount = 3500, width = 128, height = 100) {
+      const uid = 'mbg_' + (++__wealthSvgUidCounter);
+      return `
+        <svg width="${width}" height="${height}" viewBox="0 0 176 132" fill="none" class="filter drop-shadow-[0_12px_18px_rgba(0,0,0,0.72)]">
+          ${buildWealthSharedDefs(uid)}
+          <ellipse cx="90" cy="116" rx="76" ry="11" fill="url(#wealthGroundShadow_${uid})" />
+          <!-- Right: Hero 3D White Canvas Money Bag -->
+          ${buildSingle3DMoneySackGroup(uid, 76, 9, 1.07)}
+          <!-- Left: 3 Tall Stepping Flush Gold Coin Cylinders (Rising halfway up the sack like reference photo!) -->
+          ${buildFlushGoldCoinCylinder(uid, 74, 104, 14, 13.8, 2.5, 3.7)}
+          ${buildFlushGoldCoinCylinder(uid, 50, 106, 10, 13.8, 2.5, 3.7)}
+          ${buildFlushGoldCoinCylinder(uid, 27, 108, 6,  13.8, 2.5, 3.7)}
+          <!-- Foreground Flat Pedestal Coins -->
+          ${buildFlushGoldCoinCylinder(uid, 14, 111, 2, 11.5, 2.2, 3.3)}
+          ${buildFlushGoldCoinCylinder(uid, 29, 114, 2, 13.8, 2.5, 3.2)}
+          ${buildFlushGoldCoinCylinder(uid, 81, 115, 2, 14.2, 2.5, 3.2)}
+          <!-- 4 Iconic Leaning Embossed "$" Gold Coins in Foreground -->
+          ${buildLeaningEmbossedGoldCoin(uid, 27, 100, -32, 13.8, 10.4, 3.0)}
+          ${buildLeaningEmbossedGoldCoin(uid, 60, 98,  22,  14.2, 10.8, 3.0)}
+          ${buildLeaningEmbossedGoldCoin(uid, 54, 109, 12,  14.5, 9.2,  3.2)}
+          ${buildLeaningEmbossedGoldCoin(uid, 81, 104, 22,  14.8, 11.0, 3.2)}
         </svg>
       `;
     }
 
-    // Dynamic Wealth Pile SVG Generator (1 Bag = $1,000, 1 Gold Coin = $100, 10 Gold Coins auto-convert to 1 Bag)
+    // Dynamic Wealth Pile SVG Generator (1 Bag = $1,000, 1 Gold Coin = $100)
+    // Preserves the exact 1:1 silhouette of media_1793028915317_3ea181a6.png while scaling with player wealth!
     function getDynamicWealthPileSVG(cashAmount) {
       const cash = Math.max(0, cashAmount || 0);
       const bags = Math.floor(cash / 1000);
       const goldCoins = Math.floor((cash % 1000) / 100); // 0 to 9 coins
-      const displayBags = Math.min(bags, 4);
+      const uid = 'dwp_' + (++__wealthSvgUidCounter);
+
+      // Tall ascending 3-tower gold cylinders matching the reference image's height proportions
+      const tallCount = bags > 0 ? Math.min(15, 11 + Math.floor(goldCoins * 0.45)) : Math.max(4, goldCoins + 2);
+      const midCount  = bags > 0 ? Math.min(11, 7  + Math.floor(goldCoins * 0.35)) : Math.max(2, Math.ceil(goldCoins * 0.7));
+      const lowCount  = bags > 0 ? Math.min(7,  4  + Math.floor(goldCoins * 0.25)) : Math.max(1, Math.ceil(goldCoins * 0.4));
 
       return `
-        <div class="flex flex-col items-center justify-center pointer-events-none select-none">
-          <svg width="108" height="88" viewBox="0 0 120 95" fill="none" class="filter drop-shadow-[0_8px_12px_rgba(0,0,0,0.65)]">
-            <defs>
-              <linearGradient id="wealthSackGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#ffffff"/>
-                <stop offset="35%" stop-color="#f8fafc"/>
-                <stop offset="70%" stop-color="#e2e8f0"/>
-                <stop offset="100%" stop-color="#94a3b8"/>
-              </linearGradient>
-              <linearGradient id="wealthGoldGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#fef08a"/>
-                <stop offset="45%" stop-color="#f59e0b"/>
-                <stop offset="100%" stop-color="#b45309"/>
-              </linearGradient>
-              <radialGradient id="wealthShadow" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="rgba(0,0,0,0.6)"/>
-                <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
-              </radialGradient>
-            </defs>
+        <div class="flex flex-col items-center justify-center pointer-events-none select-none group">
+          <svg width="132" height="102" viewBox="0 0 176 132" fill="none" class="filter drop-shadow-[0_12px_18px_rgba(0,0,0,0.75)] transition-transform duration-300">
+            ${buildWealthSharedDefs(uid)}
 
-            <!-- Base Ground Shadow -->
-            <ellipse cx="60" cy="85" rx="52" ry="9" fill="url(#wealthShadow)" />
+            <!-- Studio Ground Ambient Shadow -->
+            <ellipse cx="90" cy="116" rx="76" ry="11.5" fill="url(#wealthGroundShadow_${uid})" />
 
-            <!-- ================= DYNAMIC BAGS OF CASH ($1,000 / Bag) ================= -->
-            ${bags === 0 ? `
-              <!-- Empty state small money purse -->
-              <g transform="translate(42, 45)">
-                <ellipse cx="18" cy="25" rx="16" ry="12" fill="#cbd5e1" stroke="#64748b" stroke-width="1.2"/>
-                <text x="18" y="28" font-size="12" font-weight="900" fill="#475569" text-anchor="middle">$</text>
-              </g>
-            ` : `
-              ${Array.from({ length: displayBags }).map((_, idx) => {
-                const offsets = [
-                  { x: 38, y: 15, scale: 1 },
-                  { x: 18, y: 22, scale: 0.9 },
-                  { x: 58, y: 24, scale: 0.92 },
-                  { x: 38, y: 28, scale: 0.85 }
-                ];
-                const pos = offsets[idx] || { x: 38, y: 20, scale: 1 };
-                return `
-                  <g transform="translate(${pos.x}, ${pos.y}) scale(${pos.scale})">
-                    <!-- Cash bills peek out -->
-                    <rect x="14" y="0" width="16" height="10" rx="1" fill="#86efac" stroke="#16a34a" stroke-width="0.8" transform="rotate(-10)"/>
-                    <rect x="22" y="0" width="16" height="10" rx="1" fill="#bbf7d0" stroke="#15803d" stroke-width="0.8" transform="rotate(8)"/>
-                    <!-- Canvas Sack Body -->
-                    <path d="M12,18 C4,28 0,52 2,62 C4,68 10,70 25,70 C40,70 46,68 48,62 C50,52 46,28 38,18 Z" fill="url(#wealthSackGrad)" stroke="#cbd5e1" stroke-width="1"/>
-                    <path d="M10,12 Q25,18 40,12 L35,22 L15,22 Z" fill="url(#wealthSackGrad)" stroke="#cbd5e1" stroke-width="0.8"/>
-                    <!-- Tied Golden-Brown Rope -->
-                    <rect x="15" y="19" width="20" height="2.5" rx="1" fill="#f59e0b" stroke="#92400e" stroke-width="0.6"/>
-                    <!-- Green Dollar Sign -->
-                    <text x="25" y="52" font-size="24" font-weight="900" fill="#15803d" text-anchor="middle" opacity="0.85">$</text>
-                  </g>
-                `;
-              }).join('')}
-              ${bags > displayBags ? `
-                <!-- Additional Bags Count Badge -->
-                <g transform="translate(82, 38)">
-                  <rect x="0" y="0" width="26" height="14" rx="7" fill="#15803d" stroke="#ffffff" stroke-width="1.2"/>
-                  <text x="13" y="10" font-size="9" font-weight="900" fill="#ffffff" text-anchor="middle">+${bags - displayBags}</text>
-                </g>
-              ` : ''}
-            `}
+            <!-- RIGHT SIDE: ICONIC HERO 3D PEARL-CANVAS MONEY BAG -->
+            ${bags === 0
+              ? buildSingle3DMoneySackGroup(uid, 78, 22, 0.86)
+              : buildSingle3DMoneySackGroup(uid, 76, 9, 1.07)
+            }
 
-            <!-- ================= DYNAMIC GOLD COINS (0 to 9 coins, $100 / Coin) ================= -->
-            ${goldCoins > 0 ? `
-              <!-- Gold Coin Tower 1 (up to 5 coins) -->
-              <g transform="translate(10, 48)">
-                ${Array.from({ length: Math.min(5, goldCoins) }).map((_, idx) => {
-                  const cy = 30 - idx * 4.5;
-                  return `
-                    <rect x="0" y="${cy}" width="20" height="4.5" rx="1.5" fill="url(#wealthGoldGrad)" stroke="#92400e" stroke-width="0.5"/>
-                    <ellipse cx="10" cy="${cy}" rx="10" ry="2.8" fill="#fef08a" stroke="#d97706" stroke-width="0.4"/>
-                  `;
-                }).join('')}
-              </g>
+            <!-- LEFT SIDE: 3 TALL STEPPING GOLD COIN CYLINDERS + 4 LEANING EMBOSSED "$" GOLD COINS -->
+            <g>
+              <!-- Back-Right Tallest Gold Cylinder (Rising right beside the Money Sack up to top of "$") -->
+              ${buildFlushGoldCoinCylinder(uid, 74, 104, tallCount, 13.8, 2.5, 3.7)}
+              <!-- Middle Stepping Gold Cylinder -->
+              ${buildFlushGoldCoinCylinder(uid, 50, 106, midCount,  13.8, 2.5, 3.7)}
+              <!-- Front-Left Short Gold Cylinder -->
+              ${buildFlushGoldCoinCylinder(uid, 27, 108, lowCount,  13.8, 2.5, 3.7)}
 
-              <!-- Gold Coin Tower 2 (remaining coins 6 to 9) -->
-              ${goldCoins > 5 ? `
-                <g transform="translate(24, 54)">
-                  ${Array.from({ length: goldCoins - 5 }).map((_, idx) => {
-                    const cy = 24 - idx * 4.5;
-                    return `
-                      <rect x="0" y="${cy}" width="18" height="4.5" rx="1.5" fill="url(#wealthGoldGrad)" stroke="#92400e" stroke-width="0.5"/>
-                      <ellipse cx="9" cy="${cy}" rx="9" ry="2.6" fill="#fef08a" stroke="#d97706" stroke-width="0.4"/>
-                    `;
-                  }).join('')}
-                </g>
-              ` : ''}
+              <!-- Foreground Flat Pedestal Coins Lying on Table -->
+              ${buildFlushGoldCoinCylinder(uid, 14, 111, 2, 11.5, 2.2, 3.3)}
+              ${buildFlushGoldCoinCylinder(uid, 29, 114, 2, 13.8, 2.5, 3.2)}
+              ${buildFlushGoldCoinCylinder(uid, 81, 115, 2, 14.2, 2.5, 3.2)}
 
-              <!-- Leaning Front Gold Coin with $ -->
-              <g transform="translate(22, 75) rotate(-16)">
-                <ellipse cx="0" cy="0" rx="9.5" ry="7.5" fill="url(#wealthGoldGrad)" stroke="#ffffff" stroke-width="0.8"/>
-                <text x="0" y="3" font-size="8.5" font-weight="900" fill="#92400e" text-anchor="middle">$</text>
-              </g>
-            ` : ''}
+              <!-- 4 Chunky Leaning Embossed "$" Gold Coins in Foreground (1:1 with Reference Image!) -->
+              ${buildLeaningEmbossedGoldCoin(uid, 27, 100, -32, 13.8, 10.4, 3.0)}
+              ${buildLeaningEmbossedGoldCoin(uid, 60, 98,  22,  14.2, 10.8, 3.0)}
+              ${buildLeaningEmbossedGoldCoin(uid, 54, 109, 12,  14.5, 9.2,  3.2)}
+              ${buildLeaningEmbossedGoldCoin(uid, 81, 104, 22,  14.8, 11.0, 3.2)}
+            </g>
           </svg>
-          <div class="mt-0.5 px-2 py-0.5 rounded-full bg-[#0B132B]/95 border border-amber-400/70 text-amber-300 font-chakra font-black text-[10px] sm:text-[11px] shadow-lg flex items-center gap-1">
-            <span>💰</span>
-            <span>${bags} Bao • ${goldCoins} Xu Vàng</span>
+          <div class="-mt-1.5 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-slate-950/95 via-slate-900/95 to-slate-950/95 border border-amber-400/75 text-amber-300 font-chakra font-black text-[10px] sm:text-[11px] shadow-[0_4px_12px_rgba(0,0,0,0.75)] flex items-center gap-1.5">
+            <span class="text-amber-400 drop-shadow">💰</span>
+            <span class="tracking-wide">${bags} Bao <span class="text-amber-500/80">•</span> ${goldCoins} Xu Vàng</span>
           </div>
         </div>
       `;
@@ -9775,6 +9822,7 @@
             handleMonoDialogChoice(shouldBail);
           } else {
             monoState.pendingAction = null;
+            checkAndTriggerMonoAutoPlay();
           }
           return;
         } else if (mode === 'buy') {
@@ -9869,8 +9917,11 @@
       }
 
       if (!monoState.pendingAction) return;
+      const act = monoState.pendingAction;
+      monoState.pendingAction = null;
+      monoState.lastActivityTime = Date.now();
 
-      if (monoState.pendingAction.type === 'jail_choice') {
+      if (act.type === 'jail_choice') {
         const curPlayer = monoState.players[monoState.turn];
         if (agreed) {
           if (curPlayer.cash >= 250) {
@@ -9880,16 +9931,19 @@
             updateMonopolyHUD();
             showToast(`🔓 ${curPlayer.name} đã nộp $250 bảo lãnh và được tự do!`);
             if (typeof addBattleLog === 'function') addBattleLog(`🔓 <b>${curPlayer.name}</b> nộp $250 bảo lãnh ra tù!`, 'jail');
+            monoState.isRolling = false;
             executeMono2dRoll();
           } else {
             showToast('❌ Không đủ $250, phải đổ xúc xắc tìm số đôi!');
+            monoState.isRolling = false;
             executeMono2dRoll();
           }
         } else {
+          monoState.isRolling = false;
           executeMono2dRoll();
         }
-      } else if (monoState.pendingAction.type === 'buy') {
-        const tile = monoState.pendingAction.tile;
+      } else if (act.type === 'buy') {
+        const tile = act.tile;
         const player = monoState.players[monoState.turn];
         if (agreed) {
           if (player.cash >= tile.price) {
@@ -9932,9 +9986,9 @@
           if (typeof addBattleLog === 'function') addBattleLog(`⏭️ <b>${player.name}</b> bỏ qua ${tile.name}.`, 'turn');
           finishMonoTurn();
         }
-      } else if (monoState.pendingAction.type === 'upgrade') {
-        const tile = monoState.pendingAction.tile;
-        const cost = monoState.pendingAction.cost;
+      } else if (act.type === 'upgrade') {
+        const tile = act.tile;
+        const cost = act.cost;
         const player = monoState.players[monoState.turn];
         if (agreed) {
           if (player.cash >= cost) {
@@ -9972,8 +10026,8 @@
         } else {
           finishMonoTurn();
         }
-      } else if (monoState.pendingAction.type === 'takeover') {
-        const { tile, cost, prevOwner } = monoState.pendingAction;
+      } else if (act.type === 'takeover') {
+        const { tile, cost, prevOwner } = act;
         const player = monoState.players[monoState.turn];
         if (agreed && player.cash >= cost && prevOwner) {
           player.cash -= cost;
@@ -10006,7 +10060,7 @@
     }
 
     // =========================================================================
-    // 3D OBSIDIAN PIP DICE ROTATION & SUSPENSE TUMBLE ENGINE (v4.0.5)
+    // 3D OBSIDIAN PIP DICE ROTATION & SUSPENSE TUMBLE ENGINE (v4.0.6)
     // =========================================================================
     let monoDiceSpinRound = 0;
 
@@ -10177,6 +10231,7 @@
       if (!player) return;
 
       monoState.isRolling = true;
+      monoState.lastActivityTime = Date.now();
       const rollBtn = document.getElementById('btnMono2dRoll');
       if (rollBtn) {
         rollBtn.disabled = true;
@@ -10264,6 +10319,7 @@
       if (monoState.stepIntervalId) clearInterval(monoState.stepIntervalId);
 
       monoState.stepIntervalId = setInterval(() => {
+        monoState.lastActivityTime = Date.now();
         player.pos = (player.pos + 1) % monoState.tiles.length;
         updateMonopolyPawns();
         const activePawnInner = document.querySelector('#pawnP' + (player.id + 1) + ' > div');
@@ -10295,6 +10351,7 @@
 
     // Handle Landing Tile (With Fast-Paced Business Tour Takeover & Emergency Debt Rescue)
     function handleMonoLanding(player) {
+      monoState.lastActivityTime = Date.now();
       const landedTile = monoState.tiles[player.pos];
       const isBotTurn = player.isBot;
 
@@ -10443,11 +10500,11 @@
 
             if (maxLiquidation >= rent) {
               // Player can liquidate assets to pay rent
-              if (!isBotTurn) {
+              if (!isBotTurn && !window.monoAutoPlay) {
                 showToast(`⚠️ Bạn không đủ tiền mặt trả $${rent.toLocaleString()}! Bảng Quản Lý Tài Sản được mở để bạn bán nhà hoặc thế chấp đất!`);
                 openMonoAssetManager(player.id, rent, owner);
               } else {
-                // Bot auto-liquidates until cash >= rent
+                // Auto-liquidate until cash >= rent (for Bot OR when Auto-Play is ON)
                 for (const t of ownedProps) {
                   while (t.level > 0 && player.cash < rent) {
                     const refund = Math.floor(t.price * 0.25);
@@ -10476,10 +10533,11 @@
                   recipient: owner,
                   amount: rent,
                   type: 'rent',
-                  desc: `🤖 ${player.name} đã thế chấp tài sản để trả $${rent.toLocaleString()} cho ${owner.name}!`,
+                  desc: `${player.isBot ? '🤖' : '🛡️'} ${player.name} đã thế chấp tài sản để trả $${rent.toLocaleString()} cho ${owner.name}!`,
                   onComplete: () => {
-                    showToast(`🤖 ${player.name} đã thế chấp tài sản trả đủ tiền thuê!`);
-                    monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 850);
+                    showToast(`${player.isBot ? '🤖' : '🛡️'} ${player.name} đã thế chấp tài sản trả đủ tiền thuê!`);
+                    const finishDelay = Math.max(40, Math.round(850 / (window.monoSpeed || monoState.speed || 1)));
+                    monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), finishDelay);
                   }
                 });
               }
@@ -10542,10 +10600,12 @@
       } else if (landedTile.type === 'start') {
         // Landing on START bonus
         showToast(`🏁 ${player.name} VỀ ĐÍCH XUẤT PHÁT! Nhận lương thương mại +$${BUSINESS_TOUR_SALARY}!`);
-        monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 750);
+        const finishDelay = Math.max(40, Math.round(750 / (window.monoSpeed || monoState.speed || 1)));
+        monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), finishDelay);
       } else if (landedTile.type === 'jail') {
         showToast(`🏛️ ${player.name} ghé thăm Trại Giam an toàn.`);
-        monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 750);
+        const finishDelay = Math.max(40, Math.round(750 / (window.monoSpeed || monoState.speed || 1)));
+        monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), finishDelay);
       } else if (landedTile.type === 'airport') {
         // World Tour Flight! Fly to a high-value unowned or upgradeable city + receive $300 bonus!
         const bonus = 300;
@@ -10564,7 +10624,8 @@
           destTile: destTile,
           onComplete: () => {
             showToast(`✈️ World Tour! ${player.name} nhận +$${bonus} và bay thẳng tới ${destTile.name}!`);
-            monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), 750);
+            const finishDelay = Math.max(40, Math.round(750 / (window.monoSpeed || monoState.speed || 1)));
+            monoState.botTimeoutId = setTimeout(() => finishMonoTurn(), finishDelay);
           }
         });
       } else if (landedTile.type === 'chance' || landedTile.type === 'fate') {
@@ -10692,9 +10753,12 @@
         }
       }
 
-      // Extra turn on doubles
+      // Extra turn on doubles (v4.1.0 Fix: ensure isRolling is false and auto-play re-triggers!)
       if (monoState.hasExtraTurn && !curPlayer.isBankrupt && curPlayer.inJail === 0) {
         monoState.hasExtraTurn = false;
+        monoState.isRolling = false;
+        monoState.pendingAction = null;
+        monoState.lastActivityTime = Date.now();
         showToast(`🎲 SỐ ĐÔI! ${curPlayer.name.toUpperCase()} ĐƯỢC ĐI THÊM LƯỢT!`);
         updateMonopolyPawns();
         updateMonopolyHUD();
@@ -10703,6 +10767,8 @@
         if (curPlayer.isBot) {
           const botDelay = Math.max(40, Math.round(700 / (window.monoSpeed || monoState.speed || 1)));
           monoState.botTimeoutId = setTimeout(() => executeMono2dRoll(), botDelay);
+        } else if (window.monoAutoPlay) {
+          checkAndTriggerMonoAutoPlay();
         }
         return;
       }
@@ -10727,6 +10793,9 @@
         }
       }
       monoState.turn = nextTurn;
+      monoState.isRolling = false;
+      monoState.pendingAction = null;
+      monoState.lastActivityTime = Date.now();
 
       updateMonopolyPawns();
       updateMonopolyHUD();
@@ -10762,7 +10831,7 @@
     function showMonoEventPopup({ type, title, desc, badge, amountLabel, amountVal, visualIcon, visualSvg, onConfirm }) {
       const overlay = document.getElementById('monoEventModalOverlay');
 
-      // Khi bật Tự Động Chơi, bỏ qua modal sự kiện (trừ gameover), ghi nhật ký và tiếp tục ngay
+      // Khi bật Tự Động Chơi, bỏ qua modal sự kiện (trừ gameover), ghi nhật ký và tiếp tục ngay (bất đồng bộ an toàn)
       if (window.monoAutoPlay && type !== 'gameover') {
         if (overlay) {
           overlay.classList.add('hidden');
@@ -10774,7 +10843,10 @@
           if (typeof addBattleLog === 'function') addBattleLog(logMsg, 'event');
           if (typeof showToast === 'function') showToast(badge ? `${badge} ${title}` : title);
         }
-        if (typeof onConfirm === 'function') onConfirm();
+        if (typeof onConfirm === 'function') {
+          const delay = Math.max(15, Math.round(80 / (window.monoSpeed || monoState.speed || 1)));
+          setTimeout(() => onConfirm(), delay);
+        }
         return;
       }
 
@@ -10904,6 +10976,7 @@
         if (monoState.botTimeoutId) {
           clearTimeout(monoState.botTimeoutId);
           monoState.botTimeoutId = null;
+      monoState.lastActivityTime = Date.now();
         }
         monoState.isRolling = false;
         if (monoState.players) {
@@ -11066,6 +11139,27 @@
       }
     }
 
+    function resolveMonoAutoPendingAction() {
+      if (!monoState.pendingAction) return;
+      const act = monoState.pendingAction;
+      const curP = monoState.players[monoState.turn];
+      if (!curP) return;
+
+      let accept = false;
+      if (act.type === 'buy') {
+        accept = curP.cash >= (act.tile.price + 150);
+      } else if (act.type === 'upgrade') {
+        const cost = act.cost || Math.floor(act.tile.price * 0.5);
+        accept = curP.cash >= (cost + 200);
+      } else if (act.type === 'takeover') {
+        accept = curP.cash >= (act.cost + 400);
+      } else if (act.type === 'jail_choice') {
+        accept = curP.cash >= 250;
+      }
+      handleMonoDialogChoice(accept);
+    }
+    window.resolveMonoAutoPendingAction = resolveMonoAutoPendingAction;
+
     function checkAndTriggerMonoAutoPlay() {
       if (!window.monoAutoPlay) return;
       if (monoAutoPlayTimer) {
@@ -11074,7 +11168,7 @@
       }
 
       const speed = window.monoSpeed || monoState.speed || 1;
-      const thinkDelay = Math.max(60, Math.round(600 / speed));
+      const thinkDelay = Math.max(30, Math.round(400 / speed));
 
       let isLocalTurn = false;
       if (window.isOnlineRoomMatch) {
@@ -11093,38 +11187,8 @@
       // 1. If currently showing a decision dialog or having pending action (buy, upgrade, takeover, jail)
       if (monoState.pendingAction) {
         monoAutoPlayTimer = setTimeout(() => {
-          if (!window.monoAutoPlay) return;
-          const act = monoState.pendingAction;
-          if (!act) return;
-
-          if (act.type === 'buy') {
-            const tile = act.tile;
-            if (player.cash >= tile.price + 150) {
-              handleMonoDialogChoice(true);
-            } else {
-              handleMonoDialogChoice(false);
-            }
-          } else if (act.type === 'upgrade') {
-            const cost = act.cost || Math.floor(act.tile.price * 0.5);
-            if (player.cash >= cost + 200) {
-              handleMonoDialogChoice(true);
-            } else {
-              handleMonoDialogChoice(false);
-            }
-          } else if (act.type === 'takeover') {
-            const cost = act.cost;
-            if (player.cash >= cost + 400) {
-              handleMonoDialogChoice(true);
-            } else {
-              handleMonoDialogChoice(false);
-            }
-          } else if (act.type === 'jail_choice') {
-            if (player.cash >= 600) {
-              handleMonoDialogChoice(true);
-            } else {
-              handleMonoDialogChoice(false);
-            }
-          }
+          if (!window.monoAutoPlay || !monoState.pendingAction) return;
+          resolveMonoAutoPendingAction();
         }, thinkDelay);
         return;
       }
@@ -11135,7 +11199,7 @@
         monoAutoPlayTimer = setTimeout(() => {
           if (!window.monoAutoPlay) return;
           closeMonoEventModal();
-        }, Math.max(50, Math.round(700 / speed)));
+        }, Math.max(30, Math.round(350 / speed)));
         return;
       }
 
@@ -11154,6 +11218,126 @@
         }, thinkDelay);
       }
     }
+
+    // =========================================================================
+    // SELF-HEALING AUTO-PLAY & BOT WATCHDOG ENGINE (v4.1.0)
+    // Ensures zero freezes even at 20x-25x ultra speeds or doubles roll chains
+    // =========================================================================
+    function runMonopolyWatchdog() {
+      if (typeof activeTab !== 'undefined' && activeTab !== 'monopoly') return;
+      if (!window.monoState || !monoState.players || monoState.gameOver) return;
+
+      const now = Date.now();
+      if (!monoState.lastActivityTime) monoState.lastActivityTime = now;
+      const idleElapsed = now - monoState.lastActivityTime;
+      const curSpeed = window.monoSpeed || monoState.speed || 1;
+      const curPlayer = monoState.players[monoState.turn];
+      if (!curPlayer || curPlayer.isBankrupt) return;
+
+      let isLocalTurn = false;
+      if (window.isOnlineRoomMatch) {
+        isLocalTurn = (monoState.turn === window.myRoomPlayerIndex);
+      } else if (monoState.mode === 'bot') {
+        isLocalTurn = (monoState.turn === 0);
+      } else {
+        isLocalTurn = true;
+      }
+
+      // TRƯỜNG HỢP 4: monoState.isRolling bị kẹt quá 3500ms mà không có bước nhảy ô mới
+      if (monoState.isRolling && idleElapsed > 3500) {
+        console.warn('[MonoWatchdog] isRolling stuck >3500ms, auto-recovering...');
+        monoState.isRolling = false;
+        if (monoState.stepIntervalId) {
+          clearInterval(monoState.stepIntervalId);
+          monoState.stepIntervalId = null;
+        }
+        monoState.lastActivityTime = now;
+        updateMonopolyPawns();
+        updateMonopolyHUD();
+        setMonoDialogMode('ready');
+        if (window.monoAutoPlay && isLocalTurn) {
+          checkAndTriggerMonoAutoPlay();
+        }
+        return;
+      }
+
+      // TRƯỜNG HỢP 2: Đang có monoState.pendingAction của người chơi local quá 300ms khi bật Auto-Play
+      if (window.monoAutoPlay && isLocalTurn && monoState.pendingAction && idleElapsed > 300) {
+        monoState.lastActivityTime = now;
+        resolveMonoAutoPendingAction();
+        return;
+      }
+
+      // TRƯỜNG HỢP 1: Đứng ở nút Đổ Xúc Xắc khi bật Auto-Play
+      const rollWaitThreshold = Math.max(220, Math.round(850 / curSpeed));
+      if (window.monoAutoPlay && isLocalTurn && !monoState.isRolling && !monoState.pendingAction && idleElapsed > rollWaitThreshold) {
+        const eventModal = document.getElementById('monoEventModalOverlay');
+        if (eventModal && !eventModal.classList.contains('hidden')) {
+          closeMonoEventModal();
+        }
+        const decisionBox = document.getElementById('mono2dDecisionBox') || document.getElementById('monoDecisionBox');
+        if (decisionBox && !decisionBox.classList.contains('hidden')) {
+          decisionBox.classList.add('hidden');
+          decisionBox.classList.remove('flex');
+        }
+
+        monoState.lastActivityTime = now;
+        executeMono2dRoll();
+        return;
+      }
+
+      // TRƯỜNG HỢP 3: Lượt của Bot AI bị đứng lượt quá 1200ms
+      if (!window.isOnlineRoomMatch && curPlayer.isBot && !curPlayer.isBankrupt && idleElapsed > 1200) {
+        monoState.isRolling = false;
+        monoState.lastActivityTime = now;
+        if (monoState.botTimeoutId) {
+          clearTimeout(monoState.botTimeoutId);
+          monoState.botTimeoutId = null;
+        }
+        if (curPlayer.inJail > 0 && curPlayer.cash >= 250) {
+          curPlayer.cash -= 250;
+          curPlayer.inJail = 0;
+          triggerMonoFloatingCash(curPlayer.id, -250);
+          updateMonopolyHUD();
+        }
+        executeMono2dRoll();
+        return;
+      }
+    }
+
+    function runDiceQuestWatchdog() {
+      if (typeof activeTab !== 'undefined' && activeTab !== 'dice') return;
+      if (!window.diceAutoPlay) return;
+
+      const now = Date.now();
+      if (!window.diceLastActivityTime) window.diceLastActivityTime = now;
+      const idleElapsed = now - window.diceLastActivityTime;
+      const curSpeed = window.diceSpeed || 1;
+
+      // isDiceRolling stuck for > 4000ms
+      if (typeof isDiceRolling !== 'undefined' && isDiceRolling && idleElapsed > 4000) {
+        isDiceRolling = false;
+        window.diceLastActivityTime = now;
+      }
+
+      const isHumanTurn = typeof isSpectatorMode !== 'undefined' && !isSpectatorMode && (currentTurn === 1 || currentOpponent === 'human');
+      const isOnlineMyTurn = window.isOnlineRoomMatch && (currentTurn - 1 === window.myRoomPlayerIndex);
+
+      if ((isHumanTurn || isOnlineMyTurn) && !isDiceRolling && idleElapsed > Math.max(280, Math.floor(650 / curSpeed))) {
+        window.diceLastActivityTime = now;
+        handleDiceClickWithTiming();
+      }
+    }
+
+    if (window.monoWatchdogInterval) clearInterval(window.monoWatchdogInterval);
+    window.monoWatchdogInterval = setInterval(() => {
+      try {
+        runMonopolyWatchdog();
+        runDiceQuestWatchdog();
+      } catch (e) {
+        console.error('[Watchdog Error]', e);
+      }
+    }, 350);
 
     // Dice Speed & Auto-Play Engine (1x - 25x)
     window.diceSpeed = 1;
@@ -11431,64 +11615,37 @@
       `;
     }
 
-    // Render 3D Stacks of Dollars ($1,000/bag), Gold Coins ($100/coin) & Silver Coins ($25/coin)
+    // Render 3D Studio Stacks of Dollars ($1,000/bag), Flush Gold Coin Cylinders ($100/coin) & Silver Coins ($25/coin) (v4.0.6)
     function renderCashStackHTML(amount) {
       const amt = Math.max(0, amount || 0);
       const bags = Math.floor(amt / 1000);
       const goldCoins = Math.floor((amt % 1000) / 100);
       const silverCoins = Math.max(0, Math.floor((amt % 100) / 25));
-
-      const displayBags = Math.min(3, bags);
-      const displayGold = Math.min(5, goldCoins);
-      const displaySilver = Math.min(4, silverCoins);
+      const uid = 'xfr_' + (++__wealthSvgUidCounter);
 
       return `
         <div class="flex flex-col items-center justify-center pointer-events-none select-none">
-          <div class="flex items-end -space-x-4">
-            ${displayBags > 0 ? Array.from({ length: displayBags }).map((_, i) => `
-              <div class="scale-90 ${i > 0 ? '-translate-y-1' : ''}">
-                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" class="filter drop-shadow-[0_8px_10px_rgba(0,0,0,0.6)]">
-                  <ellipse cx="32" cy="58" rx="26" ry="5" fill="rgba(0,0,0,0.4)"/>
-                  <rect x="20" y="4" width="14" height="10" rx="1" fill="#86efac" stroke="#16a34a" stroke-width="0.8" transform="rotate(-8)"/>
-                  <path d="M16,20 C8,28 4,48 6,56 C8,60 14,62 28,62 C42,62 48,60 50,56 C52,48 48,28 40,20 Z" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
-                  <rect x="18" y="19" width="20" height="3" rx="1" fill="#f59e0b" stroke="#92400e" stroke-width="0.7"/>
-                  <text x="28" y="48" font-size="22" font-weight="900" fill="#15803d" text-anchor="middle">$</text>
-                </svg>
-              </div>
-            `).join('') : ''}
+          <svg width="144" height="108" viewBox="0 0 176 132" fill="none" class="filter drop-shadow-[0_14px_22px_rgba(0,0,0,0.82)]">
+            ${buildWealthSharedDefs(uid)}
+            <ellipse cx="90" cy="116" rx="76" ry="11.5" fill="url(#wealthGroundShadow_${uid})" />
 
-            ${displayGold > 0 || (displayBags === 0 && displaySilver === 0) ? `
-              <div class="scale-95">
-                <svg width="42" height="54" viewBox="0 0 42 54" fill="none" class="filter drop-shadow">
-                  ${Array.from({ length: Math.max(1, displayGold) }).map((_, idx) => {
-                    const cy = 44 - idx * 5;
-                    return `
-                      <rect x="6" y="${cy}" width="30" height="5" rx="1.5" fill="#f59e0b" stroke="#92400e" stroke-width="0.6"/>
-                      <ellipse cx="21" cy="${cy}" rx="15" ry="3.5" fill="#fef08a" stroke="#d97706" stroke-width="0.5"/>
-                    `;
-                  }).join('')}
-                  <text x="21" y="52" font-size="8" font-weight="900" fill="#78350f" text-anchor="middle">$100</text>
-                </svg>
-              </div>
-            ` : ''}
+            ${buildSingle3DMoneySackGroup(uid, 76, 9, 1.07)}
 
-            ${displaySilver > 0 ? `
-              <div class="scale-90">
-                <svg width="36" height="46" viewBox="0 0 36 46" fill="none" class="filter drop-shadow">
-                  ${Array.from({ length: displaySilver }).map((_, idx) => {
-                    const cy = 36 - idx * 4.5;
-                    return `
-                      <rect x="4" y="${cy}" width="28" height="4.5" rx="1.5" fill="#94a3b8" stroke="#475569" stroke-width="0.6"/>
-                      <ellipse cx="18" cy="${cy}" rx="14" ry="3.2" fill="#f1f5f9" stroke="#64748b" stroke-width="0.5"/>
-                    `;
-                  }).join('')}
-                  <text x="18" y="44" font-size="7.5" font-weight="900" fill="#334155" text-anchor="middle">XU BẠC</text>
-                </svg>
-              </div>
-            ` : ''}
-          </div>
-          <span class="px-3 py-1 rounded-full bg-amber-400 text-slate-950 font-chakra font-black text-xs shadow-lg border-2 border-white -mt-2">
-            $${amt.toLocaleString()} (${bags > 0 ? bags + ' Bao • ' : ''}${goldCoins} Xu Vàng)
+            <g>
+              ${buildFlushGoldCoinCylinder(uid, 74, 104, Math.min(15, 10 + goldCoins), 13.8, 2.5, 3.7)}
+              ${buildFlushGoldCoinCylinder(uid, 50, 106, Math.min(11, 7 + Math.floor(goldCoins * 0.6)), 13.8, 2.5, 3.7)}
+              ${buildFlushGoldCoinCylinder(uid, 27, 108, 6, 13.8, 2.5, 3.7)}
+              ${buildFlushGoldCoinCylinder(uid, 14, 111, 2, 11.5, 2.2, 3.3)}
+              ${buildFlushGoldCoinCylinder(uid, 29, 114, 2, 13.8, 2.5, 3.2)}
+              ${buildFlushGoldCoinCylinder(uid, 81, 115, 2, 14.2, 2.5, 3.2)}
+              ${buildLeaningEmbossedGoldCoin(uid, 27, 100, -32, 13.8, 10.4, 3.0)}
+              ${buildLeaningEmbossedGoldCoin(uid, 60, 98,  22,  14.2, 10.8, 3.0)}
+              ${buildLeaningEmbossedGoldCoin(uid, 54, 109, 12,  14.5, 9.2,  3.2)}
+              ${buildLeaningEmbossedGoldCoin(uid, 81, 104, 22,  14.8, 11.0, 3.2)}
+            </g>
+          </svg>
+          <span class="px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 text-slate-950 font-chakra font-black text-xs shadow-[0_6px_16px_rgba(245,158,11,0.5)] border-2 border-white -mt-2">
+            $${amt.toLocaleString()} (${bags > 0 ? bags + ' Bao • ' : ''}${goldCoins} Xu Vàng${silverCoins > 0 ? ' • ' + silverCoins + ' Xu Bạc' : ''})
           </span>
         </div>
       `;
@@ -11533,7 +11690,10 @@
           addBattleLog(`💸 ${desc}`, 'transfer');
         }
 
-        if (doneCb) doneCb();
+        if (doneCb) {
+          const delay = Math.max(15, Math.round(80 / (window.monoSpeed || monoState.speed || 1)));
+          setTimeout(() => doneCb(), delay);
+        }
         return;
       }
 
@@ -11639,7 +11799,10 @@
           showToast(`⛓️ ${player ? player.name : 'Người chơi'}: ${reason}`);
           if (typeof addBattleLog === 'function') addBattleLog(`⛓️ <b>${player ? player.name : 'Người chơi'}</b>: ${reason}`, 'jail');
         }
-        if (doneCb) doneCb();
+        if (doneCb) {
+          const delay = Math.max(15, Math.round(80 / (window.monoSpeed || monoState.speed || 1)));
+          setTimeout(() => doneCb(), delay);
+        }
         return;
       }
 
@@ -11731,7 +11894,10 @@
           showToast(`✈️ World Tour! ${player.name} bay thẳng tới ${destTile.name}!`);
           if (typeof addBattleLog === 'function') addBattleLog(`✈️ <b>${player.name}</b> bay tới <b>${destTile.name}</b>!`, 'warp');
         }
-        if (doneCb) doneCb();
+        if (doneCb) {
+          const delay = Math.max(15, Math.round(80 / (window.monoSpeed || monoState.speed || 1)));
+          setTimeout(() => doneCb(), delay);
+        }
         return;
       }
 
@@ -11819,6 +11985,10 @@
     let monoAssetDebtCreditor = null;
 
     function openMonoAssetManager(targetPlayerIdx = null, emergencyDebt = 0, creditor = null) {
+      if (window.monoAutoPlay) {
+        closeMonoAssetManager();
+        return;
+      }
       const modal = document.getElementById('monoAssetManagerModal');
       if (!modal) return;
 
@@ -14239,7 +14409,7 @@
       owner: 'thaitraicau123-pixel',
       repo: 'antigravity-collab-web',
       token: localStorage.getItem('boardgame_github_token') || '',
-      currentVersion: 'v4.0.5'
+      currentVersion: 'v4.0.6'
     };
 
     let allChangelogItems = [];

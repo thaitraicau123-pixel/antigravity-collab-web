@@ -1073,3 +1073,23 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
   - **Chuyên Cơ Thương Mại Hành Khách (Airliner Passenger Jet)**: Thân máy bay màu trắng sữa thuôn dài, dải tem xanh navy dọc thân, các ô cửa sổ hành khách liên tiếp, buồng lái kính cong, 2 động cơ phản lực dưới cánh xuôi, cánh đuôi đứng vững chãi.
   - **Đài Kiểm Soát Không Lưu (Air Traffic Control Tower)**: Tháp hình trụ vững chãi với buồng kính quan sát 360 độ màu xanh lam, chóp mái nón đỏ có ăng-ten radar quay quét.
   - **Đường Băng Kẻ Vạch (Tarmac Markings)**: Mặt sân bay bê tông xám đậm kẻ vạch sơn trắng dẫn hướng cất hạ cánh.
+
+### v4.1.6 (2026-10-27) - 2.5D Isometric Airplane Model, Property Purchase & House Upgrade Bugfix, and Clean Fullscreen HUD Space
+- **Khôi Phục Mô Hình Máy Bay 2.5D Chuẩn Tham Chiếu (Matching Photo 1)**:
+  - Thay thế mô hình cảng hàng không cồng kềnh trước đó bằng đúng mô hình **Chuyên Cơ 2.5D Isometric** mềm mại, dễ thương theo ảnh mẫu tham chiếu của người dùng (`getBusinessTour25DAirplaneSVG`):
+    - Thân máy bay bo tròn dạng viên thuốc màu trắng ngà / lavender viền xám sáng (`#f8fafc`, `#cbd5e1`).
+    - Buồng lái kính vòm cong màu lam ngọc (`#38bdf8`) với điểm sáng specular lóa gương.
+    - Đôi cánh chính mềm mại màu xanh hoàng gia (`#2563eb` / `#3b82f6`), có 2 động cơ phản lực mini dưới cánh.
+    - Cánh đuôi ngang thon gọn và đuôi đứng xanh dương vát cao.
+    - Góc nghiêng xéo 45 độ hướng về phía trước, có bóng đổ tiếp xúc 3D chân thực trên bề mặt ô Sân Bay.
+- **Sửa Triệt Để Lỗi Không Mua Được Đất Và Xây Nhà**:
+  - **Nguyên nhân cốt lõi**: Hàm hiệu ứng bay số tiền `triggerMonoFloatingCash(playerId, amount)` bị khuyết trong mã nguồn do quá trình tích hợp trước đó, khiến mọi giao dịch mua đất (`buy`) và nâng cấp nhà (`upgrade`) khi nhấn nút "Đồng Ý" đều vướng `ReferenceError: triggerMonoFloatingCash is not defined`, làm ngắt quãng luồng xử lý và không lưu trữ được quyền sở hữu.
+  - **Khắc phục hoàn chỉnh**:
+    - Tái triển khai hàm `triggerMonoFloatingCash(playerId, amount)` tương thích hoàn hảo với hệ thống 4 Pod góc mới (`#monoCornerFloat_0..3`).
+    - Đã kiểm chứng tự động: Người chơi đi vào ô đất trống hiển thị hộp thoại `#mono2dDecisionBox` xác nhận mua đất -> nộp tiền -> cắm biển sở hữu Cấp 1 -> chuyển tiền thành công. Khi vào lại đất của mình -> hiển thị hộp thoại nâng cấp Cấp 2 và Cấp 3 trơn tru 100%.
+- **Ẩn Toàn Bộ Hàng Tiện Ích (#arenaMatchConsole) Khi Phóng To Bàn Cờ**:
+  - **Vấn đề trước đây**: Khi bấm nút "Toàn Màn Hình" / "Phóng To", thanh điều khiển 2 tầng `#arenaMatchConsole` (chứa các nút Sảnh Game, Chuyển tab 4 game, Đấu với bot, Pass & Play, Ván mới...) vẫn hiển thị cố định ở đỉnh màn hình, choán mất không gian và đè lấn lên góc trên bàn cờ.
+  - **Nâng cấp công thái học**:
+    - Trong chế độ Phóng To (`mono-fullscreen-active`): Ẩn hoàn toàn `#arenaMatchConsole` và thanh `<header>` trên cùng (`display: none !important;`).
+    - Toàn bộ chiều cao màn hình (`100vh`) được giải phóng để mở rộng bàn cờ lên kích thước tối đa, tạo tầm nhìn bao quát cực kỳ thoáng đãng, sắc nét và dễ đọc.
+    - Nút nổi **"✕ Thu Nhỏ (Esc)"** đặt độc lập, trang trọng tại góc trên bên phải màn hình để người dùng có thể dễ dàng thu nhỏ lại bất cứ lúc nào (hoặc ấn phím `Esc` / `F`).

@@ -1057,10 +1057,14 @@
     }
 
     body.mono-fullscreen-active > header,
+    body.mono-fullscreen-active header,
     body.mono-fullscreen-active > footer,
     body.mono-fullscreen-active #adminMaintenanceBanner,
     body.mono-fullscreen-active #arenaMatchConsole,
-    body.mono-fullscreen-active #onlineRoomHUD {
+    body.mono-fullscreen-active #onlineRoomHUD,
+    body.arena-fullscreen-active.mono-view-active #arenaMatchConsole,
+    body.arena-fullscreen-active.mono-view-active header,
+    body.arena-fullscreen-active.mono-view-active > header {
       display: none !important;
     }
 
@@ -5590,7 +5594,11 @@
     };
 
     window.toggleArenaFullscreen = function() {
-      if (typeof toggleMonopolyFullscreen === 'function' && window.activeGameView === 'monopoly') {
+      const isMono = (window.activeGameView === 'monopoly') ||
+                     (typeof activeTab !== 'undefined' && activeTab === 'monopoly') ||
+                     document.body.classList.contains('mono-view-active') ||
+                     (document.getElementById('monopolyView') && !document.getElementById('monopolyView').classList.contains('hidden'));
+      if (typeof toggleMonopolyFullscreen === 'function' && isMono) {
         toggleMonopolyFullscreen();
         return;
       }
@@ -11397,79 +11405,58 @@
         // =========================================================================
     // 1. BUSINESS TOUR AIRPORT CORNER (Airliner Jet + Air Traffic Control Tower)
     // =========================================================================
-    function getBusinessTourAirportSVG(size = 62) {
+    // =========================================================================
+    // 1. BUSINESS TOUR 2.5D ISOMETRIC AIRPLANE (Matching User Reference)
+    // =========================================================================
+    function getBusinessTour25DAirplaneSVG(size = 56) {
       return `
-        <svg width="${size}" height="${size}" viewBox="0 0 100 100" fill="none" class="overflow-visible select-none pointer-events-none">
-          <!-- Dark Asphalt Runway Tarmac Ground -->
-          <polygon points="6,68 50,91 94,68 50,45" fill="#1e293b" stroke="#475569" stroke-width="1.8"/>
-          <!-- Runway White Centerline Dashes -->
-          <line x1="28" y1="56" x2="36" y2="61" stroke="#ffffff" stroke-width="2.5" stroke-dasharray="4 2"/>
-          <line x1="42" y1="64" x2="52" y2="70" stroke="#ffffff" stroke-width="2.5" stroke-dasharray="4 2"/>
-          <line x1="58" y1="73" x2="70" y2="80" stroke="#ffffff" stroke-width="2.5" stroke-dasharray="4 2"/>
+        <svg width="${size}" height="${size}" viewBox="0 0 100 100" fill="none" class="filter drop-shadow-[0_8px_14px_rgba(0,0,0,0.6)] select-none pointer-events-none">
+          <!-- Soft Ground Shadow angled diagonally -->
+          <ellipse cx="50" cy="74" rx="28" ry="12" fill="#020617" opacity="0.45" transform="rotate(-15 50 74)"/>
 
-          <!-- ================= AIR TRAFFIC CONTROL TOWER (ĐÀI KHÔNG LƯU) ================= -->
-          <!-- Tower Base Platform -->
-          <polygon points="62,54 78,63 88,57 72,48" fill="#334155" stroke="#64748b" stroke-width="1"/>
-          <!-- Tower Shaft Walls (Solid White / Shaded Grey) -->
-          <polygon points="68,51 76,55 76,28 68,24" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
-          <polygon points="76,55 84,50 84,23 76,28" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.2"/>
-          <!-- Red Band Ring on Tower -->
-          <polygon points="68,36 76,40 84,35 76,31" fill="#ef4444"/>
+          <!-- Group rotated 45deg to point top-right exactly like user uploaded reference -->
+          <g transform="translate(50, 48) rotate(45) translate(-50, -50)">
+            <!-- Horizontal Tail Stabilizer Wings -->
+            <path d="M36,78 C31,78 29,86 35,88 L65,88 C71,86 69,78 64,78 Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1"/>
 
-          <!-- Observation Cab (Buồng Kính Kiểm Soát 360 độ) -->
-          <polygon points="64,26 76,33 88,26 76,19" fill="#0f172a" stroke="#64748b" stroke-width="1.2"/>
-          <polygon points="64,26 76,33 76,20 64,13" fill="#0284c7" stroke="#ffffff" stroke-width="1"/>
-          <polygon points="76,33 88,26 88,13 76,20" fill="#38bdf8" stroke="#ffffff" stroke-width="1"/>
-          <!-- Cab Conical Roof -->
-          <polygon points="62,14 76,21 88,14 76,06" fill="#ef4444" stroke="#ffffff" stroke-width="1.2"/>
-          <!-- Rotating Radar & Beacon -->
-          <line x1="76" y1="06" x2="76" y2="-02" stroke="#ffffff" stroke-width="2"/>
-          <circle cx="76" cy="-02" r="2.5" fill="#ef4444" stroke="#ffffff" stroke-width="0.8"/>
+            <!-- Main Blue Wings (Smooth Rounded Royal Blue Wings) -->
+            <!-- Left Wing (Pointing top-left) -->
+            <path d="M42,42 L12,50 C8,51 7,57 11,59 L40,58 Z" fill="#2563eb" stroke="#1d4ed8" stroke-width="1.2"/>
+            <path d="M42,42 L12,50 C9,51 9,54 12,55 L41,51 Z" fill="#3b82f6"/>
+            <!-- Left Engine -->
+            <rect x="25" y="52" width="6" height="11" rx="3" fill="#64748b" stroke="#475569" stroke-width="0.8"/>
+            <ellipse cx="28" cy="53" rx="2.5" ry="1.2" fill="#38bdf8"/>
 
-          <!-- ================= COMMERCIAL PASSENGER AIRLINER (CHUYÊN CƠ HÀNH KHÁCH) ================= -->
-          <!-- Airplane Ground Shadow -->
-          <polygon points="14,64 48,77 58,66 24,53" fill="#0f172a" opacity="0.5"/>
+            <!-- Right Wing (Pointing bottom-right) -->
+            <path d="M58,42 L88,50 C92,51 93,57 89,59 L60,58 Z" fill="#2563eb" stroke="#1d4ed8" stroke-width="1.2"/>
+            <path d="M58,42 L88,50 C91,51 91,54 88,55 L59,51 Z" fill="#3b82f6"/>
+            <!-- Right Engine -->
+            <rect x="69" y="52" width="6" height="11" rx="3" fill="#64748b" stroke="#475569" stroke-width="0.8"/>
+            <ellipse cx="72" cy="53" rx="2.5" ry="1.2" fill="#38bdf8"/>
 
-          <!-- Fuselage (Thân Máy Bay Trắng Thuôn Dài) -->
-          <!-- Left Fuselage Facade -->
-          <polygon points="12,56 46,70 54,61 20,47" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
-          <!-- Top Fuselage Ridge -->
-          <polygon points="20,47 54,61 60,54 26,40" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
-          <!-- Nose Cone (Mũi Máy Bay Khum Tròn) -->
-          <polygon points="12,56 16,58 20,47" fill="#0284c7"/>
+            <!-- Fuselage / Thân Máy Bay (Viên Thuốc Bo Tròn Trắng / Lavender) -->
+            <rect x="42" y="16" width="16" height="66" rx="8" fill="#cbd5e1"/>
+            <path d="M50,16 C45.5,16 42,19.5 42,24 L42,74 C42,78.5 45.5,82 50,82 C52,82 54,80 54,74 L54,24 C54,19.5 52,16 50,16 Z" fill="#f8fafc"/>
+            <line x1="43" y1="24" x2="43" y2="74" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
 
-          <!-- Blue Airline Cheatline & Passenger Windows -->
-          <polygon points="18,54 48,65 48,63 18,52" fill="#0284c7"/>
-          <circle cx="24" cy="53" r="1" fill="#ffffff"/>
-          <circle cx="28" cy="54.5" r="1" fill="#ffffff"/>
-          <circle cx="32" cy="56" r="1" fill="#ffffff"/>
-          <circle cx="36" cy="57.5" r="1" fill="#ffffff"/>
-          <circle cx="40" cy="59" r="1" fill="#ffffff"/>
-          <circle cx="44" cy="60.5" r="1" fill="#ffffff"/>
+            <!-- Cyan Cockpit Visor / Windshield (Kính Buồng Lái Cyan Vòng Cung) -->
+            <path d="M45,23 C45,21 47,19.5 50,19.5 C53,19.5 55,21 55,23 C55,25 53,26 50,26 C47,26 45,25 45,23 Z" fill="#38bdf8" stroke="#0284c7" stroke-width="0.8"/>
+            <circle cx="48" cy="22" r="1" fill="#ffffff"/>
 
-          <!-- Cockpit Glass Windscreen -->
-          <polygon points="14,54 18,52 18,48 14,50" fill="#38bdf8" stroke="#ffffff" stroke-width="0.8"/>
-
-          <!-- Swept-back Wings -->
-          <!-- Left Main Wing -->
-          <polygon points="28,58 10,72 16,74 36,62" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
-          <!-- Right Main Wing -->
-          <polygon points="34,48 44,32 48,34 40,51" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.2"/>
-
-          <!-- Jet Engines under Wing -->
-          <rect x="22" y="64" width="7" height="4" rx="2" fill="#64748b" stroke="#ffffff" stroke-width="0.8"/>
-          <circle cx="22" cy="66" r="1.8" fill="#0284c7"/>
-
-          <!-- Vertical Tail Fin & Stabilizers in Blue & Gold -->
-          <polygon points="50,58 64,36 58,34 46,54" fill="#0284c7" stroke="#ffffff" stroke-width="1.2"/>
-          <polygon points="54,42 62,38 60,35 52,39" fill="#facc15"/>
-          <polygon points="50,56 60,60 58,62 48,58" fill="#64748b"/>
+            <!-- Vertical Tail Fin (Cánh Đuôi Đứng Xanh Dương) -->
+            <path d="M48,68 L48,85 C48,87 52,87 52,85 L52,68 C52,66 48,66 48,68 Z" fill="#2563eb" stroke="#1d4ed8" stroke-width="0.8"/>
+            <path d="M49,69 L49,84 C49,85 51,85 51,84 L51,69 Z" fill="#3b82f6"/>
+          </g>
         </svg>
       `;
     }
-    function get3DAirplaneSVG(size = 62) {
-      return getBusinessTourAirportSVG(size);
+    function getBusinessTourAirportSVG(size = 56) {
+      return getBusinessTour25DAirplaneSVG(size);
     }
+    function get3DAirplaneSVG(size = 56) {
+      return getBusinessTour25DAirplaneSVG(size);
+    }
+    window.getBusinessTour25DAirplaneSVG = getBusinessTour25DAirplaneSVG;
     window.getBusinessTourAirportSVG = getBusinessTourAirportSVG;
     window.get3DAirplaneSVG = get3DAirplaneSVG;
 
@@ -13465,6 +13452,21 @@ function playMonoDiceTumbleSFX(durationMs) {
       }
     }
 
+    // Dynamic Floating Cash Animation for Property Buy, Upgrade & Rent
+    function triggerMonoFloatingCash(playerId, amount) {
+      if (amount === 0) return;
+      const container = document.getElementById('monoCornerFloat_' + playerId) ||
+                        document.getElementById(playerId === 0 ? 'monoP1FloatCashContainer' : 'monoP2FloatCashContainer');
+      if (!container) return;
+      const isPos = amount > 0;
+      const el = document.createElement('div');
+      el.className = `font-chakra font-black text-sm sm:text-xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] animate-float-cash select-none ${isPos ? 'text-emerald-400' : 'text-rose-400'}`;
+      el.textContent = `${isPos ? '+' : ''}${Math.abs(amount).toLocaleString()}`;
+      container.appendChild(el);
+      setTimeout(() => { if (el && el.parentNode) el.parentNode.removeChild(el); }, 1300);
+    }
+    window.triggerMonoFloatingCash = triggerMonoFloatingCash;
+
     // Show Event Popup (Bỏ qua hiển thị khi Auto-Play, chỉ hiện khi Game Over)
     function showMonoEventPopup({ type, title, desc, badge, amountLabel, amountVal, visualIcon, visualSvg, onConfirm }) {
       const overlay = document.getElementById('monoEventModalOverlay');
@@ -15232,6 +15234,9 @@ function renderCashStackHTML(amount) {
       const headerText = document.getElementById('monoFullscreenHeaderText');
       const arenaBtn = document.getElementById('btnMonoFullscreenArena');
       const exitFloating = document.getElementById('btnMonoExitFullscreen');
+      const arenaConsole = document.getElementById('arenaMatchConsole');
+      const headerEl = document.querySelector('header');
+      const arenaFullscreenText = document.getElementById('arenaFullscreenText');
 
       if (targetState) {
         // Attempt native HTML5 Fullscreen API on documentElement
@@ -15248,6 +15253,9 @@ function renderCashStackHTML(amount) {
           }
         }
         document.body.classList.add('mono-fullscreen-active');
+        if (arenaConsole) arenaConsole.style.setProperty('display', 'none', 'important');
+        if (headerEl) headerEl.style.setProperty('display', 'none', 'important');
+        if (arenaFullscreenText) arenaFullscreenText.textContent = 'Thu Nhỏ';
         if (btnHeader) {
           btnHeader.classList.add('bg-indigo-600', 'text-white');
           btnHeader.classList.remove('bg-indigo-900/80', 'text-indigo-200');
@@ -15262,7 +15270,7 @@ function renderCashStackHTML(amount) {
           exitFloating.classList.add('flex');
         }
         if (typeof showToast === 'function') {
-          showToast('⛶ Đã bật chế độ Toàn Màn Hình 16:9 (Nhấn Esc hoặc F để thoát)');
+          showToast('⛶ Đã phóng to toàn màn hình (Đã ẩn hàng tiện ích để tối đa hóa không gian)');
         }
       } else {
         // Exit native fullscreen if active
@@ -15278,6 +15286,9 @@ function renderCashStackHTML(amount) {
           }
         }
         document.body.classList.remove('mono-fullscreen-active');
+        if (arenaConsole) arenaConsole.style.display = '';
+        if (headerEl) headerEl.style.display = '';
+        if (arenaFullscreenText) arenaFullscreenText.textContent = 'Toàn Màn Hình';
         if (btnHeader) {
           btnHeader.classList.remove('bg-indigo-600', 'text-white');
           btnHeader.classList.add('bg-indigo-900/80', 'text-indigo-200');
@@ -15345,6 +15356,9 @@ function renderCashStackHTML(amount) {
     window.MONOPOLY_2D_TILES = MONOPOLY_2D_TILES;
 
     function switchGameView(tab, force = false) {
+      window.activeGameView = tab;
+      window.activeGameTab = tab;
+      window.activeTab = tab;
       window.isArenaGameTerminated = false;
       if (!window.monoWatchdogInterval) {
         window.monoWatchdogInterval = setInterval(() => {

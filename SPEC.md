@@ -1150,3 +1150,42 @@ Thiết kế vector SVG đa tầng sắc nét, đồng bộ màu sắc nhận di
     1. `index.html`
     2. `tabletop-arena-boardgame.html`
     3. `C:\\Users\\admin\\Downloads\\tabletop-arena-boardgame.html`
+
+
+---
+
+### [v4.1.9] - 2026-10-27: Synchronized Card Reveals, 1-Second Action Delays & Transparent Turn Visibility (Hiển Thị Thao Tác & Thẻ Cơ Hội / Vận Mệnh Cho Mọi Người Chơi, Delay 1s Chuẩn Nhịp Độ)
+
+#### 1. Bối cảnh & Yêu cầu Người Dùng
+- **Vấn đề trước đây**:
+  - Khi BOT hoặc khi bật chế độ Tự Động Chơi (Auto Play), các thao tác gieo xúc xắc, mua đất, nâng cấp nhà và bốc Thẻ Cơ Hội / Vận Mệnh bị lướt qua quá nhanh (hoặc ẩn ngầm hộp thoại).
+  - Người chơi khác và khán giả không nhìn thấy được đối thủ vừa bốc được thẻ gì, nội dung gì, được cộng hay bị phạt bao nhiêu tiền, và bot đã đưa ra quyết định mua đất thế nào.
+- **Yêu cầu cốt lõi**:
+  - **Mọi người chơi đều nhìn thấy thao tác**: Bất kỳ người chơi nào (Human, Bot, Tự động) đến lượt đều phải hiển thị rõ ràng trên bàn cờ.
+  - **Hiển thị 100% Thẻ Cơ Hội & Vận Mệnh**: Khi bất kỳ ai bốc thẻ Cơ Hội hay Vận Mệnh, Pop-up Thẻ Bài phải hiện lên giữa màn hình kèm Avatar, Tên người bốc, Tên thẻ, Biểu tượng, Nội dung mô tả và Số tiền tác động.
+  - **Delay 1 giây (1000ms) cho mỗi thao tác**: Giúp người chơi và khán giả dễ dàng theo dõi từng bước diễn biến của ván cờ như đang xem trực tiếp.
+
+#### 2. Chi tiết Giải Pháp Kỹ Thuật v4.1.9
+1. **Hiển Thị Thẻ Cơ Hội / Vận Mệnh Cho Toàn Bộ Bàn Đấu (`showMonoEventPopup`)**:
+   - Gắn Avatar và Tên của người chơi bốc thẻ vào Badge & Tiêu đề Pop-up.
+   - Thẻ bài hiển thị chi tiết: Biểu tượng minh họa to (`visualIcon`), Mô tả hành động, và Số tiền (`+$350` màu xanh ngọc hoặc `-$200` màu đỏ).
+   - **Cơ chế Delay 1 Giây**: Nếu là Bot hoặc Tự Động Chơi, pop-up giữ nguyên trên màn hình trong **1000ms** (nút bấm hiển thị trạng thái `Tiếp Tục (Kỳ Lân AI - 1s) ⏳`), sau đó tự động đóng và chuyển tiếp an toàn mà không che khuất hay lướt qua ngầm.
+2. **Hiển Thị Hộp Thoại Quyết Định Mua / Xây / Thâu Tóm (`mono2dDecisionBox`)**:
+   - Khi Bot hoặc Tự Động Chơi bước vào ô đất trống, ô cần nâng cấp, hoặc ô đối thủ có thể thâu tóm:
+     - Hộp thoại quyết định được mở lên công khai giữa màn hình.
+     - Hiển thị Avatar nhân vật đang cân nhắc cùng biểu tượng hành động (`🏡`, `🏖️`, `⚔️`).
+     - Lựa chọn của Bot/Auto được highlight nổi bật (`ring-4 ring-emerald-400 animate-pulse` kèm nhãn `Đồng Ý Mua (1s) ⚡`).
+     - **Delay 1000ms** để mọi người thấy rõ thao tác lựa chọn trước khi giải quyết hành động và mọc nhà 3D.
+3. **Độ Trễ 1 Giây Bắt Đầu Lượt Đi (`finishMonoTurn` & `checkAndTriggerMonoAutoPlay`)**:
+   - Khi chuyển lượt sang Bot hoặc khi Tự Động Chơi đến lượt:
+     - Nút gieo xúc xắc ở trung tâm bàn cờ chuyển sang trạng thái: `🎲 LƯỢT CỦA [TÊN] (1s)...`.
+     - Hệ thống chờ đúng **1000ms** trước khi xúc xắc 3D bắt đầu lăn, giúp người chơi có đủ thời gian nhận biết ai đang đi và chuẩn bị xem gieo xúc xắc.
+4. **Quản Lý Timer & Tốc Độ An Toàn**:
+   - Toàn bộ các timeout được gán định danh vào `monoState.botTimeoutId` hoặc `monoAutoPlayTimer`, được dọn sạch hoàn toàn khi bấm "Ván Mới" hoặc đổi chế độ chơi qua `stopMonopolyTimers()`.
+   - Bảo đảm chạy ổn định 60fps, không bao giờ xảy ra memory leak hay race condition.
+
+#### 3. Bảng Kiểm Tra & Nghiệm Thu
+- **Kiểm thử Cú pháp**: AST Syntax Script block 1, 2, 3 hoàn toàn PASS 100%.
+- **Ảnh nghiệm thu Thẻ Cơ Hội**: [verify_v419_chance_card_modal.png](file:///C:/Users/admin/.gemini/antigravity/brain/4f4a04ac-b9db-48a1-9d96-928a593416dc/verify_v419_chance_card_modal.png) - Kỳ Lân AI bốc thẻ Cổ Tức Đầu Tư (+$350) với delay 1s.
+- **Ảnh nghiệm thu Quyết Định Mua Đất**: [verify_v419_decision_box_modal.png](file:///C:/Users/admin/.gemini/antigravity/brain/4f4a04ac-b9db-48a1-9d96-928a593416dc/verify_v419_decision_box_modal.png) - Rồng Lửa AI hiển thị Avatar cân nhắc mua Cairo với nút chọn nổi bật.
+- **SHA-256 Parity**: `7f749edd4531ada543bbb3f283f56aeb9d06d9786a912705cb40ea7dc780af1a` đồng bộ trên cả 3 bản phân phối.

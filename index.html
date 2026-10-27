@@ -3586,7 +3586,7 @@
             </button>
           </div>
         </div>
-      </div></div>
+      </div>
 
     </div>
   </div>
@@ -6618,7 +6618,7 @@
 
       // ẨN TOÀN BỘ POPUP KHI ĐANG QUAN SÁT (SPECTATOR MODE) HOẶC KHI 2 BOT ĐẤU VỚI NHAU
       const isBotDuel = (challenger > 1 && defender > 1);
-      const shouldSilentDuel = isSpectatorMode || isBotDuel;
+      const shouldSilentDuel = isSpectatorMode || isBotDuel || Boolean(window.diceAutoPlay);
 
       if (shouldSilentDuel) {
         // Tự động phân định kết quả ngầm nhanh chóng, không che khuất bàn cờ!
@@ -9573,13 +9573,55 @@
 
     // Interactive Decision Dialog (Supports Buy, Upgrade, Jail Bail, and Business Tour Hostile Takeover!)
     function setMonoDialogMode(mode, data = {}) {
-      const box = document.getElementById('mono2dDecisionBox');
+      const box = document.getElementById('mono2dDecisionBox') || document.getElementById('monoDecisionBox');
       const title = document.getElementById('monoDialogTitle');
       const desc = document.getElementById('monoDialogDesc');
       const icon = document.getElementById('monoDialogIcon');
       const btnNo = document.getElementById('btnMonoDialogNo');
       const btnYes = document.getElementById('btnMonoDialogYes');
       if (!box || !title || !btnNo || !btnYes) return;
+
+      // Khi bật Tự Động Chơi (monoAutoPlay), ẩn hoàn toàn hộp thoại và tự động ra quyết định ngay
+      if (window.monoAutoPlay) {
+        if (box) {
+          box.classList.add('hidden');
+          box.classList.remove('flex');
+        }
+        const curPlayer = monoState.players[monoState.turn];
+        if (!curPlayer || curPlayer.isBankrupt) return;
+
+        if (mode === 'ready') {
+          if (curPlayer.inJail > 0) {
+            monoState.pendingAction = { type: 'jail_choice' };
+            const shouldBail = curPlayer.cash >= 250;
+            handleMonoDialogChoice(shouldBail);
+          } else {
+            monoState.pendingAction = null;
+          }
+          return;
+        } else if (mode === 'buy') {
+          const tile = data.tile;
+          monoState.pendingAction = { type: 'buy', tile: tile };
+          const shouldBuy = curPlayer.cash >= (tile.price + 150);
+          handleMonoDialogChoice(shouldBuy);
+          return;
+        } else if (mode === 'upgrade') {
+          const tile = data.tile;
+          const cost = Math.floor(tile.price * 0.5);
+          monoState.pendingAction = { type: 'upgrade', tile: tile, cost: cost };
+          const shouldUpgrade = curPlayer.cash >= (cost + 200);
+          handleMonoDialogChoice(shouldUpgrade);
+          return;
+        } else if (mode === 'takeover') {
+          const tile = data.tile;
+          const buyoutCost = data.cost;
+          const prevOwner = monoState.players[tile.owner];
+          monoState.pendingAction = { type: 'takeover', tile: tile, cost: buyoutCost, prevOwner: prevOwner };
+          const shouldTakeover = curPlayer.cash >= (buyoutCost + 400);
+          handleMonoDialogChoice(shouldTakeover);
+          return;
+        }
+      }
 
       if (mode === 'ready') {
         const curPlayer = monoState.players[monoState.turn];
@@ -9659,6 +9701,7 @@
             triggerMonoFloatingCash(curPlayer.id, -250);
             updateMonopolyHUD();
             showToast(`🔓 ${curPlayer.name} đã nộp $250 bảo lãnh và được tự do!`);
+            if (typeof addBattleLog === 'function') addBattleLog(`🔓 <b>${curPlayer.name}</b> nộp $250 bảo lãnh ra tù!`, 'jail');
             executeMono2dRoll();
           } else {
             showToast('❌ Không đủ $250, phải đổ xúc xắc tìm số đôi!');
@@ -9708,6 +9751,7 @@
           }
         } else {
           showToast(`${player.name} quyết định bỏ qua ô ${tile.name}.`);
+          if (typeof addBattleLog === 'function') addBattleLog(`⏭️ <b>${player.name}</b> bỏ qua ${tile.name}.`, 'turn');
           finishMonoTurn();
         }
       } else if (monoState.pendingAction.type === 'upgrade') {
@@ -10381,9 +10425,26 @@
       }
     }
 
-    // Show Event Popup
+    // Show Event Popup (Bỏ qua hiển thị khi Auto-Play, chỉ hiện khi Game Over)
     function showMonoEventPopup({ type, title, desc, badge, amountLabel, amountVal, visualIcon, visualSvg, onConfirm }) {
       const overlay = document.getElementById('monoEventModalOverlay');
+
+      // Khi bật Tự Động Chơi, bỏ qua modal sự kiện (trừ gameover), ghi nhật ký và tiếp tục ngay
+      if (window.monoAutoPlay && type !== 'gameover') {
+        if (overlay) {
+          overlay.classList.add('hidden');
+          overlay.classList.remove('flex');
+        }
+        monoState.eventCallback = null;
+        if (title || desc) {
+          const logMsg = badge ? `${badge} ${title}: ${desc || ''}` : `${title}: ${desc || ''}`;
+          if (typeof addBattleLog === 'function') addBattleLog(logMsg, 'event');
+          if (typeof showToast === 'function') showToast(badge ? `${badge} ${title}` : title);
+        }
+        if (typeof onConfirm === 'function') onConfirm();
+        return;
+      }
+
       if (!overlay) {
         if (onConfirm) onConfirm();
         return;
@@ -10619,6 +10680,44 @@
       }
 
       if (isAuto) {
+        // Đóng ngay lập tức tất cả các popup đang mở trên màn hình
+        const cashOverlay = document.getElementById('monoCashTransferOverlay');
+        if (cashOverlay) { cashOverlay.classList.add('hidden'); cashOverlay.classList.remove('flex'); }
+        const cashModal = document.getElementById('monoCashTransferModal');
+        if (cashModal) { cashModal.classList.add('hidden'); cashModal.classList.remove('flex'); }
+
+        const decisionBox = document.getElementById('mono2dDecisionBox') || document.getElementById('monoDecisionBox');
+        if (decisionBox) { decisionBox.classList.add('hidden'); decisionBox.classList.remove('flex'); }
+
+        const jailOverlay = document.getElementById('monoJailGateOverlay') || document.getElementById('monoJailOverlay');
+        if (jailOverlay) { jailOverlay.classList.add('hidden'); jailOverlay.classList.remove('flex'); }
+
+        const airplaneOverlay = document.getElementById('monoAirplaneOverlay');
+        if (airplaneOverlay) { airplaneOverlay.classList.add('hidden'); airplaneOverlay.classList.remove('flex'); }
+
+        // Đóng ngay event modal nếu đang mở & gọi callback tiếp tục ván đấu
+        closeMonoEventModal();
+
+        // Tự động giải quyết quyết định đang chờ (nếu có)
+        if (monoState.pendingAction) {
+          const act = monoState.pendingAction;
+          const curP = monoState.players[monoState.turn];
+          if (curP) {
+            let accept = false;
+            if (act.type === 'buy') {
+              accept = curP.cash >= (act.tile.price + 150);
+            } else if (act.type === 'upgrade') {
+              const cost = act.cost || Math.floor(act.tile.price * 0.5);
+              accept = curP.cash >= (cost + 200);
+            } else if (act.type === 'takeover') {
+              accept = curP.cash >= (act.cost + 400);
+            } else if (act.type === 'jail_choice') {
+              accept = curP.cash >= 250;
+            }
+            handleMonoDialogChoice(accept);
+          }
+        }
+
         showToast('🤖 Đã BẬT Tự Động Chơi Cờ Tỷ Phú! Hệ thống sẽ tự gieo xúc xắc và mua đất thông minh.');
         checkAndTriggerMonoAutoPlay();
       } else {
@@ -10654,9 +10753,8 @@
       const player = monoState.players[monoState.turn];
       if (!player || player.isBankrupt) return;
 
-      // 1. If currently showing a decision dialog (buy, upgrade, takeover, jail)
-      const decisionBox = document.getElementById('mono2dDecisionBox');
-      if (decisionBox && !decisionBox.classList.contains('hidden') && monoState.pendingAction) {
+      // 1. If currently showing a decision dialog or having pending action (buy, upgrade, takeover, jail)
+      if (monoState.pendingAction) {
         monoAutoPlayTimer = setTimeout(() => {
           if (!window.monoAutoPlay) return;
           const act = monoState.pendingAction;
@@ -10781,6 +10879,13 @@
       }
 
       if (isAuto) {
+        // Đóng ngay popup quyết đấu nếu đang mở
+        const duelModal = document.getElementById('skillDuelModal');
+        if (duelModal) duelModal.classList.add('hidden');
+        if (typeof duelState !== 'undefined' && duelState.active && !duelState.winner) {
+          resolveDuelTimeout();
+        }
+
         showToast('🤖 Đã BẬT Tự Động Gieo Xúc Xắc 20 Ô!');
         checkAndTriggerDiceAutoPlay();
       } else {
@@ -11053,10 +11158,51 @@
     }
 
     // Trigger Dynamic Cash Transfer Animation
-    function triggerMonoCashTransfer({ payer, recipient, amount, type = 'buy', desc, onComplete }) {
-      const overlay = document.getElementById('monoCashTransferOverlay');
+    function triggerMonoCashTransfer(opts) {
+      opts = opts || {};
+      const payer = opts.payer;
+      const recipient = opts.recipient;
+      const amount = opts.amount || 0;
+      const type = opts.type || 'buy';
+      const desc = opts.desc;
+      const onComplete = opts.onComplete;
+      const onDone = opts.onDone;
+      const doneCb = (typeof onDone === 'function') ? onDone : (typeof onComplete === 'function' ? onComplete : null);
+
+      // KHI BẬT TỰ ĐỘNG CHƠI: TUYỆT ĐỐI KHÔNG mở modal #monoCashTransferModal/#monoCashTransferOverlay
+      if (window.monoAutoPlay) {
+        const overlay = document.getElementById('monoCashTransferOverlay') || document.getElementById('monoCashTransferModal');
+        if (overlay) {
+          overlay.classList.add('hidden');
+          overlay.classList.remove('flex');
+        }
+        const modal = document.getElementById('monoCashTransferModal');
+        if (modal) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+
+        // Chỉ chạy hiệu ứng số tiền bay nhẹ trên góc thẻ người chơi
+        if (payer && typeof triggerMonoFloatingCash === 'function') {
+          const payerId = (typeof payer === 'object' && payer !== null && payer.id !== undefined) ? payer.id : payer;
+          triggerMonoFloatingCash(payerId, -amount);
+        }
+        if (recipient && recipient !== 'bank' && typeof triggerMonoFloatingCash === 'function') {
+          const recipId = (typeof recipient === 'object' && recipient !== null && recipient.id !== undefined) ? recipient.id : recipient;
+          triggerMonoFloatingCash(recipId, amount);
+        }
+
+        if (desc && typeof addBattleLog === 'function') {
+          addBattleLog(`💸 ${desc}`, 'transfer');
+        }
+
+        if (doneCb) doneCb();
+        return;
+      }
+
+      const overlay = document.getElementById('monoCashTransferOverlay') || document.getElementById('monoCashTransferModal');
       if (!overlay) {
-        if (onComplete) onComplete();
+        if (doneCb) doneCb();
         return;
       }
 
@@ -11138,10 +11284,30 @@
 
     // Trigger Airplane Flyby Sequence (Tile 18 Sân Bay / Dịch Chuyển)
     
-    function triggerMonoJailGateAnimation({ player, reason, onComplete }) {
-      const overlay = document.getElementById('monoJailGateOverlay');
+    function triggerMonoJailGateAnimation(opts) {
+      opts = opts || {};
+      const player = opts.player;
+      const reason = opts.reason;
+      const onComplete = opts.onComplete;
+      const onDone = opts.onDone;
+      const doneCb = (typeof onDone === 'function') ? onDone : (typeof onComplete === 'function' ? onComplete : null);
+
+      const overlay = document.getElementById('monoJailGateOverlay') || document.getElementById('monoJailOverlay');
+      if (window.monoAutoPlay) {
+        if (overlay) {
+          overlay.classList.add('hidden');
+          overlay.classList.remove('flex');
+        }
+        if (reason) {
+          showToast(`⛓️ ${player ? player.name : 'Người chơi'}: ${reason}`);
+          if (typeof addBattleLog === 'function') addBattleLog(`⛓️ <b>${player ? player.name : 'Người chơi'}</b>: ${reason}`, 'jail');
+        }
+        if (doneCb) doneCb();
+        return;
+      }
+
       if (!overlay) {
-        if (onComplete) onComplete();
+        if (doneCb) doneCb();
         return;
       }
 
@@ -11207,10 +11373,33 @@
     }
     window.triggerMonoJailGateAnimation = triggerMonoJailGateAnimation;
 
-    function triggerMonoAirplaneFlyby({ player, destTile, onComplete }) {
+    function triggerMonoAirplaneFlyby(opts) {
+      opts = opts || {};
+      const player = opts.player;
+      const destTile = opts.destTile;
+      const onComplete = opts.onComplete;
+      const onDone = opts.onDone;
+      const doneCb = (typeof onDone === 'function') ? onDone : (typeof onComplete === 'function' ? onComplete : null);
+
       const overlay = document.getElementById('monoAirplaneOverlay');
+      if (window.monoAutoPlay) {
+        if (overlay) {
+          overlay.classList.add('hidden');
+          overlay.classList.remove('flex');
+        }
+        if (player && destTile) {
+          player.pos = destTile.id;
+          updateMonopolyPawns();
+          updateMonopolyHUD();
+          showToast(`✈️ World Tour! ${player.name} bay thẳng tới ${destTile.name}!`);
+          if (typeof addBattleLog === 'function') addBattleLog(`✈️ <b>${player.name}</b> bay tới <b>${destTile.name}</b>!`, 'warp');
+        }
+        if (doneCb) doneCb();
+        return;
+      }
+
       if (!overlay) {
-        if (onComplete) onComplete();
+        if (doneCb) doneCb();
         return;
       }
 
@@ -11718,6 +11907,10 @@
     window.restartMonopolyGame = restartMonopolyGame;
     window.showMonoEventPopup = showMonoEventPopup;
     window.closeMonoEventModal = closeMonoEventModal;
+    window.showMonoDecision = setMonoDialogMode;
+    window.setMonoDialogMode = setMonoDialogMode;
+    window.showMonoCardModal = showMonoEventPopup;
+    window.triggerMonoAirplaneAnimation = triggerMonoAirplaneFlyby;
 
     window.monoState = monoState;
     window.MONOPOLY_2D_TILES = MONOPOLY_2D_TILES;

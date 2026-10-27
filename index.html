@@ -1626,7 +1626,6 @@
 
           <!-- Dice Auto-Play Header Toggle -->
           <button onclick="toggleDiceAutoPlay()" id="btnDiceAutoPlayHeader" class="btn-spring px-2.5 py-1 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all" title="Bật/Tắt tự động gieo xúc xắc">
-            <span class="text-sm">🤖</span>
             <span id="diceAutoPlayHeaderText">Tự Động: TẮT</span>
           </button>
 
@@ -1751,7 +1750,6 @@
 
           <!-- Monopoly Auto-Play Header Toggle -->
           <button onclick="toggleMonoAutoPlay()" id="btnMonoAutoPlayHeader" class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all" title="Bật/Tắt tự động chơi Cờ Tỷ Phú">
-            <span class="text-sm">🤖</span>
             <span id="monoAutoPlayHeaderText">Tự Động: TẮT</span>
           </button>
 
@@ -1980,7 +1978,6 @@
 
                 <!-- Dice Auto-Play Toggle on Board -->
                 <button onclick="toggleDiceAutoPlay()" id="btnDiceAutoPlayBoard" class="group px-3 py-1 rounded-xl bg-[#0f172a]/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-600 text-[11px] font-bold flex items-center gap-1 shadow-sm transition-all cursor-pointer select-none my-0.5" title="Bật/Tắt chế độ tự động gieo xúc xắc">
-                  <span class="text-xs">🤖</span>
                   <span id="diceAutoPlayBoardText">TỰ ĐỘNG CHƠI: TẮT</span>
                 </button>
 
@@ -3210,7 +3207,6 @@
 
             <!-- Auto-Play Button on Monopoly Board Surface -->
             <button onclick="toggleMonoAutoPlay()" id="btnMonoAutoPlayBoard" class="group px-4 py-1.5 rounded-xl bg-[#0f172a]/95 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-600 text-xs font-extrabold flex items-center gap-1.5 shadow-md transition-all cursor-pointer select-none pointer-events-auto" title="Bật/Tắt chế độ tự động chơi ngay trên bàn cờ">
-              <span class="text-sm group-hover:rotate-12 transition-transform">🤖</span>
               <span id="monoAutoPlayBoardText">TỰ ĐỘNG CHƠI: TẮT</span>
             </button>
 
@@ -11178,20 +11174,20 @@ function playMonoDiceTumbleSFX(durationMs) {
       if (boardBtn && boardText) {
         if (isAuto) {
           boardBtn.className = 'group px-4 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white border-2 border-emerald-300 ring-4 ring-emerald-400/40 text-xs font-black flex items-center gap-1.5 shadow-[0_0_20px_rgba(16,185,129,0.8)] transition-all cursor-pointer select-none pointer-events-auto animate-pulse';
-          boardText.innerHTML = '🤖 TỰ ĐỘNG CHƠI: <span class="text-yellow-300">ĐANG BẬT ⚡</span>';
+          boardText.innerHTML = 'TỰ ĐỘNG CHƠI: <span class="text-yellow-300 font-extrabold">ĐANG BẬT ⚡</span>';
         } else {
           boardBtn.className = 'group px-4 py-1.5 rounded-xl bg-[#0f172a]/95 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-600 text-xs font-extrabold flex items-center gap-1.5 shadow-md transition-all cursor-pointer select-none pointer-events-auto';
-          boardText.textContent = '🤖 TỰ ĐỘNG CHƠI: TẮT';
+          boardText.textContent = 'TỰ ĐỘNG CHƠI: TẮT';
         }
       }
 
       if (headerBtn && headerText) {
         if (isAuto) {
           headerBtn.className = 'px-2.5 py-1 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 text-white border-2 border-emerald-300 ring-2 ring-emerald-400/40 text-xs font-black flex items-center gap-1.5 shadow-md transition-all animate-pulse';
-          headerText.innerHTML = '🤖 Tự Động: <span class="text-yellow-300">BẬT ⚡</span>';
+          headerText.innerHTML = 'Tự Động: <span class="text-yellow-300 font-extrabold">BẬT ⚡</span>';
         } else {
           headerBtn.className = 'px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all';
-          headerText.textContent = '🤖 Tự Động: TẮT';
+          headerText.textContent = 'Tự Động: TẮT';
         }
       }
 
@@ -11234,7 +11230,7 @@ function playMonoDiceTumbleSFX(durationMs) {
           }
         }
 
-        showToast('🤖 Đã BẬT Tự Động Chơi Cờ Tỷ Phú! Hệ thống sẽ tự gieo xúc xắc và mua đất thông minh.');
+        showToast('⚡ Đã BẬT Tự Động Chơi Cờ Tỷ Phú! Hệ thống sẽ tự gieo xúc xắc và mua đất thông minh.');
         checkAndTriggerMonoAutoPlay();
       } else {
         if (monoAutoPlayTimer) {
@@ -11488,20 +11484,20 @@ function playMonoDiceTumbleSFX(durationMs) {
       if (headerBtn && headerText) {
         if (isAuto) {
           headerBtn.className = 'btn-spring px-2.5 py-1 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 text-white border-2 border-emerald-300 ring-2 ring-emerald-400/40 text-xs font-black flex items-center gap-1.5 shadow-md transition-all animate-pulse';
-          headerText.innerHTML = '🤖 Tự Động: <span class="text-yellow-300">BẬT ⚡</span>';
+          headerText.innerHTML = 'Tự Động: <span class="text-yellow-300 font-extrabold">BẬT ⚡</span>';
         } else {
           headerBtn.className = 'btn-spring px-2.5 py-1 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white border border-board-border text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all';
-          headerText.textContent = '🤖 Tự Động: TẮT';
+          headerText.textContent = 'Tự Động: TẮT';
         }
       }
 
       if (boardBtn && boardText) {
         if (isAuto) {
           boardBtn.className = 'group px-3 py-1 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white border-2 border-emerald-300 ring-2 ring-emerald-400/40 text-xs font-black flex items-center gap-1 shadow-md transition-all cursor-pointer animate-pulse';
-          boardText.innerHTML = '🤖 TỰ ĐỘNG: <span class="text-yellow-300">BẬT ⚡</span>';
+          boardText.innerHTML = 'TỰ ĐỘNG: <span class="text-yellow-300 font-extrabold">BẬT ⚡</span>';
         } else {
           boardBtn.className = 'group px-3 py-1 rounded-xl bg-[#0f172a]/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-600 text-[11px] font-bold flex items-center gap-1 shadow-sm transition-all cursor-pointer';
-          boardText.textContent = '🤖 TỰ ĐỘNG CHƠI: TẮT';
+          boardText.textContent = 'TỰ ĐỘNG CHƠI: TẮT';
         }
       }
 
@@ -11513,7 +11509,7 @@ function playMonoDiceTumbleSFX(durationMs) {
           resolveDuelTimeout();
         }
 
-        showToast('🤖 Đã BẬT Tự Động Gieo Xúc Xắc 20 Ô!');
+        showToast('⚡ Đã BẬT Tự Động Gieo Xúc Xắc 20 Ô!');
         checkAndTriggerDiceAutoPlay();
       } else {
         if (diceAutoPlayTimer) {

@@ -177,6 +177,69 @@
       will-change: opacity, backdrop-filter;
     }
 
+    /* ================= MULTIPLAYER TAB & BUTTON TRANSITIONS (60FPS HARDWARE ACCELERATED) ================= */
+    @keyframes mpTabContentEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.992);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .mp-tab-enter {
+      animation: mpTabContentEnter 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      will-change: opacity, transform;
+    }
+
+    /* Join Code Input Pulse Glow */
+    @keyframes codeInputGlowPulse {
+      0%, 100% {
+        box-shadow: 0 0 15px rgba(6, 182, 212, 0.25), inset 0 2px 8px rgba(0, 0, 0, 0.6);
+      }
+      50% {
+        box-shadow: 0 0 28px rgba(6, 182, 212, 0.45), inset 0 2px 8px rgba(0, 0, 0, 0.6);
+      }
+    }
+
+    .mp-code-input-glow:focus {
+      animation: codeInputGlowPulse 2s infinite ease-in-out;
+    }
+
+    /* Shimmer Effect for Buttons */
+    @keyframes btnShimmerSlide {
+      0% { transform: translateX(-150%) skewX(-20deg); }
+      100% { transform: translateX(250%) skewX(-20deg); }
+    }
+
+    .btn-shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-shimmer::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.25) 50%,
+        transparent 100%
+      );
+      transform: translateX(-150%) skewX(-20deg);
+      pointer-events: none;
+    }
+
+    .btn-shimmer:hover::after {
+      animation: btnShimmerSlide 1.25s infinite;
+    }
+
     /* Modal Backdrop Smooth Transition */
     .modal-backdrop-smooth {
       transition: opacity var(--t-speed-norm) var(--ease-soft),
@@ -4167,17 +4230,17 @@
   <!-- ================= MODAL AUTH: ĐĂNG KÝ / ĐĂNG NHẬP FIREBASE THẬT ================= -->
   <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
     <div id="authCard" class="w-full max-w-md tabletop-mat rounded-3xl p-6 sm:p-8 shadow-2xl border border-amber-500/40 transform scale-90 transition-transform duration-300 relative">
-      <button onclick="closeModal('authModal')" class="absolute top-5 right-5 p-1.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white">
+      <button onclick="closeModal('authModal')" class="absolute top-5 right-5 p-1.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white transition-colors" title="Đóng">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
 
       <!-- Modal Header -->
       <div class="text-center mb-5">
-        <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 mx-auto mb-2.5 text-2xl shadow-inner">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-700/20 border border-amber-500/40 flex items-center justify-center text-amber-400 mx-auto mb-2.5 text-2xl shadow-inner">
           👑
         </div>
         <h3 class="font-cinzel text-xl font-bold text-white tracking-wide">GIA NHẬP ĐẤU TRƯỜNG</h3>
-        <p class="text-xs text-slate-400 mt-1">Đăng ký tài khoản để lưu trữ thành tích và tham gia xếp hạng</p>
+        <p class="text-xs text-slate-400 mt-1">Đăng ký bằng Tên Đăng Nhập để lưu trữ thành tích và tham gia xếp hạng</p>
       </div>
 
       <!-- Auth Tabs: Đăng Ký vs Đăng Nhập -->
@@ -4191,21 +4254,50 @@
       </div>
 
       <!-- Firebase Auth Form -->
-      <form id="firebaseAuthForm" onsubmit="handleFirebaseAuthSubmit(event)" class="space-y-3">
+      <form id="firebaseAuthForm" onsubmit="handleFirebaseAuthSubmit(event)" class="space-y-3.5">
         <!-- Display Name (Only on Signup) -->
         <div id="fieldDisplayName">
-          <label class="block text-xs font-bold text-slate-300 mb-1">Tên Kỳ Thủ</label>
-          <input type="text" id="authDisplayName" placeholder="Nhập tên hiển thị (VD: Minh Đại Sư)" class="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-board-border text-xs text-white focus:outline-none focus:border-amber-500">
+          <label class="flex items-center justify-between text-xs font-bold text-slate-300 mb-1">
+            <span class="flex items-center gap-1.5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-400"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              Biệt Danh Hiển Thị
+            </span>
+            <span class="text-[10px] text-slate-400 font-mono">(Tùy chọn)</span>
+          </label>
+          <div class="relative">
+            <input type="text" id="authDisplayName" placeholder="Nhập biệt danh thi đấu (VD: Minh Đại Sư)" class="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-board-border text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/40 transition-all font-sans">
+          </div>
+        </div>
+
+        <!-- Username / Account Field (Replaced Gmail mandatory requirement) -->
+        <div>
+          <label class="flex items-center justify-between text-xs font-bold text-slate-300 mb-1">
+            <span class="flex items-center gap-1.5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-400"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span id="authEmailLabelText">Tên Đăng Nhập</span>
+            </span>
+            <span class="text-[10px] text-emerald-400 font-mono font-normal flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Không bắt buộc Gmail
+            </span>
+          </label>
+          <div class="relative">
+            <input type="text" id="authEmail" required autocomplete="username" placeholder="Nhập tên đăng nhập (VD: minh_pro123)..." class="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-board-border text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/40 transition-all font-sans">
+          </div>
+          <p class="text-[10px] text-slate-400 mt-1 font-mono">Tự do đặt tên đăng nhập bất kỳ (hoặc nhập email nếu đã có tài khoản cũ)</p>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Địa Chỉ Email</label>
-          <input type="email" id="authEmail" required placeholder="kythu@tabletop.io" class="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-board-border text-xs text-white focus:outline-none focus:border-amber-500">
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Mật Mã (Tối thiểu 6 ký tự)</label>
-          <input type="password" id="authPassword" required minlength="6" placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-board-border text-xs text-white focus:outline-none focus:border-amber-500">
+          <label class="flex items-center justify-between text-xs font-bold text-slate-300 mb-1">
+            <span class="flex items-center gap-1.5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-400"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Mật Mã
+            </span>
+            <span class="text-[10px] text-slate-400 font-mono">Tối thiểu 6 ký tự</span>
+          </label>
+          <div class="relative">
+            <input type="password" id="authPassword" required minlength="6" placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-board-border text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/40 transition-all">
+          </div>
         </div>
 
         <!-- Error Message Alert -->
@@ -4214,9 +4306,20 @@
           <span id="authErrorText">Lỗi xác thực</span>
         </div>
 
-        <button type="submit" id="authSubmitBtn" class="btn-spring w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-black text-xs shadow-lg shadow-amber-700/30 border border-amber-400/40 mt-3 flex items-center justify-center gap-2">
-          <span id="authBtnText">Đăng Ký Tài Khoản Kỳ Thủ</span>
+        <button type="submit" id="authSubmitBtn" class="btn-spring btn-shimmer w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-black text-xs shadow-lg shadow-amber-700/30 border border-amber-400/40 mt-3 flex items-center justify-center gap-2 transition-all duration-200 active:scale-95 hover:shadow-[0_0_20px_rgba(245,158,11,0.5)] hover:brightness-110 cursor-pointer">
+          <span id="authBtnText">Đăng Ký Bằng Tên Đăng Nhập</span>
           <span id="authSpinner" class="hidden w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+        </button>
+
+        <div class="flex items-center gap-2 my-2 text-[10px] text-slate-500 font-mono uppercase tracking-widest pt-1">
+          <div class="flex-1 h-px bg-slate-800"></div>
+          <span>HOẶC</span>
+          <div class="flex-1 h-px bg-slate-800"></div>
+        </div>
+
+        <button type="button" onclick="quickGuestLogin()" class="btn-spring w-full py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/60 hover:border-amber-500/40 text-xs font-bold transition-all duration-200 flex items-center justify-center gap-2 group cursor-pointer active:scale-95">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 text-amber-400 group-hover:rotate-12 transition-transform"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Vào Chơi Nhanh (Tự Sinh Tên Đăng Nhập)</span>
         </button>
       </form>
 
@@ -5851,10 +5954,22 @@
     // Handle Signup / Signin Submit
     window.handleFirebaseAuthSubmit = async function(e) {
       e.preventDefault();
-      const email = document.getElementById('authEmail').value.trim();
+      const rawAccount = document.getElementById('authEmail').value.trim();
       const password = document.getElementById('authPassword').value;
-      const displayName = document.getElementById('authDisplayName').value.trim() || email.split('@')[0];
+      const displayNameInput = document.getElementById('authDisplayName').value.trim();
       const isSignup = window.authTabMode === 'signup';
+
+      // Normalize Username into valid format if no @ is present (removes mandatory Gmail)
+      let email = rawAccount;
+      let username = rawAccount;
+      if (!rawAccount.includes('@')) {
+        const cleanUser = rawAccount.toLowerCase().replace(/[^a-z0-9._-]/gi, '') || ('user_' + Math.floor(Math.random() * 10000));
+        email = `${cleanUser}@tabletop.io`;
+        username = rawAccount;
+      } else {
+        username = rawAccount.split('@')[0];
+      }
+      const displayName = displayNameInput || username;
 
       const errorBox = document.getElementById('authErrorAlert');
       const errorText = document.getElementById('authErrorText');
@@ -5900,6 +6015,7 @@
           const firestoreUserData = {
             uid: user.uid,
             displayName: displayName,
+            username: username,
             email: email,
             coins: 0,
             gems: 0,
@@ -5930,7 +6046,7 @@
           window.applyUserUI(firestoreUserData);
 
           window.closeModal('authModal');
-          window.showToast(`🎉 Đăng ký thành công! Chào mừng bạn gia nhập bàn cờ.`);
+          window.showToast(`🎉 Đăng ký thành công! Chào mừng ${displayName} gia nhập bàn cờ.`);
           window.soundTone(880, 'triangle', 0.25, 0.2);
 
         } else {
@@ -5955,7 +6071,8 @@
           const user = userCredential.user;
           let firestoreUserData = {
             uid: user.uid,
-            displayName: (user.displayName || displayName || (email === 'thaitraicau123@gmail.com' ? 'Bùi Thái' : email.split('@')[0])),
+            displayName: (user.displayName || displayName || (email === 'thaitraicau123@gmail.com' ? 'Bùi Thái' : username)),
+            username: username,
             email: email,
             role: (email === 'thaitraicau123@gmail.com' || email === 'minhcuong111@gmail.com' || user.uid === 'PDLkeTVAHSWAVajDWFzSvZ4wDFc2') ? 'Admin' : 'Tân Thủ',
             coins: (email === 'thaitraicau123@gmail.com' || user.uid === 'PDLkeTVAHSWAVajDWFzSvZ4wDFc2') ? 1500 : 0,
@@ -6015,20 +6132,52 @@
         console.error("Firebase Auth Error:", err);
         errorBox.classList.remove('hidden');
         if (err.code === 'auth/email-already-in-use') {
-          errorText.textContent = "Email này đã được đăng ký! Vui lòng chuyển sang tab Đăng Nhập.";
+          errorText.textContent = "Tên đăng nhập / Email này đã tồn tại! Vui lòng chọn tên khác hoặc chuyển sang Đăng Nhập.";
         } else if (err.code === 'auth/invalid-email') {
-          errorText.textContent = "Địa chỉ email không đúng định dạng!";
+          errorText.textContent = "Tên đăng nhập không đúng định dạng!";
         } else if (err.code === 'auth/weak-password') {
           errorText.textContent = "Mật khẩu quá ngắn, vui lòng nhập ít nhất 6 ký tự!";
         } else if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
-          errorText.textContent = "Email hoặc mật khẩu không chính xác!";
+          errorText.textContent = "Tên đăng nhập hoặc mật khẩu không chính xác!";
         } else {
           errorText.textContent = err.message || "Lỗi xác thực tài khoản.";
         }
       } finally {
         spinner.classList.add('hidden');
-        btnText.textContent = isSignup ? 'Đăng Ký Tài Khoản Kỳ Thủ' : 'Đăng Nhập Ngay';
+        btnText.textContent = isSignup ? 'Đăng Ký Bằng Tên Đăng Nhập' : 'Đăng Nhập Ngay';
       }
+    };
+
+    // Quick Guest / Username instant login
+    window.quickGuestLogin = function() {
+      const sampleNames = ['Kỳ Thủ Hoàng Kim', 'Bá Vương Bàn Cờ', 'Chiến Thần Đổ Xúc Xắc', 'Bạch Kim Kiện Tướng', 'Đại Sư Ca-Rô', 'Hiệp Sĩ Cờ Vua'];
+      const name = sampleNames[Math.floor(Math.random() * sampleNames.length)] + ' #' + Math.floor(100 + Math.random() * 900);
+      const userTag = 'player_' + Math.random().toString(36).substring(2, 8);
+      const firestoreUserData = {
+        uid: 'fb_' + Math.random().toString(36).substring(2, 11),
+        displayName: name,
+        username: userTag,
+        email: `${userTag}@tabletop.io`,
+        coins: 500,
+        gems: 10,
+        elo: 1200,
+        level: 1,
+        vip: false,
+        matches: 0,
+        winRate: "0%",
+        createdAt: new Date().toISOString(),
+        activeSkins: {
+          dice: "Hoàng Kim",
+          meeple: "Hiệp Sĩ Lam Ngọc"
+        }
+      };
+      localStorage.setItem('tabletop_firebase_user', JSON.stringify(firestoreUserData));
+      window.currentFirebaseUser = firestoreUserData;
+      window.applyUserUI(firestoreUserData);
+      window.updateArenaUserBalanceHUD();
+      window.closeModal('authModal');
+      window.showToast(`✨ Đăng nhập nhanh thành công với tên "${name}"!`);
+      if (typeof window.soundTone === 'function') window.soundTone(880, 'triangle', 0.25, 0.2);
     };
 
     // Google Sign-in Handler
@@ -7066,19 +7215,25 @@
       const fieldName = document.getElementById('fieldDisplayName');
       const btnText = document.getElementById('authBtnText');
       const errorBox = document.getElementById('authErrorAlert');
+      const emailLabel = document.getElementById('authEmailLabelText');
+      const emailInput = document.getElementById('authEmail');
 
-      errorBox.classList.add('hidden');
+      if (errorBox) errorBox.classList.add('hidden');
 
       if (mode === 'signup') {
-        btnSignup.className = 'flex-1 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition-all shadow-sm';
-        btnSignin.className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white font-bold transition-all';
-        fieldName.classList.remove('hidden');
-        btnText.textContent = 'Đăng Ký Tài Khoản Kỳ Thủ';
+        if (btnSignup) btnSignup.className = 'flex-1 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition-all shadow-sm';
+        if (btnSignin) btnSignin.className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white font-bold transition-all';
+        if (fieldName) fieldName.classList.remove('hidden');
+        if (btnText) btnText.textContent = 'Đăng Ký Bằng Tên Đăng Nhập';
+        if (emailLabel) emailLabel.textContent = 'Tên Đăng Nhập Mới';
+        if (emailInput) emailInput.placeholder = 'Nhập tên đăng nhập muốn tạo (VD: minh_pro123)...';
       } else {
-        btnSignin.className = 'flex-1 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition-all shadow-sm';
-        btnSignup.className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white font-bold transition-all';
-        fieldName.classList.add('hidden');
-        btnText.textContent = 'Đăng Nhập Ngay';
+        if (btnSignin) btnSignin.className = 'flex-1 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition-all shadow-sm';
+        if (btnSignup) btnSignup.className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white font-bold transition-all';
+        if (fieldName) fieldName.classList.add('hidden');
+        if (btnText) btnText.textContent = 'Đăng Nhập Ngay';
+        if (emailLabel) emailLabel.textContent = 'Tên Đăng Nhập';
+        if (emailInput) emailInput.placeholder = 'Nhập tên đăng nhập hoặc email...';
       }
     }
 
@@ -19712,33 +19867,49 @@ function renderCashStackHTML(amount) {
       const bJoin = document.getElementById('mpTabBtnJoin');
       const bWaiting = document.getElementById('mpTabBtnWaiting');
 
-      if (vCreate) vCreate.classList.add('hidden');
-      if (vJoin) vJoin.classList.add('hidden');
-      if (vWaiting) vWaiting.classList.add('hidden');
+      // Clear existing views and reset enter animations
+      [vCreate, vJoin, vWaiting].forEach(v => {
+        if (!v) return;
+        v.classList.add('hidden');
+        v.classList.remove('mp-tab-enter');
+      });
 
+      // Inactive tab button styles with smooth transitions
       if (bCreate) {
-        bCreate.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/50';
+        bCreate.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out text-slate-400 hover:text-white hover:bg-slate-800/60 border border-transparent hover:border-slate-700/50 cursor-pointer active:scale-95';
       }
       if (bJoin) {
-        bJoin.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/50';
+        bJoin.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out text-slate-400 hover:text-white hover:bg-slate-800/60 border border-transparent hover:border-slate-700/50 cursor-pointer active:scale-95';
       }
 
       if (tab === 'create') {
-        if (vCreate) vCreate.classList.remove('hidden');
+        if (vCreate) {
+          vCreate.classList.remove('hidden');
+          void vCreate.offsetWidth; // Trigger reflow for smooth 60fps enter animation
+          vCreate.classList.add('mp-tab-enter');
+        }
         if (bCreate) {
-          bCreate.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-cyan-600 to-cyan-700 text-white shadow-md shadow-cyan-700/30';
+          bCreate.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out bg-gradient-to-r from-cyan-600 to-cyan-700 text-white shadow-lg shadow-cyan-500/30 border border-cyan-400/40 cursor-pointer active:scale-95 ring-1 ring-cyan-400/30';
         }
       } else if (tab === 'join') {
-        if (vJoin) vJoin.classList.remove('hidden');
+        if (vJoin) {
+          vJoin.classList.remove('hidden');
+          void vJoin.offsetWidth;
+          vJoin.classList.add('mp-tab-enter');
+        }
         if (bJoin) {
-          bJoin.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-md shadow-amber-700/30';
+          bJoin.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-lg shadow-amber-500/30 border border-amber-400/40 cursor-pointer active:scale-95 ring-1 ring-amber-400/30';
         }
         setTimeout(() => {
           const inp = document.getElementById('mpJoinCodeInput');
           if (inp) inp.focus();
         }, 150);
       } else if (tab === 'waiting') {
-        if (vWaiting) vWaiting.classList.remove('hidden');
+        if (vWaiting) {
+          vWaiting.classList.remove('hidden');
+          void vWaiting.offsetWidth;
+          vWaiting.classList.add('mp-tab-enter');
+        }
         if (bWaiting) bWaiting.classList.remove('hidden');
         renderMpWaitingRoomUI();
       }
@@ -19800,45 +19971,64 @@ function renderCashStackHTML(amount) {
     };
 
     window.handleCreateMultiplayerRoom = async function() {
-      const hostInput = document.getElementById('mpHostNameInput');
-      const hostName = (hostInput ? hostInput.value.trim() : '') || ('Kỳ Thủ #' + Math.floor(100 + Math.random() * 900));
-      localStorage.setItem('tabletop_p2p_player_name', hostName);
+      const btn = document.getElementById('btnCreateRoomSubmit');
+      const btnText = document.getElementById('btnCreateRoomText');
+      const btnSpinner = document.getElementById('btnCreateRoomSpinner');
 
-      const code = String(Math.floor(100000 + Math.random() * 900000));
-      const uid = window.currentFirebaseUser?.uid || ('host_' + Math.random().toString(36).substring(2, 9));
+      // Visual interactive feedback on button press
+      if (btn) {
+        btn.classList.add('pointer-events-none', 'opacity-90', 'scale-[0.98]');
+      }
+      if (btnSpinner) btnSpinner.classList.remove('hidden');
+      if (btnText) btnText.textContent = 'ĐANG TẠO PHÒNG P2P...';
 
-      const hostPlayer = {
-        id: uid,
-        name: hostName,
-        isHost: true,
-        avatar: '👑',
-        joinedAt: Date.now()
-      };
+      try {
+        const hostInput = document.getElementById('mpHostNameInput');
+        const hostName = (hostInput ? hostInput.value.trim() : '') || ('Kỳ Thủ #' + Math.floor(100 + Math.random() * 900));
+        localStorage.setItem('tabletop_p2p_player_name', hostName);
 
-      const roomData = {
-        code: code,
-        game: window.mpRoomState.selectedGame || 'dice',
-        maxPlayers: window.mpRoomState.maxPlayers || 2,
-        hostId: uid,
-        hostName: hostName,
-        players: [hostPlayer],
-        status: 'waiting',
-        matchState: null,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      };
+        const code = String(Math.floor(100000 + Math.random() * 900000));
+        const uid = window.currentFirebaseUser?.uid || ('host_' + Math.random().toString(36).substring(2, 9));
 
-      window.mpRoomState.currentRoom = roomData;
-      window.mpRoomState.isHost = true;
-      window.myRoomPlayerIndex = 0;
+        const hostPlayer = {
+          id: uid,
+          name: hostName,
+          isHost: true,
+          avatar: '👑',
+          joinedAt: Date.now()
+        };
 
-      await syncMpRoomToStorageAndCloud(roomData);
-      listenToMpRoom(code);
+        const roomData = {
+          code: code,
+          game: window.mpRoomState.selectedGame || 'dice',
+          maxPlayers: window.mpRoomState.maxPlayers || 2,
+          hostId: uid,
+          hostName: hostName,
+          players: [hostPlayer],
+          status: 'waiting',
+          matchState: null,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
 
-      switchMultiplayerTab('waiting');
-      if (typeof window.soundTone === 'function') window.soundTone(680, 'triangle', 0.1, 0.2);
-      if (typeof window.showToast === 'function') {
-        window.showToast('🎉 Đã tạo phòng ' + code + ' thành công! Hãy gửi mã cho bạn bè.');
+        window.mpRoomState.currentRoom = roomData;
+        window.mpRoomState.isHost = true;
+        window.myRoomPlayerIndex = 0;
+
+        await syncMpRoomToStorageAndCloud(roomData);
+        listenToMpRoom(code);
+
+        switchMultiplayerTab('waiting');
+        if (typeof window.soundTone === 'function') window.soundTone(680, 'triangle', 0.1, 0.2);
+        if (typeof window.showToast === 'function') {
+          window.showToast('🎉 Đã tạo phòng ' + code + ' thành công! Hãy gửi mã cho bạn bè.');
+        }
+      } finally {
+        if (btn) {
+          btn.classList.remove('pointer-events-none', 'opacity-90', 'scale-[0.98]');
+        }
+        if (btnSpinner) btnSpinner.classList.add('hidden');
+        if (btnText) btnText.textContent = 'TẠO PHÒNG & SINH MÃ MỜI BẠN';
       }
     };
 
@@ -20982,22 +21172,22 @@ function renderCashStackHTML(amount) {
 
       <!-- Mode Switcher Tabs -->
       <div id="mpModeTabs" class="flex items-center gap-2 mt-4 mb-5 p-1 bg-black/60 rounded-2xl border border-slate-800 shrink-0">
-        <button id="mpTabBtnCreate" onclick="switchMultiplayerTab('create')" class="flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-cyan-600 to-cyan-700 text-white shadow-md shadow-cyan-700/30">
+        <button id="mpTabBtnCreate" onclick="switchMultiplayerTab('create')" class="flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out bg-gradient-to-r from-cyan-600 to-cyan-700 text-white shadow-lg shadow-cyan-500/30 border border-cyan-400/40 cursor-pointer active:scale-95 ring-1 ring-cyan-400/30">
           <i data-lucide="plus-circle" class="w-4 h-4 text-cyan-200"></i>
           <span>Tạo Phòng Mới</span>
         </button>
-        <button id="mpTabBtnJoin" onclick="switchMultiplayerTab('join')" class="flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/50">
+        <button id="mpTabBtnJoin" onclick="switchMultiplayerTab('join')" class="flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out text-slate-400 hover:text-white hover:bg-slate-800/60 border border-transparent hover:border-slate-700/50 cursor-pointer active:scale-95">
           <i data-lucide="key" class="w-4 h-4 text-amber-400"></i>
           <span>Nhập Mã Phòng</span>
         </button>
-        <button id="mpTabBtnWaiting" onclick="switchMultiplayerTab('waiting')" class="hidden flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all text-emerald-400 bg-emerald-500/10 border border-emerald-500/30">
+        <button id="mpTabBtnWaiting" onclick="switchMultiplayerTab('waiting')" class="hidden flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 cursor-pointer active:scale-95">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
           <span>Phòng Hiện Tại</span>
         </button>
       </div>
 
       <!-- ================= TAB 1: TẠO PHÒNG MỚI (#mpViewCreate) ================= -->
-      <div id="mpViewCreate" class="space-y-5 animate-fade-in">
+      <div id="mpViewCreate" class="space-y-5 mp-tab-enter">
         
         <!-- Choose Game -->
         <div>
@@ -21085,14 +21275,15 @@ function renderCashStackHTML(amount) {
         </div>
 
         <!-- Create Button -->
-        <button type="button" onclick="handleCreateMultiplayerRoom()" id="btnCreateRoomSubmit" class="btn-spring w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-400 to-amber-500 hover:from-cyan-400 hover:to-amber-400 text-slate-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-cyan-500/25 cursor-pointer">
-          <i data-lucide="sparkles" class="w-4 h-4 fill-slate-950"></i>
-          <span>TẠO PHÒNG & SINH MÃ MỜI BẠN</span>
+        <button type="button" onclick="handleCreateMultiplayerRoom()" id="btnCreateRoomSubmit" class="btn-spring btn-shimmer w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-400 to-amber-500 hover:from-cyan-400 hover:to-amber-400 text-slate-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-cyan-500/25 cursor-pointer transition-all duration-200 active:scale-95 hover:shadow-[0_0_25px_rgba(245,158,11,0.55)] hover:brightness-110 group">
+          <i data-lucide="sparkles" class="w-4 h-4 fill-slate-950 group-hover:rotate-12 transition-transform duration-200"></i>
+          <span id="btnCreateRoomText">TẠO PHÒNG & SINH MÃ MỜI BẠN</span>
+          <span id="btnCreateRoomSpinner" class="hidden w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></span>
         </button>
       </div>
 
       <!-- ================= TAB 2: NHẬP MÃ PHÒNG (#mpViewJoin) ================= -->
-      <div id="mpViewJoin" class="hidden space-y-5 animate-fade-in">
+      <div id="mpViewJoin" class="hidden space-y-5">
         <div class="text-center py-2">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold mb-2">
             <i data-lucide="key" class="w-3.5 h-3.5 text-amber-400"></i>
@@ -21104,14 +21295,15 @@ function renderCashStackHTML(amount) {
           </p>
         </div>
 
-        <!-- 6-digit input box -->
+        <!-- 6-digit input box with 60fps glow and transition -->
         <div class="max-w-xs mx-auto">
-          <div class="relative">
-            <input type="text" id="mpJoinCodeInput" maxlength="6" placeholder="882910" class="w-full text-center text-3xl sm:text-4xl font-mono font-black tracking-[0.3em] uppercase py-3.5 px-4 rounded-2xl bg-black/70 border-2 border-cyan-500/50 text-cyan-300 placeholder-slate-600 focus:outline-none focus:border-cyan-300 focus:ring-4 focus:ring-cyan-500/20 shadow-inner">
+          <div class="relative group">
+            <input type="text" id="mpJoinCodeInput" maxlength="6" placeholder="882910" class="mp-code-input-glow w-full text-center text-3xl sm:text-4xl font-mono font-black tracking-[0.3em] uppercase py-3.5 px-4 rounded-2xl bg-black/70 border-2 border-cyan-500/50 text-cyan-300 placeholder-slate-600 focus:outline-none focus:border-cyan-300 focus:ring-4 focus:ring-cyan-500/25 shadow-inner transition-all duration-300 ease-out hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.25)]">
+            <div class="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-cyan-500/20 via-teal-500/20 to-amber-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm pointer-events-none"></div>
           </div>
           <div class="flex items-center justify-between mt-2 text-[11px] text-slate-400">
             <span>Chỉ gồm chữ số (0-9)</span>
-            <button type="button" onclick="handlePasteJoinCode()" class="text-cyan-400 hover:underline flex items-center gap-1 font-semibold cursor-pointer">
+            <button type="button" onclick="handlePasteJoinCode()" class="text-cyan-400 hover:text-cyan-300 hover:underline flex items-center gap-1 font-semibold cursor-pointer transition-colors">
               <i data-lucide="clipboard" class="w-3 h-3"></i> Dán từ Clipboard
             </button>
           </div>
@@ -21122,7 +21314,7 @@ function renderCashStackHTML(amount) {
           <label class="block text-xs font-bold text-slate-300 mb-1.5 flex items-center gap-1.5">
             <i data-lucide="user" class="w-3.5 h-3.5 text-amber-400"></i> Tên của bạn khi vào phòng:
           </label>
-          <input type="text" id="mpJoinGuestNameInput" maxlength="25" placeholder="Ví dụ: Hiệp Sĩ Cờ, Long..." class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-slate-700 text-white placeholder-slate-500 text-xs font-semibold focus:outline-none focus:border-cyan-400">
+          <input type="text" id="mpJoinGuestNameInput" maxlength="25" placeholder="Ví dụ: Hiệp Sĩ Cờ, Long..." class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-slate-700 text-white placeholder-slate-500 text-xs font-semibold focus:outline-none focus:border-cyan-400 transition-colors">
         </div>
 
         <!-- Status message alert -->
@@ -21133,7 +21325,7 @@ function renderCashStackHTML(amount) {
 
         <!-- Join Button -->
         <div class="max-w-xs mx-auto">
-          <button type="button" onclick="handleJoinMultiplayerRoom()" id="btnJoinRoomSubmit" class="btn-spring w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-cyan-500 hover:from-amber-400 hover:to-cyan-400 text-slate-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-amber-500/20 cursor-pointer">
+          <button type="button" onclick="handleJoinMultiplayerRoom()" id="btnJoinRoomSubmit" class="btn-spring btn-shimmer w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-cyan-500 hover:from-amber-400 hover:to-cyan-400 text-slate-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-amber-500/20 cursor-pointer transition-all duration-200 active:scale-95 hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] hover:brightness-110">
             <i data-lucide="log-in" class="w-4 h-4 text-slate-950"></i>
             <span id="btnJoinRoomText">VÀO PHÒNG NGAY</span>
           </button>
@@ -21141,7 +21333,7 @@ function renderCashStackHTML(amount) {
       </div>
 
       <!-- ================= TAB 3: MÀN HÌNH PHÒNG CHỜ (#mpViewWaiting) ================= -->
-      <div id="mpViewWaiting" class="hidden space-y-5 animate-fade-in">
+      <div id="mpViewWaiting" class="hidden space-y-5">
         
         <!-- Top Status Bar & Game Badge -->
         <div class="flex flex-wrap items-center justify-between gap-2.5 pb-3 border-b border-slate-800">

@@ -3125,7 +3125,7 @@
         <!-- Compact Tri-Scoreboard (Tương phản cao tuyệt đối) -->
         <div class="w-full grid grid-cols-3 gap-2.5 text-center text-xs font-bold">
           <div class="bg-cyan-50 border-2 border-cyan-300 p-2.5 rounded-2xl shadow-sm">
-            <div class="text-xs text-cyan-950 font-black">Người chơi (X)</div>
+            <div class="text-xs text-cyan-950 font-black" id="tttScoreLabelX">Người chơi (X)</div>
             <div class="text-2xl font-black text-cyan-800 font-mono mt-0.5" id="tttScoreX">0</div>
           </div>
           <div class="bg-slate-100 border-2 border-slate-300 p-2.5 rounded-2xl shadow-sm">
@@ -11779,12 +11779,12 @@
       window.hasPlayerActivelyPlayedInMatch = true;
       if (tttBoard[idx] || tttGameOver) return;
 
-      if (tttMode === 'online') {
-        const isMyTurn = (tttTurn === 'X' && window.myRoomPlayerIndex === 0) || (tttTurn === 'O' && window.myRoomPlayerIndex === 1);
+      if (tttMode === 'online' || window.isOnlineRoomMatch) {
+        const myIdx = (window.myRoomPlayerIndex !== undefined && window.myRoomPlayerIndex !== null) ? Number(window.myRoomPlayerIndex) : 0;
+        const isMyTurn = (tttTurn === 'X' && myIdx === 0) || (tttTurn === 'O' && myIdx === 1);
         if (!isMyTurn) {
           showToast(`⏳ Chưa đến lượt bạn! Đang là lượt của đối thủ (${tttTurn === 'X' ? 'Quân X' : 'Quân O'}).`);
           return;
-
         }
       }
 
@@ -11888,9 +11888,23 @@
     }
 
     function updateTTTScores() {
-      document.getElementById('tttScoreX').textContent = tttScores.X;
-      document.getElementById('tttScoreO').textContent = tttScores.O;
-      document.getElementById('tttScoreDraw').textContent = tttScores.draw;
+      const elX = document.getElementById('tttScoreX');
+      const elO = document.getElementById('tttScoreO');
+      const elDraw = document.getElementById('tttScoreDraw');
+      if (elX) elX.textContent = tttScores.X;
+      if (elO) elO.textContent = tttScores.O;
+      if (elDraw) elDraw.textContent = tttScores.draw;
+
+      if ((tttMode === 'online' || window.isOnlineRoomMatch) && window.mpRoomState?.currentRoom?.players) {
+        const room = window.mpRoomState.currentRoom;
+        const pXName = room.players[0]?.name || 'Người Chơi X';
+        const pOName = room.players[1]?.name || 'Người Chơi O';
+        const lblX = document.getElementById('tttScoreLabelX') || document.getElementById('tttLabelX');
+        if (lblX) lblX.textContent = pXName + ' (X)';
+        const lblO = document.getElementById('tttScoreLabelO');
+        if (lblO) lblO.textContent = pOName + ' (O)';
+      }
+
       if (typeof updateAdminStatsUI === 'function') updateAdminStatsUI();
     }
 
@@ -12590,6 +12604,21 @@
 
     function getBusinessTourCornerPortraitSVG(playerIdx) {
       const idx = Math.max(0, Math.min(3, Number(playerIdx) || 0));
+      const p = (typeof monoState !== 'undefined' && monoState.players) ? monoState.players[idx] : null;
+      if (p && p.avatar) {
+        const av = p.avatar;
+        if (typeof av === 'string') {
+          if (av.startsWith('data:image') || av.startsWith('http://') || av.startsWith('https://')) {
+            return `<img src="${av}" class="w-full h-full object-cover rounded-xl" />`;
+          }
+          if (av.trim().startsWith('<svg')) {
+            return av;
+          }
+          if (typeof window.getBeastAvatarSVG === 'function' && (window.BEAST_AVATAR_PRESETS?.[av] || (typeof window.isBeastAvatarId === 'function' && window.isBeastAvatarId(av)))) {
+            return window.getBeastAvatarSVG(av, 'w-full h-full');
+          }
+        }
+      }
       if (idx === 0) {
         const customId = localStorage.getItem('tabletop_custom_avatar') || (window.currentUser && window.currentUser.customAvatar);
         if (customId && typeof window.getBeastAvatarSVG === 'function') {
@@ -16131,10 +16160,20 @@ function playMonoDiceTumbleSFX(durationMs) {
         for (let i = 0; i < pCount; i++) {
           const cfg = MONOPOLY_PRESET_CONFIGS[i] || MONOPOLY_PRESET_CONFIGS[0];
           const rp = roomPlayers[i] || { name: `Người Chơi ${i + 1}` };
+          let pAvatar = rp.avatar;
+          if ((!pAvatar || pAvatar === '👑' || pAvatar === '⚔️') && i === 0 && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
+            pAvatar = window.getActiveUserBeastAvatarDataUrl();
+          }
+          if ((!pAvatar || pAvatar === '👑' || pAvatar === '⚔️') && window.myRoomPlayerIndex === i && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
+            pAvatar = window.getActiveUserBeastAvatarDataUrl();
+          }
+          if (!pAvatar || pAvatar === '👑' || pAvatar === '⚔️') {
+            pAvatar = cfg.avatar;
+          }
           monoState.players.push({
             id: i,
             name: rp.name,
-            avatar: cfg.avatar,
+            avatar: pAvatar,
             color: cfg.color,
             border: cfg.border,
             glow: cfg.glow,
@@ -16178,7 +16217,7 @@ function playMonoDiceTumbleSFX(durationMs) {
           monoState.players.push({
             id: i,
             name: name,
-            avatar: cfg.avatar,
+            avatar: (i === 0 && typeof window.getActiveUserBeastAvatarDataUrl === 'function') ? window.getActiveUserBeastAvatarDataUrl() : cfg.avatar,
             color: cfg.color,
             border: cfg.border,
             glow: cfg.glow,
@@ -16233,6 +16272,22 @@ function playMonoDiceTumbleSFX(durationMs) {
       renderMonopolyHUDPods();
       updateMonopolyHUD();
       setMonoDialogMode('ready');
+
+      // Đảm bảo pod góc #monoCornerPortrait_${i} hiển thị đúng avatar của người chơi thật
+      if (monoState.players && monoState.players.length > 0) {
+        monoState.players.forEach((p, i) => {
+          const cornerEl = document.getElementById(`monoCornerPortrait_${i}`);
+          if (cornerEl) {
+            if (p.avatar && typeof p.avatar === 'string' && (p.avatar.startsWith('data:image') || p.avatar.startsWith('http://') || p.avatar.startsWith('https://'))) {
+              cornerEl.innerHTML = `<img src="${p.avatar}" class="w-full h-full object-cover rounded-xl" />`;
+            } else if (p.avatar && typeof p.avatar === 'string' && p.avatar.trim().startsWith('<svg')) {
+              cornerEl.innerHTML = p.avatar;
+            } else {
+              cornerEl.innerHTML = getBusinessTourCornerPortraitSVG(i);
+            }
+          }
+        });
+      }
     }
 
     window.initMonopolyGame = initMonopolyGame;
@@ -20468,7 +20523,46 @@ function renderCashStackHTML(amount) {
       const botCardDesc = document.getElementById('chessBotCardDesc');
       const botCardIcon = document.getElementById('chessBotCardIcon');
 
-      if (isTopBot) {
+      if (chessMode === 'online') {
+        const room = window.mpRoomState?.currentRoom;
+        const myIdx = (window.myRoomPlayerIndex !== undefined && window.myRoomPlayerIndex !== null) ? Number(window.myRoomPlayerIndex) : 0;
+        const oppIdx = (myIdx === 0) ? 1 : 0;
+        const myPlayer = (room && room.players) ? room.players[myIdx] : null;
+        const oppPlayer = (room && room.players) ? room.players[oppIdx] : null;
+
+        if (topName) topName.textContent = oppPlayer?.name || 'Đối Thủ';
+        if (topElo) topElo.textContent = 'P2P Trực Tuyến';
+        if (topAvatar) {
+          if (oppPlayer?.avatar && typeof oppPlayer.avatar === 'string' && oppPlayer.avatar.includes('<svg')) {
+            topAvatar.innerHTML = oppPlayer.avatar;
+          } else if (oppPlayer?.avatar && typeof oppPlayer.avatar === 'string' && oppPlayer.avatar.length <= 4) {
+            topAvatar.innerHTML = `<span class="text-xl flex items-center justify-center">${oppPlayer.avatar}</span>`;
+          } else if (typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined') {
+            topAvatar.innerHTML = BUSINESS_TOUR_AVATAR_SVGS[oppIdx] || BUSINESS_TOUR_AVATAR_SVGS[3];
+          } else {
+            topAvatar.textContent = '♟️';
+          }
+        }
+        if (botCardTitle) botCardTitle.textContent = 'Đấu Trực Tuyến P2P';
+        if (botCardElo) botCardElo.textContent = `Phòng #${room?.code || 'ONLINE'}`;
+        if (botCardDesc) botCardDesc.textContent = `Thi đấu trực tuyến với ${oppPlayer?.name || 'Đối Thủ'}. Bạn cầm quân ${chessPlayerColor === 'w' ? 'Trắng (Đi trước)' : 'Đen (Đi sau)'}.`;
+        if (botCardIcon && topAvatar) botCardIcon.innerHTML = topAvatar.innerHTML;
+
+        const bottomName = document.getElementById('chessBottomName');
+        if (bottomName) bottomName.textContent = myPlayer?.name ? `${myPlayer.name} (Bạn)` : 'Bạn';
+        const bottomElo = document.getElementById('chessBottomElo');
+        if (bottomElo) bottomElo.textContent = 'P2P Trực Tuyến';
+        const bottomAvatar = document.getElementById('chessBottomAvatar');
+        if (bottomAvatar) {
+          if (myPlayer?.avatar && typeof myPlayer.avatar === 'string' && myPlayer.avatar.includes('<svg')) {
+            bottomAvatar.innerHTML = myPlayer.avatar;
+          } else if (typeof window.getActiveUserBeastAvatarSVG === 'function') {
+            bottomAvatar.innerHTML = window.getActiveUserBeastAvatarSVG('w-full h-full object-cover');
+          } else if (myPlayer?.avatar) {
+            bottomAvatar.innerHTML = `<span class="text-xl flex items-center justify-center">${myPlayer.avatar}</span>`;
+          }
+        }
+      } else if (isTopBot) {
         if (topName) topName.textContent = tier.name;
         if (topElo) topElo.textContent = `${tier.elo} Elo`;
         if (topAvatar) {
@@ -20497,11 +20591,13 @@ function renderCashStackHTML(amount) {
           else botCardIcon.textContent = '👥';
         }
       }
-      const bottomAvatar = document.getElementById('chessBottomAvatar');
-      if (bottomAvatar) {
-        bottomAvatar.innerHTML = (typeof window.getActiveUserBeastAvatarSVG === 'function') 
-          ? window.getActiveUserBeastAvatarSVG('w-full h-full object-cover') 
-          : (typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined' ? BUSINESS_TOUR_AVATAR_SVGS[0] : '');
+      if (chessMode !== 'online') {
+        const bottomAvatar = document.getElementById('chessBottomAvatar');
+        if (bottomAvatar) {
+          bottomAvatar.innerHTML = (typeof window.getActiveUserBeastAvatarSVG === 'function') 
+            ? window.getActiveUserBeastAvatarSVG('w-full h-full object-cover') 
+            : (typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined' ? BUSINESS_TOUR_AVATAR_SVGS[0] : '');
+        }
       }
     }
 
@@ -23566,7 +23662,7 @@ function renderCashStackHTML(amount) {
       } else if (room.game === 'tictactoe') {
         setupOnlineTicTacToe(room);
       } else if (room.game === 'kittens') {
-        if (typeof initKittensGame === 'function') initKittensGame();
+        setupOnlineKittens(room);
       }
 
       updateOnlineRoomHUD();
@@ -23684,7 +23780,19 @@ function renderCashStackHTML(amount) {
     window.setupOnlineDice = function(room) {
       currentOpponent = 'human';
       isSpectatorMode = false;
-      botCount = Math.max(1, room.players.length - 1);
+      if (window.botTurnTimeout) {
+        clearTimeout(window.botTurnTimeout);
+        window.botTurnTimeout = null;
+      }
+      if (window.diceAutoPlayTimer) {
+        clearTimeout(window.diceAutoPlayTimer);
+        window.diceAutoPlayTimer = null;
+      }
+      window.diceAutoPlay = false;
+      window.isOnlineRoomMatch = true;
+
+      const pCount = (room && room.players) ? Math.max(2, Math.min(4, room.players.length)) : 2;
+      botCount = Math.max(1, pCount - 1);
       scores = { 1: 0, 2: 0, 3: 0, 4: 0 };
       positions = { 1: 0, 2: 0, 3: 0, 4: 0 };
       playerEnergy = { 1: 3, 2: 3, 3: 3, 4: 3 };
@@ -23694,23 +23802,61 @@ function renderCashStackHTML(amount) {
       isDiceRolling = false;
 
       const p1El = document.getElementById('p1CardName');
-      const p2El = document.getElementById('p2Title');
+      const p2El = document.getElementById('p2Title') || document.getElementById('p2CardName');
+      const p3El = document.getElementById('p3Title') || document.getElementById('p3CardName');
+      const p4El = document.getElementById('p4Title') || document.getElementById('p4CardName');
       const botWrapper = document.getElementById('botCountWrapper');
       if (botWrapper) botWrapper.classList.add('hidden');
 
-      if (p1El && room.players[0]) p1El.textContent = room.players[0].name + ' (P1)';
-      if (p2El && room.players[1]) {
-        p2El.innerHTML = room.players[1].name + ' <span class="text-[9px] px-1 rounded bg-cyan-500/20 text-cyan-300">P2</span>';
+      if (room && room.players) {
+        if (p1El && room.players[0]) {
+          p1El.textContent = room.players[0].name + ' (P1)';
+        }
+        if (p2El && room.players[1]) {
+          p2El.innerHTML = room.players[1].name + ' <span class="text-[9px] px-1 rounded bg-cyan-500/20 text-cyan-300 font-bold">P2</span>';
+        }
+        if (p3El && room.players[2]) {
+          p3El.innerHTML = room.players[2].name + ' <span class="text-[9px] px-1 rounded bg-amber-500/20 text-amber-300 font-bold">P3</span>';
+        }
+        if (p4El && room.players[3]) {
+          p4El.innerHTML = room.players[3].name + ' <span class="text-[9px] px-1 rounded bg-emerald-500/20 text-emerald-300 font-bold">P4</span>';
+        }
+
+        // Cập nhật avatar của P1..P4 trong các thẻ card #cardP1..#cardP4 theo room.players[i].avatar
+        for (let i = 0; i < room.players.length; i++) {
+          const cardEl = document.getElementById(`cardP${i + 1}`);
+          if (!cardEl) continue;
+          const iconBox = cardEl.querySelector('div.w-6.h-6');
+          if (!iconBox) continue;
+
+          const p = room.players[i];
+          let av = p ? p.avatar : null;
+          if ((!av || av === '👑' || av === '⚔️') && (i === 0 || i === window.myRoomPlayerIndex) && typeof window.getActiveUserBeastAvatarSVG === 'function') {
+            iconBox.innerHTML = window.getActiveUserBeastAvatarSVG('w-full h-full object-cover');
+            iconBox.className = 'w-6 h-6 rounded-md border border-cyan-400/80 flex items-center justify-center shrink-0 overflow-hidden p-0 shadow-sm bg-slate-950';
+          } else if (av) {
+            if (typeof av === 'string' && (av.startsWith('data:image') || av.startsWith('http://') || av.startsWith('https://'))) {
+              iconBox.innerHTML = `<img src="${av}" class="w-full h-full object-cover" />`;
+            } else if (typeof av === 'string' && av.trim().startsWith('<svg')) {
+              iconBox.innerHTML = av;
+            } else if (typeof window.getBeastAvatarSVG === 'function' && (window.BEAST_AVATAR_PRESETS?.[av] || (typeof window.isBeastAvatarId === 'function' && window.isBeastAvatarId(av)))) {
+              iconBox.innerHTML = window.getBeastAvatarSVG(av, 'w-full h-full object-cover');
+            } else {
+              iconBox.innerHTML = `<span class="text-xs">${av}</span>`;
+            }
+            iconBox.className = 'w-6 h-6 rounded-md border border-slate-700/80 flex items-center justify-center shrink-0 overflow-hidden p-0 shadow-sm bg-slate-950';
+          }
+        }
       }
 
       const c3 = document.getElementById('cardP3');
       const c4 = document.getElementById('cardP4');
       const r3 = document.getElementById('raceRowP3');
       const r4 = document.getElementById('raceRowP4');
-      if (c3) c3.classList.toggle('hidden', room.players.length < 3);
-      if (r3) r3.classList.toggle('hidden', room.players.length < 3);
-      if (c4) c4.classList.toggle('hidden', room.players.length < 4);
-      if (r4) r4.classList.toggle('hidden', room.players.length < 4);
+      if (c3) c3.classList.toggle('hidden', pCount < 3);
+      if (r3) r3.classList.toggle('hidden', pCount < 3);
+      if (c4) c4.classList.toggle('hidden', pCount < 4);
+      if (r4) r4.classList.toggle('hidden', pCount < 4);
 
       renderCircuitBoard();
       updateDiceUI();
@@ -23728,7 +23874,57 @@ function renderCashStackHTML(amount) {
       chessFlipped = (chessPlayerColor === 'b');
       resetChessGame();
 
-      if (room.matchState && room.matchState.game === 'chess') {
+      // Xác định danh tính hai kỳ thủ online
+      const myIdx = (window.myRoomPlayerIndex !== undefined && window.myRoomPlayerIndex !== null) ? Number(window.myRoomPlayerIndex) : 0;
+      const oppIdx = (myIdx === 0) ? 1 : 0;
+      const myPlayer = (room && room.players) ? room.players[myIdx] : null;
+      const oppPlayer = (room && room.players) ? room.players[oppIdx] : null;
+
+      // Kỳ thủ Bạn (phía dưới)
+      const bName = document.getElementById('chessBottomName');
+      if (bName) bName.textContent = myPlayer?.name ? `${myPlayer.name} (Bạn)` : 'Bạn';
+      const bElo = document.getElementById('chessBottomElo');
+      if (bElo) bElo.textContent = 'P2P Trực Tuyến';
+      const bAvatar = document.getElementById('chessBottomAvatar');
+      if (bAvatar) {
+        if (myPlayer?.avatar && typeof myPlayer.avatar === 'string' && myPlayer.avatar.includes('<svg')) {
+          bAvatar.innerHTML = myPlayer.avatar;
+        } else if (typeof window.getActiveUserBeastAvatarSVG === 'function') {
+          bAvatar.innerHTML = window.getActiveUserBeastAvatarSVG('w-full h-full object-cover');
+        } else if (myPlayer?.avatar) {
+          bAvatar.innerHTML = `<span class="text-xl flex items-center justify-center">${myPlayer.avatar}</span>`;
+        }
+      }
+
+      // Đối thủ (phía trên)
+      const tName = document.getElementById('chessTopName');
+      if (tName) tName.textContent = oppPlayer?.name || 'Đối Thủ';
+      const tElo = document.getElementById('chessTopElo');
+      if (tElo) tElo.textContent = 'P2P Trực Tuyến';
+      const tAvatar = document.getElementById('chessTopAvatar');
+      if (tAvatar) {
+        if (oppPlayer?.avatar && typeof oppPlayer.avatar === 'string' && oppPlayer.avatar.includes('<svg')) {
+          tAvatar.innerHTML = oppPlayer.avatar;
+        } else if (oppPlayer?.avatar && typeof oppPlayer.avatar === 'string' && oppPlayer.avatar.length <= 4) {
+          tAvatar.innerHTML = `<span class="text-xl flex items-center justify-center">${oppPlayer.avatar}</span>`;
+        } else if (typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined') {
+          tAvatar.innerHTML = BUSINESS_TOUR_AVATAR_SVGS[oppIdx] || BUSINESS_TOUR_AVATAR_SVGS[3];
+        } else {
+          tAvatar.textContent = '♟️';
+        }
+      }
+
+      // Cập nhật card bot profile sang thông tin đối thủ trực tuyến
+      const botCardTitle = document.getElementById('chessBotCardTitle');
+      if (botCardTitle) botCardTitle.textContent = 'Đấu Trực Tuyến P2P';
+      const botCardElo = document.getElementById('chessBotCardElo');
+      if (botCardElo) botCardElo.textContent = `Phòng #${room?.code || 'ONLINE'}`;
+      const botCardDesc = document.getElementById('chessBotCardDesc');
+      if (botCardDesc) botCardDesc.textContent = `Thi đấu trực tuyến với ${oppPlayer?.name || 'Đối Thủ'}. Bạn cầm quân ${chessPlayerColor === 'w' ? 'Trắng (Đi trước)' : 'Đen (Đi sau)'}.`;
+      const botCardIcon = document.getElementById('chessBotCardIcon');
+      if (botCardIcon && tAvatar) botCardIcon.innerHTML = tAvatar.innerHTML;
+
+      if (room && room.matchState && room.matchState.game === 'chess') {
         applyOnlineGameState('chess', room.matchState);
       }
     };
@@ -23742,9 +23938,116 @@ function renderCashStackHTML(amount) {
       renderTicTacToe();
       updateTTTScores();
 
-      if (room.matchState && room.matchState.game === 'tictactoe') {
+      // Cập nhật nhãn người chơi thật cho Ca-rô Neon
+      const pXName = (room && room.players && room.players[0]?.name) || 'Người Chơi X';
+      const pOName = (room && room.players && room.players[1]?.name) || 'Người Chơi O';
+      const lblX = document.getElementById('tttScoreLabelX') || document.getElementById('tttLabelX');
+      if (lblX) lblX.textContent = pXName + ' (X)';
+      const lblO = document.getElementById('tttScoreLabelO');
+      if (lblO) lblO.textContent = pOName + ' (O)';
+
+      if (room && room.matchState && room.matchState.game === 'tictactoe') {
         applyOnlineGameState('tictactoe', room.matchState);
       }
+    };
+
+    window.generateInitialKittensDeck = function() {
+      const pCount = (kittensState.players && kittensState.players.length > 0) ? kittensState.players.length : 4;
+
+      const initialPool = [
+        'attack', 'attack', 'attack', 'attack',
+        'skip', 'skip', 'skip', 'skip',
+        'favor', 'favor', 'favor', 'favor',
+        'shuffle', 'shuffle', 'shuffle', 'shuffle',
+        'see_future', 'see_future', 'see_future', 'see_future', 'see_future',
+        'nope', 'nope', 'nope', 'nope', 'nope',
+        'beard_cat', 'beard_cat', 'beard_cat', 'beard_cat',
+        'cattermelon', 'cattermelon', 'cattermelon', 'cattermelon',
+        'rainbow_cat', 'rainbow_cat', 'rainbow_cat', 'rainbow_cat',
+        'potato_cat', 'potato_cat', 'potato_cat', 'potato_cat',
+        'feral_cat', 'feral_cat', 'feral_cat', 'feral_cat'
+      ];
+
+      for (let i = initialPool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [initialPool[i], initialPool[j]] = [initialPool[j], initialPool[i]];
+      }
+
+      for (let p = 0; p < pCount; p++) {
+        kittensState.players[p].hand = ['defuse'];
+        for (let c = 0; c < 4; c++) {
+          if (initialPool.length > 0) {
+            kittensState.players[p].hand.push(initialPool.pop());
+          }
+        }
+      }
+
+      const finalDeck = [...initialPool];
+      const bombCount = Math.max(1, pCount - 1);
+      for (let b = 0; b < bombCount; b++) {
+        finalDeck.push('exploding_kitten');
+      }
+      finalDeck.push('defuse', 'defuse');
+
+      for (let i = finalDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [finalDeck[i], finalDeck[j]] = [finalDeck[j], finalDeck[i]];
+      }
+
+      kittensState.drawPile = finalDeck;
+      kittensState.initialized = true;
+    };
+
+    window.setupOnlineKittens = function(room) {
+      kittensState.mode = 'online';
+      if (!window.mpRoomState) window.mpRoomState = {};
+      window.mpRoomState.currentRoom = room;
+
+      // Khởi tạo phòng đấu Mèo Nổ Online với 100% Người Thật
+      if (kittensState.botTimer) {
+        clearTimeout(kittensState.botTimer);
+        kittensState.botTimer = null;
+      }
+      kittensState.isLocked = false;
+      kittensState.selectedHandIndices = [];
+      kittensState.discardPile = [];
+      kittensState.currentTurn = 0;
+      kittensState.turnsLeftForPlayer = 1;
+
+      const roomPlayers = (room && room.players) ? room.players : [];
+      const pCount = Math.max(2, Math.min(4, roomPlayers.length));
+
+      // Nạp người chơi thật từ room.players: tên thật, avatar thật, isHuman = true
+      kittensState.players = [];
+      for (let i = 0; i < pCount; i++) {
+        const rp = roomPlayers[i] || { name: `Kỳ Thủ ${i + 1}`, avatar: '' };
+        let pAv = rp.avatar;
+        if (!pAv && i === 0 && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
+          pAv = window.getActiveUserBeastAvatarDataUrl();
+        }
+        if (!pAv) {
+          pAv = getKittenAvatarUrl(i);
+        }
+        kittensState.players.push({
+          id: i,
+          name: rp.name || `Kỳ Thủ ${i + 1}`,
+          isHuman: true,
+          avatar: pAv,
+          hand: [],
+          isAlive: true
+        });
+      }
+
+      // Nếu là Host (P1 / slot 0) và chưa có matchState: Sinh bài và phát sóng Seed Deck
+      if (window.myRoomPlayerIndex === 0 && (!room.matchState || !room.matchState.payload || (!room.matchState.payload.drawPile && !room.matchState.payload.deck))) {
+        generateInitialKittensDeck();
+        syncOnlineKittensState('INIT_DECK', 'Trận đấu Mèo Nổ P2P đã sẵn sàng!');
+      } else if (room.matchState && room.matchState.game === 'kittens') {
+        applyOnlineGameState('kittens', room.matchState);
+      }
+
+      renderKittensArena();
+      updateOnlineRoomHUD();
     };
 
     window.pushOnlineGameState = async function(gameType, statePayload) {
@@ -24021,6 +24324,58 @@ function renderCashStackHTML(amount) {
 
           if (payload.isGameOver) handleChessGameOver();
         }
+      } else if (gameType === 'kittens') {
+        if (!payload) return;
+        kittensState.mode = 'online';
+        if (Array.isArray(payload.drawPile)) {
+          kittensState.drawPile = [...payload.drawPile];
+        } else if (Array.isArray(payload.deck)) {
+          kittensState.drawPile = [...payload.deck];
+        }
+        if (Array.isArray(payload.discardPile)) {
+          kittensState.discardPile = [...payload.discardPile];
+        }
+        if (typeof payload.currentTurn === 'number') {
+          kittensState.currentTurn = payload.currentTurn;
+        }
+        if (typeof payload.turnsLeftForPlayer === 'number') {
+          kittensState.turnsLeftForPlayer = payload.turnsLeftForPlayer;
+        }
+        if (Array.isArray(payload.players)) {
+          payload.players.forEach((rp, idx) => {
+            if (kittensState.players[idx]) {
+              kittensState.players[idx].name = rp.name || kittensState.players[idx].name;
+              if (rp.avatar) kittensState.players[idx].avatar = rp.avatar;
+              kittensState.players[idx].isAlive = (typeof rp.isAlive === 'boolean') ? rp.isAlive : true;
+              kittensState.players[idx].isHuman = true;
+              if (Array.isArray(rp.hand)) {
+                kittensState.players[idx].hand = [...rp.hand];
+              }
+            } else {
+              kittensState.players.push({
+                id: rp.id !== undefined ? rp.id : idx,
+                name: rp.name || `Kỳ Thủ ${idx + 1}`,
+                avatar: rp.avatar || getKittenAvatarUrl(idx),
+                isHuman: true,
+                hand: Array.isArray(rp.hand) ? [...rp.hand] : [],
+                isAlive: (typeof rp.isAlive === 'boolean') ? rp.isAlive : true
+              });
+            }
+          });
+        }
+        kittensState.initialized = true;
+        kittensState.isLocked = false;
+
+        renderKittensArena();
+        updateOnlineRoomHUD();
+
+        if (payload.toast) {
+          setKittenToast(payload.toast);
+          if (typeof showToast === 'function') showToast(payload.toast);
+        }
+        if (payload.winner) {
+          announceKittensWinner(payload.winner);
+        }
       }
     };
 
@@ -24094,6 +24449,30 @@ function renderCashStackHTML(amount) {
       pushOnlineGameState('chess', payload);
     };
 
+    window.syncOnlineKittensState = function(actionType, toastMsg, extra = {}) {
+      if (!window.isOnlineRoomMatch) return;
+      const payload = {
+        actionType: actionType || 'UPDATE',
+        drawPile: [...kittensState.drawPile],
+        deck: [...kittensState.drawPile],
+        discardPile: [...kittensState.discardPile],
+        currentTurn: kittensState.currentTurn,
+        turnsLeftForPlayer: kittensState.turnsLeftForPlayer,
+        players: kittensState.players.map(p => ({
+          id: p.id,
+          name: p.name,
+          avatar: p.avatar,
+          isHuman: true,
+          hand: [...p.hand],
+          isAlive: p.isAlive
+        })),
+        toast: toastMsg || null,
+        winner: extra.winner || null,
+        extra: extra
+      };
+      pushOnlineGameState('kittens', payload);
+    };
+
     window.updateOnlineRoomHUD = function() {
       const hud = document.getElementById('onlineRoomHUD');
       if (!hud) return;
@@ -24131,6 +24510,9 @@ function renderCashStackHTML(amount) {
         const isX = (tttTurn === 'X');
         const p = isX ? room.players[0] : room.players[1];
         activePlayerName = (p ? p.name : (isX ? 'X' : 'O')) + ' (' + (isX ? 'Quân X' : 'Quân O') + ')';
+      } else if (room.game === 'kittens') {
+        const curP = (kittensState && kittensState.players) ? kittensState.players[kittensState.currentTurn] : null;
+        activePlayerName = curP ? (curP.name + ' (Slot #' + (curP.id + 1) + ')') : 'Kỳ Thủ';
       }
 
       if (curTurnEl) curTurnEl.textContent = activePlayerName;
@@ -24288,6 +24670,7 @@ function renderCashStackHTML(amount) {
     };
 
     window.kittensState = {
+      mode: 'local',
       initialized: false,
       players: [],
       drawPile: [],
@@ -24301,6 +24684,13 @@ function renderCashStackHTML(amount) {
       pendingDefuseInsert: null
     };
 
+    function getMyKittenPlayerIdx() {
+      if (kittensState.mode === 'online' && typeof window.myRoomPlayerIndex === 'number' && window.myRoomPlayerIndex >= 0) {
+        return window.myRoomPlayerIndex;
+      }
+      return 0;
+    }
+
     function getKittenAvatarUrl(playerIdx) {
       if (playerIdx === 0 && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
         return window.getActiveUserBeastAvatarDataUrl();
@@ -24312,6 +24702,7 @@ function renderCashStackHTML(amount) {
     }
 
     function initKittensGame() {
+      kittensState.mode = 'local';
       if (kittensState.botTimer) {
         clearTimeout(kittensState.botTimer);
         kittensState.botTimer = null;
@@ -24400,19 +24791,23 @@ function renderCashStackHTML(amount) {
     function renderKittensArena() {
       if (!kittensState.initialized) return;
 
+      const myIdx = getMyKittenPlayerIdx();
+      const pMe = kittensState.players[myIdx] || kittensState.players[0];
       const pCur = kittensState.players[kittensState.currentTurn];
 
       // 1. Update Cockpit Header
       const avEl = document.getElementById('kittenCurrentTurnAvatar');
       if (avEl && pCur) {
-        if (pCur.id === 0 && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
+        if (pCur.id === 0 && kittensState.mode !== 'online' && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
           pCur.avatar = window.getActiveUserBeastAvatarDataUrl();
         }
         avEl.innerHTML = `<img src="${pCur.avatar}" class="w-full h-full object-cover" />`;
       }
       const nameEl = document.getElementById('kittenCurrentTurnName');
       if (nameEl && pCur) {
-        nameEl.textContent = pCur.name + (pCur.isHuman ? ' (Bạn)' : ' (BOT)');
+        const isMyTurn = (pCur.id === myIdx);
+        const roleText = isMyTurn ? ' (Bạn)' : (kittensState.mode === 'online' || pCur.isHuman ? ` (Slot #${pCur.id + 1})` : ' (BOT)');
+        nameEl.textContent = pCur.name + roleText;
       }
       const badgeEl = document.getElementById('kittenCurrentTurnBadge');
       if (badgeEl) {
@@ -24425,12 +24820,29 @@ function renderCashStackHTML(amount) {
       // 2. Render Opponent Pods (1, 2, 3)
       for (let i = 1; i <= 3; i++) {
         const podEl = document.getElementById(`kittenPlayerPod_${i}`);
-        const p = kittensState.players[i];
-        if (!podEl || !p) continue;
+        if (!podEl) continue;
 
-        const isTurn = kittensState.currentTurn === i && p.isAlive;
+        let p = null;
+        if (kittensState.mode === 'online') {
+          const otherPlayers = kittensState.players.filter(pl => pl.id !== myIdx);
+          p = otherPlayers[i - 1] || null;
+        } else {
+          p = kittensState.players[i] || null;
+        }
+
+        if (!p) {
+          podEl.style.display = 'none';
+          continue;
+        } else {
+          podEl.style.display = 'flex';
+        }
+
+        const isTurn = kittensState.currentTurn === p.id && p.isAlive;
         const borderCls = !p.isAlive ? 'border-red-900/40 opacity-40 bg-slate-950/60' :
           isTurn ? 'border-amber-400 kitten-pulse-gold bg-amber-950/30' : 'border-slate-800 bg-slate-900/80';
+
+        const roleBadge = (kittensState.mode === 'online' || p.isHuman) ? `P${p.id + 1}` : 'BOT';
+        const roleBadgeCls = (kittensState.mode === 'online' || p.isHuman) ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40' : 'bg-slate-800 text-slate-400';
 
         podEl.className = `relative p-2.5 sm:p-3 rounded-2xl border-2 flex items-center justify-between gap-2.5 transition-all duration-300 ${borderCls}`;
 
@@ -24442,8 +24854,8 @@ function renderCashStackHTML(amount) {
             </div>
             <div>
               <div class="flex items-center gap-1.5">
-                <span class="text-xs font-bold text-slate-200 font-cinzel">${p.name}</span>
-                <span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-slate-400">BOT</span>
+                <span class="text-xs font-bold text-slate-200 font-cinzel line-clamp-1">${p.name}</span>
+                <span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold ${roleBadgeCls}">${roleBadge}</span>
               </div>
               <span class="text-[11px] font-mono ${!p.isAlive ? 'text-red-500 font-bold' : isTurn ? 'text-amber-400 font-bold' : 'text-slate-400'}">
                 ${!p.isAlive ? '☠️ ĐÃ NỔ TUNG' : isTurn ? '👉 ĐANG ĐI...' : 'Đang chờ'}
@@ -24452,32 +24864,32 @@ function renderCashStackHTML(amount) {
           </div>
           <div class="flex flex-col items-end">
             <div class="flex items-center gap-1 px-2 py-1 rounded-lg bg-black/40 border border-slate-700 text-xs font-mono font-bold text-amber-300">
-              <span>🃏</span> <span>${p.hand.length}</span>
+              <span>🃏</span> <span>${p.hand ? p.hand.length : 0}</span>
             </div>
           </div>
         `;
       }
 
-      // 3. Render Human Pod 0
-      const p0 = kittensState.players[0];
+      // 3. Render Human Pod 0 (My Pod)
       const pod0 = document.getElementById('kittenPlayerPod_0');
-      if (pod0 && p0) {
-        if (typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
-          p0.avatar = window.getActiveUserBeastAvatarDataUrl();
+      if (pod0 && pMe) {
+        if (pMe.id === 0 && kittensState.mode !== 'online' && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
+          pMe.avatar = window.getActiveUserBeastAvatarDataUrl();
         }
-        const isTurn0 = kittensState.currentTurn === 0 && p0.isAlive;
+        const isTurnMe = kittensState.currentTurn === myIdx && pMe.isAlive;
+        const myBadgeText = (kittensState.mode === 'online') ? `BẠN (P${myIdx + 1})` : 'BẠN';
         pod0.innerHTML = `
-          <div class="relative w-9 h-9 rounded-xl overflow-hidden border ${isTurn0 ? 'border-amber-400 kitten-pulse-gold' : 'border-slate-700'} shrink-0">
-            <img src="${p0.avatar}" class="w-full h-full object-cover" />
-            ${!p0.isAlive ? '<div class="absolute inset-0 bg-red-950/80 flex items-center justify-center text-sm">☠️</div>' : ''}
+          <div class="relative w-9 h-9 rounded-xl overflow-hidden border ${isTurnMe ? 'border-amber-400 kitten-pulse-gold' : 'border-slate-700'} shrink-0">
+            <img src="${pMe.avatar}" class="w-full h-full object-cover" />
+            ${!pMe.isAlive ? '<div class="absolute inset-0 bg-red-950/80 flex items-center justify-center text-sm">☠️</div>' : ''}
           </div>
           <div>
             <div class="flex items-center gap-1.5">
-              <span class="text-xs font-black text-amber-300 font-cinzel">${p0.name}</span>
-              <span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">BẠN</span>
+              <span class="text-xs font-black text-amber-300 font-cinzel line-clamp-1">${pMe.name}</span>
+              <span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">${myBadgeText}</span>
             </div>
-            <span class="text-[11px] font-mono ${!p0.isAlive ? 'text-red-500 font-bold' : isTurn0 ? 'text-emerald-400 font-bold' : 'text-slate-400'}">
-              ${!p0.isAlive ? '☠️ BẠN ĐÃ NỔ TUNG' : isTurn0 ? '👉 LƯỢT CỦA BẠN' : 'Đang chờ lượt'}
+            <span class="text-[11px] font-mono ${!pMe.isAlive ? 'text-red-500 font-bold' : isTurnMe ? 'text-emerald-400 font-bold' : 'text-slate-400'}">
+              ${!pMe.isAlive ? '☠️ BẠN ĐÃ NỔ TUNG' : isTurnMe ? '👉 LƯỢT CỦA BẠN' : 'Đang chờ lượt'}
             </span>
           </div>
         `;
@@ -24492,12 +24904,12 @@ function renderCashStackHTML(amount) {
       }
       const drawBtnEl = document.getElementById('kittenDrawPileBtn');
       if (drawBtnEl) {
-        if (kittensState.currentTurn === 0 && p0 && p0.isAlive && !kittensState.isLocked) {
+        if (kittensState.currentTurn === myIdx && pMe && pMe.isAlive && !kittensState.isLocked) {
           drawBtnEl.classList.add('kitten-pulse-gold', 'cursor-pointer');
           drawBtnEl.classList.remove('opacity-60', 'cursor-not-allowed');
         } else {
           drawBtnEl.classList.remove('kitten-pulse-gold');
-          if (kittensState.currentTurn !== 0 || !p0.isAlive) {
+          if (kittensState.currentTurn !== myIdx || !pMe || !pMe.isAlive) {
             drawBtnEl.classList.add('opacity-80');
           }
         }
@@ -24529,18 +24941,19 @@ function renderCashStackHTML(amount) {
       // 6. Render Human Hand Cards
       const handContainer = document.getElementById('kittenHandCardsContainer');
       const handCountEl = document.getElementById('kittenHandCount');
-      if (handCountEl && p0) handCountEl.textContent = `${p0.hand.length} lá`;
+      if (handCountEl && pMe) handCountEl.textContent = `${pMe.hand ? pMe.hand.length : 0} lá`;
 
-      if (handContainer && p0) {
-        if (!p0.isAlive) {
+      if (handContainer && pMe) {
+        if (!pMe.isAlive) {
           handContainer.innerHTML = `<div class="text-sm font-cinzel text-red-400 font-bold py-6">☠️ BẠN ĐÃ BỊ LOẠI KHỎI VÁN ĐẤU! Hãy quan sát các đối thủ còn lại.</div>`;
           return;
         }
 
-        handContainer.innerHTML = p0.hand.map((cardId, idx) => {
+        const handList = Array.isArray(pMe.hand) ? pMe.hand : [];
+        handContainer.innerHTML = handList.map((cardId, idx) => {
           const def = window.KITTEN_CARD_DEFS[cardId] || window.KITTEN_CARD_DEFS.beard_cat;
           const isSelected = kittensState.selectedHandIndices.includes(idx);
-          const isMyTurn = kittensState.currentTurn === 0 && !kittensState.isLocked;
+          const isMyTurn = (kittensState.currentTurn === myIdx && !kittensState.isLocked);
 
           return `
             <div onclick="selectKittenHandCard(${idx})" 
@@ -24623,12 +25036,17 @@ function renderCashStackHTML(amount) {
     window.hideKittenCardHover = hideKittenCardHover;
 
     function selectKittenHandCard(index) {
-      if (kittensState.currentTurn !== 0 || !kittensState.players[0].isAlive || kittensState.isLocked) {
-        showToast('Chưa tới lượt của bạn hoặc đang xử lý hành động!');
+      const myIdx = getMyKittenPlayerIdx();
+      if (kittensState.currentTurn !== myIdx || !kittensState.players[myIdx] || !kittensState.players[myIdx].isAlive || kittensState.isLocked) {
+        if (kittensState.mode === 'online' && kittensState.currentTurn !== myIdx) {
+          showToast('⏳ Chưa tới lượt của bạn!');
+        } else {
+          showToast('Chưa tới lượt của bạn hoặc đang xử lý hành động!');
+        }
         return;
       }
 
-      const p0 = kittensState.players[0];
+      const p0 = kittensState.players[myIdx];
       const cardId = p0.hand[index];
       const def = window.KITTEN_CARD_DEFS[cardId];
       if (!def) return;
@@ -24653,7 +25071,7 @@ function renderCashStackHTML(amount) {
               // Valid pair! Prompt target selection and store pending pair
               kittensState.pendingCatPair = [idx1, idx2];
               kittensState.selectedHandIndices = [];
-              promptFavorTarget(0, [idx1, idx2], true);
+              promptFavorTarget(myIdx, [idx1, idx2], true);
               return;
             } else {
               showToast('Phải chọn 2 lá Mèo cùng loại (hoặc Mèo Hoang Dã) để cướp bài!');
@@ -24667,12 +25085,12 @@ function renderCashStackHTML(amount) {
 
       // Normal Action Card: Play it directly!
       kittensState.selectedHandIndices = [];
-      executeCardPlay(0, index);
+      executeCardPlay(myIdx, index);
     }
 
     async function executeCardPlay(playerIdx, cardHandIdx, targetPlayerIdx = null) {
       const p = kittensState.players[playerIdx];
-      if (!p || !p.hand[cardHandIdx]) return;
+      if (!p || !p.hand || !p.hand[cardHandIdx]) return;
 
       kittensState.isLocked = true;
       const cardId = p.hand.splice(cardHandIdx, 1)[0];
@@ -24703,6 +25121,9 @@ function renderCashStackHTML(amount) {
           setKittenToast(`⚔️ ${p.name} TẤN CÔNG 2X! Chuyển lượt cho đối thủ tiếp theo với ${attackTurns} lượt rút!`);
           kittensState.isLocked = false;
           passTurnToNextPlayer(attackTurns);
+          if (kittensState.mode === 'online') {
+            syncOnlineKittensState('ATTACK', `⚔️ ${p.name} Tấn Công! Chuyển lượt với ${attackTurns} lượt rút.`);
+          }
           return;
 
         case 'skip':
@@ -24712,11 +25133,16 @@ function renderCashStackHTML(amount) {
             setKittenToast(`⏩ ${p.name} BỎ LƯỢT thành công!`);
             kittensState.isLocked = false;
             passTurnToNextPlayer(1);
+            if (kittensState.mode === 'online') {
+              syncOnlineKittensState('SKIP', `⏩ ${p.name} đã Bỏ Lượt.`);
+            }
           } else {
             setKittenToast(`⏩ ${p.name} Bỏ 1 lượt, vẫn còn ${kittensState.turnsLeftForPlayer} lượt nữa!`);
             kittensState.isLocked = false;
             renderKittensArena();
-            if (p.id !== 0 || kittensState.autoPlay) {
+            if (kittensState.mode === 'online') {
+              syncOnlineKittensState('SKIP', `⏩ ${p.name} bỏ 1 lượt, còn ${kittensState.turnsLeftForPlayer} lượt.`);
+            } else if (p.id !== 0 || kittensState.autoPlay) {
               checkAndRunBot();
             }
           }
@@ -24731,38 +25157,59 @@ function renderCashStackHTML(amount) {
           setKittenToast(`🔀 ${p.name} đã XÁO TRỘN Chồng bài rút!`);
           kittensState.isLocked = false;
           renderKittensArena();
-          if (p.id !== 0 || kittensState.autoPlay) {
+          if (kittensState.mode === 'online') {
+            syncOnlineKittensState('SHUFFLE', `🔀 ${p.name} đã xáo trộn Chồng bài rút!`);
+          } else if (p.id !== 0 || kittensState.autoPlay) {
             checkAndRunBot();
           }
           return;
 
         case 'see_future':
           kittensState.isLocked = false;
-          if (p.isHuman) {
+          const myPlayerIdx = getMyKittenPlayerIdx();
+          if (playerIdx === myPlayerIdx) {
             openSeeFutureModal();
           } else {
             setKittenToast(`🔮 ${p.name} đã bí mật nhìn thấy 3 lá bài tương lai!`);
-            checkAndRunBot();
+            if (kittensState.mode !== 'online') {
+              checkAndRunBot();
+            }
+          }
+          if (kittensState.mode === 'online') {
+            syncOnlineKittensState('SEE_FUTURE', `🔮 ${p.name} đã nhìn thấy 3 lá bài tương lai!`);
           }
           return;
 
         case 'favor':
-          if (p.isHuman) {
-            promptFavorTarget(0, null, false);
+          const currentMe = getMyKittenPlayerIdx();
+          if (kittensState.mode === 'online') {
+            if (playerIdx === currentMe) {
+              promptFavorTarget(playerIdx, null, false);
+            } else {
+              setKittenToast(`🤲 ${p.name} đang chọn đối thủ để xin 1 lá bài...`);
+            }
             kittensState.isLocked = false;
             return;
           } else {
-            executeBotFavor(playerIdx);
-            kittensState.isLocked = false;
-            checkAndRunBot();
+            if (p.isHuman) {
+              promptFavorTarget(0, null, false);
+              kittensState.isLocked = false;
+              return;
+            } else {
+              executeBotFavor(playerIdx);
+              kittensState.isLocked = false;
+              checkAndRunBot();
+            }
+            return;
           }
-          return;
 
         case 'nope':
           setKittenToast(`⛔ ${p.name} đã đánh CHẶN ĐỨNG (NOPE)!`);
           kittensState.isLocked = false;
           renderKittensArena();
-          if (p.id !== 0 || kittensState.autoPlay) {
+          if (kittensState.mode === 'online') {
+            syncOnlineKittensState('NOPE', `⛔ ${p.name} đã đánh Chặn Đứng (NOPE)!`);
+          } else if (p.id !== 0 || kittensState.autoPlay) {
             checkAndRunBot();
           }
           return;
@@ -24770,7 +25217,9 @@ function renderCashStackHTML(amount) {
         default:
           kittensState.isLocked = false;
           renderKittensArena();
-          if (p.id !== 0 || kittensState.autoPlay) {
+          if (kittensState.mode === 'online') {
+            syncOnlineKittensState('PLAY_CARD', `${p.name} đã đánh lá bài ${def ? def.name : cardId}`);
+          } else if (p.id !== 0 || kittensState.autoPlay) {
             checkAndRunBot();
           }
           break;
@@ -24837,9 +25286,10 @@ function renderCashStackHTML(amount) {
 
     function resolveStealAction(targetId, isCatPair) {
       closeKittensModal('kittenModalTarget');
-      const stealer = kittensState.players[0];
+      const myIdx = getMyKittenPlayerIdx();
+      const stealer = kittensState.players[myIdx];
       const target = kittensState.players[targetId];
-      if (!target || target.hand.length === 0) return;
+      if (!target || !target.hand || target.hand.length === 0) return;
 
       // 100% BUG FIX: Discard the 2 cat cards if played as a pair!
       if (isCatPair && kittensState.pendingCatPair && Array.isArray(kittensState.pendingCatPair)) {
@@ -24851,7 +25301,7 @@ function renderCashStackHTML(amount) {
             if (discardedCat) {
               kittensState.discardPile.push({
                 cardId: discardedCat,
-                playerIdx: 0,
+                playerIdx: myIdx,
                 playerName: stealer.name,
                 time: Date.now()
               });
@@ -24872,6 +25322,10 @@ function renderCashStackHTML(amount) {
       showToast(`🎉 Bạn đã lấy được lá [${def ? def.name : stolenCard}] từ ${target.name}!`);
       renderKittensArena();
       if (typeof soundTone === 'function') soundTone(750, 'triangle', 0.2, 0.25);
+
+      if (kittensState.mode === 'online') {
+        syncOnlineKittensState('STEAL', `🎴 ${stealer.name} đã lấy 1 lá bài từ ${target.name}!`);
+      }
     }
 
     function executeBotFavor(botIdx) {
@@ -24889,11 +25343,16 @@ function renderCashStackHTML(amount) {
     }
 
     function humanDrawCard() {
-      if (kittensState.currentTurn !== 0 || !kittensState.players[0].isAlive || kittensState.isLocked) {
-        showToast('Chưa tới lượt của bạn hoặc đang xử lý!');
+      const myIdx = getMyKittenPlayerIdx();
+      if (kittensState.currentTurn !== myIdx || !kittensState.players[myIdx] || !kittensState.players[myIdx].isAlive || kittensState.isLocked) {
+        if (kittensState.mode === 'online' && kittensState.currentTurn !== myIdx) {
+          showToast('⏳ Chưa tới lượt của bạn!');
+        } else {
+          showToast('Chưa tới lượt của bạn hoặc đang xử lý!');
+        }
         return;
       }
-      executeDrawCard(0);
+      executeDrawCard(myIdx);
     }
 
         // Sound Effect: Card Draw Swoosh
@@ -25097,7 +25556,8 @@ function renderCashStackHTML(amount) {
     // Feature 2: Interactive Blind Card Pick From Opponent
     function openBlindPickModal(targetId, isCatPair) {
       const target = kittensState.players[targetId];
-      const stealer = kittensState.players[0];
+      const myIdx = getMyKittenPlayerIdx();
+      const stealer = kittensState.players[myIdx];
       if (!target || !target.isAlive || target.hand.length === 0) {
         showToast('Đối thủ không có bài trên tay để bốc!');
         return;
@@ -25158,7 +25618,8 @@ function renderCashStackHTML(amount) {
     // Handle user clicking a face-down card to reveal and steal it!
     function selectBlindPickCard(targetId, cardIdx, isCatPair) {
       const target = kittensState.players[targetId];
-      const stealer = kittensState.players[0];
+      const myIdx = getMyKittenPlayerIdx();
+      const stealer = kittensState.players[myIdx];
       if (!target || !target.hand[cardIdx]) return;
 
       const inner = document.getElementById('blindCardInner_' + cardIdx);
@@ -25222,7 +25683,7 @@ function renderCashStackHTML(amount) {
             if (discardedCat) {
               kittensState.discardPile.push({
                 cardId: discardedCat,
-                playerIdx: 0,
+                playerIdx: myIdx,
                 playerName: stealer.name,
                 time: Date.now()
               });
@@ -25243,6 +25704,9 @@ function renderCashStackHTML(amount) {
         setKittenToast('🎴 ' + stealer.name + ' đã bốc 1 lá bài úp từ ' + target.name + '!');
         // Thông báo riêng cho bạn biết bạn đã cướp được lá gì:
         showToast('🎉 Bạn đã cướp được lá ' + def.name + ' (' + def.badge + ')!');
+        if (kittensState.mode === 'online') {
+          syncOnlineKittensState('STEAL', '🎴 ' + stealer.name + ' đã bốc 1 lá bài từ ' + target.name + '!');
+        }
       }, 980);
     }
     window.selectBlindPickCard = selectBlindPickCard;
@@ -25316,7 +25780,8 @@ async function executeDrawCard(playerIdx) {
 
           await new Promise(r => setTimeout(r, 1000));
 
-          if (p.isHuman) {
+          const myIdx = getMyKittenPlayerIdx();
+          if (playerIdx === myIdx) {
             // Open Defuse Insert Modal
             kittensState.pendingDefuseInsert = drawnCardId;
             openKittensModal('kittenModalDefuse');
@@ -25357,7 +25822,8 @@ async function executeDrawCard(playerIdx) {
         // Safe card drawn - BẢO MẬT: Tuyệt đối không để lộ tên lá bài bốc được cho người khác!
         p.hand.push(drawnCardId);
         const def = window.KITTEN_CARD_DEFS[drawnCardId];
-        if (p.isHuman) {
+        const myIdx = getMyKittenPlayerIdx();
+        if (playerIdx === myIdx) {
           setKittenToast(`🃏 ${p.name} đã rút 1 lá bài an toàn từ Chồng bài úp.`);
           showToast(`🃏 Bạn vừa rút được lá bài: ${def ? def.name : drawnCardId} (${def ? def.badge : ''})`);
         } else {
@@ -25374,7 +25840,11 @@ async function executeDrawCard(playerIdx) {
       }
 
       kittensState.isLocked = false;
-      checkAndRunBot();
+      if (kittensState.mode === 'online') {
+        syncOnlineKittensState('DRAW', `🃏 ${p.name} đã hoàn tất lượt rút bài.`);
+      } else {
+        checkAndRunBot();
+      }
     }
 
     function confirmDefuseInsert(pos) {
@@ -25393,7 +25863,11 @@ async function executeDrawCard(playerIdx) {
       }
 
       kittensState.isLocked = false;
-      checkAndRunBot();
+      if (kittensState.mode === 'online') {
+        syncOnlineKittensState('INSERT_DEFUSE', '🛡️ Đối thủ đã gài lại lá Mèo Nổ vào Chồng bài!');
+      } else {
+        checkAndRunBot();
+      }
     }
 
     function insertKittenBackToDeck(cardId, pos) {
@@ -25408,22 +25882,27 @@ async function executeDrawCard(playerIdx) {
     }
 
     function passTurnToNextPlayer(turnsCount = 1) {
-      let nextIdx = (kittensState.currentTurn + 1) % 4;
+      const totalP = (kittensState.players && kittensState.players.length > 0) ? kittensState.players.length : 4;
+      let nextIdx = (kittensState.currentTurn + 1) % totalP;
       let count = 0;
-      while (!kittensState.players[nextIdx].isAlive && count < 4) {
-        nextIdx = (nextIdx + 1) % 4;
+      while (!kittensState.players[nextIdx].isAlive && count < totalP) {
+        nextIdx = (nextIdx + 1) % totalP;
         count++;
       }
       kittensState.currentTurn = nextIdx;
       kittensState.turnsLeftForPlayer = turnsCount;
       renderKittensArena();
+      updateOnlineRoomHUD();
 
-      // FIX DỨT ĐIỂM BOT ĐƠ: Tự động kích hoạt bot khi chuyển lượt!
+      // FIX DỨT ĐIỂM BOT ĐƠ: Tự động kích hoạt bot khi chuyển lượt (chỉ ở local mode)!
       kittensState.isLocked = false;
-      checkAndRunBot();
+      if (kittensState.mode !== 'online') {
+        checkAndRunBot();
+      }
     }
 
     function checkAndRunBot() {
+      if (kittensState.mode === 'online') return; // 100% Người thật P2P, không dùng bot!
       if (kittensState.botTimer) {
         clearTimeout(kittensState.botTimer);
         kittensState.botTimer = null;
@@ -25492,11 +25971,20 @@ async function executeDrawCard(playerIdx) {
     }
 
     function announceKittensWinner(winner) {
-      const isUser = winner.isHuman;
+      const myIdx = getMyKittenPlayerIdx();
+      const isMe = (winner.id === myIdx);
       setKittenToast(`🏆🏆 ${winner.name} LÀ NGƯỜI SỐNG SÓT CUỐI CÙNG VÀ CHIẾN THẮNG! 🏆🏆`);
-      if (typeof soundVictory === 'function') soundVictory();
-      if (typeof createConfetti === 'function') createConfetti();
-      showToast(`🎉 Chúc mừng ${winner.name} đã chiến thắng ván Mèo Nổ!`);
+      if (isMe) {
+        if (typeof soundVictory === 'function') soundVictory();
+        if (typeof createConfetti === 'function') createConfetti();
+        showToast(`🎉 Chúc mừng bạn (${winner.name}) đã chiến thắng ván Mèo Nổ!`);
+      } else {
+        if (typeof soundDefeat === 'function') soundDefeat();
+        showToast(`🏆 Trận đấu kết thúc! ${winner.name} đã chiến thắng ván Mèo Nổ!`);
+      }
+      if (kittensState.mode === 'online') {
+        syncOnlineKittensState('WINNER', `🏆 ${winner.name} đã chiến thắng ván Mèo Nổ!`, { winner });
+      }
     }
 
     function toggleKittensAutoPlay() {

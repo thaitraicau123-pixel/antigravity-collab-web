@@ -1481,8 +1481,9 @@
       opacity: 0.85;
     }
     .uno-table-felt {
-      background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 65%, #020617 100%);
-      box-shadow: inset 0 0 60px rgba(0,0,0,0.8), 0 0 40px rgba(250, 204, 21, 0.15);
+      background: #0f172a !important; /* Xanh than nỉ đặc trơn 100%, chống trong suốt */
+      border: 3px solid #334155 !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
     }
     .uno-flying-card-anim {
       position: fixed;
@@ -4383,7 +4384,7 @@
       <div id="unoView" class="hidden relative w-full flex-col items-center justify-center p-2 sm:p-4 my-auto select-none overflow-hidden max-w-[1400px] mx-auto">
         
         <!-- Uno Match Cockpit Header -->
-        <div class="w-full flex items-center justify-between gap-3 mb-3 px-4 py-2.5 rounded-2xl bg-slate-900/90 border-2 border-yellow-500/40 shadow-xl backdrop-blur-md flex-wrap">
+        <div class="w-full flex items-center justify-between gap-3 mb-3 px-4 py-2.5 rounded-2xl bg-[#0f172a] border-2 border-slate-700 shadow-xl flex-wrap">
           <!-- Left: Current Turn Info & Active Color Indicator -->
           <div class="flex items-center gap-3">
             <div id="unoTurnBadge" class="flex items-center gap-2 px-3 py-1 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 font-black text-xs font-mono shadow-md">
@@ -4426,16 +4427,12 @@
         <!-- UNO Oval Table Mat Arena -->
         <div class="w-full relative rounded-3xl uno-table-felt border-4 border-yellow-500/30 p-4 sm:p-6 shadow-2xl flex flex-col justify-between min-h-[580px] sm:min-h-[640px] overflow-hidden">
           
-          <!-- Background Ambient Glow & Radial Rings -->
-          <div class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-20">
-            <div class="w-[500px] h-[500px] rounded-full border border-yellow-400/30"></div>
-            <div class="absolute w-[700px] h-[700px] rounded-full border border-cyan-400/20"></div>
-          </div>
+          <!-- Solid Smooth Felt Clean Surface -->
 
           <!-- TOP TIER: 3 BOTS PODS -->
           <div class="w-full grid grid-cols-3 gap-2 sm:gap-4 z-10">
             <!-- Bot 1 (Left: Tiên Tinh Linh) -->
-            <div id="unoPod1" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-black/50 border-2 border-slate-700/80 transition-all duration-300">
+            <div id="unoPod1" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-slate-700/80 transition-all duration-300">
               <div class="flex items-center gap-2 mb-1.5">
                 <div class="relative">
                   <img id="unoAvatar1" src="" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-cyan-400 shadow-md object-cover" alt="Bot 1"/>
@@ -4450,7 +4447,7 @@
             </div>
 
             <!-- Bot 2 (Center: Kỳ Lân Ngố) -->
-            <div id="unoPod2" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-black/50 border-2 border-slate-700/80 transition-all duration-300">
+            <div id="unoPod2" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-slate-700/80 transition-all duration-300">
               <div class="flex items-center gap-2 mb-1.5">
                 <div class="relative">
                   <img id="unoAvatar2" src="" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-purple-400 shadow-md object-cover" alt="Bot 2"/>
@@ -4465,7 +4462,7 @@
             </div>
 
             <!-- Bot 3 (Right: Rồng Lửa Béo) -->
-            <div id="unoPod3" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-black/50 border-2 border-slate-700/80 transition-all duration-300">
+            <div id="unoPod3" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-slate-700/80 transition-all duration-300">
               <div class="flex items-center gap-2 mb-1.5">
                 <div class="relative">
                   <img id="unoAvatar3" src="" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-rose-400 shadow-md object-cover" alt="Bot 3"/>
@@ -4492,6 +4489,28 @@
             <div id="unoStackingPenaltyBanner" class="hidden mb-3 px-4 py-1.5 rounded-2xl bg-gradient-to-r from-red-600 via-rose-600 to-orange-600 text-white font-black text-xs sm:text-sm font-mono shadow-2xl animate-bounce flex items-center gap-2 z-20">
               <i data-lucide="alert-triangle" class="w-4 h-4"></i>
               <span>CỘNG DỒN PHẠT: +<span id="unoPenaltyCount">0</span> LÁ! (ĐÁNH +2/+4 ĐỂ CHUYỂN TIẾP HOẶC BẤM RÚT ĐỂ CHỊU PHẠT)</span>
+            </div>
+
+            
+            <!-- IN-BOARD COLOR PICKER (Chọn màu ngay trên mặt bàn đấu) -->
+            <div id="unoInBoardColorPicker" class="hidden my-3 p-4 rounded-3xl bg-[#0f172a] border-4 border-yellow-400 shadow-2xl flex flex-col items-center justify-center animate-bounce z-40 max-w-lg w-full">
+              <div class="text-xs sm:text-sm font-black font-cinzel text-yellow-400 mb-2.5 flex items-center gap-2">
+                <span class="text-xl">🌈</span> CHỌN MÀU YÊU CẦU CHO BÀN ĐẤU:
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 w-full">
+                <button type="button" onclick="chooseUnoWildColor('red')" class="btn-spring p-3 rounded-2xl bg-red-600 hover:bg-red-500 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-red-600/40 border-2 border-red-300 cursor-pointer">
+                  <span class="text-lg">🔴</span> <span>ĐỎ</span>
+                </button>
+                <button type="button" onclick="chooseUnoWildColor('blue')" class="btn-spring p-3 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-blue-600/40 border-2 border-blue-300 cursor-pointer">
+                  <span class="text-lg">🔵</span> <span>XANH</span>
+                </button>
+                <button type="button" onclick="chooseUnoWildColor('green')" class="btn-spring p-3 rounded-2xl bg-green-600 hover:bg-green-500 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-green-600/40 border-2 border-green-300 cursor-pointer">
+                  <span class="text-lg">🟢</span> <span>LÁ</span>
+                </button>
+                <button type="button" onclick="chooseUnoWildColor('yellow')" class="btn-spring p-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-amber-500/40 border-2 border-yellow-200 cursor-pointer">
+                  <span class="text-lg">🟡</span> <span>VÀNG</span>
+                </button>
+              </div>
             </div>
 
             <!-- Center Table Piles -->
@@ -4539,7 +4558,7 @@
           <div class="w-full z-10 flex flex-col items-center">
             
             <!-- Controls Bar: HÔ UNO, BẮT PHẠT UNO, RÚT BÀI -->
-            <div class="w-full max-w-2xl flex items-center justify-between gap-2 mb-2 px-3 py-1.5 rounded-2xl bg-black/60 border border-slate-700/80 backdrop-blur-md flex-wrap">
+            <div class="w-full max-w-2xl flex items-center justify-between gap-2 mb-2 px-3 py-1.5 rounded-2xl bg-[#1e293b] border-2 border-slate-700 flex-wrap">
               <div class="flex items-center gap-2">
                 <img id="unoAvatar0" src="" class="w-8 h-8 rounded-full border-2 border-amber-400 shadow-md object-cover" alt="User Avatar"/>
                 <div class="text-left">
@@ -4583,76 +4602,7 @@
         </div>
 
         <!-- ================= MODAL: CHỌN MÀU WILD (COLOR PICKER MODAL) ================= -->
-        <div id="unoModalColorPicker" class="fixed inset-0 z-[120] hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
-          <div class="w-full max-w-sm rounded-3xl bg-slate-900 border-2 border-yellow-400 p-6 shadow-2xl text-center space-y-4">
-            <h3 class="text-base font-black font-cinzel text-white flex items-center justify-center gap-2">
-              <span class="text-xl">🌈</span> CHỌN MÀU YÊU CẦU TIẾP THEO
-            </h3>
-            <p class="text-xs text-slate-300 font-mono">Lá Wild cho phép bạn chuyển màu bàn đấu sang bất kỳ màu nào!</p>
-            
-            <div class="grid grid-cols-2 gap-3 pt-2">
-              <button onclick="chooseUnoWildColor('red')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 text-white font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-red-500/40 border-2 border-red-400 cursor-pointer">
-                <span class="text-2xl">🔴</span>
-                <span>MÀU ĐỎ</span>
-              </button>
-              <button onclick="chooseUnoWildColor('blue')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 hover:from-blue-400 hover:to-blue-600 text-white font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-blue-500/40 border-2 border-blue-400 cursor-pointer">
-                <span class="text-2xl">🔵</span>
-                <span>XANH DƯƠNG</span>
-              </button>
-              <button onclick="chooseUnoWildColor('green')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-green-500 to-green-700 hover:from-green-400 hover:to-green-600 text-white font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-green-500/40 border-2 border-green-400 cursor-pointer">
-                <span class="text-2xl">🟢</span>
-                <span>XANH LÁ</span>
-              </button>
-              <button onclick="chooseUnoWildColor('yellow')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-yellow-400 to-amber-600 hover:from-yellow-300 hover:to-amber-500 text-slate-950 font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-yellow-500/40 border-2 border-yellow-300 cursor-pointer">
-                <span class="text-2xl">🟡</span>
-                <span>MÀU VÀNG</span>
-              </button>
-            </div>
-          </div>
         </div>
-
-        <!-- ================= MODAL: LUẬT CHƠI UNO (RULES MODAL) ================= -->
-        <div id="unoModalRules" class="fixed inset-0 z-[120] hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
-          <div class="w-full max-w-lg rounded-3xl bg-slate-900 border-2 border-yellow-500 p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto text-left">
-            <div class="flex items-center justify-between border-b border-slate-700 pb-3">
-              <h3 class="text-base font-black font-cinzel text-yellow-400 flex items-center gap-2">
-                <span>📖</span> LUẬT CHƠI UNO BATTLE ROYALE (108 LÁ)
-              </h3>
-              <button onclick="closeUnoModal('unoModalRules')" class="p-1 rounded-lg text-slate-400 hover:text-white">
-                <i data-lucide="x" class="w-5 h-5"></i>
-              </button>
-            </div>
-
-            <div class="space-y-3 text-xs text-slate-300 font-sans leading-relaxed">
-              <p><strong class="text-yellow-400">🎯 Mục Tiêu:</strong> Người chơi đầu tiên đánh hết toàn bộ bài trên tay sẽ giành chiến thắng!</p>
-              <p><strong class="text-cyan-400">🃏 Cách Đánh Bài:</strong> Đánh 1 lá bài khớp <span class="text-amber-300 font-bold">CÙNG MÀU</span> hoặc <span class="text-amber-300 font-bold">CÙNG SỐ / BIỂU TƯỢNG</span> với lá bài ngửa trên cùng của Chồng Bài Bỏ.</p>
-              
-              <div class="p-3 rounded-xl bg-black/40 border border-slate-700 space-y-2">
-                <div class="font-bold text-white text-[13px]">✨ CÁC LÁ BÀI HÀNH ĐỘNG ĐẶC BIỆT:</div>
-                <p><strong class="text-red-400">🚫 Cấm Lượt (Skip):</strong> Bỏ qua lượt đi của người kế tiếp.</p>
-                <p><strong class="text-blue-400">🔄 Đảo Chiều (Reverse):</strong> Đổi chiều đánh bàn cờ (Thuận ⟲⟳ Ngược).</p>
-                <p><strong class="text-yellow-400">📥 Rút 2 (+2 Draw Two):</strong> Người kế tiếp phải rút 2 lá và mất lượt (hoặc đánh tiếp +2 để dồn phạt tiếp!).</p>
-                <p><strong class="text-purple-400">🌈 Đổi Màu (Wild):</strong> Đánh tự do bất kỳ lúc nào, được chọn màu tiếp theo cho bàn đấu.</p>
-                <p><strong class="text-rose-400">💥 Rút 4 Đổi Màu (Wild +4):</strong> Vừa đổi màu vừa buộc người kế tiếp rút 4 lá (hoặc dồn tiếp +4!).</p>
-              </div>
-
-              <div class="p-3 rounded-xl bg-yellow-500/10 border border-yellow-500/30 space-y-1.5">
-                <div class="font-bold text-yellow-300 text-[13px]">🔔 LUẬT HÔ UNO & BẮT PHẠT:</div>
-                <p>• Khi trên tay bạn chỉ còn lại <span class="font-bold text-white">1 lá duy nhất</span>, bạn PHẢI bấm nút <strong class="text-yellow-400">"HÔ UNO! 🔔"</strong>!</p>
-                <p>• Nếu bạn quên hô UNO mà đối thủ bấm <strong class="text-rose-400">"BẮT UNO! ⚠️"</strong>, bạn sẽ bị phạt rút ngay 2 lá bài!</p>
-                <p>• Tương tự, nếu bất kỳ Bot nào còn 1 lá mà chưa hô, bạn có thể bấm "BẮT UNO!" để phạt Bot đó rút 2 lá!</p>
-              </div>
-
-              <p><strong class="text-emerald-400">💥 Luật Dồn Phạt (Stacking Penalty):</strong> Khi một người bị đánh +2 hoặc +4, nếu họ có lá cùng loại (+2 hoặc +4), họ có thể đánh tiếp để chuyển toàn bộ số lá phạt dồn cho người kế tiếp!</p>
-            </div>
-
-            <button onclick="closeUnoModal('unoModalRules')" class="mt-4 btn-spring w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 font-black text-xs font-mono shadow-lg">
-              ĐÃ HIỂU LUẬT • CHIẾN NGAY!
-            </button>
-          </div>
-        </div>
-
-      </div>
 
       <!-- Close #mainViewArena properly here -->
 
@@ -17310,7 +17260,7 @@ function renderCashStackHTML(amount) {
     window.handleCentralTurfClick = handleCentralTurfClick;
 
     // Spacebar & Enter Hotkey to Roll Dice
-    window.addEventListener('keydown', (e) => {
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') window.addEventListener('keydown', (e) => {
       if (e.code === 'Space' || e.code === 'Enter') {
         const vMono = document.getElementById('monopolyView');
         if (!vMono || vMono.classList.contains('hidden')) return;
@@ -27079,9 +27029,9 @@ async function executeDrawCard(playerIdx) {
 
         if (podEl) {
           if (unoState.currentTurn === bIdx) {
-            podEl.className = 'relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-slate-900/90 border-2 border-yellow-400 shadow-[0_0_20px_rgba(250,204,21,0.5)] transition-all duration-300 scale-105 z-20';
+            podEl.className = 'relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-yellow-400 shadow-[0_0_20px_rgba(250,204,21,0.5)] transition-all duration-300 scale-105 z-20';
           } else {
-            podEl.className = 'relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-black/50 border-2 border-slate-700/80 transition-all duration-300 z-10';
+            podEl.className = 'relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-slate-700 transition-all duration-300 z-10';
           }
         }
 
@@ -27606,6 +27556,27 @@ async function executeDrawCard(playerIdx) {
     }
 
     // Handle Victory
+    
+    // Spacebar Hotkey Listener for Say UNO
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' || e.key === ' ' || e.keyCode === 32) {
+        if (window.activeGameView === 'uno' || window.activeTab === 'uno') {
+          const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+          if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+
+          e.preventDefault();
+          handleSayUnoClick();
+
+          // Button click feedback
+          const btn = document.getElementById('btnSayUno');
+          if (btn) {
+            btn.classList.add('scale-95', 'brightness-125');
+            setTimeout(() => btn.classList.remove('scale-95', 'brightness-125'), 180);
+          }
+        }
+      }
+    });
+
     function handleUnoGameWin(winnerIdx) {
       unoState.isLocked = true;
       const winner = unoState.players[winnerIdx];
@@ -28131,6 +28102,79 @@ async function executeDrawCard(playerIdx) {
       </form>
     </div>
   </div>
+
+
+  <!-- ================= UNO GLOBAL MODALS (PLACED DIRECTLY IN BODY FOR CLEAN TOP-LEVEL STACKING) ================= -->
+  <div id="unoModalColorPicker" class="fixed inset-0 z-[120] hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
+          <div class="w-full max-w-sm rounded-3xl bg-slate-900 border-2 border-yellow-400 p-6 shadow-2xl text-center space-y-4">
+            <h3 class="text-base font-black font-cinzel text-white flex items-center justify-center gap-2">
+              <span class="text-xl">🌈</span> CHỌN MÀU YÊU CẦU TIẾP THEO
+            </h3>
+            <p class="text-xs text-slate-300 font-mono">Lá Wild cho phép bạn chuyển màu bàn đấu sang bất kỳ màu nào!</p>
+            
+            <div class="grid grid-cols-2 gap-3 pt-2">
+              <button onclick="chooseUnoWildColor('red')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 text-white font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-red-500/40 border-2 border-red-400 cursor-pointer">
+                <span class="text-2xl">🔴</span>
+                <span>MÀU ĐỎ</span>
+              </button>
+              <button onclick="chooseUnoWildColor('blue')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 hover:from-blue-400 hover:to-blue-600 text-white font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-blue-500/40 border-2 border-blue-400 cursor-pointer">
+                <span class="text-2xl">🔵</span>
+                <span>XANH DƯƠNG</span>
+              </button>
+              <button onclick="chooseUnoWildColor('green')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-green-500 to-green-700 hover:from-green-400 hover:to-green-600 text-white font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-green-500/40 border-2 border-green-400 cursor-pointer">
+                <span class="text-2xl">🟢</span>
+                <span>XANH LÁ</span>
+              </button>
+              <button onclick="chooseUnoWildColor('yellow')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-yellow-400 to-amber-600 hover:from-yellow-300 hover:to-amber-500 text-slate-950 font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-yellow-500/40 border-2 border-yellow-300 cursor-pointer">
+                <span class="text-2xl">🟡</span>
+                <span>MÀU VÀNG</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= MODAL: LUẬT CHƠI UNO (RULES MODAL) ================= -->
+        <div id="unoModalRules" class="fixed inset-0 z-[120] hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
+          <div class="w-full max-w-lg rounded-3xl bg-slate-900 border-2 border-yellow-500 p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto text-left">
+            <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+              <h3 class="text-base font-black font-cinzel text-yellow-400 flex items-center gap-2">
+                <span>📖</span> LUẬT CHƠI UNO BATTLE ROYALE (108 LÁ)
+              </h3>
+              <button onclick="closeUnoModal('unoModalRules')" class="p-1 rounded-lg text-slate-400 hover:text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+              </button>
+            </div>
+
+            <div class="space-y-3 text-xs text-slate-300 font-sans leading-relaxed">
+              <p><strong class="text-yellow-400">🎯 Mục Tiêu:</strong> Người chơi đầu tiên đánh hết toàn bộ bài trên tay sẽ giành chiến thắng!</p>
+              <p><strong class="text-cyan-400">🃏 Cách Đánh Bài:</strong> Đánh 1 lá bài khớp <span class="text-amber-300 font-bold">CÙNG MÀU</span> hoặc <span class="text-amber-300 font-bold">CÙNG SỐ / BIỂU TƯỢNG</span> với lá bài ngửa trên cùng của Chồng Bài Bỏ.</p>
+              
+              <div class="p-3 rounded-xl bg-black/40 border border-slate-700 space-y-2">
+                <div class="font-bold text-white text-[13px]">✨ CÁC LÁ BÀI HÀNH ĐỘNG ĐẶC BIỆT:</div>
+                <p><strong class="text-red-400">🚫 Cấm Lượt (Skip):</strong> Bỏ qua lượt đi của người kế tiếp.</p>
+                <p><strong class="text-blue-400">🔄 Đảo Chiều (Reverse):</strong> Đổi chiều đánh bàn cờ (Thuận ⟲⟳ Ngược).</p>
+                <p><strong class="text-yellow-400">📥 Rút 2 (+2 Draw Two):</strong> Người kế tiếp phải rút 2 lá và mất lượt (hoặc đánh tiếp +2 để dồn phạt tiếp!).</p>
+                <p><strong class="text-purple-400">🌈 Đổi Màu (Wild):</strong> Đánh tự do bất kỳ lúc nào, được chọn màu tiếp theo cho bàn đấu.</p>
+                <p><strong class="text-rose-400">💥 Rút 4 Đổi Màu (Wild +4):</strong> Vừa đổi màu vừa buộc người kế tiếp rút 4 lá (hoặc dồn tiếp +4!).</p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-yellow-500/10 border border-yellow-500/30 space-y-1.5">
+                <div class="font-bold text-yellow-300 text-[13px]">🔔 LUẬT HÔ UNO & BẮT PHẠT:</div>
+                <p>• Khi trên tay bạn chỉ còn lại <span class="font-bold text-white">1 lá duy nhất</span>, bạn PHẢI bấm nút <strong class="text-yellow-400">"HÔ UNO! 🔔"</strong>!</p>
+                <p>• Nếu bạn quên hô UNO mà đối thủ bấm <strong class="text-rose-400">"BẮT UNO! ⚠️"</strong>, bạn sẽ bị phạt rút ngay 2 lá bài!</p>
+                <p>• Tương tự, nếu bất kỳ Bot nào còn 1 lá mà chưa hô, bạn có thể bấm "BẮT UNO!" để phạt Bot đó rút 2 lá!</p>
+              </div>
+
+              <p><strong class="text-emerald-400">💥 Luật Dồn Phạt (Stacking Penalty):</strong> Khi một người bị đánh +2 hoặc +4, nếu họ có lá cùng loại (+2 hoặc +4), họ có thể đánh tiếp để chuyển toàn bộ số lá phạt dồn cho người kế tiếp!</p>
+            </div>
+
+            <button onclick="closeUnoModal('unoModalRules')" class="mt-4 btn-spring w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 font-black text-xs font-mono shadow-lg">
+              ĐÃ HIỂU LUẬT • CHIẾN NGAY!
+            </button>
+          </div>
+        </div>
+
+      
 
 </body>
 </html>

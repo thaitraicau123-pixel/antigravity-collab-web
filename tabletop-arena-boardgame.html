@@ -1492,11 +1492,6 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-300"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="currentColor" fill-opacity="0.25"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
             <span>Sảnh Game</span>
           </button>
-          <!-- [navTabArena removed]
-
-
-          </button>
-          -->
           <button id="navTabLeaderboard" onclick="switchMainTab('leaderboard')" class="btn-spring px-3 py-1.5 rounded-xl text-slate-700 hover:text-amber-600 hover:bg-amber-100/60 flex items-center gap-1.5 transition-all font-bold text-xs whitespace-nowrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-600"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1h10v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34"/><path d="M6 4h12v5a6 6 0 0 1-12 0V4z"/></svg>
             <span>Bảng Phong Thần</span>
@@ -1510,6 +1505,35 @@
             <span>Luật Chơi</span>
           </button>
         </nav>
+      </div>
+
+      <!-- Center: Arena Live Status & Season 1 Widget (Bố cục 3 cột vàng khoa học, cân đối, triệt tiêu khoảng trống thừa) -->
+      <div class="hidden xl:flex items-center justify-center flex-1 max-w-md mx-2">
+        <div class="flex items-center gap-2.5 px-3.5 py-1.5 rounded-2xl bg-white/90 border-2 border-emerald-300 shadow-xs text-xs font-black select-none hover:border-emerald-400 hover:shadow-sm transition-all cursor-default group" title="Đấu Trường Trực Tuyến • Mùa 1 Hoàng Kim">
+          <span class="relative flex h-2.5 w-2.5 shrink-0">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.9)]"></span>
+          </span>
+          <div class="flex items-center gap-1.5 text-slate-800">
+            <!-- ICON THIẾT KẾ RIÊNG BIỆT ĐỘC BẢN: Đấu Trường Cờ Hoàng Kim & Thanh Kiếm Giao Nhau (Inline SVG bespoke, không dùng Lucide hay Emoji) -->
+            <svg class="w-4 h-4 text-emerald-700 shrink-0 filter drop-shadow-[0_1px_2px_rgba(4,120,87,0.2)]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="liveSwordsGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#10B981"/>
+                  <stop offset="100%" stop-color="#047857"/>
+                </linearGradient>
+              </defs>
+              <path d="M14.5 4.5l5 5L7 22l-4-1 1-4 10.5-12.5z" stroke="url(#liveSwordsGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M18.5 8.5L15 5" stroke="#047857" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M9.5 4.5l-5 5L17 22l4-1-1-4L9.5 4.5z" stroke="url(#liveSwordsGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5.5 8.5L9 5" stroke="#047857" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="12" cy="12" r="1.5" fill="#F59E0B" stroke="#B45309" stroke-width="0.5"/>
+            </svg>
+            <span class="font-extrabold text-slate-800 tracking-tight whitespace-nowrap">1,420 Kỳ Thủ Đang Đấu</span>
+            <span class="text-slate-300 font-bold">•</span>
+            <span class="px-2 py-0.5 rounded-md bg-amber-100 border border-amber-300 text-amber-900 font-black text-[10px] font-mono tracking-wider uppercase whitespace-nowrap shadow-2xs group-hover:bg-amber-200/80 transition-colors">Mùa 1</span>
+          </div>
+        </div>
       </div>
 
       <!-- Right: Utility Controls & User Profile -->
@@ -4807,9 +4831,9 @@
 
       <div>
         <h4 class="font-bold text-slate-200 mb-2 uppercase text-[10px] tracking-wider font-cinzel">Hỗ Trợ & Điều Khoản</h4>
-        <ul class="space-y-1.5 text-[11px]">
+        <ul class="flex flex-col gap-1.5 text-[11px]">
           <li><button onclick="switchMainTab('rules')" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-cyan-400"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span>Hướng Dẫn & Luật Chơi</span></button></li>
-          <li><button onclick="openVersionModal()" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5 font-semibold text-cyan-400/90"><i data-lucide="git-pull-request" class="w-3.5 h-3.5 text-cyan-400"></i><span>Nhật Ký Phiên Bản (Changelog)</span><span class="text-[9px] font-mono font-black px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/40 ml-1">Admin</span></button></li>
+          <li id="footerChangelogItem" class="hidden"><button onclick="openVersionModal()" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5 font-semibold text-cyan-400/90"><i data-lucide="git-pull-request" class="w-3.5 h-3.5 text-cyan-400"></i><span>Nhật Ký Phiên Bản (Changelog)</span><span class="text-[9px] font-mono font-black px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/40 ml-1">Admin</span></button></li>
           <li><a href="#" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-slate-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Điều Khoản Dịch Vụ</span></a></li>
           <li><a href="#" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-slate-400"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Chính Sách Bảo Mật</span></a></li>
         </ul>
@@ -5245,56 +5269,56 @@
 
   <!-- ================= MODAL AVATAR CUSTOMIZER (8 LINH THÚ FLAT VECTOR) ================= -->
   <div id="avatarCustomizerModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
-    <div id="avatarCustomizerCard" class="w-full max-w-3xl tabletop-mat rounded-3xl p-5 sm:p-7 shadow-2xl border-2 border-amber-500/50 transform scale-90 transition-transform duration-300 relative max-h-[92vh] flex flex-col overflow-hidden">
+    <div id="avatarCustomizerCard" class="w-full max-w-2xl bg-white border-2 border-amber-400 rounded-3xl p-5 sm:p-7 shadow-2xl relative text-slate-800 max-h-[92vh] flex flex-col transform scale-95 transition-transform duration-300 overflow-hidden">
       <!-- Close Button with rotate & glow -->
-      <button type="button" onclick="closeModal('avatarCustomizerModal')" class="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 hover:rotate-90 transition-all duration-300 shadow-md group z-10" title="Đóng bảng tùy chỉnh">
+      <button type="button" onclick="closeModal('avatarCustomizerModal')" class="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 border border-slate-300 hover:rotate-90 transition-all duration-300 shadow-sm group z-10" title="Đóng bảng tùy chỉnh">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
 
       <!-- Modal Header -->
       <div class="text-center mb-4 sm:mb-5 shrink-0">
-        <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-500/20 via-yellow-500/20 to-amber-500/20 text-amber-300 border border-amber-500/40 text-[11px] font-black uppercase tracking-wider mb-2 shadow-sm">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-3.5 h-3.5 text-amber-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-[11px] font-black uppercase tracking-wider mb-2 shadow-sm">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-3.5 h-3.5 text-amber-600"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           <span>KHO LINH THÚ HUYỀN THOẠI</span>
         </div>
-        <h3 class="font-cinzel text-xl sm:text-2xl font-black text-white tracking-wide">Bộ Sưu Tập Avatar 8 Linh Thú Độc Bản</h3>
-        <p class="text-xs text-slate-400 mt-1 max-w-lg mx-auto">Phong cách Flat Minimalist Geometric Vector chuẩn Vibe Ảnh 3 • Sắc nét đa giác, tỏa sáng rực rỡ tại hồ sơ và mọi đấu trường</p>
+        <h3 class="font-cinzel text-xl sm:text-2xl font-black text-slate-900 tracking-wide">Bộ Sưu Tập Avatar 8 Linh Thú Độc Bản</h3>
+        <p class="text-xs text-slate-600 font-medium mt-1 max-w-lg mx-auto">Phong cách Flat Minimalist Geometric Vector chuẩn Vibe Ảnh 3 • Sắc nét đa giác, tỏa sáng rực rỡ tại hồ sơ và mọi đấu trường</p>
       </div>
 
       <!-- Live Preview Hero Banner -->
-      <div class="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-slate-900/90 via-amber-950/30 to-slate-900/90 border border-amber-500/35 mb-4 shrink-0 shadow-lg flex items-center gap-3.5 sm:gap-5">
+      <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-50 border-2 border-slate-200 mb-4 shrink-0 shadow-sm flex items-center gap-3.5 sm:gap-5">
         <div class="relative shrink-0">
-          <div id="avatarCustomizerPreviewBox" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border-2 border-amber-400 shadow-xl overflow-hidden p-0 relative bg-slate-950 flex items-center justify-center">
+          <div id="avatarCustomizerPreviewBox" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border-2 border-amber-400 shadow-md overflow-hidden p-0 relative bg-slate-100 flex items-center justify-center">
             <!-- Dynamic SVG Preview injected here -->
           </div>
-          <div id="avatarPreviewAura" class="absolute -inset-1 rounded-2xl bg-amber-400/30 filter blur-md -z-10 animate-pulse"></div>
+          <div id="avatarPreviewAura" class="absolute -inset-1 rounded-2xl bg-amber-400/20 filter blur-md -z-10 animate-pulse"></div>
         </div>
         <div class="min-w-0 flex-1">
           <div class="flex items-center gap-2 flex-wrap mb-1">
-            <h4 id="avatarCustomizerName" class="font-cinzel text-base sm:text-lg font-black text-amber-300">Rồng Lửa Ruby</h4>
-            <span id="avatarCustomizerElementBadge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/40">Hệ Lửa Thiêng</span>
-            <span id="avatarCustomizerActiveBadge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hidden">Đang Kích Hoạt</span>
+            <h4 id="avatarCustomizerName" class="font-cinzel text-base sm:text-lg font-black text-slate-900">Rồng Lửa Ruby</h4>
+            <span id="avatarCustomizerElementBadge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-red-100 text-red-800 border border-red-300">Hệ Lửa Thiêng</span>
+            <span id="avatarCustomizerActiveBadge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 hidden">Đang Kích Hoạt</span>
           </div>
-          <div id="avatarCustomizerTitle" class="text-xs font-semibold text-slate-300 font-mono">Huyền Thoại Bất Diệt • Chuẩn Vibe Ảnh 3</div>
-          <p id="avatarCustomizerDesc" class="text-[11px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">Linh thú rồng lửa uy nghi với cặp sừng hoàng kim và ánh mắt rực cháy chuẩn phong cách Đa Giác Tối Giản sắc sảo.</p>
+          <div id="avatarCustomizerTitle" class="text-xs font-bold text-slate-700 font-mono">Huyền Thoại Bất Diệt • Chuẩn Vibe Ảnh 3</div>
+          <p id="avatarCustomizerDesc" class="text-[11px] text-slate-600 mt-1 line-clamp-2 leading-relaxed">Linh thú rồng lửa uy nghi với cặp sừng hoàng kim và ánh mắt rực cháy chuẩn phong cách Đa Giác Tối Giản sắc sảo.</p>
         </div>
       </div>
 
       <!-- Grid of 8 Beast Avatars -->
-      <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center justify-between shrink-0">
+      <div class="text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center justify-between shrink-0">
         <span>Chọn Linh Thú Đại Diện (8 Độc Bản)</span>
-        <span class="text-amber-400 text-[10px] font-normal">Nhấp để xem trước & nghe hiệu ứng</span>
+        <span class="text-amber-700 text-[10px] font-semibold">Nhấp để xem trước & nghe hiệu ứng</span>
       </div>
       <div id="beastAvatarsGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3.5 overflow-y-auto p-1 max-h-[250px] sm:max-h-[280px] custom-scrollbar flex-1 mb-4">
         <!-- 8 Beast Cards dynamically rendered here -->
       </div>
 
       <!-- Action Footer -->
-      <div class="pt-3 border-t border-slate-800 shrink-0 flex items-center justify-between gap-3">
-        <button type="button" onclick="closeModal('avatarCustomizerModal')" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition-all border border-slate-700 cursor-pointer">
+      <div class="pt-3 border-t border-slate-200 shrink-0 flex items-center justify-between gap-3">
+        <button type="button" onclick="closeModal('avatarCustomizerModal')" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all border border-slate-300 cursor-pointer">
           Để Sau
         </button>
-        <button type="button" onclick="applySelectedBeastAvatar()" id="btnApplyBeastAvatar" class="btn-spring px-5 sm:px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-500 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm shadow-lg shadow-amber-500/30 flex items-center gap-2 border border-amber-300 cursor-pointer">
+        <button type="button" onclick="applySelectedBeastAvatar()" id="btnApplyBeastAvatar" class="btn-spring px-5 sm:px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-500 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm shadow-md flex items-center gap-2 border border-amber-400 cursor-pointer">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><polyline points="20 6 9 17 4 12"/></svg>
           <span>Áp Dụng Avatar Linh Thú</span>
         </button>
@@ -8277,18 +8301,26 @@
         }
       }
 
-      // Quản lý hiển thị nút Version Pill trên Topbar: Chỉ Admin mới thấy
+      // Quản lý hiển thị nút Version Pill trên Topbar & Footer: Chỉ Admin mới thấy
+      const isAdmin = (typeof window.checkAdminChangelogAccess === 'function') 
+        ? window.checkAdminChangelogAccess() 
+        : (userData && (userData.role === 'Admin' || (userData.email && (userData.email.toLowerCase() === 'minhcuong111@gmail.com' || userData.email.toLowerCase() === 'thaitraicau123@gmail.com'))));
       const headerVersionPillBtn = document.getElementById('headerVersionPillBtn');
       if (headerVersionPillBtn) {
-        const isAdmin = (typeof window.checkAdminChangelogAccess === 'function') 
-          ? window.checkAdminChangelogAccess() 
-          : (userData && (userData.role === 'Admin' || (userData.email && (userData.email.toLowerCase() === 'minhcuong111@gmail.com' || userData.email.toLowerCase() === 'thaitraicau123@gmail.com'))));
         if (isAdmin) {
           headerVersionPillBtn.classList.remove('hidden');
           headerVersionPillBtn.classList.add('sm:flex');
         } else {
           headerVersionPillBtn.classList.add('hidden');
           headerVersionPillBtn.classList.remove('sm:flex');
+        }
+      }
+      const footerChangelogItem = document.getElementById('footerChangelogItem');
+      if (footerChangelogItem) {
+        if (isAdmin) {
+          footerChangelogItem.classList.remove('hidden');
+        } else {
+          footerChangelogItem.classList.add('hidden');
         }
       }
       if (typeof window.syncVersionModalAdminGuard === 'function') {
@@ -8309,6 +8341,10 @@
       if (headerVersionPillBtn) {
         headerVersionPillBtn.classList.add('hidden');
         headerVersionPillBtn.classList.remove('sm:flex');
+      }
+      const footerChangelogItem = document.getElementById('footerChangelogItem');
+      if (footerChangelogItem) {
+        footerChangelogItem.classList.add('hidden');
       }
       if (typeof window.syncVersionModalAdminGuard === 'function') {
         window.syncVersionModalAdminGuard();
@@ -18288,13 +18324,13 @@ function renderCashStackHTML(amount) {
         const isSelected = (b.id === window.selectedPreviewBeastId);
         const isCurrentActive = (b.id === activeSaved);
         return `
-          <button type="button" onclick="selectBeastAvatar('${b.id}')" id="beastCard_${b.id}" class="rounded-2xl p-2.5 sm:p-3 bg-slate-900/90 border ${isSelected ? 'border-amber-400 ring-4 ring-amber-400/80 shadow-[0_0_20px_rgba(245,158,11,0.45)] bg-amber-950/40 scale-[1.02]' : 'border-slate-700/80 hover:border-amber-400/60'} transition-all duration-200 cursor-pointer flex flex-col items-center group relative text-center active:scale-95">
-            ${isCurrentActive ? '<span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded-full bg-emerald-500/30 text-emerald-300 border border-emerald-400/50 text-[8px] font-black uppercase tracking-wider shadow">Đang Dùng</span>' : ''}
-            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden p-0 relative border ${isSelected ? 'border-amber-400' : 'border-slate-700'} group-hover:scale-105 transition-transform duration-200 shadow-md mb-2 flex items-center justify-center bg-slate-950">
+          <button type="button" onclick="selectBeastAvatar('${b.id}')" id="beastCard_${b.id}" class="${isSelected ? 'rounded-2xl p-2.5 sm:p-3 bg-amber-50/80 border-2 border-amber-500 ring-4 ring-amber-400/40 shadow-md scale-[1.02] transition-all duration-200 cursor-pointer flex flex-col items-center group relative text-center active:scale-95' : 'rounded-2xl p-2.5 sm:p-3 bg-white border-2 border-slate-200 hover:border-amber-400 hover:shadow-sm transition-all duration-200 cursor-pointer flex flex-col items-center group relative text-center active:scale-95'}">
+            ${isCurrentActive ? '<span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 text-[8px] font-black uppercase tracking-wider shadow-xs">Đang Dùng</span>' : ''}
+            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden p-0 relative border ${isSelected ? 'border-amber-400' : 'border-slate-300'} group-hover:scale-105 transition-transform duration-200 shadow-xs mb-2 flex items-center justify-center bg-slate-100">
               ${b.svg}
             </div>
-            <div class="font-cinzel text-xs font-black ${isSelected ? 'text-amber-300' : 'text-white'} group-hover:text-amber-300 transition-colors line-clamp-1">${b.name}</div>
-            <div class="text-[9px] font-semibold text-slate-400 line-clamp-1 mt-0.5 font-mono">${b.element}</div>
+            <div class="font-cinzel text-xs font-black ${isSelected ? 'text-amber-900' : 'text-slate-900'} group-hover:text-amber-700 transition-colors line-clamp-1">${b.name}</div>
+            <div class="text-[9px] font-bold ${isSelected ? 'text-amber-800' : 'text-slate-600'} line-clamp-1 mt-0.5 font-mono">${b.element}</div>
           </button>
         `;
       }).join('');
@@ -18319,7 +18355,17 @@ function renderCashStackHTML(amount) {
       const pElem = document.getElementById('avatarCustomizerElementBadge');
       if (pElem) {
         pElem.textContent = beast.element;
-        pElem.className = `text-[10px] font-black px-2 py-0.5 rounded-full ${beast.badgeCls}`;
+        const badgeLightMap = {
+          'fire_dragon': 'bg-red-100 text-red-800 border-red-300',
+          'frost_kirin': 'bg-cyan-100 text-cyan-800 border-cyan-300',
+          'white_tiger': 'bg-indigo-100 text-indigo-800 border-indigo-300',
+          'solar_phoenix': 'bg-amber-100 text-amber-800 border-amber-300',
+          'mystic_fox': 'bg-purple-100 text-purple-800 border-purple-300',
+          'shadow_wolf': 'bg-slate-200 text-slate-800 border-slate-300',
+          'storm_bear': 'bg-blue-100 text-blue-800 border-blue-300',
+          'golden_eagle': 'bg-yellow-100 text-yellow-800 border-yellow-400'
+        };
+        pElem.className = `text-[10px] font-black px-2 py-0.5 rounded-full border ${badgeLightMap[beast.id] || 'bg-amber-100 text-amber-900 border-amber-300'}`;
       }
       const pAct = document.getElementById('avatarCustomizerActiveBadge');
       if (pAct) {
@@ -18338,10 +18384,23 @@ function renderCashStackHTML(amount) {
       window.BEAST_AVATARS.forEach(b => {
         const card = document.getElementById('beastCard_' + b.id);
         if (card) {
-          if (b.id === beastId) {
-            card.className = 'rounded-2xl p-2.5 sm:p-3 bg-slate-900/90 border border-amber-400 ring-4 ring-amber-400/80 shadow-[0_0_20px_rgba(245,158,11,0.45)] bg-amber-950/40 scale-[1.02] transition-all duration-200 cursor-pointer flex flex-col items-center group relative text-center active:scale-95';
+          const isSelected = (b.id === beastId);
+          if (isSelected) {
+            card.className = 'rounded-2xl p-2.5 sm:p-3 bg-amber-50/80 border-2 border-amber-500 ring-4 ring-amber-400/40 shadow-md scale-[1.02] transition-all duration-200 cursor-pointer flex flex-col items-center group relative text-center active:scale-95';
           } else {
-            card.className = 'rounded-2xl p-2.5 sm:p-3 bg-slate-900/90 border border-slate-700/80 hover:border-amber-400/60 transition-all duration-200 cursor-pointer flex flex-col items-center group relative text-center active:scale-95';
+            card.className = 'rounded-2xl p-2.5 sm:p-3 bg-white border-2 border-slate-200 hover:border-amber-400 hover:shadow-sm transition-all duration-200 cursor-pointer flex flex-col items-center group relative text-center active:scale-95';
+          }
+          const nameEl = card.querySelector('.font-cinzel');
+          if (nameEl) {
+            nameEl.className = `font-cinzel text-xs font-black ${isSelected ? 'text-amber-900' : 'text-slate-900'} group-hover:text-amber-700 transition-colors line-clamp-1`;
+          }
+          const elemEl = card.querySelector('.font-mono');
+          if (elemEl) {
+            elemEl.className = `text-[9px] font-bold ${isSelected ? 'text-amber-800' : 'text-slate-600'} line-clamp-1 mt-0.5 font-mono`;
+          }
+          const boxEl = card.querySelector('div.rounded-xl');
+          if (boxEl) {
+            boxEl.className = `w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden p-0 relative border ${isSelected ? 'border-amber-400' : 'border-slate-300'} group-hover:scale-105 transition-transform duration-200 shadow-xs mb-2 flex items-center justify-center bg-slate-100`;
           }
         }
       });
@@ -22148,6 +22207,16 @@ function renderCashStackHTML(amount) {
         } else {
           headerVersionPillBtn.classList.add('hidden');
           headerVersionPillBtn.classList.remove('sm:flex');
+        }
+      }
+
+      // Đồng bộ hiển thị nút Changelog ở Footer: Chỉ Admin mới thấy
+      const footerChangelogItem = document.getElementById('footerChangelogItem');
+      if (footerChangelogItem) {
+        if (isAdmin) {
+          footerChangelogItem.classList.remove('hidden');
+        } else {
+          footerChangelogItem.classList.add('hidden');
         }
       }
 

@@ -1615,10 +1615,10 @@
   </header>
 
   <!-- ================= MAIN CONTENT VIEWPORT ================= -->
-  <div class="flex-1 flex flex-col justify-start items-center p-3 sm:p-6 w-full max-w-7xl mx-auto">
+  <div class="flex-1 flex flex-col justify-start items-center p-3 sm:p-6 w-full max-w-[1680px] mx-auto">
 
         <!-- ================= VIEWPORT 0: MAIN LOBBY / MENU CHÍNH ================= -->
-    <div id="mainViewLobby" class="w-full max-w-6xl flex flex-col items-center animate-fade-in">
+    <div id="mainViewLobby" class="w-full max-w-[1620px] flex flex-col items-center animate-fade-in">
       
       <!-- Lobby Hero Header -->
       <div class="w-full text-center mb-8 pt-2 relative">
@@ -1660,208 +1660,197 @@
         </div>
       </div>
 
-      <!-- Bento Grid of Games -->
-      <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 mb-8">
+      <!-- Bento Grid of Games (Bố cục khoa học 5 Đấu Trường, Chữ 100% Không Xuống Dòng) -->
+      <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-5 mb-8">
         
         <!-- GAME CARD 1: XÚC XẮC 12 Ô -->
         <style>#diceLobbyCard svg.lucide-check-circle-2, #diceLobbyCard i[data-lucide="check-circle-2"] { color: #f59e0b !important; }</style>
-        <div id="diceLobbyCard" class="group relative tabletop-mat rounded-3xl p-6 border-2 border-amber-400/70 hover:border-amber-500 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-500/25 flex flex-col justify-between overflow-hidden [&_.lucide-check-circle-2]:!text-amber-500 [&_i]:!text-amber-500">
+        <div id="diceLobbyCard" class="group relative tabletop-mat rounded-3xl p-4 sm:p-5 border-2 border-amber-400/80 hover:border-amber-500 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-500/25 flex flex-col justify-between overflow-hidden [&_.lucide-check-circle-2]:!text-amber-500 [&_i]:!text-amber-500">
           <div class="absolute -right-10 -top-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-500/20 transition-all"></div>
           
           <div>
             <!-- Top Tag & Icon -->
-            <div class="flex items-center justify-between mb-4">
-              <span class="px-2.5 py-1 rounded-xl bg-amber-500 text-white font-black text-[11px] shadow-sm uppercase tracking-wider font-mono inline-flex items-center gap-1">
-                <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 text-white inline mr-0.5"><path d="M12 2c-.2 2.3-1.8 4.2-3.2 5.8-1.5 1.7-2.8 3.5-2.8 5.7 0 4.1 3.4 7.5 7.5 7.5s7.5-3.4 7.5-7.5c0-1.8-.8-3.4-1.9-4.7-.4-.5-.9-1-1.3-1.6-1-1.4-1.6-3.1-1.8-4.9-1.3 1.2-2.7 2.7-3 4.5-.4 2.1-.1 4.1.3 6.2-1.3-.8-2.3-2-2.7-3.5-.4-1.6-.2-3.3.4-4.8.4-1 .8-1.8 1-2.7z"/></svg>PHỔ BIẾN NHẤT
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded-xl bg-amber-500 text-white font-black text-[10px] sm:text-[11px] shadow-sm uppercase tracking-wider font-mono inline-flex items-center gap-1 whitespace-nowrap">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 text-white inline mr-0.5"><path d="M12 2c-.2 2.3-1.8 4.2-3.2 5.8-1.5 1.7-2.8 3.5-2.8 5.7 0 4.1 3.4 7.5 7.5 7.5s7.5-3.4 7.5-7.5c0-1.8-.8-3.4-1.9-4.7-.4-.5-.9-1-1.3-1.6-1-1.4-1.6-3.1-1.8-4.9-1.3 1.2-2.7 2.7-3 4.5-.4 2.1-.1 4.1.3 6.2-1.3-.8-2.3-2-2.7-3.5-.4-1.6-.2-3.3.4-4.8.4-1 .8-1.8 1-2.7z"/></svg>PHỔ BIẾN
               </span>
-              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-700/20 border-2 border-amber-500/50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                <svg viewBox="0 0 32 32" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(245,158,11,0.7)]" fill="none"><polygon points="16,3 28,9 16,15 4,9" fill="url(#diceTopGrad)" stroke="#FEF08A" stroke-width="0.8"/><circle cx="16" cy="9" r="1.5" fill="#78350F"/><polygon points="4,9 16,15 16,29 4,23" fill="url(#diceLeftGrad)" stroke="#B45309" stroke-width="0.8"/><circle cx="8" cy="14" r="1.2" fill="#FDE68A"/><circle cx="12" cy="22" r="1.2" fill="#FDE68A"/><polygon points="16,15 28,9 28,23 16,29" fill="url(#diceRightGrad)" stroke="#D97706" stroke-width="0.8"/><circle cx="20" cy="18" r="1.2" fill="#78350F"/><circle cx="24" cy="14" r="1.2" fill="#78350F"/><circle cx="24" cy="22" r="1.2" fill="#78350F"/></svg>
+              <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-700/20 border-2 border-amber-500/50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform shrink-0">
+                <svg viewBox="0 0 32 32" class="w-6 h-6 filter drop-shadow-[0_0_8px_rgba(245,158,11,0.7)]" fill="none"><polygon points="16,3 28,9 16,15 4,9" fill="url(#diceTopGrad)" stroke="#FEF08A" stroke-width="0.8"/><circle cx="16" cy="9" r="1.5" fill="#78350F"/><polygon points="4,9 16,15 16,29 4,23" fill="url(#diceLeftGrad)" stroke="#B45309" stroke-width="0.8"/><circle cx="8" cy="14" r="1.2" fill="#FDE68A"/><circle cx="12" cy="22" r="1.2" fill="#FDE68A"/><polygon points="16,15 28,9 28,23 16,29" fill="url(#diceRightGrad)" stroke="#D97706" stroke-width="0.8"/><circle cx="20" cy="18" r="1.2" fill="#78350F"/><circle cx="24" cy="14" r="1.2" fill="#78350F"/><circle cx="24" cy="22" r="1.2" fill="#78350F"/></svg>
               </div>
             </div>
 
             <!-- Game Title & Info -->
-            <h3 class="font-cinzel text-xl font-black text-slate-900 mb-1.5 group-hover:text-amber-600 transition-colors tracking-tight">
+            <h3 class="font-cinzel text-base sm:text-lg font-black text-slate-900 mb-1 group-hover:text-amber-600 transition-colors tracking-tight whitespace-nowrap truncate" title="Xúc Xắc 12 Ô Hoàng Kim">
               Xúc Xắc 12 Ô Hoàng Kim
             </h3>
-            <p class="text-xs text-slate-600 font-semibold mb-4 font-sans line-clamp-2 leading-relaxed">
-              Đua điểm 50đ qua 12 ô cạm bẫy & kho báu hoàng gia. Tranh tài cùng 3 linh thú AI tinh quái hoặc chế độ quan sát 100x.
+            <p class="text-[11px] text-slate-600 font-semibold mb-3 font-sans truncate" title="Đua điểm 50 qua 12 ô cạm bẫy & kho báu hoàng gia cùng 3 AI tinh quái.">
+              Đua 50đ qua 12 ô cạm bẫy & kho báu hoàng gia.
             </p>
 
             <!-- Feature Bullet List -->
-            <div class="space-y-2 mb-6 text-xs text-slate-800 font-bold">
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0"></i>
-                <span>1 - 4 Đấu thủ (Solo, 3 BOT, 2 Người)</span>
+            <div class="space-y-1.5 mb-5 text-[11px] text-slate-800 font-bold">
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
+                <span class="truncate">1 - 4 Đấu thủ (Solo, BOT, 2 Người)</span>
               </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0"></i>
-                <span>Chuẩn hóa tốc độ 1x, 2x, 3x mượt mà 60fps</span>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
+                <span class="truncate">Chuẩn hóa tốc độ 1x, 2x, 3x mượt mà</span>
               </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0"></i>
-                <span>Thống kê tỷ lệ thắng BOT thời gian thực</span>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
+                <span class="truncate">Thống kê tỷ lệ thắng thời gian thực</span>
               </div>
             </div>
           </div>
 
           <!-- Play Button -->
-          <button onclick="enterGameFromLobby('dice')" class="btn-spring w-full py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/35 border-2 border-amber-600 transition-all cursor-pointer">
-            <i data-lucide="play" class="w-4 h-4 fill-white text-white"></i>
+          <button onclick="enterGameFromLobby('dice')" class="btn-spring w-full py-2.5 sm:py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-amber-500/35 border-2 border-amber-600 transition-all cursor-pointer whitespace-nowrap">
+            <i data-lucide="play" class="w-3.5 h-3.5 fill-white text-white"></i>
             <span>VÀO BÀN ĐẤU NGAY</span>
           </button>
         </div>
 
         <!-- GAME CARD 2: CỜ VUA HOÀNG GIA -->
-        <div class="group relative tabletop-mat rounded-3xl p-6 border-2 border-indigo-400/70 hover:border-indigo-600 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/25 flex flex-col justify-between overflow-hidden">
+        <div class="group relative tabletop-mat rounded-3xl p-4 sm:p-5 border-2 border-indigo-400/80 hover:border-indigo-600 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/25 flex flex-col justify-between overflow-hidden">
           <div class="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-indigo-500/20 transition-all"></div>
-
+          
           <div>
-            <!-- Top Tag & Icon -->
-            <div class="flex items-center justify-between mb-4">
-              <span class="px-2.5 py-1 rounded-xl bg-indigo-600 text-white font-black text-[11px] shadow-sm uppercase tracking-wider font-mono inline-flex items-center gap-1">
-                ⭐ CHUẨN QUỐC TẾ FIDE
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded-xl bg-indigo-600 text-white font-black text-[10px] sm:text-[11px] shadow-sm uppercase tracking-wider font-mono whitespace-nowrap">
+                FIDE CHUẨN
               </span>
-              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-indigo-700/20 border-2 border-indigo-500/50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                <svg viewBox="0 0 32 32" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(99,102,241,0.7)]" fill="none"><path d="M7 28h18c-1-3-2-4-3-6-1-1-1-3 0-5 1-2 2-4 2-7 0-4-3-6-7-6-2 0-3 1-5 3-1-1-3-1-4 0-1 1-1 3-1 4 0 2 1 3 2 4l-1 2c-2 2-3 4-2 7 0 1 0 2 0 4h-1z" fill="url(#chessGrad)" stroke="#C7D2FE" stroke-width="1"/><circle cx="13" cy="12" r="1.2" fill="#E0E7FF"/><path d="M10 28h12v2H10z" fill="#818CF8"/><path d="M14 6l1-2 2 1-1 2" stroke="#FDE68A" stroke-width="1.2" stroke-linecap="round"/></svg>
+              <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-purple-700/20 border-2 border-indigo-500/50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform shrink-0">
+                <svg viewBox="0 0 32 32" class="w-6 h-6 filter drop-shadow-[0_0_8px_rgba(99,102,241,0.7)]" fill="none"><path d="M7 28h18c-1-3-2-4-3-6-1-1-1-3 0-5 1-2 2-4 2-7 0-4-3-6-7-6-2 0-3 1-5 3-1-1-3-1-4 0-1 1-1 3-1 4 0 2 1 3 2 4l-1 2c-2 2-3 4-2 7 0 1 0 2 0 4h-1z" fill="url(#chessGrad)" stroke="#C7D2FE" stroke-width="1"/><circle cx="13" cy="12" r="1.2" fill="#E0E7FF"/><path d="M10 28h12v2H10z" fill="#818CF8"/></svg>
               </div>
             </div>
 
-            <!-- Game Title & Info -->
-            <h3 class="font-cinzel text-xl font-black text-slate-900 mb-1.5 group-hover:text-indigo-600 transition-colors tracking-tight">
+            <h3 class="font-cinzel text-base sm:text-lg font-black text-slate-900 mb-1 group-hover:text-indigo-600 transition-colors tracking-tight whitespace-nowrap truncate" title="Cờ Vua Hoàng Gia (8x8)">
               Cờ Vua Hoàng Gia (8x8)
             </h3>
-            <p class="text-xs text-slate-600 font-semibold mb-4 font-sans line-clamp-2 leading-relaxed">
-              Đấu trường cờ vua tiêu chuẩn FIDE 64 ô. Đấu trí 4 cấp độ Elo BOT từ Tập sự (800) tới Huyền thoại (2000+).
+            <p class="text-[11px] text-slate-600 font-semibold mb-3 font-sans truncate" title="Đấu trí chiến thuật vương giả FIDE với 4 cấp độ bot Stockfish thông minh.">
+              Đấu trí chiến thuật vương giả FIDE chuẩn 8x8.
             </p>
 
-            <!-- Feature Bullet List -->
-            <div class="space-y-2 mb-6 text-xs text-slate-800 font-bold">
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-600 shrink-0"></i>
-                <span>4 Cấp độ Elo BOT (800 ➔ 2000+)</span>
+            <div class="space-y-1.5 mb-5 text-[11px] text-slate-800 font-bold">
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-indigo-600 shrink-0"></i>
+                <span class="truncate">Chuẩn thi đấu FIDE quốc tế 8x8</span>
               </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-600 shrink-0"></i>
-                <span>Gợi ý nước đi & phân tích lợi thế</span>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-indigo-600 shrink-0"></i>
+                <span class="truncate">4 Cấp độ Bot AI từ 800 - 2400 Elo</span>
               </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-600 shrink-0"></i>
-                <span>Luật FIDE: Nhập thành, bắt tốt, phong cấp</span>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-indigo-600 shrink-0"></i>
+                <span class="truncate">Lưu biên bản & gợi ý nước đi</span>
               </div>
             </div>
           </div>
 
-          <!-- Play Button -->
-          <button onclick="enterGameFromLobby('chess')" class="btn-spring w-full py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/35 border-2 border-indigo-700 transition-all cursor-pointer">
-            <i data-lucide="play" class="w-4 h-4 fill-white text-white"></i>
-            <span>VÀO BÀN ĐẤU NGAY</span>
+          <button onclick="enterGameFromLobby('chess')" class="btn-spring w-full py-2.5 sm:py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-indigo-600/35 border-2 border-indigo-700 transition-all cursor-pointer whitespace-nowrap">
+            <i data-lucide="play" class="w-3.5 h-3.5 fill-white text-white"></i>
+            <span>VÀO BÀN CỜ VUA</span>
           </button>
         </div>
 
         <!-- GAME CARD 3: CỜ CA-RÔ NEON -->
-        <div class="group relative tabletop-mat rounded-3xl p-6 border-2 border-cyan-400/70 hover:border-cyan-600 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/25 flex flex-col justify-between overflow-hidden">
+        <div class="group relative tabletop-mat rounded-3xl p-4 sm:p-5 border-2 border-cyan-400/80 hover:border-cyan-600 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/25 flex flex-col justify-between overflow-hidden">
           <div class="absolute -right-10 -top-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-500/20 transition-all"></div>
-
-          <div>
-            <!-- Top Tag & Icon -->
-            <div class="flex items-center justify-between mb-4">
-              <span class="px-2.5 py-1 rounded-xl bg-cyan-600 text-white font-black text-[11px] shadow-sm uppercase tracking-wider font-mono inline-flex items-center gap-1">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-white inline mr-0.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor" fill-opacity="0.3"/></svg>ĐẤU TRÍ CHỚP NHOÁNG
-              </span>
-              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-700/20 border-2 border-cyan-500/50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                <svg viewBox="0 0 32 32" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(6,182,212,0.7)]" fill="none"><line x1="6" y1="7" x2="18" y2="19" stroke="url(#xGrad)" stroke-width="3.2" stroke-linecap="round"/><line x1="18" y1="7" x2="6" y2="19" stroke="url(#xGrad)" stroke-width="3.2" stroke-linecap="round"/><circle cx="21" cy="20" r="7.5" stroke="url(#oGrad)" stroke-width="2.8" fill="none"/><circle cx="21" cy="20" r="3" fill="#F43F5E" opacity="0.25"/></svg>
-              </div>
-            </div>
-
-            <!-- Game Title & Info -->
-            <h3 class="font-cinzel text-xl font-black text-slate-900 mb-1.5 group-hover:text-cyan-600 transition-colors tracking-tight">
-              Cờ Ca-rô Neon (3x3)
-            </h3>
-            <p class="text-xs text-slate-600 font-semibold mb-4 font-sans line-clamp-2 leading-relaxed">
-              Đấu trường Ca-rô Neon 3 nước thẳng hàng cùng Trí Tuệ Nhân Tạo Minimax hoặc 2 người chơi so tài chớp nhoáng.
-            </p>
-
-            <!-- Feature Bullet List -->
-            <div class="space-y-2 mb-6 text-xs text-slate-800 font-bold">
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-cyan-600 shrink-0"></i>
-                <span>Thuật toán Minimax AI tính toán</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-cyan-600 shrink-0"></i>
-                <span>Chế độ 1 Người với Máy hoặc 2 Người</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-cyan-600 shrink-0"></i>
-                <span>Hiệu ứng phát quang Cyber Neon 60fps</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Play Button -->
-          <button onclick="enterGameFromLobby('tictactoe')" class="btn-spring w-full py-3 rounded-2xl bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-500 hover:to-cyan-600 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-600/35 border-2 border-cyan-700 transition-all cursor-pointer">
-            <i data-lucide="play" class="w-4 h-4 fill-white text-white"></i>
-            <span>VÀO BÀN ĐẤU NGAY</span>
-          </button>
-        </div>
-        <!-- GAME CARD 4: CỜ TỶ PHÚ HOÀNG GIA (2.5D ISOMETRIC) -->
-        <div class="group relative tabletop-mat rounded-3xl p-6 border-2 border-emerald-400/70 hover:border-emerald-500 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/25 flex flex-col justify-between overflow-hidden">
-          <div class="absolute -right-10 -top-10 w-40 h-40 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/25 transition-all"></div>
           
           <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="px-2.5 py-1 rounded-xl bg-emerald-600 text-white font-black text-[11px] shadow-sm uppercase tracking-wider font-mono inline-flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span> SIÊU PHẨM 2.5D
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded-xl bg-cyan-600 text-white font-black text-[10px] sm:text-[11px] shadow-sm uppercase tracking-wider font-mono whitespace-nowrap">
+                3X3 ARENA
               </span>
-              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-700/20 border-2 border-emerald-500/50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                <svg viewBox="0 0 32 32" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(16,185,129,0.7)]" fill="none"><polygon points="16,3 23,7 16,11 9,7" fill="url(#monoRoof)" stroke="#FDE68A" stroke-width="0.7"/><polygon points="9,7 16,11 16,28 9,24" fill="url(#monoTower1)" stroke="#059669" stroke-width="0.7"/><polygon points="16,11 23,7 23,24 16,28" fill="url(#monoTower2)" stroke="#047857" stroke-width="0.7"/><line x1="12" y1="13" x2="14" y2="14" stroke="#FDE68A" stroke-width="1.2"/><line x1="12" y1="18" x2="14" y2="19" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="14" x2="20" y2="13" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="19" x2="20" y2="18" stroke="#FDE68A" stroke-width="1.2"/><polygon points="4,13 9,10 9,24 4,27" fill="#047857" stroke="#10B981" stroke-width="0.6"/><polygon points="23,10 28,13 28,27 23,24" fill="#065F46" stroke="#10B981" stroke-width="0.6"/></svg>
+              <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-teal-700/20 border-2 border-cyan-500/50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform shrink-0">
+                <svg viewBox="0 0 32 32" class="w-6 h-6 filter drop-shadow-[0_0_8px_rgba(6,182,212,0.7)]" fill="none"><line x1="6" y1="7" x2="18" y2="19" stroke="url(#xGrad)" stroke-width="3" stroke-linecap="round"/><line x1="18" y1="7" x2="6" y2="19" stroke="url(#xGrad)" stroke-width="3" stroke-linecap="round"/><circle cx="21" cy="20" r="7" stroke="url(#oGrad)" stroke-width="2.5" fill="none"/></svg>
               </div>
             </div>
 
-            <h3 class="font-cinzel text-xl font-black text-slate-900 mb-1.5 group-hover:text-emerald-600 transition-colors tracking-tight">
-              Cờ Tỷ Phú 2.5D
+            <h3 class="font-cinzel text-base sm:text-lg font-black text-slate-900 mb-1 group-hover:text-cyan-600 transition-colors tracking-tight whitespace-nowrap truncate" title="Cờ Ca-rô Neon (3x3)">
+              Cờ Ca-rô Neon (3x3)
             </h3>
-            <p class="text-xs text-slate-600 font-semibold mb-4 font-sans line-clamp-2 leading-relaxed">
-              Đấu trường bất động sản góc nhìn 2.5D Isometric. Đổ 2 xúc xắc, mua đất, xây biệt thự, dựng Landmark và thâu tóm phá sản đối thủ!
+            <p class="text-[11px] text-slate-600 font-semibold mb-3 font-sans truncate" title="Đấu trí 3 nước thẳng hàng đỉnh cao, chế độ 2 người hoặc đấu với bot.">
+              Đấu trí 3 nước thẳng hàng đỉnh cao & nhanh gọn.
             </p>
 
-            <div class="space-y-2 mb-6 text-xs text-slate-800 font-bold">
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0"></i>
-                <span>Góc nhìn 2.5D Isometric 3D nổi bật</span>
+            <div class="space-y-1.5 mb-5 text-[11px] text-slate-800 font-bold">
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-cyan-600 shrink-0"></i>
+                <span class="truncate">Bàn cờ ma trận 3x3 tactile cực nhạy</span>
               </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0"></i>
-                <span>Đổ 2 Xúc Xắc 3D & Cơ chế Double</span>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-cyan-600 shrink-0"></i>
+                <span class="truncate">AI Minimax Cơ Bản & Bất Bại 🔥</span>
               </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0"></i>
-                <span>Xây Landmark & Thâu tóm đối thủ</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0"></i>
-                <span>Vòng quay Sticker Emoji thả biểu cảm</span>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-cyan-600 shrink-0"></i>
+                <span class="truncate">Thống kê tỉ số Thắng/Hòa/Thua</span>
               </div>
             </div>
           </div>
 
-          <button onclick="enterGameFromLobby('monopoly')" class="btn-spring w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/35 border-2 border-emerald-700 transition-all cursor-pointer">
-            <i data-lucide="play" class="w-4 h-4 fill-white text-white"></i>
-            <span>VÀO BÀN ĐẤU NGAY</span>
+          <button onclick="enterGameFromLobby('tictactoe')" class="btn-spring w-full py-2.5 sm:py-3 rounded-2xl bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-cyan-600/35 border-2 border-cyan-600 transition-all cursor-pointer whitespace-nowrap">
+            <i data-lucide="play" class="w-3.5 h-3.5 fill-white text-white"></i>
+            <span>VÀO BÀN CA-RÔ</span>
+          </button>
+        </div>
+
+        <!-- GAME CARD 4: CỜ TỶ PHÚ -->
+        <div class="group relative tabletop-mat rounded-3xl p-4 sm:p-5 border-2 border-emerald-400/80 hover:border-emerald-600 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/25 flex flex-col justify-between overflow-hidden">
+          <div class="absolute -right-10 -top-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/20 transition-all"></div>
+          
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded-xl bg-emerald-600 text-white font-black text-[10px] sm:text-[11px] shadow-sm uppercase tracking-wider font-mono whitespace-nowrap">
+                20 Ô 2.5D
+              </span>
+              <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-700/20 border-2 border-emerald-500/50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform shrink-0">
+                <svg viewBox="0 0 32 32" class="w-6 h-6 filter drop-shadow-[0_0_8px_rgba(16,185,129,0.7)]" fill="none"><polygon points="16,3 23,7 16,11 9,7" fill="url(#monoRoof)" stroke="#FDE68A" stroke-width="0.7"/><polygon points="9,7 16,11 16,28 9,24" fill="url(#monoTower1)" stroke="#059669" stroke-width="0.7"/><polygon points="16,11 23,7 23,24 16,28" fill="url(#monoTower2)" stroke="#047857" stroke-width="0.7"/><line x1="12" y1="13" x2="14" y2="14" stroke="#FDE68A" stroke-width="1.2"/><line x1="12" y1="18" x2="14" y2="19" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="14" x2="20" y2="13" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="19" x2="20" y2="18" stroke="#FDE68A" stroke-width="1.2"/><polygon points="4,13 9,10 9,24 4,27" fill="#047857" stroke="#10B981" stroke-width="0.6"/><polygon points="23,10 28,13 28,27 23,24" fill="#065F46" stroke="#10B981" stroke-width="0.6"/></svg>
+              </div>
+            </div>
+
+            <h3 class="font-cinzel text-base sm:text-lg font-black text-slate-900 mb-1 group-hover:text-emerald-600 transition-colors tracking-tight whitespace-nowrap truncate" title="Cờ Tỷ Phú Cổ Điển 2.5D">
+              Cờ Tỷ Phú Cổ Điển 2.5D
+            </h3>
+            <p class="text-[11px] text-slate-600 font-semibold mb-3 font-sans truncate" title="Bản đồ 20 ô bất động sản, mua đất, xây nhà, thu thuế và đấu thầu kịch tính.">
+              Bản đồ 20 ô bất động sản, mua đất & thu thuế.
+            </p>
+
+            <div class="space-y-1.5 mb-5 text-[11px] text-slate-800 font-bold">
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
+                <span class="truncate">Bản đồ 20 ô tài sản & cạm bẫy</span>
+              </div>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
+                <span class="truncate">Chế độ 2P - 4P cùng BOT hoặc Local</span>
+              </div>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
+                <span class="truncate">Nâng cấp khách sạn & thu thuế đất</span>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="enterGameFromLobby('monopoly')" class="btn-spring w-full py-2.5 sm:py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-emerald-600/35 border-2 border-emerald-700 transition-all cursor-pointer whitespace-nowrap">
+            <i data-lucide="play" class="w-3.5 h-3.5 fill-white text-white"></i>
+            <span>VÀO BÀN TỶ PHÚ</span>
           </button>
         </div>
 
         <!-- GAME CARD 5: MÈO NỔ (EXPLODING KITTENS) -->
-        <div id="kittensLobbyCard" class="group relative tabletop-mat rounded-3xl p-6 border-2 border-red-500/70 hover:border-red-500 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-500/25 flex flex-col justify-between overflow-hidden">
+        <div class="group relative tabletop-mat rounded-3xl p-4 sm:p-5 border-2 border-red-400/80 hover:border-red-600 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-500/25 flex flex-col justify-between overflow-hidden">
           <div class="absolute -right-10 -top-10 w-40 h-40 bg-red-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-red-500/20 transition-all"></div>
           
           <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="px-2.5 py-1 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white font-black text-[11px] shadow-sm uppercase tracking-wider font-mono inline-flex items-center gap-1">
-                <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 text-yellow-300 inline mr-0.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>MỚI RA MẮT
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded-xl bg-red-600 text-white font-black text-[10px] sm:text-[11px] shadow-sm uppercase tracking-wider font-mono whitespace-nowrap">
+                MỚI RA MẮT
               </span>
-              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-red-500/20 to-rose-700/20 border-2 border-red-500/50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                <svg viewBox="0 0 32 32" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(239,68,68,0.7)]" fill="none">
+              <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-red-500/20 to-rose-700/20 border-2 border-red-500/50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform shrink-0">
+                <svg viewBox="0 0 32 32" class="w-6 h-6 filter drop-shadow-[0_0_8px_rgba(239,68,68,0.7)]" fill="none">
                   <circle cx="16" cy="18" r="11" fill="#DC2626" stroke="#FEF08A" stroke-width="1.2"/>
                   <polygon points="8,10 12,14 7,16" fill="#EF4444" stroke="#FDE68A" stroke-width="0.8"/>
                   <polygon points="24,10 20,14 25,16" fill="#EF4444" stroke="#FDE68A" stroke-width="0.8"/>
@@ -1876,35 +1865,31 @@
               </div>
             </div>
 
-            <h3 class="font-cinzel text-xl font-black text-slate-900 mb-1.5 group-hover:text-red-600 transition-colors tracking-tight">
+            <h3 class="font-cinzel text-base sm:text-lg font-black text-slate-900 mb-1 group-hover:text-red-600 transition-colors tracking-tight whitespace-nowrap truncate" title="Mèo Nổ (Exploding Kittens)">
               Mèo Nổ (Exploding Kittens)
             </h3>
-            <p class="text-xs text-slate-600 font-semibold mb-4 font-sans line-clamp-2 leading-relaxed">
-              Game bài sinh tồn hài hước kịch tính nhất thế giới! Rút bài né Mèo Nổ, gỡ bom Defuse, tấn công dồn lượt, nhìn thấu tương lai và cướp bài đối thủ!
+            <p class="text-[11px] text-slate-600 font-semibold mb-3 font-sans truncate" title="Game bài sinh tồn hài hước kịch tính nhất thế giới! Rút bài né Mèo Nổ, gỡ bom Defuse.">
+              Game bài sinh tồn kịch tính né Mèo Nổ & Defuse.
             </p>
 
-            <div class="space-y-2 mb-6 text-xs text-slate-800 font-bold">
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-red-600 shrink-0"></i>
-                <span>13 Lá bài chính hãng từ mạng cực sắc nét</span>
+            <div class="space-y-1.5 mb-5 text-[11px] text-slate-800 font-bold">
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-red-600 shrink-0"></i>
+                <span class="truncate">13 Lá bài chính hãng chuẩn HD</span>
               </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-red-600 shrink-0"></i>
-                <span>Tấn Công 2X, Gỡ Bom, Xem Tương Lai, Cặp Mèo</span>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-red-600 shrink-0"></i>
+                <span class="truncate">Tấn Công 2X, Gỡ Bom, Xem Tương Lai</span>
               </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-red-600 shrink-0"></i>
-                <span>Đấu trí 4 người cùng AI Bot hoặc Tự Động</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-red-600 shrink-0"></i>
-                <span>Delay 1s nhịp nhàng cho mọi thao tác của BOT</span>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-red-600 shrink-0"></i>
+                <span class="truncate">Sinh tồn 4 người kịch tính cùng AI</span>
               </div>
             </div>
           </div>
 
-          <button onclick="enterGameFromLobby('kittens')" class="btn-spring w-full py-3 rounded-2xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-red-600/35 border-2 border-red-700 transition-all cursor-pointer">
-            <i data-lucide="play" class="w-4 h-4 fill-white text-white"></i>
+          <button onclick="enterGameFromLobby('kittens')" class="btn-spring w-full py-2.5 sm:py-3 rounded-2xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-red-600/35 border-2 border-red-700 transition-all cursor-pointer whitespace-nowrap">
+            <i data-lucide="play" class="w-3.5 h-3.5 fill-white text-white"></i>
             <span>CHƠI NGAY (4 NGƯỜI)</span>
           </button>
         </div>
@@ -1982,45 +1967,8 @@
               <span class="hidden xs:inline">Sảnh Game</span>
             </button>
 
-            <div class="hidden sm:block h-6 w-px bg-board-border/80"></div>
-
-            <!-- 4-Game Direct Switcher Pills (Bespoke SVG Vector Icons, 100% Crisp) -->
-            <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border-2 border-slate-300 text-xs font-black shadow-sm">
-              <button onclick="requestSwitchGameView ? requestSwitchGameView('dice') : switchGameView('dice')" id="pillGameDice" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 text-white font-black flex items-center gap-1.5 transition-all whitespace-nowrap shadow-sm border border-amber-600" title="Cờ Xúc Xắc 20 Ô Hoàng Kim">
-                <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)] shrink-0" fill="none"><polygon points="16,3 28,9 16,15 4,9" fill="url(#diceTopGrad)" stroke="#FEF08A" stroke-width="0.8"/><circle cx="16" cy="9" r="1.5" fill="#78350F"/><polygon points="4,9 16,15 16,29 4,23" fill="url(#diceLeftGrad)" stroke="#B45309" stroke-width="0.8"/><circle cx="8" cy="14" r="1.2" fill="#FDE68A"/><circle cx="12" cy="22" r="1.2" fill="#FDE68A"/><polygon points="16,15 28,9 28,23 16,29" fill="url(#diceRightGrad)" stroke="#D97706" stroke-width="0.8"/><circle cx="20" cy="18" r="1.2" fill="#78350F"/><circle cx="24" cy="14" r="1.2" fill="#78350F"/><circle cx="24" cy="22" r="1.2" fill="#78350F"/></svg>
-                <span class="hidden sm:inline">20 Ô</span>
-              </button>
-              <button onclick="requestSwitchGameView ? requestSwitchGameView('chess') : switchGameView('chess')" id="pillGameChess" class="px-2.5 py-1 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white/80 font-bold flex items-center gap-1.5 transition-all whitespace-nowrap" title="Cờ Vua FIDE">
-                <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(99,102,241,0.6)] shrink-0" fill="none"><path d="M7 28h18c-1-3-2-4-3-6-1-1-1-3 0-5 1-2 2-4 2-7 0-4-3-6-7-6-2 0-3 1-5 3-1-1-3-1-4 0-1 1-1 3-1 4 0 2 1 3 2 4l-1 2c-2 2-3 4-2 7 0 1 0 2 0 4h-1z" fill="url(#chessGrad)" stroke="#C7D2FE" stroke-width="1"/><circle cx="13" cy="12" r="1.2" fill="#E0E7FF"/><path d="M10 28h12v2H10z" fill="#818CF8"/></svg>
-                <span class="hidden sm:inline">Cờ Vua</span>
-              </button>
-              <button onclick="requestSwitchGameView ? requestSwitchGameView('tictactoe') : switchGameView('tictactoe')" id="pillGameTTT" class="px-2.5 py-1 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white/80 font-bold flex items-center gap-1.5 transition-all whitespace-nowrap" title="Cờ Ca-rô Neon">
-                <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(6,182,212,0.6)] shrink-0" fill="none"><line x1="6" y1="7" x2="18" y2="19" stroke="url(#xGrad)" stroke-width="3" stroke-linecap="round"/><line x1="18" y1="7" x2="6" y2="19" stroke="url(#xGrad)" stroke-width="3" stroke-linecap="round"/><circle cx="21" cy="20" r="7" stroke="url(#oGrad)" stroke-width="2.5" fill="none"/></svg>
-                <span class="hidden sm:inline">Ca-rô</span>
-              </button>
-              <button onclick="requestSwitchGameView ? requestSwitchGameView('monopoly') : switchGameView('monopoly')" id="pillGameMono" class="px-2.5 py-1 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white/80 font-bold flex items-center gap-1.5 transition-all whitespace-nowrap" title="Cờ Tỷ Phú 2.5D">
-                <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(16,185,129,0.6)] shrink-0" fill="none"><polygon points="16,3 23,7 16,11 9,7" fill="url(#monoRoof)" stroke="#FDE68A" stroke-width="0.7"/><polygon points="9,7 16,11 16,28 9,24" fill="url(#monoTower1)" stroke="#059669" stroke-width="0.7"/><polygon points="16,11 23,7 23,24 16,28" fill="url(#monoTower2)" stroke="#047857" stroke-width="0.7"/><line x1="12" y1="13" x2="14" y2="14" stroke="#FDE68A" stroke-width="1.2"/><line x1="12" y1="18" x2="14" y2="19" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="14" x2="20" y2="13" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="19" x2="20" y2="18" stroke="#FDE68A" stroke-width="1.2"/><polygon points="4,13 9,10 9,24 4,27" fill="#047857" stroke="#10B981" stroke-width="0.6"/><polygon points="23,10 28,13 28,27 23,24" fill="#065F46" stroke="#10B981" stroke-width="0.6"/></svg>
-                <span class="hidden sm:inline">Tỷ Phú</span>
-              </button>
-              <button onclick="requestSwitchGameView ? requestSwitchGameView('kittens') : switchGameView('kittens')" id="pillGameKittens" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-medium flex items-center gap-1.5 transition-all whitespace-nowrap" title="Mèo Nổ (Exploding Kittens)">
-                <svg viewBox="0 0 32 32" class="w-3.5 h-3.5 filter drop-shadow-[0_0_4px_rgba(239,68,68,0.6)] shrink-0" fill="none">
-                  <circle cx="16" cy="18" r="11" fill="#DC2626" stroke="#FEF08A" stroke-width="1.2"/>
-                  <polygon points="8,10 12,14 7,16" fill="#EF4444" stroke="#FDE68A" stroke-width="0.8"/>
-                  <polygon points="24,10 20,14 25,16" fill="#EF4444" stroke="#FDE68A" stroke-width="0.8"/>
-                  <path d="M16 7 Q18 2 23 3" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>
-                  <polygon points="23,3 25,1 25,5" fill="#FEF08A"/>
-                  <circle cx="12" cy="17" r="1.5" fill="#FEF08A"/>
-                  <circle cx="20" cy="17" r="1.5" fill="#FEF08A"/>
-                  <circle cx="12" cy="17" r="0.7" fill="#18181B"/>
-                  <circle cx="20" cy="17" r="0.7" fill="#18181B"/>
-                  <path d="M14 22 Q16 24 18 22" stroke="#FFF" stroke-width="1.2" stroke-linecap="round"/>
-                </svg>
-                <span class="hidden sm:inline">Mèo Nổ</span>
-              </button>
-            </div>
-
             <!-- Dynamic Active Game Badge -->
-            <div id="arenaGameTitle" class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-950 font-black font-cinzel text-xs font-bold shadow-inner">
+            <div id="arenaGameTitle" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-950 font-black font-cinzel text-xs font-bold shadow-inner">
               <i data-lucide="dice-5" class="w-4 h-4 text-amber-400"></i>
               <span class="tracking-wider">XÚC XẮC 20 Ô HOÀNG KIM</span>
             </div>
@@ -2499,16 +2447,16 @@
                   <div id="turnEnergyBar" class="flex items-center gap-1 bg-white px-2.5 py-1 rounded-full border-2 border-amber-300 text-[10px] font-mono text-amber-900 font-black shadow-sm">
                     <span class="text-amber-400">⚡</span>
                     <span id="pEnergyDots" class="tracking-widest">⚡⚡⚡○○</span>
-                    <span id="pEnergyNum" class="text-white ml-0.5 font-bold">3/5</span>
+                    <span id="pEnergyNum" class="text-amber-950 ml-0.5 font-black">3/5</span>
                   </div>
                 </div>
 
                 <!-- Active Timing & Power Gauge (Thanh Canh Lực Xúc Xắc) -->
                 <div class="w-full max-w-[280px] my-0.5 z-10">
                   <div class="flex items-center justify-between text-[9px] font-mono font-bold mb-1">
-                    <span class="text-emerald-400">1-2 (NGẮN)</span>
-                    <span id="timingGaugeStatus" class="text-amber-300 font-extrabold uppercase animate-pulse">CANH LỰC GIEO</span>
-                    <span class="text-amber-400">5-6 (DÀI)</span>
+                    <span class="text-emerald-800 font-black">1-2 (NGẮN)</span>
+                    <span id="timingGaugeStatus" class="text-amber-900 font-black uppercase animate-pulse">CANH LỰC GIEO</span>
+                    <span class="text-amber-800 font-black">5-6 (DÀI)</span>
                   </div>
                   <div id="timingGaugeTrack" class="w-full h-3.5 rounded-full bg-black/80 border border-slate-700 relative overflow-hidden shadow-inner p-0.5 cursor-pointer" onclick="handleGaugeClick()">
                     <!-- Zones gradient -->
@@ -2560,18 +2508,18 @@
                 </div>
 
                 <!-- 3 Tactical Active Skills Strip (Đặt Mìn, Bật Khiên, Tinh Chỉnh Bước) -->
-                <div class="w-full pt-1.5 border-t border-slate-700/60 flex items-center justify-around gap-1 z-10">
+                <div class="w-full pt-1.5 border-t border-slate-300 flex items-center justify-around gap-1 z-10">
                   <button onclick="triggerSkillTrap()" id="btnSkillTrap" class="btn-spring flex-1 py-1.5 px-1 rounded-xl bg-white hover:bg-rose-50 text-rose-800 border-2 border-rose-300 text-[9px] sm:text-[10px] font-black flex items-center justify-center gap-1 shadow-sm transition-all cursor-pointer" title="Đặt mìn tại ô hiện tại: Kẻ dẫm trúng bị -20đ chuyển cho bạn">
                     <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block align-middle filter drop-shadow-[0_0_4px_rgba(244,63,94,0.7)]" fill="none"><circle cx="12" cy="12" r="6" fill="#E11D48" stroke="#FDA4AF" stroke-width="1.2"/><circle cx="12" cy="12" r="2.5" fill="#FFE4E6"/><line x1="12" y1="2" x2="12" y2="5" stroke="#F43F5E" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="19" x2="12" y2="22" stroke="#F43F5E" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="12" x2="5" y2="12" stroke="#F43F5E" stroke-width="2" stroke-linecap="round"/><line x1="19" y1="12" x2="22" y2="12" stroke="#F43F5E" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="5" x2="7" y2="7" stroke="#F43F5E" stroke-width="1.5" stroke-linecap="round"/><line x1="17" y1="17" x2="19" y2="19" stroke="#F43F5E" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="5" x2="17" y2="7" stroke="#F43F5E" stroke-width="1.5" stroke-linecap="round"/><line x1="5" y1="19" x2="7" y2="17" stroke="#F43F5E" stroke-width="1.5" stroke-linecap="round"/></svg>
-                    <span>Mìn</span> <span class="text-[8px] px-1 py-0.2 rounded bg-rose-500/20 text-rose-300 font-mono" id="btnSkillTrapCost">2⚡</span>
+                    <span>Mìn</span> <span class="text-[8px] px-1 py-0.2 rounded bg-rose-100 text-rose-900 border border-rose-300 font-black" id="btnSkillTrapCost">2⚡</span>
                   </button>
                   <button onclick="triggerSkillShield()" id="btnSkillShield" class="btn-spring flex-1 py-1.5 px-1 rounded-xl bg-white hover:bg-cyan-50 text-cyan-800 border-2 border-cyan-300 text-[9px] sm:text-[10px] font-black flex items-center justify-center gap-1 shadow-sm transition-all cursor-pointer" title="Bật khiên miễn nhiễm 100% sát thương bẫy và đòn đá lùi trong 1 lượt">
                     <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block align-middle filter drop-shadow-[0_0_4px_rgba(6,182,212,0.7)]" fill="none"><path d="M12 2L4 5.5v6.2c0 5.4 3.4 10.4 8 11.8 4.6-1.4 8-6.4 8-11.8V5.5L12 2z" fill="#0284C7" stroke="#38BDF8" stroke-width="1.5"/><path d="M12 5l5 2.2v4.5c0 3.7-2.1 7.2-5 8.3-2.9-1.1-5-4.6-5-8.3V7.2L12 5z" fill="#0369A1" stroke="#A5F3FC" stroke-width="0.8"/></svg>
-                    <span>Khiên</span> <span class="text-[8px] px-1 py-0.2 rounded bg-cyan-500/20 text-cyan-300 font-mono">1⚡</span>
+                    <span>Khiên</span> <span class="text-[8px] px-1 py-0.2 rounded bg-cyan-100 text-cyan-900 border border-cyan-300 font-black">1⚡</span>
                   </button>
                   <button onclick="triggerSkillEnergyBurst()" id="btnSkillNudge" class="btn-spring flex-1 py-1.5 px-1 rounded-xl bg-white hover:bg-amber-50 text-amber-800 border-2 border-amber-300 text-[9px] sm:text-[10px] font-black flex items-center justify-center gap-1 shadow-sm transition-all cursor-pointer" title="Tích tụ xung năng lượng: Hồi 1⚡ khi hoàn thành vòng">
                     <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block align-middle filter drop-shadow-[0_0_4px_rgba(245,158,11,0.8)]" fill="none"><path d="M13 2L4 13.5h7L9 22l11-12.5h-7L15 2h-2z" fill="#F59E0B" stroke="#FEF08A" stroke-width="1.2" stroke-linejoin="round"/></svg>
-                    <span>Nạp Lõi</span> <span class="text-[8px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono">HỒI</span>
+                    <span>Nạp Lõi</span> <span class="text-[8px] px-1 py-0.2 rounded bg-amber-100 text-amber-900 border border-amber-300 font-black">HỒI</span>
                   </button>
                 </div>
 
@@ -3020,72 +2968,72 @@
       </main>
 
       <!-- VIEW 2: TIC-TAC-TOE NEON -->
-      <main id="tictactoeView" class="w-full max-w-xl mx-auto tabletop-mat rounded-3xl p-3.5 sm:p-6 shadow-2xl border border-board-border hidden flex-col items-center relative animate-fade-in">
+      <main id="tictactoeView" class="w-full max-w-xl mx-auto bg-white/95 border-2 border-slate-300 rounded-3xl p-4 sm:p-6 shadow-2xl hidden flex-col items-center relative animate-fade-in backdrop-blur-xl">
         
         <!-- Header with Ergonomic Mobile Layout & Badges -->
-        <div class="w-full flex flex-wrap items-center justify-between gap-2.5 mb-3.5 pb-3 border-b border-board-border/70">
+        <div class="w-full flex flex-wrap items-center justify-between gap-2.5 mb-3.5 pb-3 border-b border-slate-200">
           <div class="flex items-center gap-2">
-            <button onclick="switchMainTab('lobby')" class="btn-spring px-2.5 py-1 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold flex items-center gap-1 shadow-sm transition" title="Quay về Sảnh Game">
-              <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-amber-400"></i>
+            <button onclick="switchMainTab('lobby')" class="btn-spring px-2.5 py-1 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border-2 border-amber-300 text-xs font-black flex items-center gap-1 shadow-sm transition" title="Quay về Sảnh Game">
+              <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-amber-600"></i>
               <span class="hidden xs:inline">Sảnh</span>
             </button>
             <div>
-              <h2 class="font-bold text-base sm:text-lg text-white flex items-center gap-1.5 leading-tight">
+              <h2 class="font-cinzel font-black text-base sm:text-lg text-slate-900 flex items-center gap-1.5 leading-tight">
                 <span>Cờ Ca-rô Hoàng Gia</span>
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 whitespace-nowrap shrink-0">3x3</span>
+                <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-900 border-2 border-cyan-300 whitespace-nowrap shrink-0">3x3 Arena</span>
               </h2>
-              <p class="text-[11px] text-slate-400 leading-none mt-0.5">Đấu trí 3 nước thẳng hàng đỉnh cao</p>
+              <p class="text-[11px] text-slate-600 font-bold leading-none mt-0.5">Đấu trí 3 nước thẳng hàng đỉnh cao</p>
             </div>
           </div>
 
-          <div id="tttTurnBadge" class="px-3 py-1 rounded-xl bg-board-tray border border-amber-500/40 text-amber-300 text-xs font-bold flex items-center gap-1.5 shadow-inner shrink-0">
-            <span class="text-[11px] text-slate-400">Lượt:</span> <span id="tttTurnSign" class="text-base text-cyan-400 font-black">X</span>
+          <div id="tttTurnBadge" class="px-3.5 py-1.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-950 text-xs font-black flex items-center gap-1.5 shadow-sm shrink-0">
+            <span class="text-xs text-slate-700 font-bold">Lượt:</span> <span id="tttTurnSign" class="text-base text-cyan-700 font-black">X</span>
           </div>
         </div>
 
-        <!-- Integrated Quick Action Controls (Luôn hiển thị ngay trên mobile) -->
-        <div class="w-full mb-3.5 p-1.5 rounded-xl bg-[#090D17]/80 border border-board-border flex flex-wrap items-center justify-between gap-1.5 text-xs">
+        <!-- Integrated Quick Action Controls (Nền sáng tương phản cao) -->
+        <div class="w-full mb-3.5 p-2 rounded-2xl bg-slate-100 border-2 border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs">
           <!-- Opponent Pill Switcher -->
-          <div class="flex items-center bg-board-tray p-0.5 rounded-lg border border-board-border text-[11px] font-bold">
-            <button onclick="setTTTOpponent('bot')" id="tttCardBtnBot" class="px-2 py-0.5 rounded-md bg-gradient-to-r from-cyan-600 to-cyan-700 text-white font-bold transition shadow-sm">
+          <div class="flex items-center bg-white p-1 rounded-xl border-2 border-slate-300 text-[11px] font-black shadow-sm">
+            <button onclick="setTTTOpponent('bot')" id="tttCardBtnBot" class="px-2.5 py-1 rounded-lg bg-cyan-600 text-white font-black transition shadow-sm">
               🤖 Đấu BOT
             </button>
-            <button onclick="setTTTOpponent('human')" id="tttCardBtnHuman" class="px-2 py-0.5 rounded-md text-slate-400 hover:text-white transition">
+            <button onclick="setTTTOpponent('human')" id="tttCardBtnHuman" class="px-2.5 py-1 rounded-lg text-slate-700 hover:text-slate-900 font-bold transition">
               👥 2 Người
             </button>
           </div>
 
           <!-- Difficulty Pill (Only visible in bot mode) -->
-          <div id="tttCardDiffWrapper" class="flex items-center bg-board-tray p-0.5 rounded-lg border border-rose-500/30 text-[11px] font-bold">
-            <span class="text-[10px] text-rose-400 px-1 font-semibold">Độ khó:</span>
-            <button onclick="setTTTDifficulty('easy')" id="tttCardDiffEasy" class="px-1.5 py-0.5 rounded text-slate-400 hover:text-white transition">Cơ Bản</button>
-            <button onclick="setTTTDifficulty('hard')" id="tttCardDiffHard" class="px-1.5 py-0.5 rounded bg-rose-600 text-white font-bold transition shadow-sm">Bất Bại 🔥</button>
+          <div id="tttCardDiffWrapper" class="flex items-center bg-white p-1 rounded-xl border-2 border-rose-300 text-[11px] font-black shadow-sm">
+            <span class="text-[10px] text-rose-900 px-1 font-black">Độ khó:</span>
+            <button onclick="setTTTDifficulty('easy')" id="tttCardDiffEasy" class="px-2 py-0.5 rounded text-slate-700 hover:text-slate-900 transition font-bold">Cơ Bản</button>
+            <button onclick="setTTTDifficulty('hard')" id="tttCardDiffHard" class="px-2 py-0.5 rounded bg-rose-600 text-white font-black transition shadow-sm">Bất Bại 🔥</button>
           </div>
 
           <!-- Reset Match Action Button -->
-          <button onclick="resetTTTGame()" class="btn-spring px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-[11px] flex items-center gap-1 shadow-sm">
-            <i data-lucide="rotate-ccw" class="w-3 h-3 text-amber-400"></i>
+          <button onclick="resetTTTGame()" class="btn-spring px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border-2 border-slate-300 font-black text-xs flex items-center gap-1.5 shadow-sm">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-amber-500"></i>
             <span>Ván Mới</span>
           </button>
         </div>
 
-        <!-- 3x3 Tactile Grid (Tối ưu responsive không bị tràn màn hình) -->
-        <div class="grid grid-cols-3 grid-rows-3 gap-2.5 sm:gap-3 w-full max-w-[340px] aspect-square mx-auto mb-3.5 p-2.5 rounded-2xl bg-board-tray border-2 border-board-border shadow-inner" id="tttGrid">
+        <!-- 3x3 Tactile Grid -->
+        <div class="grid grid-cols-3 grid-rows-3 gap-2.5 sm:gap-3 w-full max-w-[340px] aspect-square mx-auto mb-3.5 p-2.5 rounded-2xl bg-slate-50 border-2 border-slate-300 shadow-inner" id="tttGrid">
         </div>
 
-        <!-- Compact Tri-Scoreboard -->
-        <div class="w-full grid grid-cols-3 gap-2 text-center text-xs font-bold">
-          <div class="bg-cyan-500/10 border border-cyan-500/30 p-2 rounded-xl">
-            <div class="text-[11px] text-cyan-400 font-semibold">Người chơi (X)</div>
-            <div class="text-lg font-black text-white font-mono mt-0.5" id="tttScoreX">0</div>
+        <!-- Compact Tri-Scoreboard (Tương phản cao tuyệt đối) -->
+        <div class="w-full grid grid-cols-3 gap-2.5 text-center text-xs font-bold">
+          <div class="bg-cyan-50 border-2 border-cyan-300 p-2.5 rounded-2xl shadow-sm">
+            <div class="text-xs text-cyan-950 font-black">Người chơi (X)</div>
+            <div class="text-2xl font-black text-cyan-800 font-mono mt-0.5" id="tttScoreX">0</div>
           </div>
-          <div class="bg-slate-800/60 border border-slate-700/60 p-2 rounded-xl">
-            <div class="text-[11px] text-slate-400 font-semibold">Trận Hòa</div>
-            <div class="text-lg font-black text-white font-mono mt-0.5" id="tttScoreDraw">0</div>
+          <div class="bg-slate-100 border-2 border-slate-300 p-2.5 rounded-2xl shadow-sm">
+            <div class="text-xs text-slate-950 font-black">Trận Hòa</div>
+            <div class="text-2xl font-black text-slate-900 font-mono mt-0.5" id="tttScoreDraw">0</div>
           </div>
-          <div class="bg-rose-500/10 border border-rose-500/30 p-2 rounded-xl">
-            <div class="text-[11px] text-rose-400 font-semibold" id="tttScoreLabelO">Máy (O)</div>
-            <div class="text-lg font-black text-white font-mono mt-0.5" id="tttScoreO">0</div>
+          <div class="bg-rose-50 border-2 border-rose-300 p-2.5 rounded-2xl shadow-sm">
+            <div class="text-xs text-rose-950 font-black" id="tttScoreLabelO">Máy (O)</div>
+            <div class="text-2xl font-black text-rose-800 font-mono mt-0.5" id="tttScoreO">0</div>
           </div>
         </div>
 
@@ -4267,22 +4215,22 @@
       </div>
 
       <!-- BẢNG CƠ CẤU GIẢI THƯỞNG BÀN CỜ THEO ĐỘ KHÓ (XU 🪙 & KIM CƯƠNG 💎) -->
-      <div id="rulesRewardStructureCard" class="mb-6 p-5 sm:p-6 rounded-3xl bg-slate-50 border-2 border-slate-200 shadow-md relative overflow-hidden">
+      <div id="rulesRewardStructureCard" class="mb-6 p-4 sm:p-6 rounded-3xl bg-slate-50 border-2 border-slate-200 shadow-md relative overflow-hidden">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-200">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-xl shadow-inner">
+            <div class="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-xl shadow-inner shrink-0">
               🎁
             </div>
             <div>
-              <h3 class="font-cinzel text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+              <h3 class="font-cinzel text-sm sm:text-base font-black text-slate-900 flex items-center gap-2 whitespace-nowrap">
                 CƠ CẤU GIẢI THƯỞNG HOÀN THÀNH TRẬN ĐẤU
-                <span class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono font-bold">FIRESTORE SYNC</span>
+                <span class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-800 border border-emerald-500/40 font-mono font-bold">FIRESTORE SYNC</span>
               </h3>
-              <p class="text-xs text-slate-600 font-bold">Nhận thưởng Xu (🪙) & Kim Cương (💎) tương xứng độ khó sau mỗi ván đấu trọn vẹn</p>
+              <p class="text-xs text-slate-600 font-bold whitespace-nowrap">Nhận thưởng Xu (🪙) & Kim Cương (💎) tương xứng độ khó sau mỗi ván đấu trọn vẹn</p>
             </div>
           </div>
-          <button onclick="openModal('rewardsModal')" class="btn-spring px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white border border-amber-600 text-xs font-black flex items-center gap-1.5 shadow-sm transition">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-300"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <button onclick="openModal('rewardsModal')" class="btn-spring px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white border border-amber-600 text-xs font-black flex items-center gap-1.5 shadow-sm transition whitespace-nowrap shrink-0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-200"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
             <span>Xem Chi Tiết Tỷ Lệ</span>
           </button>
         </div>
@@ -4292,64 +4240,66 @@
           <div class="p-4 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="font-bold text-cyan-400 flex items-center gap-1.5"><svg viewBox="0 0 32 32" class="w-4 h-4 filter drop-shadow-[0_0_4px_rgba(6,182,212,0.6)]" fill="none"><line x1="6" y1="7" x2="18" y2="19" stroke="url(#xGrad)" stroke-width="3" stroke-linecap="round"/><line x1="18" y1="7" x2="6" y2="19" stroke="url(#xGrad)" stroke-width="3" stroke-linecap="round"/><circle cx="21" cy="20" r="7" stroke="url(#oGrad)" stroke-width="2.5" fill="none"/></svg> Ca-rô Neon</span>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-100 text-cyan-900 border border-cyan-300 font-mono font-black">3x3 Arena</span>
+                <span class="font-black text-cyan-700 flex items-center gap-1.5 whitespace-nowrap"><svg viewBox="0 0 32 32" class="w-4 h-4 shrink-0" fill="none"><line x1="6" y1="7" x2="18" y2="19" stroke="url(#xGrad)" stroke-width="3" stroke-linecap="round"/><line x1="18" y1="7" x2="6" y2="19" stroke="url(#xGrad)" stroke-width="3" stroke-linecap="round"/><circle cx="21" cy="20" r="7" stroke="url(#oGrad)" stroke-width="2.5" fill="none"/></svg> Ca-rô Neon</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-100 text-cyan-900 border border-cyan-300 font-mono font-black whitespace-nowrap">3x3 Arena</span>
               </div>
               <div class="space-y-1.5 text-slate-700 font-bold">
-                <div class="flex justify-between items-center"><span class="text-emerald-400 font-semibold">🏆 Thắng:</span><span class="font-mono font-black text-slate-900">+100 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none"><circle cx="12" cy="12" r="10" fill="url(#coinGradGlobal)" stroke="url(#coinRimGradGlobal)" stroke-width="1.5"/><circle cx="12" cy="12" r="7.5" fill="none" stroke="#FDE68A" stroke-width="0.8" stroke-dasharray="1.5 1"/><path d="M12 7.2l1.2 2.5 2.8.4-2 2 .5 2.8L12 13.6l-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg> / +5 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" fill="none"><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#gemBottomGlobal)" stroke="#A5F3FC" stroke-width="0.8"/><polygon points="6,4 18,4 15,10 9,10" fill="url(#gemTopGlobal)"/><polygon points="6,4 9,10 2,10" fill="url(#gemSideLGlobal)"/><polygon points="18,4 22,10 15,10" fill="url(#gemSideRGlobal)"/><polygon points="9,10 15,10 12,21" fill="#BAE6FD" opacity="0.9"/><polygon points="2,10 9,10 12,21" fill="url(#gemSideLGlobal)" opacity="0.75"/><polygon points="22,10 15,10 12,21" fill="url(#gemSideRGlobal)" opacity="0.85"/></svg></span></div>
-                <div class="flex justify-between items-center"><span class="text-amber-400 font-semibold">🤝 Hòa:</span><span class="font-mono font-black text-slate-900">+30 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none"><circle cx="12" cy="12" r="10" fill="url(#coinGradGlobal)" stroke="url(#coinRimGradGlobal)" stroke-width="1.5"/><circle cx="12" cy="12" r="7.5" fill="none" stroke="#FDE68A" stroke-width="0.8" stroke-dasharray="1.5 1"/><path d="M12 7.2l1.2 2.5 2.8.4-2 2 .5 2.8L12 13.6l-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg> / +1 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" fill="none"><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#gemBottomGlobal)" stroke="#A5F3FC" stroke-width="0.8"/><polygon points="6,4 18,4 15,10 9,10" fill="url(#gemTopGlobal)"/><polygon points="6,4 9,10 2,10" fill="url(#gemSideLGlobal)"/><polygon points="18,4 22,10 15,10" fill="url(#gemSideRGlobal)"/><polygon points="9,10 15,10 12,21" fill="#BAE6FD" opacity="0.9"/><polygon points="2,10 9,10 12,21" fill="url(#gemSideLGlobal)" opacity="0.75"/><polygon points="22,10 15,10 12,21" fill="url(#gemSideRGlobal)" opacity="0.85"/></svg></span></div>
-                <div class="flex justify-between items-center"><span class="text-rose-400 font-semibold">💔 Thua:</span><span class="font-mono font-black text-slate-900">+15 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none"><circle cx="12" cy="12" r="10" fill="url(#coinGradGlobal)" stroke="url(#coinRimGradGlobal)" stroke-width="1.5"/><circle cx="12" cy="12" r="7.5" fill="none" stroke="#FDE68A" stroke-width="0.8" stroke-dasharray="1.5 1"/><path d="M12 7.2l1.2 2.5 2.8.4-2 2 .5 2.8L12 13.6l-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg> / 0 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" fill="none"><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#gemBottomGlobal)" stroke="#A5F3FC" stroke-width="0.8"/><polygon points="6,4 18,4 15,10 9,10" fill="url(#gemTopGlobal)"/><polygon points="6,4 9,10 2,10" fill="url(#gemSideLGlobal)"/><polygon points="18,4 22,10 15,10" fill="url(#gemSideRGlobal)"/><polygon points="9,10 15,10 12,21" fill="#BAE6FD" opacity="0.9"/><polygon points="2,10 9,10 12,21" fill="url(#gemSideLGlobal)" opacity="0.75"/><polygon points="22,10 15,10 12,21" fill="url(#gemSideRGlobal)" opacity="0.85"/></svg></span></div>
+                <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-emerald-700 font-bold">🏆 Thắng:</span><span class="font-mono font-black text-slate-900">+100🪙 / +5💎</span></div>
+                <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-amber-800 font-bold">🤝 Hòa:</span><span class="font-mono font-black text-slate-900">+30🪙 / +1💎</span></div>
+                <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-rose-700 font-bold">💔 Thua:</span><span class="font-mono font-black text-slate-900">+15🪙 / +0💎</span></div>
+                <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-amber-800 font-bold">📊 Độ khó:</span><span class="font-mono font-black text-slate-900">Dễ 1.0x • TB 1.2x • Khó 1.5x</span></div>
               </div>
             </div>
-            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-600 font-bold">Đấu trí 3x3 nhanh, nhận thưởng ngay khi kết thúc ván.</div>
+            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-600 font-bold whitespace-nowrap truncate">Đấu trí 3x3 nhanh, nhận thưởng ngay kết thúc.</div>
           </div>
 
           <!-- Game 2: Dice -->
           <div class="p-4 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="font-bold text-amber-400 flex items-center gap-1.5"><svg viewBox="0 0 32 32" class="w-4 h-4 filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none"><polygon points="16,3 28,9 16,15 4,9" fill="url(#diceTopGrad)" stroke="#FEF08A" stroke-width="0.8"/><circle cx="16" cy="9" r="1.5" fill="#78350F"/><polygon points="4,9 16,15 16,29 4,23" fill="url(#diceLeftGrad)" stroke="#B45309" stroke-width="0.8"/><circle cx="8" cy="14" r="1.2" fill="#FDE68A"/><circle cx="12" cy="22" r="1.2" fill="#FDE68A"/><polygon points="16,15 28,9 28,23 16,29" fill="url(#diceRightGrad)" stroke="#D97706" stroke-width="0.8"/><circle cx="20" cy="18" r="1.2" fill="#78350F"/><circle cx="24" cy="14" r="1.2" fill="#78350F"/><circle cx="24" cy="22" r="1.2" fill="#78350F"/></svg> Xúc Xắc 20 Ô</span>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono font-black">1.0x - 1.6x</span>
+                <span class="font-black text-amber-700 flex items-center gap-1.5 whitespace-nowrap"><svg viewBox="0 0 32 32" class="w-4 h-4 shrink-0" fill="none"><polygon points="16,3 28,9 16,15 4,9" fill="url(#diceTopGrad)" stroke="#FEF08A" stroke-width="0.8"/><circle cx="16" cy="9" r="1.5" fill="#78350F"/><polygon points="4,9 16,15 16,29 4,23" fill="url(#diceLeftGrad)" stroke="#B45309" stroke-width="0.8"/><circle cx="8" cy="14" r="1.2" fill="#FDE68A"/><circle cx="12" cy="22" r="1.2" fill="#FDE68A"/><polygon points="16,15 28,9 28,23 16,29" fill="url(#diceRightGrad)" stroke="#D97706" stroke-width="0.8"/><circle cx="20" cy="18" r="1.2" fill="#78350F"/><circle cx="24" cy="14" r="1.2" fill="#78350F"/><circle cx="24" cy="22" r="1.2" fill="#78350F"/></svg> Xúc Xắc 20 Ô</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono font-black whitespace-nowrap">1.0x - 1.6x</span>
               </div>
               <div class="space-y-1.5 text-slate-700 font-bold">
-                <div class="flex justify-between items-center"><span class="text-emerald-400 font-semibold">🏆 Thắng:</span><span class="font-mono font-black text-slate-900">+250 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none"><circle cx="12" cy="12" r="10" fill="url(#coinGradGlobal)" stroke="url(#coinRimGradGlobal)" stroke-width="1.5"/><circle cx="12" cy="12" r="7.5" fill="none" stroke="#FDE68A" stroke-width="0.8" stroke-dasharray="1.5 1"/><path d="M12 7.2l1.2 2.5 2.8.4-2 2 .5 2.8L12 13.6l-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg> / +15 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" fill="none"><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#gemBottomGlobal)" stroke="#A5F3FC" stroke-width="0.8"/><polygon points="6,4 18,4 15,10 9,10" fill="url(#gemTopGlobal)"/><polygon points="6,4 9,10 2,10" fill="url(#gemSideLGlobal)"/><polygon points="18,4 22,10 15,10" fill="url(#gemSideRGlobal)"/><polygon points="9,10 15,10 12,21" fill="#BAE6FD" opacity="0.9"/><polygon points="2,10 9,10 12,21" fill="url(#gemSideLGlobal)" opacity="0.75"/><polygon points="22,10 15,10 12,21" fill="url(#gemSideRGlobal)" opacity="0.85"/></svg> (x Hệ Số)</span></div>
-                <div class="flex justify-between items-center"><span class="text-rose-400 font-semibold">💔 Thua:</span><span class="font-mono font-black text-slate-900">+40 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none"><circle cx="12" cy="12" r="10" fill="url(#coinGradGlobal)" stroke="url(#coinRimGradGlobal)" stroke-width="1.5"/><circle cx="12" cy="12" r="7.5" fill="none" stroke="#FDE68A" stroke-width="0.8" stroke-dasharray="1.5 1"/><path d="M12 7.2l1.2 2.5 2.8.4-2 2 .5 2.8L12 13.6l-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg> / +2 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" fill="none"><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#gemBottomGlobal)" stroke="#A5F3FC" stroke-width="0.8"/><polygon points="6,4 18,4 15,10 9,10" fill="url(#gemTopGlobal)"/><polygon points="6,4 9,10 2,10" fill="url(#gemSideLGlobal)"/><polygon points="18,4 22,10 15,10" fill="url(#gemSideRGlobal)"/><polygon points="9,10 15,10 12,21" fill="#BAE6FD" opacity="0.9"/><polygon points="2,10 9,10 12,21" fill="url(#gemSideLGlobal)" opacity="0.75"/><polygon points="22,10 15,10 12,21" fill="url(#gemSideRGlobal)" opacity="0.85"/></svg></span></div>
-                <div class="flex justify-between items-center"><span class="text-cyan-400 font-semibold">🌐 Online P2P:</span><span class="font-mono font-black text-slate-900">Hệ số 1.6x</span></div>
+                <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-emerald-700 font-bold">🏆 Thắng:</span><span class="font-mono font-black text-slate-900">+250🪙 / +15💎 (xHệSố)</span></div>
+                <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-rose-700 font-bold">💔 Thua:</span><span class="font-mono font-black text-slate-900">+40🪙 / +2💎</span></div>
+                <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-amber-800 font-bold">📊 Hệ số:</span><span class="font-mono font-black text-slate-900">Dễ 1.0x • TB 1.3x • Khó 1.6x</span></div>
               </div>
             </div>
-            <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-amber-900 font-black/80">Hệ số: 1 + (Bot-1)*0.3. Cấm thưởng Chế độ Khán Giả.</div>
+            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-600 font-bold whitespace-nowrap truncate">Thưởng nhân theo hệ số cấp độ AI đối thủ.</div>
           </div>
 
           <!-- Game 3: Chess -->
           <div class="p-4 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="font-black text-purple-900 flex items-center gap-1.5"><svg viewBox="0 0 32 32" class="w-4 h-4 filter drop-shadow-[0_0_4px_rgba(99,102,241,0.6)]" fill="none"><path d="M7 28h18c-1-3-2-4-3-6-1-1-1-3 0-5 1-2 2-4 2-7 0-4-3-6-7-6-2 0-3 1-5 3-1-1-3-1-4 0-1 1-1 3-1 4 0 2 1 3 2 4l-1 2c-2 2-3 4-2 7 0 1 0 2 0 4h-1z" fill="url(#chessGrad)" stroke="#C7D2FE" stroke-width="1"/><circle cx="13" cy="12" r="1.2" fill="#E0E7FF"/><path d="M10 28h12v2H10z" fill="#818CF8"/></svg> Cờ Vua FIDE</span>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-purple-100 text-purple-900 border border-purple-300 font-mono font-black">Chuẩn Quốc Tế</span>
+                <span class="font-black text-indigo-700 flex items-center gap-1.5 whitespace-nowrap"><svg viewBox="0 0 32 32" class="w-4 h-4 shrink-0" fill="none"><path d="M7 28h18c-1-3-2-4-3-6-1-1-1-3 0-5 1-2 2-4 2-7 0-4-3-6-7-6-2 0-3 1-5 3-1-1-3-1-4 0-1 1-1 3-1 4 0 2 1 3 2 4l-1 2c-2 2-3 4-2 7 0 1 0 2 0 4h-1z" fill="url(#chessGrad)" stroke="#C7D2FE" stroke-width="1"/><circle cx="13" cy="12" r="1.2" fill="#E0E7FF"/><path d="M10 28h12v2H10z" fill="#818CF8"/></svg> Cờ Vua FIDE</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-purple-100 text-purple-900 border border-purple-300 font-mono font-black whitespace-nowrap">Chuẩn Quốc Tế</span>
               </div>
               <div class="space-y-1.5 text-slate-700 font-bold">
-                <div class="flex justify-between items-center"><span class="text-emerald-400 font-semibold">🏆 Thắng:</span><span class="font-mono font-black text-slate-900">+400 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none"><circle cx="12" cy="12" r="10" fill="url(#coinGradGlobal)" stroke="url(#coinRimGradGlobal)" stroke-width="1.5"/><circle cx="12" cy="12" r="7.5" fill="none" stroke="#FDE68A" stroke-width="0.8" stroke-dasharray="1.5 1"/><path d="M12 7.2l1.2 2.5 2.8.4-2 2 .5 2.8L12 13.6l-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg> / +25 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" fill="none"><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#gemBottomGlobal)" stroke="#A5F3FC" stroke-width="0.8"/><polygon points="6,4 18,4 15,10 9,10" fill="url(#gemTopGlobal)"/><polygon points="6,4 9,10 2,10" fill="url(#gemSideLGlobal)"/><polygon points="18,4 22,10 15,10" fill="url(#gemSideRGlobal)"/><polygon points="9,10 15,10 12,21" fill="#BAE6FD" opacity="0.9"/><polygon points="2,10 9,10 12,21" fill="url(#gemSideLGlobal)" opacity="0.75"/><polygon points="22,10 15,10 12,21" fill="url(#gemSideRGlobal)" opacity="0.85"/></svg></span></div>
-                <div class="flex justify-between items-center"><span class="text-amber-400 font-semibold">🤝 Hòa:</span><span class="font-mono font-black text-slate-900">+120 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none"><circle cx="12" cy="12" r="10" fill="url(#coinGradGlobal)" stroke="url(#coinRimGradGlobal)" stroke-width="1.5"/><circle cx="12" cy="12" r="7.5" fill="none" stroke="#FDE68A" stroke-width="0.8" stroke-dasharray="1.5 1"/><path d="M12 7.2l1.2 2.5 2.8.4-2 2 .5 2.8L12 13.6l-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg> / +8 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" fill="none"><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#gemBottomGlobal)" stroke="#A5F3FC" stroke-width="0.8"/><polygon points="6,4 18,4 15,10 9,10" fill="url(#gemTopGlobal)"/><polygon points="6,4 9,10 2,10" fill="url(#gemSideLGlobal)"/><polygon points="18,4 22,10 15,10" fill="url(#gemSideRGlobal)"/><polygon points="9,10 15,10 12,21" fill="#BAE6FD" opacity="0.9"/><polygon points="2,10 9,10 12,21" fill="url(#gemSideLGlobal)" opacity="0.75"/><polygon points="22,10 15,10 12,21" fill="url(#gemSideRGlobal)" opacity="0.85"/></svg></span></div>
-                <div class="flex justify-between items-center"><span class="text-rose-400 font-semibold">💔 Thua:</span><span class="font-mono font-black text-slate-900">+50 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none"><circle cx="12" cy="12" r="10" fill="url(#coinGradGlobal)" stroke="url(#coinRimGradGlobal)" stroke-width="1.5"/><circle cx="12" cy="12" r="7.5" fill="none" stroke="#FDE68A" stroke-width="0.8" stroke-dasharray="1.5 1"/><path d="M12 7.2l1.2 2.5 2.8.4-2 2 .5 2.8L12 13.6l-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg> / +3 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" fill="none"><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#gemBottomGlobal)" stroke="#A5F3FC" stroke-width="0.8"/><polygon points="6,4 18,4 15,10 9,10" fill="url(#gemTopGlobal)"/><polygon points="6,4 9,10 2,10" fill="url(#gemSideLGlobal)"/><polygon points="18,4 22,10 15,10" fill="url(#gemSideRGlobal)"/><polygon points="9,10 15,10 12,21" fill="#BAE6FD" opacity="0.9"/><polygon points="2,10 9,10 12,21" fill="url(#gemSideLGlobal)" opacity="0.75"/><polygon points="22,10 15,10 12,21" fill="url(#gemSideRGlobal)" opacity="0.85"/></svg></span></div>
+                <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-emerald-700 font-bold">🏆 Thắng:</span><span class="font-mono font-black text-slate-900">+400🪙 / +25💎</span></div>
+                <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-amber-800 font-bold">🤝 Hòa:</span><span class="font-mono font-black text-slate-900">+120🪙 / +8💎</span></div>
+                <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-rose-700 font-bold">💔 Thua:</span><span class="font-mono font-black text-slate-900">+50🪙 / +3💎</span></div>
+                <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-amber-800 font-bold">📊 Elo BOT:</span><span class="font-mono font-black text-slate-900">800 • 1200 • 1600 • 2000+</span></div>
               </div>
             </div>
-            <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] text-purple-300/80">Điều kiện thưởng Thua: Hoàn thành tối thiểu &ge; 6 nước đi.</div>
+            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-600 font-bold whitespace-nowrap truncate">Điều kiện thưởng Thua: Hoàn thành ≥ 6 nước đi.</div>
           </div>
 
           <!-- Game 4: Monopoly -->
           <div class="p-4 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="font-bold text-emerald-400 flex items-center gap-1.5"><svg viewBox="0 0 32 32" class="w-4 h-4 filter drop-shadow-[0_0_4px_rgba(16,185,129,0.6)]" fill="none"><polygon points="16,3 23,7 16,11 9,7" fill="url(#monoRoof)" stroke="#FDE68A" stroke-width="0.7"/><polygon points="9,7 16,11 16,28 9,24" fill="url(#monoTower1)" stroke="#059669" stroke-width="0.7"/><polygon points="16,11 23,7 23,24 16,28" fill="url(#monoTower2)" stroke="#047857" stroke-width="0.7"/><line x1="12" y1="13" x2="14" y2="14" stroke="#FDE68A" stroke-width="1.2"/><line x1="12" y1="18" x2="14" y2="19" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="14" x2="20" y2="13" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="19" x2="20" y2="18" stroke="#FDE68A" stroke-width="1.2"/><polygon points="4,13 9,10 9,24 4,27" fill="#047857" stroke="#10B981" stroke-width="0.6"/><polygon points="23,10 28,13 28,27 23,24" fill="#065F46" stroke="#10B981" stroke-width="0.6"/></svg> Cờ Tỷ Phú 2.5D</span>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 border border-emerald-300 font-mono font-black">1.0x - 1.8x</span>
+                <span class="font-black text-emerald-700 flex items-center gap-1.5 whitespace-nowrap"><svg viewBox="0 0 32 32" class="w-4 h-4 shrink-0" fill="none"><polygon points="16,3 23,7 16,11 9,7" fill="url(#monoRoof)" stroke="#FDE68A" stroke-width="0.7"/><polygon points="9,7 16,11 16,28 9,24" fill="url(#monoTower1)" stroke="#059669" stroke-width="0.7"/><polygon points="16,11 23,7 23,24 16,28" fill="url(#monoTower2)" stroke="#047857" stroke-width="0.7"/><line x1="12" y1="13" x2="14" y2="14" stroke="#FDE68A" stroke-width="1.2"/><line x1="12" y1="18" x2="14" y2="19" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="14" x2="20" y2="13" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="19" x2="20" y2="18" stroke="#FDE68A" stroke-width="1.2"/><polygon points="4,13 9,10 9,24 4,27" fill="#047857" stroke="#10B981" stroke-width="0.6"/><polygon points="23,10 28,13 28,27 23,24" fill="#065F46" stroke="#10B981" stroke-width="0.6"/></svg> Cờ Tỷ Phú 2.5D</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 border border-emerald-300 font-mono font-black whitespace-nowrap">1.0x - 1.8x</span>
               </div>
               <div class="space-y-1.5 text-slate-700 font-bold">
-                <div class="flex justify-between items-center"><span class="text-emerald-400 font-semibold">🏆 Thắng:</span><span class="font-mono font-black text-slate-900">Tới 1080 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none"><circle cx="12" cy="12" r="10" fill="url(#coinGradGlobal)" stroke="url(#coinRimGradGlobal)" stroke-width="1.5"/><circle cx="12" cy="12" r="7.5" fill="none" stroke="#FDE68A" stroke-width="0.8" stroke-dasharray="1.5 1"/><path d="M12 7.2l1.2 2.5 2.8.4-2 2 .5 2.8L12 13.6l-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg> / 72 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" fill="none"><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#gemBottomGlobal)" stroke="#A5F3FC" stroke-width="0.8"/><polygon points="6,4 18,4 15,10 9,10" fill="url(#gemTopGlobal)"/><polygon points="6,4 9,10 2,10" fill="url(#gemSideLGlobal)"/><polygon points="18,4 22,10 15,10" fill="url(#gemSideRGlobal)"/><polygon points="9,10 15,10 12,21" fill="#BAE6FD" opacity="0.9"/><polygon points="2,10 9,10 12,21" fill="url(#gemSideLGlobal)" opacity="0.75"/><polygon points="22,10 15,10 12,21" fill="url(#gemSideRGlobal)" opacity="0.85"/></svg></span></div>
-                <div class="flex justify-between items-center"><span class="text-rose-400 font-semibold">💔 Thua:</span><span class="font-mono font-black text-slate-900">+80 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]" fill="none"><circle cx="12" cy="12" r="10" fill="url(#coinGradGlobal)" stroke="url(#coinRimGradGlobal)" stroke-width="1.5"/><circle cx="12" cy="12" r="7.5" fill="none" stroke="#FDE68A" stroke-width="0.8" stroke-dasharray="1.5 1"/><path d="M12 7.2l1.2 2.5 2.8.4-2 2 .5 2.8L12 13.6l-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg> / +5 <svg viewBox="0 0 24 24" class="w-4 h-4 inline-block align-middle filter drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" fill="none"><polygon points="6,4 18,4 22,10 12,21 2,10" fill="url(#gemBottomGlobal)" stroke="#A5F3FC" stroke-width="0.8"/><polygon points="6,4 18,4 15,10 9,10" fill="url(#gemTopGlobal)"/><polygon points="6,4 9,10 2,10" fill="url(#gemSideLGlobal)"/><polygon points="18,4 22,10 15,10" fill="url(#gemSideRGlobal)"/><polygon points="9,10 15,10 12,21" fill="#BAE6FD" opacity="0.9"/><polygon points="2,10 9,10 12,21" fill="url(#gemSideLGlobal)" opacity="0.75"/><polygon points="22,10 15,10 12,21" fill="url(#gemSideRGlobal)" opacity="0.85"/></svg></span></div>
-                <div class="flex justify-between items-center"><span class="text-amber-400 font-semibold">📊 Hệ số:</span><span class="font-mono font-black text-slate-900">2P: 1.0x | 3P: 1.4x | 4P: 1.8x</span></div>
+                <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-emerald-700 font-bold">🏆 Thắng:</span><span class="font-mono font-black text-slate-900">Tới 1080🪙 / 72💎</span></div>
+                <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-rose-700 font-bold">💔 Thua:</span><span class="font-mono font-black text-slate-900">+80🪙 / +5💎</span></div>
+                <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-amber-800 font-bold">📊 Hệ số:</span><span class="font-mono font-black text-slate-900">2P: 1.0x • 3P: 1.4x • 4P: 1.8x</span></div>
               </div>
             </div>
-            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-rose-800 font-bold">Cấm nhận thưởng nếu bấm Phá Sản sớm ở vòng &le; 2.</div>
+            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-rose-800 font-bold whitespace-nowrap truncate">Cấm nhận thưởng nếu bấm Phá Sản sớm ở vòng ≤ 2.</div>
           </div>
         </div>
       </div>
@@ -10235,11 +10185,11 @@
         el.innerHTML = `
           ${trapBadge}
           <div class="w-full flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span class="text-amber-500/80 font-bold">#${i}</span>
-            <span class="${t.pts > 0 ? 'text-emerald-400 font-bold' : (t.pts < 0 ? 'text-rose-400 font-bold' : '')}">${badge}</span>
+            <span class="text-amber-900 font-black">#${i}</span>
+            <span class="${t.pts > 0 ? 'text-emerald-700 font-black' : (t.pts < 0 ? 'text-rose-700 font-black' : '')}">${badge}</span>
           </div>
           <div class="my-0.5 sm:my-1 filter drop-shadow flex items-center justify-center">${getTileSvgIcon(i)}</div>
-          <div class="text-[10px] sm:text-xs font-bold text-slate-200 tracking-tight truncate max-w-full">${t.name}</div>
+          <div class="text-[10px] sm:text-xs font-black text-slate-900 tracking-tight truncate max-w-full">${t.name}</div>
           <div id="token-box-${i}" class="absolute -bottom-1 -right-1 flex gap-0.5 z-20"></div>
         `;
         grid.appendChild(el);
@@ -11120,9 +11070,9 @@
         const btn = document.createElement('button');
         btn.className = `game-tile rounded-2xl w-full h-full aspect-square min-h-0 min-w-0 flex items-center justify-center text-4xl sm:text-5xl font-black select-none transition-all shadow-md leading-none`;
         if (val === 'X') {
-          btn.innerHTML = `<span class="text-cyan-400 drop-shadow-[0_0_14px_rgba(6,182,212,0.8)] animate-pulse leading-none flex items-center justify-center select-none">X</span>`;
+          btn.innerHTML = `<span class="text-cyan-700 drop-shadow-[0_2px_4px_rgba(6,182,212,0.3)] font-black leading-none flex items-center justify-center select-none">X</span>`;
         } else if (val === 'O') {
-          btn.innerHTML = `<span class="text-rose-400 drop-shadow-[0_0_14px_rgba(244,63,94,0.8)] leading-none flex items-center justify-center select-none">O</span>`;
+          btn.innerHTML = `<span class="text-rose-700 drop-shadow-[0_2px_4px_rgba(244,63,94,0.3)] font-black leading-none flex items-center justify-center select-none">O</span>`;
         } else {
           btn.innerHTML = `<span class="invisible select-none pointer-events-none leading-none">·</span>`;
           btn.onclick = () => handleTTTClick(idx);

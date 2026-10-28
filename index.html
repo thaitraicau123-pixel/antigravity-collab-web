@@ -1523,7 +1523,7 @@
           <span class="px-1.5 py-0.2 rounded-md bg-cyan-200/80 text-cyan-950 text-[10px] font-mono font-bold">P2P</span>
         </button>
 
-        <button onclick="openVersionModal()" class="btn-spring hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-50 border-2 border-cyan-400 text-[11px] font-mono text-cyan-900 font-extrabold hover:bg-cyan-100 hover:border-cyan-500 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên [Chỉ Admin]">
+        <button id="headerVersionPillBtn" onclick="openVersionModal()" class="btn-spring hidden items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-50 border-2 border-cyan-400 text-[11px] font-mono text-cyan-900 font-extrabold hover:bg-cyan-100 hover:border-cyan-500 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên [Chỉ Admin]">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-700"></i>
           <span id="headerVersionPill" class="font-black">v4.2.1</span>
           <span class="px-1.5 py-0.2 rounded-md bg-amber-200/90 text-amber-950 text-[9px] font-sans font-black border border-amber-400/60 shadow-xs">ADMIN</span>
@@ -4826,27 +4826,38 @@
   </footer>
 
   <!-- ================= MODAL AUTH: ĐĂNG KÝ / ĐĂNG NHẬP FIREBASE THẬT ================= -->
-  <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
-    <div id="authCard" class="w-full max-w-md tabletop-mat rounded-3xl p-6 sm:p-8 shadow-2xl border border-amber-500/40 transform scale-90 transition-transform duration-300 relative">
-      <button onclick="closeModal('authModal')" class="absolute top-5 right-5 p-1.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white transition-colors" title="Đóng">
-        <i data-lucide="x" class="w-4 h-4"></i>
+  <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div id="authCard" class="w-full max-w-md bg-white border-2 border-amber-400 rounded-3xl p-6 sm:p-8 shadow-2xl relative text-slate-800 transform scale-90 transition-transform duration-300">
+      <style>
+        #authCard #tabBtnSignup:not(.bg-gradient-to-r),
+        #authCard #tabBtnSignin:not(.bg-gradient-to-r) {
+          color: #475569 !important;
+          font-weight: 700 !important;
+        }
+        #authCard #tabBtnSignup:not(.bg-gradient-to-r):hover,
+        #authCard #tabBtnSignin:not(.bg-gradient-to-r):hover {
+          color: #0f172a !important;
+        }
+      </style>
+      <button onclick="closeModal('authModal')" class="absolute top-5 right-5 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 border border-slate-200 transition-colors shadow-xs" title="Đóng">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
 
       <!-- Modal Header -->
       <div class="text-center mb-5">
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-700/20 border border-amber-500/40 flex items-center justify-center text-amber-400 mx-auto mb-2.5 text-2xl shadow-inner">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100 border-2 border-amber-300 flex items-center justify-center text-amber-600 mx-auto mb-2.5 text-2xl shadow-sm">
           👑
         </div>
-        <h3 class="font-cinzel text-xl font-bold text-white tracking-wide">GIA NHẬP ĐẤU TRƯỜNG</h3>
-        <p class="text-xs text-slate-400 mt-1">Đăng ký bằng Tên Đăng Nhập để lưu trữ thành tích và tham gia xếp hạng</p>
+        <h3 class="font-cinzel text-xl font-black text-slate-900 tracking-wide">GIA NHẬP ĐẤU TRƯỜNG</h3>
+        <p class="text-xs text-slate-600 font-medium mt-1">Đăng ký bằng Tên Đăng Nhập để lưu trữ thành tích và tham gia xếp hạng</p>
       </div>
 
       <!-- Auth Tabs: Đăng Ký vs Đăng Nhập -->
-      <div class="flex bg-board-tray p-1 rounded-xl border border-board-border mb-5 text-xs font-bold">
-        <button id="tabBtnSignup" onclick="setAuthTab('signup')" class="flex-1 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white transition-all shadow-sm">
+      <div class="flex bg-slate-100 p-1 rounded-xl border border-slate-200 mb-5 text-xs font-bold">
+        <button id="tabBtnSignup" onclick="setAuthTab('signup')" class="flex-1 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-black shadow-md transition-all">
           Đăng Ký Tài Khoản
         </button>
-        <button id="tabBtnSignin" onclick="setAuthTab('signin')" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition-all">
+        <button id="tabBtnSignin" onclick="setAuthTab('signin')" class="flex-1 py-2 rounded-lg text-slate-600 hover:text-slate-900 font-bold transition-all">
           Đăng Nhập
         </button>
       </div>
@@ -4855,46 +4866,46 @@
       <form id="firebaseAuthForm" onsubmit="handleFirebaseAuthSubmit(event)" class="space-y-3.5">
         <!-- Display Name (Only on Signup) -->
         <div id="fieldDisplayName">
-          <label class="flex items-center justify-between text-xs font-bold text-slate-300 mb-1">
+          <label class="flex items-center justify-between text-xs font-bold text-slate-800 mb-1.5">
             <span class="flex items-center gap-1.5">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-400"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-500"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
               Biệt Danh Hiển Thị
             </span>
-            <span class="text-[10px] text-slate-600 font-mono font-bold">(Tùy chọn)</span>
+            <span class="text-[10px] text-slate-500 font-mono font-bold">(Tùy chọn)</span>
           </label>
           <div class="relative">
-            <input type="text" id="authDisplayName" placeholder="Nhập biệt danh thi đấu (VD: Minh Đại Sư)" class="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-board-border text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/40 transition-all font-sans">
+            <input type="text" id="authDisplayName" placeholder="Nhập biệt danh thi đấu (VD: Minh Đại Sư)" class="w-full px-4 py-2.5 rounded-xl bg-white border-2 border-slate-300 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 text-slate-900 font-bold text-xs placeholder:text-slate-400 font-sans transition-all outline-none">
           </div>
         </div>
 
         <!-- Username / Account Field (Replaced Gmail mandatory requirement) -->
         <div>
-          <label class="flex items-center justify-between text-xs font-bold text-slate-300 mb-1">
+          <label class="flex items-center justify-between text-xs font-bold text-slate-800 mb-1.5">
             <span class="flex items-center gap-1.5">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-400"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-500"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               <span id="authEmailLabelText">Tên Đăng Nhập</span>
             </span>
-            <span class="text-[10px] text-emerald-400 font-mono font-normal flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span class="text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md font-mono font-bold flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
               Không bắt buộc Gmail
             </span>
           </label>
           <div class="relative">
-            <input type="text" id="authEmail" required autocomplete="username" placeholder="Nhập tên đăng nhập (VD: minh_pro123)..." class="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-board-border text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/40 transition-all font-sans">
+            <input type="text" id="authEmail" required autocomplete="username" placeholder="Nhập tên đăng nhập (VD: minh_pro123)..." class="w-full px-4 py-2.5 rounded-xl bg-white border-2 border-slate-300 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 text-slate-900 font-bold text-xs placeholder:text-slate-400 font-sans transition-all outline-none">
           </div>
-          <p class="text-[10px] text-slate-400 mt-1 font-mono">Tự do đặt tên đăng nhập bất kỳ (hoặc nhập email nếu đã có tài khoản cũ)</p>
+          <p class="text-[11px] text-slate-500 mt-1 font-medium">Tự do đặt tên đăng nhập bất kỳ (hoặc nhập email nếu đã có tài khoản cũ)</p>
         </div>
 
         <div>
-          <label class="flex items-center justify-between text-xs font-bold text-slate-300 mb-1">
+          <label class="flex items-center justify-between text-xs font-bold text-slate-800 mb-1.5">
             <span class="flex items-center gap-1.5">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-400"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-500"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               Mật Mã
             </span>
-            <span class="text-[10px] text-slate-600 font-mono font-bold">Tối thiểu 6 ký tự</span>
+            <span class="text-[11px] text-slate-500 font-medium">Tối thiểu 6 ký tự</span>
           </label>
           <div class="relative">
-            <input type="password" id="authPassword" required minlength="6" placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-board-border text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/40 transition-all">
+            <input type="password" id="authPassword" required minlength="6" placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl bg-white border-2 border-slate-300 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 text-slate-900 font-bold text-xs placeholder:text-slate-400 transition-all outline-none">
           </div>
         </div>
 
@@ -4904,19 +4915,19 @@
           <span id="authErrorText">Lỗi xác thực</span>
         </div>
 
-        <button type="submit" id="authSubmitBtn" class="btn-spring btn-shimmer w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-black text-xs shadow-lg shadow-amber-700/30 border border-amber-400/40 mt-3 flex items-center justify-center gap-2 transition-all duration-200 active:scale-95 hover:shadow-[0_0_20px_rgba(245,158,11,0.5)] hover:brightness-110 cursor-pointer">
+        <button type="submit" id="authSubmitBtn" class="btn-spring btn-shimmer w-full py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-black text-sm shadow-md border border-amber-400/40 mt-3 flex items-center justify-center gap-2 transition-all duration-200 active:scale-95 hover:shadow-[0_0_20px_rgba(245,158,11,0.5)] hover:brightness-110 cursor-pointer">
           <span id="authBtnText">Đăng Ký Bằng Tên Đăng Nhập</span>
           <span id="authSpinner" class="hidden w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
         </button>
 
-        <div class="flex items-center gap-2 my-2 text-[10px] text-slate-500 font-mono uppercase tracking-widest pt-1">
-          <div class="flex-1 h-px bg-slate-800"></div>
+        <div class="flex items-center gap-2 my-2 text-[10px] text-slate-400 font-mono font-bold uppercase tracking-widest pt-1">
+          <div class="flex-1 h-px bg-slate-200"></div>
           <span>HOẶC</span>
-          <div class="flex-1 h-px bg-slate-800"></div>
+          <div class="flex-1 h-px bg-slate-200"></div>
         </div>
 
-        <button type="button" onclick="quickGuestLogin()" class="btn-spring w-full py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/60 hover:border-amber-500/40 text-xs font-bold transition-all duration-200 flex items-center justify-center gap-2 group cursor-pointer active:scale-95">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 text-amber-400 group-hover:rotate-12 transition-transform"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <button type="button" onclick="quickGuestLogin()" class="btn-spring w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 text-slate-800 font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer active:scale-95">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 text-amber-600"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           <span>Vào Chơi Nhanh (Tự Sinh Tên Đăng Nhập)</span>
         </button>
       </form>
@@ -5658,58 +5669,58 @@
 
   <!-- ================= MODAL ADMIN PORTAL: BẢNG ĐIỀU KHIỂN QUẢN TRỊ VIÊN ================= -->
   <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/90 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
-    <div id="adminCard" class="w-full max-w-5xl tabletop-mat rounded-3xl p-5 sm:p-7 shadow-2xl border border-rose-500/40 max-h-[92vh] flex flex-col transform scale-95 transition-transform duration-300 relative overflow-hidden">
+    <div id="adminCard" class="w-full max-w-5xl bg-white border-2 border-slate-300 rounded-3xl p-5 sm:p-7 shadow-2xl max-h-[92vh] flex flex-col transform scale-95 transition-transform duration-300 relative overflow-hidden text-slate-800">
       
       <!-- Top Header -->
-      <div class="flex items-center justify-between pb-4 border-b border-board-border mb-4">
+      <div class="flex items-center justify-between pb-4 border-b-2 border-slate-200 mb-4">
         <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-600 to-amber-600 p-0.5 shadow-lg shadow-rose-600/30 flex items-center justify-center">
-            <div class="w-full h-full bg-[#0E1526] rounded-[14px] flex items-center justify-center text-rose-400">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-500 to-amber-500 p-0.5 shadow-md flex items-center justify-center">
+            <div class="w-full h-full bg-rose-50 rounded-[14px] flex items-center justify-center text-rose-600 border border-rose-200">
               <i data-lucide="shield-check" class="w-5 h-5"></i>
             </div>
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h3 class="font-cinzel text-lg sm:text-xl font-black text-white tracking-wide">
+              <h3 class="font-cinzel text-lg sm:text-xl font-black text-slate-900 tracking-wide">
                 ĐẠI SẢNH QUẢN TRỊ VIÊN
               </h3>
-              <span class="text-[9px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold uppercase tracking-wider font-mono">
+              <span class="text-[9px] px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300 font-bold uppercase tracking-wider font-mono">
                 CONSOLE v3.3
               </span>
-              <span class="hidden sm:inline-flex items-center gap-1 text-[10px] text-emerald-400 font-mono">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Firebase Live
+              <span class="hidden sm:inline-flex items-center gap-1 text-[10px] text-emerald-700 font-bold font-mono">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Firebase Live
               </span>
             </div>
-            <p class="text-xs text-slate-400">Hệ thống kiểm soát kỳ thủ, kinh tế bàn cờ và phân quyền thời gian thực</p>
+            <p class="text-xs text-slate-600 font-medium">Hệ thống kiểm soát kỳ thủ, kinh tế bàn cờ và phân quyền thời gian thực</p>
           </div>
         </div>
 
-        <button onclick="closeModal('adminModal')" class="p-2 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white transition-colors">
+        <button onclick="closeModal('adminModal')" class="p-2 rounded-xl hover:bg-slate-100 text-slate-500 hover:text-slate-900 transition-colors" title="Đóng">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
       <!-- Auth Passcode Guard Screen (if not unlocked) -->
       <div id="adminLockScreen" class="py-12 px-4 flex flex-col items-center justify-center text-center max-w-md mx-auto my-auto">
-        <div class="w-16 h-16 rounded-3xl bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center text-3xl mb-4 shadow-lg shadow-rose-600/20">
+        <div class="w-16 h-16 rounded-3xl bg-rose-50 border-2 border-rose-200 text-rose-600 flex items-center justify-center text-3xl mb-4 shadow-md">
           🔐
         </div>
-        <h4 class="font-cinzel text-xl font-bold text-white mb-2">Xác Thực Quyền Quản Trị</h4>
-        <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+        <h4 class="font-cinzel text-xl font-black text-slate-900 mb-2">Xác Thực Quyền Quản Trị</h4>
+        <p class="text-xs text-slate-600 mb-6 leading-relaxed font-medium">
           Khu vực bảo mật cao dành riêng cho Quản Trị Viên hệ thống. Nhập mã Passcode để truy cập toàn bộ bảng điều khiển.
         </p>
 
         <form onsubmit="handleAdminUnlock(event)" class="w-full space-y-3">
           <div class="relative">
-            <input type="password" id="adminPassInput" placeholder="Nhập Passcode Quản trị (Mặc định: admin123)" class="w-full px-4 py-3 rounded-xl bg-black/60 border border-board-border text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500 text-center font-mono tracking-widest text-sm">
+            <input type="password" id="adminPassInput" placeholder="Nhập Passcode Quản trị (Mặc định: admin123)" class="w-full px-4 py-3 rounded-xl bg-white border-2 border-slate-300 text-slate-900 font-bold placeholder:text-slate-400 focus:outline-none focus:border-rose-500 text-center font-mono tracking-widest text-sm shadow-2xs">
           </div>
-          <button type="submit" class="btn-spring w-full py-3 rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white font-bold text-xs shadow-lg shadow-rose-600/30 flex items-center justify-center gap-2">
+          <button type="submit" class="btn-spring w-full py-3 rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white font-black text-xs shadow-md flex items-center justify-center gap-2">
             <i data-lucide="key" class="w-4 h-4"></i>
             <span>Mở Khóa Bảng Điều Khiển</span>
           </button>
-          <div class="pt-2 flex items-center justify-between text-[11px] text-slate-400">
-            <span>Mã demo mặc định: <code class="text-amber-400 font-mono font-bold">admin123</code></span>
-            <button type="button" onclick="quickAdminUnlock()" class="text-amber-400 hover:underline font-semibold">Mở Nhanh 1-Click</button>
+          <div class="pt-2 flex items-center justify-between text-[11px] text-slate-600 font-medium">
+            <span>Mã demo mặc định: <code class="text-amber-800 bg-amber-50 border border-amber-300 px-1.5 py-0.5 rounded font-mono font-bold">admin123</code></span>
+            <button type="button" onclick="quickAdminUnlock()" class="text-amber-700 hover:text-amber-800 hover:underline font-bold">Mở Nhanh 1-Click</button>
           </div>
         </form>
       </div>
@@ -5718,28 +5729,28 @@
       <div id="adminMainContent" class="hidden flex-1 flex flex-col min-h-0">
         
         <!-- Tab Navigation -->
-        <div class="flex flex-wrap items-center gap-2 pb-3 mb-3 border-b border-board-border text-xs font-semibold">
-          <button id="adminTabBtn1" onclick="switchAdminTab('analytics')" class="btn-spring px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white flex items-center gap-1.5 shadow-sm">
-            <i data-lucide="layout-dashboard" class="w-4 h-4 text-amber-300"></i>
+        <div class="flex flex-wrap items-center gap-2 pb-3 mb-3 border-b-2 border-slate-200 text-xs font-semibold">
+          <button id="adminTabBtn1" onclick="switchAdminTab('analytics')" class="btn-spring px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white font-black flex items-center gap-1.5 shadow-md">
+            <i data-lucide="layout-dashboard" class="w-4 h-4 text-amber-200"></i>
             <span>Tổng Quan Hệ Thống</span>
           </button>
-          <button id="adminTabBtn2" onclick="switchAdminTab('players')" class="btn-spring px-3.5 py-2 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 border border-board-border">
-            <i data-lucide="users" class="w-4 h-4 text-cyan-400"></i>
+          <button id="adminTabBtn2" onclick="switchAdminTab('players')" class="btn-spring px-3.5 py-2 rounded-xl bg-white border-2 border-slate-200 hover:border-amber-400 text-slate-800 font-bold flex items-center gap-1.5 transition shadow-2xs">
+            <i data-lucide="users" class="w-4 h-4 text-cyan-600"></i>
             <span>Quản Lý Kỳ Thủ</span>
-            <span id="adminBadgePlayerCount" class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-100 text-cyan-900 border border-cyan-300 font-mono font-black animate-pulse">1</span>
+            <span id="adminBadgePlayerCount" class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 font-mono font-bold">1</span>
           </button>
-          <button id="adminTabBtn3" onclick="switchAdminTab('balancer')" class="btn-spring px-3.5 py-2 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 border border-board-border">
-            <i data-lucide="sliders" class="w-4 h-4 text-amber-400"></i>
+          <button id="adminTabBtn3" onclick="switchAdminTab('balancer')" class="btn-spring px-3.5 py-2 rounded-xl bg-white border-2 border-slate-200 hover:border-amber-400 text-slate-800 font-bold flex items-center gap-1.5 transition shadow-2xs">
+            <i data-lucide="sliders" class="w-4 h-4 text-amber-600"></i>
             <span>Cân Bằng Bàn Cờ</span>
           </button>
-          <button id="adminTabBtn4" onclick="switchAdminTab('logs')" class="btn-spring px-3.5 py-2 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 border border-board-border">
-            <i data-lucide="history" class="w-4 h-4 text-emerald-400"></i>
+          <button id="adminTabBtn4" onclick="switchAdminTab('logs')" class="btn-spring px-3.5 py-2 rounded-xl bg-white border-2 border-slate-200 hover:border-amber-400 text-slate-800 font-bold flex items-center gap-1.5 transition shadow-2xs">
+            <i data-lucide="history" class="w-4 h-4 text-emerald-600"></i>
             <span>Nhật Ký Hoạt Động</span>
           </button>
           
           <div class="ml-auto flex items-center gap-2">
-            <button onclick="adminLockConsole()" class="btn-spring px-2.5 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 text-[11px] font-semibold flex items-center gap-1">
-              <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+            <button onclick="adminLockConsole()" class="btn-spring px-2.5 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 border border-rose-300 text-rose-800 text-[11px] font-bold flex items-center gap-1">
+              <i data-lucide="lock" class="w-3.5 h-3.5 text-rose-700"></i>
               Khóa Console
             </button>
           </div>
@@ -5753,57 +5764,57 @@
             <!-- 4 Bento Metric Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               
-              <div class="rounded-2xl p-4 bg-board-tray border border-board-border shadow-md relative overflow-hidden">
+              <div class="rounded-2xl p-4 bg-white border-2 border-slate-200 shadow-sm relative overflow-hidden">
                 <div class="flex items-center justify-between mb-2">
-                  <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Tổng Kỳ Thủ</span>
-                  <div class="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+                  <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Tổng Kỳ Thủ</span>
+                  <div class="w-8 h-8 rounded-xl bg-cyan-50 border border-cyan-200 text-cyan-700 flex items-center justify-center">
                     <i data-lucide="users" class="w-4 h-4"></i>
                   </div>
                 </div>
-                <div class="text-2xl font-black text-white font-mono" id="statAdminPlayers">0</div>
-                <div class="text-[11px] text-emerald-400 flex items-center gap-1 mt-1" id="statAdminPlayersSubtitle">
+                <div class="text-2xl font-black text-slate-900 font-mono" id="statAdminPlayers">0</div>
+                <div class="text-[11px] text-emerald-700 font-medium flex items-center gap-1 mt-1" id="statAdminPlayersSubtitle">
                   <span>● Đang hoạt động</span> <span class="text-slate-500">• Tổng số tài khoản đã đăng ký trên hệ thống</span>
                 </div>
               </div>
 
-              <div class="rounded-2xl p-4 bg-board-tray border border-board-border shadow-md relative overflow-hidden">
+              <div class="rounded-2xl p-4 bg-white border-2 border-slate-200 shadow-sm relative overflow-hidden">
                 <div class="flex items-center justify-between mb-2">
-                  <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Ván Cờ Đã Đấu</span>
-                  <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+                  <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Ván Cờ Đã Đấu</span>
+                  <div class="w-8 h-8 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center">
                     <i data-lucide="dices" class="w-4 h-4"></i>
                   </div>
                 </div>
-                <div class="text-2xl font-black text-amber-400 font-mono" id="statAdminMatches">0</div>
-                <div class="text-[11px] text-slate-400 flex items-center gap-1 mt-1" id="statAdminMatchesSubtitle">
+                <div class="text-2xl font-black text-amber-700 font-mono" id="statAdminMatches">0</div>
+                <div class="text-[11px] text-slate-600 font-medium flex items-center gap-1 mt-1" id="statAdminMatchesSubtitle">
                   <span>🎲 Xúc xắc: 0</span> <span class="text-slate-500">• ⭕ Ca-rô: 0 • ♟️ Cờ: 0 • 🎩 Tỷ phú: 0</span>
                 </div>
               </div>
 
-              <div class="rounded-2xl p-4 bg-board-tray border border-board-border shadow-md relative overflow-hidden">
+              <div class="rounded-2xl p-4 bg-white border-2 border-slate-200 shadow-sm relative overflow-hidden">
                 <div class="flex items-center justify-between mb-2">
-                  <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Kinh Tế Lưu Hành</span>
-                  <div class="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                  <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Kinh Tế Lưu Hành</span>
+                  <div class="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center">
                     <i data-lucide="coins" class="w-4 h-4"></i>
                   </div>
                 </div>
-                <div class="text-2xl font-black text-emerald-400 font-mono" id="statAdminEconomy">0 🪙 / 0 💎</div>
-                <div class="text-[11px] text-cyan-400 flex items-center gap-1 mt-1" id="statAdminEconomySubtitle">
+                <div class="text-2xl font-black text-emerald-700 font-mono" id="statAdminEconomy">0 🪙 / 0 💎</div>
+                <div class="text-[11px] text-cyan-800 font-medium flex items-center gap-1 mt-1" id="statAdminEconomySubtitle">
                   <span>🪙 0 Xu • 💎 0 Kim cương</span> <span class="text-slate-500">• Toàn bộ tài khoản</span>
                 </div>
               </div>
 
-              <div class="rounded-2xl p-4 bg-board-tray border border-board-border shadow-md relative overflow-hidden">
+              <div class="rounded-2xl p-4 bg-white border-2 border-slate-200 shadow-sm relative overflow-hidden">
                 <div class="flex items-center justify-between mb-2">
-                  <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Hạ Tầng Firebase</span>
-                  <div class="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center">
+                  <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Hạ Tầng Firebase</span>
+                  <div class="w-8 h-8 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 flex items-center justify-center">
                     <i data-lucide="server" class="w-4 h-4"></i>
                   </div>
                 </div>
-                <div class="text-2xl font-black text-white font-mono flex items-center gap-2">
+                <div class="text-2xl font-black text-slate-900 font-mono flex items-center gap-2">
                   <span>99.98%</span>
-                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-sans font-bold">KHỎE</span>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 font-sans font-bold">KHỎE</span>
                 </div>
-                <div class="text-[11px] text-emerald-400 flex items-center gap-1 mt-1 font-mono">
+                <div class="text-[11px] text-emerald-700 font-medium flex items-center gap-1 mt-1 font-mono">
                   <span>● Độ trễ: 16ms</span> <span class="text-slate-500">• Firestore Sync: OK</span>
                 </div>
               </div>
@@ -5814,73 +5825,73 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
               
               <!-- Match Outcome Breakdown -->
-              <div class="rounded-2xl p-4 bg-board-tray border border-board-border lg:col-span-2">
-                <div class="flex items-center justify-between mb-3 pb-2 border-b border-board-border">
-                  <h4 class="font-cinzel text-sm font-bold text-white flex items-center gap-2">
-                    <i data-lucide="pie-chart" class="w-4 h-4 text-amber-400"></i>
+              <div class="rounded-2xl p-4 bg-white border-2 border-slate-200 shadow-sm lg:col-span-2">
+                <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-200">
+                  <h4 class="font-cinzel text-sm font-bold text-slate-900 flex items-center gap-2">
+                    <i data-lucide="pie-chart" class="w-4 h-4 text-amber-600"></i>
                     Tỷ Lệ Chiến Thắng Toàn Đấu Trường
                   </h4>
-                  <span class="text-xs text-slate-400 font-mono" id="statAdminWinRateScope">Chưa có dữ liệu trận đấu (0 ván)</span>
+                  <span class="text-xs text-slate-500 font-mono font-medium" id="statAdminWinRateScope">Chưa có dữ liệu trận đấu (0 ván)</span>
                 </div>
                 <div class="space-y-3 text-xs" id="statAdminWinRateContainer">
                   <div>
-                    <div class="flex justify-between text-slate-300 mb-1">
+                    <div class="flex justify-between text-slate-700 font-semibold mb-1">
                       <span>Kỳ Thủ Con Người Thắng</span>
-                      <span class="font-bold text-cyan-400 font-mono" id="statAdminHumanWinText">0% (0 ván)</span>
+                      <span class="font-bold text-cyan-700 font-mono" id="statAdminHumanWinText">0% (0 ván)</span>
                     </div>
-                    <div class="w-full h-3 bg-black/40 rounded-full overflow-hidden border border-white/5">
+                    <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
                       <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full transition-all duration-500" id="statAdminHumanWinBar" style="width: 0%"></div>
                     </div>
                   </div>
                   <div>
-                    <div class="flex justify-between text-slate-300 mb-1">
+                    <div class="flex justify-between text-slate-700 font-semibold mb-1">
                       <span>Trí Tuệ Nhân Tạo (BOT) Thắng</span>
-                      <span class="font-bold text-rose-400 font-mono" id="statAdminBotWinText">0% (0 ván)</span>
+                      <span class="font-bold text-rose-700 font-mono" id="statAdminBotWinText">0% (0 ván)</span>
                     </div>
-                    <div class="w-full h-3 bg-black/40 rounded-full overflow-hidden border border-white/5">
+                    <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
                       <div class="h-full bg-gradient-to-r from-rose-500 to-amber-500 rounded-full transition-all duration-500" id="statAdminBotWinBar" style="width: 0%"></div>
                     </div>
                   </div>
                   <div>
-                    <div class="flex justify-between text-slate-300 mb-1">
+                    <div class="flex justify-between text-slate-700 font-semibold mb-1">
                       <span>Ván Cờ Ca-rô Hòa</span>
-                      <span class="font-bold text-slate-400 font-mono" id="statAdminDrawWinText">0% (0 ván)</span>
+                      <span class="font-bold text-slate-600 font-mono" id="statAdminDrawWinText">0% (0 ván)</span>
                     </div>
-                    <div class="w-full h-3 bg-black/40 rounded-full overflow-hidden border border-white/5">
-                      <div class="h-full bg-slate-600 rounded-full transition-all duration-500" id="statAdminDrawWinBar" style="width: 0%"></div>
+                    <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+                      <div class="h-full bg-slate-400 rounded-full transition-all duration-500" id="statAdminDrawWinBar" style="width: 0%"></div>
                     </div>
                   </div>
                 </div>
               </div>
 
               <!-- Quick System Control Status -->
-              <div class="rounded-2xl p-4 bg-board-tray border border-board-border flex flex-col justify-between">
+              <div class="rounded-2xl p-4 bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between">
                 <div>
-                  <h4 class="font-cinzel text-sm font-bold text-white mb-3 pb-2 border-b border-board-border flex items-center gap-2">
-                    <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i>
+                  <h4 class="font-cinzel text-sm font-bold text-slate-900 mb-3 pb-2 border-b border-slate-200 flex items-center gap-2">
+                    <i data-lucide="cpu" class="w-4 h-4 text-emerald-600"></i>
                     Trạng Thái Đấu Trường
                   </h4>
-                  <ul class="text-xs space-y-2.5 text-slate-300">
+                  <ul class="text-xs space-y-2.5 text-slate-700 font-medium">
                     <li class="flex items-center justify-between">
-                      <span class="text-slate-400">Bảo trì toàn cục:</span>
-                      <span id="adminMaintenanceStatusBadge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400">HOẠT ĐỘNG</span>
+                      <span class="text-slate-500">Bảo trì toàn cục:</span>
+                      <span id="adminMaintenanceStatusBadge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">HOẠT ĐỘNG</span>
                     </li>
                     <li class="flex items-center justify-between">
-                      <span class="text-slate-400">Đồng bộ Cloud:</span>
-                      <span class="text-emerald-400 font-bold font-mono">Firestore REST</span>
+                      <span class="text-slate-500">Đồng bộ Cloud:</span>
+                      <span class="text-emerald-700 font-bold font-mono">Firestore REST</span>
                     </li>
                     <li class="flex items-center justify-between">
-                      <span class="text-slate-400">Web Audio FX:</span>
-                      <span class="text-cyan-400 font-bold">24-bit PCM</span>
+                      <span class="text-slate-500">Web Audio FX:</span>
+                      <span class="text-cyan-700 font-bold">24-bit PCM</span>
                     </li>
                     <li class="flex items-center justify-between">
-                      <span class="text-slate-400">Nhánh Git:</span>
-                      <span class="text-amber-400 font-mono font-bold">feat/ui</span>
+                      <span class="text-slate-500">Nhánh Git:</span>
+                      <span class="text-amber-800 font-mono font-bold">feat/ui</span>
                     </li>
                   </ul>
                 </div>
-                <button onclick="switchAdminTab('balancer')" class="mt-4 btn-spring w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-amber-300 flex items-center justify-center gap-1.5 border border-slate-700">
-                  <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+                <button onclick="switchAdminTab('balancer')" class="mt-4 btn-spring w-full py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-xs font-bold text-amber-900 flex items-center justify-center gap-1.5 border border-amber-300">
+                  <i data-lucide="sliders" class="w-3.5 h-3.5 text-amber-700"></i>
                   Đi Tới Cân Bằng Game
                 </button>
               </div>
@@ -5891,15 +5902,15 @@
           <!-- ================= TAB 2: PLAYER MANAGEMENT ================= -->
           <div id="adminViewPlayers" class="hidden space-y-3">
             <!-- Filter & Search Bar -->
-            <div class="flex flex-wrap items-center justify-between gap-3 p-3 rounded-2xl bg-board-tray border border-board-border">
+            <div class="flex flex-wrap items-center justify-between gap-3 p-3 rounded-2xl bg-white border-2 border-slate-200 shadow-sm">
               <div class="flex items-center gap-2 flex-1 min-w-[200px]">
                 <div class="relative w-full max-w-sm">
                   <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
-                  <input type="text" id="adminPlayerSearchInput" oninput="renderAdminPlayersTable()" placeholder="Tìm theo Tên, Email hoặc UID..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-black/50 border border-board-border text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500">
+                  <input type="text" id="adminPlayerSearchInput" oninput="renderAdminPlayersTable()" placeholder="Tìm theo Tên, Email hoặc UID..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-white border-2 border-slate-300 text-xs text-slate-900 font-bold placeholder:text-slate-400 focus:outline-none focus:border-amber-500 shadow-2xs">
                 </div>
               </div>
               <div class="flex items-center gap-2 text-xs">
-                <select id="adminRoleFilter" onchange="renderAdminPlayersTable()" class="px-3 py-2 rounded-xl bg-black/60 border border-board-border text-slate-300 focus:outline-none focus:border-amber-500">
+                <select id="adminRoleFilter" onchange="renderAdminPlayersTable()" class="px-3 py-2 rounded-xl bg-white border-2 border-slate-300 text-slate-900 font-bold focus:outline-none focus:border-amber-500 shadow-2xs">
                   <option value="all">Tất Cả Vai Trò</option>
                   <option value="Admin">Admin</option>
                   <option value="Huyền Thoại VIP">Huyền Thoại VIP</option>
@@ -5907,12 +5918,12 @@
                   <option value="Tân Thủ">Tân Thủ</option>
                 </select>
                 <div class="flex items-center gap-2">
-                  <button onclick="syncRealFirestorePlayers(true)" id="btnAdminSyncFirestore" class="btn-spring px-3 py-2 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/40 font-bold flex items-center gap-1.5 transition-all shadow-sm" title="Quét và tải toàn bộ tài khoản thực tế từ Cloud Firestore">
-                    <i data-lucide="refresh-cw" id="iconSyncFirestore" class="w-3.5 h-3.5 text-cyan-400"></i>
+                  <button onclick="syncRealFirestorePlayers(true)" id="btnAdminSyncFirestore" class="btn-spring px-3 py-2 rounded-xl bg-cyan-50 hover:bg-cyan-100 text-cyan-800 border-2 border-cyan-300 font-bold flex items-center gap-1.5 transition-all shadow-sm" title="Quét và tải toàn bộ tài khoản thực tế từ Cloud Firestore">
+                    <i data-lucide="refresh-cw" id="iconSyncFirestore" class="w-3.5 h-3.5 text-cyan-600"></i>
                     <span>Đồng Bộ Dữ Liệu Thật</span>
                   </button>
-                  <button onclick="openAdminAddRealPlayerModal()" class="btn-spring px-3 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 font-bold flex items-center gap-1.5 transition-all shadow-sm" title="Tạo tài khoản kỳ thủ mới và lưu trực tiếp lên Cloud Firestore">
-                    <i data-lucide="user-plus" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <button onclick="openAdminAddRealPlayerModal()" class="btn-spring px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-2 border-emerald-300 font-bold flex items-center gap-1.5 transition-all shadow-sm" title="Tạo tài khoản kỳ thủ mới và lưu trực tiếp lên Cloud Firestore">
+                    <i data-lucide="user-plus" class="w-3.5 h-3.5 text-emerald-600"></i>
                     <span>Thêm Kỳ Thủ Mới</span>
                   </button>
                 </div>
@@ -5920,10 +5931,10 @@
             </div>
 
             <!-- Players Table -->
-            <div class="rounded-2xl border border-board-border overflow-hidden bg-board-tray">
+            <div class="rounded-2xl border-2 border-slate-200 overflow-hidden bg-white shadow-sm">
               <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs text-slate-300">
-                  <thead class="bg-black/40 text-[11px] uppercase tracking-wider text-slate-400 font-semibold border-b border-board-border">
+                <table class="w-full text-left text-xs text-slate-800">
+                  <thead class="bg-slate-100 border-y-2 border-slate-300 text-[11px] uppercase tracking-wider text-slate-800 font-black">
                     <tr>
                       <th class="p-3">Kỳ Thủ</th>
                       <th class="p-3">Vai Trò & Quyền</th>
@@ -5933,7 +5944,7 @@
                       <th class="p-3 text-right">Thao Tác Quản Trị</th>
                     </tr>
                   </thead>
-                  <tbody id="adminPlayersTableBody" class="divide-y divide-board-border/60">
+                  <tbody id="adminPlayersTableBody" class="divide-y divide-slate-200">
                     <!-- Dynamic rendering via JS -->
                   </tbody>
                 </table>
@@ -5946,51 +5957,51 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               
               <!-- Card 1: 12-Tile Dice Quest Rules -->
-              <div class="rounded-2xl p-4 bg-board-tray border border-board-border space-y-4">
-                <div class="flex items-center gap-2 pb-2 border-b border-board-border">
-                  <i data-lucide="dices" class="w-4 h-4 text-amber-400"></i>
-                  <h4 class="font-cinzel text-sm font-bold text-white">Quy Chuẩn Bàn Cờ Xúc Xắc 12 Ô</h4>
+              <div class="rounded-2xl p-4 bg-white border-2 border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center gap-2 pb-2 border-b border-slate-200">
+                  <i data-lucide="dices" class="w-4 h-4 text-amber-600"></i>
+                  <h4 class="font-cinzel text-sm font-bold text-slate-900">Quy Chuẩn Bàn Cờ Xúc Xắc 12 Ô</h4>
                 </div>
                 
                 <div class="space-y-3 text-xs">
                   <div>
-                    <label class="block font-bold text-slate-300 mb-1 flex justify-between">
+                    <label class="block font-bold text-slate-800 mb-1 flex justify-between">
                       <span>Điểm số Cán Đích (Chiến Thắng)</span>
-                      <span class="text-amber-400 font-mono font-bold" id="lblTargetScore">50 điểm</span>
+                      <span class="text-amber-700 font-mono font-bold" id="lblTargetScore">50 điểm</span>
                     </label>
-                    <input type="range" id="cfgTargetScore" min="30" max="100" step="5" value="50" oninput="updateTargetScoreLabel(this.value)" class="w-full accent-amber-500 cursor-pointer">
-                    <p class="text-[10px] text-slate-500 mt-0.5">Kỳ thủ đầu tiên đạt điểm này sẽ chiến thắng ván cờ</p>
+                    <input type="range" id="cfgTargetScore" min="30" max="100" step="5" value="50" oninput="updateTargetScoreLabel(this.value)" class="w-full accent-amber-600 cursor-pointer">
+                    <p class="text-[10px] text-slate-500 mt-0.5 font-medium">Kỳ thủ đầu tiên đạt điểm này sẽ chiến thắng ván cờ</p>
                   </div>
 
                   <div class="grid grid-cols-2 gap-3 pt-2">
                     <div>
-                      <label class="block font-bold text-slate-300 mb-1">⭐ Ngôi Sao (+ Điểm)</label>
-                      <input type="number" id="cfgStarReward" value="15" class="w-full px-3 py-1.5 rounded-xl bg-black/60 border border-board-border text-white text-xs font-mono">
+                      <label class="block font-bold text-slate-700 mb-1">⭐ Ngôi Sao (+ Điểm)</label>
+                      <input type="number" id="cfgStarReward" value="15" class="w-full px-3 py-1.5 rounded-xl bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                     </div>
                     <div>
-                      <label class="block font-bold text-slate-300 mb-1">👑 Kho Báu Cổ (+ Điểm)</label>
-                      <input type="number" id="cfgTreasureReward" value="20" class="w-full px-3 py-1.5 rounded-xl bg-black/60 border border-board-border text-white text-xs font-mono">
+                      <label class="block font-bold text-slate-700 mb-1">👑 Kho Báu Cổ (+ Điểm)</label>
+                      <input type="number" id="cfgTreasureReward" value="20" class="w-full px-3 py-1.5 rounded-xl bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                     </div>
                     <div>
-                      <label class="block font-bold text-slate-300 mb-1">🗝️ Chìa Khóa Thần (+ Điểm)</label>
-                      <input type="number" id="cfgKeyReward" value="30" class="w-full px-3 py-1.5 rounded-xl bg-black/60 border border-board-border text-white text-xs font-mono">
+                      <label class="block font-bold text-slate-700 mb-1">🗝️ Chìa Khóa Thần (+ Điểm)</label>
+                      <input type="number" id="cfgKeyReward" value="30" class="w-full px-3 py-1.5 rounded-xl bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                     </div>
                     <div>
-                      <label class="block font-bold text-slate-300 mb-1">💣 Hố Đen (- Điểm)</label>
-                      <input type="number" id="cfgBlackholePenalty" value="15" class="w-full px-3 py-1.5 rounded-xl bg-black/60 border border-board-border text-white text-xs font-mono">
+                      <label class="block font-bold text-slate-700 mb-1">💣 Hố Đen (- Điểm)</label>
+                      <input type="number" id="cfgBlackholePenalty" value="15" class="w-full px-3 py-1.5 rounded-xl bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                     </div>
                   </div>
                 </div>
               </div>
 
               <!-- Card 2: Economy & Operational Controls (Bento Grid Win Rewards) -->
-              <div class="md:col-span-2 rounded-2xl p-4 sm:p-5 bg-board-tray border border-board-border space-y-4">
-                <div class="flex items-center justify-between pb-2 border-b border-board-border">
+              <div class="md:col-span-2 rounded-2xl p-4 sm:p-5 bg-white border-2 border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-200">
                   <div class="flex items-center gap-2">
-                    <i data-lucide="award" class="w-4 h-4 text-amber-400"></i>
-                    <h4 class="font-cinzel text-sm font-bold text-white tracking-wide">⚙️ TÙY CHỈNH PHẦN THƯỞNG CHIẾN THẮNG & HỆ SỐ SỰ KIỆN</h4>
+                    <i data-lucide="award" class="w-4 h-4 text-amber-600"></i>
+                    <h4 class="font-cinzel text-sm font-bold text-slate-900 tracking-wide">⚙️ TÙY CHỈNH PHẦN THƯỞNG CHIẾN THẮNG & HỆ SỐ SỰ KIỆN</h4>
                   </div>
-                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold">4 GAME REALTIME</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300 font-bold">4 GAME REALTIME</span>
                 </div>
 
                 <!-- Hidden inputs for backward compatibility -->
@@ -5998,16 +6009,16 @@
                 <input type="hidden" id="cfgWinElo" value="25">
 
                 <!-- Row 1: Global Event Boost Multiplier -->
-                <div class="p-3.5 rounded-xl bg-black/40 border border-amber-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="p-3.5 rounded-xl bg-amber-50/70 border border-amber-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
                   <div>
-                    <div class="text-xs font-bold text-amber-300 flex items-center gap-1.5">
-                      <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <div class="text-xs font-bold text-amber-950 flex items-center gap-1.5">
+                      <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-600"></i>
                       <span>Hệ Số Nhân Sự Kiện Toàn Server (Global Event Boost Multiplier)</span>
                     </div>
-                    <div class="text-[11px] text-slate-400 mt-0.5">Hệ số nhân thưởng trực tiếp Xu (🪙), Kim Cương (💎) và ELO (⭐) khi chiến thắng các bộ môn</div>
+                    <div class="text-[11px] text-amber-900/80 mt-0.5 font-medium">Hệ số nhân thưởng trực tiếp Xu (🪙), Kim Cương (💎) và ELO (⭐) khi chiến thắng các bộ môn</div>
                   </div>
                   <div class="shrink-0">
-                    <select id="cfgRewardMultiplier" class="w-full sm:w-auto px-3 py-1.5 rounded-xl bg-slate-900 border border-amber-500/40 text-amber-300 font-bold font-mono text-xs focus:ring-1 focus:ring-amber-400 outline-none cursor-pointer">
+                    <select id="cfgRewardMultiplier" class="w-full sm:w-auto px-3 py-1.5 rounded-xl bg-white border-2 border-amber-400 text-amber-900 font-bold font-mono text-xs focus:ring-2 focus:ring-amber-500 outline-none cursor-pointer shadow-2xs">
                       <option value="1.0">1.0x - Mặc định chuẩn</option>
                       <option value="1.2">1.2x - Cuối Tuần Sôi Động (+20%)</option>
                       <option value="1.5">1.5x - Lễ Hội & Tri Ân (+50%)</option>
@@ -6019,114 +6030,114 @@
                 <!-- Row 2: Bento Grid 4 Game Victory Rewards -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
                   <!-- Game 1: Dice 20 Cells -->
-                  <div class="p-3 rounded-xl bg-black/50 border border-amber-500/30 flex flex-col justify-between space-y-2">
-                    <div class="flex items-center gap-2 pb-1.5 border-b border-board-border">
+                  <div class="p-3 rounded-xl bg-slate-50 border-2 border-slate-200 flex flex-col justify-between space-y-2 shadow-2xs">
+                    <div class="flex items-center gap-2 pb-1.5 border-b border-slate-200">
                       <span class="text-base">🎲</span>
-                      <div class="font-bold text-amber-300 text-[11px] truncate" title="Xúc Xắc 20 Ô Hoàng Kim">Xúc Xắc 20 Ô</div>
+                      <div class="font-bold text-slate-900 text-[11px] truncate" title="Xúc Xắc 20 Ô Hoàng Kim">Xúc Xắc 20 Ô</div>
                     </div>
                     <div class="space-y-1.5">
                       <div>
-                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Thưởng Thắng Xu (🪙)</span></label>
-                        <input type="number" id="cfgRewardDiceCoins" value="250" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                        <label class="text-[10px] text-slate-600 font-semibold flex items-center justify-between"><span>Thưởng Thắng Xu (🪙)</span></label>
+                        <input type="number" id="cfgRewardDiceCoins" value="250" class="w-full px-2.5 py-1.5 rounded-lg bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                       </div>
                       <div>
-                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Kim Cương (💎)</span></label>
-                        <input type="number" id="cfgRewardDiceGems" value="15" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                        <label class="text-[10px] text-slate-600 font-semibold flex items-center justify-between"><span>Kim Cương (💎)</span></label>
+                        <input type="number" id="cfgRewardDiceGems" value="15" class="w-full px-2.5 py-1.5 rounded-lg bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                       </div>
                       <div>
-                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Điểm ELO (⭐)</span></label>
-                        <input type="number" id="cfgRewardDiceElo" value="30" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                        <label class="text-[10px] text-slate-600 font-semibold flex items-center justify-between"><span>Điểm ELO (⭐)</span></label>
+                        <input type="number" id="cfgRewardDiceElo" value="30" class="w-full px-2.5 py-1.5 rounded-lg bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                       </div>
                     </div>
                   </div>
 
                   <!-- Game 2: Chess FIDE -->
-                  <div class="p-3 rounded-xl bg-black/50 border border-indigo-500/30 flex flex-col justify-between space-y-2">
-                    <div class="flex items-center gap-2 pb-1.5 border-b border-board-border">
+                  <div class="p-3 rounded-xl bg-slate-50 border-2 border-slate-200 flex flex-col justify-between space-y-2 shadow-2xs">
+                    <div class="flex items-center gap-2 pb-1.5 border-b border-slate-200">
                       <span class="text-base">♟️</span>
-                      <div class="font-bold text-indigo-300 text-[11px] truncate" title="Cờ Vua FIDE Kiện Tướng">Cờ Vua FIDE</div>
+                      <div class="font-bold text-slate-900 text-[11px] truncate" title="Cờ Vua FIDE Kiện Tướng">Cờ Vua FIDE</div>
                     </div>
                     <div class="space-y-1.5">
                       <div>
-                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Thưởng Thắng Xu (🪙)</span></label>
-                        <input type="number" id="cfgRewardChessCoins" value="400" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                        <label class="text-[10px] text-slate-600 font-semibold flex items-center justify-between"><span>Thưởng Thắng Xu (🪙)</span></label>
+                        <input type="number" id="cfgRewardChessCoins" value="400" class="w-full px-2.5 py-1.5 rounded-lg bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                       </div>
                       <div>
-                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Kim Cương (💎)</span></label>
-                        <input type="number" id="cfgRewardChessGems" value="25" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                        <label class="text-[10px] text-slate-600 font-semibold flex items-center justify-between"><span>Kim Cương (💎)</span></label>
+                        <input type="number" id="cfgRewardChessGems" value="25" class="w-full px-2.5 py-1.5 rounded-lg bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                       </div>
                       <div>
-                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Điểm ELO (⭐)</span></label>
-                        <input type="number" id="cfgRewardChessElo" value="40" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                        <label class="text-[10px] text-slate-600 font-semibold flex items-center justify-between"><span>Điểm ELO (⭐)</span></label>
+                        <input type="number" id="cfgRewardChessElo" value="40" class="w-full px-2.5 py-1.5 rounded-lg bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                       </div>
                     </div>
                   </div>
 
                   <!-- Game 3: TicTacToe Neon -->
-                  <div class="p-3 rounded-xl bg-black/50 border border-cyan-500/30 flex flex-col justify-between space-y-2">
-                    <div class="flex items-center gap-2 pb-1.5 border-b border-board-border">
+                  <div class="p-3 rounded-xl bg-slate-50 border-2 border-slate-200 flex flex-col justify-between space-y-2 shadow-2xs">
+                    <div class="flex items-center gap-2 pb-1.5 border-b border-slate-200">
                       <span class="text-base">❌</span>
-                      <div class="font-bold text-cyan-300 text-[11px] truncate" title="Cờ Ca-rô Neon Hoàng Gia">Ca-rô Neon</div>
+                      <div class="font-bold text-slate-900 text-[11px] truncate" title="Cờ Ca-rô Neon Hoàng Gia">Ca-rô Neon</div>
                     </div>
                     <div class="space-y-1.5">
                       <div>
-                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Thưởng Thắng Xu (🪙)</span></label>
-                        <input type="number" id="cfgRewardTTTCoins" value="100" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                        <label class="text-[10px] text-slate-600 font-semibold flex items-center justify-between"><span>Thưởng Thắng Xu (🪙)</span></label>
+                        <input type="number" id="cfgRewardTTTCoins" value="100" class="w-full px-2.5 py-1.5 rounded-lg bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                       </div>
                       <div>
-                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Kim Cương (💎)</span></label>
-                        <input type="number" id="cfgRewardTTTGems" value="5" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                        <label class="text-[10px] text-slate-600 font-semibold flex items-center justify-between"><span>Kim Cương (💎)</span></label>
+                        <input type="number" id="cfgRewardTTTGems" value="5" class="w-full px-2.5 py-1.5 rounded-lg bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                       </div>
                       <div>
-                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Điểm ELO (⭐)</span></label>
-                        <input type="number" id="cfgRewardTTTElo" value="20" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                        <label class="text-[10px] text-slate-600 font-semibold flex items-center justify-between"><span>Điểm ELO (⭐)</span></label>
+                        <input type="number" id="cfgRewardTTTElo" value="20" class="w-full px-2.5 py-1.5 rounded-lg bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                       </div>
                     </div>
                   </div>
 
                   <!-- Game 4: Monopoly 2.5D -->
-                  <div class="p-3 rounded-xl bg-black/50 border border-emerald-500/30 flex flex-col justify-between space-y-2">
-                    <div class="flex items-center gap-2 pb-1.5 border-b border-board-border">
+                  <div class="p-3 rounded-xl bg-slate-50 border-2 border-slate-200 flex flex-col justify-between space-y-2 shadow-2xs">
+                    <div class="flex items-center gap-2 pb-1.5 border-b border-slate-200">
                       <span class="text-base">🎩</span>
-                      <div class="font-bold text-emerald-300 text-[11px] truncate" title="Cờ Tỷ Phú 2.5D Business Tour">Cờ Tỷ Phú 2.5D</div>
+                      <div class="font-bold text-slate-900 text-[11px] truncate" title="Cờ Tỷ Phú 2.5D Business Tour">Cờ Tỷ Phú 2.5D</div>
                     </div>
                     <div class="space-y-1.5">
                       <div>
-                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Thưởng Thắng Xu (🪙)</span></label>
-                        <input type="number" id="cfgRewardMonoCoins" value="600" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                        <label class="text-[10px] text-slate-600 font-semibold flex items-center justify-between"><span>Thưởng Thắng Xu (🪙)</span></label>
+                        <input type="number" id="cfgRewardMonoCoins" value="600" class="w-full px-2.5 py-1.5 rounded-lg bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                       </div>
                       <div>
-                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Kim Cương (💎)</span></label>
-                        <input type="number" id="cfgRewardMonoGems" value="40" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                        <label class="text-[10px] text-slate-600 font-semibold flex items-center justify-between"><span>Kim Cương (💎)</span></label>
+                        <input type="number" id="cfgRewardMonoGems" value="40" class="w-full px-2.5 py-1.5 rounded-lg bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                       </div>
                       <div>
-                        <label class="text-[10px] text-slate-400 flex items-center justify-between"><span>Điểm ELO (⭐)</span></label>
-                        <input type="number" id="cfgRewardMonoElo" value="50" class="w-full px-2.5 py-1.5 rounded-lg bg-black/70 border border-board-border text-white text-xs font-mono">
+                        <label class="text-[10px] text-slate-600 font-semibold flex items-center justify-between"><span>Điểm ELO (⭐)</span></label>
+                        <input type="number" id="cfgRewardMonoElo" value="50" class="w-full px-2.5 py-1.5 rounded-lg bg-white border-2 border-slate-300 text-slate-900 font-bold text-xs font-mono focus:border-amber-500">
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <!-- Operational Controls: Maintenance Mode -->
-                <div class="p-3 rounded-xl bg-black/40 border border-board-border flex items-center justify-between">
+                <div class="p-3 rounded-xl bg-slate-50 border-2 border-slate-200 flex items-center justify-between shadow-2xs">
                   <div>
-                    <div class="font-bold text-slate-200 text-xs">Chế Độ Bảo Trì Bàn Cờ</div>
-                    <div class="text-[11px] text-slate-400">Bật biểu ngữ thông báo bảo trì toàn hệ thống</div>
+                    <div class="font-bold text-slate-800 text-xs">Chế Độ Bảo Trì Bàn Cờ</div>
+                    <div class="text-[11px] text-slate-500 font-medium">Bật biểu ngữ thông báo bảo trì toàn hệ thống</div>
                   </div>
                   <label class="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" id="cfgMaintenance" class="sr-only peer">
-                    <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-rose-600"></div>
+                    <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-rose-600"></div>
                   </label>
                 </div>
 
                 <!-- Action Button Row -->
                 <div class="pt-2 flex flex-col sm:flex-row gap-2">
-                  <button onclick="handleSaveGameConfig()" class="btn-spring flex-1 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-black text-xs shadow-lg shadow-amber-600/30 flex items-center justify-center gap-2 cursor-pointer">
+                  <button onclick="handleSaveGameConfig()" class="btn-spring flex-1 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs shadow-md flex items-center justify-center gap-2 cursor-pointer">
                     <i data-lucide="save" class="w-4 h-4"></i>
                     <span>Lưu Cấu Hình Thưởng & Áp Dụng Ngay</span>
                   </button>
-                  <button onclick="resetDefaultRewardConfig()" class="btn-spring px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-bold text-xs border border-slate-600/60 flex items-center justify-center gap-1.5 cursor-pointer" title="Khôi phục thông số phần thưởng gốc">
-                    <i data-lucide="rotate-ccw" class="w-4 h-4 text-slate-400"></i>
+                  <button onclick="resetDefaultRewardConfig()" class="btn-spring px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs border border-slate-300 flex items-center justify-center gap-1.5 cursor-pointer" title="Khôi phục thông số phần thưởng gốc">
+                    <i data-lucide="rotate-ccw" class="w-4 h-4 text-slate-600"></i>
                     <span>Khôi Phục Mặc Định</span>
                   </button>
                 </div>
@@ -6137,16 +6148,16 @@
 
           <!-- ================= TAB 4: AUDIT LOGS ================= -->
           <div id="adminViewLogs" class="hidden space-y-3">
-            <div class="flex items-center justify-between pb-2 border-b border-board-border">
-              <span class="text-xs text-slate-400 font-mono">Ghi chép hành động hệ thống thời gian thực (Audit Trail)</span>
-              <button onclick="adminClearLogs()" class="text-xs text-slate-400 hover:text-rose-400 font-semibold flex items-center gap-1">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+              <span class="text-xs text-slate-600 font-mono font-medium">Ghi chép hành động hệ thống thời gian thực (Audit Trail)</span>
+              <button onclick="adminClearLogs()" class="text-xs text-slate-600 hover:text-rose-600 font-bold flex items-center gap-1 cursor-pointer">
                 <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
                 Dọn Nhật Ký
               </button>
             </div>
 
-            <div class="rounded-2xl border border-board-border overflow-hidden bg-black/40">
-              <div class="max-h-[360px] overflow-y-auto divide-y divide-board-border/40 font-mono text-xs" id="adminAuditLogFeed">
+            <div class="rounded-2xl border-2 border-slate-200 overflow-hidden bg-slate-50/80 shadow-inner">
+              <div class="max-h-[360px] overflow-y-auto divide-y divide-slate-200 font-mono text-xs" id="adminAuditLogFeed">
                 <!-- Log feed rendered via JS -->
               </div>
             </div>
@@ -6163,14 +6174,13 @@
        MODAL: NHẬT KÝ PHIÊN BẢN & ĐÓNG GÓP LẬP TRÌNH VIÊN (CHANGELOG)
        ========================================================================= -->
   <div id="versionModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
-    <div id="versionCard" class="w-full max-w-3xl bg-white border-2 border-slate-300 rounded-3xl p-5 sm:p-6 shadow-2xl transform scale-90 transition-transform duration-300 relative max-h-[90vh] flex flex-col">
+    <div id="versionCard" class="w-full max-w-4xl bg-white border-2 border-slate-300 rounded-3xl p-5 sm:p-7 shadow-2xl relative max-h-[90vh] flex flex-col overflow-hidden transform scale-90 transition-transform duration-300">
       
       <!-- Close Button -->
-      <button onclick="closeModal('versionModal')" class="absolute top-5 right-5 p-1.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white transition-colors" title="Đóng">
-        <i data-lucide="x" class="w-4 h-4"></i>
+      <button onclick="closeModal('versionModal')" class="absolute top-4 sm:top-5 right-4 sm:right-5 p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors z-20 cursor-pointer shadow-xs" title="Đóng">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
 
-      <!-- Modal Header -->
       <!-- ADMIN SECURITY GUARD LOCK SCREEN (Chỉ Quản Trị Viên) -->
       <div id="versionAdminLockScreen" class="py-10 px-4 sm:px-8 flex flex-col items-center justify-center text-center space-y-4 my-auto">
         <div class="relative">
@@ -6222,168 +6232,155 @@
 
       <!-- CHANGELOG MAIN CONTENT (Admin Authenticated) -->
       <div id="versionAdminContent" class="flex flex-col flex-1 min-h-0 overflow-hidden">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200 shrink-0 pr-8">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 text-lg shadow-inner">
-            <i data-lucide="git-branch" class="w-5 h-5 text-cyan-400"></i>
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <h3 class="font-cinzel text-base sm:text-lg font-black text-slate-900 tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
-              <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-100 text-cyan-900 border border-cyan-300 font-black font-bold">v4.0.8</span>
-              <span class="text-[9px] font-mono font-black px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300 shadow-xs">ADMIN ONLY</span>
+        
+        <!-- Header Changelog -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 sm:pb-4 border-b border-slate-200 shrink-0 pr-12 sm:pr-14">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-cyan-50 border border-cyan-300 flex items-center justify-center text-cyan-600 shadow-sm shrink-0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-cyan-600">
+                <line x1="6" y1="3" x2="6" y2="15"></line>
+                <circle cx="18" cy="6" r="3"></circle>
+                <circle cx="6" cy="18" r="3"></circle>
+                <path d="M18 9a9 9 0 0 1-9 9"></path>
+              </svg>
             </div>
-            <p class="text-[11px] text-slate-600 font-bold">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
+            <div>
+              <div class="flex flex-wrap items-center gap-2">
+                <h3 class="font-cinzel text-base sm:text-lg font-black text-slate-900 tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
+                <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-100 text-cyan-900 border border-cyan-300 font-black">v4.2.1</span>
+                <span class="text-[9px] font-mono font-black px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300 shadow-xs">ADMIN ONLY</span>
+              </div>
+              <p class="text-[11px] text-slate-600 font-semibold">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="lockAdminChangelog()" class="btn-spring flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-300 text-rose-700 text-xs font-bold transition shadow-xs cursor-pointer" title="Khóa bảo mật lại giao diện Changelog">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-rose-600"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>Khóa Lại</span>
+            </button>
+            <button onclick="refreshDevChangelog()" id="btnRefreshChangelog" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 text-xs font-mono font-black text-slate-800 transition shadow-sm cursor-pointer">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5" id="refreshIcon"></i>
+              <span>Đồng Bộ GitHub API</span>
+            </button>
           </div>
         </div>
 
-        <div class="flex items-center gap-2">
-          <button onclick="lockAdminChangelog()" class="btn-spring flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-300 text-rose-800 text-xs font-black transition shadow-xs cursor-pointer" title="Khóa bảo mật lại giao diện Changelog">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-rose-600"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <span class="hidden sm:inline">Khóa Lại</span>
-          </button>
-          <button onclick="refreshDevChangelog()" id="btnRefreshChangelog" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 border-2 border-slate-300 text-xs font-mono font-black text-slate-800 hover:bg-slate-200 transition shadow-sm w-fit">
-          <i data-lucide="refresh-cw" class="w-3.5 h-3.5" id="refreshIcon"></i>
-          <span>Đồng Bộ GitHub API</span>
-        </button>
-        </div>
-        <button class="hidden">
-        </button>
-      </div>
-
-      <!-- Developer Summary Cards (2 Devs) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 my-4 shrink-0">
-        <!-- Dev 2: Thái (Logic) -->
-        <div class="p-4 rounded-2xl bg-white border-2 border-cyan-300 shadow-sm space-y-2 relative overflow-hidden flex flex-col justify-between">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <div class="w-8 h-8 rounded-xl bg-cyan-100 border border-cyan-300 flex items-center justify-center text-cyan-800 font-black text-xs shadow-inner">
-                L
+        <!-- Developer Summary Cards (2 Devs) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 my-3 shrink-0">
+          
+          <!-- Dev 2: Thái (Logic) -->
+          <div class="p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-cyan-300 shadow-xs space-y-2 flex flex-col justify-between">
+            <div class="flex items-center justify-between pb-2 border-b border-cyan-100">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-xl bg-cyan-100 border border-cyan-300 flex items-center justify-center text-cyan-800 font-black text-xs shadow-inner">
+                  L
+                </div>
+                <div>
+                  <div class="text-xs font-black text-slate-900">Thái (thaitraicau123-pixel)</div>
+                  <div class="text-[10px] text-cyan-800 font-black font-mono">Logic, Data & Engine Specialist</div>
+                </div>
               </div>
-              <div>
-                <div class="text-xs font-black text-slate-900">Thái (thaitraicau123-pixel)</div>
-                <div class="text-[10px] text-cyan-800 font-black font-mono">Logic, Data & Engine Specialist</div>
+              <span id="dev2CommitCount" class="text-[10px] font-mono font-black px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-800 border border-cyan-300 shrink-0">
+                -- Commits
+              </span>
+            </div>
+            <div id="dev2Highlights" class="text-[11px] text-slate-700 font-medium space-y-1.5 pt-1">
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
+                <span class="text-slate-800 font-semibold">Siêu phẩm Cờ Tỷ Phú 2.5D Isometric & Xây Landmark</span>
               </div>
-            </div>
-            <span id="dev2CommitCount" class="text-[10px] font-mono font-black px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-800 border border-cyan-300">
-              -- Commits
-            </span>
-          </div>
-          <div id="dev2Highlights" class="text-[11px] text-slate-700 font-medium space-y-1.5 pt-2 pl-0.5">
-            <div class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
-              <span class="text-slate-800 font-semibold">Siêu phẩm Cờ Tỷ Phú 2.5D Isometric & Xây Landmark</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
-              <span class="text-slate-800 font-semibold">Đấu trường Cờ Vua FIDE 8x8 & 4 Cấp độ Bot AI Minimax</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
-              <span class="text-slate-800 font-semibold">Đồng bộ thời gian thực Cloud Firestore & WebSocket P2P</span>
-            </div>
-          </div>
-          <!--
-
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Đấu trường Cờ Vua FIDE 8x8 & 4 Cấp độ Bot AI Minimax</span></div>
-          -->
-          </div>
-        </div>
-
-        <!-- Dev 1: Cường (UI/UX) -->
-        <div class="p-4 rounded-2xl bg-white border-2 border-pink-300 shadow-sm space-y-2 relative overflow-hidden flex flex-col justify-between">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <div class="w-8 h-8 rounded-xl bg-pink-100 border border-pink-300 flex items-center justify-center text-pink-800 font-black text-xs shadow-inner">
-                U
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
+                <span class="text-slate-800 font-semibold">Đấu trường Cờ Vua FIDE 8x8 & 4 Cấp độ Bot AI Minimax</span>
               </div>
-              <div>
-                <div class="text-xs font-black text-slate-900">Cường (cuongcuca111-web)</div>
-                <div class="text-[10px] text-pink-800 font-black font-mono">UI/UX Board Game Designer</div>
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
+                <span class="text-slate-800 font-semibold">Đồng bộ thời gian thực Cloud Firestore & WebSocket P2P</span>
               </div>
             </div>
-            <span id="dev1CommitCount" class="text-[10px] font-mono font-black px-2.5 py-0.5 rounded-full bg-pink-100 text-pink-800 border border-pink-300">
-              -- Commits
-            </span>
           </div>
-          <div id="dev1Highlights" class="text-[11px] text-slate-700 font-medium space-y-1.5 pt-2 pl-0.5">
-            <div class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-pink-500 shrink-0"></span>
-              <span class="text-slate-800 font-semibold">Toàn diện giao diện Light Theme & Bento Grid 4 Bộ Môn Cờ</span>
+
+          <!-- Dev 1: Cường (UI/UX) -->
+          <div class="p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-pink-300 shadow-xs space-y-2 flex flex-col justify-between">
+            <div class="flex items-center justify-between pb-2 border-b border-pink-100">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-xl bg-pink-100 border border-pink-300 flex items-center justify-center text-pink-800 font-black text-xs shadow-inner">
+                  U
+                </div>
+                <div>
+                  <div class="text-xs font-black text-slate-900">Cường (cuongcuca111-web)</div>
+                  <div class="text-[10px] text-pink-800 font-black font-mono">UI/UX Board Game Designer</div>
+                </div>
+              </div>
+              <span id="dev1CommitCount" class="text-[10px] font-mono font-black px-2.5 py-0.5 rounded-full bg-pink-100 text-pink-800 border border-pink-300 shrink-0">
+                -- Commits
+              </span>
             </div>
-            <div class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-pink-500 shrink-0"></span>
-              <span class="text-slate-800 font-semibold">Hiệu ứng chuyển cảnh 60fps GPU, Spring-pop & Animation Cinematic</span>
+            <div id="dev1Highlights" class="text-[11px] text-slate-700 font-medium space-y-1.5 pt-1">
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-pink-500 shrink-0"></span>
+                <span class="text-slate-800 font-semibold">Toàn diện giao diện Light Theme & Bento Grid 4 Bộ Môn Cờ</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-pink-500 shrink-0"></span>
+                <span class="text-slate-800 font-semibold">Hiệu ứng chuyển cảnh 60fps GPU, Spring-pop & Animation Cinematic</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-pink-500 shrink-0"></span>
+                <span class="text-slate-800 font-semibold">Bộ Icon SVG độc bản & Tối ưu hóa Responsive Mobile/Tablet/Desktop</span>
+              </div>
             </div>
-            <div class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-pink-500 shrink-0"></span>
-              <span class="text-slate-800 font-semibold">Bộ Icon SVG độc bản & Tối ưu hóa Responsive Mobile/Tablet/Desktop</span>
+          </div>
+
+        </div>
+
+        <!-- Contribution Ratio Bar -->
+        <div class="px-4 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm shrink-0 mb-3">
+          <div class="flex items-center justify-between text-xs font-bold pb-1.5">
+            <div class="flex items-center gap-1.5 text-cyan-800">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyan-500 shrink-0"></span>
+              <span>Thái: <span class="font-mono font-black text-cyan-900">45%</span> (Logic & Engine)</span>
+            </div>
+            <div class="text-[10px] font-mono font-black text-slate-500 uppercase tracking-wider hidden sm:block">Tỷ Lệ Đóng Góp Tính Năng</div>
+            <div class="flex items-center gap-1.5 text-pink-800">
+              <span>Cường: <span class="font-mono font-black text-pink-900">55%</span> (UI/UX & Graphics)</span>
+              <span class="w-2.5 h-2.5 rounded-full bg-pink-500 shrink-0"></span>
             </div>
           </div>
-          <!--
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0 animate-pulse"></span><span class="text-pink-300 font-semibold">[v4.2.1] Transition & Animation out cực mượt khi thoát trận đấu, GPU fade-exit & modal spring pop-out</span></div>
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>[v4.2.1] Cổng Admin: Bento Grid tùy chỉnh phần thưởng chiến thắng & Hệ số sự kiện toàn Server cho 4 bộ môn cờ</span></div>
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Fix triệt để Lịch Sử Đấu thành dữ liệu thật theo từng tài khoản (uid), xóa sạch mock data & chống ghi trùng</span></div>
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Chuẩn hóa SVG Icon người chơi (Avatar/Cấp/Xu), Timer chạy chuẩn khi đổi Tab & Âm thanh Web Audio</span></div>
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Fix Cờ Tỷ Phú ẩn triệt để khi chuyển game, Nút Thoát Trận dừng 100% chạy ngầm & Chuẩn hóa 4 Icon P2P</span></div>
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Hệ thống 7 Bậc Rank & Phần thưởng Thăng hạng + Lịch sử đấu thật 4 Game</span></div>
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Tối ưu Responsive Topbar (chống khuất Avatar/Auth) & Fix Modal Thoát Trận</span></div>
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Hệ thống Chuyển cảnh 60fps GPU & Spring-pop 9 Modal</span></div>
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Đại tu Bí Kíp Bento Grid 4 Bộ Môn & Bộ Icon SVG Độc Bản</span></div>
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Nâng cấp Đa BOT AI (1-3 Bots), Tùy biến Đích & Khán Giả Tự Động</span></div>
-          -->
+          <div class="h-2.5 w-full rounded-full bg-slate-200 overflow-hidden flex shadow-inner p-0.5">
+            <div class="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 rounded-l-full transition-all duration-500" style="width: 45%" title="Thái: 45% (Logic & Engine)"></div>
+            <div class="h-full bg-gradient-to-r from-pink-400 to-pink-500 rounded-r-full transition-all duration-500" style="width: 55%" title="Cường: 55% (UI/UX & Graphics)"></div>
           </div>
         </div>
-      </div>
 
-      <!-- Contribution Ratio Bar -->
-      <div class="px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm shrink-0 mb-3">
-        <div class="flex items-center justify-between text-xs font-bold pb-1.5">
-          <div class="flex items-center gap-1.5 text-cyan-800">
-            <span class="w-2.5 h-2.5 rounded-full bg-cyan-500 shrink-0"></span>
-            <span>Thái: <span class="font-mono font-black text-cyan-900">45%</span> (Logic & Engine)</span>
+        <!-- Filter Controls Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-3 shrink-0">
+          <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
+            <button id="vFilterAll" onclick="filterVersionLog('all')" class="px-3.5 py-1.5 rounded-lg bg-amber-500 text-white font-black shadow-sm transition cursor-pointer">
+              Tất Cả (107)
+            </button>
+            <button id="vFilterDev2" onclick="filterVersionLog('dev2')" class="px-3.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white font-bold transition cursor-pointer">
+              Thái (Logic)
+            </button>
+            <button id="vFilterDev1" onclick="filterVersionLog('dev1')" class="px-3.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white font-bold transition cursor-pointer">
+              Cường (UI/UX)
+            </button>
           </div>
-          <div class="text-[10px] font-mono font-black text-slate-500 uppercase tracking-wider hidden sm:block">Tỷ Lệ Đóng Góp Tính Năng</div>
-          <div class="flex items-center gap-1.5 text-pink-800">
-            <span>Cường: <span class="font-mono font-black text-pink-900">55%</span> (UI/UX & Graphics)</span>
-            <span class="w-2.5 h-2.5 rounded-full bg-pink-500 shrink-0"></span>
+          <div id="vSyncStatus" class="text-xs font-mono text-emerald-700 font-bold flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 shadow-2xs">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>GitHub API Live</span>
           </div>
         </div>
-        <div class="h-2.5 w-full rounded-full bg-slate-200 overflow-hidden flex shadow-inner p-0.5">
-          <div class="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 rounded-l-full transition-all duration-500" style="width: 45%" title="Thái: 45% (Logic & Engine)"></div>
-          <div class="h-full bg-gradient-to-r from-pink-400 to-pink-500 rounded-r-full transition-all duration-500" style="width: 55%" title="Cường: 55% (UI/UX & Graphics)"></div>
-        </div>
-      </div>
 
-      <!-- Filter Controls Bar -->
-      <div class="flex items-center justify-between pb-3 shrink-0">
-        <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
-          <button id="vFilterAll" onclick="filterVersionLog('all')" class="px-3.5 py-1.5 rounded-lg bg-amber-500 text-white font-black shadow-sm transition">
-            Tất Cả
-          </button>
-          <button id="vFilterDev2" onclick="filterVersionLog('dev2')" class="px-3.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white font-bold transition">
-            Thái (Logic)
-          </button>
-          <button id="vFilterDev1" onclick="filterVersionLog('dev1')" class="px-3.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white font-bold transition">
-            Cường (UI/UX)
-          </button>
+        <!-- Changelog Feed Container -->
+        <div id="versionFeedContainer" class="flex-1 overflow-y-auto space-y-2.5 pr-2 min-h-[220px] max-h-[380px] custom-scrollbar">
+          <!-- Populated dynamically via JS -->
         </div>
-        <div id="vSyncStatus" class="text-xs font-mono text-emerald-700 font-bold flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>GitHub API Live</span>
-        </div>
-      </div>
 
-      <!-- Changelog Feed Container -->
-      <div id="versionFeedContainer" class="flex-1 overflow-y-auto space-y-2.5 pr-1 min-h-[200px]">
-        <!-- Populated dynamically via JS -->
-      </div>
-      <!-- End of Version Admin Content -->
-      </div>
-      <div class="hidden">
-      </div>
+      </div><!-- End #versionAdminContent -->
 
-    </div>
+    </div><!-- End #versionCard -->
   </div>
 
   <!-- =========================================================================
@@ -8279,6 +8276,24 @@
           dropAdmin.classList.remove('flex');
         }
       }
+
+      // Quản lý hiển thị nút Version Pill trên Topbar: Chỉ Admin mới thấy
+      const headerVersionPillBtn = document.getElementById('headerVersionPillBtn');
+      if (headerVersionPillBtn) {
+        const isAdmin = (typeof window.checkAdminChangelogAccess === 'function') 
+          ? window.checkAdminChangelogAccess() 
+          : (userData && (userData.role === 'Admin' || (userData.email && (userData.email.toLowerCase() === 'minhcuong111@gmail.com' || userData.email.toLowerCase() === 'thaitraicau123@gmail.com'))));
+        if (isAdmin) {
+          headerVersionPillBtn.classList.remove('hidden');
+          headerVersionPillBtn.classList.add('sm:flex');
+        } else {
+          headerVersionPillBtn.classList.add('hidden');
+          headerVersionPillBtn.classList.remove('sm:flex');
+        }
+      }
+      if (typeof window.syncVersionModalAdminGuard === 'function') {
+        window.syncVersionModalAdminGuard();
+      }
     };
 
     window.applyGuestUI = function() {
@@ -8289,6 +8304,14 @@
       if (dropAdmin) {
         dropAdmin.classList.add('hidden');
         dropAdmin.classList.remove('flex');
+      }
+      const headerVersionPillBtn = document.getElementById('headerVersionPillBtn');
+      if (headerVersionPillBtn) {
+        headerVersionPillBtn.classList.add('hidden');
+        headerVersionPillBtn.classList.remove('sm:flex');
+      }
+      if (typeof window.syncVersionModalAdminGuard === 'function') {
+        window.syncVersionModalAdminGuard();
       }
     };
 
@@ -18465,13 +18488,16 @@ function renderCashStackHTML(amount) {
         logs: document.getElementById('adminTabBtn4')
       };
 
+      const activeClass = 'btn-spring px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white font-black flex items-center gap-1.5 shadow-md';
+      const inactiveClass = 'btn-spring px-3.5 py-2 rounded-xl bg-white border-2 border-slate-200 hover:border-amber-400 text-slate-800 font-bold flex items-center gap-1.5 transition shadow-2xs';
+
       Object.keys(views).forEach(k => {
         if (k === tab) {
           if (views[k]) views[k].classList.remove('hidden');
-          if (btns[k]) btns[k].className = 'btn-spring px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white flex items-center gap-1.5 shadow-sm';
+          if (btns[k]) btns[k].className = activeClass;
         } else {
           if (views[k]) views[k].classList.add('hidden');
-          if (btns[k]) btns[k].className = 'btn-spring px-3.5 py-2 rounded-xl bg-board-tray hover:bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1.5 border border-board-border';
+          if (btns[k]) btns[k].className = inactiveClass;
         }
       });
 
@@ -18604,10 +18630,10 @@ function renderCashStackHTML(amount) {
       if (filtered.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="6" class="p-8 text-center text-xs text-slate-400">
+            <td colspan="6" class="p-8 text-center text-xs text-slate-500">
               <div class="flex flex-col items-center gap-2">
-                <i data-lucide="users" class="w-8 h-8 text-slate-500"></i>
-                <span class="font-semibold text-slate-300">Chưa tìm thấy kỳ thủ phù hợp trong Cloud Firestore.</span>
+                <i data-lucide="users" class="w-8 h-8 text-slate-400"></i>
+                <span class="font-bold text-slate-700">Chưa tìm thấy kỳ thủ phù hợp trong Cloud Firestore.</span>
                 <span class="text-[11px] text-slate-500">Bấm <b>[Đồng Bộ Dữ Liệu Thật]</b> hoặc <b>[Thêm Kỳ Thủ Mới]</b> để cập nhật ngay.</span>
               </div>
             </td>
@@ -18619,13 +18645,13 @@ function renderCashStackHTML(amount) {
 
       filtered.forEach(p => {
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-white/[0.02] transition-colors border-b border-slate-800/60';
+        tr.className = 'hover:bg-slate-50 transition-colors border-b border-slate-200';
 
         const roleBadgeStyles = {
-          'Admin': 'bg-rose-500/20 text-rose-300 border-rose-500/40',
-          'Huyền Thoại VIP': 'bg-purple-500/20 text-purple-300 border-purple-500/40',
-          'Kiện Tướng PRO': 'bg-amber-500/20 text-amber-300 border-amber-500/40',
-          'Tân Thủ': 'bg-slate-700/40 text-slate-300 border-slate-600/40'
+          'Admin': 'bg-rose-100 text-rose-800 border-rose-300',
+          'Huyền Thoại VIP': 'bg-purple-100 text-purple-800 border-purple-300',
+          'Kiện Tướng PRO': 'bg-amber-100 text-amber-800 border-amber-300',
+          'Tân Thủ': 'bg-slate-100 text-slate-700 border-slate-300'
         };
 
         const isBanned = p.status === 'banned';
@@ -18640,15 +18666,15 @@ function renderCashStackHTML(amount) {
                 ${displayName.substring(0, 2).toUpperCase()}
               </div>
               <div>
-                <div class="font-bold text-white flex items-center gap-1.5 flex-wrap">
+                <div class="font-bold text-slate-900 flex items-center gap-1.5 flex-wrap">
                   <span>${displayName}</span>
-                  ${(window.currentFirebaseUser && (window.currentFirebaseUser.email === displayEmail || window.currentFirebaseUser.uid === p.uid)) ? '<span class="text-[9px] px-1.5 py-0.2 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono font-black border border-amber-500/30">BẠN</span>' : ''}
-                  ${p.role === 'Admin' ? '<span class="text-[9px] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30">QUẢN TRỊ VIÊN</span>' : ''}
+                  ${(window.currentFirebaseUser && (window.currentFirebaseUser.email === displayEmail || window.currentFirebaseUser.uid === p.uid)) ? '<span class="text-[9px] px-1.5 py-0.2 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono font-black">BẠN</span>' : ''}
+                  ${p.role === 'Admin' ? '<span class="text-[9px] px-1.5 py-0.2 rounded bg-rose-100 text-rose-800 font-bold border border-rose-300">QUẢN TRỊ VIÊN</span>' : ''}
                 </div>
-                <div class="text-[11px] text-slate-400 font-mono flex items-center gap-1.5 flex-wrap mt-0.5">
-                  <span class="text-cyan-300 font-medium">${displayEmail}</span>
-                  <span class="text-slate-600">•</span>
-                  <span class="text-slate-500">UID: ${p.uid ? p.uid.substring(0, 10) + '...' : 'Chưa có'}</span>
+                <div class="text-[11px] text-slate-500 font-mono flex items-center gap-1.5 flex-wrap mt-0.5">
+                  <span class="text-cyan-700 font-semibold">${displayEmail}</span>
+                  <span class="text-slate-400">•</span>
+                  <span class="text-slate-500 font-medium">UID: ${p.uid ? p.uid.substring(0, 10) + '...' : 'Chưa có'}</span>
                 </div>
               </div>
             </div>
@@ -18660,34 +18686,34 @@ function renderCashStackHTML(amount) {
           </td>
           <td class="p-3">
             <div class="font-mono text-xs flex flex-col gap-0.5">
-              <span class="text-amber-400 font-bold">🪙 ${(p.coins || 0).toLocaleString()}</span>
-              <span class="text-cyan-400">💎 ${(p.gems || 0).toLocaleString()}</span>
+              <span class="text-amber-800 font-black">🪙 ${(p.coins || 0).toLocaleString()}</span>
+              <span class="text-cyan-800 font-bold">💎 ${(p.gems || 0).toLocaleString()}</span>
             </div>
           </td>
           <td class="p-3">
             <div class="font-mono">
-              <div class="text-white font-bold">${p.elo || 1200} ELO</div>
-              <div class="text-[10px] text-slate-400">${p.matches || 0} trận (${p.winRate || 0}% W)</div>
+              <div class="text-slate-900 font-bold">${p.elo || 1200} ELO</div>
+              <div class="text-[10px] text-slate-500 font-medium">${p.matches || 0} trận (${p.winRate || 0}% W)</div>
             </div>
           </td>
           <td class="p-3">
-            <span class="inline-flex items-center gap-1.5 text-[10px] px-2.5 py-1 rounded-full font-bold ${isBanned ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 shadow-sm' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm'}">
-              <span class="w-2 h-2 rounded-full ${isBanned ? 'bg-rose-500' : 'bg-emerald-400 animate-pulse'}"></span>
+            <span class="inline-flex items-center gap-1.5 text-[10px] px-2.5 py-1 rounded-full font-bold border ${isBanned ? 'bg-rose-100 text-rose-800 border-rose-300 shadow-2xs' : 'bg-emerald-100 text-emerald-800 border-emerald-300 shadow-2xs'}">
+              <span class="w-2 h-2 rounded-full ${isBanned ? 'bg-rose-600' : 'bg-emerald-500 animate-pulse'}"></span>
               ${isBanned ? '🔴 Bị Khóa' : '🟢 Đang Hoạt Động'}
             </span>
           </td>
           <td class="p-3 text-right">
             <div class="flex items-center justify-end gap-1.5 flex-wrap">
-              <button onclick="adminAddCurrency('${p.uid}', 'coins', 500)" class="btn-spring px-2 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-[10px] font-bold cursor-pointer" title="Cấp 500 Xu vào Cloud Firestore">
+              <button onclick="adminAddCurrency('${p.uid}', 'coins', 500)" class="btn-spring px-2 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-900 text-[10px] font-bold cursor-pointer" title="Cấp 500 Xu vào Cloud Firestore">
                 +500 🪙
               </button>
-              <button onclick="adminAddCurrency('${p.uid}', 'gems', 50)" class="btn-spring px-2 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-[10px] font-bold cursor-pointer" title="Cấp 50 Đá quý vào Cloud Firestore">
+              <button onclick="adminAddCurrency('${p.uid}', 'gems', 50)" class="btn-spring px-2 py-1 rounded-lg bg-cyan-50 hover:bg-cyan-100 border border-cyan-300 text-cyan-900 text-[10px] font-bold cursor-pointer" title="Cấp 50 Đá quý vào Cloud Firestore">
                 +50 💎
               </button>
-              <button onclick="adminToggleUserRole('${p.uid}')" class="btn-spring px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-[10px] font-semibold cursor-pointer" title="Đổi cấp bậc vai trò trong Cloud Firestore">
+              <button onclick="adminToggleUserRole('${p.uid}')" class="btn-spring px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 text-[10px] font-bold cursor-pointer" title="Đổi cấp bậc vai trò trong Cloud Firestore">
                 Đổi Quyền
               </button>
-              <button onclick="adminToggleBanUser('${p.uid}')" class="btn-spring p-1 rounded-lg cursor-pointer ${isBanned ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-rose-500/10 text-rose-400 border border-rose-500/30'}" title="${isBanned ? 'Mở khóa kỳ thủ' : 'Khóa tài khoản'}">
+              <button onclick="adminToggleBanUser('${p.uid}')" class="btn-spring p-1 rounded-lg cursor-pointer ${isBanned ? 'bg-emerald-50 text-emerald-700 border border-emerald-300' : 'bg-rose-50 text-rose-700 border border-rose-300'}" title="${isBanned ? 'Mở khóa kỳ thủ' : 'Khóa tài khoản'}">
                 <i data-lucide="${isBanned ? 'unlock' : 'ban'}" class="w-3.5 h-3.5"></i>
               </button>
             </div>
@@ -18907,20 +18933,20 @@ function renderCashStackHTML(amount) {
 
       adminAuditLogs.forEach(log => {
         const item = document.createElement('div');
-        item.className = 'p-3 flex items-start gap-3 hover:bg-white/[0.02] transition-colors';
+        item.className = 'p-3 flex items-start gap-3 hover:bg-white transition-colors border-b border-slate-200/80';
         const colorMap = {
-          emerald: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
-          amber: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
-          cyan: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40',
-          purple: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
-          rose: 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+          emerald: 'bg-emerald-100 text-emerald-800 border-emerald-300',
+          amber: 'bg-amber-100 text-amber-800 border-amber-300',
+          cyan: 'bg-cyan-100 text-cyan-800 border-cyan-300',
+          purple: 'bg-purple-100 text-purple-800 border-purple-300',
+          rose: 'bg-rose-100 text-rose-800 border-rose-300'
         };
         item.innerHTML = `
           <span class="text-[10px] px-2 py-0.5 rounded font-bold border shrink-0 ${colorMap[log.color] || colorMap.cyan}">
             ${log.tag}
           </span>
           <div class="flex-1 min-w-0">
-            <div class="text-slate-200 text-xs">${log.text}</div>
+            <div class="text-slate-800 text-xs font-semibold">${log.text}</div>
             <div class="text-[10px] text-slate-500 font-mono mt-0.5">${log.time}</div>
           </div>
         `;
@@ -22111,9 +22137,22 @@ function renderCashStackHTML(amount) {
     window.syncVersionModalAdminGuard = function() {
       const lockScreen = document.getElementById('versionAdminLockScreen');
       const mainContent = document.getElementById('versionAdminContent');
+      const headerVersionPillBtn = document.getElementById('headerVersionPillBtn');
+      const isAdmin = (typeof window.checkAdminChangelogAccess === 'function') ? window.checkAdminChangelogAccess() : false;
+
+      // Đồng bộ hiển thị nút Version Pill trên Topbar: Chỉ Admin mới thấy
+      if (headerVersionPillBtn) {
+        if (isAdmin) {
+          headerVersionPillBtn.classList.remove('hidden');
+          headerVersionPillBtn.classList.add('sm:flex');
+        } else {
+          headerVersionPillBtn.classList.add('hidden');
+          headerVersionPillBtn.classList.remove('sm:flex');
+        }
+      }
+
       if (!lockScreen || !mainContent) return;
 
-      const isAdmin = window.checkAdminChangelogAccess();
       if (isAdmin) {
         lockScreen.classList.add('hidden');
         mainContent.classList.remove('hidden');
@@ -22185,6 +22224,22 @@ function renderCashStackHTML(amount) {
         showToast('🔒 Đã khóa lại giao diện Nhật Ký Phiên Bản (Admin).');
       }
     };
+
+    // Tự động kiểm tra quyền Admin và đồng bộ nút Version Pill trên Topbar
+    try {
+      if (typeof window.syncVersionModalAdminGuard === 'function') {
+        window.syncVersionModalAdminGuard();
+      }
+    } catch (e) {}
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        try {
+          if (typeof window.syncVersionModalAdminGuard === 'function') {
+            window.syncVersionModalAdminGuard();
+          }
+        } catch (e) {}
+      });
+    }
 
     // App Initialization
     

@@ -1492,10 +1492,11 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-300"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="currentColor" fill-opacity="0.25"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
             <span>Sảnh Game</span>
           </button>
-          <button id="navTabArena" onclick="switchMainTab('arena')" class="btn-spring px-3 py-1.5 rounded-xl text-slate-700 hover:text-amber-600 hover:bg-amber-100/60 flex items-center gap-1.5 transition-all font-bold text-xs whitespace-nowrap">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-600"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/></svg>
-            <span>Bàn Đấu</span>
+          <!-- [navTabArena removed]
+
+
           </button>
+          -->
           <button id="navTabLeaderboard" onclick="switchMainTab('leaderboard')" class="btn-spring px-3 py-1.5 rounded-xl text-slate-700 hover:text-amber-600 hover:bg-amber-100/60 flex items-center gap-1.5 transition-all font-bold text-xs whitespace-nowrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-600"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1h10v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34"/><path d="M6 4h12v5a6 6 0 0 1-12 0V4z"/></svg>
             <span>Bảng Phong Thần</span>
@@ -1607,7 +1608,7 @@
     <!-- Mobile Secondary Tab Bar (hiển thị dưới màn hình lg) -->
     <div class="flex lg:hidden items-center justify-around gap-1 mt-2.5 pt-2 border-t-2 border-slate-200 text-[11px] font-bold bg-slate-50/90 p-1 rounded-xl">
       <button onclick="switchMainTab('lobby')" id="mTabLobby" class="flex-1 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 text-white text-center font-black shadow-sm">Sảnh Game</button>
-      <button onclick="switchMainTab('arena')" id="mTabArena" class="flex-1 py-1.5 rounded-lg text-slate-700 hover:text-amber-600 text-center font-bold">Bàn Đấu</button>
+
       <button onclick="switchMainTab('leaderboard')" id="mTabLeaderboard" class="flex-1 py-1.5 rounded-lg text-slate-700 hover:text-amber-600 text-center font-bold">Xếp Hạng</button>
       <button onclick="switchMainTab('vip')" id="mTabVIP" class="flex-1 py-1.5 rounded-lg text-slate-700 hover:text-amber-600 text-center font-bold">Gói VIP</button>
       <button onclick="switchMainTab('rules')" id="mTabRules" class="flex-1 py-1.5 rounded-lg text-slate-700 hover:text-amber-600 text-center font-bold">Luật Chơi</button>
@@ -3563,7 +3564,7 @@
         </div>
 
         <!-- Screen-Space Event Popup Modal (100% Clickable, Direct Hit-Testing) -->
-        <div id="monoEventModalOverlay" class="hidden absolute inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in pointer-events-auto">
+        <div id="monoEventModalOverlay" class="hidden fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fade-in pointer-events-auto select-none">
           <!-- 3D ROYAL CARD CONTAINER (CHANCE & FATE CARDS) -->
           <div id="monoRoyalCardContainer" class="hidden"></div>
 
@@ -4226,7 +4227,7 @@
                 CƠ CẤU GIẢI THƯỞNG HOÀN THÀNH TRẬN ĐẤU
                 <span class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-800 border border-emerald-500/40 font-mono font-bold">FIRESTORE SYNC</span>
               </h3>
-              <p class="text-xs text-slate-600 font-bold whitespace-nowrap">Nhận thưởng Xu (🪙) & Kim Cương (💎) tương xứng độ khó sau mỗi ván đấu trọn vẹn</p>
+              <p class="text-xs text-slate-600 font-bold">Nhận thưởng Xu (🪙) & Kim Cương (💎) tương xứng độ khó sau mỗi ván đấu trọn vẹn</p>
             </div>
           </div>
           <button onclick="openModal('rewardsModal')" class="btn-spring px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white border border-amber-600 text-xs font-black flex items-center gap-1.5 shadow-sm transition whitespace-nowrap shrink-0">
@@ -4250,7 +4251,7 @@
                 <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-amber-800 font-bold">📊 Độ khó:</span><span class="font-mono font-black text-slate-900">Dễ 1.0x • TB 1.2x • Khó 1.5x</span></div>
               </div>
             </div>
-            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-600 font-bold whitespace-nowrap truncate">Đấu trí 3x3 nhanh, nhận thưởng ngay kết thúc.</div>
+            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-600 font-bold leading-tight">Đấu trí 3x3 nhanh, nhận thưởng ngay kết thúc.</div>
           </div>
 
           <!-- Game 2: Dice -->
@@ -4266,7 +4267,7 @@
                 <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-amber-800 font-bold">📊 Hệ số:</span><span class="font-mono font-black text-slate-900">Dễ 1.0x • TB 1.3x • Khó 1.6x</span></div>
               </div>
             </div>
-            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-600 font-bold whitespace-nowrap truncate">Thưởng nhân theo hệ số cấp độ AI đối thủ.</div>
+            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-600 font-bold leading-tight">Thưởng nhân theo hệ số cấp độ AI đối thủ.</div>
           </div>
 
           <!-- Game 3: Chess -->
@@ -4283,7 +4284,7 @@
                 <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-amber-800 font-bold">📊 Elo BOT:</span><span class="font-mono font-black text-slate-900">800 • 1200 • 1600 • 2000+</span></div>
               </div>
             </div>
-            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-600 font-bold whitespace-nowrap truncate">Điều kiện thưởng Thua: Hoàn thành ≥ 6 nước đi.</div>
+            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-slate-600 font-bold leading-tight">Điều kiện thưởng Thua: Hoàn thành ≥ 6 nước đi.</div>
           </div>
 
           <!-- Game 4: Monopoly -->
@@ -4299,7 +4300,7 @@
                 <div class="flex justify-between items-center gap-1 whitespace-nowrap"><span class="text-amber-800 font-bold">📊 Hệ số:</span><span class="font-mono font-black text-slate-900">2P: 1.0x • 3P: 1.4x • 4P: 1.8x</span></div>
               </div>
             </div>
-            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-rose-800 font-bold whitespace-nowrap truncate">Cấm nhận thưởng nếu bấm Phá Sản sớm ở vòng ≤ 2.</div>
+            <div class="mt-3 pt-2 border-t border-slate-200 text-[10px] text-rose-800 font-bold leading-tight">Không tính thưởng nếu bấm Phá Sản sớm ở vòng ≤ 2.</div>
           </div>
         </div>
       </div>
@@ -4320,7 +4321,7 @@
                   <span class="text-[10px] text-slate-600 font-mono font-bold">12 Ô Chu Vi • Đua Điểm 50</span>
                 </div>
               </div>
-              <span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 text-[10px] font-bold">1-4 Người</span>
+              <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-bold">1-4 Người</span>
             </div>
 
             <p class="text-slate-700 leading-relaxed font-medium">
@@ -4330,31 +4331,37 @@
             <div class="space-y-2">
               <div class="p-2.5 rounded-xl bg-emerald-50 border-2 border-emerald-300 text-emerald-950 font-bold space-y-1">
                 <div class="font-bold flex items-center gap-1.5">
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 text-emerald-400 shrink-0"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 text-emerald-600 shrink-0"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   <span>Ô Tích Điểm Thưởng:</span>
                 </div>
-                <div class="text-[11px] text-emerald-900 font-bold pl-5">
-                  Ngôi Sao (<b class="text-white">+15</b>), Rương Báu (<b class="text-white">+20</b>), Chìa Khóa Thần (<b class="text-white">+30</b>).
+                <div class="flex flex-wrap gap-1.5 mt-1.5">
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-emerald-100 text-emerald-900 border border-emerald-300 font-bold text-[11px]">⭐ Ngôi Sao <b class="text-emerald-700 font-black">+15</b></span>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-emerald-100 text-emerald-900 border border-emerald-300 font-bold text-[11px]">🎁 Rương Báu <b class="text-emerald-700 font-black">+20</b></span>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-emerald-100 text-emerald-900 border border-emerald-300 font-bold text-[11px]">🔑 Khóa Thần <b class="text-emerald-700 font-black">+30</b></span>
                 </div>
               </div>
 
               <div class="p-2.5 rounded-xl bg-rose-50 border-2 border-rose-300 text-rose-950 font-bold space-y-1">
                 <div class="font-bold flex items-center gap-1.5">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-rose-400 shrink-0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-rose-600 shrink-0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                   <span>Ô Bẫy Hiểm Nguy:</span>
                 </div>
-                <div class="text-[11px] text-rose-900 font-bold pl-5">
-                  Hố Đen (<b class="text-white">-10</b>), Cạm Bẫy Gai (<b class="text-white">-10</b>), Bão Sét (<b class="text-white">-15</b>).
+                <div class="flex flex-wrap gap-1.5 mt-1.5">
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-rose-100 text-rose-900 border border-rose-300 font-bold text-[11px]">🕳️ Hố Đen <b class="text-rose-700 font-black">-10</b></span>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-rose-100 text-rose-900 border border-rose-300 font-bold text-[11px]">⚠️ Bẫy Gai <b class="text-rose-700 font-black">-10</b></span>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-rose-100 text-rose-900 border border-rose-300 font-bold text-[11px]">⚡ Bão Sét <b class="text-rose-700 font-black">-15</b></span>
                 </div>
               </div>
 
               <div class="p-2.5 rounded-xl bg-cyan-50 border-2 border-cyan-300 text-cyan-950 font-bold space-y-1">
                 <div class="font-bold flex items-center gap-1.5">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-cyan-400 shrink-0"><circle cx="12" cy="12" r="9" stroke-dasharray="3 3"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-cyan-600 shrink-0"><circle cx="12" cy="12" r="9" stroke-dasharray="3 3"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
                   <span>Ô Cơ Động & Đặc Biệt:</span>
                 </div>
-                <div class="text-[11px] text-cyan-900 font-bold pl-5">
-                  Trạm Tiếp Liệu (Hồi phục), Góc Thiên Hà (Bảo vệ), Cổng Warp (Dịch chuyển tức thời).
+                <div class="flex flex-wrap gap-1.5 mt-1.5">
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-cyan-100 text-cyan-900 border border-cyan-300 font-bold text-[11px]">🔋 Trạm Tiếp Liệu (Hồi phục)</span>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-cyan-100 text-cyan-900 border border-cyan-300 font-bold text-[11px]">🛡️ Góc Thiên Hà (Bảo vệ)</span>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-cyan-100 text-cyan-900 border border-cyan-300 font-bold text-[11px]">🌀 Cổng Warp (Dịch chuyển)</span>
                 </div>
               </div>
             </div>
@@ -4365,7 +4372,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-amber-400 shrink-0"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
               <span>Mục tiêu: Đạt mốc <b>50 ĐIỂM</b> để xưng vương!</span>
             </div>
-            <button onclick="enterGameFromLobby('dice')" class="btn-spring w-full py-2.5 rounded-xl bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+            <button onclick="enterGameFromLobby('dice')" class="btn-spring w-full py-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
               <span>Chơi Đua Ngựa Ngay</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </button>
@@ -4385,7 +4392,7 @@
                   <span class="text-[10px] text-slate-600 font-mono font-bold">Neon Arena • Ma Trận 3x3</span>
                 </div>
               </div>
-              <span class="px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-[10px] font-bold">PvP / PvBot</span>
+              <span class="px-2 py-0.5 rounded-full bg-cyan-100 text-cyan-900 border border-cyan-300 text-[10px] font-bold">PvP / PvBot</span>
             </div>
 
             <p class="text-slate-700 leading-relaxed font-medium">
@@ -4413,7 +4420,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-cyan-700 shrink-0"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6h8c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"/></svg>
               <span>Mẹo: Chiếm ô trung tâm (ô 5) để nắm 4 hướng thắng!</span>
             </div>
-            <button onclick="enterGameFromLobby('tictactoe')" class="btn-spring w-full py-2.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/40 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+            <button onclick="enterGameFromLobby('tictactoe')" class="btn-spring w-full py-2.5 rounded-xl bg-cyan-100 hover:bg-cyan-200 text-cyan-900 border border-cyan-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
               <span>Chơi Ca-rô Ngay</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </button>
@@ -4421,19 +4428,19 @@
         </div>
 
         <!-- CARD 3: CO VUA FIDE 8x8 -->
-        <div id="ruleCardChess" class="rule-bento-card p-5 rounded-2xl bg-board-tray border border-amber-500/40 flex flex-col justify-between space-y-4 hover:border-amber-500/70 transition-all shadow-lg hover:shadow-amber-500/15">
+        <div id="ruleCardChess" class="rule-bento-card p-5 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between space-y-4 hover:border-amber-400 transition-all">
           <div class="space-y-3.5">
             <div class="flex items-center justify-between pb-3 border-b border-board-border/60">
               <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-300 shadow-inner">
+                <div class="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-500 shadow-inner">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M12 2v4m-2-2h4"/><path d="M6 7l3 2 3-3 3 3 3-2 1 6H5l1-6z" fill="#F59E0B" fill-opacity="0.25"/><path d="M5 13h14v3a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3z"/><path d="M4 21h16v-1a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v1z"/></svg>
                 </div>
                 <div>
-                  <h3 class="font-cinzel font-bold text-amber-300 text-sm">Cờ Vua Hoàng Gia</h3>
+                  <h3 class="font-cinzel font-black text-slate-900 text-sm">Cờ Vua Hoàng Gia</h3>
                   <span class="text-[10px] text-slate-600 font-mono font-bold">Chuẩn Quốc Tế FIDE • 8x8</span>
                 </div>
               </div>
-              <span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 text-[10px] font-bold">4 Cấp Độ AI</span>
+              <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-bold">4 Cấp Độ AI</span>
             </div>
 
             <p class="text-slate-700 leading-relaxed font-medium">
@@ -4465,10 +4472,10 @@
 
           <div class="space-y-2 pt-2 border-t border-board-border/60">
             <div class="p-2.5 rounded-xl bg-emerald-50 border-2 border-emerald-300 text-emerald-950 font-black font-bold flex items-center gap-2">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-400 shrink-0"><circle cx="12" cy="12" r="9"/><polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 shrink-0"><circle cx="12" cy="12" r="9"/><polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"/></svg>
               <span>Mục tiêu: Chiếu bí (Checkmate) Vua đối phương!</span>
             </div>
-            <button onclick="enterGameFromLobby('chess')" class="btn-spring w-full py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+            <button onclick="enterGameFromLobby('chess')" class="btn-spring w-full py-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
               <span>Chơi Cờ Vua Ngay</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </button>
@@ -4520,10 +4527,10 @@
 
           <div class="space-y-2 pt-2 border-t border-board-border/60">
             <div class="p-2.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-950 font-black font-bold flex items-center gap-2">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-amber-400 shrink-0"><circle cx="12" cy="12" r="9"/><polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-amber-600 shrink-0"><circle cx="12" cy="12" r="9"/><polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"/></svg>
               <span>Mục tiêu: Độc quyền lãnh địa & khiến đối thủ phá sản!</span>
             </div>
-            <button onclick="enterGameFromLobby('monopoly')" class="btn-spring w-full py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+            <button onclick="enterGameFromLobby('monopoly')" class="btn-spring w-full py-2.5 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border border-emerald-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
               <span>Chơi Cờ Tỷ Phú Ngay</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </button>
@@ -14194,7 +14201,42 @@ function playMonoDiceTumbleSFX(durationMs) {
         </svg>`;
       }
 
-      // Default penalty / financial crisis
+      if (cardName.includes('Bảo Trì')) {
+        return `<svg viewBox="0 0 160 110" class="w-full h-full filter drop-shadow-[0_0_15px_rgba(234,179,8,0.8)]">
+          <circle cx="80" cy="55" r="46" fill="#854d0e" opacity="0.25"/>
+          <circle cx="80" cy="55" r="24" fill="none" stroke="#facc15" stroke-width="6" stroke-dasharray="10 6"/>
+          <circle cx="80" cy="55" r="12" fill="#713f12" stroke="#fef08a" stroke-width="2.5"/>
+          <g transform="translate(80,55) rotate(45)">
+            <rect x="-6" y="-36" width="12" height="72" rx="4" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+            <circle cx="0" cy="-28" r="6" fill="#1e293b"/>
+            <circle cx="0" cy="28" r="6" fill="#1e293b"/>
+          </g>
+        </svg>`;
+      }
+
+      if (cardName.includes('Giao Thông') || cardName.includes('Khí Thải')) {
+        return `<svg viewBox="0 0 160 110" class="w-full h-full filter drop-shadow-[0_0_15px_rgba(239,68,68,0.85)]">
+          <circle cx="80" cy="55" r="46" fill="#991b1b" opacity="0.25"/>
+          <polygon points="80,20 118,85 42,85" fill="#450a0a" stroke="#ef4444" stroke-width="3.5"/>
+          <line x1="80" y1="42" x2="80" y2="64" stroke="#fef08a" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="80" cy="74" r="3.5" fill="#fef08a"/>
+          <path d="M40 38 q40 -20 80 0" fill="none" stroke="#f87171" stroke-width="2" stroke-dasharray="3,3"/>
+        </svg>`;
+      }
+
+      if (cardName.includes('Thuế') || cardName.includes('Kiểm Toán')) {
+        return `<svg viewBox="0 0 160 110" class="w-full h-full filter drop-shadow-[0_0_15px_rgba(168,85,247,0.85)]">
+          <circle cx="80" cy="55" r="46" fill="#581c87" opacity="0.25"/>
+          <rect x="52" y="44" width="56" height="42" rx="4" fill="#3b0764" stroke="#c084fc" stroke-width="2.5"/>
+          <polygon points="80,24 46,44 114,44" fill="#7e22ce" stroke="#e9d5ff" stroke-width="2.5"/>
+          <line x1="62" y1="44" x2="62" y2="86" stroke="#c084fc" stroke-width="3"/>
+          <line x1="80" y1="44" x2="80" y2="86" stroke="#c084fc" stroke-width="3"/>
+          <line x1="98" y1="44" x2="98" y2="86" stroke="#c084fc" stroke-width="3"/>
+          <circle cx="80" cy="36" r="4" fill="#facc15"/>
+        </svg>`;
+      }
+
+      // Default: Khủng hoảng tài chính / Cảnh báo thị trường
       return `<svg viewBox="0 0 160 110" class="w-full h-full filter drop-shadow-[0_0_15px_rgba(244,63,94,0.8)]">
         <circle cx="80" cy="55" r="46" fill="#881337" opacity="0.3"/>
         <polygon points="80,18 120,86 40,86" fill="#4c0519" stroke="#f43f5e" stroke-width="3"/>
@@ -14205,7 +14247,7 @@ function playMonoDiceTumbleSFX(durationMs) {
       </svg>`;
     }
 
-    function showMonoCardRoyalModal({ type, card, player, onConfirm }) {
+    function showMonoCardRoyalModal({ type, card, player, isRemoteViewer = false, onConfirm }) {
       const overlay = document.getElementById('monoEventModalOverlay');
       if (!overlay) {
         if (onConfirm) onConfirm();
@@ -14226,7 +14268,27 @@ function playMonoDiceTumbleSFX(durationMs) {
 
       const isChance = (type === 'chance');
       const curP = player || (monoState && monoState.players ? monoState.players[monoState.turn] : null);
+      const isOnline = Boolean(window.isOnlineRoomMatch);
+      const isMyTurn = isOnline ? (curP && curP.id === window.myRoomPlayerIndex) : (curP && !curP.isBot);
       const isBotOrAuto = Boolean((curP && curP.isBot) || window.monoAutoPlay);
+      const shouldAutoClose = Boolean(isBotOrAuto || isRemoteViewer || (isOnline && !isMyTurn));
+
+      // Broadcast CARD_DRAWN to all peers in multiplayer room if local player drew the card
+      if (isOnline && !isRemoteViewer && curP && curP.id === window.myRoomPlayerIndex) {
+        if (typeof window.pushOnlineGameState === 'function') {
+          window.pushOnlineGameState('monopoly', {
+            actionType: 'CARD_DRAWN',
+            cardType: type,
+            card: card,
+            player: {
+              id: curP.id,
+              name: curP.name,
+              isBot: curP.isBot
+            },
+            toast: '🎴 ' + curP.name + ' vừa bốc Thẻ ' + (isChance ? 'Cơ Hội' : 'Vận Mệnh') + ': "' + card.name + '"!'
+          });
+        }
+      }
 
       // Get Player Avatar
       let pAvUrl = '';
@@ -14247,9 +14309,12 @@ function playMonoDiceTumbleSFX(durationMs) {
       const ribbonText = isChance ? '🎡 THẺ CƠ HỘI HOÀNG GIA (CHANCE)' : '🎁 THẺ VẬN MỆNH BẤT NGỜ (FATE)';
       const titleColor = isChance ? 'text-amber-300' : 'text-purple-300';
       const amountColor = (card.amount >= 0) ? 'text-emerald-400' : 'text-rose-400';
-      const amountText = (card.action === 'jail') ? 'TỐNG GIAM 2 LƯỢT ⛓️' : (card.amount >= 0 ? `+$$${card.amount.toLocaleString()}` : `-$$ ${Math.abs(card.amount).toLocaleString()}`);
+      const amountText = (card.action === 'jail') ? 'TỐNG GIAM 2 LƯỢT ⛓️' : ((card.amount >= 0 ? '+$' : '-$') + Math.abs(card.amount).toLocaleString());
 
       const illustSvg = getMonoCardIllustrationSVG(card.name, type);
+
+      const playerBadgeLabel = curP && curP.isBot ? 'BOT AI' : (isMyTurn ? 'BẠN' : 'ĐỐI THỦ');
+      const playerBadgeCls = curP && curP.isBot ? 'bg-slate-800 text-slate-300' : (isMyTurn ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30');
 
       // Render 3D Realistic Royal Card
       royalBox.innerHTML = `
@@ -14277,8 +14342,8 @@ function playMonoDiceTumbleSFX(durationMs) {
                 <div class="text-xs font-black text-white font-cinzel">${curP ? curP.name : 'Người chơi'}</div>
               </div>
             </div>
-            <span class="px-2 py-0.5 rounded-lg text-[10px] font-mono font-bold ${curP && curP.isBot ? 'bg-slate-800 text-slate-300' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}">
-              ${curP && curP.isBot ? 'BOT AI' : 'BẠN'}
+            <span class="px-2 py-0.5 rounded-lg text-[10px] font-mono font-bold ${playerBadgeCls}">
+              ${playerBadgeLabel}
             </span>
           </div>
 
@@ -14316,30 +14381,30 @@ function playMonoDiceTumbleSFX(durationMs) {
       overlay.classList.add('flex');
       try { soundTone(isChance ? 780 : 640, 'triangle', 0.2, 0.25); } catch(e) {}
 
-      // AUTO-COUNTDOWN FOR BOT OR AUTO-PLAY (Display for a full 2.2 seconds so user can read everything!)
-      if (isBotOrAuto) {
+      // AUTO-COUNTDOWN FOR BOT / AUTO-PLAY / REMOTE OPPONENT (Display for a full 2.2 seconds so user can read everything!)
+      if (shouldAutoClose) {
         let secondsLeft = 2;
         const timerEl = document.getElementById('lblMonoCardTimer');
-        if (timerEl) timerEl.textContent = `(${curP ? curP.name : 'Bot'} - ${secondsLeft}s)`;
+        if (timerEl) timerEl.textContent = '(' + (curP ? curP.name : 'Người chơi') + ' - ' + secondsLeft + 's)';
 
-        if (monoState.botTimeoutId) clearTimeout(monoState.botTimeoutId);
+        if (monoState.cardModalTimeoutId) clearTimeout(monoState.cardModalTimeoutId);
         
         const countdownInterval = setInterval(() => {
           secondsLeft--;
           if (secondsLeft > 0) {
-            if (timerEl) timerEl.textContent = `(${curP ? curP.name : 'Bot'} - ${secondsLeft}s)`;
+            if (timerEl) timerEl.textContent = '(' + (curP ? curP.name : 'Người chơi') + ' - ' + secondsLeft + 's)';
           } else {
             clearInterval(countdownInterval);
           }
         }, 1000);
 
-        monoState.botTimeoutId = setTimeout(() => {
+        monoState.cardModalTimeoutId = setTimeout(() => {
           clearInterval(countdownInterval);
+          monoState.cardModalTimeoutId = null;
           closeMonoEventModal();
         }, 2200);
       }
     }
-
 
     function showMonoEventPopup({ type, title, desc, badge, amountLabel, amountVal, visualIcon, visualSvg, player, onConfirm }) {
       const overlay = document.getElementById('monoEventModalOverlay');
@@ -14430,6 +14495,10 @@ function playMonoDiceTumbleSFX(durationMs) {
     }
 
     function closeMonoEventModal() {
+      if (monoState && monoState.cardModalTimeoutId) {
+        clearTimeout(monoState.cardModalTimeoutId);
+        monoState.cardModalTimeoutId = null;
+      }
       const overlay = document.getElementById('monoEventModalOverlay');
       if (overlay) {
         overlay.classList.add('hidden');
@@ -20635,10 +20704,10 @@ function renderCashStackHTML(amount) {
 
       // Inactive tab button styles with smooth transitions
       if (bCreate) {
-        bCreate.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out text-slate-400 hover:text-white hover:bg-slate-800/60 border border-transparent hover:border-slate-700/50 cursor-pointer active:scale-95';
+        bCreate.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out text-slate-600 hover:text-slate-900 hover:bg-white/80 cursor-pointer active:scale-95';
       }
       if (bJoin) {
-        bJoin.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out text-slate-400 hover:text-white hover:bg-slate-800/60 border border-transparent hover:border-slate-700/50 cursor-pointer active:scale-95';
+        bJoin.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out text-slate-600 hover:text-slate-900 hover:bg-white/80 cursor-pointer active:scale-95';
       }
 
       if (tab === 'create') {
@@ -20648,7 +20717,7 @@ function renderCashStackHTML(amount) {
           vCreate.classList.add('mp-tab-enter');
         }
         if (bCreate) {
-          bCreate.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out bg-gradient-to-r from-cyan-600 to-cyan-700 text-white shadow-lg shadow-cyan-500/30 border border-cyan-400/40 cursor-pointer active:scale-95 ring-1 ring-cyan-400/30';
+          bCreate.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out bg-gradient-to-r from-cyan-600 to-cyan-700 text-white shadow-md shadow-cyan-600/20 cursor-pointer active:scale-95';
         }
       } else if (tab === 'join') {
         if (vJoin) {
@@ -20657,7 +20726,7 @@ function renderCashStackHTML(amount) {
           vJoin.classList.add('mp-tab-enter');
         }
         if (bJoin) {
-          bJoin.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-lg shadow-amber-500/30 border border-amber-400/40 cursor-pointer active:scale-95 ring-1 ring-amber-400/30';
+          bJoin.className = 'flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-md shadow-amber-600/20 cursor-pointer active:scale-95';
         }
         setTimeout(() => {
           const inp = document.getElementById('mpJoinCodeInput');
@@ -20687,12 +20756,12 @@ function renderCashStackHTML(amount) {
         if (!card) return;
         const check = card.querySelector('.mp-check-badge');
         if (g === gameKey) {
-          card.classList.remove('border-slate-800', 'bg-slate-900/60');
-          card.classList.add('border-cyan-400', 'bg-slate-900/90', 'shadow-lg', 'shadow-cyan-500/20');
+          card.classList.remove('border-slate-200', 'bg-slate-50');
+          card.classList.add('border-cyan-500', 'bg-cyan-50/90', 'shadow-md', 'shadow-cyan-500/15');
           if (check) check.classList.remove('hidden');
         } else {
-          card.classList.remove('border-cyan-400', 'bg-slate-900/90', 'shadow-lg', 'shadow-cyan-500/20');
-          card.classList.add('border-slate-800', 'bg-slate-900/60');
+          card.classList.remove('border-cyan-500', 'bg-cyan-50/90', 'shadow-md', 'shadow-cyan-500/15');
+          card.classList.add('border-slate-200', 'bg-slate-50');
           if (check) check.classList.add('hidden');
         }
       });
@@ -20722,9 +20791,9 @@ function renderCashStackHTML(amount) {
         const btn = document.getElementById('mpCountBtn_' + c);
         if (!btn) return;
         if (c === count) {
-          btn.className = 'flex-1 py-1.5 rounded-xl text-xs font-bold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm';
+          btn.className = 'flex-1 py-1.5 rounded-xl text-xs font-bold transition-all bg-cyan-600 text-white shadow-sm font-bold';
         } else {
-          btn.className = 'flex-1 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white';
+          btn.className = 'flex-1 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-slate-900 hover:bg-white font-bold';
         }
       });
     };
@@ -21068,18 +21137,18 @@ function renderCashStackHTML(amount) {
           const player = players[i];
           if (player) {
             slotsHtml += `
-              <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-cyan-500/40 flex items-center justify-between gap-3 shadow-inner">
+              <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-300 flex items-center justify-between gap-3 shadow-sm">
                 <div class="flex items-center gap-2.5">
-                  <div class="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-300 font-bold text-base shadow-sm">
+                  <div class="w-9 h-9 rounded-xl bg-cyan-100 border border-cyan-300 flex items-center justify-center text-cyan-800 font-bold text-base shadow-sm">
                     ${player.avatar || '⚔️'}
                   </div>
                   <div>
-                    <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                    <div class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
                       <span>${player.name}</span>
-                      ${player.isHost ? '<span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">CHỦ PHÒNG</span>' : '<span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">KHÁCH</span>'}
+                      ${player.isHost ? '<span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-amber-100 text-amber-900 border border-amber-300 font-bold">CHỦ PHÒNG</span>' : '<span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-cyan-100 text-cyan-900 border border-cyan-300 font-bold">KHÁCH</span>'}
                     </div>
-                    <div class="text-[10px] text-emerald-400 flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    <div class="text-[10px] text-emerald-700 flex items-center gap-1 font-semibold">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
                       <span>Sẵn Sàng</span>
                     </div>
                   </div>
@@ -21089,17 +21158,17 @@ function renderCashStackHTML(amount) {
             `;
           } else {
             slotsHtml += `
-              <div class="p-3.5 rounded-2xl bg-black/40 border border-dashed border-slate-700/80 flex items-center justify-between gap-3">
+              <div class="p-3.5 rounded-2xl bg-slate-100/70 border border-dashed border-slate-300 flex items-center justify-between gap-3">
                 <div class="flex items-center gap-2.5">
-                  <div class="w-9 h-9 rounded-xl bg-slate-800/50 border border-slate-700 flex items-center justify-center text-slate-500 text-sm">
-                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                  <div class="w-9 h-9 rounded-xl bg-slate-200 border border-slate-300 flex items-center justify-center text-slate-500 text-sm">
+                    <span class="w-2 h-2 rounded-full bg-cyan-600 animate-ping"></span>
                   </div>
                   <div>
-                    <div class="text-xs font-semibold text-slate-400">Đang đợi kỳ thủ tham gia...</div>
-                    <div class="text-[10px] text-slate-600">Nhập mã ${room.code} để vào</div>
+                    <div class="text-xs font-bold text-slate-700">Đang đợi kỳ thủ tham gia...</div>
+                    <div class="text-[10px] text-slate-500 font-medium">Nhập mã ${room.code} để vào</div>
                   </div>
                 </div>
-                <div class="text-xs font-mono text-slate-600">Trống</div>
+                <div class="text-xs font-mono font-bold text-slate-500">Trống</div>
               </div>
             `;
           }
@@ -21510,6 +21579,21 @@ function renderCashStackHTML(amount) {
 
       if (gameType === 'monopoly') {
         // A. Real-Time Pre-Move Broadcast: Opponent rolled the dice!
+        if (payload.actionType === 'CARD_DRAWN') {
+          if (payload.toast) showToast(payload.toast);
+          const p = (monoState && monoState.players) ? (monoState.players[payload.player.id] || payload.player) : payload.player;
+          showMonoCardRoyalModal({
+            type: payload.cardType,
+            card: payload.card,
+            player: p,
+            isRemoteViewer: true,
+            onConfirm: () => {
+              // Remote viewer dismissed card modal
+            }
+          });
+          return;
+        }
+
         if (payload.actionType === 'ROLL_START') {
           monoState.lastRollSum = payload.totalSteps;
           if (typeof animateMono3DDiceRoll === 'function') {
@@ -22781,36 +22865,36 @@ function renderCashStackHTML(amount) {
     <div id="multiplayerRoomCard" class="w-full max-w-2xl bg-[#0A0F1D]/95 border-2 border-cyan-500/40 rounded-3xl p-5 sm:p-7 shadow-[0_0_50px_rgba(6,182,212,0.18)] relative max-h-[92vh] overflow-y-auto flex flex-col text-slate-200">
       
       <!-- Close Button -->
-      <button onclick="closeModal('multiplayerRoomModal')" class="absolute top-5 right-5 p-2 rounded-xl hover:bg-slate-800/80 text-slate-400 hover:text-white transition-colors border border-slate-700/50 bg-black/40" title="Đóng">
+      <button onclick="closeModal('multiplayerRoomModal')" class="absolute top-5 right-5 p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 border border-slate-300 transition-colors" title="Đóng">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
 
       <!-- Modal Header -->
-      <div class="flex items-center gap-3 pb-4 border-b border-cyan-500/20 shrink-0 pr-8">
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-amber-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 text-xl shadow-inner">
-          <i data-lucide="radio" class="w-6 h-6 text-cyan-400 animate-pulse"></i>
+      <div class="flex items-center gap-3 pb-4 border-b border-slate-200 shrink-0 pr-8">
+        <div class="w-11 h-11 rounded-2xl bg-cyan-50 border border-cyan-300 flex items-center justify-center text-cyan-700 text-xl shadow-inner">
+          <i data-lucide="radio" class="w-6 h-6 text-cyan-600 animate-pulse"></i>
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h3 class="font-cinzel text-lg sm:text-xl font-black text-white tracking-wide">PHÒNG CHƠI P2P / MULTIPLAYER</h3>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/40 font-bold uppercase tracking-wider">Online & LAN</span>
+            <h3 class="font-cinzel text-lg sm:text-xl font-black text-slate-900 tracking-wide">PHÒNG CHƠI P2P / MULTIPLAYER</h3>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-100 text-cyan-900 border border-cyan-300 font-bold uppercase tracking-wider">Online & LAN</span>
           </div>
-          <p class="text-[11px] sm:text-xs text-slate-400 font-sans">Tạo phòng riêng, chia sẻ mã 6 số hoặc link 1-chạm thi đấu thời gian thực</p>
+          <p class="text-[11px] sm:text-xs text-slate-600 font-medium font-sans">Tạo phòng riêng, chia sẻ mã 6 số hoặc link 1-chạm thi đấu thời gian thực</p>
         </div>
       </div>
 
       <!-- Mode Switcher Tabs -->
-      <div id="mpModeTabs" class="flex items-center gap-2 mt-4 mb-5 p-1 bg-black/60 rounded-2xl border border-slate-800 shrink-0">
-        <button id="mpTabBtnCreate" onclick="switchMultiplayerTab('create')" class="flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out bg-gradient-to-r from-cyan-600 to-cyan-700 text-white shadow-lg shadow-cyan-500/30 border border-cyan-400/40 cursor-pointer active:scale-95 ring-1 ring-cyan-400/30">
+      <div id="mpModeTabs" class="flex items-center gap-2 mt-4 mb-5 p-1 bg-slate-100 border border-slate-200 rounded-2xl shrink-0">
+        <button id="mpTabBtnCreate" onclick="switchMultiplayerTab('create')" class="flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out bg-gradient-to-r from-cyan-600 to-cyan-700 text-white shadow-md shadow-cyan-600/20 cursor-pointer active:scale-95">
           <i data-lucide="plus-circle" class="w-4 h-4 text-cyan-200"></i>
           <span>Tạo Phòng Mới</span>
         </button>
-        <button id="mpTabBtnJoin" onclick="switchMultiplayerTab('join')" class="flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out text-slate-400 hover:text-white hover:bg-slate-800/60 border border-transparent hover:border-slate-700/50 cursor-pointer active:scale-95">
+        <button id="mpTabBtnJoin" onclick="switchMultiplayerTab('join')" class="flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out text-slate-600 hover:text-slate-900 hover:bg-white/80 cursor-pointer active:scale-95">
           <i data-lucide="key" class="w-4 h-4 text-amber-400"></i>
           <span>Nhập Mã Phòng</span>
         </button>
-        <button id="mpTabBtnWaiting" onclick="switchMultiplayerTab('waiting')" class="hidden flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 cursor-pointer active:scale-95">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <button id="mpTabBtnWaiting" onclick="switchMultiplayerTab('waiting')" class="hidden flex-1 py-2 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 ease-out text-emerald-700 bg-emerald-100 border border-emerald-300 cursor-pointer active:scale-95">
+          <span class="w-2 h-2 rounded-full bg-emerald-600 animate-ping"></span>
           <span>Phòng Hiện Tại</span>
         </button>
       </div>
@@ -22820,49 +22904,49 @@ function renderCashStackHTML(amount) {
         
         <!-- Choose Game -->
         <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2.5 flex items-center justify-between">
-            <span class="flex items-center gap-1.5"><i data-lucide="gamepad-2" class="w-4 h-4 text-cyan-400"></i> 1. Chọn Tựa Game Đấu Trí:</span>
-            <span id="mpSelectedGameLabel" class="text-amber-400 font-mono text-[11px] font-bold">Xúc Xắc 20 Ô</span>
+          <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-2.5 flex items-center justify-between">
+            <span class="flex items-center gap-1.5"><i data-lucide="gamepad-2" class="w-4 h-4 text-cyan-600"></i> 1. Chọn Tựa Game Đấu Trí:</span>
+            <span id="mpSelectedGameLabel" class="text-amber-700 font-mono text-[11px] font-black">Xúc Xắc 20 Ô</span>
           </label>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             <!-- Game 1: Dice -->
-            <button type="button" onclick="selectMpGame('dice')" id="mpGameCard_dice" class="mp-game-card group p-3 rounded-2xl bg-slate-900/90 border-2 border-cyan-400 text-left transition-all hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-500/20 relative cursor-pointer">
+            <button type="button" onclick="selectMpGame('dice')" id="mpGameCard_dice" class="mp-game-card group p-3 rounded-2xl bg-cyan-50/90 border-2 border-cyan-500 shadow-md shadow-cyan-500/15 text-left transition-all hover:border-cyan-600 relative cursor-pointer">
               <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-700/20 border border-amber-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform mb-2.5">
                 <svg viewBox="0 0 32 32" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(245,158,11,0.7)]" fill="none"><polygon points="16,3 28,9 16,15 4,9" fill="url(#diceTopGrad)" stroke="#FEF08A" stroke-width="0.8"/><circle cx="16" cy="9" r="1.5" fill="#78350F"/><polygon points="4,9 16,15 16,29 4,23" fill="url(#diceLeftGrad)" stroke="#B45309" stroke-width="0.8"/><circle cx="8" cy="14" r="1.2" fill="#FDE68A"/><circle cx="12" cy="22" r="1.2" fill="#FDE68A"/><polygon points="16,15 28,9 28,23 16,29" fill="url(#diceRightGrad)" stroke="#D97706" stroke-width="0.8"/><circle cx="20" cy="18" r="1.2" fill="#78350F"/><circle cx="24" cy="14" r="1.2" fill="#78350F"/><circle cx="24" cy="22" r="1.2" fill="#78350F"/></svg>
               </div>
-              <div class="text-xs font-bold text-white group-hover:text-amber-300">Xúc Xắc 20 Ô</div>
-              <div class="text-[10px] text-slate-400 font-mono">2-4 Người</div>
-              <div class="mp-check-badge absolute top-2 right-2 text-cyan-400 font-bold text-xs">✓</div>
+              <div class="text-xs font-black text-slate-900 group-hover:text-amber-700">Xúc Xắc 20 Ô</div>
+              <div class="text-[10px] text-slate-600 font-mono font-bold">2-4 Người</div>
+              <div class="mp-check-badge absolute top-2 right-2 text-cyan-600 font-black text-xs">✓</div>
             </button>
 
             <!-- Game 2: Chess -->
-            <button type="button" onclick="selectMpGame('chess')" id="mpGameCard_chess" class="mp-game-card group p-3 rounded-2xl bg-slate-900/60 border border-slate-800 text-left transition-all hover:border-cyan-500/50 relative cursor-pointer">
+            <button type="button" onclick="selectMpGame('chess')" id="mpGameCard_chess" class="mp-game-card group p-3 rounded-2xl bg-slate-50 border-2 border-slate-200 hover:border-cyan-400 hover:bg-white text-left transition-all relative cursor-pointer">
               <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-indigo-700/20 border border-indigo-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform mb-2.5">
                 <svg viewBox="0 0 32 32" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(99,102,241,0.7)]" fill="none"><path d="M7 28h18c-1-3-2-4-3-6-1-1-1-3 0-5 1-2 2-4 2-7 0-4-3-6-7-6-2 0-3 1-5 3-1-1-3-1-4 0-1 1-1 3-1 4 0 2 1 3 2 4l-1 2c-2 2-3 4-2 7 0 1 0 2 0 4h-1z" fill="url(#chessGrad)" stroke="#C7D2FE" stroke-width="1"/><circle cx="13" cy="12" r="1.2" fill="#E0E7FF"/><path d="M10 28h12v2H10z" fill="#818CF8"/><path d="M14 6l1-2 2 1-1 2" stroke="#FDE68A" stroke-width="1.2" stroke-linecap="round"/></svg>
               </div>
-              <div class="text-xs font-bold text-white group-hover:text-indigo-300">Cờ Vua FIDE</div>
-              <div class="text-[10px] text-slate-400 font-mono">2 Người</div>
-              <div class="mp-check-badge hidden absolute top-2 right-2 text-cyan-400 font-bold text-xs">✓</div>
+              <div class="text-xs font-black text-slate-900 group-hover:text-indigo-700">Cờ Vua FIDE</div>
+              <div class="text-[10px] text-slate-600 font-mono font-bold">2 Người</div>
+              <div class="mp-check-badge hidden absolute top-2 right-2 text-cyan-600 font-black text-xs">✓</div>
             </button>
 
             <!-- Game 3: Tic Tac Toe / Caro -->
-            <button type="button" onclick="selectMpGame('tictactoe')" id="mpGameCard_tictactoe" class="mp-game-card group p-3 rounded-2xl bg-slate-900/60 border border-slate-800 text-left transition-all hover:border-cyan-500/50 relative cursor-pointer">
+            <button type="button" onclick="selectMpGame('tictactoe')" id="mpGameCard_tictactoe" class="mp-game-card group p-3 rounded-2xl bg-slate-50 border-2 border-slate-200 hover:border-cyan-400 hover:bg-white text-left transition-all relative cursor-pointer">
               <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-700/20 border border-cyan-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform mb-2.5">
                 <svg viewBox="0 0 32 32" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(6,182,212,0.7)]" fill="none"><line x1="6" y1="7" x2="18" y2="19" stroke="url(#xGrad)" stroke-width="3.2" stroke-linecap="round"/><line x1="18" y1="7" x2="6" y2="19" stroke="url(#xGrad)" stroke-width="3.2" stroke-linecap="round"/><circle cx="21" cy="20" r="7.5" stroke="url(#oGrad)" stroke-width="2.8" fill="none"/><circle cx="21" cy="20" r="3" fill="#F43F5E" opacity="0.25"/></svg>
               </div>
-              <div class="text-xs font-bold text-white group-hover:text-cyan-300">Ca-rô Neon</div>
-              <div class="text-[10px] text-slate-400 font-mono">2 Người</div>
-              <div class="mp-check-badge hidden absolute top-2 right-2 text-cyan-400 font-bold text-xs">✓</div>
+              <div class="text-xs font-black text-slate-900 group-hover:text-cyan-700">Ca-rô Neon</div>
+              <div class="text-[10px] text-slate-600 font-mono font-bold">2 Người</div>
+              <div class="mp-check-badge hidden absolute top-2 right-2 text-cyan-600 font-black text-xs">✓</div>
             </button>
 
             <!-- Game 4: Monopoly -->
-            <button type="button" onclick="selectMpGame('monopoly')" id="mpGameCard_monopoly" class="mp-game-card group p-3 rounded-2xl bg-slate-900/60 border border-slate-800 text-left transition-all hover:border-cyan-500/50 relative cursor-pointer">
+            <button type="button" onclick="selectMpGame('monopoly')" id="mpGameCard_monopoly" class="mp-game-card group p-3 rounded-2xl bg-slate-50 border-2 border-slate-200 hover:border-cyan-400 hover:bg-white text-left transition-all relative cursor-pointer">
               <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-700/20 border border-emerald-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform mb-2.5">
                 <svg viewBox="0 0 32 32" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(16,185,129,0.7)]" fill="none"><polygon points="16,3 23,7 16,11 9,7" fill="url(#monoRoof)" stroke="#FDE68A" stroke-width="0.7"/><polygon points="9,7 16,11 16,28 9,24" fill="url(#monoTower1)" stroke="#059669" stroke-width="0.7"/><polygon points="16,11 23,7 23,24 16,28" fill="url(#monoTower2)" stroke="#047857" stroke-width="0.7"/><line x1="12" y1="13" x2="14" y2="14" stroke="#FDE68A" stroke-width="1.2"/><line x1="12" y1="18" x2="14" y2="19" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="14" x2="20" y2="13" stroke="#FDE68A" stroke-width="1.2"/><line x1="18" y1="19" x2="20" y2="18" stroke="#FDE68A" stroke-width="1.2"/><polygon points="4,13 9,10 9,24 4,27" fill="#047857" stroke="#10B981" stroke-width="0.6"/><polygon points="23,10 28,13 28,27 23,24" fill="#065F46" stroke="#10B981" stroke-width="0.6"/></svg>
               </div>
-              <div class="text-xs font-bold text-white group-hover:text-emerald-300">Cờ Tỷ Phú</div>
-              <div class="text-[10px] text-slate-400 font-mono">2-4 Người</div>
-              <div class="mp-check-badge hidden absolute top-2 right-2 text-cyan-400 font-bold text-xs">✓</div>
+              <div class="text-xs font-black text-slate-900 group-hover:text-emerald-700">Cờ Tỷ Phú</div>
+              <div class="text-[10px] text-slate-600 font-mono font-bold">2-4 Người</div>
+              <div class="mp-check-badge hidden absolute top-2 right-2 text-cyan-600 font-black text-xs">✓</div>
             </button>
           </div>
         </div>
@@ -22871,40 +22955,40 @@ function renderCashStackHTML(amount) {
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <!-- Max Players -->
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-1.5">
-              <i data-lucide="users" class="w-3.5 h-3.5 text-cyan-400"></i> 2. Số Lượng Kỳ Thủ:
+            <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-2 flex items-center gap-1.5">
+              <i data-lucide="users" class="w-3.5 h-3.5 text-cyan-600"></i> 2. Số Lượng Kỳ Thủ:
             </label>
-            <div class="flex items-center gap-2 bg-black/50 p-1.5 rounded-2xl border border-slate-800">
-              <button type="button" onclick="selectMpPlayerCount(2)" id="mpCountBtn_2" class="flex-1 py-1.5 rounded-xl text-xs font-bold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">2 Người</button>
-              <button type="button" onclick="selectMpPlayerCount(3)" id="mpCountBtn_3" class="flex-1 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white">3 Người</button>
-              <button type="button" onclick="selectMpPlayerCount(4)" id="mpCountBtn_4" class="flex-1 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white">4 Người</button>
+            <div class="flex items-center gap-2 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
+              <button type="button" onclick="selectMpPlayerCount(2)" id="mpCountBtn_2" class="flex-1 py-1.5 rounded-xl text-xs font-bold transition-all bg-cyan-600 text-white shadow-sm font-bold">2 Người</button>
+              <button type="button" onclick="selectMpPlayerCount(3)" id="mpCountBtn_3" class="flex-1 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-slate-900 hover:bg-white font-bold">3 Người</button>
+              <button type="button" onclick="selectMpPlayerCount(4)" id="mpCountBtn_4" class="flex-1 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-slate-900 hover:bg-white font-bold">4 Người</button>
             </div>
-            <p id="mpPlayerCountHint" class="text-[10px] text-slate-400 mt-1.5 font-mono">Tối ưu cho trận đấu kịch tính cùng bạn bè</p>
+            <p id="mpPlayerCountHint" class="text-[10px] text-slate-600 mt-1.5 font-medium">Tối ưu cho trận đấu kịch tính cùng bạn bè</p>
           </div>
 
           <!-- Host Name -->
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-1.5">
-              <i data-lucide="user" class="w-3.5 h-3.5 text-amber-400"></i> 3. Biệt Danh Của Bạn (Chủ Phòng):
+            <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-2 flex items-center gap-1.5">
+              <i data-lucide="user" class="w-3.5 h-3.5 text-amber-600"></i> 3. Biệt Danh Của Bạn (Chủ Phòng):
             </label>
-            <input type="text" id="mpHostNameInput" maxlength="25" placeholder="Nhập biệt danh kỳ thủ..." class="w-full px-3.5 py-2 rounded-xl bg-black/60 border border-slate-700 text-white placeholder-slate-500 text-xs font-semibold focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400">
+            <input type="text" id="mpHostNameInput" maxlength="25" placeholder="Nhập biệt danh kỳ thủ..." class="w-full px-3.5 py-2 rounded-xl bg-white border-2 border-slate-300 text-slate-900 placeholder-slate-400 font-bold focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 text-xs focus:outline-none">
           </div>
         </div>
 
         <!-- Room Preview Banner -->
-        <div class="p-3 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900/60 to-amber-950/40 border border-cyan-500/30 flex items-center justify-between gap-3">
+        <div class="p-3 rounded-2xl bg-slate-50 border-2 border-slate-200 flex items-center justify-between gap-3 text-slate-800">
           <div class="flex items-center gap-2.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-600 animate-pulse"></span>
             <div class="text-xs">
-              <span class="text-slate-400">Mã phòng ngẫu nhiên: </span>
-              <span class="font-mono font-bold text-cyan-300 tracking-wider">6 CHỮ SỐ (VD: 882910)</span>
+              <span class="text-slate-600 font-bold">Mã phòng ngẫu nhiên: </span>
+              <span class="font-mono font-black text-cyan-700 tracking-wider">6 CHỮ SỐ (VD: 882910)</span>
             </div>
           </div>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-cyan-400/10 text-cyan-300 border border-cyan-400/30">P2P Realtime</span>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-cyan-100 text-cyan-900 border border-cyan-300 font-bold">P2P Realtime</span>
         </div>
 
         <!-- Create Button -->
-        <button type="button" onclick="handleCreateMultiplayerRoom()" id="btnCreateRoomSubmit" class="btn-spring btn-shimmer w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-400 to-amber-500 hover:from-cyan-400 hover:to-amber-400 text-slate-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-cyan-500/25 cursor-pointer transition-all duration-200 active:scale-95 hover:shadow-[0_0_25px_rgba(245,158,11,0.55)] hover:brightness-110 group">
+        <button type="button" onclick="handleCreateMultiplayerRoom()" id="btnCreateRoomSubmit" class="btn-spring btn-shimmer w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-600 via-teal-500 to-amber-500 hover:from-cyan-500 hover:to-amber-400 text-slate-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 cursor-pointer transition-all duration-200 active:scale-95 group">
           <i data-lucide="sparkles" class="w-4 h-4 fill-slate-950 group-hover:rotate-12 transition-transform duration-200"></i>
           <span id="btnCreateRoomText">TẠO PHÒNG & SINH MÃ MỜI BẠN</span>
           <span id="btnCreateRoomSpinner" class="hidden w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></span>
@@ -22914,12 +22998,12 @@ function renderCashStackHTML(amount) {
       <!-- ================= TAB 2: NHẬP MÃ PHÒNG (#mpViewJoin) ================= -->
       <div id="mpViewJoin" class="hidden space-y-5">
         <div class="text-center py-2">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border-2 border-amber-300 text-amber-950 font-black text-xs font-bold mb-2">
-            <i data-lucide="key" class="w-3.5 h-3.5 text-amber-400"></i>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 font-black text-xs mb-2">
+            <i data-lucide="key" class="w-3.5 h-3.5 text-amber-600"></i>
             <span>GIA NHẬP BÀN ĐẤU NHANH</span>
           </div>
-          <h4 class="font-cinzel text-xl font-bold text-white">Nhập Mã 6 Ký Tự</h4>
-          <p class="text-xs text-slate-400 max-w-md mx-auto mt-1 font-sans">
+          <h4 class="font-cinzel text-xl font-black text-slate-900">Nhập Mã 6 Ký Tự</h4>
+          <p class="text-xs text-slate-600 max-w-md mx-auto mt-1 font-medium font-sans">
             Nhập mã phòng do bạn bè chia sẻ để tham gia vào bàn cờ ngay tức thì.
           </p>
         </div>
@@ -22927,12 +23011,12 @@ function renderCashStackHTML(amount) {
         <!-- 6-digit input box with 60fps glow and transition -->
         <div class="max-w-xs mx-auto">
           <div class="relative group">
-            <input type="text" id="mpJoinCodeInput" maxlength="6" placeholder="882910" class="mp-code-input-glow w-full text-center text-3xl sm:text-4xl font-mono font-black tracking-[0.3em] uppercase py-3.5 px-4 rounded-2xl bg-black/70 border-2 border-cyan-500/50 text-cyan-300 placeholder-slate-600 focus:outline-none focus:border-cyan-300 focus:ring-4 focus:ring-cyan-500/25 shadow-inner transition-all duration-300 ease-out hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.25)]">
-            <div class="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-cyan-500/20 via-teal-500/20 to-amber-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm pointer-events-none"></div>
+            <input type="text" id="mpJoinCodeInput" maxlength="6" placeholder="882910" class="mp-code-input-glow w-full text-center text-3xl sm:text-4xl font-mono font-black tracking-[0.3em] uppercase py-3.5 px-4 rounded-2xl bg-white border-2 border-slate-300 text-cyan-800 placeholder-slate-300 focus:outline-none focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/20 shadow-sm transition-all duration-300 ease-out hover:border-cyan-400">
+            <div class="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-cyan-500/10 via-teal-500/10 to-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm pointer-events-none"></div>
           </div>
-          <div class="flex items-center justify-between mt-2 text-[11px] text-slate-400">
+          <div class="flex items-center justify-between mt-2 text-[11px] text-slate-500 font-medium">
             <span>Chỉ gồm chữ số (0-9)</span>
-            <button type="button" onclick="handlePasteJoinCode()" class="text-cyan-400 hover:text-cyan-300 hover:underline flex items-center gap-1 font-semibold cursor-pointer transition-colors">
+            <button type="button" onclick="handlePasteJoinCode()" class="text-cyan-700 hover:text-cyan-900 hover:underline flex items-center gap-1 font-bold cursor-pointer transition-colors">
               <i data-lucide="clipboard" class="w-3 h-3"></i> Dán từ Clipboard
             </button>
           </div>
@@ -22940,21 +23024,21 @@ function renderCashStackHTML(amount) {
 
         <!-- Guest Name Input -->
         <div class="max-w-xs mx-auto">
-          <label class="block text-xs font-bold text-slate-300 mb-1.5 flex items-center gap-1.5">
-            <i data-lucide="user" class="w-3.5 h-3.5 text-amber-400"></i> Tên của bạn khi vào phòng:
+          <label class="block text-xs font-extrabold text-slate-900 mb-1.5 flex items-center gap-1.5">
+            <i data-lucide="user" class="w-3.5 h-3.5 text-amber-600"></i> Tên của bạn khi vào phòng:
           </label>
-          <input type="text" id="mpJoinGuestNameInput" maxlength="25" placeholder="Ví dụ: Hiệp Sĩ Cờ, Long..." class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-slate-700 text-white placeholder-slate-500 text-xs font-semibold focus:outline-none focus:border-cyan-400 transition-colors">
+          <input type="text" id="mpJoinGuestNameInput" maxlength="25" placeholder="Ví dụ: Hiệp Sĩ Cờ, Long..." class="w-full px-3.5 py-2.5 rounded-xl bg-white border-2 border-slate-300 text-slate-900 placeholder-slate-400 text-xs font-bold focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-colors">
         </div>
 
         <!-- Status message alert -->
-        <div id="mpJoinStatusAlert" class="hidden p-3 rounded-xl bg-rose-500/10 border border-rose-500/40 text-rose-300 text-xs text-center flex items-center justify-center gap-2">
-          <i data-lucide="alert-circle" class="w-4 h-4 text-rose-400 shrink-0"></i>
+        <div id="mpJoinStatusAlert" class="hidden p-3 rounded-xl bg-rose-50 border border-rose-300 text-rose-800 text-xs font-bold text-center flex items-center justify-center gap-2">
+          <i data-lucide="alert-circle" class="w-4 h-4 text-rose-600 shrink-0"></i>
           <span id="mpJoinStatusMsg">Mã phòng không tồn tại hoặc đã đầy!</span>
         </div>
 
         <!-- Join Button -->
         <div class="max-w-xs mx-auto">
-          <button type="button" onclick="handleJoinMultiplayerRoom()" id="btnJoinRoomSubmit" class="btn-spring btn-shimmer w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-cyan-500 hover:from-amber-400 hover:to-cyan-400 text-slate-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-amber-500/20 cursor-pointer transition-all duration-200 active:scale-95 hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] hover:brightness-110">
+          <button type="button" onclick="handleJoinMultiplayerRoom()" id="btnJoinRoomSubmit" class="btn-spring btn-shimmer w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-cyan-500 hover:from-amber-400 hover:to-cyan-400 text-slate-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 cursor-pointer transition-all duration-200 active:scale-95">
             <i data-lucide="log-in" class="w-4 h-4 text-slate-950"></i>
             <span id="btnJoinRoomText">VÀO PHÒNG NGAY</span>
           </button>
@@ -22965,36 +23049,36 @@ function renderCashStackHTML(amount) {
       <div id="mpViewWaiting" class="hidden space-y-5">
         
         <!-- Top Status Bar & Game Badge -->
-        <div class="flex flex-wrap items-center justify-between gap-2.5 pb-3 border-b border-slate-800">
+        <div class="flex flex-wrap items-center justify-between gap-2.5 pb-3 border-b border-slate-200">
           <div class="flex items-center gap-2">
-            <div id="mpWaitingGameIcon" class="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-base">🎲</div>
+            <div id="mpWaitingGameIcon" class="w-8 h-8 rounded-xl bg-amber-100 border border-amber-300 flex items-center justify-center text-amber-700 text-base">🎲</div>
             <div>
-              <div id="mpWaitingGameTitle" class="text-xs font-black text-white font-cinzel">XÚC XẮC 20 Ô HOÀNG KIM</div>
-              <div id="mpWaitingPlayerCountBadge" class="text-[10px] text-cyan-400 font-mono">Chế độ 2 Người Chơi</div>
+              <div id="mpWaitingGameTitle" class="text-xs font-black text-slate-900 font-cinzel">XÚC XẮC 20 Ô HOÀNG KIM</div>
+              <div id="mpWaitingPlayerCountBadge" class="text-[10px] text-cyan-700 font-mono font-bold">Chế độ 2 Người Chơi</div>
             </div>
           </div>
-          <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs font-mono font-bold">
+            <span class="w-2 h-2 rounded-full bg-emerald-600 animate-ping"></span>
             <span id="mpWaitingRoomStateText">Đang Chờ Kỳ Thủ...</span>
           </div>
         </div>
 
         <!-- Huge Room Code Highlight Showcase -->
-        <div class="p-4 sm:p-5 rounded-3xl bg-gradient-to-br from-black/80 via-slate-950 to-[#0A0F1D] border-2 border-cyan-400/60 shadow-[0_0_30px_rgba(6,182,212,0.15)] text-center relative overflow-hidden">
-          <div class="absolute -right-10 -top-10 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
-          <div class="text-[11px] font-mono uppercase tracking-widest text-slate-400 mb-1">MÃ PHÒNG THI ĐẤU P2P</div>
+        <div class="p-4 sm:p-5 rounded-3xl bg-slate-50 border-2 border-cyan-500/50 shadow-md text-center relative overflow-hidden">
+          <div class="absolute -right-10 -top-10 w-32 h-32 bg-cyan-500/5 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="text-[11px] font-mono uppercase tracking-widest text-slate-500 font-bold mb-1">MÃ PHÒNG THI ĐẤU P2P</div>
           
-          <div id="mpWaitingRoomCodeDisplay" class="font-mono text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-cyan-300 to-emerald-300 tracking-[0.25em] py-1 select-all cursor-pointer" onclick="handleCopyRoomCode()" title="Bấm để sao chép mã">
+          <div id="mpWaitingRoomCodeDisplay" class="font-mono text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-cyan-700 to-emerald-700 tracking-[0.25em] py-1 select-all cursor-pointer" onclick="handleCopyRoomCode()" title="Bấm để sao chép mã">
             882910
           </div>
 
           <!-- Quick Actions: Copy Code & Copy Link -->
-          <div class="flex flex-wrap items-center justify-center gap-2.5 mt-3 pt-3 border-t border-slate-800/80">
-            <button type="button" onclick="handleCopyRoomCode()" id="btnCopyRoomCode" class="btn-spring px-3.5 py-1.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
-              <i data-lucide="copy" class="w-3.5 h-3.5 text-cyan-400" id="iconCopyCode"></i>
+          <div class="flex flex-wrap items-center justify-center gap-2.5 mt-3 pt-3 border-t border-slate-200">
+            <button type="button" onclick="handleCopyRoomCode()" id="btnCopyRoomCode" class="btn-spring px-3.5 py-1.5 rounded-xl bg-cyan-100 hover:bg-cyan-200 text-cyan-900 border border-cyan-300 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
+              <i data-lucide="copy" class="w-3.5 h-3.5 text-cyan-700" id="iconCopyCode"></i>
               <span id="textCopyCode">Sao Chép Mã</span>
             </button>
-            <button type="button" onclick="handleCopyInviteLink()" id="btnCopyInviteLink" class="btn-spring px-4 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 text-xs font-extrabold flex items-center gap-1.5 shadow-md shadow-amber-600/30 transition-all cursor-pointer">
+            <button type="button" onclick="handleCopyInviteLink()" id="btnCopyInviteLink" class="btn-spring px-4 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 text-xs font-extrabold flex items-center gap-1.5 shadow-md shadow-amber-600/20 transition-all cursor-pointer">
               <i data-lucide="share-2" class="w-3.5 h-3.5 text-slate-950" id="iconCopyLink"></i>
               <span id="textCopyLink">Mời Bạn Bè (Link 1-Chạm)</span>
             </button>
@@ -23003,9 +23087,9 @@ function renderCashStackHTML(amount) {
 
         <!-- Player Slots List -->
         <div>
-          <div class="flex items-center justify-between text-xs text-slate-400 mb-2 font-bold uppercase tracking-wider">
-            <span class="flex items-center gap-1.5"><i data-lucide="users-2" class="w-3.5 h-3.5 text-cyan-400"></i> Danh Sách Kỳ Thủ Trong Phòng:</span>
-            <span id="mpWaitingSlotCounter" class="font-mono text-cyan-300">1/2 Đã Vào</span>
+          <div class="flex items-center justify-between text-xs text-slate-700 mb-2 font-black uppercase tracking-wider">
+            <span class="flex items-center gap-1.5"><i data-lucide="users-2" class="w-3.5 h-3.5 text-cyan-600"></i> Danh Sách Kỳ Thủ Trong Phòng:</span>
+            <span id="mpWaitingSlotCounter" class="font-mono text-cyan-800 font-bold">1/2 Đã Vào</span>
           </div>
 
           <div id="mpPlayerSlotsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -23014,8 +23098,8 @@ function renderCashStackHTML(amount) {
         </div>
 
         <!-- Host Match Controls & Leave Button -->
-        <div class="pt-3 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <button type="button" onclick="handleLeaveMultiplayerRoom()" class="btn-spring w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-700/60 text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer">
+        <div class="pt-3 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <button type="button" onclick="handleLeaveMultiplayerRoom()" class="btn-spring w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border border-slate-300 text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer">
             <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
             <span>Rời Phòng</span>
           </button>

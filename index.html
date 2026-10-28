@@ -1301,6 +1301,87 @@
       20%, 80% { transform: translate3d(5px, 0, 0); }
       30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
       40%, 60% { transform: translate3d(6px, 0, 0); }
+
+    .kitten-card-drawing {
+      position: fixed;
+      z-index: 9999;
+      pointer-events: none;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.9), 0 0 30px rgba(245, 158, 11, 0.85);
+      border-radius: 1rem;
+      overflow: hidden;
+      transition: all 0.56s cubic-bezier(0.16, 1, 0.3, 1);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      will-change: transform, opacity;
+    }
+
+    @keyframes kittenDeckPop {
+      0% { transform: scale(1); }
+      40% { transform: scale(0.92) translateY(3px); }
+      100% { transform: scale(1); }
+    }
+    .kitten-deck-draw-pop {
+      animation: kittenDeckPop 0.35s ease-out both;
+    }
+
+    @keyframes kittenHandBounce {
+      0% { transform: translateY(0); }
+      40% { transform: translateY(-8px) scale(1.02); }
+      100% { transform: translateY(0) scale(1); }
+    }
+    .kitten-hand-landing-bounce {
+      animation: kittenHandBounce 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes kittenRiffleCascade {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      25% { transform: translate3d(var(--riffle-x, -20px), -16px, 0) scale(0.93) rotate(var(--riffle-rot, -6deg)); }
+      65% { transform: translate3d(var(--riffle-x-back, 14px), 5px, 0) scale(1.04) rotate(var(--riffle-rot-rev, 4deg)); }
+      100% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+    }
+    .kitten-hand-riffle-cascade {
+      animation: kittenRiffleCascade 0.52s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes kittenHandRiffle {
+      0% { transform: translateY(0) scale(1); }
+      35% { transform: translateY(-16px) scale(0.92) rotate(var(--riffle-rot, -4deg)); }
+      65% { transform: translateY(6px) scale(1.04) rotate(var(--riffle-rot-rev, 4deg)); }
+      100% { transform: translateY(0) scale(1) rotate(0deg); }
+    }
+    .kitten-hand-riffle-anim {
+      animation: kittenHandRiffle 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    /* 3D Flip Card Effect for Blind Pick */
+    .kitten-flip-container {
+      perspective: 1000px;
+    }
+    .kitten-flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .kitten-flip-inner.is-flipped {
+      transform: rotateY(180deg);
+    }
+    .kitten-flip-front, .kitten-flip-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 0.875rem;
+      overflow: hidden;
+    }
+    .kitten-flip-front {
+      transform: rotateY(180deg);
+    }
+    .kitten-flip-back {
+      transform: rotateY(0deg);
+    }
     }
 
 
@@ -3987,6 +4068,12 @@
             <div class="w-full flex items-center justify-between mb-2 px-2">
               <div id="kittenPlayerPod_0" class="flex items-center gap-2.5"></div>
               <div class="flex items-center gap-2">
+                <button onclick="shuffleMyKittenHand()" id="btnShuffleMyHand" title="Xáo trộn vị trí các lá bài trên tay bạn để đối thủ không đoán được vị trí khi cướp bài! (Phím tắt: S)"
+                        class="group relative px-3 py-1.5 rounded-xl bg-gradient-to-r from-purple-700 via-indigo-600 to-purple-800 hover:from-purple-600 hover:to-indigo-500 text-white font-mono text-xs font-black flex items-center gap-1.5 border-2 border-purple-300 shadow-[0_4px_15px_rgba(168,85,247,0.5)] hover:shadow-[0_6px_22px_rgba(168,85,247,0.85)] active:scale-95 transition-all cursor-pointer select-none">
+                  <span class="text-sm group-hover:rotate-180 transition-transform duration-500">🔀</span>
+                  <span class="tracking-wide">TỰ XÁO TAY BÀI</span>
+                  <span class="hidden sm:inline-block px-1.5 py-0.2 rounded bg-black/40 text-[9px] text-purple-200 border border-purple-300/40 font-mono font-bold">Phím S</span>
+                </button>
                 <span class="text-xs font-mono text-slate-400">Bài trên tay:</span>
                 <span id="kittenHandCount" class="text-xs font-black font-mono text-amber-300">5 lá</span>
               </div>
@@ -4071,6 +4158,26 @@
             <button onclick="closeKittensModal('kittenModalTarget')" class="text-xs text-slate-400 hover:text-white underline">
               Hủy bỏ
             </button>
+          </div>
+        </div>
+
+        <!-- MODAL: INTERACTIVE BLIND CARD PICK FROM OPPONENT -->
+        <div id="kittenModalBlindPick" class="hidden fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+          <div class="w-full max-w-xl bg-slate-900 border-2 border-purple-400 rounded-3xl p-5 sm:p-7 shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_35px_rgba(168,85,247,0.35)] flex flex-col items-center text-center">
+            <div class="w-14 h-14 rounded-2xl bg-purple-500/20 border-2 border-purple-400 flex items-center justify-center mb-3 text-2xl shadow-lg">🎴</div>
+            <h3 id="kittenBlindPickTitle" class="font-cinzel text-lg sm:text-xl font-black text-purple-300 mb-1">TỰ TAY BỐC 1 LÁ TỪ ĐỐI THỦ</h3>
+            <p id="kittenBlindPickDesc" class="text-xs text-slate-300 font-sans mb-5">Đối thủ đang cầm <strong id="kittenBlindPickCount" class="text-amber-400">4</strong> lá bài úp. Hãy chọn 1 lá bài may mắn:</p>
+            
+            <!-- Face-down Cards Container -->
+            <div id="kittenBlindPickCardsRow" class="w-full py-4 px-2 flex items-center justify-center gap-2 sm:gap-3 flex-wrap min-h-[170px] max-h-[55vh] overflow-y-auto no-scrollbar"></div>
+            
+            <!-- Picked Result Display (Revealed card banner) -->
+            <div id="kittenBlindPickResultBanner" class="hidden w-full mt-4 p-3 rounded-2xl bg-black/80 border border-amber-400/60 shadow-xl flex items-center justify-center gap-3">
+              <span class="text-xl">🎉</span>
+              <span id="kittenBlindPickResultText" class="text-xs sm:text-sm font-bold text-amber-300 font-cinzel"></span>
+            </div>
+
+            <p class="mt-4 text-[11px] text-slate-400 font-mono">💡 Mẹo: Đối thủ không biết bạn sẽ bốc lá nào!</p>
           </div>
         </div>
 
@@ -24366,12 +24473,12 @@ function renderCashStackHTML(amount) {
       }
 
       list.innerHTML = targets.map(t => `
-        <button onclick="resolveStealAction(${t.id}, ${isCatPair ? 'true' : 'false'})" class="btn-spring w-full p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-amber-400 flex items-center justify-between transition-all">
+        <button onclick="openBlindPickModal(${t.id}, ${isCatPair ? 'true' : 'false'}); closeKittensModal('kittenModalTarget');" class="btn-spring w-full p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-amber-400 flex items-center justify-between transition-all">
           <div class="flex items-center gap-2.5">
             <img src="${t.avatar}" class="w-8 h-8 rounded-lg object-cover" />
             <span class="text-xs font-bold text-slate-200">${t.name}</span>
           </div>
-          <span class="text-xs font-mono text-amber-400 font-bold">${t.hand.length} lá trên tay</span>
+          <span class="text-xs font-mono text-amber-400 font-bold">${t.hand.length} lá trên tay (BẤM ĐỂ BỐC 🎴)</span>
         </button>
       `).join('');
 
@@ -24438,7 +24545,351 @@ function renderCashStackHTML(amount) {
       executeDrawCard(0);
     }
 
-    async function executeDrawCard(playerIdx) {
+        // Sound Effect: Card Draw Swoosh
+    function playKittenCardDrawSFX() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = window.__bgmAudioCtx || new AudioCtx();
+        if (ctx.state === 'suspended') ctx.resume();
+
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(320, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(850, ctx.currentTime + 0.12);
+        gain.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.13);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.135);
+      } catch (e) {}
+    }
+
+    // Sound Effect: Card Riffle Shuffle
+    function playKittenCardShuffleSFX() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = window.__bgmAudioCtx || new AudioCtx();
+        if (ctx.state === 'suspended') ctx.resume();
+
+        const count = 7;
+        for (let i = 0; i < count; i++) {
+          const startTime = ctx.currentTime + i * 0.035;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(480 + Math.random() * 520, startTime);
+          gain.gain.setValueAtTime(0.12, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.04);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(startTime);
+          osc.stop(startTime + 0.045);
+        }
+      } catch (e) {}
+    }
+
+    // Sound Effect: Card Reveal Chime
+    function playKittenCardRevealSFX() {
+      try {
+        if (typeof soundTone === 'function') {
+          soundTone(880, 'triangle', 0.22, 0.28);
+          setTimeout(() => soundTone(1100, 'sine', 0.25, 0.3), 120);
+        }
+      } catch (e) {}
+    }
+
+    // Feature 1: Flying Card Animation from center draw pile to player hand / bot pod
+    function animateKittenCardDraw(playerIdx, onComplete) {
+      playKittenCardDrawSFX();
+
+      const srcEl = document.getElementById('kittenDrawPileTopCard') || document.getElementById('kittenDrawPileBtn');
+      const targetEl = (playerIdx === 0)
+        ? document.getElementById('kittenHandCardsContainer')
+        : document.getElementById('kittenPlayerPod_' + playerIdx);
+
+      if (!srcEl || !targetEl) {
+        if (typeof onComplete === 'function') onComplete();
+        return;
+      }
+
+      const srcRect = srcEl.getBoundingClientRect();
+      const targetRect = targetEl.getBoundingClientRect();
+
+      // Hiệu ứng cọc bài giữa nhún nhẹ khi bị rút bài
+      const deckBtn = document.getElementById('kittenDrawPileBtn');
+      if (deckBtn) {
+        deckBtn.classList.remove('kitten-deck-draw-pop');
+        void deckBtn.offsetWidth;
+        deckBtn.classList.add('kitten-deck-draw-pop');
+      }
+
+      const flyEl = document.createElement('div');
+      flyEl.className = 'kitten-card-drawing border-2 border-amber-400 select-none bg-slate-900';
+      flyEl.style.width = Math.round(srcRect.width) + 'px';
+      flyEl.style.height = Math.round(srcRect.height) + 'px';
+      flyEl.style.left = Math.round(srcRect.left) + 'px';
+      flyEl.style.top = Math.round(srcRect.top) + 'px';
+      flyEl.style.transform = 'translate3d(0, 0, 0) scale(1) rotate(0deg)';
+      flyEl.style.boxShadow = '0 0 35px rgba(245, 158, 11, 0.95), 0 25px 50px rgba(0,0,0,0.9)';
+      flyEl.innerHTML = `<img src="${window.KITTEN_CARD_BACK_URI}" class="w-full h-full object-cover pointer-events-none rounded-xl" />`;
+      document.body.appendChild(flyEl);
+
+      // Force synchronous reflow to ensure CSS transition triggers 100%!
+      void flyEl.offsetWidth;
+
+      // Destination coordinates
+      let endX = targetRect.left + targetRect.width / 2;
+      let endY = targetRect.top + targetRect.height / 2;
+      if (playerIdx === 0) {
+        // Fly towards right side of human hand deck
+        endX = targetRect.right - (srcRect.width * 0.4);
+        endY = targetRect.top + (targetRect.height * 0.35);
+      }
+
+      const dx = endX - (srcRect.left + srcRect.width / 2);
+      const dy = endY - (srcRect.top + srcRect.height / 2);
+      const targetScale = (playerIdx === 0) ? 0.85 : 0.42;
+      const targetRot = (playerIdx === 0) ? 5 : (playerIdx === 2 ? 0 : playerIdx === 1 ? -12 : 12);
+
+      // Trigger arc-glide animation
+      requestAnimationFrame(() => {
+        flyEl.style.transform = `translate3d(${dx}px, ${dy}px, 0) scale(${targetScale}) rotate(${targetRot}deg)`;
+        flyEl.style.opacity = '1';
+      });
+
+      // After 560ms: Trigger hand impact bounce & sound tone
+      setTimeout(() => {
+        if (playerIdx === 0) {
+          const handContainer = document.getElementById('kittenHandCardsContainer');
+          if (handContainer) {
+            handContainer.classList.remove('kitten-hand-landing-bounce');
+            void handContainer.offsetWidth;
+            handContainer.classList.add('kitten-hand-landing-bounce');
+          }
+          if (typeof soundTone === 'function') soundTone(620, 'triangle', 0.1, 0.15);
+        }
+        if (flyEl && flyEl.parentNode) {
+          flyEl.parentNode.removeChild(flyEl);
+        }
+        if (typeof onComplete === 'function') onComplete();
+      }, 560);
+    }
+    window.animateKittenCardDraw = animateKittenCardDraw;
+
+    // Feature 3: Self-Hand Shuffle (Xáo trộn vị trí các lá bài trên tay)
+    function shuffleMyKittenHand() {
+      const p0 = kittensState.players ? kittensState.players[0] : null;
+      if (!p0 || !p0.isAlive) {
+        showToast('Bạn đã bị loại, không thể xáo bài!');
+        return;
+      }
+      if (p0.hand.length <= 1) {
+        showToast('💡 Bạn chỉ có ' + p0.hand.length + ' lá bài trên tay, không cần xáo!');
+        return;
+      }
+
+      // Fisher-Yates Shuffle on p0.hand
+      for (let i = p0.hand.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [p0.hand[i], p0.hand[j]] = [p0.hand[j], p0.hand[i]];
+      }
+
+      playKittenCardShuffleSFX();
+
+      // Render updated hand and trigger 3D Riffle Cascade animation
+      renderKittensArena();
+
+      const handContainer = document.getElementById('kittenHandCardsContainer');
+      if (handContainer) {
+        const cardEls = handContainer.querySelectorAll('.kitten-card-tilt');
+        cardEls.forEach((el, idx) => {
+          const isEven = (idx % 2 === 0);
+          el.style.setProperty('--riffle-x', isEven ? '-22px' : '22px');
+          el.style.setProperty('--riffle-x-back', isEven ? '12px' : '-12px');
+          el.style.setProperty('--riffle-rot', isEven ? '-7deg' : '7deg');
+          el.style.setProperty('--riffle-rot-rev', isEven ? '4deg' : '-4deg');
+          el.classList.remove('kitten-hand-riffle-cascade');
+          void el.offsetWidth;
+          el.classList.add('kitten-hand-riffle-cascade');
+        });
+      }
+
+      setKittenToast('🔀 Bạn đã xáo bài trên tay! Vị trí các lá bài đã được đảo lộn ngẫu nhiên, giấu kín lá Defuse của bạn.');
+      showToast('🔀 Đã xáo bài trên tay! Đối thủ sẽ không thể đoán được vị trí khi cướp bài.');
+
+      const inspText = document.getElementById('kittenCardInspectorText');
+      if (inspText) {
+        inspText.innerHTML = '<span class="text-purple-400 font-bold">🔀 CHIẾN THUẬT:</span> Các lá bài trên tay bạn vừa được xáo trộn ngẫu nhiên thành công!';
+        setTimeout(() => {
+          if (inspText && inspText.textContent.includes('CHIẾN THUẬT')) {
+            inspText.innerHTML = '<span class="text-amber-400 font-bold">💡 HƯỚNG DẪN:</span> Rê chuột vào lá bài để xem công dụng • Bấm vào lá bài để đánh • Bốc bài để kết thúc lượt';
+          }
+        }, 3000);
+      }
+    }
+    window.shuffleMyKittenHand = shuffleMyKittenHand;
+
+    // Feature 2: Interactive Blind Card Pick From Opponent
+    function openBlindPickModal(targetId, isCatPair) {
+      const target = kittensState.players[targetId];
+      const stealer = kittensState.players[0];
+      if (!target || !target.isAlive || target.hand.length === 0) {
+        showToast('Đối thủ không có bài trên tay để bốc!');
+        return;
+      }
+
+      const modal = document.getElementById('kittenModalBlindPick');
+      const title = document.getElementById('kittenBlindPickTitle');
+      const desc = document.getElementById('kittenBlindPickDesc');
+      const countEl = document.getElementById('kittenBlindPickCount');
+      const container = document.getElementById('kittenBlindPickCardsRow');
+      const banner = document.getElementById('kittenBlindPickResultBanner');
+      if (!modal || !container) return;
+
+      if (banner) banner.classList.add('hidden');
+      if (title) title.textContent = 'TỰ TAY BỐC 1 LÁ TỪ ' + target.name.toUpperCase();
+      if (desc) desc.innerHTML = 'Đối thủ đang cầm <strong class="text-amber-400 font-mono font-bold">' + target.hand.length + '</strong> lá bài úp. Hãy chọn 1 lá bài may mắn mà bạn muốn cướp:';
+      if (countEl) countEl.textContent = target.hand.length;
+
+      // Render face-down cards with fanned layout and hover tilt
+      const totalCards = target.hand.length;
+      container.innerHTML = target.hand.map((cardId, idx) => {
+        const def = window.KITTEN_CARD_DEFS[cardId] || window.KITTEN_CARD_DEFS.beard_cat;
+        const offsetFromCenter = idx - (totalCards - 1) / 2;
+        const fanRot = Math.round(offsetFromCenter * 3.5);
+        const fanY = Math.round(Math.abs(offsetFromCenter) * 4);
+
+        return `
+          <div onclick="selectBlindPickCard(${targetId}, ${idx}, ${isCatPair ? 'true' : 'false'})"
+               id="blindCardSlot_${idx}"
+               class="kitten-flip-container relative w-24 h-36 sm:w-28 sm:h-40 cursor-pointer select-none group transition-all duration-300 hover:-translate-y-6 hover:scale-110 z-20"
+               style="transform: translateY(${fanY}px) rotate(${fanRot}deg);"
+               title="Bấm vào đây để tự tay bốc lá bài bí ẩn này!">
+            <div id="blindCardInner_${idx}" class="kitten-flip-inner shadow-2xl">
+              <!-- Back Face (Face-down initially) -->
+              <div class="kitten-flip-back rounded-xl border-2 border-slate-700/80 group-hover:border-amber-400 group-hover:ring-4 group-hover:ring-amber-400/50 overflow-hidden bg-slate-900 transition-all">
+                <img src="${window.KITTEN_CARD_BACK_URI}" class="w-full h-full object-cover pointer-events-none" />
+                <div class="absolute top-1 left-1.5 px-1.5 py-0.5 rounded bg-black/70 text-amber-300 font-mono font-black text-[9px] border border-amber-400/30">
+                  #${idx + 1}
+                </div>
+                <div class="absolute bottom-1.5 inset-x-1 py-0.5 rounded bg-black/60 text-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span class="text-[8px] font-bold text-amber-300 font-mono">BẤM ĐỂ BỐC</span>
+                </div>
+                <div class="absolute inset-0 bg-amber-400/0 group-hover:bg-amber-400/15 transition-colors pointer-events-none"></div>
+              </div>
+
+              <!-- Front Face (Revealed on flip) -->
+              <div class="kitten-flip-front rounded-xl border-2 border-amber-400 shadow-2xl overflow-hidden bg-slate-950">
+                <img src="${def.img}" class="w-full h-full object-cover" />
+                <div class="absolute top-1 left-1">
+                  <span class="px-1.5 py-0.5 rounded text-[8px] font-black uppercase text-white shadow-sm" style="background: ${def.color};">${def.badge}</span>
+                </div>
+                <div class="absolute bottom-0 inset-x-0 p-1.5 bg-gradient-to-t from-black via-black/85 to-transparent text-center">
+                  <span class="text-[10px] font-black text-amber-300 font-cinzel line-clamp-1">${def.name}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      modal.classList.remove('hidden');
+    }
+    window.openBlindPickModal = openBlindPickModal;
+
+    // Handle user clicking a face-down card to reveal and steal it!
+    function selectBlindPickCard(targetId, cardIdx, isCatPair) {
+      const target = kittensState.players[targetId];
+      const stealer = kittensState.players[0];
+      if (!target || !target.hand[cardIdx]) return;
+
+      const inner = document.getElementById('blindCardInner_' + cardIdx);
+      const slot = document.getElementById('blindCardSlot_' + cardIdx);
+      const container = document.getElementById('kittenBlindPickCardsRow');
+      const banner = document.getElementById('kittenBlindPickResultBanner');
+      const bannerText = document.getElementById('kittenBlindPickResultText');
+
+      // Disable clicking other cards
+      if (container) {
+        const slots = container.querySelectorAll('.kitten-flip-container');
+        slots.forEach((s, idx) => {
+          s.onclick = null;
+          if (idx !== cardIdx) {
+            s.style.opacity = '0.3';
+            s.style.filter = 'grayscale(0.7)';
+            s.style.pointerEvents = 'none';
+          }
+        });
+      }
+
+      // Flip card to reveal front
+      if (inner) inner.classList.add('is-flipped');
+      if (slot) {
+        slot.style.transform = 'translateY(-12px) rotate(0deg) scale(1.22)';
+        slot.classList.add('z-50');
+        slot.style.boxShadow = '0 0 40px rgba(245, 158, 11, 0.95)';
+      }
+
+      playKittenCardRevealSFX();
+
+      const stolenCard = target.hand.splice(cardIdx, 1)[0];
+      const def = window.KITTEN_CARD_DEFS[stolenCard] || window.KITTEN_CARD_DEFS.beard_cat;
+
+      if (banner && bannerText) {
+        bannerText.textContent = '🎉 BẠN ĐÃ BỐC TRÚNG: ' + def.name.toUpperCase() + ' (' + def.badge + ')!';
+        banner.classList.remove('hidden');
+      }
+
+      // 100% Discard Cat Pair if played
+      if (isCatPair && kittensState.pendingCatPair && Array.isArray(kittensState.pendingCatPair)) {
+        const sortedIndices = [...kittensState.pendingCatPair].sort((a, b) => b - a);
+        sortedIndices.forEach(idx => {
+          if (idx >= 0 && idx < stealer.hand.length) {
+            const discardedCat = stealer.hand.splice(idx, 1)[0];
+            if (discardedCat) {
+              kittensState.discardPile.push({
+                cardId: discardedCat,
+                playerIdx: 0,
+                playerName: stealer.name,
+                time: Date.now()
+              });
+            }
+          }
+        });
+        kittensState.pendingCatPair = null;
+        kittensState.selectedHandIndices = [];
+      }
+
+      // Animate card flying from modal to human hand after 950ms
+      setTimeout(() => {
+        stealer.hand.push(stolenCard);
+        closeKittensModal('kittenModalBlindPick');
+        kittensState.isLocked = false;
+        renderKittensArena();
+        setKittenToast('🎉 Bạn đã tự tay bốc được lá [' + def.name + '] từ ' + target.name + '!');
+        showToast('🎉 Bạn đã cướp được lá ' + def.name + ' (' + def.badge + ')!');
+      }, 980);
+    }
+    window.selectBlindPickCard = selectBlindPickCard;
+
+    // Keyboard Shortcut 'S' for Shuffling Hand in Exploding Kittens
+    window.addEventListener('keydown', (e) => {
+      if (window.currentMainTab === 'arena' && typeof activeTab !== 'undefined' && activeTab === 'monopoly') {
+        const kittensView = document.getElementById('kittensArenaView');
+        if (kittensView && !kittensView.classList.contains('hidden') && (e.key === 's' || e.key === 'S')) {
+          if (!e.ctrlKey && !e.altKey && !e.metaKey && document.activeElement.tagName !== 'INPUT') {
+            e.preventDefault();
+            shuffleMyKittenHand();
+          }
+        }
+      }
+    });
+
+async function executeDrawCard(playerIdx) {
       const p = kittensState.players[playerIdx];
       if (!p || !p.isAlive) return;
 
@@ -24448,6 +24899,15 @@ function renderCashStackHTML(amount) {
         kittensState.isLocked = false;
         return;
       }
+
+      // 3D Flying Card Animation from center draw pile to hand
+      await new Promise(resolve => {
+        if (typeof animateKittenCardDraw === 'function') {
+          animateKittenCardDraw(playerIdx, resolve);
+        } else {
+          resolve();
+        }
+      });
 
       const drawnCardId = kittensState.drawPile.pop();
       renderKittensArena();

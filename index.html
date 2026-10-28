@@ -14269,6 +14269,14 @@ function playMonoDiceTumbleSFX(durationMs) {
       const player = monoState.players[monoState.turn];
       if (!player) return;
 
+      // Đóng hộp thoại quyết định nếu đang mở để tránh kẹt trạng thái
+      const decisionBox = document.getElementById('mono2dDecisionBox') || document.getElementById('monoDecisionBox');
+      if (decisionBox) {
+        decisionBox.classList.add('hidden');
+        decisionBox.classList.remove('flex');
+      }
+      monoState.pendingAction = null;
+
       monoState.isRolling = true;
       monoState.lastActivityTime = Date.now();
       const rollBtn = document.getElementById('btnMono2dRoll');
@@ -14283,6 +14291,10 @@ function playMonoDiceTumbleSFX(durationMs) {
       const isDoubles = (d1 === d2);
       monoState.lastRollSum = totalSteps;
 
+      const inJailBeforeRoll = (player.inJail > 0);
+      const willMove = !inJailBeforeRoll || isDoubles;
+      const targetPos = willMove ? ((player.pos + totalSteps) % monoState.tiles.length) : player.pos;
+
       // Pre-Move Broadcast for Monopoly Online: send ROLL_START so remote peers see the 3D dice tumble simultaneously!
       if (window.isOnlineRoomMatch && typeof window.pushOnlineGameState === 'function') {
         window.pushOnlineGameState('monopoly', {
@@ -14292,10 +14304,16 @@ function playMonoDiceTumbleSFX(durationMs) {
           d2: d2,
           totalSteps: totalSteps,
           isDoubles: isDoubles,
+          inJail: inJailBeforeRoll,
+          willMove: willMove,
           fromPos: player.pos,
-          targetPos: (player.pos + totalSteps) % monoState.tiles.length,
+          targetPos: targetPos,
           round: monoState.round,
-          toast: `🎲 ${player.name} gieo xúc xắc: ${d1} + ${d2} = ${totalSteps}`
+          toast: inJailBeforeRoll
+            ? (isDoubles
+                ? `🎉 ${player.name} gieo số đôi (${d1}-${d2})! Thoát khỏi Trại Giam!`
+                : `⛓️ ${player.name} gieo (${d1}-${d2}) không đôi! Vẫn bị tạm giam.`)
+            : `🎲 ${player.name} gieo xúc xắc: ${d1} + ${d2} = ${totalSteps}`
         });
       }
 
@@ -14307,21 +14325,27 @@ function playMonoDiceTumbleSFX(durationMs) {
           player.inJail = 0;
           monoState.hasExtraTurn = false;
           monoState.doublesStreak = 0;
-          showToast(`🎉 ${player.name} gieo được số đôi (${d1}-${d2})! Thoát khỏi Trại Giam!`);
+          showToast(`🎉 ${player.name} gieo được số đôi (${d1}-${d2})! Thoát khỏi Trại Giam thành công!`);
+          if (typeof addBattleLog === 'function') addBattleLog(`🎉 <b>${player.name}</b> gieo đôi (${d1}-${d2}) thoát khỏi Trại Giam!`, 'jail');
         } else {
+          // Gieo xịt, không ra đôi -> QUÂN CỜ TUYỆT ĐỐI KHÔNG DI CHUYỂN BƯỚC NÀO (Ở LẠI Ô 11)!
           player.inJail--;
           if (player.inJail === 0) {
             const bail = Math.min(player.cash, 250);
             player.cash -= bail;
             triggerMonoFloatingCash(player.id, -bail);
             updateMonopolyHUD();
-            showToast(`🔓 Hết hạn giam! ${player.name} nộp $${bail} bảo lãnh và tiếp tục hành trình.`);
-          } else {
-            showToast(`⛓️ ${player.name} chưa đổ được đôi. Còn ${player.inJail} lượt giam.`);
+            showToast(`🔓 Hết 2 lượt thử đôi! ${player.name} nộp $${bail} bảo lãnh và được tự do cho lượt sau.`);
+            if (typeof addBattleLog === 'function') addBattleLog(`🔓 <b>${player.name}</b> hết hạn giam, nộp $${bail} bảo lãnh cho lượt sau!`, 'jail');
             monoState.isRolling = false;
             finishMonoTurn();
-            return;
-  
+            return; // DỨT KHOÁT RETURN: KHÔNG DI CHUYỂN BẰNG CÚ GIEO XỊT!
+          } else {
+            showToast(`⛓️ ${player.name} gieo (${d1}-${d2}) không đôi! Còn ${player.inJail} lượt giam.`);
+            if (typeof addBattleLog === 'function') addBattleLog(`⛓️ <b>${player.name}</b> gieo (${d1}-${d2}) không đôi, còn ${player.inJail} lượt giam.`, 'jail');
+            monoState.isRolling = false;
+            finishMonoTurn();
+            return; // DỨT KHOÁT RETURN: KHÔNG DI CHUYỂN BẰNG CÚ GIEO XỊT!
           }
         }
       } else {
@@ -14825,6 +14849,10 @@ function playMonoDiceTumbleSFX(durationMs) {
           window.updateOnlineRoomHUD();
         }
       } else if (nextPlayer.isBot && !nextPlayer.isBankrupt) {
+        if (nextPlayer.inJail > 0) {
+          // Lượt trong tù của Bot đã được setMonoDialogMode('ready') kích hoạt và điều khiển minh bạch có delay 1s
+          return;
+        }
         // v4.2.1: Thao tác của Bot delay đúng 1 giây (1000ms) trước khi đổ xúc xắc để mọi người kịp nhìn
         const botDelay = Math.max(600, Math.round(1000 / (window.monoSpeed || monoState.speed || 1)));
         if (rollBtn) {
@@ -14833,19 +14861,16 @@ function playMonoDiceTumbleSFX(durationMs) {
         }
         if (monoState.botTimeoutId) clearTimeout(monoState.botTimeoutId);
         monoState.botTimeoutId = setTimeout(() => {
-          if (nextPlayer.inJail > 0 && nextPlayer.cash >= 600) {
-            nextPlayer.cash -= 250;
-            nextPlayer.inJail = 0;
-            triggerMonoFloatingCash(nextPlayer.id, -250);
-            updateMonopolyHUD();
-            showToast(`🔓 ${nextPlayer.name} nộp $250 bảo lãnh ra tù!`);
-          }
           if (rollBtn) {
             rollBtn.innerHTML = `<span>🎲</span> <span>${nextPlayer.name.toUpperCase()} ĐANG ĐỔ...</span>`;
           }
           executeMono2dRoll();
         }, botDelay);
       } else if (window.monoAutoPlay && !nextPlayer.isBankrupt) {
+        if (nextPlayer.inJail > 0) {
+          // Lượt trong tù khi Auto-Play đã được setMonoDialogMode('ready') kích hoạt và điều khiển
+          return;
+        }
         // Tự động chơi cho người chơi cũng delay 1 giây
         checkAndTriggerMonoAutoPlay();
       }
@@ -23149,10 +23174,15 @@ function renderCashStackHTML(amount) {
           if (typeof animateMono3DDiceRoll === 'function') {
             animateMono3DDiceRoll(payload.d1 || 1, payload.d2 || 1, () => {
               if (payload.toast) showToast(payload.toast);
-              animateRemoteMonoMove(payload.rollerIdx, payload.fromPos, payload.totalSteps, payload.targetPos, () => {
+              if (payload.willMove !== false && payload.totalSteps > 0 && payload.targetPos !== payload.fromPos) {
+                animateRemoteMonoMove(payload.rollerIdx, payload.fromPos, payload.totalSteps, payload.targetPos, () => {
+                  updateMonopolyPawns();
+                  updateMonopolyHUD();
+                });
+              } else {
                 updateMonopolyPawns();
                 updateMonopolyHUD();
-              });
+              }
             });
           }
 

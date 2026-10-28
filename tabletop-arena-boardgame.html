@@ -1898,28 +1898,28 @@
       </div>
 
       <!-- Quick Action Utilities Bar -->
-      <div class="w-full p-4 rounded-2xl bg-[#0B101E]/80 border border-board-border flex flex-wrap items-center justify-between gap-4 backdrop-blur-md">
+      <div class="w-full p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-amber-50/90 via-white to-amber-50/90 border-2 border-amber-300/80 shadow-lg shadow-amber-500/5 flex flex-wrap items-center justify-between gap-4 backdrop-blur-md">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-600/20 border-2 border-amber-400/60 flex items-center justify-center text-amber-600 shadow-inner shrink-0">
             <i data-lucide="sparkles" class="w-5 h-5"></i>
           </div>
           <div>
-            <div class="text-xs font-bold text-white font-cinzel">CHƯA BIẾT CHỌN GAME NÀO?</div>
-            <div class="text-[11px] text-slate-400 font-sans">Hãy để hệ thống ghép bạn ngẫu nhiên vào một bàn cờ đang sôi động!</div>
+            <div class="text-xs sm:text-sm font-black text-slate-900 font-cinzel tracking-wide flex items-center gap-2">CHƯA BIẾT CHỌN GAME NÀO? <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-bold uppercase">GỢI Ý NHANH</span></div>
+            <div class="text-[11px] sm:text-xs text-slate-600 font-sans font-medium mt-0.5">Hãy để hệ thống ghép bạn ngẫu nhiên vào một bàn cờ đang sôi động nhất!</div>
           </div>
         </div>
 
         <div class="flex items-center gap-2.5">
-          <button onclick="openModal('rewardsModal')" class="btn-spring px-3.5 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 font-bold text-xs flex items-center gap-1.5 shadow-sm">
-            <i data-lucide="gift" class="w-3.5 h-3.5 text-amber-400"></i>
+          <button onclick="openModal('rewardsModal')" class="btn-spring px-4 py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border-2 border-amber-300 font-bold text-xs flex items-center gap-1.5 shadow-sm transition">
+            <i data-lucide="gift" class="w-4 h-4 text-amber-600"></i>
             <span>Cơ Cấu Thưởng Trận</span>
           </button>
-          <button onclick="playRandomGame()" class="btn-spring px-4 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-amber-600/30">
-            <i data-lucide="shuffle" class="w-3.5 h-3.5 text-amber-300"></i>
+          <button onclick="playRandomGame()" class="btn-spring px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-white font-black text-xs flex items-center gap-2 shadow-md shadow-amber-600/30 transition">
+            <i data-lucide="shuffle" class="w-4 h-4 text-amber-200"></i>
             <span>Chọn Game Ngẫu Nhiên</span>
           </button>
-          <button onclick="switchMainTab('leaderboard')" class="btn-spring px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center gap-1.5">
-            <i data-lucide="trophy" class="w-3.5 h-3.5 text-amber-400"></i>
+          <button onclick="switchMainTab('leaderboard')" class="btn-spring px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 border-2 border-slate-300 font-extrabold text-xs flex items-center gap-1.5 shadow-sm transition">
+            <i data-lucide="trophy" class="w-4 h-4 text-amber-500"></i>
             <span>Bảng Phong Thần</span>
           </button>
         </div>
@@ -1946,7 +1946,7 @@
         </div>
         <div class="flex items-center gap-2">
           <span id="onlineHUDSyncStatus" class="hidden sm:flex items-center gap-1.5 text-[11px] text-emerald-400 font-mono px-2 py-0.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Sync Cloud 1.2s
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Sync Cloud 1.2s
           </span>
           <button onclick="leaveOnlineMatch()" class="btn-spring px-3 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
             <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
@@ -3939,7 +3939,34 @@
             </div>
 
             <!-- Fanned Hand Deck -->
+            <!-- Interactive Card Inspector Bar (Công dụng lá bài khi rê chuột) -->
+            <div id="kittenCardInspectorBar" class="w-full max-w-2xl px-4 py-2 mb-1 rounded-xl bg-slate-950/80 border border-amber-500/30 shadow-md backdrop-blur-md flex items-center justify-center text-center">
+              <p id="kittenCardInspectorText" class="text-xs text-slate-300 font-sans font-medium line-clamp-1 transition-all duration-150">
+                <span class="text-amber-400 font-bold">💡 HƯỚNG DẪN:</span> Rê chuột vào lá bài để xem công dụng • Bấm vào lá bài để đánh • Bốc bài để kết thúc lượt
+              </p>
+            </div>
+
+            <!-- Fanned Hand Deck -->
             <div id="kittenHandCardsContainer" class="w-full overflow-x-auto overflow-y-visible py-4 px-2 flex items-center justify-center gap-1 sm:gap-2.5 no-scrollbar min-h-[170px]"></div>
+
+            <!-- FLOATING RICH CARD HOVER TOOLTIP -->
+            <div id="kittenCardHoverTooltip" class="hidden fixed z-[9999] pointer-events-none transition-opacity duration-150 ease-out transform -translate-x-1/2 -translate-y-full mb-3 select-none">
+              <div class="relative w-64 p-3.5 rounded-2xl bg-gradient-to-b from-slate-900 via-slate-950 to-black border-2 border-amber-400 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(245,158,11,0.35)] backdrop-blur-xl">
+                <div class="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-white/10">
+                  <div class="flex items-center gap-2">
+                    <span id="kittenTooltipBadge" class="px-2 py-0.5 rounded-lg text-[9px] font-black uppercase text-white shadow-sm bg-amber-500">⚔️ TẤN CÔNG</span>
+                    <h4 id="kittenTooltipName" class="text-sm font-black text-amber-300 font-cinzel tracking-wide">Tấn Công 2X</h4>
+                  </div>
+                </div>
+                <p id="kittenTooltipDesc" class="text-xs text-slate-200 font-sans leading-relaxed mb-2 font-medium">
+                  Mô tả công dụng chi tiết của lá bài.
+                </p>
+                <div class="flex items-center justify-between pt-1.5 border-t border-white/5 text-[10px] font-mono font-bold text-amber-400/90">
+                  <span id="kittenTooltipHint">👉 Bấm vào lá bài để đánh</span>
+                  <span class="text-slate-500">MÈO NỔ ARENA</span>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -5847,10 +5874,10 @@
       <!-- Developer Summary Cards (2 Devs) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 my-4 shrink-0">
         <!-- Dev 2: Thái (Logic) -->
-        <div class="p-4 rounded-2xl bg-white border-2 border-cyan-300 shadow-sm space-y-2 relative overflow-hidden">
+        <div class="p-4 rounded-2xl bg-white border-2 border-cyan-300 shadow-sm space-y-2 relative overflow-hidden flex flex-col justify-between">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold text-xs">
+              <div class="w-8 h-8 rounded-xl bg-cyan-100 border border-cyan-300 flex items-center justify-center text-cyan-800 font-black text-xs shadow-inner">
                 L
               </div>
               <div>
@@ -5858,22 +5885,36 @@
                 <div class="text-[10px] text-cyan-800 font-black font-mono">Logic, Data & Engine Specialist</div>
               </div>
             </div>
-            <span id="dev2CommitCount" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+            <span id="dev2CommitCount" class="text-[10px] font-mono font-black px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-800 border border-cyan-300">
               -- Commits
             </span>
           </div>
-          <div id="dev2Highlights" class="text-[11px] text-slate-700 font-medium space-y-1 pl-1">
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Siêu phẩm Cờ Tỷ Phú 2.5D Isometric, Xây Landmark & Thâu tóm</span></div>
+          <div id="dev2Highlights" class="text-[11px] text-slate-700 font-medium space-y-1.5 pt-2 pl-0.5">
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
+              <span class="text-slate-800 font-semibold">Siêu phẩm Cờ Tỷ Phú 2.5D Isometric & Xây Landmark</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
+              <span class="text-slate-800 font-semibold">Đấu trường Cờ Vua FIDE 8x8 & 4 Cấp độ Bot AI Minimax</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
+              <span class="text-slate-800 font-semibold">Đồng bộ thời gian thực Cloud Firestore & WebSocket P2P</span>
+            </div>
+          </div>
+          <!--
+
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Đấu trường Cờ Vua FIDE 8x8 & 4 Cấp độ Bot AI Minimax</span></div>
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Engine theo dõi phiên bản GitHub REST API & WebSocket Backend</span></div>
+          -->
           </div>
         </div>
 
         <!-- Dev 1: Cường (UI/UX) -->
-        <div class="p-4 rounded-2xl bg-white border-2 border-pink-300 shadow-sm space-y-2 relative overflow-hidden">
+        <div class="p-4 rounded-2xl bg-white border-2 border-pink-300 shadow-sm space-y-2 relative overflow-hidden flex flex-col justify-between">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-pink-400 font-bold text-xs">
+              <div class="w-8 h-8 rounded-xl bg-pink-100 border border-pink-300 flex items-center justify-center text-pink-800 font-black text-xs shadow-inner">
                 U
               </div>
               <div>
@@ -5881,11 +5922,25 @@
                 <div class="text-[10px] text-pink-800 font-black font-mono">UI/UX Board Game Designer</div>
               </div>
             </div>
-            <span id="dev1CommitCount" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-pink-100 text-pink-900 border border-pink-300 font-black">
+            <span id="dev1CommitCount" class="text-[10px] font-mono font-black px-2.5 py-0.5 rounded-full bg-pink-100 text-pink-800 border border-pink-300">
               -- Commits
             </span>
           </div>
-          <div id="dev1Highlights" class="text-[11px] text-slate-700 font-medium space-y-1 pl-1">
+          <div id="dev1Highlights" class="text-[11px] text-slate-700 font-medium space-y-1.5 pt-2 pl-0.5">
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-pink-500 shrink-0"></span>
+              <span class="text-slate-800 font-semibold">Toàn diện giao diện Light Theme & Bento Grid 4 Bộ Môn Cờ</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-pink-500 shrink-0"></span>
+              <span class="text-slate-800 font-semibold">Hiệu ứng chuyển cảnh 60fps GPU, Spring-pop & Animation Cinematic</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-pink-500 shrink-0"></span>
+              <span class="text-slate-800 font-semibold">Bộ Icon SVG độc bản & Tối ưu hóa Responsive Mobile/Tablet/Desktop</span>
+            </div>
+          </div>
+          <!--
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0 animate-pulse"></span><span class="text-pink-300 font-semibold">[v4.2.1] Transition & Animation out cực mượt khi thoát trận đấu, GPU fade-exit & modal spring pop-out</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>[v4.2.1] Cổng Admin: Bento Grid tùy chỉnh phần thưởng chiến thắng & Hệ số sự kiện toàn Server cho 4 bộ môn cờ</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Fix triệt để Lịch Sử Đấu thành dữ liệu thật theo từng tài khoản (uid), xóa sạch mock data & chống ghi trùng</span></div>
@@ -5896,26 +5951,45 @@
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Hệ thống Chuyển cảnh 60fps GPU & Spring-pop 9 Modal</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Đại tu Bí Kíp Bento Grid 4 Bộ Môn & Bộ Icon SVG Độc Bản</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Nâng cấp Đa BOT AI (1-3 Bots), Tùy biến Đích & Khán Giả Tự Động</span></div>
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Tối ưu Mobile UX Ca-rô Hoàng Gia & Khắc phục rung giật lag</span></div>
+          -->
           </div>
+        </div>
+      </div>
+
+      <!-- Contribution Ratio Bar -->
+      <div class="px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm shrink-0 mb-3">
+        <div class="flex items-center justify-between text-xs font-bold pb-1.5">
+          <div class="flex items-center gap-1.5 text-cyan-800">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-500 shrink-0"></span>
+            <span>Thái: <span class="font-mono font-black text-cyan-900">45%</span> (Logic & Engine)</span>
+          </div>
+          <div class="text-[10px] font-mono font-black text-slate-500 uppercase tracking-wider hidden sm:block">Tỷ Lệ Đóng Góp Tính Năng</div>
+          <div class="flex items-center gap-1.5 text-pink-800">
+            <span>Cường: <span class="font-mono font-black text-pink-900">55%</span> (UI/UX & Graphics)</span>
+            <span class="w-2.5 h-2.5 rounded-full bg-pink-500 shrink-0"></span>
+          </div>
+        </div>
+        <div class="h-2.5 w-full rounded-full bg-slate-200 overflow-hidden flex shadow-inner p-0.5">
+          <div class="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 rounded-l-full transition-all duration-500" style="width: 45%" title="Thái: 45% (Logic & Engine)"></div>
+          <div class="h-full bg-gradient-to-r from-pink-400 to-pink-500 rounded-r-full transition-all duration-500" style="width: 55%" title="Cường: 55% (UI/UX & Graphics)"></div>
         </div>
       </div>
 
       <!-- Filter Controls Bar -->
       <div class="flex items-center justify-between pb-3 shrink-0">
-        <div class="flex items-center gap-1.5 bg-black/40 p-1 rounded-xl border border-board-border text-xs font-bold">
-          <button id="vFilterAll" onclick="filterVersionLog('all')" class="px-3 py-1 rounded-lg bg-amber-600 text-white shadow-sm transition">
+        <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
+          <button id="vFilterAll" onclick="filterVersionLog('all')" class="px-3.5 py-1.5 rounded-lg bg-amber-500 text-white font-black shadow-sm transition">
             Tất Cả
           </button>
-          <button id="vFilterDev2" onclick="filterVersionLog('dev2')" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">
+          <button id="vFilterDev2" onclick="filterVersionLog('dev2')" class="px-3.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white font-bold transition">
             Thái (Logic)
           </button>
-          <button id="vFilterDev1" onclick="filterVersionLog('dev1')" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">
+          <button id="vFilterDev1" onclick="filterVersionLog('dev1')" class="px-3.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white font-bold transition">
             Cường (UI/UX)
           </button>
         </div>
-        <div id="vSyncStatus" class="text-[11px] font-mono text-emerald-400 flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <div id="vSyncStatus" class="text-xs font-mono text-emerald-700 font-bold flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span>GitHub API Live</span>
         </div>
       </div>
@@ -6310,7 +6384,7 @@
           window.applyUserUI(userData);
           window.updateArenaUserBalanceHUD();
           window.sendUserHeartbeat();
-          window.showToast(`🟢 Đã đăng nhập: ${userData.displayName}`);
+          window.showToast(`Đã đăng nhập: ${userData.displayName}`);
         } else {
           console.log("Firebase Auth State: No user signed in");
           window.currentFirebaseUser = null;
@@ -20529,16 +20603,16 @@ function renderCashStackHTML(amount) {
 
       [btnAll, btnDev2, btnDev1].forEach(b => {
         if (b) {
-          b.className = 'px-3 py-1 rounded-lg text-slate-400 hover:text-white transition';
+          b.className = 'px-3.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white font-bold transition';
         }
       });
 
       if (filter === 'all' && btnAll) {
-        btnAll.className = 'px-3 py-1 rounded-lg bg-amber-600 text-white shadow-sm transition';
+        btnAll.className = 'px-3.5 py-1.5 rounded-lg bg-amber-500 text-white font-black shadow-sm transition';
       } else if (filter === 'dev2' && btnDev2) {
-        btnDev2.className = 'px-3 py-1 rounded-lg bg-cyan-600 text-white shadow-sm transition';
+        btnDev2.className = 'px-3.5 py-1.5 rounded-lg bg-cyan-600 text-white font-black shadow-sm transition';
       } else if (filter === 'dev1' && btnDev1) {
-        btnDev1.className = 'px-3 py-1 rounded-lg bg-pink-600 text-white shadow-sm transition';
+        btnDev1.className = 'px-3.5 py-1.5 rounded-lg bg-pink-600 text-white font-black shadow-sm transition';
       }
 
       renderChangelogFeed(filter);
@@ -20567,10 +20641,10 @@ function renderCashStackHTML(amount) {
       const dev1Count = allChangelogItems.filter(i => i.roleType === 'dev1').length;
 
       const dev2Badge = document.getElementById('dev2CommitCount');
-      if (dev2Badge) dev2Badge.innerText = `${dev2Count} Commits (Push & Logic)`;
+      if (dev2Badge) dev2Badge.innerText = `${dev2Count} Commits (Logic)`;
 
       const dev1Badge = document.getElementById('dev1CommitCount');
-      if (dev1Badge) dev1Badge.innerText = `${dev1Count} Commits (Push & UI)`;
+      if (dev1Badge) dev1Badge.innerText = `${dev1Count} Commits (UI/UX)`;
 
       const btnAll = document.getElementById('vFilterAll');
       if (btnAll) btnAll.innerText = `Tất Cả (${allChangelogItems.length})`;
@@ -20583,7 +20657,7 @@ function renderCashStackHTML(amount) {
 
       // Tu dong ghim ban moi nhat vao the mau hong cua Cuong
       const latestDev1 = allChangelogItems.find(i => i.roleType === 'dev1');
-      const dev1HighlightBox = document.getElementById('dev1Highlights');
+      const dev1HighlightBox = null; // Giu nguyen 3 bullet chien luoc can doi, khong phinh dai card
       if (latestDev1 && dev1HighlightBox) {
         let latestEl = dev1HighlightBox.querySelector('.latest-dev1-highlight');
         if (!latestEl) {
@@ -21920,7 +21994,7 @@ function renderCashStackHTML(amount) {
         type: 'bomb',
         color: '#EF4444',
         badge: '☠️ NỔ TUNG',
-        desc: 'Nếu rút phải lá này mà không có Defuse, bạn sẽ bị loại ngay!',
+        desc: 'Nếu rút phải lá này mà không có Gỡ Bom (Defuse), bạn sẽ bị nổ tung và LOẠI ngay khỏi ván đấu!',
         img: window.KITTEN_CARD_ASSETS.exploding_kitten
       },
       defuse: {
@@ -21929,7 +22003,7 @@ function renderCashStackHTML(amount) {
         type: 'defuse',
         color: '#10B981',
         badge: '🛡️ CỨU MẠNG',
-        desc: 'Cứu mạng khi rút phải Mèo Nổ. Bí mật gài lại Mèo Nổ vào chồng bài!',
+        desc: 'Cứu mạng khi rút phải Mèo Nổ! Cho phép bạn bí mật gài lại lá Mèo Nổ vào bất kỳ vị trí nào trong Chồng bài rút.',
         img: window.KITTEN_CARD_ASSETS.defuse
       },
       attack: {
@@ -21938,7 +22012,7 @@ function renderCashStackHTML(amount) {
         type: 'attack',
         color: '#F97316',
         badge: '⚔️ TẤN CÔNG',
-        desc: 'Kết thúc lượt mà không cần rút bài! Người kế tiếp bị dồn 2 lượt!',
+        desc: 'Kết thúc lượt ngay lập tức mà KHÔNG PHẢI RÚT BÀI! Dồn 2 lượt rút liên tiếp cho người chơi kế tiếp!',
         img: window.KITTEN_CARD_ASSETS.attack
       },
       skip: {
@@ -21947,7 +22021,7 @@ function renderCashStackHTML(amount) {
         type: 'skip',
         color: '#3B82F6',
         badge: '⏩ BỎ LƯỢT',
-        desc: 'Kết thúc lượt ngay lập tức mà không phải rút lá bài nào.',
+        desc: 'Kết thúc 1 lượt ngay lập tức mà không phải rút lá bài nào (nếu bị dồn 2 lượt, lá này chỉ bỏ 1 lượt).',
         img: window.KITTEN_CARD_ASSETS.skip
       },
       favor: {
@@ -21956,7 +22030,7 @@ function renderCashStackHTML(amount) {
         type: 'favor',
         color: '#8B5CF6',
         badge: '🤲 XIN XỎ',
-        desc: 'Bắt một người chơi bất kỳ phải dâng cho bạn 1 lá bài của họ!',
+        desc: 'Chỉ định 1 người chơi bất kỳ, bắt buộc họ phải tự chọn và dâng 1 lá bài trên tay của họ cho bạn!',
         img: window.KITTEN_CARD_ASSETS.favor
       },
       shuffle: {
@@ -21965,7 +22039,7 @@ function renderCashStackHTML(amount) {
         type: 'shuffle',
         color: '#EC4899',
         badge: '🔀 XÁO BÀI',
-        desc: 'Xáo trộn ngẫu nhiên toàn bộ chồng bài rút.',
+        desc: 'Xáo trộn ngẫu nhiên toàn bộ Chồng bài rút, thay đổi vị trí của các lá Mèo Nổ!',
         img: window.KITTEN_CARD_ASSETS.shuffle
       },
       see_future: {
@@ -21974,7 +22048,7 @@ function renderCashStackHTML(amount) {
         type: 'see_future',
         color: '#EAB308',
         badge: '🔮 TƯƠNG LAI',
-        desc: 'Bí mật xem trước 3 lá bài trên cùng của chồng bài rút.',
+        desc: 'Bí mật xem trước 3 lá bài trên cùng của Chồng bài rút (không làm thay đổi thứ tự các lá bài).',
         img: window.KITTEN_CARD_ASSETS.see_future
       },
       nope: {
@@ -21983,7 +22057,7 @@ function renderCashStackHTML(amount) {
         type: 'nope',
         color: '#DC2626',
         badge: '⛔ CHẶN ĐỨNG',
-        desc: 'Hủy bỏ hiệu ứng của lá bài vừa được đánh ra!',
+        desc: 'Hủy bỏ ngay lập tức tác dụng của lá bài hành động vừa được đánh ra (trừ Mèo Nổ và Gỡ Bom)!',
         img: window.KITTEN_CARD_ASSETS.nope
       },
       beard_cat: {
@@ -21992,7 +22066,7 @@ function renderCashStackHTML(amount) {
         type: 'cat',
         color: '#06B6D4',
         badge: '🐱 CẶP MÈO',
-        desc: 'Đánh 2 lá giống nhau để cướp ngẫu nhiên 1 lá của đối thủ!',
+        desc: 'Đánh cặp 2 lá giống nhau (hoặc kết hợp Mèo Hoang Dã) để cướp ngẫu nhiên 1 lá bài trên tay đối thủ!',
         img: window.KITTEN_CARD_ASSETS.beard_cat
       },
       cattermelon: {
@@ -22001,7 +22075,7 @@ function renderCashStackHTML(amount) {
         type: 'cat',
         color: '#10B981',
         badge: '🐱 CẶP MÈO',
-        desc: 'Đánh 2 lá giống nhau để cướp ngẫu nhiên 1 lá của đối thủ!',
+        desc: 'Đánh cặp 2 lá giống nhau (hoặc kết hợp Mèo Hoang Dã) để cướp ngẫu nhiên 1 lá bài trên tay đối thủ!',
         img: window.KITTEN_CARD_ASSETS.cattermelon
       },
       rainbow_cat: {
@@ -22010,7 +22084,7 @@ function renderCashStackHTML(amount) {
         type: 'cat',
         color: '#A855F7',
         badge: '🐱 CẶP MÈO',
-        desc: 'Đánh 2 lá giống nhau để cướp ngẫu nhiên 1 lá của đối thủ!',
+        desc: 'Đánh cặp 2 lá giống nhau (hoặc kết hợp Mèo Hoang Dã) để cướp ngẫu nhiên 1 lá bài trên tay đối thủ!',
         img: window.KITTEN_CARD_ASSETS.rainbow_cat
       },
       potato_cat: {
@@ -22019,7 +22093,7 @@ function renderCashStackHTML(amount) {
         type: 'cat',
         color: '#F59E0B',
         badge: '🐱 CẶP MÈO',
-        desc: 'Đánh 2 lá giống nhau để cướp ngẫu nhiên 1 lá của đối thủ!',
+        desc: 'Đánh cặp 2 lá giống nhau (hoặc kết hợp Mèo Hoang Dã) để cướp ngẫu nhiên 1 lá bài trên tay đối thủ!',
         img: window.KITTEN_CARD_ASSETS.potato_cat
       },
       feral_cat: {
@@ -22027,8 +22101,8 @@ function renderCashStackHTML(amount) {
         name: 'Mèo Hoang Dã',
         type: 'cat',
         color: '#64748B',
-        badge: '🐱 MÈO VẠN NĂNG',
-        desc: 'Lá bài Mèo vạn năng - có thể ghép đôi với bất kỳ lá Mèo nào!',
+        badge: '🐱 JOKER MÈO',
+        desc: 'Lá bài vạn năng! Có thể thay thế cho bất kỳ lá Mèo nào để tạo thành cặp đôi cướp bài đối thủ!',
         img: window.KITTEN_CARD_ASSETS.feral_cat
       }
     };
@@ -22281,16 +22355,18 @@ function renderCashStackHTML(amount) {
 
           return `
             <div onclick="selectKittenHandCard(${idx})" 
-                 class="kitten-card-tilt relative w-24 h-36 sm:w-28 sm:h-40 rounded-xl overflow-hidden cursor-pointer shrink-0 border-2 transition-all duration-200 select-none shadow-xl
-                        ${isSelected ? 'border-amber-400 -translate-y-6 scale-110 ring-4 ring-amber-400/60 z-50' : 'border-slate-700/80 hover:border-amber-400'}
-                        ${!isMyTurn ? 'opacity-90 hover:opacity-100' : ''}"
-                 style="background: #18181b;"
-                 title="${def.name}: ${def.desc}">
-              <img src="${def.img}" class="w-full h-full object-cover pointer-events-none" />
-              <div class="absolute top-1 left-1">
+                 onmouseenter="showKittenCardHover(event, '${cardId}')"
+                 onmousemove="moveKittenCardHover(event)"
+                 onmouseleave="hideKittenCardHover()"
+                 class="kitten-card-tilt group relative w-24 h-36 sm:w-28 sm:h-40 rounded-xl overflow-hidden cursor-pointer shrink-0 border-2 transition-all duration-200 select-none shadow-xl
+                        ${isSelected ? 'border-amber-400 -translate-y-6 scale-110 ring-4 ring-amber-400/60 z-30 shadow-[0_15px_30px_rgba(245,158,11,0.6)]' : 'border-slate-700/80 hover:border-amber-400 hover:-translate-y-4 hover:scale-105 hover:z-20 hover:shadow-[0_12px_28px_rgba(245,158,11,0.4)]'}
+                        ${!isMyTurn ? 'opacity-85 hover:opacity-100' : ''}"
+                 style="background: #18181b;">
+              <img src="${def.img}" class="w-full h-full object-cover pointer-events-none group-hover:scale-105 transition-transform duration-200" />
+              <div class="absolute top-1 left-1 pointer-events-none">
                 <span class="px-1.5 py-0.5 rounded text-[8px] font-black uppercase text-white shadow-sm" style="background: ${def.color};">${def.badge}</span>
               </div>
-              <div class="absolute bottom-0 inset-x-0 p-1.5 bg-gradient-to-t from-black via-black/85 to-transparent text-center">
+              <div class="absolute bottom-0 inset-x-0 p-1.5 bg-gradient-to-t from-black via-black/85 to-transparent text-center pointer-events-none">
                 <span class="text-[10px] font-black text-amber-300 font-cinzel line-clamp-1">${def.name}</span>
               </div>
             </div>
@@ -22298,6 +22374,64 @@ function renderCashStackHTML(amount) {
         }).join('');
       }
     }
+
+    function showKittenCardHover(e, cardId) {
+      const def = window.KITTEN_CARD_DEFS[cardId];
+      if (!def) return;
+
+      const tt = document.getElementById('kittenCardHoverTooltip');
+      const badge = document.getElementById('kittenTooltipBadge');
+      const name = document.getElementById('kittenTooltipName');
+      const desc = document.getElementById('kittenTooltipDesc');
+      const hint = document.getElementById('kittenTooltipHint');
+
+      if (badge) {
+        badge.textContent = def.badge;
+        badge.style.backgroundColor = def.color || '#F59E0B';
+      }
+      if (name) name.textContent = def.name;
+      if (desc) desc.textContent = def.desc;
+      if (hint) {
+        hint.textContent = (def.type === 'defuse') ? '🛡️ Tự động dùng khi rút phải Mèo Nổ' :
+                           (def.type === 'cat') ? '👉 Chọn 2 lá cùng loại để cướp bài' : '👉 Bấm vào lá bài để đánh';
+      }
+
+      if (tt) {
+        tt.classList.remove('hidden');
+        moveKittenCardHover(e);
+      }
+
+      // Also update Card Inspector Bar above hand deck
+      const inspBar = document.getElementById('kittenCardInspectorText');
+      if (inspBar) {
+        inspBar.innerHTML = `<span class="font-black text-amber-300 font-cinzel">[${def.name}]</span>: <span class="text-slate-100">${def.desc}</span>`;
+      }
+    }
+
+    function moveKittenCardHover(e) {
+      const tt = document.getElementById('kittenCardHoverTooltip');
+      if (!tt || tt.classList.contains('hidden')) return;
+
+      // Position tooltip safely above cursor
+      const x = Math.max(140, Math.min(window.innerWidth - 140, e.clientX));
+      const y = Math.max(120, e.clientY - 12);
+
+      tt.style.left = x + 'px';
+      tt.style.top = y + 'px';
+    }
+
+    function hideKittenCardHover() {
+      const tt = document.getElementById('kittenCardHoverTooltip');
+      if (tt) tt.classList.add('hidden');
+
+      const inspBar = document.getElementById('kittenCardInspectorText');
+      if (inspBar) {
+        inspBar.innerHTML = `<span class="text-amber-400 font-bold">💡 HƯỚNG DẪN:</span> Rê chuột vào lá bài để xem công dụng • Bấm vào lá bài để đánh • Bốc bài để kết thúc lượt`;
+      }
+    }
+    window.showKittenCardHover = showKittenCardHover;
+    window.moveKittenCardHover = moveKittenCardHover;
+    window.hideKittenCardHover = hideKittenCardHover;
 
     function selectKittenHandCard(index) {
       if (kittensState.currentTurn !== 0 || !kittensState.players[0].isAlive || kittensState.isLocked) {
@@ -22327,7 +22461,8 @@ function renderCashStackHTML(amount) {
             const c1 = p0.hand[idx1];
             const c2 = p0.hand[idx2];
             if (c1 === c2 || c1 === 'feral_cat' || c2 === 'feral_cat') {
-              // Valid pair! Prompt target selection
+              // Valid pair! Prompt target selection and store pending pair
+              kittensState.pendingCatPair = [idx1, idx2];
               kittensState.selectedHandIndices = [];
               promptFavorTarget(0, [idx1, idx2], true);
               return;
@@ -22342,6 +22477,7 @@ function renderCashStackHTML(amount) {
       }
 
       // Normal Action Card: Play it directly!
+      kittensState.selectedHandIndices = [];
       executeCardPlay(0, index);
     }
 
@@ -22352,6 +22488,7 @@ function renderCashStackHTML(amount) {
       kittensState.isLocked = true;
       const cardId = p.hand.splice(cardHandIdx, 1)[0];
       const def = window.KITTEN_CARD_DEFS[cardId];
+      kittensState.selectedHandIndices = [];
 
       kittensState.discardPile.push({
         cardId,
@@ -22373,8 +22510,8 @@ function renderCashStackHTML(amount) {
         case 'attack':
           // End current player turn immediately without drawing
           setKittenToast(`⚔️ ${p.name} TẤN CÔNG 2X! Lượt chuyển sang đối thủ tiếp theo với 2 lượt rút!`);
-          passTurnToNextPlayer(2);
           kittensState.isLocked = false;
+          passTurnToNextPlayer(2);
           return;
 
         case 'skip':
@@ -22382,13 +22519,16 @@ function renderCashStackHTML(amount) {
           kittensState.turnsLeftForPlayer--;
           if (kittensState.turnsLeftForPlayer <= 0) {
             setKittenToast(`⏩ ${p.name} BỎ LƯỢT thành công!`);
+            kittensState.isLocked = false;
             passTurnToNextPlayer(1);
           } else {
             setKittenToast(`⏩ ${p.name} Bỏ 1 lượt, vẫn còn ${kittensState.turnsLeftForPlayer} lượt nữa!`);
+            kittensState.isLocked = false;
             renderKittensArena();
+            if (p.id !== 0 || kittensState.autoPlay) {
+              checkAndRunBot();
+            }
           }
-          kittensState.isLocked = false;
-          checkAndRunBot();
           return;
 
         case 'shuffle':
@@ -22398,16 +22538,22 @@ function renderCashStackHTML(amount) {
             [kittensState.drawPile[i], kittensState.drawPile[j]] = [kittensState.drawPile[j], kittensState.drawPile[i]];
           }
           setKittenToast(`🔀 ${p.name} đã XÁO TRỘN Chồng bài rút!`);
+          kittensState.isLocked = false;
           renderKittensArena();
-          break;
+          if (p.id !== 0 || kittensState.autoPlay) {
+            checkAndRunBot();
+          }
+          return;
 
         case 'see_future':
+          kittensState.isLocked = false;
           if (p.isHuman) {
             openSeeFutureModal();
           } else {
             setKittenToast(`🔮 ${p.name} đã bí mật nhìn thấy 3 lá bài tương lai!`);
+            checkAndRunBot();
           }
-          break;
+          return;
 
         case 'favor':
           if (p.isHuman) {
@@ -22415,18 +22561,29 @@ function renderCashStackHTML(amount) {
             kittensState.isLocked = false;
             return;
           } else {
-            // Bot selects random alive opponent with cards
             executeBotFavor(playerIdx);
+            kittensState.isLocked = false;
+            checkAndRunBot();
           }
-          break;
+          return;
+
+        case 'nope':
+          setKittenToast(`⛔ ${p.name} đã đánh CHẶN ĐỨNG (NOPE)!`);
+          kittensState.isLocked = false;
+          renderKittensArena();
+          if (p.id !== 0 || kittensState.autoPlay) {
+            checkAndRunBot();
+          }
+          return;
 
         default:
+          kittensState.isLocked = false;
+          renderKittensArena();
+          if (p.id !== 0 || kittensState.autoPlay) {
+            checkAndRunBot();
+          }
           break;
       }
-
-      kittensState.isLocked = false;
-      renderKittensArena();
-      checkAndRunBot();
     }
 
     function openSeeFutureModal() {
@@ -22460,12 +22617,17 @@ function renderCashStackHTML(amount) {
       const desc = document.getElementById('kittenTargetDesc');
       if (!modal || !list) return;
 
+      if (catPairIndices) {
+        kittensState.pendingCatPair = catPairIndices;
+      }
+
       title.textContent = isCatPair ? '🐱 CẶP MÈO: CƯỚP BÀI ĐỐI THỦ' : '🤲 XIN XỎ (FAVOR)';
       desc.textContent = isCatPair ? 'Chọn 1 đối thủ bạn muốn cướp ngẫu nhiên 1 lá bài:' : 'Chọn 1 đối thủ bắt buộc họ phải dâng 1 lá bài cho bạn:';
 
       const targets = kittensState.players.filter(p => p.id !== stealerIdx && p.isAlive && p.hand.length > 0);
       if (targets.length === 0) {
         showToast('Không có đối thủ nào có bài trên tay để lấy!');
+        kittensState.pendingCatPair = null;
         return;
       }
 
@@ -22487,6 +22649,27 @@ function renderCashStackHTML(amount) {
       const stealer = kittensState.players[0];
       const target = kittensState.players[targetId];
       if (!target || target.hand.length === 0) return;
+
+      // 100% BUG FIX: Discard the 2 cat cards if played as a pair!
+      if (isCatPair && kittensState.pendingCatPair && Array.isArray(kittensState.pendingCatPair)) {
+        // Sort descending so splicing second index does not shift first index
+        const sortedIndices = [...kittensState.pendingCatPair].sort((a, b) => b - a);
+        sortedIndices.forEach(idx => {
+          if (idx >= 0 && idx < stealer.hand.length) {
+            const discardedCat = stealer.hand.splice(idx, 1)[0];
+            if (discardedCat) {
+              kittensState.discardPile.push({
+                cardId: discardedCat,
+                playerIdx: 0,
+                playerName: stealer.name,
+                time: Date.now()
+              });
+            }
+          }
+        });
+        kittensState.pendingCatPair = null;
+        kittensState.selectedHandIndices = [];
+      }
 
       // Steal random card from target
       const randIdx = Math.floor(Math.random() * target.hand.length);

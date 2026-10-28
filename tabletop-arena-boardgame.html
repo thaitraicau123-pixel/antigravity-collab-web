@@ -1898,28 +1898,28 @@
       </div>
 
       <!-- Quick Action Utilities Bar -->
-      <div class="w-full p-4 rounded-2xl bg-[#0B101E]/80 border border-board-border flex flex-wrap items-center justify-between gap-4 backdrop-blur-md">
+      <div class="w-full p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-amber-50/90 via-white to-amber-50/90 border-2 border-amber-300/80 shadow-lg shadow-amber-500/5 flex flex-wrap items-center justify-between gap-4 backdrop-blur-md">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-600/20 border-2 border-amber-400/60 flex items-center justify-center text-amber-600 shadow-inner shrink-0">
             <i data-lucide="sparkles" class="w-5 h-5"></i>
           </div>
           <div>
-            <div class="text-xs font-bold text-white font-cinzel">CHƯA BIẾT CHỌN GAME NÀO?</div>
-            <div class="text-[11px] text-slate-400 font-sans">Hãy để hệ thống ghép bạn ngẫu nhiên vào một bàn cờ đang sôi động!</div>
+            <div class="text-xs sm:text-sm font-black text-slate-900 font-cinzel tracking-wide flex items-center gap-2">CHƯA BIẾT CHỌN GAME NÀO? <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-bold uppercase">GỢI Ý NHANH</span></div>
+            <div class="text-[11px] sm:text-xs text-slate-600 font-sans font-medium mt-0.5">Hãy để hệ thống ghép bạn ngẫu nhiên vào một bàn cờ đang sôi động nhất!</div>
           </div>
         </div>
 
         <div class="flex items-center gap-2.5">
-          <button onclick="openModal('rewardsModal')" class="btn-spring px-3.5 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 font-bold text-xs flex items-center gap-1.5 shadow-sm">
-            <i data-lucide="gift" class="w-3.5 h-3.5 text-amber-400"></i>
+          <button onclick="openModal('rewardsModal')" class="btn-spring px-4 py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border-2 border-amber-300 font-bold text-xs flex items-center gap-1.5 shadow-sm transition">
+            <i data-lucide="gift" class="w-4 h-4 text-amber-600"></i>
             <span>Cơ Cấu Thưởng Trận</span>
           </button>
-          <button onclick="playRandomGame()" class="btn-spring px-4 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-amber-600/30">
-            <i data-lucide="shuffle" class="w-3.5 h-3.5 text-amber-300"></i>
+          <button onclick="playRandomGame()" class="btn-spring px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-white font-black text-xs flex items-center gap-2 shadow-md shadow-amber-600/30 transition">
+            <i data-lucide="shuffle" class="w-4 h-4 text-amber-200"></i>
             <span>Chọn Game Ngẫu Nhiên</span>
           </button>
-          <button onclick="switchMainTab('leaderboard')" class="btn-spring px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center gap-1.5">
-            <i data-lucide="trophy" class="w-3.5 h-3.5 text-amber-400"></i>
+          <button onclick="switchMainTab('leaderboard')" class="btn-spring px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 border-2 border-slate-300 font-extrabold text-xs flex items-center gap-1.5 shadow-sm transition">
+            <i data-lucide="trophy" class="w-4 h-4 text-amber-500"></i>
             <span>Bảng Phong Thần</span>
           </button>
         </div>
@@ -1946,7 +1946,7 @@
         </div>
         <div class="flex items-center gap-2">
           <span id="onlineHUDSyncStatus" class="hidden sm:flex items-center gap-1.5 text-[11px] text-emerald-400 font-mono px-2 py-0.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Sync Cloud 1.2s
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Sync Cloud 1.2s
           </span>
           <button onclick="leaveOnlineMatch()" class="btn-spring px-3 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
             <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
@@ -5874,10 +5874,10 @@
       <!-- Developer Summary Cards (2 Devs) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 my-4 shrink-0">
         <!-- Dev 2: Thái (Logic) -->
-        <div class="p-4 rounded-2xl bg-white border-2 border-cyan-300 shadow-sm space-y-2 relative overflow-hidden">
+        <div class="p-4 rounded-2xl bg-white border-2 border-cyan-300 shadow-sm space-y-2 relative overflow-hidden flex flex-col justify-between">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold text-xs">
+              <div class="w-8 h-8 rounded-xl bg-cyan-100 border border-cyan-300 flex items-center justify-center text-cyan-800 font-black text-xs shadow-inner">
                 L
               </div>
               <div>
@@ -5885,22 +5885,36 @@
                 <div class="text-[10px] text-cyan-800 font-black font-mono">Logic, Data & Engine Specialist</div>
               </div>
             </div>
-            <span id="dev2CommitCount" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+            <span id="dev2CommitCount" class="text-[10px] font-mono font-black px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-800 border border-cyan-300">
               -- Commits
             </span>
           </div>
-          <div id="dev2Highlights" class="text-[11px] text-slate-700 font-medium space-y-1 pl-1">
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Siêu phẩm Cờ Tỷ Phú 2.5D Isometric, Xây Landmark & Thâu tóm</span></div>
+          <div id="dev2Highlights" class="text-[11px] text-slate-700 font-medium space-y-1.5 pt-2 pl-0.5">
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
+              <span class="text-slate-800 font-semibold">Siêu phẩm Cờ Tỷ Phú 2.5D Isometric & Xây Landmark</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
+              <span class="text-slate-800 font-semibold">Đấu trường Cờ Vua FIDE 8x8 & 4 Cấp độ Bot AI Minimax</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
+              <span class="text-slate-800 font-semibold">Đồng bộ thời gian thực Cloud Firestore & WebSocket P2P</span>
+            </div>
+          </div>
+          <!--
+
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Đấu trường Cờ Vua FIDE 8x8 & 4 Cấp độ Bot AI Minimax</span></div>
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span>Engine theo dõi phiên bản GitHub REST API & WebSocket Backend</span></div>
+          -->
           </div>
         </div>
 
         <!-- Dev 1: Cường (UI/UX) -->
-        <div class="p-4 rounded-2xl bg-white border-2 border-pink-300 shadow-sm space-y-2 relative overflow-hidden">
+        <div class="p-4 rounded-2xl bg-white border-2 border-pink-300 shadow-sm space-y-2 relative overflow-hidden flex flex-col justify-between">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-pink-400 font-bold text-xs">
+              <div class="w-8 h-8 rounded-xl bg-pink-100 border border-pink-300 flex items-center justify-center text-pink-800 font-black text-xs shadow-inner">
                 U
               </div>
               <div>
@@ -5908,11 +5922,25 @@
                 <div class="text-[10px] text-pink-800 font-black font-mono">UI/UX Board Game Designer</div>
               </div>
             </div>
-            <span id="dev1CommitCount" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-pink-100 text-pink-900 border border-pink-300 font-black">
+            <span id="dev1CommitCount" class="text-[10px] font-mono font-black px-2.5 py-0.5 rounded-full bg-pink-100 text-pink-800 border border-pink-300">
               -- Commits
             </span>
           </div>
-          <div id="dev1Highlights" class="text-[11px] text-slate-700 font-medium space-y-1 pl-1">
+          <div id="dev1Highlights" class="text-[11px] text-slate-700 font-medium space-y-1.5 pt-2 pl-0.5">
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-pink-500 shrink-0"></span>
+              <span class="text-slate-800 font-semibold">Toàn diện giao diện Light Theme & Bento Grid 4 Bộ Môn Cờ</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-pink-500 shrink-0"></span>
+              <span class="text-slate-800 font-semibold">Hiệu ứng chuyển cảnh 60fps GPU, Spring-pop & Animation Cinematic</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-pink-500 shrink-0"></span>
+              <span class="text-slate-800 font-semibold">Bộ Icon SVG độc bản & Tối ưu hóa Responsive Mobile/Tablet/Desktop</span>
+            </div>
+          </div>
+          <!--
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0 animate-pulse"></span><span class="text-pink-300 font-semibold">[v4.2.1] Transition & Animation out cực mượt khi thoát trận đấu, GPU fade-exit & modal spring pop-out</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>[v4.2.1] Cổng Admin: Bento Grid tùy chỉnh phần thưởng chiến thắng & Hệ số sự kiện toàn Server cho 4 bộ môn cờ</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Fix triệt để Lịch Sử Đấu thành dữ liệu thật theo từng tài khoản (uid), xóa sạch mock data & chống ghi trùng</span></div>
@@ -5923,26 +5951,45 @@
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Hệ thống Chuyển cảnh 60fps GPU & Spring-pop 9 Modal</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Đại tu Bí Kíp Bento Grid 4 Bộ Môn & Bộ Icon SVG Độc Bản</span></div>
             <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Nâng cấp Đa BOT AI (1-3 Bots), Tùy biến Đích & Khán Giả Tự Động</span></div>
-            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-pink-400 shrink-0"></span><span>Tối ưu Mobile UX Ca-rô Hoàng Gia & Khắc phục rung giật lag</span></div>
+          -->
           </div>
+        </div>
+      </div>
+
+      <!-- Contribution Ratio Bar -->
+      <div class="px-3.5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm shrink-0 mb-3">
+        <div class="flex items-center justify-between text-xs font-bold pb-1.5">
+          <div class="flex items-center gap-1.5 text-cyan-800">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-500 shrink-0"></span>
+            <span>Thái: <span class="font-mono font-black text-cyan-900">45%</span> (Logic & Engine)</span>
+          </div>
+          <div class="text-[10px] font-mono font-black text-slate-500 uppercase tracking-wider hidden sm:block">Tỷ Lệ Đóng Góp Tính Năng</div>
+          <div class="flex items-center gap-1.5 text-pink-800">
+            <span>Cường: <span class="font-mono font-black text-pink-900">55%</span> (UI/UX & Graphics)</span>
+            <span class="w-2.5 h-2.5 rounded-full bg-pink-500 shrink-0"></span>
+          </div>
+        </div>
+        <div class="h-2.5 w-full rounded-full bg-slate-200 overflow-hidden flex shadow-inner p-0.5">
+          <div class="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 rounded-l-full transition-all duration-500" style="width: 45%" title="Thái: 45% (Logic & Engine)"></div>
+          <div class="h-full bg-gradient-to-r from-pink-400 to-pink-500 rounded-r-full transition-all duration-500" style="width: 55%" title="Cường: 55% (UI/UX & Graphics)"></div>
         </div>
       </div>
 
       <!-- Filter Controls Bar -->
       <div class="flex items-center justify-between pb-3 shrink-0">
-        <div class="flex items-center gap-1.5 bg-black/40 p-1 rounded-xl border border-board-border text-xs font-bold">
-          <button id="vFilterAll" onclick="filterVersionLog('all')" class="px-3 py-1 rounded-lg bg-amber-600 text-white shadow-sm transition">
+        <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
+          <button id="vFilterAll" onclick="filterVersionLog('all')" class="px-3.5 py-1.5 rounded-lg bg-amber-500 text-white font-black shadow-sm transition">
             Tất Cả
           </button>
-          <button id="vFilterDev2" onclick="filterVersionLog('dev2')" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">
+          <button id="vFilterDev2" onclick="filterVersionLog('dev2')" class="px-3.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white font-bold transition">
             Thái (Logic)
           </button>
-          <button id="vFilterDev1" onclick="filterVersionLog('dev1')" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">
+          <button id="vFilterDev1" onclick="filterVersionLog('dev1')" class="px-3.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white font-bold transition">
             Cường (UI/UX)
           </button>
         </div>
-        <div id="vSyncStatus" class="text-[11px] font-mono text-emerald-400 flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <div id="vSyncStatus" class="text-xs font-mono text-emerald-700 font-bold flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span>GitHub API Live</span>
         </div>
       </div>
@@ -6337,7 +6384,7 @@
           window.applyUserUI(userData);
           window.updateArenaUserBalanceHUD();
           window.sendUserHeartbeat();
-          window.showToast(`🟢 Đã đăng nhập: ${userData.displayName}`);
+          window.showToast(`Đã đăng nhập: ${userData.displayName}`);
         } else {
           console.log("Firebase Auth State: No user signed in");
           window.currentFirebaseUser = null;
@@ -20556,16 +20603,16 @@ function renderCashStackHTML(amount) {
 
       [btnAll, btnDev2, btnDev1].forEach(b => {
         if (b) {
-          b.className = 'px-3 py-1 rounded-lg text-slate-400 hover:text-white transition';
+          b.className = 'px-3.5 py-1.5 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white font-bold transition';
         }
       });
 
       if (filter === 'all' && btnAll) {
-        btnAll.className = 'px-3 py-1 rounded-lg bg-amber-600 text-white shadow-sm transition';
+        btnAll.className = 'px-3.5 py-1.5 rounded-lg bg-amber-500 text-white font-black shadow-sm transition';
       } else if (filter === 'dev2' && btnDev2) {
-        btnDev2.className = 'px-3 py-1 rounded-lg bg-cyan-600 text-white shadow-sm transition';
+        btnDev2.className = 'px-3.5 py-1.5 rounded-lg bg-cyan-600 text-white font-black shadow-sm transition';
       } else if (filter === 'dev1' && btnDev1) {
-        btnDev1.className = 'px-3 py-1 rounded-lg bg-pink-600 text-white shadow-sm transition';
+        btnDev1.className = 'px-3.5 py-1.5 rounded-lg bg-pink-600 text-white font-black shadow-sm transition';
       }
 
       renderChangelogFeed(filter);
@@ -20594,10 +20641,10 @@ function renderCashStackHTML(amount) {
       const dev1Count = allChangelogItems.filter(i => i.roleType === 'dev1').length;
 
       const dev2Badge = document.getElementById('dev2CommitCount');
-      if (dev2Badge) dev2Badge.innerText = `${dev2Count} Commits (Push & Logic)`;
+      if (dev2Badge) dev2Badge.innerText = `${dev2Count} Commits (Logic)`;
 
       const dev1Badge = document.getElementById('dev1CommitCount');
-      if (dev1Badge) dev1Badge.innerText = `${dev1Count} Commits (Push & UI)`;
+      if (dev1Badge) dev1Badge.innerText = `${dev1Count} Commits (UI/UX)`;
 
       const btnAll = document.getElementById('vFilterAll');
       if (btnAll) btnAll.innerText = `Tất Cả (${allChangelogItems.length})`;
@@ -20610,7 +20657,7 @@ function renderCashStackHTML(amount) {
 
       // Tu dong ghim ban moi nhat vao the mau hong cua Cuong
       const latestDev1 = allChangelogItems.find(i => i.roleType === 'dev1');
-      const dev1HighlightBox = document.getElementById('dev1Highlights');
+      const dev1HighlightBox = null; // Giu nguyen 3 bullet chien luoc can doi, khong phinh dai card
       if (latestDev1 && dev1HighlightBox) {
         let latestEl = dev1HighlightBox.querySelector('.latest-dev1-highlight');
         if (!latestEl) {

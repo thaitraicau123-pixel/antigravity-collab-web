@@ -1523,9 +1523,10 @@
           <span class="px-1.5 py-0.2 rounded-md bg-cyan-200/80 text-cyan-950 text-[10px] font-mono font-bold">P2P</span>
         </button>
 
-        <button onclick="openModal('versionModal')" class="btn-spring hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-50 border-2 border-cyan-400 text-[11px] font-mono text-cyan-900 font-extrabold hover:bg-cyan-100 hover:border-cyan-500 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên">
+        <button onclick="openVersionModal()" class="btn-spring hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-50 border-2 border-cyan-400 text-[11px] font-mono text-cyan-900 font-extrabold hover:bg-cyan-100 hover:border-cyan-500 transition-all cursor-pointer shadow-sm shrink-0" title="Xem phiên bản & cập nhật của 2 lập trình viên [Chỉ Admin]">
           <i data-lucide="git-branch" class="w-3.5 h-3.5 text-cyan-700"></i>
           <span id="headerVersionPill" class="font-black">v4.2.1</span>
+          <span class="px-1.5 py-0.2 rounded-md bg-amber-200/90 text-amber-950 text-[9px] font-sans font-black border border-amber-400/60 shadow-xs">ADMIN</span>
           <span class="w-1.5 h-1.5 rounded-full bg-cyan-600 animate-pulse"></span>
         </button>
 
@@ -3153,12 +3154,26 @@
             <!-- Top Player / Opponent Bar -->
             <div class="w-full max-w-[340px] sm:max-w-[480px] md:max-w-[500px] flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-white border-2 border-slate-300 mb-2.5 shadow-sm">
               <div class="flex items-center gap-2.5">
-                <div id="chessTopAvatar" class="w-9 h-9 rounded-lg bg-slate-100 border border-slate-300 flex items-center justify-center text-lg shadow-inner">
-                  🐺
+                <div id="chessTopAvatar" class="w-9 h-9 rounded-lg bg-slate-900 border border-cyan-400/80 flex items-center justify-center overflow-hidden shadow-inner p-0.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-full h-full object-cover select-none pointer-events-none rounded-[6px]">
+                    <rect width="100" height="100" rx="14" fill="#042f2e"/>
+                    <rect x="2.5" y="2.5" width="95" height="95" rx="12" fill="none" stroke="#38bdf8" stroke-width="2"/>
+                    <polygon points="48,34 68,6 54,26" fill="#a5f3fc"/>
+                    <polygon points="54,26 68,6 60,22" fill="#38bdf8"/>
+                    <polygon points="60,22 68,6 66,20" fill="#0284c7"/>
+                    <polygon points="40,24 50,30 42,40" fill="#ffffff"/>
+                    <polygon points="50,30 60,34 50,42" fill="#f1f5f9"/>
+                    <polygon points="46,42 54,43 51,47 45,45" fill="#06b6d4"/>
+                    <polygon points="48,43 52,44 50,46" fill="#083344"/>
+                    <polygon points="42,52 50,42 58,54 48,60" fill="#f8fafc"/>
+                    <polygon points="48,60 58,54 68,64 58,70" fill="#e2e8f0"/>
+                    <polygon points="26,24 38,26 30,38" fill="#38bdf8"/>
+                    <polygon points="18,34 30,36 22,50" fill="#0284c7"/>
+                  </svg>
                 </div>
                 <div>
                   <div id="chessTopName" class="text-xs font-black text-slate-900 flex items-center gap-1.5 font-cinzel">
-                    Kiện Tướng Sói Băng
+                    Kiện Tướng Bạch Kỳ Lân
                   </div>
                   <div class="flex items-center gap-2 text-[10px] text-slate-600 font-bold font-mono">
                     <span id="chessTopElo" class="text-cyan-700 font-black">1600 Elo</span>
@@ -3183,12 +3198,26 @@
             <!-- Bottom Player / You Bar -->
             <div class="w-full max-w-[340px] sm:max-w-[480px] md:max-w-[500px] flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-white border-2 border-slate-300 mt-2.5 shadow-sm">
               <div class="flex items-center gap-2.5">
-                <div id="chessBottomAvatar" class="w-9 h-9 rounded-lg bg-amber-100 border border-amber-300 flex items-center justify-center text-lg text-amber-700 shadow-inner">
-                  👑
+                <div id="chessBottomAvatar" class="w-9 h-9 rounded-lg bg-slate-900 border border-amber-400/80 flex items-center justify-center overflow-hidden shadow-inner p-0.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-full h-full object-cover select-none pointer-events-none rounded-[6px]">
+                    <rect width="100" height="100" rx="14" fill="#0f172a"/>
+                    <rect x="2.5" y="2.5" width="95" height="95" rx="12" fill="none" stroke="#fbbf24" stroke-width="2"/>
+                    <polygon points="50,10 44,20 56,20" fill="#fef08a"/>
+                    <polygon points="34,14 44,20 38,24" fill="#facc15"/>
+                    <polygon points="66,14 56,20 62,24" fill="#eab308"/>
+                    <polygon points="34,26 50,22 42,36" fill="#fde047"/>
+                    <polygon points="66,26 50,22 58,36" fill="#facc15"/>
+                    <polygon points="50,22 42,36 50,42" fill="#fef08a"/>
+                    <polygon points="50,22 58,36 50,42" fill="#facc15"/>
+                    <polygon points="38,49 45,50 43,53 37,51" fill="#38bdf8"/>
+                    <polygon points="62,49 55,50 57,53 63,51" fill="#38bdf8"/>
+                    <polygon points="50,42 45,54 50,58" fill="#facc15"/>
+                    <polygon points="50,58 46,62 50,66 54,62" fill="#1e293b"/>
+                  </svg>
                 </div>
                 <div>
                   <div id="chessBottomName" class="text-xs font-black text-slate-900 flex items-center gap-1.5 font-cinzel">
-                    Kỳ Thủ (Bạn)
+                    Kỳ Thủ (Minh Cường)
                   </div>
                   <div class="flex items-center gap-2 text-[10px] text-slate-600 font-bold font-mono">
                     <span id="chessBottomElo" class="text-amber-800 font-black">1500 Elo</span>
@@ -3211,9 +3240,18 @@
             <div id="chessBotProfileCard" class="p-4 rounded-2xl bg-white border-2 border-cyan-300 space-y-2 shadow-sm">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <span id="chessBotCardIcon" class="text-xl">🐺</span>
+                  <div id="chessBotCardIcon" class="w-8 h-8 rounded-lg bg-slate-900 border border-cyan-400/80 flex items-center justify-center overflow-hidden shrink-0 p-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-full h-full object-cover select-none pointer-events-none rounded-[5px]">
+                      <rect width="100" height="100" rx="14" fill="#042f2e"/>
+                      <polygon points="48,34 68,6 54,26" fill="#a5f3fc"/>
+                      <polygon points="54,26 68,6 60,22" fill="#38bdf8"/>
+                      <polygon points="40,24 50,30 42,40" fill="#ffffff"/>
+                      <polygon points="46,42 54,43 51,47 45,45" fill="#06b6d4"/>
+                      <polygon points="48,60 58,54 68,64 58,70" fill="#e2e8f0"/>
+                    </svg>
+                  </div>
                   <div>
-                    <h4 id="chessBotCardTitle" class="text-xs font-black text-slate-900 font-cinzel">Kiện Tướng Sói Băng</h4>
+                    <h4 id="chessBotCardTitle" class="text-xs font-black text-slate-900 font-cinzel">Kiện Tướng Bạch Kỳ Lân</h4>
                     <span id="chessBotCardElo" class="text-[10px] text-cyan-800 font-black font-mono">1600 Elo • Chiến Thuật Sâu</span>
                   </div>
                 </div>
@@ -3274,15 +3312,15 @@
         </button>
 
         <!-- ================= 4-CORNER BUSINESS TOUR HERO PORTRAITS & 3D CASH PILES (v4.0.0 16:9 SIDE WINGS) ================= -->
-        <!-- Top-Left: Player 1 (Red Hooded Lady / Tiên) -->
-        <div id="monoCornerPod_0" class="absolute top-2 sm:top-3 left-2 sm:left-4 lg:left-8 xl:left-14 z-30 flex items-center gap-2.5 bg-[#0C1524]/95 border-2 border-rose-500/80 rounded-2xl p-2 sm:p-2.5 shadow-2xl backdrop-blur-md transition-all duration-300">
+        <!-- Top-Left: Player 1 (Sư Tử Vàng Hoàng Gia / Minh Cường) -->
+        <div id="monoCornerPod_0" class="absolute top-2 sm:top-3 left-2 sm:left-4 lg:left-8 xl:left-14 z-30 flex items-center gap-2.5 bg-[#0C1524]/95 border-2 border-amber-400/90 rounded-2xl p-2 sm:p-2.5 shadow-2xl backdrop-blur-md transition-all duration-300">
           <div id="monoCornerFloat_0" class="absolute -top-6 left-0 w-full flex justify-center pointer-events-none z-40"></div>
-          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-b from-rose-900 to-rose-950 border-2 border-white shadow-[0_0_15px_rgba(244,63,94,0.6)] shrink-0 overflow-hidden flex items-center justify-center" id="monoCornerPortrait_0">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-b from-amber-900 to-amber-950 border-2 border-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.6)] shrink-0 overflow-hidden flex items-center justify-center p-0.5" id="monoCornerPortrait_0">
           </div>
           <div class="flex flex-col min-w-0">
             <div class="flex items-center gap-1">
-              <span class="text-white font-black text-xs sm:text-sm truncate max-w-[90px]" id="monoCornerName_0">Tiên</span>
-              <span id="monoCornerRoleBadge_0" class="px-1 py-0.2 rounded text-[7px] font-black bg-rose-500/20 text-rose-300 border border-rose-500/40">P1</span>
+              <span class="text-white font-black text-xs sm:text-sm truncate max-w-[90px]" id="monoCornerName_0">Minh Cường</span>
+              <span id="monoCornerRoleBadge_0" class="px-1 py-0.2 rounded text-[7px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40">P1</span>
               <span id="monoCornerTurnBadge_0" class="px-1.5 py-0.2 rounded text-[7px] font-black bg-amber-400 text-slate-950 animate-pulse">LƯỢT</span>
             </div>
             <span class="text-emerald-400 font-chakra font-black text-sm sm:text-lg leading-tight" id="monoCornerCash_0">$3,500</span>
@@ -3293,8 +3331,8 @@
           </div>
         </div>
 
-        <!-- Top-Right: Player 2 (White Unicorn / Cáo AI) -->
-        <div id="monoCornerPod_1" class="absolute top-2 sm:top-3 right-2 sm:right-4 lg:right-8 xl:right-14 z-30 flex items-center gap-2.5 bg-[#0C1524]/95 border-2 border-sky-400/80 rounded-2xl p-2 sm:p-2.5 shadow-2xl backdrop-blur-md transition-all duration-300">
+        <!-- Top-Right: Player 2 (Bạch Kỳ Lân Băng / Kỳ Lân AI) -->
+        <div id="monoCornerPod_1" class="absolute top-2 sm:top-3 right-2 sm:right-4 lg:right-8 xl:right-14 z-30 flex items-center gap-2.5 bg-[#0C1524]/95 border-2 border-sky-400/90 rounded-2xl p-2 sm:p-2.5 shadow-2xl backdrop-blur-md transition-all duration-300">
           <div id="monoCornerFloat_1" class="absolute -top-6 left-0 w-full flex justify-center pointer-events-none z-40"></div>
           <div class="flex flex-col text-right min-w-0">
             <div class="flex items-center gap-1 justify-end">
@@ -3308,14 +3346,14 @@
               <span class="text-slate-300 text-[8px] font-bold uppercase truncate" id="monoCornerAssets_1">0 BĐS</span>
             </div>
           </div>
-          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-b from-slate-900 to-sky-950 border-2 border-white shadow-[0_0_15px_rgba(56,189,248,0.6)] shrink-0 overflow-hidden flex items-center justify-center" id="monoCornerPortrait_1">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-b from-slate-900 to-sky-950 border-2 border-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.6)] shrink-0 overflow-hidden flex items-center justify-center p-0.5" id="monoCornerPortrait_1">
           </div>
         </div>
 
-        <!-- Bottom-Left: Player 3 (Red Dragon / Hổ AI) -->
-        <div id="monoCornerPod_2" class="absolute bottom-2 sm:bottom-3 left-2 sm:left-4 lg:left-8 xl:left-14 z-30 flex items-center gap-2.5 bg-[#0C1524]/95 border-2 border-amber-500/80 rounded-2xl p-2 sm:p-2.5 shadow-2xl backdrop-blur-md transition-all duration-300">
+        <!-- Bottom-Left: Player 3 (Hỏa Long Vương / Rồng Lửa AI) -->
+        <div id="monoCornerPod_2" class="absolute bottom-2 sm:bottom-3 left-2 sm:left-4 lg:left-8 xl:left-14 z-30 flex items-center gap-2.5 bg-[#0C1524]/95 border-2 border-amber-500/90 rounded-2xl p-2 sm:p-2.5 shadow-2xl backdrop-blur-md transition-all duration-300">
           <div id="monoCornerFloat_2" class="absolute -top-6 left-0 w-full flex justify-center pointer-events-none z-40"></div>
-          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-b from-amber-900 to-red-950 border-2 border-white shadow-[0_0_15px_rgba(245,158,11,0.6)] shrink-0 overflow-hidden flex items-center justify-center" id="monoCornerPortrait_2">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-b from-amber-900 to-red-950 border-2 border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.6)] shrink-0 overflow-hidden flex items-center justify-center p-0.5" id="monoCornerPortrait_2">
           </div>
           <div class="flex flex-col min-w-0">
             <div class="flex items-center gap-1">
@@ -3331,8 +3369,8 @@
           </div>
         </div>
 
-        <!-- Bottom-Right: Player 4 (Blue Suit Tycoon / Gấu Trúc AI) -->
-        <div id="monoCornerPod_3" class="absolute bottom-2 sm:bottom-3 right-2 sm:right-4 lg:right-8 xl:right-14 z-30 flex items-center gap-2.5 bg-[#0C1524]/95 border-2 border-emerald-500/80 rounded-2xl p-2 sm:p-2.5 shadow-2xl backdrop-blur-md transition-all duration-300">
+        <!-- Bottom-Right: Player 4 (Báo Gấm Tycoon / Tổng Tài AI) -->
+        <div id="monoCornerPod_3" class="absolute bottom-2 sm:bottom-3 right-2 sm:right-4 lg:right-8 xl:right-14 z-30 flex items-center gap-2.5 bg-[#0C1524]/95 border-2 border-emerald-500/90 rounded-2xl p-2 sm:p-2.5 shadow-2xl backdrop-blur-md transition-all duration-300">
           <div id="monoCornerFloat_3" class="absolute -top-6 left-0 w-full flex justify-center pointer-events-none z-40"></div>
           <div class="flex flex-col text-right min-w-0">
             <div class="flex items-center gap-1 justify-end">
@@ -3346,7 +3384,7 @@
               <span class="text-slate-300 text-[8px] font-bold uppercase truncate" id="monoCornerAssets_3">0 BĐS</span>
             </div>
           </div>
-          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-b from-teal-900 to-emerald-950 border-2 border-white shadow-[0_0_15px_rgba(16,185,129,0.6)] shrink-0 overflow-hidden flex items-center justify-center" id="monoCornerPortrait_3">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-b from-teal-900 to-emerald-950 border-2 border-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.6)] shrink-0 overflow-hidden flex items-center justify-center p-0.5" id="monoCornerPortrait_3">
           </div>
         </div>
 
@@ -4057,38 +4095,149 @@
       <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-200">
         <div class="flex items-center gap-3">
           <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border-2 border-amber-500/40 flex items-center justify-center text-amber-600 text-2xl shadow-inner">
-            🏆
+            <!-- Icon Cúp Vàng Danh Vọng SVG riêng biệt độc bản -->
+            <svg class="w-7 h-7 drop-shadow-sm transition-transform duration-300 group-hover:scale-110" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="leadCupGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FDE047"/>
+                  <stop offset="35%" stop-color="#F59E0B"/>
+                  <stop offset="75%" stop-color="#D97706"/>
+                  <stop offset="100%" stop-color="#92400E"/>
+                </linearGradient>
+                <linearGradient id="leadCupHandleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FEF08A"/>
+                  <stop offset="50%" stop-color="#F59E0B"/>
+                  <stop offset="100%" stop-color="#B45309"/>
+                </linearGradient>
+                <linearGradient id="leadCupBaseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#334155"/>
+                  <stop offset="50%" stop-color="#0F172A"/>
+                  <stop offset="100%" stop-color="#020617"/>
+                </linearGradient>
+              </defs>
+              <path d="M10 9 C4 9 4 19 11 20" stroke="url(#leadCupHandleGrad)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M26 9 C32 9 32 19 25 20" stroke="url(#leadCupHandleGrad)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M9 7 C9 7 9 20 18 22 C27 20 27 7 27 7 Z" fill="url(#leadCupGoldGrad)" stroke="#B45309" stroke-width="0.8"/>
+              <path d="M11 8 C11 8 11.5 17 18 18.5 C15 16 13 11 13 8 Z" fill="#FFFFFF" fill-opacity="0.35"/>
+              <path d="M18 10.5 L19.2 13.2 L22 13.5 L19.8 15.3 L20.5 18 L18 16.5 L15.5 18 L16.2 15.3 L14 13.5 L16.8 13.2 Z" fill="#FFFBEB" stroke="#B45309" stroke-width="0.5"/>
+              <path d="M16 22 H20 V25 H16 Z" fill="url(#leadCupGoldGrad)"/>
+              <path d="M13 25 L11 29 H25 L23 25 Z" fill="url(#leadCupBaseGrad)" stroke="#F59E0B" stroke-width="0.75"/>
+              <rect x="9" y="29" width="18" height="3" rx="1.5" fill="#020617" stroke="#D97706" stroke-width="0.75"/>
+            </svg>
           </div>
           <div>
             <h2 class="font-cinzel text-xl sm:text-2xl font-black text-slate-900">Bảng Phong Thần Kỳ Thủ</h2>
             <p class="text-xs text-slate-600 font-bold mt-0.5">Mùa giải Đấu Trí Mùa Thu 2026 • Vinh danh cao thủ</p>
           </div>
         </div>
-        <button onclick="switchMainTab('arena')" class="btn-spring px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-black text-xs flex items-center gap-1.5 shadow-md border-2 border-amber-600">
-          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <button onclick="switchMainTab('arena')" class="group btn-spring px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-black text-xs flex items-center gap-1.5 shadow-md border-2 border-amber-600">
+          <!-- Icon SVG Mũi tên lùi tinh tế sắc sảo -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:-translate-x-0.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
           <span>Vào Bàn Đấu</span>
         </button>
       </div>
 
       <!-- Top 3 Podium Highlights -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mb-6">
-        <div class="bg-gradient-to-b from-amber-50 via-white to-amber-50/80 border-2 border-amber-500 shadow-xl shadow-amber-500/20 rounded-2xl p-4 text-center relative order-1 sm:order-2">
-          <span class="text-3xl">🥇</span>
-          <div class="font-cinzel font-black text-slate-900 text-base mt-1.5">Shadow Grandmaster</div>
+        <!-- Top 1: Quán Quân -->
+        <div class="bg-gradient-to-b from-amber-50 via-white to-amber-50/80 border-2 border-amber-500 shadow-xl shadow-amber-500/20 rounded-2xl p-4 text-center relative order-1 sm:order-2 group">
+          <div class="w-14 h-14 mx-auto mb-1 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+            <!-- Huân chương Vàng Hoàng Kim Quán Quân -->
+            <svg class="w-13 h-13 drop-shadow-md" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="ribbonRed1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#EF4444"/>
+                  <stop offset="100%" stop-color="#991B1B"/>
+                </linearGradient>
+                <linearGradient id="goldMedal1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FEF08A"/>
+                  <stop offset="35%" stop-color="#F59E0B"/>
+                  <stop offset="70%" stop-color="#D97706"/>
+                  <stop offset="100%" stop-color="#78350F"/>
+                </linearGradient>
+              </defs>
+              <path d="M16 4 L13 22 L19 20 L24 23 L23 4 Z" fill="url(#ribbonRed1)"/>
+              <path d="M32 4 L35 22 L29 20 L24 23 L25 4 Z" fill="#B91C1C"/>
+              <path d="M19 4 L24 16 L29 4 Z" fill="#DC2626"/>
+              <circle cx="24" cy="28" r="15" fill="url(#goldMedal1)" stroke="#FDE047" stroke-width="1.5"/>
+              <circle cx="24" cy="28" r="12" fill="#B45309" stroke="#FEF08A" stroke-width="1" stroke-dasharray="2 1.5"/>
+              <path d="M15 26 C15 32 19 36 24 36 C29 36 33 32 33 26" stroke="#FEF08A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+              <circle cx="16" cy="25" r="1" fill="#FEF08A"/>
+              <circle cx="18" cy="31" r="1" fill="#FEF08A"/>
+              <circle cx="32" cy="25" r="1" fill="#FEF08A"/>
+              <circle cx="30" cy="31" r="1" fill="#FEF08A"/>
+              <text x="24" y="33" font-family="'Cinzel', 'Times New Roman', serif" font-size="14" font-weight="900" text-anchor="middle" fill="#FFFFFF" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.6));">1</text>
+            </svg>
+          </div>
+          <div class="font-cinzel font-black text-slate-900 text-base mt-1">Shadow Grandmaster</div>
           <div class="mt-1"><span class="bg-amber-500 text-white font-black text-[9px] uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-sm inline-block">VIP QUÁN QUÂN</span></div>
           <div class="text-2xl font-black text-amber-800 font-mono mt-2">2,580 ELO</div>
           <div class="text-[11px] text-slate-600 font-bold mt-1">Tỷ lệ thắng 89% • 140 trận</div>
         </div>
-        <div class="bg-gradient-to-b from-slate-50 via-white to-slate-100 border-2 border-slate-300 shadow-md rounded-2xl p-4 text-center order-2 sm:order-1">
-          <span class="text-3xl">🥈</span>
-          <div class="font-cinzel font-black text-slate-900 text-base mt-1.5">Phượng Hoàng Lửa</div>
+
+        <!-- Top 2: Á Quân -->
+        <div class="bg-gradient-to-b from-slate-50 via-white to-slate-100 border-2 border-slate-300 shadow-md rounded-2xl p-4 text-center order-2 sm:order-1 group">
+          <div class="w-14 h-14 mx-auto mb-1 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+            <!-- Huân chương Bạc Sapphire Á Quân -->
+            <svg class="w-13 h-13 drop-shadow-md" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="ribbonBlue2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#38BDF8"/>
+                  <stop offset="100%" stop-color="#0369A1"/>
+                </linearGradient>
+                <linearGradient id="silverMedal2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#F8FAFC"/>
+                  <stop offset="40%" stop-color="#CBD5E1"/>
+                  <stop offset="75%" stop-color="#64748B"/>
+                  <stop offset="100%" stop-color="#334155"/>
+                </linearGradient>
+              </defs>
+              <path d="M16 4 L13 22 L19 20 L24 23 L23 4 Z" fill="url(#ribbonBlue2)"/>
+              <path d="M32 4 L35 22 L29 20 L24 23 L25 4 Z" fill="#0284C7"/>
+              <path d="M19 4 L24 16 L29 4 Z" fill="#0EA5E9"/>
+              <circle cx="24" cy="28" r="15" fill="url(#silverMedal2)" stroke="#E2E8F0" stroke-width="1.5"/>
+              <circle cx="24" cy="28" r="12" fill="#475569" stroke="#F1F5F9" stroke-width="1" stroke-dasharray="2 1.5"/>
+              <circle cx="17" cy="21" r="1" fill="#F8FAFC"/>
+              <circle cx="31" cy="21" r="1" fill="#F8FAFC"/>
+              <circle cx="24" cy="18" r="1" fill="#F8FAFC"/>
+              <text x="24" y="33" font-family="'Cinzel', 'Times New Roman', serif" font-size="14" font-weight="900" text-anchor="middle" fill="#FFFFFF" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.6));">2</text>
+            </svg>
+          </div>
+          <div class="font-cinzel font-black text-slate-900 text-base mt-1">Phượng Hoàng Lửa</div>
           <div class="mt-1"><span class="bg-slate-700 text-white font-black text-[9px] uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-sm inline-block">Á QUÂN</span></div>
           <div class="text-2xl font-black text-slate-800 font-mono mt-2">2,240 ELO</div>
           <div class="text-[11px] text-slate-600 font-bold mt-1">Tỷ lệ thắng 83% • 112 trận</div>
         </div>
-        <div class="bg-gradient-to-b from-orange-50 via-white to-orange-50/80 border-2 border-orange-400 shadow-md rounded-2xl p-4 text-center order-3">
-          <span class="text-3xl">🥉</span>
-          <div class="font-cinzel font-black text-slate-900 text-base mt-1.5">Bạch Hổ Thần Tốc</div>
+
+        <!-- Top 3: Quý Quân -->
+        <div class="bg-gradient-to-b from-orange-50 via-white to-orange-50/80 border-2 border-orange-400 shadow-md rounded-2xl p-4 text-center order-3 group">
+          <div class="w-14 h-14 mx-auto mb-1 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+            <!-- Huân chương Đồng Hổ Phách Quý Quân -->
+            <svg class="w-13 h-13 drop-shadow-md" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="ribbonOrange3" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FB923C"/>
+                  <stop offset="100%" stop-color="#C2410C"/>
+                </linearGradient>
+                <linearGradient id="bronzeMedal3" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FED7AA"/>
+                  <stop offset="40%" stop-color="#F97316"/>
+                  <stop offset="75%" stop-color="#C2410C"/>
+                  <stop offset="100%" stop-color="#7C2D12"/>
+                </linearGradient>
+              </defs>
+              <path d="M16 4 L13 22 L19 20 L24 23 L23 4 Z" fill="url(#ribbonOrange3)"/>
+              <path d="M32 4 L35 22 L29 20 L24 23 L25 4 Z" fill="#EA580C"/>
+              <path d="M19 4 L24 16 L29 4 Z" fill="#F97316"/>
+              <circle cx="24" cy="28" r="15" fill="url(#bronzeMedal3)" stroke="#FFEDD5" stroke-width="1.5"/>
+              <circle cx="24" cy="28" r="12" fill="#9A3412" stroke="#FED7AA" stroke-width="1" stroke-dasharray="2 1.5"/>
+              <circle cx="17" cy="21" r="1" fill="#FFEDD5"/>
+              <circle cx="31" cy="21" r="1" fill="#FFEDD5"/>
+              <circle cx="24" cy="18" r="1" fill="#FFEDD5"/>
+              <text x="24" y="33" font-family="'Cinzel', 'Times New Roman', serif" font-size="14" font-weight="900" text-anchor="middle" fill="#FFFFFF" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.6));">3</text>
+            </svg>
+          </div>
+          <div class="font-cinzel font-black text-slate-900 text-base mt-1">Bạch Hổ Thần Tốc</div>
           <div class="mt-1"><span class="bg-orange-600 text-white font-black text-[9px] uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-sm inline-block">QUÝ QUÂN</span></div>
           <div class="text-2xl font-black text-orange-900 font-mono mt-2">1,980 ELO</div>
           <div class="text-[11px] text-slate-600 font-bold mt-1">Tỷ lệ thắng 78% • 98 trận</div>
@@ -4097,10 +4246,10 @@
 
       <!-- Leaderboard Full List -->
       <div class="space-y-2.5 text-xs">
-        <div class="flex items-center justify-between p-3.5 rounded-xl bg-white border-2 border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between p-3.5 rounded-xl bg-white border-2 border-slate-200 shadow-sm hover:border-amber-400 hover:shadow-md transition-all">
           <div class="flex items-center gap-3">
-            <span class="font-black text-amber-700 font-mono w-6 text-center text-sm">#4</span>
-            <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-900 font-black flex items-center justify-center font-mono text-xs border border-emerald-300">TH</div>
+            <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-300 shadow-xs flex items-center justify-center font-mono font-black text-amber-800 text-xs">#4</div>
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-100 to-teal-100 text-emerald-900 font-black flex items-center justify-center font-mono text-xs border border-emerald-300 shadow-xs">TH</div>
             <div>
               <div class="font-black text-slate-900 text-xs">Thái Tử Cờ Vua</div>
               <div class="text-[11px] text-slate-600 font-bold">62 trận • 68% Thắng</div>
@@ -4108,16 +4257,22 @@
           </div>
           <div class="text-right font-mono font-black text-amber-800 text-sm">1,750 ELO</div>
         </div>
-        <div class="flex items-center justify-between p-3.5 rounded-xl bg-white border-2 border-slate-200 shadow-sm">
+        <div id="leaderboardUserRowInTable" class="flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-amber-50/60 via-white to-cyan-50/60 border-2 border-amber-400/80 shadow-md hover:border-amber-500 transition-all">
           <div class="flex items-center gap-3">
-            <span class="font-black text-slate-500 font-mono w-6 text-center text-sm">#5</span>
-            <div class="w-8 h-8 rounded-lg bg-cyan-100 text-cyan-900 font-black flex items-center justify-center font-mono text-xs border border-cyan-300" id="leaderboardUserAvatarInTable">MD</div>
+            <div id="leaderboardUserRankBadge" class="w-7 h-7 rounded-lg bg-gradient-to-br from-cyan-50 to-blue-100 border border-cyan-400 shadow-xs flex items-center justify-center font-mono font-black text-cyan-800 text-xs">#5</div>
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 text-white font-black flex items-center justify-center font-mono text-xs border border-cyan-300 shadow-xs" id="leaderboardUserAvatarInTable">MC</div>
             <div>
-              <div class="font-black text-slate-900 text-xs flex items-center gap-1.5" id="leaderboardMyRankNameTab">Minh Dev <span class="text-[9px] px-1.5 py-0.5 rounded-md bg-amber-500 text-white font-mono font-black shadow-xs">BẠN</span></div>
-              <div class="text-[11px] text-slate-600 font-bold">0 trận • 0% Thắng</div>
+              <div class="font-black text-slate-900 text-xs flex items-center gap-1.5" id="leaderboardMyRankNameTab">
+                <span class="font-black text-slate-900">minhcuong111</span>
+                <span class="px-2 py-0.5 rounded-md bg-gradient-to-r from-amber-500 to-amber-600 text-white font-mono font-black text-[9px] shadow-xs tracking-wide inline-flex items-center gap-1">
+                  <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  BẠN
+                </span>
+              </div>
+              <div class="text-[11px] text-slate-600 font-bold" id="leaderboardUserStatsInTable">0 trận • 0% Thắng</div>
             </div>
           </div>
-          <div class="text-right font-mono font-black text-cyan-800 text-sm" id="leaderboardUserEloInTable">1,200 ELO</div>
+          <div class="text-right font-mono font-black text-cyan-800 text-sm" id="leaderboardUserEloInTable">1,350 ELO</div>
         </div>
       </div>
     </div>
@@ -4654,7 +4809,7 @@
         <h4 class="font-bold text-slate-200 mb-2 uppercase text-[10px] tracking-wider font-cinzel">Hỗ Trợ & Điều Khoản</h4>
         <ul class="space-y-1.5 text-[11px]">
           <li><button onclick="switchMainTab('rules')" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-cyan-400"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span>Hướng Dẫn & Luật Chơi</span></button></li>
-          <li><button onclick="openModal('versionModal')" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5 font-semibold text-cyan-400/90"><i data-lucide="git-pull-request" class="w-3.5 h-3.5 text-cyan-400"></i><span>Nhật Ký Phiên Bản (Changelog)</span></button></li>
+          <li><button onclick="openVersionModal()" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5 font-semibold text-cyan-400/90"><i data-lucide="git-pull-request" class="w-3.5 h-3.5 text-cyan-400"></i><span>Nhật Ký Phiên Bản (Changelog)</span><span class="text-[9px] font-mono font-black px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/40 ml-1">Admin</span></button></li>
           <li><a href="#" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-slate-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Điều Khoản Dịch Vụ</span></a></li>
           <li><a href="#" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-slate-400"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Chính Sách Bảo Mật</span></a></li>
         </ul>
@@ -4780,12 +4935,24 @@
 
       <!-- Player Header with Dynamic Rank Aura -->
       <div class="flex items-center gap-4 mb-4 pb-4 border-b border-slate-200 shrink-0">
-        <div id="profileAvatarWrapper" class="relative group shrink-0">
-          <div id="profileAvatarBig" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 border-2 border-amber-300 flex items-center justify-center text-white text-2xl sm:text-3xl font-black shadow-md font-cinzel transition-all duration-300">
-            MD
+        <div class="flex flex-col items-center shrink-0">
+          <div id="profileAvatarWrapper" onclick="openAvatarCustomizerModal()" class="relative group shrink-0 cursor-pointer" title="Nhấp để Tùy Chỉnh Avatar Linh Thú">
+            <div id="profileAvatarBig" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 border-2 border-amber-300 flex items-center justify-center text-white text-2xl sm:text-3xl font-black shadow-md font-cinzel transition-all duration-300 overflow-hidden relative group-hover:scale-105 group-hover:border-amber-400">
+              MD
+            </div>
+            <!-- Hover Edit Overlay -->
+            <div class="absolute inset-0 rounded-2xl bg-black/45 backdrop-blur-[1px] flex flex-col items-center justify-center text-amber-300 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4 sm:w-5 sm:h-5 text-amber-300 drop-shadow"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              <span class="text-[9px] font-black uppercase tracking-wider text-amber-200 drop-shadow">Đổi</span>
+            </div>
+            <div id="profileRankAura" class="absolute -inset-1 rounded-2xl bg-amber-400/25 shadow-[0_0_20px_rgba(245,158,11,0.35)] filter blur-sm -z-10 transition-all duration-500"></div>
+            <div id="profileTierBadgeMini" class="absolute -bottom-1 -right-1 p-0.5 rounded-full bg-white border border-amber-400 shadow-md flex items-center justify-center z-10"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block" fill="none"><circle cx="12" cy="12" r="10" fill="url(#hudRankGoldGrad)" stroke="#FEF08A" stroke-width="1.5"/><path d="M12 6.5l1.5 3 3.5.5-2.5 2.5.6 3.5-3.1-1.7-3.1 1.7.6-3.5-2.5-2.5 3.5-.5 1.5-3z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg></div>
           </div>
-          <div id="profileRankAura" class="absolute -inset-1 rounded-2xl bg-amber-400/25 shadow-[0_0_20px_rgba(245,158,11,0.35)] filter blur-sm -z-10 transition-all duration-500"></div>
-          <div id="profileTierBadgeMini" class="absolute -bottom-1 -right-1 p-0.5 rounded-full bg-white border border-amber-400 shadow-md flex items-center justify-center"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5 inline-block" fill="none"><circle cx="12" cy="12" r="10" fill="url(#hudRankGoldGrad)" stroke="#FEF08A" stroke-width="1.5"/><path d="M12 6.5l1.5 3 3.5.5-2.5 2.5.6 3.5-3.1-1.7-3.1 1.7.6-3.5-2.5-2.5 3.5-.5 1.5-3z" fill="#FFFBEB" stroke="#92400E" stroke-width="0.5"/></svg></div>
+          <!-- Nút Đổi Avatar Linh Thú Nổi Bật -->
+          <button type="button" onclick="openAvatarCustomizerModal()" class="mt-2 inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-500 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-[10px] shadow-sm hover:shadow-amber-500/40 transition-all duration-200 border border-amber-300 active:scale-95 cursor-pointer whitespace-nowrap" title="Mở Kho 8 Linh Thú Huyền Thoại">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>Đổi Avatar</span>
+          </button>
         </div>
         <div class="min-w-0 flex-1">
           <div class="flex items-center gap-2 flex-wrap">
@@ -5065,6 +5232,65 @@
     </div>
   </div>
 
+  <!-- ================= MODAL AVATAR CUSTOMIZER (8 LINH THÚ FLAT VECTOR) ================= -->
+  <div id="avatarCustomizerModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div id="avatarCustomizerCard" class="w-full max-w-3xl tabletop-mat rounded-3xl p-5 sm:p-7 shadow-2xl border-2 border-amber-500/50 transform scale-90 transition-transform duration-300 relative max-h-[92vh] flex flex-col overflow-hidden">
+      <!-- Close Button with rotate & glow -->
+      <button type="button" onclick="closeModal('avatarCustomizerModal')" class="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 hover:rotate-90 transition-all duration-300 shadow-md group z-10" title="Đóng bảng tùy chỉnh">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="text-center mb-4 sm:mb-5 shrink-0">
+        <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-500/20 via-yellow-500/20 to-amber-500/20 text-amber-300 border border-amber-500/40 text-[11px] font-black uppercase tracking-wider mb-2 shadow-sm">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-3.5 h-3.5 text-amber-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>KHO LINH THÚ HUYỀN THOẠI</span>
+        </div>
+        <h3 class="font-cinzel text-xl sm:text-2xl font-black text-white tracking-wide">Bộ Sưu Tập Avatar 8 Linh Thú Độc Bản</h3>
+        <p class="text-xs text-slate-400 mt-1 max-w-lg mx-auto">Phong cách Flat Minimalist Geometric Vector chuẩn Vibe Ảnh 3 • Sắc nét đa giác, tỏa sáng rực rỡ tại hồ sơ và mọi đấu trường</p>
+      </div>
+
+      <!-- Live Preview Hero Banner -->
+      <div class="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-slate-900/90 via-amber-950/30 to-slate-900/90 border border-amber-500/35 mb-4 shrink-0 shadow-lg flex items-center gap-3.5 sm:gap-5">
+        <div class="relative shrink-0">
+          <div id="avatarCustomizerPreviewBox" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border-2 border-amber-400 shadow-xl overflow-hidden p-0 relative bg-slate-950 flex items-center justify-center">
+            <!-- Dynamic SVG Preview injected here -->
+          </div>
+          <div id="avatarPreviewAura" class="absolute -inset-1 rounded-2xl bg-amber-400/30 filter blur-md -z-10 animate-pulse"></div>
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2 flex-wrap mb-1">
+            <h4 id="avatarCustomizerName" class="font-cinzel text-base sm:text-lg font-black text-amber-300">Rồng Lửa Ruby</h4>
+            <span id="avatarCustomizerElementBadge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/40">Hệ Lửa Thiêng</span>
+            <span id="avatarCustomizerActiveBadge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hidden">Đang Kích Hoạt</span>
+          </div>
+          <div id="avatarCustomizerTitle" class="text-xs font-semibold text-slate-300 font-mono">Huyền Thoại Bất Diệt • Chuẩn Vibe Ảnh 3</div>
+          <p id="avatarCustomizerDesc" class="text-[11px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">Linh thú rồng lửa uy nghi với cặp sừng hoàng kim và ánh mắt rực cháy chuẩn phong cách Đa Giác Tối Giản sắc sảo.</p>
+        </div>
+      </div>
+
+      <!-- Grid of 8 Beast Avatars -->
+      <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center justify-between shrink-0">
+        <span>Chọn Linh Thú Đại Diện (8 Độc Bản)</span>
+        <span class="text-amber-400 text-[10px] font-normal">Nhấp để xem trước & nghe hiệu ứng</span>
+      </div>
+      <div id="beastAvatarsGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3.5 overflow-y-auto p-1 max-h-[250px] sm:max-h-[280px] custom-scrollbar flex-1 mb-4">
+        <!-- 8 Beast Cards dynamically rendered here -->
+      </div>
+
+      <!-- Action Footer -->
+      <div class="pt-3 border-t border-slate-800 shrink-0 flex items-center justify-between gap-3">
+        <button type="button" onclick="closeModal('avatarCustomizerModal')" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition-all border border-slate-700 cursor-pointer">
+          Để Sau
+        </button>
+        <button type="button" onclick="applySelectedBeastAvatar()" id="btnApplyBeastAvatar" class="btn-spring px-5 sm:px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-500 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm shadow-lg shadow-amber-500/30 flex items-center gap-2 border border-amber-300 cursor-pointer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Áp Dụng Avatar Linh Thú</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- ================= MODAL LEADERBOARD ================= -->
   <div id="leaderboardModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
     <div id="leaderboardCard" class="w-full max-w-md tabletop-mat rounded-3xl p-6 shadow-2xl border border-board-border transform scale-90 transition-transform duration-300 relative">
@@ -5073,8 +5299,24 @@
       </button>
 
       <div class="flex items-center gap-3 mb-5 pb-4 border-b border-board-border">
-        <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-xl shadow-inner">
-          🏆
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/25 to-amber-600/10 border border-amber-500/40 flex items-center justify-center shadow-inner group">
+          <!-- Icon Cúp Vàng Danh Vọng SVG riêng biệt độc bản -->
+          <svg class="w-6 h-6 drop-shadow-sm transition-transform duration-300 group-hover:scale-110" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="mCupGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FDE047"/>
+                <stop offset="40%" stop-color="#F59E0B"/>
+                <stop offset="100%" stop-color="#B45309"/>
+              </linearGradient>
+            </defs>
+            <path d="M10 9 C4 9 4 19 11 20" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            <path d="M26 9 C32 9 32 19 25 20" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            <path d="M9 7 C9 7 9 20 18 22 C27 20 27 7 27 7 Z" fill="url(#mCupGold)" stroke="#92400E" stroke-width="0.8"/>
+            <path d="M18 10.5 L19.2 13.2 L22 13.5 L19.8 15.3 L20.5 18 L18 16.5 L15.5 18 L16.2 15.3 L14 13.5 L16.8 13.2 Z" fill="#FFFBEB" stroke="#B45309" stroke-width="0.4"/>
+            <path d="M16 22 H20 V25 H16 Z" fill="url(#mCupGold)"/>
+            <path d="M13 25 L11 29 H25 L23 25 Z" fill="#0F172A" stroke="#F59E0B" stroke-width="0.75"/>
+            <rect x="9" y="29" width="18" height="3" rx="1.5" fill="#020617" stroke="#D97706" stroke-width="0.75"/>
+          </svg>
         </div>
         <div>
           <h3 class="font-cinzel text-base font-bold text-white">Bảng Phong Thần Kỳ Thủ</h3>
@@ -5083,19 +5325,22 @@
       </div>
 
       <div class="space-y-2 max-h-[300px] overflow-y-auto pr-1 text-xs">
-        <div class="flex items-center justify-between p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/40">
+        <!-- Top 1: Quán Quân -->
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/40 hover:border-amber-400 transition-all">
           <div class="flex items-center gap-3">
-            <span class="text-base font-black text-amber-400 font-cinzel">🥇 #1</span>
+            <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white font-mono font-black text-xs shadow-xs">#1</div>
             <div>
-              <div class="font-bold text-white flex items-center gap-1.5">Shadow Grandmaster <span class="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/30 text-amber-300 font-mono">VIP</span></div>
-              <div class="text-[11px] text-slate-600 font-bold mt-1">Tỷ lệ thắng 89% • 140 trận</div>
+              <div class="font-bold text-white flex items-center gap-1.5">Shadow Grandmaster <span class="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/30 text-amber-300 font-mono font-black">VIP</span></div>
+              <div class="text-[10px] text-slate-400">Tỷ lệ thắng 89% • 140 trận</div>
             </div>
           </div>
           <span class="font-black text-amber-400 font-mono">2,580 ELO</span>
         </div>
-        <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60">
+
+        <!-- Top 2: Á Quân -->
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60 hover:border-slate-500 transition-all">
           <div class="flex items-center gap-3">
-            <span class="text-base font-black text-slate-300 font-cinzel">🥈 #2</span>
+            <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-slate-300 to-slate-500 flex items-center justify-center text-slate-900 font-mono font-black text-xs shadow-xs">#2</div>
             <div>
               <div class="font-bold text-white">Phượng Hoàng Lửa</div>
               <div class="text-[10px] text-slate-400">Tỷ lệ thắng 83% • 112 trận</div>
@@ -5103,15 +5348,44 @@
           </div>
           <span class="font-black text-slate-200 font-mono">2,240 ELO</span>
         </div>
-        <div class="flex items-center justify-between p-2.5 rounded-xl bg-amber-700/10 border border-amber-700/40">
+
+        <!-- Top 3: Quý Quân -->
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-orange-950/20 border border-orange-700/40 hover:border-orange-600 transition-all">
           <div class="flex items-center gap-3">
-            <span class="text-base font-black text-amber-600 font-cinzel">🥉 #3</span>
+            <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-orange-400 to-orange-700 flex items-center justify-center text-white font-mono font-black text-xs shadow-xs">#3</div>
             <div>
-              <div class="font-bold text-white" id="leaderboardMyRankName">Bạn (Kỳ Thủ)</div>
-              <div class="text-[10px] text-slate-400">Tỷ lệ thắng 75% • 64 trận</div>
+              <div class="font-bold text-white">Bạch Hổ Thần Tốc</div>
+              <div class="text-[10px] text-slate-400">Tỷ lệ thắng 78% • 98 trận</div>
             </div>
           </div>
-          <span class="font-black text-amber-500 font-mono">1,920 ELO</span>
+          <span class="font-black text-orange-400 font-mono">1,980 ELO</span>
+        </div>
+
+        <!-- Top 4 -->
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition-all">
+          <div class="flex items-center gap-3">
+            <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-600/30 to-emerald-800/30 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-mono font-black text-xs shadow-xs">#4</div>
+            <div>
+              <div class="font-bold text-white">Thái Tử Cờ Vua</div>
+              <div class="text-[10px] text-slate-400">Tỷ lệ thắng 68% • 62 trận</div>
+            </div>
+          </div>
+          <span class="font-black text-emerald-400 font-mono">1,750 ELO</span>
+        </div>
+
+        <!-- Top 5: Tài khoản Người Dùng Thực Tế -->
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-gradient-to-r from-amber-500/15 via-slate-800/80 to-cyan-500/15 border border-amber-500/50 shadow-md transition-all">
+          <div class="flex items-center gap-3">
+            <div id="leaderboardModalUserRankBadge" class="w-7 h-7 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-mono font-black text-xs shadow-xs">#5</div>
+            <div>
+              <div class="font-bold text-white flex items-center gap-1.5" id="leaderboardMyRankName">
+                <span>minhcuong111</span>
+                <span class="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/30 text-amber-300 font-mono font-black">BẠN</span>
+              </div>
+              <div class="text-[10px] text-slate-400" id="leaderboardModalUserStats">Tỷ lệ thắng 0% • 0 trận</div>
+            </div>
+          </div>
+          <span class="font-black text-cyan-400 font-mono" id="leaderboardModalUserElo">1,350 ELO</span>
         </div>
       </div>
     </div>
@@ -5897,7 +6171,58 @@
       </button>
 
       <!-- Modal Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200 shrink-0 pr-8">
+      <!-- ADMIN SECURITY GUARD LOCK SCREEN (Chỉ Quản Trị Viên) -->
+      <div id="versionAdminLockScreen" class="py-10 px-4 sm:px-8 flex flex-col items-center justify-center text-center space-y-4 my-auto">
+        <div class="relative">
+          <div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-amber-400/20 via-rose-500/10 to-amber-600/30 border-2 border-amber-400/60 flex items-center justify-center text-amber-500 shadow-xl shadow-amber-500/10 ring-8 ring-amber-400/10">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 text-amber-500 drop-shadow-[0_2px_8px_rgba(245,158,11,0.5)]">
+              <rect x="3" y="11" width="18" height="11" rx="3" ry="3"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              <circle cx="12" cy="16" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="absolute -bottom-1 -right-1 px-2 py-0.5 rounded-full bg-rose-600 text-white font-mono font-black text-[9px] uppercase tracking-wider shadow">ADMIN ONLY</span>
+        </div>
+
+        <div class="space-y-1.5 max-w-md">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-300 text-amber-900 text-xs font-black">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-600"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>KHU VỰC NỘI BỘ - QUẢN TRỊ VIÊN</span>
+          </div>
+          <h3 class="font-cinzel text-lg sm:text-xl font-black text-slate-900 tracking-wide">Yêu Cầu Quyền Quản Trị Viên (Admin)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed font-medium">
+            Nhật ký phiên bản & đối soát đóng góp lập trình viên chứa thông tin cấu trúc Git commit nội bộ. Chỉ tài khoản Quản trị viên mới có quyền xem và đồng bộ dữ liệu này.
+          </p>
+        </div>
+
+        <div class="w-full max-w-sm pt-2 space-y-3">
+          <form onsubmit="handleVersionAdminUnlock(event)" class="space-y-2">
+            <div class="relative">
+              <input type="password" id="versionAdminPassInput" placeholder="Nhập mã bảo mật Admin (admin123)..." class="w-full px-4 py-2.5 pl-10 rounded-xl bg-slate-50 border-2 border-slate-300 focus:border-amber-500 focus:bg-white text-xs font-medium text-slate-900 outline-none transition shadow-sm placeholder:text-slate-400" autocomplete="off" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <button type="submit" class="btn-spring w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-black text-xs shadow-md shadow-amber-500/25 flex items-center justify-center gap-2 cursor-pointer transition">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+              <span>Xác Thực & Mở Khóa Changelog</span>
+            </button>
+          </form>
+
+          <div class="flex items-center gap-2">
+            <div class="h-px bg-slate-200 flex-1"></div>
+            <span class="text-[10px] font-bold text-slate-400 uppercase">Hoặc</span>
+            <div class="h-px bg-slate-200 flex-1"></div>
+          </div>
+
+          <button onclick="closeModal('versionModal'); openAuthModal('signin');" class="btn-spring w-full py-2 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 font-extrabold text-xs flex items-center justify-center gap-2 transition cursor-pointer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-600"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>Đăng Nhập Tài Khoản Admin</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- CHANGELOG MAIN CONTENT (Admin Authenticated) -->
+      <div id="versionAdminContent" class="flex flex-col flex-1 min-h-0 overflow-hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200 shrink-0 pr-8">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 text-lg shadow-inner">
             <i data-lucide="git-branch" class="w-5 h-5 text-cyan-400"></i>
@@ -5906,14 +6231,23 @@
             <div class="flex items-center gap-2">
               <h3 class="font-cinzel text-base sm:text-lg font-black text-slate-900 tracking-wide">Nhật Ký Phiên Bản & Đóng Góp</h3>
               <span id="modalVersionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-100 text-cyan-900 border border-cyan-300 font-black font-bold">v4.0.8</span>
+              <span class="text-[9px] font-mono font-black px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300 shadow-xs">ADMIN ONLY</span>
             </div>
             <p class="text-[11px] text-slate-600 font-bold">Tự động đối soát lập trình viên nào đã thêm gì từ GitHub REST API</p>
           </div>
         </div>
 
-        <button onclick="refreshDevChangelog()" id="btnRefreshChangelog" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 border-2 border-slate-300 text-xs font-mono font-black text-slate-800 hover:bg-slate-200 transition shadow-sm w-fit">
+        <div class="flex items-center gap-2">
+          <button onclick="lockAdminChangelog()" class="btn-spring flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-300 text-rose-800 text-xs font-black transition shadow-xs cursor-pointer" title="Khóa bảo mật lại giao diện Changelog">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-rose-600"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span class="hidden sm:inline">Khóa Lại</span>
+          </button>
+          <button onclick="refreshDevChangelog()" id="btnRefreshChangelog" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 border-2 border-slate-300 text-xs font-mono font-black text-slate-800 hover:bg-slate-200 transition shadow-sm w-fit">
           <i data-lucide="refresh-cw" class="w-3.5 h-3.5" id="refreshIcon"></i>
           <span>Đồng Bộ GitHub API</span>
+        </button>
+        </div>
+        <button class="hidden">
         </button>
       </div>
 
@@ -6043,6 +6377,10 @@
       <!-- Changelog Feed Container -->
       <div id="versionFeedContainer" class="flex-1 overflow-y-auto space-y-2.5 pr-1 min-h-[200px]">
         <!-- Populated dynamically via JS -->
+      </div>
+      <!-- End of Version Admin Content -->
+      </div>
+      <div class="hidden">
       </div>
 
     </div>
@@ -7726,6 +8064,9 @@
     function openModal(id) {
       const modal = document.getElementById(id);
       if (!modal) return;
+      if (id === 'versionModal' && typeof window.syncVersionModalAdminGuard === 'function') {
+        window.syncVersionModalAdminGuard();
+      }
       if (id === 'profileModal' && typeof window.updateProfileModalUI === 'function') {
         window.updateProfileModalUI();
       }
@@ -11639,10 +11980,10 @@
 
     // Business Tour 4 Iconic Characters (Matching Reference Image 4 Corners & Board Figurines)
     const MONOPOLY_PRESET_CONFIGS = [
-      { id: 0, defaultName: 'Tiên', roleName: 'Nữ Sát Thủ Đỏ', avatar: '🧕', color: '#e11d48', roof: '#be123c', roofDark: '#9f1239', border: 'border-rose-500/80', glow: 'shadow-[0_0_15px_rgba(225,29,72,0.7)]', badgeBg: 'bg-rose-500', bright: '#fb7185' },
-      { id: 1, defaultName: 'Kỳ Lân AI', roleName: 'Bạch Kỳ Lân', avatar: '🦄', color: '#0284c7', roof: '#0369a1', roofDark: '#075985', border: 'border-sky-400/80', glow: 'shadow-[0_0_15px_rgba(2,132,199,0.7)]', badgeBg: 'bg-sky-500', bright: '#38bdf8' },
-      { id: 2, defaultName: 'Rồng Lửa AI', roleName: 'Hỏa Long Vương', avatar: '🐲', color: '#ea580c', roof: '#c2410c', roofDark: '#9a3412', border: 'border-amber-500/80', glow: 'shadow-[0_0_15px_rgba(234,88,12,0.7)]', badgeBg: 'bg-amber-500', bright: '#fb923c' },
-      { id: 3, defaultName: 'Tổng Tài AI', roleName: 'Tổng Tài Áo Xanh', avatar: '🤵🏻', color: '#10b981', roof: '#047857', roofDark: '#065f46', border: 'border-emerald-500/80', glow: 'shadow-[0_0_15px_rgba(16,185,129,0.7)]', badgeBg: 'bg-emerald-500', bright: '#34d399' }
+      { id: 0, defaultName: 'Minh Cường', roleName: 'Sư Tử Vàng Hoàng Gia', avatar: '🦁', color: '#e11d48', roof: '#be123c', roofDark: '#9f1239', border: 'border-amber-400/90', glow: 'shadow-[0_0_15px_rgba(251,191,36,0.7)]', badgeBg: 'bg-amber-500', bright: '#fbbf24' },
+      { id: 1, defaultName: 'Kỳ Lân AI', roleName: 'Bạch Kỳ Lân Băng', avatar: '🦄', color: '#0284c7', roof: '#0369a1', roofDark: '#075985', border: 'border-sky-400/90', glow: 'shadow-[0_0_15px_rgba(56,189,248,0.7)]', badgeBg: 'bg-sky-500', bright: '#38bdf8' },
+      { id: 2, defaultName: 'Rồng Lửa AI', roleName: 'Hỏa Long Vương', avatar: '🐲', color: '#ea580c', roof: '#c2410c', roofDark: '#9a3412', border: 'border-amber-500/90', glow: 'shadow-[0_0_15px_rgba(234,88,12,0.7)]', badgeBg: 'bg-amber-500', bright: '#fb923c' },
+      { id: 3, defaultName: 'Tổng Tài AI', roleName: 'Báo Gấm Tycoon', avatar: '🐆', color: '#10b981', roof: '#047857', roofDark: '#065f46', border: 'border-emerald-500/90', glow: 'shadow-[0_0_15px_rgba(16,185,129,0.7)]', badgeBg: 'bg-emerald-500', bright: '#34d399' }
     ];
 
     const BUSINESS_TOUR_STARTING_CASH = 3500;
@@ -11743,203 +12084,266 @@
 ];
 
     // =========================================================================
-    // 2D CARTOON NETWORK ADVENTURE TIME EXCLUSIVE MASTERPIECE AVATARS (P1 + 3 BOTS)
+    // FLAT MINIMALIST GEOMETRIC VECTOR MASTERPIECE AVATARS (P1 + 3 BOTS)
     // =========================================================================
     const BUSINESS_TOUR_AVATAR_SVGS = [
-      // AVATAR 0: Minh Cường (P1 - Cậu Bé Kỳ Thủ Dũng Cảm Vibe Finn the Human)
+      // AVATAR 0: Minh Cường (P1 - Dũng Sĩ Sư Tử Vàng Hoàng Gia Flat Minimalist Geometric Vector)
       `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-full h-full object-cover select-none pointer-events-none rounded-[10px]">
         <defs>
-          <radialGradient id="cnP1Bg" cx="50%" cy="40%" r="60%">
-            <stop offset="0%" stop-color="#fffbeb" />
-            <stop offset="100%" stop-color="#fef08a" />
-          </radialGradient>
+          <linearGradient id="p0LionBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0f172a" />
+            <stop offset="100%" stop-color="#1e1b4b" />
+          </linearGradient>
         </defs>
         <!-- Background -->
-        <rect width="100" height="100" rx="10" fill="url(#cnP1Bg)"/>
-        <circle cx="50" cy="50" r="42" fill="#fed7aa" opacity="0.4"/>
-        <!-- Body/Shoulders -->
-        <path d="M24 96 C24 80 34 76 50 76 C66 76 76 80 76 96 Z" fill="#0284c7" stroke="#0f172a" stroke-width="2.5" stroke-linejoin="round"/>
-        <!-- White Backpack Straps -->
-        <path d="M35 77 L32 96" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
-        <path d="M65 77 L68 96" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
-        <!-- Red Cartoon Bear Hood -->
-        <path d="M22 60 C18 36 28 17 50 17 C72 17 82 36 78 60 C75 75 66 80 50 80 C34 80 25 75 22 60 Z" fill="#ef4444" stroke="#0f172a" stroke-width="2.6" stroke-linejoin="round"/>
-        <!-- Hood Ears -->
-        <circle cx="28" cy="20" r="8" fill="#dc2626" stroke="#0f172a" stroke-width="2.5"/>
-        <circle cx="28" cy="20" r="4" fill="#fca5a5"/>
-        <circle cx="72" cy="20" r="8" fill="#dc2626" stroke="#0f172a" stroke-width="2.5"/>
-        <circle cx="72" cy="20" r="4" fill="#fca5a5"/>
-        <!-- Face Opening -->
-        <ellipse cx="50" cy="50" rx="21" ry="19" fill="#fde68a" stroke="#0f172a" stroke-width="2.5"/>
-        <!-- Messy Hair Tuft -->
-        <path d="M38 34 Q44 40 50 35 Q56 41 62 34" fill="#f59e0b" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
-        <!-- Cheeks -->
-        <circle cx="36" cy="55" r="4.5" fill="#f87171" opacity="0.6"/>
-        <circle cx="64" cy="55" r="4.5" fill="#f87171" opacity="0.6"/>
-        <!-- Expressive Big Dot Eyes -->
-        <ellipse cx="42" cy="48" rx="3.5" ry="4" fill="#0f172a"/>
-        <circle cx="43.5" cy="46" r="1.5" fill="#ffffff"/>
-        <ellipse cx="58" cy="48" rx="3.5" ry="4" fill="#0f172a"/>
-        <circle cx="59.5" cy="46" r="1.5" fill="#ffffff"/>
-        <!-- Adventure Time Iconic Open Smile -->
-        <path d="M40 56 Q50 69 60 56 Z" fill="#991b1b" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
-        <path d="M44 62 Q50 59 56 62 Q50 67 44 62 Z" fill="#f472b6"/>
-        <!-- Tiny buck tooth -->
-        <rect x="47.5" y="56" width="5" height="3" rx="1" fill="#ffffff" stroke="#0f172a" stroke-width="0.8"/>
-        <!-- Little Star Wink Sparkle -->
-        <path d="M78 38 L80 34 L82 38 L86 40 L82 42 L80 46 L78 42 L74 40 Z" fill="#fbbf24"/>
+        <rect width="100" height="100" rx="14" fill="url(#p0LionBg)"/>
+        <rect x="2.5" y="2.5" width="95" height="95" rx="12" fill="none" stroke="#fbbf24" stroke-width="2" opacity="0.9"/>
+        <!-- Crown / Top Crest -->
+        <polygon points="50,10 44,20 56,20" fill="#fef08a"/>
+        <polygon points="34,14 44,20 38,24" fill="#facc15"/>
+        <polygon points="66,14 56,20 62,24" fill="#eab308"/>
+        <polygon points="26,22 36,22 32,28" fill="#ca8a04"/>
+        <polygon points="74,22 64,22 68,28" fill="#a16207"/>
+        <!-- Mane Outer Shards Left -->
+        <polygon points="22,30 34,26 26,40" fill="#ca8a04"/>
+        <polygon points="16,42 28,38 20,52" fill="#d97706"/>
+        <polygon points="14,54 26,50 18,66" fill="#b45309"/>
+        <polygon points="18,68 30,64 24,78" fill="#92400e"/>
+        <polygon points="26,80 38,74 32,90" fill="#78350f"/>
+        <!-- Mane Outer Shards Right -->
+        <polygon points="78,30 66,26 74,40" fill="#f59e0b"/>
+        <polygon points="84,42 72,38 80,52" fill="#d97706"/>
+        <polygon points="86,54 74,50 82,66" fill="#b45309"/>
+        <polygon points="82,68 70,64 76,78" fill="#92400e"/>
+        <polygon points="74,80 62,74 68,90" fill="#78350f"/>
+        <!-- Inner Mane Planes -->
+        <polygon points="34,26 50,22 42,36" fill="#fde047"/>
+        <polygon points="66,26 50,22 58,36" fill="#facc15"/>
+        <polygon points="28,38 42,36 34,50" fill="#eab308"/>
+        <polygon points="72,38 58,36 66,50" fill="#ca8a04"/>
+        <polygon points="26,50 36,48 30,62" fill="#d97706"/>
+        <polygon points="74,50 64,48 70,62" fill="#b45309"/>
+        <!-- Forehead & Face Core -->
+        <polygon points="50,22 42,36 50,42" fill="#fef08a"/>
+        <polygon points="50,22 58,36 50,42" fill="#facc15"/>
+        <polygon points="42,36 50,42 42,50" fill="#fde047"/>
+        <polygon points="58,36 50,42 58,50" fill="#eab308"/>
+        <!-- Eyebrows / Ridge -->
+        <polygon points="36,46 44,48 42,50" fill="#d97706"/>
+        <polygon points="64,46 56,48 58,50" fill="#b45309"/>
+        <!-- Fierce Eyes (Cyan/Sapphire Gem) -->
+        <polygon points="38,49 45,50 43,53 37,51" fill="#38bdf8"/>
+        <polygon points="40,50 43,50 42,52" fill="#0369a1"/>
+        <polygon points="62,49 55,50 57,53 63,51" fill="#38bdf8"/>
+        <polygon points="60,50 57,50 58,52" fill="#0369a1"/>
+        <!-- Nose Bridge & Snout -->
+        <polygon points="50,42 45,54 50,58" fill="#facc15"/>
+        <polygon points="50,42 55,54 50,58" fill="#eab308"/>
+        <polygon points="45,54 42,50 40,60 46,62" fill="#ca8a04"/>
+        <polygon points="55,54 58,50 60,60 54,62" fill="#a16207"/>
+        <!-- Nose Tip (Black / Dark Bronze Facet) -->
+        <polygon points="50,58 46,62 50,66 54,62" fill="#1e293b"/>
+        <polygon points="46,62 50,66 48,68 44,64" fill="#0f172a"/>
+        <polygon points="54,62 50,66 52,68 56,64" fill="#334155"/>
+        <!-- Muzzle / Whiskers Pads -->
+        <polygon points="50,66 42,66 46,74 50,74" fill="#fef9c3"/>
+        <polygon points="50,66 58,66 54,74 50,74" fill="#fef08a"/>
+        <polygon points="42,66 36,68 40,76 46,74" fill="#fde047"/>
+        <polygon points="58,66 64,68 60,76 54,74" fill="#facc15"/>
+        <!-- Chin & Fangs -->
+        <polygon points="50,74 46,74 48,82 50,82" fill="#eab308"/>
+        <polygon points="50,74 54,74 52,82 50,82" fill="#ca8a04"/>
+        <polygon points="47,74 49,74 48,78" fill="#ffffff"/>
+        <polygon points="53,74 51,74 52,78" fill="#ffffff"/>
+        <!-- Bottom Beard / Chest Mane -->
+        <polygon points="50,82 42,86 50,96" fill="#d97706"/>
+        <polygon points="50,82 58,86 50,96" fill="#b45309"/>
+        <polygon points="42,86 34,88 40,96 50,96" fill="#92400e"/>
+        <polygon points="58,86 66,88 60,96 50,96" fill="#78350f"/>
       </svg>`,
 
-      // AVATAR 1: Kỳ Lân AI (BOT 1 - Bạch Kỳ Lân Ngố Phép Thuật Vibe Cartoon Network)
+      // AVATAR 1: Kỳ Lân AI (BOT 1 - Bạch Kỳ Lân Băng Flat Minimalist Geometric Vector)
       `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-full h-full object-cover select-none pointer-events-none rounded-[10px]">
         <defs>
-          <radialGradient id="cnBot1Bg" cx="50%" cy="35%" r="60%">
-            <stop offset="0%" stop-color="#f0fdfa" />
-            <stop offset="100%" stop-color="#a7f3d0" />
-          </radialGradient>
+          <linearGradient id="p1UnicornBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#042f2e" />
+            <stop offset="100%" stop-color="#083344" />
+          </linearGradient>
         </defs>
         <!-- Background -->
-        <rect width="100" height="100" rx="10" fill="url(#cnBot1Bg)"/>
-        <circle cx="50" cy="52" r="42" fill="#5eead4" opacity="0.35"/>
-        <!-- Mane Back Tuft -->
-        <path d="M22 42 C16 32 18 20 28 16 C38 12 40 22 34 32" fill="#2dd4bf" stroke="#0f172a" stroke-width="2.5" stroke-linejoin="round"/>
-        <path d="M26 65 C14 55 16 40 26 38" fill="#14b8a6" stroke="#0f172a" stroke-width="2.5" stroke-linejoin="round"/>
-        <!-- Unicorn Body/Neck -->
-        <path d="M30 96 C30 76 40 70 50 70 C60 70 70 76 70 96 Z" fill="#ffffff" stroke="#0f172a" stroke-width="2.5" stroke-linejoin="round"/>
-        <!-- Pastel Collar / Bells -->
-        <path d="M36 78 Q50 86 64 78" stroke="#f43f5e" stroke-width="4" stroke-linecap="round"/>
-        <circle cx="50" cy="83" r="3.5" fill="#fbbf24" stroke="#0f172a" stroke-width="1.5"/>
-        <!-- Unicorn Head (Silly Round Shape) -->
-        <path d="M32 50 C30 35 40 25 54 25 C68 25 76 35 74 52 C72 68 62 76 48 76 C36 76 34 65 32 50 Z" fill="#ffffff" stroke="#0f172a" stroke-width="2.6" stroke-linejoin="round"/>
-        <!-- Unicorn Muzzle / Snout -->
-        <ellipse cx="62" cy="60" rx="13" ry="10" fill="#fed7aa" stroke="#0f172a" stroke-width="2.2"/>
-        <!-- Cute Nostrils -->
-        <circle cx="58" cy="59" r="1.5" fill="#0f172a"/>
-        <circle cx="65" cy="61" r="1.5" fill="#0f172a"/>
-        <!-- Derp / Cute Buckteeth Smile -->
-        <path d="M54 65 Q62 71 68 64" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/>
-        <rect x="58" y="66" width="3.5" height="3" rx="0.8" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
-        <rect x="62" y="66" width="3.5" height="3" rx="0.8" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
-        <!-- Blushing Cheeks -->
-        <circle cx="45" cy="62" r="4.5" fill="#f472b6" opacity="0.6"/>
-        <!-- Big Anime / Cartoon Expressive Eyes -->
-        <ellipse cx="46" cy="46" rx="5" ry="6" fill="#8b5cf6" stroke="#0f172a" stroke-width="2"/>
-        <circle cx="48" cy="44" r="2.2" fill="#ffffff"/>
-        <circle cx="45" cy="48" r="1" fill="#ffffff"/>
-        <!-- Mane Forelock on forehead -->
-        <path d="M38 28 C42 16 52 20 48 30 C56 22 64 28 58 35" fill="#2dd4bf" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
-        <!-- Unicorn Ear -->
-        <path d="M36 28 C32 18 40 12 44 22 Z" fill="#ffffff" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
-        <path d="M36 26 C34 20 38 16 41 22 Z" fill="#fbcfe8"/>
-        <!-- Magic Golden Spiral Horn -->
-        <path d="M52 25 L60 6 L64 24 Z" fill="#fbbf24" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
-        <path d="M54 21 Q58 19 62 20" stroke="#f59e0b" stroke-width="1.8"/>
-        <path d="M56 16 Q60 14 62 15" stroke="#f59e0b" stroke-width="1.8"/>
-        <path d="M58 11 Q60 10 61 11" stroke="#f59e0b" stroke-width="1.8"/>
-        <!-- Magic Sparkles around Horn -->
-        <path d="M68 6 L70 2 L72 6 L76 8 L72 10 L70 14 L68 10 L64 8 Z" fill="#fde047"/>
-        <circle cx="54" cy="9" r="1.5" fill="#fde047"/>
-        <circle cx="75" cy="18" r="1.2" fill="#fde047"/>
+        <rect width="100" height="100" rx="14" fill="url(#p1UnicornBg)"/>
+        <rect x="2.5" y="2.5" width="95" height="95" rx="12" fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.9"/>
+        <!-- Magic Cyan Spiral Horn (Polygonal Facets pointing up-right) -->
+        <polygon points="48,34 68,6 54,26" fill="#a5f3fc"/>
+        <polygon points="54,26 68,6 60,22" fill="#38bdf8"/>
+        <polygon points="60,22 68,6 66,20" fill="#0284c7"/>
+        <polygon points="48,34 54,26 52,38" fill="#67e8f9"/>
+        <polygon points="54,26 60,22 58,34" fill="#06b6d4"/>
+        <polygon points="60,22 66,20 64,30" fill="#0369a1"/>
+        <!-- Ears -->
+        <polygon points="34,22 26,10 40,18" fill="#f8fafc"/>
+        <polygon points="34,22 30,14 38,18" fill="#7dd3fc"/>
+        <!-- Mane Shards Left & Back (Cyan & Silver Crystal) -->
+        <polygon points="26,24 38,26 30,38" fill="#38bdf8"/>
+        <polygon points="18,34 30,36 22,50" fill="#0284c7"/>
+        <polygon points="14,48 26,48 18,62" fill="#0369a1"/>
+        <polygon points="12,62 24,62 16,76" fill="#075985"/>
+        <polygon points="18,76 30,74 22,88" fill="#0c4a6e"/>
+        <!-- Mane Shards Right/Top Crest -->
+        <polygon points="42,22 52,24 46,32" fill="#e0f2fe"/>
+        <polygon points="58,26 68,32 58,36" fill="#bae6fd"/>
+        <!-- Forehead & Upper Face (Pure White & Silver Facets) -->
+        <polygon points="40,24 50,30 42,40" fill="#ffffff"/>
+        <polygon points="50,30 60,34 50,42" fill="#f1f5f9"/>
+        <polygon points="42,40 50,42 42,52 34,46" fill="#e2e8f0"/>
+        <!-- Eye Brow Ridge & Fierce Eye -->
+        <polygon points="44,38 54,40 50,44" fill="#cbd5e1"/>
+        <!-- Sharp Ice Eye (Cyan Glow) -->
+        <polygon points="46,42 54,43 51,47 45,45" fill="#06b6d4"/>
+        <polygon points="48,43 52,44 50,46" fill="#083344"/>
+        <polygon points="47,43 49,43 48,44" fill="#ffffff"/>
+        <!-- Bridge of Nose & Muzzle (Profile/Semi-Profile) -->
+        <polygon points="42,52 50,42 58,54 48,60" fill="#f8fafc"/>
+        <polygon points="48,60 58,54 68,64 58,70" fill="#e2e8f0"/>
+        <polygon points="58,70 68,64 76,72 66,78" fill="#cbd5e1"/>
+        <polygon points="66,78 76,72 82,78 72,84" fill="#94a3b8"/>
+        <!-- Muzzle Tip / Nostril -->
+        <polygon points="76,78 82,78 84,84 78,85" fill="#475569"/>
+        <polygon points="78,81 81,81 80,83" fill="#0f172a"/>
+        <!-- Lower Jaw & Mouth -->
+        <polygon points="72,84 66,78 60,86 68,90" fill="#64748b"/>
+        <polygon points="68,90 60,86 52,88 58,94" fill="#475569"/>
+        <!-- Cheek & Neck (Ice Blue & Silver Facets) -->
+        <polygon points="34,46 42,52 38,66 28,58" fill="#94a3b8"/>
+        <polygon points="38,66 48,60 44,78 32,72" fill="#64748b"/>
+        <polygon points="44,78 58,70 54,88 40,84" fill="#475569"/>
+        <polygon points="40,84 54,88 48,96 36,94" fill="#334155"/>
+        <polygon points="32,72 44,78 38,92 26,86" fill="#1e293b"/>
+        <!-- Ice Star Sparkles -->
+        <polygon points="86,24 88,18 90,24 96,26 90,28 88,34 86,28 80,26" fill="#38bdf8"/>
+        <polygon points="20,18 21,14 22,18 26,19 22,20 21,24 20,20 16,19" fill="#a5f3fc"/>
       </svg>`,
 
-      // AVATAR 2: Rồng Lửa AI (BOT 2 - Bé Rồng Mập Siêu Cute Vibe Cartoon Network)
+      // AVATAR 2: Rồng Lửa AI (BOT 2 - Hỏa Long Vương Flat Minimalist Geometric Vector - Chuẩn 100% Ảnh 3)
       `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-full h-full object-cover select-none pointer-events-none rounded-[10px]">
         <defs>
-          <radialGradient id="cnBot2Bg" cx="50%" cy="40%" r="60%">
-            <stop offset="0%" stop-color="#fff7ed" />
-            <stop offset="100%" stop-color="#fdba74" />
-          </radialGradient>
+          <linearGradient id="p2DragonBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2d060d" />
+            <stop offset="100%" stop-color="#4c0519" />
+          </linearGradient>
         </defs>
-        <!-- Background -->
-        <rect width="100" height="100" rx="10" fill="url(#cnBot2Bg)"/>
-        <circle cx="50" cy="50" r="42" fill="#fb923c" opacity="0.3"/>
-        <!-- Mini Dragon Wings in back -->
-        <path d="M22 52 C12 44 14 30 25 32 C23 38 27 46 32 50 Z" fill="#ea580c" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
-        <path d="M78 52 C88 44 86 30 75 32 C77 38 73 46 68 50 Z" fill="#ea580c" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
-        <!-- Chubby Body / Belly -->
-        <path d="M24 96 C24 74 36 68 50 68 C64 68 76 74 76 96 Z" fill="#f97316" stroke="#0f172a" stroke-width="2.5" stroke-linejoin="round"/>
-        <!-- Yellow Underbelly Plating -->
-        <path d="M36 96 C36 80 42 74 50 74 C58 74 64 80 64 96 Z" fill="#fef08a" stroke="#0f172a" stroke-width="2"/>
-        <path d="M40 84 Q50 82 60 84" stroke="#f59e0b" stroke-width="1.8"/>
-        <path d="M38 91 Q50 89 62 91" stroke="#f59e0b" stroke-width="1.8"/>
-        <!-- Cute Chubby Dragon Head -->
-        <path d="M24 50 C20 30 35 22 50 22 C65 22 80 30 76 50 C74 68 64 74 50 74 C36 74 26 68 24 50 Z" fill="#fb923c" stroke="#0f172a" stroke-width="2.6" stroke-linejoin="round"/>
-        <!-- Golden Horns -->
-        <path d="M32 25 C28 14 34 8 40 16 Z" fill="#fbbf24" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
-        <path d="M68 25 C72 14 66 8 60 16 Z" fill="#fbbf24" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
-        <!-- Dragon Ears -->
-        <path d="M22 42 C16 38 18 32 24 35 Z" fill="#ea580c" stroke="#0f172a" stroke-width="2"/>
-        <path d="M78 42 C84 38 82 32 76 35 Z" fill="#ea580c" stroke="#0f172a" stroke-width="2"/>
-        <!-- Chubby Cheeks -->
-        <circle cx="34" cy="56" r="5" fill="#ef4444" opacity="0.6"/>
-        <circle cx="66" cy="56" r="5" fill="#ef4444" opacity="0.6"/>
-        <!-- Happy Squeezed Eyes (Crying Laughing / Kawaii) -->
-        <path d="M35 46 Q41 40 47 46" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
-        <path d="M53 46 Q59 40 65 46" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
-        <!-- Wide Happy Mouth with 2 Cute Fangs -->
-        <path d="M38 56 Q50 68 62 56 Z" fill="#991b1b" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
-        <path d="M43 62 Q50 58 57 62 Q50 66 43 62 Z" fill="#f472b6"/>
-        <!-- Fangs on lower jaw sticking up -->
-        <polygon points="41,56 43,51 45,56" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
-        <polygon points="55,56 57,51 59,56" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
-        <!-- Nostrils -->
-        <circle cx="47" cy="51" r="1.4" fill="#0f172a"/>
-        <circle cx="53" cy="51" r="1.4" fill="#0f172a"/>
-        <!-- Cartoon Puff of Smoke / Tiny Flame from nose -->
-        <circle cx="64" cy="42" r="3" fill="#e2e8f0" stroke="#0f172a" stroke-width="1.2"/>
-        <circle cx="68" cy="38" r="4.5" fill="#f1f5f9" stroke="#0f172a" stroke-width="1.2"/>
-        <path d="M74 34 Q79 30 76 26 Q72 30 74 34 Z" fill="#f59e0b" stroke="#0f172a" stroke-width="1.2"/>
+        <!-- Dark Wine Red Background -->
+        <rect width="100" height="100" rx="14" fill="url(#p2DragonBg)"/>
+        <rect x="2.5" y="2.5" width="95" height="95" rx="12" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.9"/>
+        <!-- Back Horn (Gold Facets sweeping up-right) -->
+        <polygon points="56,30 76,8 64,26" fill="#ca8a04"/>
+        <polygon points="64,26 76,8 72,24" fill="#eab308"/>
+        <polygon points="72,24 76,8 80,18" fill="#facc15"/>
+        <polygon points="56,30 64,26 62,36" fill="#a16207"/>
+        <polygon points="64,26 72,24 70,34" fill="#78350f"/>
+        <!-- Main Front Horn (Sharp Gold Horn sweeping up-left/center) -->
+        <polygon points="42,34 26,10 44,24" fill="#fef08a"/>
+        <polygon points="44,24 26,10 48,18" fill="#facc15"/>
+        <polygon points="48,18 26,10 56,22" fill="#eab308"/>
+        <polygon points="42,34 44,24 46,40" fill="#ca8a04"/>
+        <polygon points="44,24 48,18 52,32" fill="#a16207"/>
+        <polygon points="48,18 56,22 56,32" fill="#78350f"/>
+        <!-- Forehead & Eyebrow Ridge (Ruby Red Facets) -->
+        <polygon points="46,40 56,32 52,46" fill="#ef4444"/>
+        <polygon points="56,32 68,34 60,46" fill="#dc2626"/>
+        <polygon points="46,40 52,46 40,50" fill="#b91c1c"/>
+        <polygon points="52,46 60,46 56,54" fill="#991b1b"/>
+        <!-- Brow Spike -->
+        <polygon points="42,44 54,42 48,46" fill="#f87171"/>
+        <!-- Piercing Golden Dragon Eye (Sharp Hex/Polygon with Slit Pupil) -->
+        <polygon points="48,46 58,44 56,50 49,51" fill="#fef08a"/>
+        <polygon points="52,45 55,45 54,49 51,49" fill="#0f172a"/>
+        <!-- Snout & Bridge of Nose (Sharp Angles descending left) -->
+        <polygon points="40,50 52,46 44,60 32,58" fill="#dc2626"/>
+        <polygon points="32,58 44,60 36,68 24,64" fill="#b91c1c"/>
+        <polygon points="24,64 36,68 26,73 16,68" fill="#991b1b"/>
+        <!-- Snout Tip & Nostril -->
+        <polygon points="16,68 26,73 20,76" fill="#7f1d1d"/>
+        <polygon points="22,68 26,67 24,71" fill="#450a0a"/>
+        <!-- Upper Jaw Rim & 3 Sharp White Fangs -->
+        <polygon points="20,76 36,68 46,74 38,78" fill="#991b1b"/>
+        <polygon points="23,75 27,74 25,82" fill="#ffffff"/>
+        <polygon points="31,73 35,72 33,81" fill="#ffffff"/>
+        <polygon points="39,74 43,75 41,83" fill="#f1f5f9"/>
+        <!-- Open Mouth Interior / Fiery Core -->
+        <polygon points="26,78 40,78 48,82 42,86 30,84" fill="#450a0a"/>
+        <polygon points="32,80 42,81 36,85" fill="#f97316"/>
+        <!-- Lower Jaw & Chin with Lower Fang -->
+        <polygon points="28,84 42,86 38,92 26,88" fill="#b91c1c"/>
+        <polygon points="26,88 38,92 34,96 24,92" fill="#991b1b"/>
+        <polygon points="29,84 32,84 30,77" fill="#ffffff"/>
+        <!-- Neck Spikes & Frills (Right Side Facets) -->
+        <polygon points="60,46 72,42 68,56 56,54" fill="#b91c1c"/>
+        <polygon points="72,42 84,46 76,58 68,56" fill="#991b1b"/>
+        <polygon points="84,46 94,52 82,64 76,58" fill="#7f1d1d"/>
+        <polygon points="68,56 76,58 70,72 58,66" fill="#991b1b"/>
+        <polygon points="58,66 70,72 64,84 52,76" fill="#7f1d1d"/>
+        <polygon points="52,76 64,84 58,94 46,86" fill="#450a0a"/>
+        <!-- Gold Accent Spikes on Frills -->
+        <polygon points="84,46 92,42 86,50" fill="#facc15"/>
+        <polygon points="76,58 86,58 78,66" fill="#eab308"/>
+        <polygon points="70,72 80,74 72,80" fill="#ca8a04"/>
       </svg>`,
 
-      // AVATAR 3: Tổng Tài AI (BOT 3 - Đại Gia Hoạt Hình Biếm Họa Tycoon)
+      // AVATAR 3: Tổng Tài AI (BOT 3 - Báo Gấm Tycoon Flat Minimalist Geometric Vector)
       `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-full h-full object-cover select-none pointer-events-none rounded-[10px]">
         <defs>
-          <radialGradient id="cnBot3Bg" cx="50%" cy="35%" r="60%">
-            <stop offset="0%" stop-color="#f0fdf4" />
-            <stop offset="100%" stop-color="#bbf7d0" />
-          </radialGradient>
+          <linearGradient id="p3TycoonBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#022c22" />
+            <stop offset="100%" stop-color="#064e3b" />
+          </linearGradient>
         </defs>
-        <!-- Background -->
-        <rect width="100" height="100" rx="10" fill="url(#cnBot3Bg)"/>
-        <circle cx="50" cy="50" r="42" fill="#86efac" opacity="0.35"/>
-        <!-- Suit Body / Tuxedo -->
-        <path d="M20 96 C20 76 34 72 50 72 C66 72 80 76 80 96 Z" fill="#1e3a8a" stroke="#0f172a" stroke-width="2.5" stroke-linejoin="round"/>
-        <!-- Crisp White Shirt Collar -->
-        <polygon points="50,73 40,84 60,84" fill="#ffffff" stroke="#0f172a" stroke-width="2"/>
-        <!-- Rich Red Silk Tie -->
-        <polygon points="48,82 52,82 54,96 46,96" fill="#dc2626" stroke="#0f172a" stroke-width="2"/>
-        <!-- Golden Dollar Clip on Tie -->
-        <circle cx="50" cy="88" r="3" fill="#fbbf24" stroke="#0f172a" stroke-width="1.2"/>
-        <text x="50" y="90.5" font-size="4.5" font-family="Arial, sans-serif" font-weight="900" text-anchor="middle" fill="#78350f">$</text>
-        <!-- Round Chubby Tycoon Face -->
-        <path d="M25 50 C23 32 34 24 50 24 C66 24 77 32 75 50 C73 70 65 74 50 74 C35 74 27 70 25 50 Z" fill="#fed7aa" stroke="#0f172a" stroke-width="2.6" stroke-linejoin="round"/>
-        <!-- Slicked Back Shiny Black Hair -->
-        <path d="M27 38 C27 20 38 14 50 14 C62 14 73 20 73 38 C70 26 62 20 50 20 C38 20 30 26 27 38 Z" fill="#0f172a" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
-        <!-- Hair Gloss Shine Highlight -->
-        <path d="M40 18 Q50 16 60 18" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
-        <!-- Double Chin -->
-        <path d="M42 71 Q50 75 58 71" stroke="#f97316" stroke-width="1.8" stroke-linecap="round"/>
-        <!-- Snug Cool Black Sunglasses (Boss Vibe) -->
-        <path d="M30 42 C30 36 45 36 47 43 C47 50 33 50 30 42 Z" fill="#0f172a" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
-        <path d="M70 42 C70 36 55 36 53 43 C53 50 67 50 70 42 Z" fill="#0f172a" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
-        <!-- Sunglasses Bridge -->
-        <path d="M47 41 L53 41" stroke="#0f172a" stroke-width="2.5"/>
-        <!-- Sunglasses White Glare Diagonal Lines -->
-        <line x1="34" y1="40" x2="38" y2="46" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="58" y1="40" x2="62" y2="46" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/>
-        <!-- Rosy Smug Cheeks -->
-        <circle cx="33" cy="58" r="4.5" fill="#f87171" opacity="0.6"/>
-        <circle cx="67" cy="58" r="4.5" fill="#f87171" opacity="0.6"/>
-        <!-- Smug Pencil Moustache -->
-        <path d="M40 55 Q46 53 50 55 Q54 53 60 55" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
-        <!-- Wide Millionaire Grin with ICONIC SHINING GOLD TOOTH -->
-        <path d="M36 60 Q50 72 64 60 Z" fill="#1e293b" stroke="#0f172a" stroke-width="2.2" stroke-linejoin="round"/>
-        <!-- Teeth row -->
-        <rect x="40" y="60" width="20" height="4" fill="#ffffff" rx="1"/>
-        <!-- The Famous Gold Tooth! -->
-        <rect x="51" y="60" width="5" height="4" fill="#fbbf24" stroke="#0f172a" stroke-width="0.8"/>
-        <!-- Gold Tooth Sparkle Star -->
-        <path d="M57 58 L59 55 L61 58 L64 60 L61 62 L59 65 L57 62 L54 60 Z" fill="#fef08a"/>
+        <!-- Dark Emerald Luxury Background -->
+        <rect width="100" height="100" rx="14" fill="url(#p3TycoonBg)"/>
+        <rect x="2.5" y="2.5" width="95" height="95" rx="12" fill="none" stroke="#10b981" stroke-width="2" opacity="0.9"/>
+        <rect x="5.5" y="5.5" width="89" height="89" rx="10" fill="none" stroke="#fbbf24" stroke-width="1" opacity="0.45"/>
+        <!-- Geometric Sleek Ears -->
+        <polygon points="26,16 16,30 32,28" fill="#064e3b"/>
+        <polygon points="26,16 22,26 30,26" fill="#fbbf24"/>
+        <polygon points="74,16 84,30 68,28" fill="#047857"/>
+        <polygon points="74,16 78,26 70,26" fill="#facc15"/>
+        <!-- Forehead & Upper Face (Emerald/Teal & Obsidian Facets) -->
+        <polygon points="50,18 38,28 50,34" fill="#10b981"/>
+        <polygon points="50,18 62,28 50,34" fill="#059669"/>
+        <polygon points="38,28 28,32 36,44 50,34" fill="#047857"/>
+        <polygon points="62,28 72,32 64,44 50,34" fill="#064e3b"/>
+        <polygon points="28,32 18,44 30,52 36,44" fill="#0f172a"/>
+        <polygon points="72,32 82,44 70,52 64,44" fill="#1e293b"/>
+        <!-- Sleek Golden Aviator Glasses / Boss Monocle -->
+        <!-- Left Lens -->
+        <polygon points="30,42 48,42 46,54 32,54" fill="#090d16" stroke="#fbbf24" stroke-width="2"/>
+        <line x1="34" y1="44" x2="38" y2="52" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- Right Lens -->
+        <polygon points="52,42 70,42 68,54 54,54" fill="#090d16" stroke="#fbbf24" stroke-width="2"/>
+        <line x1="56" y1="44" x2="60" y2="52" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- Glasses Bridge & Sides -->
+        <line x1="48" y1="44" x2="52" y2="44" stroke="#fbbf24" stroke-width="2.5"/>
+        <line x1="26" y1="44" x2="30" y2="44" stroke="#fbbf24" stroke-width="2"/>
+        <line x1="70" y1="44" x2="74" y2="44" stroke="#fbbf24" stroke-width="2"/>
+        <!-- Snout & Whisker Pads -->
+        <polygon points="50,54 44,62 50,68 56,62" fill="#34d399"/>
+        <polygon points="50,68 42,68 46,76 50,76" fill="#fef9c3"/>
+        <polygon points="50,68 58,68 54,76 50,76" fill="#fef08a"/>
+        <polygon points="42,68 32,70 38,78 46,76" fill="#6ee7b7"/>
+        <polygon points="58,68 68,70 62,78 54,76" fill="#a7f3d0"/>
+        <!-- Dark Obsidian Nose Tip -->
+        <polygon points="50,64 46,67 50,70 54,67" fill="#0f172a"/>
+        <!-- Chin & Goatee Facet -->
+        <polygon points="50,76 44,78 48,84 50,84" fill="#047857"/>
+        <polygon points="50,76 56,78 52,84 50,84" fill="#064e3b"/>
+        <!-- Tycoon Gold Bowtie / Tuxedo Collar -->
+        <polygon points="50,84 40,82 42,92 50,88" fill="#fbbf24"/>
+        <polygon points="50,84 60,82 58,92 50,88" fill="#f59e0b"/>
+        <polygon points="48,85 52,85 51,88 49,88" fill="#fef08a"/>
+        <!-- Tuxedo Lapels -->
+        <polygon points="26,86 40,84 34,98 22,96" fill="#0f172a" stroke="#d97706" stroke-width="0.8"/>
+        <polygon points="74,86 60,84 66,98 78,96" fill="#1e293b" stroke="#d97706" stroke-width="0.8"/>
+        <polygon points="50,88 44,98 56,98" fill="#ffffff"/>
       </svg>`
     ];
 
@@ -13157,7 +13561,7 @@ function getRainbowChanceWheelSVG() {
         const sidePileEl = document.getElementById(`monoSideCashPile_${idx}`);
         if (!pod) return;
 
-        if (portraitEl && !portraitEl.innerHTML.trim()) {
+        if (portraitEl) {
           portraitEl.innerHTML = getBusinessTourCornerPortraitSVG(idx);
         }
 
@@ -17010,6 +17414,196 @@ function renderCashStackHTML(amount) {
     }
 
     // =========================================================================
+    // LEADERBOARD (BẢNG PHONG THẦN KỲ THỦ) - ĐỒNG BỘ DỮ LIỆU THẬT & REALTIME STATE
+    // =========================================================================
+    function getLeaderboardUserData() {
+      const u = window.currentFirebaseUser || (function() {
+        try {
+          const c = localStorage.getItem('tabletop_firebase_user');
+          if (c) return JSON.parse(c);
+        } catch(e) {}
+        return null;
+      })();
+
+      const displayName = (u && (u.displayName || u.name)) || (u && u.email ? u.email.split('@')[0] : null) || 'minhcuong111';
+      const email = (u && u.email) || 'minhcuong111@gmail.com';
+      const uid = (u && u.uid) || 'fb_live';
+      
+      let elo = 1350;
+      if (u && typeof u.elo === 'number' && !isNaN(u.elo)) {
+        elo = u.elo;
+      } else if (u && u.elo && !isNaN(parseInt(u.elo, 10))) {
+        elo = parseInt(u.elo, 10);
+      } else {
+        const savedElo = localStorage.getItem('tabletop_player_elo');
+        if (savedElo && !isNaN(parseInt(savedElo, 10))) {
+          elo = parseInt(savedElo, 10);
+        }
+      }
+
+      let matches = 0;
+      let wins = 0;
+      let winRate = 0;
+
+      if (typeof getProfileMatchHistory === 'function') {
+        try {
+          const hist = getProfileMatchHistory(uid);
+          if (hist && hist.length > 0) {
+            matches = hist.length;
+            wins = hist.filter(h => h.result === 'win').length;
+          }
+        } catch(e) {}
+      }
+
+      const rawSavedMatches = localStorage.getItem('tabletop_total_matches_' + uid) || localStorage.getItem('tabletop_total_matches');
+      const rawSavedWins = localStorage.getItem('tabletop_total_wins_' + uid) || localStorage.getItem('tabletop_total_wins');
+      if (rawSavedMatches !== null && !isNaN(parseInt(rawSavedMatches, 10))) {
+        const parsedM = parseInt(rawSavedMatches, 10);
+        const parsedW = !isNaN(parseInt(rawSavedWins, 10)) ? parseInt(rawSavedWins, 10) : 0;
+        if (parsedM >= matches) {
+          matches = parsedM;
+          wins = parsedW;
+        }
+      } else if (u && typeof u.matches === 'number' && u.matches > matches) {
+        matches = u.matches;
+        wins = (typeof u.wins === 'number') ? u.wins : Math.round((parseFloat(u.winRate) || 0) * u.matches / 100);
+      }
+
+      if (matches > 0) {
+        winRate = Math.round((wins / matches) * 100);
+      } else if (u && u.winRate) {
+        winRate = parseInt(u.winRate, 10) || 0;
+      }
+
+      const initials = displayName.replace(/[^\p{L}\p{N}]/gu, '').substring(0, 2).toUpperCase() || 'MC';
+
+      return {
+        displayName,
+        email,
+        uid,
+        elo,
+        matches,
+        wins,
+        winRate,
+        initials
+      };
+    }
+
+    window.renderLeaderboard = function() {
+      const user = getLeaderboardUserData();
+      
+      // 1. Cập nhật Main Viewport Bảng Phong Thần (mainViewLeaderboard)
+      const elAvatar = document.getElementById('leaderboardUserAvatarInTable');
+      if (elAvatar) elAvatar.textContent = user.initials;
+
+      const elName = document.getElementById('leaderboardMyRankNameTab');
+      if (elName) {
+        elName.innerHTML = `
+          <span class="font-black text-slate-900">${user.displayName}</span>
+          <span class="px-2 py-0.5 rounded-md bg-gradient-to-r from-amber-500 to-amber-600 text-white font-mono font-black text-[9px] shadow-xs tracking-wide inline-flex items-center gap-1">
+            <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            BẠN
+          </span>
+        `;
+      }
+
+      const elStats = document.getElementById('leaderboardUserStatsInTable');
+      if (elStats) {
+        elStats.textContent = `${user.matches} trận • ${user.winRate}% Thắng`;
+      }
+
+      const elElo = document.getElementById('leaderboardUserEloInTable');
+      if (elElo) {
+        elElo.textContent = `${Number(user.elo).toLocaleString()} ELO`;
+      }
+
+      // Tự động tính toán vị trí xếp hạng dựa trên ELO thực tế
+      const elRankBadge = document.getElementById('leaderboardUserRankBadge');
+      if (elRankBadge) {
+        let rankNum = '#5';
+        if (user.elo > 2580) rankNum = '#1';
+        else if (user.elo > 2240) rankNum = '#2';
+        else if (user.elo > 1980) rankNum = '#3';
+        else if (user.elo > 1750) rankNum = '#4';
+        elRankBadge.textContent = rankNum;
+      }
+
+      // 2. Cập nhật Modal Bảng Phong Thần (leaderboardModal)
+      const modalAvatar = document.getElementById('leaderboardModalUserAvatar');
+      if (modalAvatar) modalAvatar.textContent = user.initials;
+
+      const modalName = document.getElementById('leaderboardMyRankName');
+      if (modalName) {
+        modalName.innerHTML = `
+          <span>${user.displayName}</span>
+          <span class="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/30 text-amber-300 font-mono font-black">BẠN</span>
+        `;
+      }
+      const modalStats = document.getElementById('leaderboardModalUserStats');
+      if (modalStats) {
+        modalStats.textContent = `Tỷ lệ thắng ${user.winRate}% • ${user.matches} trận`;
+      }
+      const modalElo = document.getElementById('leaderboardModalUserElo');
+      if (modalElo) {
+        modalElo.textContent = `${Number(user.elo).toLocaleString()} ELO`;
+      }
+      const modalRankBadge = document.getElementById('leaderboardModalUserRankBadge');
+      if (modalRankBadge) {
+        let rankNum = '#5';
+        if (user.elo > 2580) rankNum = '#1';
+        else if (user.elo > 2240) rankNum = '#2';
+        else if (user.elo > 1980) rankNum = '#3';
+        else if (user.elo > 1750) rankNum = '#4';
+        modalRankBadge.textContent = rankNum;
+      }
+    };
+
+    // Tự động kích hoạt khi chuyển tab hoặc mở modal
+    (function initLeaderboardHooks() {
+      if (typeof MutationObserver !== 'undefined') {
+        const obs = new MutationObserver((mutations) => {
+          for (const m of mutations) {
+            if (m.type === 'attributes' && m.attributeName === 'class') {
+              const target = m.target;
+              if (target && !target.classList.contains('hidden')) {
+                if (typeof window.renderLeaderboard === 'function') window.renderLeaderboard();
+              }
+            }
+          }
+        });
+        const vLead = document.getElementById('mainViewLeaderboard');
+        if (vLead) obs.observe(vLead, { attributes: true });
+        const mLead = document.getElementById('leaderboardModal');
+        if (mLead) obs.observe(mLead, { attributes: true });
+      }
+
+      // Hook khi cập nhật dữ liệu tài khoản
+      const hookApply = () => {
+        if (window.applyUserUI && !window._leadApplyUserHooked) {
+          const origApply = window.applyUserUI;
+          window.applyUserUI = function(userData) {
+            origApply(userData);
+            if (typeof window.renderLeaderboard === 'function') window.renderLeaderboard();
+          };
+          window._leadApplyUserHooked = true;
+        }
+      };
+      hookApply();
+      setTimeout(hookApply, 500);
+
+      // Render ngay khi trang sẵn sàng
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          if (typeof window.renderLeaderboard === 'function') window.renderLeaderboard();
+        });
+      } else {
+        setTimeout(() => {
+          if (typeof window.renderLeaderboard === 'function') window.renderLeaderboard();
+        }, 100);
+      }
+    })();
+
+    // =========================================================================
     // GRANDMASTER ADMIN CONSOLE LOGIC & STATE
     // =========================================================================
     let adminUnlocked = false;
@@ -17296,6 +17890,509 @@ function renderCashStackHTML(amount) {
       }
       lucide.createIcons();
     };
+
+    // =========================================================================
+    // KHO 8 LINH THÚ HUYỀN THOẠI FLAT MINIMALIST GEOMETRIC VECTOR (CHUẨN VIBE ẢNH 3)
+    // =========================================================================
+    window.BEAST_AVATARS = [
+      {
+        id: 'fire_dragon',
+        name: 'Rồng Lửa Ruby',
+        title: 'Huyền Thoại Bất Diệt • Chuẩn Vibe Ảnh 3',
+        element: 'Hệ Lửa Thiêng (Fire)',
+        desc: 'Linh thú rồng lửa uy nghi với cặp sừng hoàng kim và ánh mắt rực cháy chuẩn phong cách Đa Giác Tối Giản sắc sảo.',
+        badgeText: 'HOT VIBE',
+        badgeCls: 'bg-red-500/20 text-red-300 border-red-500/40',
+        svg: `<svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgDragonGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#450A0A"/>
+      <stop offset="50%" stop-color="#7F1D1D"/>
+      <stop offset="100%" stop-color="#2A0404"/>
+    </linearGradient>
+    <linearGradient id="goldHornGrad" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="20" fill="url(#bgDragonGrad)"/>
+  <rect x="3" y="3" width="94" height="94" rx="17" fill="none" stroke="#F59E0B" stroke-width="1.5" stroke-opacity="0.6"/>
+  <polygon points="36,38 24,18 32,8 42,24 38,38" fill="url(#goldHornGrad)"/>
+  <polygon points="32,8 30,18 38,24" fill="#FEF08A"/>
+  <polygon points="64,38 76,18 68,8 58,24 62,38" fill="url(#goldHornGrad)"/>
+  <polygon points="68,8 70,18 62,24" fill="#FDE68A"/>
+  <polygon points="26,44 14,38 20,54 28,52" fill="#991B1B"/>
+  <polygon points="74,44 86,38 80,54 72,52" fill="#7F1D1D"/>
+  <polygon points="20,54 12,52 18,66 26,62" fill="#7F1D1D"/>
+  <polygon points="80,54 88,52 82,66 74,62" fill="#450A0A"/>
+  <polygon points="50,22 40,36 50,46 60,36" fill="#EF4444"/>
+  <polygon points="50,22 40,36 34,28 42,20" fill="#DC2626"/>
+  <polygon points="50,22 60,36 66,28 58,20" fill="#B91C1C"/>
+  <polygon points="50,26 46,33 50,40 54,33" fill="#FBBF24" stroke="#FFFBEB" stroke-width="0.5"/>
+  <polygon points="50,46 42,66 50,78 58,66" fill="#EF4444"/>
+  <polygon points="50,46 40,36 34,50 42,66" fill="#DC2626"/>
+  <polygon points="50,46 60,36 66,50 58,66" fill="#991B1B"/>
+  <polygon points="34,44 42,46 40,51 32,49" fill="#18181B"/>
+  <polygon points="35,45 41,47 39,50 33,48" fill="#FBBF24"/>
+  <polygon points="38,45 39,45 37,50 36,50" fill="#000000"/>
+  <polygon points="66,44 58,46 60,51 68,49" fill="#18181B"/>
+  <polygon points="65,45 59,47 61,50 67,48" fill="#FDE047"/>
+  <polygon points="62,45 63,45 61,50 60,50" fill="#000000"/>
+  <polygon points="50,78 42,66 38,74 50,86 62,74 58,66" fill="#B91C1C"/>
+  <polygon points="46,74 44,72 48,72" fill="#450A0A"/>
+  <polygon points="54,74 52,72 56,72" fill="#450A0A"/>
+  <polygon points="50,86 42,88 50,95 58,88" fill="#7F1D1D"/>
+  <polygon points="43,84 45,84 44,89" fill="#FFFBEB"/>
+  <polygon points="57,84 55,84 56,89" fill="#FFFBEB"/>
+</svg>`
+      },
+      {
+        id: 'frost_kirin',
+        name: 'Bạch Kỳ Lân Băng',
+        title: 'Thánh Thú Băng Hà',
+        element: 'Hệ Băng Tuyết (Frost)',
+        desc: 'Sừng ngọc băng tuyết vươn cao đa giác, đầu kỳ lân bạc uy phong trên nền xanh cyan biển sâu thẳm.',
+        badgeText: 'BĂNG TUYẾT',
+        badgeCls: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40',
+        svg: `<svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgKirinGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#083344"/>
+      <stop offset="50%" stop-color="#0E7490"/>
+      <stop offset="100%" stop-color="#041E28"/>
+    </linearGradient>
+    <linearGradient id="iceHornGrad" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E0F2FE"/>
+      <stop offset="50%" stop-color="#67E8F9"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="20" fill="url(#bgKirinGrad)"/>
+  <rect x="3" y="3" width="94" height="94" rx="17" fill="none" stroke="#22D3EE" stroke-width="1.5" stroke-opacity="0.6"/>
+  <polygon points="50,6 45,22 50,30 55,22" fill="url(#iceHornGrad)"/>
+  <polygon points="47,20 28,14 34,26 44,24" fill="#A5F3FC"/>
+  <polygon points="28,14 18,8 24,20" fill="#E0F2FE"/>
+  <polygon points="53,20 72,14 66,26 56,24" fill="#22D3EE"/>
+  <polygon points="72,14 82,8 76,20" fill="#38BDF8"/>
+  <polygon points="50,30 38,42 50,50 62,42" fill="#F0F9FF"/>
+  <polygon points="38,42 28,34 32,46 42,48" fill="#BAE6FD"/>
+  <polygon points="62,42 72,34 68,46 58,48" fill="#7DD3FC"/>
+  <polygon points="28,44 14,48 22,60 34,58" fill="#0284C7"/>
+  <polygon points="72,44 86,48 78,60 66,58" fill="#0369A1"/>
+  <polygon points="50,50 42,68 50,78 58,68" fill="#E0F2FE"/>
+  <polygon points="42,48 34,48 38,66 42,68" fill="#38BDF8"/>
+  <polygon points="58,48 66,48 62,66 58,68" fill="#0284C7"/>
+  <polygon points="34,44 42,46 40,50 32,48" fill="#042F2E"/>
+  <polygon points="35,45 41,47 39,49 33,47" fill="#00F5FF"/>
+  <polygon points="66,44 58,46 60,50 68,48" fill="#042F2E"/>
+  <polygon points="65,45 59,47 61,49 67,47" fill="#00F5FF"/>
+  <polygon points="50,78 40,78 36,86 50,96 64,86 60,78" fill="#67E8F9"/>
+  <polygon points="50,78 44,84 50,92 56,84" fill="#E0F2FE"/>
+</svg>`
+      },
+      {
+        id: 'white_tiger',
+        name: 'Bạch Hổ Hoàng Gia',
+        title: 'Chúa Tể Sơn Lâm',
+        element: 'Hệ Lôi Điện (Royal)',
+        desc: 'Đầu hổ trắng bạc đa giác dũng mãnh, vằn xanh sapphire và mắt hổ vàng kim sắc bén như thần binh.',
+        badgeText: 'HOÀNG GIA',
+        badgeCls: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40',
+        svg: `<svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgTigerGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="50%" stop-color="#1E1B4B"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="20" fill="url(#bgTigerGrad)"/>
+  <rect x="3" y="3" width="94" height="94" rx="17" fill="none" stroke="#E2E8F0" stroke-width="1.5" stroke-opacity="0.6"/>
+  <polygon points="32,16 18,28 36,32" fill="#F8FAFC"/>
+  <polygon points="26,24 20,28 32,29" fill="#1D4ED8"/>
+  <polygon points="68,16 82,28 64,32" fill="#E2E8F0"/>
+  <polygon points="74,24 80,28 68,29" fill="#1E3A8A"/>
+  <polygon points="50,22 38,34 50,42 62,34" fill="#FFFFFF"/>
+  <polygon points="44,25 56,25 55,27 45,27" fill="#1E40AF"/>
+  <polygon points="42,31 58,31 57,33 43,33" fill="#1E40AF"/>
+  <polygon points="49,25 51,25 51,37 49,37" fill="#1D4ED8"/>
+  <polygon points="40,37 60,37 58,39 42,39" fill="#1E3A8A"/>
+  <polygon points="26,38 36,42 30,50" fill="#1E3A8A"/>
+  <polygon points="20,52 32,54 26,62" fill="#1E40AF"/>
+  <polygon points="74,38 64,42 70,50" fill="#172554"/>
+  <polygon points="80,52 68,54 74,62" fill="#1E3A8A"/>
+  <polygon points="50,42 42,60 50,70 58,60" fill="#F1F5F9"/>
+  <polygon points="34,40 42,42 40,46 32,44" fill="#0F172A"/>
+  <polygon points="35,41 41,43 39,45 33,43" fill="#F59E0B"/>
+  <polygon points="38,41 39,41 37,45 36,45" fill="#000000"/>
+  <polygon points="66,40 58,42 60,46 68,44" fill="#0F172A"/>
+  <polygon points="65,41 59,43 61,45 67,43" fill="#FBBF24"/>
+  <polygon points="62,41 63,41 61,45 60,45" fill="#000000"/>
+  <polygon points="50,66 44,62 56,62" fill="#F43F5E"/>
+  <polygon points="42,60 32,72 50,76" fill="#E2E8F0"/>
+  <polygon points="58,60 68,72 50,76" fill="#CBD5E1"/>
+  <polygon points="50,76 42,86 50,92 58,86" fill="#FFFFFF"/>
+</svg>`
+      },
+      {
+        id: 'solar_phoenix',
+        name: 'Phượng Hoàng Lửa',
+        title: 'Bất Tử Tái Sinh',
+        element: 'Hệ Quang Minh (Solar)',
+        desc: 'Mào lửa vương miện 3 chóp hoàng kim, mỏ vàng thép kiêu hãnh và ánh mắt rực cháy hồi sinh từ tro tàn.',
+        badgeText: 'TÁI SINH',
+        badgeCls: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+        svg: `<svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgPhoenixGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7C2D12"/>
+      <stop offset="50%" stop-color="#C2410C"/>
+      <stop offset="100%" stop-color="#431407"/>
+    </linearGradient>
+    <linearGradient id="solarCrestGrad" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#EA580C"/>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="20" fill="url(#bgPhoenixGrad)"/>
+  <rect x="3" y="3" width="94" height="94" rx="17" fill="none" stroke="#F59E0B" stroke-width="1.5" stroke-opacity="0.6"/>
+  <polygon points="50,4 44,20 50,26 56,20" fill="url(#solarCrestGrad)"/>
+  <polygon points="44,18 26,10 34,24 44,22" fill="#FDE047"/>
+  <polygon points="56,18 74,10 66,24 56,22" fill="#F59E0B"/>
+  <polygon points="26,10 16,6 22,18" fill="#F97316"/>
+  <polygon points="74,10 84,6 78,18" fill="#EA580C"/>
+  <polygon points="50,26 40,36 50,44 60,36" fill="#F97316"/>
+  <polygon points="40,36 28,44 38,54 44,46" fill="#EA580C"/>
+  <polygon points="60,36 72,44 62,54 56,46" fill="#C2410C"/>
+  <polygon points="34,38 42,40 40,44 32,42" fill="#431407"/>
+  <polygon points="35,39 41,41 39,43 33,41" fill="#FEF08A"/>
+  <polygon points="66,38 58,40 60,44 68,42" fill="#431407"/>
+  <polygon points="65,39 59,41 61,43 67,41" fill="#FEF08A"/>
+  <polygon points="44,46 56,46 58,66 50,84 42,66" fill="#FBBF24"/>
+  <polygon points="50,46 56,46 58,66 50,84" fill="#D97706"/>
+  <polygon points="44,66 56,66 50,74" fill="#92400E"/>
+  <polygon points="50,74 38,86 50,96 62,86" fill="#DC2626"/>
+  <polygon points="50,74 42,84 50,90 58,84" fill="#EF4444"/>
+</svg>`
+      },
+      {
+        id: 'mystic_fox',
+        name: 'Cáo Ma Thuật Kitsune',
+        title: 'Hồ Ly Huyền Bí',
+        element: 'Hệ Ảo Ảnh (Mystic)',
+        desc: 'Đầu cáo 9 đuôi ma mị đa giác với dấu ấn trán linh thiêng ngọc bích trên nền tím dạ khúc huyền ảo.',
+        badgeText: 'HUYỀN ẢO',
+        badgeCls: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
+        svg: `<svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgFoxGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2E1065"/>
+      <stop offset="50%" stop-color="#581C87"/>
+      <stop offset="100%" stop-color="#1E0A3C"/>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="20" fill="url(#bgFoxGrad)"/>
+  <rect x="3" y="3" width="94" height="94" rx="17" fill="none" stroke="#A855F7" stroke-width="1.5" stroke-opacity="0.6"/>
+  <polygon points="34,26 12,8 24,36" fill="#A855F7"/>
+  <polygon points="22,20 16,12 26,30" fill="#22D3EE"/>
+  <polygon points="66,26 88,8 76,36" fill="#7E22CE"/>
+  <polygon points="78,20 84,12 74,30" fill="#06B6D4"/>
+  <polygon points="50,28 38,40 50,50 62,40" fill="#C084FC"/>
+  <polygon points="50,32 46,38 50,44 54,38" fill="#22D3EE" stroke="#E0F2FE" stroke-width="0.5"/>
+  <polygon points="38,40 22,44 32,54 42,52" fill="#9333EA"/>
+  <polygon points="22,44 14,50 24,60 32,54" fill="#7E22CE"/>
+  <polygon points="62,40 78,44 68,54 58,52" fill="#6B21A8"/>
+  <polygon points="78,44 86,50 76,60 68,54" fill="#581C87"/>
+  <polygon points="50,50 44,66 50,76 56,66" fill="#E9D5FF"/>
+  <polygon points="34,42 42,44 40,47 32,45" fill="#1E0A3C"/>
+  <polygon points="35,43 41,45 39,46 33,44" fill="#06B6D4"/>
+  <polygon points="66,42 58,44 60,47 68,45" fill="#1E0A3C"/>
+  <polygon points="65,43 59,45 61,46 67,44" fill="#22D3EE"/>
+  <polygon points="50,76 46,73 54,73" fill="#3B0764"/>
+  <polygon points="50,76 42,86 50,94 58,86" fill="#F3E8FF"/>
+</svg>`
+      },
+      {
+        id: 'shadow_wolf',
+        name: 'Sói Bóng Đêm',
+        title: 'Sát Thủ Màn Đêm',
+        element: 'Hệ Hắc Ám (Shadow)',
+        desc: 'Đầu sói hoang dã đa giác góc cạnh sắc bén, mắt xanh lam neon rực sáng trong đêm tối than chì viền bạc.',
+        badgeText: 'BÓNG ĐÊM',
+        badgeCls: 'bg-slate-500/20 text-slate-300 border-slate-500/40',
+        svg: `<svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgWolfGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="50%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0B0F19"/>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="20" fill="url(#bgWolfGrad)"/>
+  <rect x="3" y="3" width="94" height="94" rx="17" fill="none" stroke="#94A3B8" stroke-width="1.5" stroke-opacity="0.6"/>
+  <polygon points="32,14 18,32 36,34" fill="#334155"/>
+  <polygon points="28,24 22,30 32,30" fill="#0EA5E9"/>
+  <polygon points="68,14 82,32 64,34" fill="#1E293B"/>
+  <polygon points="72,24 78,30 68,30" fill="#0284C7"/>
+  <polygon points="50,24 38,38 50,46 62,38" fill="#475569"/>
+  <polygon points="38,38 24,42 32,54 42,50" fill="#334155"/>
+  <polygon points="24,42 14,48 22,60 32,54" fill="#1E293B"/>
+  <polygon points="62,38 76,42 68,54 58,50" fill="#1E293B"/>
+  <polygon points="76,42 86,48 78,60 68,54" fill="#0F172A"/>
+  <polygon points="50,46 42,66 50,78 58,66" fill="#64748B"/>
+  <polygon points="34,42 42,43 40,47 32,46" fill="#020617"/>
+  <polygon points="35,43 41,44 39,46 33,45" fill="#38BDF8"/>
+  <polygon points="66,42 58,43 60,47 68,46" fill="#020617"/>
+  <polygon points="65,43 59,44 61,46 67,45" fill="#00F5FF"/>
+  <polygon points="50,78 44,74 56,74" fill="#090D16"/>
+  <polygon points="50,78 42,88 50,94 58,88" fill="#1E293B"/>
+</svg>`
+      },
+      {
+        id: 'storm_bear',
+        name: 'Gấu Bão Táp',
+        title: 'Chiến Binh Lôi Đình',
+        element: 'Hệ Cuồng Lôi (Storm)',
+        desc: 'Đầu gấu chiến binh dũng mãnh, vết sẹo sấm sét vắt qua mắt rực lửa trên nền xanh navy bão tố uy lực.',
+        badgeText: 'CUỒNG LỘI',
+        badgeCls: 'bg-blue-500/20 text-blue-300 border-blue-500/40',
+        svg: `<svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgBearGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0B192C"/>
+      <stop offset="50%" stop-color="#1E3A8A"/>
+      <stop offset="100%" stop-color="#070E1A"/>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="20" fill="url(#bgBearGrad)"/>
+  <rect x="3" y="3" width="94" height="94" rx="17" fill="none" stroke="#38BDF8" stroke-width="1.5" stroke-opacity="0.6"/>
+  <polygon points="24,18 16,28 30,34" fill="#334155"/>
+  <polygon points="20,24 18,28 26,30" fill="#F59E0B"/>
+  <polygon points="76,18 84,28 70,34" fill="#1E293B"/>
+  <polygon points="80,24 82,28 74,30" fill="#D97706"/>
+  <polygon points="50,22 34,36 50,46 66,36" fill="#475569"/>
+  <polygon points="38,24 42,32 36,34 41,44 34,36 39,34 36,26" fill="#FBBF24"/>
+  <polygon points="34,36 20,48 32,64 40,66" fill="#334155"/>
+  <polygon points="66,36 80,48 68,64 60,66" fill="#1E293B"/>
+  <polygon points="50,46 40,66 50,78 60,66" fill="#64748B"/>
+  <polygon points="32,40 40,42 38,46 30,44" fill="#0F172A"/>
+  <polygon points="33,41 39,43 37,45 31,43" fill="#FDE047"/>
+  <polygon points="68,40 60,42 62,46 70,44" fill="#0F172A"/>
+  <polygon points="67,41 61,43 63,45 69,43" fill="#67E8F9"/>
+  <polygon points="50,76 42,70 58,70" fill="#0F172A"/>
+  <polygon points="50,78 38,88 50,95 62,88" fill="#1E293B"/>
+</svg>`
+      },
+      {
+        id: 'golden_eagle',
+        name: 'Đại Bàng Hoàng Kim',
+        title: 'Bá Chủ Bầu Trời',
+        element: 'Hệ Kim Cương (Imperial)',
+        desc: 'Đầu đại bàng đa giác dũng mãnh, mắt đại bàng thấu thị ngàn dặm, mỏ vàng thép sắc bén như thanh bảo kiếm.',
+        badgeText: 'BÁ CHỦ',
+        badgeCls: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/40',
+        svg: `<svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgEagleGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#451A03"/>
+      <stop offset="50%" stop-color="#78350F"/>
+      <stop offset="100%" stop-color="#260E02"/>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="20" fill="url(#bgEagleGrad)"/>
+  <rect x="3" y="3" width="94" height="94" rx="17" fill="none" stroke="#FBBF24" stroke-width="1.5" stroke-opacity="0.6"/>
+  <polygon points="50,8 44,20 50,24 56,20" fill="#FEF08A"/>
+  <polygon points="44,12 32,18 42,24" fill="#FDE68A"/>
+  <polygon points="56,12 68,18 58,24" fill="#F59E0B"/>
+  <polygon points="50,24 38,34 50,44 62,34" fill="#FFFBEB"/>
+  <polygon points="38,34 28,40 36,48 44,46" fill="#FEF3C7"/>
+  <polygon points="62,34 72,40 64,48 56,46" fill="#FDE68A"/>
+  <polygon points="32,38 40,40 38,44 30,42" fill="#260E02"/>
+  <polygon points="33,39 39,41 37,43 31,41" fill="#FEF08A"/>
+  <polygon points="36,39 37,39 35,43 34,43" fill="#000000"/>
+  <polygon points="68,38 60,40 62,44 70,42" fill="#260E02"/>
+  <polygon points="67,39 61,41 63,43 69,41" fill="#FBBF24"/>
+  <polygon points="64,39 65,39 63,43 62,43" fill="#000000"/>
+  <polygon points="42,46 58,46 60,66 50,86 40,66" fill="#EAB308"/>
+  <polygon points="50,46 58,46 60,66 50,86" fill="#CA8A04"/>
+  <polygon points="50,86 48,82 50,78 52,82" fill="#A16207"/>
+  <polygon points="50,68 34,82 50,96 66,82" fill="#92400E"/>
+  <polygon points="50,68 40,80 50,88 60,80" fill="#B45309"/>
+</svg>`
+      }
+    ];
+
+    window.selectedPreviewBeastId = localStorage.getItem('tabletop_custom_avatar') || 'fire_dragon';
+
+    window.getBeastAvatarSVG = function(beastId, extraCls = 'w-full h-full') {
+      const beast = window.BEAST_AVATARS.find(b => b.id === beastId) || window.BEAST_AVATARS[0];
+      return beast.svg.replace('class="w-full h-full"', `class="${extraCls}"`);
+    };
+
+    window.renderBeastAvatarsGrid = function() {
+      const grid = document.getElementById('beastAvatarsGrid');
+      if (!grid) return;
+      const activeSaved = localStorage.getItem('tabletop_custom_avatar') || 'fire_dragon';
+
+      grid.innerHTML = window.BEAST_AVATARS.map(b => {
+        const isSelected = (b.id === window.selectedPreviewBeastId);
+        const isCurrentActive = (b.id === activeSaved);
+        return `
+          <button type="button" onclick="selectBeastAvatar('${b.id}')" id="beastCard_${b.id}" class="rounded-2xl p-2.5 sm:p-3 bg-slate-900/90 border ${isSelected ? 'border-amber-400 ring-4 ring-amber-400/80 shadow-[0_0_20px_rgba(245,158,11,0.45)] bg-amber-950/40 scale-[1.02]' : 'border-slate-700/80 hover:border-amber-400/60'} transition-all duration-200 cursor-pointer flex flex-col items-center group relative text-center active:scale-95">
+            ${isCurrentActive ? '<span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded-full bg-emerald-500/30 text-emerald-300 border border-emerald-400/50 text-[8px] font-black uppercase tracking-wider shadow">Đang Dùng</span>' : ''}
+            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden p-0 relative border ${isSelected ? 'border-amber-400' : 'border-slate-700'} group-hover:scale-105 transition-transform duration-200 shadow-md mb-2 flex items-center justify-center bg-slate-950">
+              ${b.svg}
+            </div>
+            <div class="font-cinzel text-xs font-black ${isSelected ? 'text-amber-300' : 'text-white'} group-hover:text-amber-300 transition-colors line-clamp-1">${b.name}</div>
+            <div class="text-[9px] font-semibold text-slate-400 line-clamp-1 mt-0.5 font-mono">${b.element}</div>
+          </button>
+        `;
+      }).join('');
+    };
+
+    window.selectBeastAvatar = function(beastId) {
+      window.selectedPreviewBeastId = beastId;
+      const beast = window.BEAST_AVATARS.find(b => b.id === beastId) || window.BEAST_AVATARS[0];
+      const activeSaved = localStorage.getItem('tabletop_custom_avatar') || 'fire_dragon';
+
+      // Sound feedback
+      if (typeof soundTone === 'function') {
+        soundTone(587.33, 'sine', 0.08, 0.08);
+        setTimeout(() => soundTone(880, 'sine', 0.09, 0.06), 50);
+      }
+
+      // Update Preview Banner
+      const pBox = document.getElementById('avatarCustomizerPreviewBox');
+      if (pBox) pBox.innerHTML = beast.svg;
+      const pName = document.getElementById('avatarCustomizerName');
+      if (pName) pName.textContent = beast.name;
+      const pElem = document.getElementById('avatarCustomizerElementBadge');
+      if (pElem) {
+        pElem.textContent = beast.element;
+        pElem.className = `text-[10px] font-black px-2 py-0.5 rounded-full ${beast.badgeCls}`;
+      }
+      const pAct = document.getElementById('avatarCustomizerActiveBadge');
+      if (pAct) {
+        if (beast.id === activeSaved) {
+          pAct.classList.remove('hidden');
+        } else {
+          pAct.classList.add('hidden');
+        }
+      }
+      const pTitle = document.getElementById('avatarCustomizerTitle');
+      if (pTitle) pTitle.textContent = beast.title;
+      const pDesc = document.getElementById('avatarCustomizerDesc');
+      if (pDesc) pDesc.textContent = beast.desc;
+
+      // Update Selection Rings
+      window.BEAST_AVATARS.forEach(b => {
+        const card = document.getElementById('beastCard_' + b.id);
+        if (card) {
+          if (b.id === beastId) {
+            card.className = 'rounded-2xl p-2.5 sm:p-3 bg-slate-900/90 border border-amber-400 ring-4 ring-amber-400/80 shadow-[0_0_20px_rgba(245,158,11,0.45)] bg-amber-950/40 scale-[1.02] transition-all duration-200 cursor-pointer flex flex-col items-center group relative text-center active:scale-95';
+          } else {
+            card.className = 'rounded-2xl p-2.5 sm:p-3 bg-slate-900/90 border border-slate-700/80 hover:border-amber-400/60 transition-all duration-200 cursor-pointer flex flex-col items-center group relative text-center active:scale-95';
+          }
+        }
+      });
+    };
+
+    window.openAvatarCustomizerModal = function() {
+      const active = localStorage.getItem('tabletop_custom_avatar') || 'fire_dragon';
+      window.selectedPreviewBeastId = active;
+      window.renderBeastAvatarsGrid();
+      window.selectBeastAvatar(active);
+      openModal('avatarCustomizerModal');
+    };
+
+    window.applySelectedBeastAvatar = function() {
+      const chosenId = window.selectedPreviewBeastId || 'fire_dragon';
+      localStorage.setItem('tabletop_custom_avatar', chosenId);
+
+      // Sync with user session & cloud
+      if (window.currentFirebaseUser) {
+        window.currentFirebaseUser.customAvatar = chosenId;
+        if (typeof window.updateCloudFirestoreUserField === 'function' && window.currentFirebaseUser.uid) {
+          window.updateCloudFirestoreUserField(window.currentFirebaseUser.uid, { customAvatar: chosenId });
+        }
+      }
+      if (window.currentUser) {
+        window.currentUser.customAvatar = chosenId;
+      }
+      try {
+        const raw = localStorage.getItem('tabletop_firebase_user');
+        if (raw) {
+          const u = JSON.parse(raw);
+          u.customAvatar = chosenId;
+          localStorage.setItem('tabletop_firebase_user', JSON.stringify(u));
+        }
+      } catch (e) {}
+
+      // Render updated avatars globally
+      window.renderAllUserAvatars();
+
+      // Audio victory fanfare
+      if (typeof soundTone === 'function') {
+        soundTone(523.25, 'triangle', 0.1, 0.1);
+        setTimeout(() => soundTone(659.25, 'triangle', 0.1, 0.1), 80);
+        setTimeout(() => soundTone(783.99, 'triangle', 0.18, 0.12), 160);
+      }
+
+      const beast = window.BEAST_AVATARS.find(b => b.id === chosenId) || window.BEAST_AVATARS[0];
+      if (typeof showToast === 'function') {
+        showToast(`✨ Đã áp dụng Avatar Linh Thú: "${beast.name}" thành công!`);
+      }
+
+      closeModal('avatarCustomizerModal');
+    };
+
+    window.renderAllUserAvatars = function() {
+      const beastId = localStorage.getItem('tabletop_custom_avatar') || 'fire_dragon';
+
+      // 1. Profile Big Avatar
+      const elProfileBig = document.getElementById('profileAvatarBig');
+      if (elProfileBig) {
+        elProfileBig.innerHTML = window.getBeastAvatarSVG(beastId, 'w-full h-full object-cover');
+        elProfileBig.className = 'w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border-2 border-amber-300 shadow-md font-cinzel transition-all duration-300 overflow-hidden relative group-hover:scale-105 group-hover:border-amber-400 p-0 flex items-center justify-center bg-slate-950';
+      }
+
+      // 2. Header Small Avatar Widget
+      const elUserSmall = document.getElementById('userAvatarSmall');
+      if (elUserSmall) {
+        elUserSmall.innerHTML = window.getBeastAvatarSVG(beastId, 'w-full h-full object-cover');
+        elUserSmall.className = 'w-7 h-7 rounded-lg text-white font-bold flex items-center justify-center text-xs shadow-sm relative overflow-hidden border border-amber-400/60 p-0 bg-slate-950';
+      }
+
+      // 3. Header User Avatar (fallback selector)
+      const elHeaderAv = document.getElementById('headerUserAvatar');
+      if (elHeaderAv) {
+        elHeaderAv.innerHTML = window.getBeastAvatarSVG(beastId, 'w-full h-full object-cover');
+      }
+
+      // 4. Board Game Arena Player 1 Avatar Box
+      const cardP1 = document.getElementById('cardP1');
+      if (cardP1) {
+        const p1IconBox = cardP1.querySelector('div.w-6.h-6');
+        if (p1IconBox) {
+          p1IconBox.innerHTML = window.getBeastAvatarSVG(beastId, 'w-full h-full object-cover');
+          p1IconBox.className = 'w-6 h-6 rounded-md border border-cyan-400/80 flex items-center justify-center shrink-0 overflow-hidden p-0 shadow-sm bg-slate-950';
+        }
+      }
+    };
+
+    // Auto-hook into updateProfileModalUI & render on load
+    if (typeof window.updateProfileModalUI === 'function') {
+      const origProfileUpdate = window.updateProfileModalUI;
+      window.updateProfileModalUI = function() {
+        origProfileUpdate();
+        window.renderAllUserAvatars();
+      };
+    }
+    setTimeout(() => {
+      window.renderAllUserAvatars();
+    }, 100);
 
     window.handleAdminUnlock = function(e) {
       if (e) e.preventDefault();
@@ -17873,10 +18970,11 @@ function renderCashStackHTML(amount) {
     const CHESS_BOT_TIERS = {
       800: {
         elo: 800,
-        name: 'Tập Sự (Gà Mới Nhập Môn)',
-        title: '🐣 Gà Mới 800 Elo',
-        avatar: '🐣',
-        cardTitle: 'Tập Sự - Gà Mới Nhập Môn',
+        name: 'Tập Sự (Chiến Binh Hoàng Gia)',
+        title: '🦁 Tập Sự 800 Elo',
+        avatar: '🦁',
+        get avatarSVG() { return typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined' ? BUSINESS_TOUR_AVATAR_SVGS[0] : ''; },
+        cardTitle: 'Tập Sự - Chiến Binh Hoàng Gia',
         desc: 'Cấp độ cọ xát cơ bản. Nước đi ngây thơ, thỉnh thoảng sơ hở để bạn dễ dàng tập luyện bắt quân và chiếu tướng.',
         depth: 1,
         randomness: 0.35,
@@ -17884,10 +18982,11 @@ function renderCashStackHTML(amount) {
       },
       1200: {
         elo: 1200,
-        name: 'Kỳ Thủ (Cáo Chiến Thuật)',
-        title: '🦊 Cáo Chiến Thuật 1200 Elo',
-        avatar: '🦊',
-        cardTitle: 'Kỳ Thủ - Cáo Chiến Thuật',
+        name: 'Kỳ Thủ (Báo Gấm Tycoon)',
+        title: '🐆 Kỳ Thủ 1200 Elo',
+        avatar: '🐆',
+        get avatarSVG() { return typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined' ? BUSINESS_TOUR_AVATAR_SVGS[3] : ''; },
+        cardTitle: 'Kỳ Thủ - Báo Gấm Tycoon',
         desc: 'Kỳ thủ phong trào vững vàng. Phát triển quân bài bản, luôn ăn quân miễn phí và không bao giờ bỏ sót cơ hội bắt quân sơ hở của bạn.',
         depth: 2,
         randomness: 0.05,
@@ -17895,10 +18994,11 @@ function renderCashStackHTML(amount) {
       },
       1600: {
         elo: 1600,
-        name: 'Kiện Tướng (Sói Đầu Đàn)',
-        title: '🐺 Sói Đầu Đàn 1600 Elo',
-        avatar: '🐺',
-        cardTitle: 'Kiện Tướng - Sói Đầu Đàn',
+        name: 'Kiện Tướng (Bạch Kỳ Lân Băng)',
+        title: '🦄 Kỳ Lân Băng 1600 Elo',
+        avatar: '🦄',
+        get avatarSVG() { return typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined' ? BUSINESS_TOUR_AVATAR_SVGS[1] : ''; },
+        cardTitle: 'Kiện Tướng - Bạch Kỳ Lân Băng',
         desc: 'Kiểm soát chặt chẽ trung tâm bàn cờ, phối hợp Mã và Tượng biến hóa. Biết giăng bẫy chiến thuật, ghim quân và tấn công Vua quyết liệt.',
         depth: 3,
         randomness: 0,
@@ -17906,10 +19006,11 @@ function renderCashStackHTML(amount) {
       },
       2000: {
         elo: 2000,
-        name: 'Đại Kiện Tướng (Vua Bàn Cờ)',
-        title: '👑 Vua Bàn Cờ 2000+ Elo',
-        avatar: '👑',
-        cardTitle: 'Đại Kiện Tướng - Vua Bàn Cờ',
+        name: 'Đại Kiện Tướng (Hỏa Long Vương)',
+        title: '🐲 Hỏa Long Vương 2000+ Elo',
+        avatar: '🐲',
+        get avatarSVG() { return typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined' ? BUSINESS_TOUR_AVATAR_SVGS[2] : ''; },
+        cardTitle: 'Đại Kiện Tướng - Hỏa Long Vương',
         desc: 'Trí tuệ nhân tạo tính toán sâu với thuật toán Minimax Alpha-Beta và Quiescence search. Sát thủ khai cuộc, trung cuộc sắc bén và tàn cuộc chuẩn xác.',
         depth: 3,
         quiescence: true,
@@ -18815,19 +19916,35 @@ function renderCashStackHTML(amount) {
       if (isTopBot) {
         if (topName) topName.textContent = tier.name;
         if (topElo) topElo.textContent = `${tier.elo} Elo`;
-        if (topAvatar) topAvatar.textContent = tier.avatar;
+        if (topAvatar) {
+          if (tier.avatarSVG) topAvatar.innerHTML = tier.avatarSVG;
+          else topAvatar.textContent = tier.avatar;
+        }
         if (botCardTitle) botCardTitle.textContent = tier.cardTitle;
         if (botCardElo) botCardElo.textContent = `${tier.elo} Elo • AI Minimax`;
         if (botCardDesc) botCardDesc.textContent = tier.desc;
-        if (botCardIcon) botCardIcon.textContent = tier.avatar;
+        if (botCardIcon) {
+          if (tier.avatarSVG) botCardIcon.innerHTML = tier.avatarSVG;
+          else botCardIcon.textContent = tier.avatar;
+        }
       } else {
         if (topName) topName.textContent = 'Kỳ Thủ 2 (Đen)';
         if (topElo) topElo.textContent = '1500 Elo';
-        if (topAvatar) topAvatar.textContent = '♟️';
+        if (topAvatar) {
+          if (typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined') topAvatar.innerHTML = BUSINESS_TOUR_AVATAR_SVGS[3];
+          else topAvatar.textContent = '♟️';
+        }
         if (botCardTitle) botCardTitle.textContent = 'Chế Độ 2 Người Chơi';
         if (botCardElo) botCardElo.textContent = 'PvP Đối Kháng';
         if (botCardDesc) botCardDesc.textContent = 'Hai kỳ thủ trực tiếp so tài trên cùng thiết bị. Lần lượt điều khiển quân Trắng và Đen.';
-        if (botCardIcon) botCardIcon.textContent = '👥';
+        if (botCardIcon) {
+          if (typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined') botCardIcon.innerHTML = BUSINESS_TOUR_AVATAR_SVGS[3];
+          else botCardIcon.textContent = '👥';
+        }
+      }
+      const bottomAvatar = document.getElementById('chessBottomAvatar');
+      if (bottomAvatar && typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined' && !bottomAvatar.querySelector('svg')) {
+        bottomAvatar.innerHTML = BUSINESS_TOUR_AVATAR_SVGS[0];
       }
     }
 
@@ -20933,6 +22050,116 @@ function renderCashStackHTML(amount) {
         console.warn('Initial GitHub sync fell back to curated logs:', err);
       });
     }
+
+    // =========================================================================
+    // ADMIN CHANGELOG ACCESS GUARD & CONTROL (Chỉ Quản Trị Viên)
+    // =========================================================================
+    window.checkAdminChangelogAccess = function() {
+      // 1. Kiểm tra biến mở khóa phiên làm việc hiện tại
+      if (typeof adminUnlocked !== 'undefined' && adminUnlocked === true) return true;
+      
+      // 2. Kiểm tra cờ xác thực Admin trong LocalStorage
+      if (localStorage.getItem('tabletop_admin_authenticated') === 'true') return true;
+      
+      // 3. Kiểm tra thông tin tài khoản Firebase Auth hiện tại
+      const fbUser = window.currentFirebaseUser || window.currentUser;
+      if (fbUser) {
+        if (fbUser.role === 'Admin') return true;
+        const email = (fbUser.email || '').toLowerCase().trim();
+        if (email === 'minhcuong111@gmail.com' || email === 'thaitraicau123@gmail.com') return true;
+      }
+      
+      // 4. Kiểm tra bộ nhớ cache cục bộ của người chơi
+      try {
+        const raw = localStorage.getItem('tabletop_firebase_user');
+        if (raw) {
+          const cached = JSON.parse(raw);
+          if (cached.role === 'Admin') return true;
+          const cachedEmail = (cached.email || '').toLowerCase().trim();
+          if (cachedEmail === 'minhcuong111@gmail.com' || cachedEmail === 'thaitraicau123@gmail.com') return true;
+        }
+      } catch (e) {}
+      
+      return false;
+    };
+
+    window.syncVersionModalAdminGuard = function() {
+      const lockScreen = document.getElementById('versionAdminLockScreen');
+      const mainContent = document.getElementById('versionAdminContent');
+      if (!lockScreen || !mainContent) return;
+
+      const isAdmin = window.checkAdminChangelogAccess();
+      if (isAdmin) {
+        lockScreen.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+        if (typeof renderChangelogFeed === 'function') {
+          renderChangelogFeed(currentChangelogFilter || 'all');
+        }
+      } else {
+        lockScreen.classList.remove('hidden');
+        mainContent.classList.add('hidden');
+        const inp = document.getElementById('versionAdminPassInput');
+        if (inp) {
+          inp.value = '';
+          setTimeout(() => inp.focus(), 150);
+        }
+      }
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    };
+
+    window.openVersionModal = function() {
+      const isAdmin = window.checkAdminChangelogAccess();
+      if (!isAdmin) {
+        if (typeof showToast === 'function') {
+          showToast('🔒 Quyền Admin: Chỉ tài khoản Quản trị viên mới được xem Nhật ký Phiên bản (Changelog)');
+        }
+      }
+      openModal('versionModal');
+      window.syncVersionModalAdminGuard();
+    };
+
+    window.handleVersionAdminUnlock = function(e) {
+      if (e) e.preventDefault();
+      const inp = document.getElementById('versionAdminPassInput');
+      const pass = inp ? inp.value.trim() : '';
+      if (pass === 'admin123' || pass === 'admin' || (window.currentFirebaseUser && window.currentFirebaseUser.role === 'Admin')) {
+        if (typeof adminUnlocked !== 'undefined') {
+          adminUnlocked = true;
+        }
+        localStorage.setItem('tabletop_admin_authenticated', 'true');
+        window.syncVersionModalAdminGuard();
+        if (typeof showToast === 'function') {
+          showToast('🛡️ Mở khóa quyền Quản Trị Viên thành công! Đang hiển thị Changelog.');
+        }
+        if (typeof adminAddLog === 'function') {
+          adminAddLog('AUTH', 'Quản trị viên đã mở khóa xem Changelog qua mã bảo mật.');
+        }
+      } else {
+        if (typeof showToast === 'function') {
+          showToast('❌ Mã bảo mật không chính xác! Vui lòng thử lại.');
+        }
+        if (inp) {
+          inp.classList.add('border-rose-500', 'bg-rose-50');
+          setTimeout(() => {
+            inp.classList.remove('border-rose-500', 'bg-rose-50');
+          }, 1500);
+          inp.focus();
+        }
+      }
+    };
+
+    window.lockAdminChangelog = function() {
+      localStorage.removeItem('tabletop_admin_authenticated');
+      if (typeof adminUnlocked !== 'undefined') {
+        adminUnlocked = false;
+      }
+      window.syncVersionModalAdminGuard();
+      if (typeof showToast === 'function') {
+        showToast('🔒 Đã khóa lại giao diện Nhật Ký Phiên Bản (Admin).');
+      }
+    };
 
     // App Initialization
     

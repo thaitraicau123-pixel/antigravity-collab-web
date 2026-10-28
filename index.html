@@ -3557,7 +3557,7 @@
                 <span class="text-xs sm:text-sm font-black font-chakra uppercase tracking-widest text-rose-400">TRẠI GIAM HOÀNG GIA</span>
                 <span class="text-xl">🚨</span>
               </div>
-              <span class="text-xl sm:text-2xl font-black font-cinzel text-white tracking-wide text-center uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+              <span class="text-xl sm:text-2xl font-black font-cinzel text-white tracking-wide text-center uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]" id="monoJailGateTitle">
                 CÁNH CỬA SẮT ĐÃ SẬP XUỐNG!
               </span>
             </div>
@@ -3565,7 +3565,7 @@
             <!-- Subtitle Reason -->
             <div class="z-30 mb-2 bg-black/80 px-5 py-2 rounded-xl border border-white/20 text-center max-w-md">
               <p id="monoJailGateReason" class="text-xs sm:text-sm text-amber-200 font-bold leading-relaxed">
-                Người chơi bị tống giam 3 lượt hoặc phải đổ đôi / nộp $500 để bảo lãnh!
+                Người chơi bị tống giam 2 lượt hoặc phải đổ đôi / nộp $250 để bảo lãnh!
               </p>
             </div>
           </div>
@@ -3646,7 +3646,45 @@
 
         </div>
 
-        <!-- ================= SCREEN-SPACE DYNAMIC CASH TRANSFER OVERLAY (Bank / Rent Transfer) ================= -->
+        
+        <!-- ================= SCREEN-SPACE WORLD TOUR AIRPORT SELECTION MODAL (Tile 22 Sân Bay) ================= -->
+        <div id="monoWorldTourFlightModal" class="hidden absolute inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md animate-fade-in select-none">
+          <div class="relative w-full max-w-lg rounded-3xl border-2 border-sky-400/80 bg-gradient-to-b from-[#0a192f] via-[#071322] to-[#040d1a] shadow-[0_0_60px_rgba(14,165,233,0.5)] p-5 sm:p-6 flex flex-col gap-4 text-white">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between border-b border-sky-500/30 pb-3">
+              <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-2xl bg-sky-500/20 border border-sky-400 flex items-center justify-center text-2xl shadow-inner animate-pulse">
+                  ✈️
+                </div>
+                <div>
+                  <h3 class="text-base sm:text-lg font-black font-chakra text-sky-300 uppercase tracking-wide flex items-center gap-2">
+                    <span>SÂN BAY WORLD TOUR</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400 text-emerald-300 font-bold">+$300 ĐÃ CỘNG</span>
+                  </h3>
+                  <p class="text-[11px] text-slate-300 font-medium">Chọn địa điểm để chuyên cơ siêu âm đưa bạn hạ cánh ngay lập tức:</p>
+                </div>
+              </div>
+              <button onclick="closeMonoWorldTourFlightModal(true)" class="p-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white text-xs cursor-pointer border border-slate-700">✕</button>
+            </div>
+
+            <!-- Strategic Flight Destinations Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left" id="monoWorldTourDestList">
+              <!-- Rendered dynamically by JS -->
+            </div>
+
+            <!-- Footer Action & Timer -->
+            <div class="flex items-center justify-between pt-2 border-t border-sky-500/20 text-xs">
+              <span id="monoWorldTourTimerText" class="text-slate-400 font-chakra text-[11px] flex items-center gap-1.5">
+                <span>⏱️ Tự động cất cánh sau:</span> <b class="text-amber-400 font-bold text-xs" id="monoWorldTourCountdown">15s</b>
+              </span>
+              <button onclick="handleMonoWorldTourRandomClick()" class="btn-spring px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs shadow-md cursor-pointer flex items-center gap-1.5">
+                <span>🎲 Bay Ngẫu Nhiên</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+<!-- ================= SCREEN-SPACE DYNAMIC CASH TRANSFER OVERLAY (Bank / Rent Transfer) ================= -->
         <div id="monoCashTransferOverlay" class="hidden absolute inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in pointer-events-none select-none">
           
           <div class="w-full max-w-xl bg-[#0B132B]/98 border-2 border-amber-400 rounded-3xl p-6 sm:p-7 shadow-[0_0_60px_rgba(0,0,0,0.95)] flex flex-col items-center">
@@ -13952,6 +13990,17 @@ function getRainbowChanceWheelSVG() {
       const curPlayer = data.player || (monoState && monoState.players ? monoState.players[monoState.turn] : null);
       if (!curPlayer || curPlayer.isBankrupt) return;
 
+      // Online Multiplayer Turn Protection: Tuyệt đối KHÔNG hiển thị Decision Dialog cho người không có lượt!
+      const isOnline = Boolean(window.isOnlineRoomMatch);
+      const isLocalTurn = isOnline ? (curPlayer && curPlayer.id === window.myRoomPlayerIndex) : (curPlayer && !curPlayer.isBot);
+
+      if (isOnline && !isLocalTurn) {
+        box.classList.add('hidden');
+        box.classList.remove('flex');
+        monoState.pendingAction = null;
+        return;
+      }
+
       const isBotOrAuto = Boolean(curPlayer.isBot || window.monoAutoPlay);
       const spd = window.monoSpeed || (monoState && monoState.speed) || 1;
       const actionDelay = Math.max(600, Math.round(1000 / spd));
@@ -14798,6 +14847,16 @@ function playMonoDiceTumbleSFX(durationMs) {
         monoState.doublesStreak = 0;
         updateMonopolyPawns();
 
+        if (window.isOnlineRoomMatch && typeof window.pushOnlineGameState === 'function') {
+          window.pushOnlineGameState('monopoly', {
+            actionType: 'JAIL_EVENT',
+            prisonerId: player.id,
+            prisonerName: player.name,
+            reason: 'Dừng chân tại ô Vô Tù! Cánh cửa sắt đã khóa chặt 2 lượt!',
+            toast: `🚨 ${player.name} bị áp giải vào Trại Giam Alcatraz (2 lượt)!`
+          });
+        }
+
         triggerMonoJailGateAnimation({
           player: player,
           reason: 'Dừng chân tại ô Vô Tù! Cánh cửa sắt đã khóa chặt 2 lượt!',
@@ -14813,6 +14872,33 @@ function playMonoDiceTumbleSFX(durationMs) {
             });
           }
         });
+      } else if (landedTile.type === 'airport') {
+        // WORLD TOUR AIRPORT (SÂN BAY QUỐC TẾ - Ô 22)
+        const airportStipend = 300;
+        player.cash += airportStipend;
+        triggerMonoFloatingCash(player.id, airportStipend);
+        updateMonopolyHUD();
+        try { soundTone(660, 'triangle', 0.2, 0.25); } catch(e) {}
+        showToast(`✈️ ${player.name} tới Sân Bay World Tour: Nhận trợ cấp du lịch +${airportStipend}!`);
+        if (typeof addBattleLog === 'function') {
+          addBattleLog(`✈️ <b>${player.name}</b> ghé thăm Sân Bay World Tour, nhận trợ cấp du lịch <b class="text-emerald-400">+${airportStipend}</b>!`, 'warp');
+        }
+
+        const isOnline = Boolean(window.isOnlineRoomMatch);
+        const isMyTurn = isOnline ? (player.id === window.myRoomPlayerIndex) : !player.isBot;
+
+        if (isBotOrAuto || !isMyTurn) {
+          // Bot hoặc Auto-Play hoặc Remote Player: Chọn điểm đến chiến lược tự động sau 1 giây
+          const destTile = getMonoStrategicAirportDest(player);
+          const flightDelay = Math.max(600, Math.round(1000 / spd));
+          if (monoState.botTimeoutId) clearTimeout(monoState.botTimeoutId);
+          monoState.botTimeoutId = setTimeout(() => {
+            executeMonoAirportFlight(player, destTile);
+          }, flightDelay);
+        } else {
+          // Người chơi thật: Mở Modal chọn chuyến bay World Tour
+          openMonoWorldTourFlightModal(player);
+        }
       } else if (landedTile.type === 'start') {
         // Landing on START bonus
         showToast(`🏁 ${player.name} VỀ ĐÍCH XUẤT PHÁT! Nhận lương thương mại +$${BUSINESS_TOUR_SALARY}!`);
@@ -16405,81 +16491,80 @@ function renderCashStackHTML(amount) {
     
     function triggerMonoJailGateAnimation(opts) {
       opts = opts || {};
-      const player = opts.player;
-      const reason = opts.reason;
+      const player = opts.player || (monoState && monoState.players ? monoState.players[monoState.turn] : null);
       const onComplete = opts.onComplete;
-      const onDone = opts.onDone;
-      const doneCb = (typeof onDone === 'function') ? onDone : (typeof onComplete === 'function' ? onComplete : null);
-
       const overlay = document.getElementById('monoJailGateOverlay') || document.getElementById('monoJailOverlay');
+
+      const isOnline = Boolean(window.isOnlineRoomMatch);
+      const isMe = isOnline ? (player && player.id === window.myRoomPlayerIndex) : (player && !player.isBot);
+
       if (window.monoAutoPlay) {
         if (overlay) {
           overlay.classList.add('hidden');
           overlay.classList.remove('flex');
         }
-        if (reason) {
-          showToast(`⛓️ ${player ? player.name : 'Người chơi'}: ${reason}`);
-          if (typeof addBattleLog === 'function') addBattleLog(`⛓️ <b>${player ? player.name : 'Người chơi'}</b>: ${reason}`, 'jail');
-        }
-        if (doneCb) {
+        if (onComplete) {
           const delay = Math.max(15, Math.round(80 / (window.monoSpeed || monoState.speed || 1)));
-          setTimeout(() => doneCb(), delay);
+          setTimeout(() => onComplete(), delay);
         }
         return;
       }
 
       if (!overlay) {
-        if (doneCb) doneCb();
+        if (onComplete) onComplete();
         return;
       }
 
       const leftGate = document.getElementById('monoJailGateLeft');
       const rightGate = document.getElementById('monoJailGateRight');
       const padlock = document.getElementById('monoJailPadlock');
-      const gateBox = document.getElementById('monoJailGateBox');
       const reasonEl = document.getElementById('monoJailGateReason');
+      const titleEl = document.getElementById('monoJailGateTitle');
 
-      if (reasonEl && reason) {
-        reasonEl.textContent = reason;
+      if (titleEl) {
+        titleEl.textContent = isMe ? '🚨 BẠN ĐÃ BỊ TẠM GIAM! 🚨' : `🚨 ${player ? player.name.toUpperCase() : 'NGƯỜI CHƠI'} ĐÃ BỊ TẠM GIAM! 🚨`;
       }
 
-      // 1. Show overlay first and force reflow so children have non-zero geometry
+      if (reasonEl) {
+        reasonEl.textContent = opts.reason || (isMe
+          ? 'Bạn bị tạm giam 2 lượt hoặc phải đổ số đôi / nộp $250 để bảo lãnh!'
+          : `${player ? player.name : 'Người chơi'} bị tạm giam 2 lượt hoặc phải đổ số đôi / nộp $250 để bảo lãnh!`);
+      }
+
+      // Reset & Trigger Screen Space Gate Slam
       overlay.classList.remove('hidden');
       overlay.classList.add('flex');
-      void overlay.offsetWidth;
 
-      // 2. Trigger keyframe animations
       if (leftGate) {
-        leftGate.classList.remove('mono-gate-slam-left');
+        leftGate.classList.remove('mono-jail-gate-left-slam');
         void leftGate.offsetWidth;
-        leftGate.classList.add('mono-gate-slam-left');
+        leftGate.classList.add('mono-jail-gate-left-slam');
       }
       if (rightGate) {
-        rightGate.classList.remove('mono-gate-slam-right');
+        rightGate.classList.remove('mono-jail-gate-right-slam');
         void rightGate.offsetWidth;
-        rightGate.classList.add('mono-gate-slam-right');
+        rightGate.classList.add('mono-jail-gate-right-slam');
       }
       if (padlock) {
-        padlock.classList.remove('mono-padlock-snap');
+        padlock.classList.remove('mono-jail-padlock-lock');
         void padlock.offsetWidth;
-        padlock.classList.add('mono-padlock-snap');
-      }
-      if (gateBox) {
-        gateBox.classList.remove('mono-gate-screen-shake');
-        void gateBox.offsetWidth;
-        gateBox.classList.add('mono-gate-screen-shake');
+        padlock.classList.add('mono-jail-padlock-lock');
       }
 
-      // 3. Synthesized Heavy Metallic Clang + Padlock Snap Sound
+      const gateBox = document.getElementById('monoJailGateBox');
+      if (gateBox) {
+        gateBox.classList.remove('screen-shake');
+        void gateBox.offsetWidth;
+        gateBox.classList.add('screen-shake');
+      }
+
+      // Synthesized Heavy Metallic Clang + Padlock Snap Sound
       try {
-        // 0s: Metal sliding scrape
         soundTone(160, 'sawtooth', 0.2, 0.2);
-        // 0.42s: Massive Heavy Metallic Gate Impact
         setTimeout(() => {
           soundTone(110, 'sawtooth', 0.35, 0.4);
           soundTone(720, 'square', 0.25, 0.3);
         }, 420);
-        // 0.65s: Sharp Solid Padlock Click
         setTimeout(() => {
           soundTone(1280, 'sine', 0.12, 0.25);
         }, 650);
@@ -16497,11 +16582,12 @@ function renderCashStackHTML(amount) {
 
     function triggerMonoAirplaneFlyby(opts) {
       opts = opts || {};
-      const player = opts.player;
-      const destTile = opts.destTile;
-      const onComplete = opts.onComplete;
-      const onDone = opts.onDone;
-      const doneCb = (typeof onDone === 'function') ? onDone : (typeof onComplete === 'function' ? onComplete : null);
+      const player = opts.player || (monoState && monoState.players ? monoState.players[monoState.turn] : null);
+      const destTile = opts.destTile || monoState.tiles[0];
+      const onComplete = opts.onComplete || opts.onDone;
+
+      const isOnline = Boolean(window.isOnlineRoomMatch);
+      const isMe = isOnline ? (player && player.id === window.myRoomPlayerIndex) : (player && !player.isBot);
 
       const overlay = document.getElementById('monoAirplaneOverlay');
       if (window.monoAutoPlay) {
@@ -16516,15 +16602,16 @@ function renderCashStackHTML(amount) {
           showToast(`✈️ World Tour! ${player.name} bay thẳng tới ${destTile.name}!`);
           if (typeof addBattleLog === 'function') addBattleLog(`✈️ <b>${player.name}</b> bay tới <b>${destTile.name}</b>!`, 'warp');
         }
-        if (doneCb) {
+        if (onComplete) {
           const delay = Math.max(15, Math.round(80 / (window.monoSpeed || monoState.speed || 1)));
-          setTimeout(() => doneCb(), delay);
+          setTimeout(() => onComplete(), delay);
         }
         return;
       }
 
       if (!overlay) {
-        if (doneCb) doneCb();
+        if (player && destTile) player.pos = destTile.id;
+        if (onComplete) onComplete();
         return;
       }
 
@@ -16534,7 +16621,9 @@ function renderCashStackHTML(amount) {
 
       if (destNameEl) destNameEl.textContent = destTile.name;
       if (bannerTextEl) {
-        bannerTextEl.innerHTML = `Bạn đang bay đến ô <span class="text-amber-400 font-black uppercase">${destTile.name}</span>.`;
+        bannerTextEl.innerHTML = isMe
+          ? `Bạn đang bay đến ô <span class="text-amber-400 font-black uppercase">${destTile.name}</span>.`
+          : `${player.name} đang bay đến ô <span class="text-amber-400 font-black uppercase">${destTile.name}</span>.`;
       }
 
       if (jetAnim) {
@@ -16554,6 +16643,7 @@ function renderCashStackHTML(amount) {
       overlay.classList.add('flex');
 
       // After 2.0s airplane passes, fly pawn directly to destination tile!
+      const flightDuration = Math.max(250, Math.round(2050 / (window.monoSpeed || monoState.speed || 1)));
       setTimeout(() => {
         overlay.classList.add('hidden');
         overlay.classList.remove('flex');
@@ -16565,9 +16655,173 @@ function renderCashStackHTML(amount) {
         showToast(`✈️ ${player.name} đã hạ cánh an toàn tại ${destTile.name}!`);
 
         if (onComplete) onComplete();
-      }, Math.max(250, Math.round(2050 / (window.monoSpeed || monoState.speed || 1))));
+      }, flightDuration);
     }
     window.triggerMonoAirplaneFlyby = triggerMonoAirplaneFlyby;
+
+    // =========================================================================
+    // WORLD TOUR AIRPORT FLIGHT CONTROLLERS (Tile 22 Sân Bay Quốc Tế)
+    // =========================================================================
+    let monoWorldTourTimer = null;
+
+    function getMonoStrategicAirportDest(player) {
+      if (!monoState || !monoState.tiles) return { id: 0, name: 'START' };
+      // 1. Tìm ô thành phố chưa có chủ có giá trị cao nhất mà player đủ tiền mua
+      const unownedCities = monoState.tiles.filter(t => t.type === 'city' && t.owner === null && player.cash >= t.price);
+      if (unownedCities.length > 0) {
+        unownedCities.sort((a, b) => b.price - a.price);
+        return unownedCities[0];
+      }
+      // 2. Tìm ô resort (station) chưa ai mua
+      const unownedResorts = monoState.tiles.filter(t => t.type === 'station' && t.owner === null && player.cash >= t.price);
+      if (unownedResorts.length > 0) {
+        return unownedResorts[0];
+      }
+      // 3. Tìm ô đất của mình có thể nâng cấp Landmark
+      const myUpgradable = monoState.tiles.filter(t => t.type === 'city' && t.owner === player.id && (t.level || 0) < 3);
+      if (myUpgradable.length > 0) {
+        return myUpgradable[0];
+      }
+      // 4. Bay về START (id: 0) để nhận thêm lương $400
+      const startTile = monoState.tiles.find(t => t.type === 'start') || monoState.tiles[0];
+      return startTile;
+    }
+    window.getMonoStrategicAirportDest = getMonoStrategicAirportDest;
+
+    function executeMonoAirportFlight(player, destTile) {
+      closeMonoWorldTourFlightModal(false);
+      if (!player || !destTile) {
+        finishMonoTurn();
+        return;
+      }
+
+      // Broadcast chuyến bay tới các máy khác trong phòng online
+      if (window.isOnlineRoomMatch && typeof window.pushOnlineGameState === 'function') {
+        window.pushOnlineGameState('monopoly', {
+          actionType: 'AIRPLANE_FLIGHT',
+          flyerId: player.id,
+          flyerName: player.name,
+          destTileId: destTile.id,
+          destTileName: destTile.name,
+          toast: `✈️ ${player.name} thực hiện chuyến bay World Tour tới ${destTile.name}!`
+        });
+      }
+
+      triggerMonoAirplaneFlyby({
+        player: player,
+        destTile: destTile,
+        onComplete: () => {
+          handleMonoLanding(player);
+        }
+      });
+    }
+    window.executeMonoAirportFlight = executeMonoAirportFlight;
+
+    function openMonoWorldTourFlightModal(player) {
+      const modal = document.getElementById('monoWorldTourFlightModal');
+      const listEl = document.getElementById('monoWorldTourDestList');
+      const countdownEl = document.getElementById('monoWorldTourCountdown');
+      if (!modal || !listEl) {
+        executeMonoAirportFlight(player, getMonoStrategicAirportDest(player));
+        return;
+      }
+
+      // Build strategic destinations
+      const startTile = monoState.tiles.find(t => t.type === 'start') || monoState.tiles[0];
+      const bestCity = getMonoStrategicAirportDest(player);
+      const resorts = monoState.tiles.filter(t => t.type === 'station');
+      const targetResort = resorts.find(r => r.owner === null) || resorts[0];
+      const luckyTile = monoState.tiles.find(t => t.type === 'chance') || monoState.tiles[7];
+
+      const options = [
+        {
+          tile: startTile,
+          badge: '🏁 VẠCH XUẤT PHÁT',
+          title: 'Nhận Lương +$400',
+          desc: 'Bay thẳng về START để nhận lương thương mại lập tức',
+          color: 'border-lime-500/50 hover:border-lime-400 bg-lime-950/40 text-lime-300'
+        },
+        {
+          tile: bestCity,
+          badge: '🏙️ ĐẤT TIỀM NĂNG',
+          title: bestCity.name,
+          desc: bestCity.owner === null ? `Mua ngay giá ${bestCity.price.toLocaleString()}` : `Cấp ${bestCity.level || 1} - Nâng cấp Landmark`,
+          color: 'border-amber-500/50 hover:border-amber-400 bg-amber-950/40 text-amber-300'
+        },
+        {
+          tile: targetResort,
+          badge: '🏖️ KHU RESORT',
+          title: targetResort.name,
+          desc: targetResort.owner === null ? `Thâu tóm resort ${targetResort.price.toLocaleString()}` : 'Ghé thăm bãi biển nghỉ dưỡng',
+          color: 'border-cyan-500/50 hover:border-cyan-400 bg-cyan-950/40 text-cyan-300'
+        },
+        {
+          tile: luckyTile,
+          badge: '🎡 VÒNG QUAY MAY MẮN',
+          title: luckyTile.name,
+          desc: 'Rút 1 Thẻ May Mắn Hoàng Gia 3D',
+          color: 'border-purple-500/50 hover:border-purple-400 bg-purple-950/40 text-purple-300'
+        }
+      ];
+
+      let html = '';
+      options.forEach(opt => {
+        html += `<button onclick="executeMonoAirportFlight(monoState.players[${player.id}], monoState.tiles[${opt.tile.id}])" class="btn-spring p-3 rounded-2xl border ${opt.color} flex flex-col gap-1 transition-all cursor-pointer shadow-sm text-left group">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-black uppercase tracking-wider">${opt.badge}</span>
+            <span class="text-xs group-hover:translate-x-1 transition-transform">➡️</span>
+          </div>
+          <div class="text-sm font-black font-chakra text-white group-hover:text-amber-300">${opt.title}</div>
+          <div class="text-[10px] text-slate-300 line-clamp-1">${opt.desc}</div>
+        </button>`;
+      });
+      listEl.innerHTML = html;
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      // 15s Countdown Timer
+      let secLeft = 15;
+      if (countdownEl) countdownEl.textContent = secLeft + 's';
+      if (monoWorldTourTimer) clearInterval(monoWorldTourTimer);
+      monoWorldTourTimer = setInterval(() => {
+        secLeft--;
+        if (countdownEl) countdownEl.textContent = secLeft + 's';
+        if (secLeft <= 0) {
+          clearInterval(monoWorldTourTimer);
+          monoWorldTourTimer = null;
+          executeMonoAirportFlight(player, bestCity);
+        }
+      }, 1000);
+    }
+    window.openMonoWorldTourFlightModal = openMonoWorldTourFlightModal;
+
+    function closeMonoWorldTourFlightModal(autoPick = true) {
+      if (monoWorldTourTimer) {
+        clearInterval(monoWorldTourTimer);
+        monoWorldTourTimer = null;
+      }
+      const modal = document.getElementById('monoWorldTourFlightModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+      if (autoPick && monoState && monoState.players) {
+        const curP = monoState.players[monoState.turn];
+        if (curP) executeMonoAirportFlight(curP, getMonoStrategicAirportDest(curP));
+      }
+    }
+    window.closeMonoWorldTourFlightModal = closeMonoWorldTourFlightModal;
+
+    function handleMonoWorldTourRandomClick() {
+      if (!monoState || !monoState.tiles) return;
+      const curP = monoState.players[monoState.turn];
+      const validTiles = monoState.tiles.filter(t => t.type !== 'gotojail' && t.id !== 22);
+      const randTile = validTiles[Math.floor(Math.random() * validTiles.length)];
+      executeMonoAirportFlight(curP, randTile);
+    }
+    window.handleMonoWorldTourRandomClick = handleMonoWorldTourRandomClick;
+
 
 
     // Click on Central Arena Turf to roll (Maximal hit area)
@@ -23479,6 +23733,41 @@ function renderCashStackHTML(amount) {
       const payload = matchState.payload;
 
       if (gameType === 'monopoly') {
+        // A0. Real-Time Airport Flight Broadcast
+        if (payload.actionType === 'AIRPLANE_FLIGHT') {
+          if (payload.toast) showToast(payload.toast);
+          const flyer = (monoState && monoState.players) ? (monoState.players[payload.flyerId] || null) : null;
+          const destTile = (monoState && monoState.tiles) ? (monoState.tiles[payload.destTileId] || null) : null;
+          if (flyer && destTile) {
+            triggerMonoAirplaneFlyby({
+              player: flyer,
+              destTile: destTile,
+              onComplete: () => {
+                updateMonopolyPawns();
+                updateMonopolyHUD();
+              }
+            });
+          }
+          return;
+        }
+
+        // A0.5. Real-Time Jail Event Broadcast
+        if (payload.actionType === 'JAIL_EVENT') {
+          if (payload.toast) showToast(payload.toast);
+          const prisoner = (monoState && monoState.players) ? (monoState.players[payload.prisonerId] || null) : null;
+          if (prisoner) {
+            prisoner.pos = 11;
+            prisoner.inJail = 2;
+            updateMonopolyPawns();
+            updateMonopolyHUD();
+            triggerMonoJailGateAnimation({
+              player: prisoner,
+              reason: payload.reason || `${prisoner.name} bị áp giải vào Trại Giam 2 lượt!`
+            });
+          }
+          return;
+        }
+
         // A. Real-Time Pre-Move Broadcast: Opponent rolled the dice!
         if (payload.actionType === 'CARD_DRAWN') {
           if (payload.toast) showToast(payload.toast);
@@ -23562,6 +23851,23 @@ function renderCashStackHTML(amount) {
         }
         if (typeof payload.turn === 'number') monoState.turn = payload.turn;
         if (typeof payload.round === 'number') monoState.round = payload.round;
+
+        // Phân quyền Decision Box trong Multiplayer: Chỉ người có lượt mới mở box lựa chọn trong tù!
+        if (window.isOnlineRoomMatch) {
+          const myRoomIdx = window.myRoomPlayerIndex;
+          if (monoState.turn === myRoomIdx) {
+            const myP = monoState.players[myRoomIdx];
+            if (myP && myP.inJail > 0) {
+              setMonoDialogMode('ready');
+            }
+          } else {
+            const dBox = document.getElementById('mono2dDecisionBox') || document.getElementById('monoDecisionBox');
+            if (dBox) {
+              dBox.classList.add('hidden');
+              dBox.classList.remove('flex');
+            }
+          }
+        }
         if (typeof payload.lastRollSum === 'number') monoState.lastRollSum = payload.lastRollSum;
 
         if (payload.d1 && payload.d2) {

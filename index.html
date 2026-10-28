@@ -1443,8 +1443,8 @@
   </div>
 
   <!-- ================= TOP NAVIGATION BAR ================= -->
-  <header class="sticky top-0 z-40 w-full bg-white/92 backdrop-blur-xl border-b-2 border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.06)] px-2 sm:px-4 lg:px-6 py-2.5">
-    <div class="w-full max-w-[1600px] mx-auto px-2 sm:px-4 lg:px-6 flex items-center justify-between gap-2 sm:gap-4">
+  <header class="sticky top-0 z-40 w-full bg-white/92 backdrop-blur-xl border-b-2 border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.06)] px-2 sm:px-4 lg:px-6 py-2">
+    <div class="w-full max-w-[1600px] mx-auto flex items-center justify-between gap-1.5 sm:gap-3">
       
       <!-- Left: Brand Logo & Navigation Tabs -->
       <div class="flex items-center gap-3 sm:gap-5 shrink-0">
@@ -1507,43 +1507,34 @@
         </nav>
       </div>
 
-      <!-- Center: Arena Live Status & Season 1 Widget (Bố cục 3 cột vàng khoa học, cân đối, triệt tiêu khoảng trống thừa) -->
-      <div class="hidden xl:flex items-center justify-center flex-1 max-w-md mx-2">
-        <div class="flex items-center gap-2.5 px-3.5 py-1.5 rounded-2xl bg-white/90 border-2 border-emerald-300 shadow-xs text-xs font-black select-none hover:border-emerald-400 hover:shadow-sm transition-all cursor-default group" title="Đấu Trường Trực Tuyến • Mùa 1 Hoàng Kim">
-          <span class="relative flex h-2.5 w-2.5 shrink-0">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.9)]"></span>
-          </span>
-          <div class="flex items-center gap-1.5 text-slate-800">
-            <!-- ICON THIẾT KẾ RIÊNG BIỆT ĐỘC BẢN: Đấu Trường Cờ Hoàng Kim & Thanh Kiếm Giao Nhau (Inline SVG bespoke, không dùng Lucide hay Emoji) -->
-            <svg class="w-4 h-4 text-emerald-700 shrink-0 filter drop-shadow-[0_1px_2px_rgba(4,120,87,0.2)]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="liveSwordsGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="#10B981"/>
-                  <stop offset="100%" stop-color="#047857"/>
-                </linearGradient>
-              </defs>
-              <path d="M14.5 4.5l5 5L7 22l-4-1 1-4 10.5-12.5z" stroke="url(#liveSwordsGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M18.5 8.5L15 5" stroke="#047857" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="M9.5 4.5l-5 5L17 22l4-1-1-4L9.5 4.5z" stroke="url(#liveSwordsGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M5.5 8.5L9 5" stroke="#047857" stroke-width="1.8" stroke-linecap="round"/>
-              <circle cx="12" cy="12" r="1.5" fill="#F59E0B" stroke="#B45309" stroke-width="0.5"/>
-            </svg>
-            <span class="font-extrabold text-slate-800 tracking-tight whitespace-nowrap">1,420 Kỳ Thủ Đang Đấu</span>
-            <span class="text-slate-300 font-bold">•</span>
-            <span class="px-2 py-0.5 rounded-md bg-amber-100 border border-amber-300 text-amber-900 font-black text-[10px] font-mono tracking-wider uppercase whitespace-nowrap shadow-2xs group-hover:bg-amber-200/80 transition-colors">Mùa 1</span>
-          </div>
-        </div>
+      <!-- Center: Royal Season 1 Emblem (Khung Mùa 1 Hoàng Kim Tinh Gọn Độc Bản) -->
+      <div class="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-xl bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-100/90 border-2 border-amber-400/80 shadow-xs text-xs font-black select-none hover:border-amber-500 hover:shadow-sm transition-all cursor-default group shrink-0" title="Đấu Trường Cờ Bàn Thượng Hạng • Mùa 1 Hoàng Kim">
+        <!-- Icon Vương Miện Hoàng Gia SVG Độc Bản (Bespoke Handcrafted SVG) -->
+        <svg class="w-4 h-4 text-amber-600 filter drop-shadow-[0_1px_2px_rgba(217,119,6,0.3)] group-hover:scale-110 transition-transform shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="m1CrownGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#FBBF24"/>
+              <stop offset="50%" stop-color="#F59E0B"/>
+              <stop offset="100%" stop-color="#B45309"/>
+            </linearGradient>
+          </defs>
+          <path d="M3 18h18l-2-10-4.5 4.5L12 4l-2.5 8.5L5 8l-2 10z" fill="url(#m1CrownGrad)" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+          <circle cx="12" cy="4" r="1.5" fill="#FEF08A" stroke="#78350F" stroke-width="0.6"/>
+          <circle cx="5" cy="8" r="1.2" fill="#FEF08A" stroke="#78350F" stroke-width="0.6"/>
+          <circle cx="19" cy="8" r="1.2" fill="#FEF08A" stroke="#78350F" stroke-width="0.6"/>
+          <rect x="4" y="18" width="16" height="2.5" rx="1.2" fill="#78350F" stroke="#FDE68A" stroke-width="0.5"/>
+        </svg>
+        <span class="font-cinzel text-amber-950 font-black text-xs tracking-wider uppercase whitespace-nowrap">MÙA 1</span>
       </div>
 
       <!-- Right: Utility Controls & User Profile -->
-      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+      <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
         
         <!-- Version & Contributor Changelog Pill -->
         <!-- Multiplayer Room Button in Global Header -->
-        <button onclick="openMultiplayerModal()" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-50 border-2 border-cyan-400 text-xs font-black text-cyan-900 hover:bg-cyan-100 hover:border-cyan-500 transition-all shadow-sm cursor-pointer" title="Tạo hoặc vào phòng chơi nhiều người qua mã 6 số / P2P">
+        <button onclick="openMultiplayerModal()" class="btn-spring flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-cyan-50 border-2 border-cyan-400 text-xs font-black text-cyan-900 hover:bg-cyan-100 hover:border-cyan-500 transition-all shadow-sm cursor-pointer shrink-0" title="Tạo hoặc vào phòng chơi nhiều người qua mã 6 số / P2P">
           <i data-lucide="radio" class="w-3.5 h-3.5 text-cyan-700"></i>
-          <span class="hidden md:inline">Phòng Chơi</span>
+          <span class="hidden xl:inline">Phòng Chơi</span>
           <span class="px-1.5 py-0.2 rounded-md bg-cyan-200/80 text-cyan-950 text-[10px] font-mono font-bold">P2P</span>
         </button>
 
@@ -1582,9 +1573,9 @@
         </button>
 
         <!-- User Authentication & Profile Widget -->
-        <div id="authArea" class="shrink-0 pl-1.5 sm:pl-2 border-l-2 border-slate-200">
+        <div id="authArea" class="shrink-0 mr-1 sm:mr-0 pl-1.5 sm:pl-2.5 border-l-2 border-slate-200">
           <!-- Guest Button -->
-          <button id="btnLoginTrigger" onclick="openAuthModal('signup')" class="btn-spring px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-black text-xs shadow-md shadow-amber-500/30 border-2 border-amber-400/60 flex items-center gap-1.5 whitespace-nowrap">
+          <button id="btnLoginTrigger" onclick="openAuthModal('signup')" class="btn-spring px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-black text-xs shadow-md shadow-amber-500/30 border-2 border-amber-400/60 flex items-center gap-1.5 whitespace-nowrap shrink-0">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
             <span>Đăng ký / Đăng nhập</span>
           </button>
@@ -18325,9 +18316,9 @@ function renderCashStackHTML(amount) {
         const isCurrentActive = (b.id === activeSaved);
         return `
           <button type="button" onclick="selectBeastAvatar('${b.id}')" id="beastCard_${b.id}" class="${isSelected ? 'rounded-2xl p-2.5 sm:p-3 bg-amber-50/80 border-2 border-amber-500 ring-4 ring-amber-400/40 shadow-md scale-[1.02] transition-all duration-200 cursor-pointer flex flex-col items-center group relative text-center active:scale-95' : 'rounded-2xl p-2.5 sm:p-3 bg-white border-2 border-slate-200 hover:border-amber-400 hover:shadow-sm transition-all duration-200 cursor-pointer flex flex-col items-center group relative text-center active:scale-95'}">
-            ${isCurrentActive ? '<span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 text-[8px] font-black uppercase tracking-wider shadow-xs">Đang Dùng</span>' : ''}
             <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden p-0 relative border ${isSelected ? 'border-amber-400' : 'border-slate-300'} group-hover:scale-105 transition-transform duration-200 shadow-xs mb-2 flex items-center justify-center bg-slate-100">
               ${b.svg}
+              ${isCurrentActive ? '<span class="absolute top-1 inset-x-0 mx-auto w-fit px-1.5 py-0.5 rounded-full bg-emerald-600/95 text-white border border-emerald-300 text-[7.5px] font-black uppercase tracking-wider shadow-md backdrop-blur-xs z-10 select-none">Đang Dùng</span>' : ''}
             </div>
             <div class="font-cinzel text-xs font-black ${isSelected ? 'text-amber-900' : 'text-slate-900'} group-hover:text-amber-700 transition-colors line-clamp-1">${b.name}</div>
             <div class="text-[9px] font-bold ${isSelected ? 'text-amber-800' : 'text-slate-600'} line-clamp-1 mt-0.5 font-mono">${b.element}</div>

@@ -1507,8 +1507,8 @@
         </nav>
       </div>
 
-      <!-- Center: Royal Season 1 Emblem (Khung Mùa 1 Hoàng Kim Tinh Gọn Độc Bản) -->
-      <div class="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-xl bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-100/90 border-2 border-amber-400/80 shadow-xs text-xs font-black select-none hover:border-amber-500 hover:shadow-sm transition-all cursor-default group shrink-0" title="Đấu Trường Cờ Bàn Thượng Hạng • Mùa 1 Hoàng Kim">
+      <!-- Center: Royal Season 1 Emblem (Khung Mùa 1 Hoàng Kim Thích Ứng Thông Minh) -->
+      <div id="headerSeasonPillContainer" class="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-xl bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-100/90 border-2 border-amber-400/80 shadow-xs text-xs font-black select-none hover:border-amber-500 hover:shadow-sm transition-all cursor-default group shrink-0" title="Đấu Trường Cờ Bàn Thượng Hạng • Mùa 1 Hoàng Kim">
         <!-- Icon Vương Miện Hoàng Gia SVG Độc Bản (Bespoke Handcrafted SVG) -->
         <svg class="w-4 h-4 text-amber-600 filter drop-shadow-[0_1px_2px_rgba(217,119,6,0.3)] group-hover:scale-110 transition-transform shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -1524,7 +1524,8 @@
           <circle cx="19" cy="8" r="1.2" fill="#FEF08A" stroke="#78350F" stroke-width="0.6"/>
           <rect x="4" y="18" width="16" height="2.5" rx="1.2" fill="#78350F" stroke="#FDE68A" stroke-width="0.5"/>
         </svg>
-        <span class="font-cinzel text-amber-950 font-black text-xs tracking-wider uppercase whitespace-nowrap">MÙA 1</span>
+        <span id="headerSeasonText" class="font-cinzel text-amber-950 font-black text-xs tracking-wider uppercase whitespace-nowrap">MÙA 1</span>
+        <span id="headerSeasonTag" class="hidden px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-500/30 text-amber-900 font-mono text-[10px] font-black uppercase tracking-wider">TRANH BÁ</span>
       </div>
 
       <!-- Right: Utility Controls & User Profile -->
@@ -8258,6 +8259,28 @@
       }
     }
 
+    // Đồng bộ Khung Mùa 1 Thích Ứng Thông Minh: Non-Admin lấp đầy khoảng trống, Admin giữ nguyên chuẩn Ảnh 2
+    window.syncSeasonPillUI = function(isAdmin) {
+      const container = document.getElementById('headerSeasonPillContainer');
+      const textSpan = document.getElementById('headerSeasonText');
+      const tagSpan = document.getElementById('headerSeasonTag');
+      if (!container || !textSpan) return;
+
+      if (isAdmin) {
+        // Chuẩn Phiên Admin (Ảnh 2): Giữ nguyên "MÙA 1" tinh gọn để nhường chỗ cho Version Pill "v4.2.1 ADMIN"
+        textSpan.textContent = 'MÙA 1';
+        if (tagSpan) tagSpan.classList.add('hidden');
+        container.classList.remove('px-3.5', 'py-1.5', 'shadow-sm');
+        container.classList.add('px-3', 'py-1', 'shadow-xs');
+      } else {
+        // Chuẩn Phiên Thường / Khách (Ảnh 1 cải tiến): Mở rộng lấp đầy khoảng trống, hiển thị sang trọng cân xứng
+        textSpan.textContent = 'MÙA 1: HOÀNG KIM';
+        if (tagSpan) tagSpan.classList.remove('hidden');
+        container.classList.remove('px-3', 'py-1', 'shadow-xs');
+        container.classList.add('px-3.5', 'py-1.5', 'shadow-sm');
+      }
+    };
+
     // UI Updates
     window.applyUserUI = function(userData) {
       if (!userData) return;
@@ -8314,6 +8337,9 @@
           footerChangelogItem.classList.add('hidden');
         }
       }
+      if (typeof window.syncSeasonPillUI === 'function') {
+        window.syncSeasonPillUI(isAdmin);
+      }
       if (typeof window.syncVersionModalAdminGuard === 'function') {
         window.syncVersionModalAdminGuard();
       }
@@ -8336,6 +8362,9 @@
       const footerChangelogItem = document.getElementById('footerChangelogItem');
       if (footerChangelogItem) {
         footerChangelogItem.classList.add('hidden');
+      }
+      if (typeof window.syncSeasonPillUI === 'function') {
+        window.syncSeasonPillUI(false);
       }
       if (typeof window.syncVersionModalAdminGuard === 'function') {
         window.syncVersionModalAdminGuard();
@@ -12399,9 +12428,30 @@
 
     const BUSINESS_TOUR_AVATAR_DATA_URLS = BUSINESS_TOUR_AVATAR_SVGS.map(svg => 'data:image/svg+xml;utf8,' + encodeURIComponent(svg));
 
+    window.getActiveUserBeastAvatarSVG = function(extraCls = 'w-full h-full') {
+      const customId = localStorage.getItem('tabletop_custom_avatar') || (window.currentUser && window.currentUser.customAvatar) || 'fire_dragon';
+      if (typeof window.getBeastAvatarSVG === 'function') {
+        return window.getBeastAvatarSVG(customId, extraCls);
+      }
+      return (typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined') ? BUSINESS_TOUR_AVATAR_SVGS[0] : '';
+    };
+
+    window.getActiveUserBeastAvatarDataUrl = function() {
+      const svg = window.getActiveUserBeastAvatarSVG();
+      return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    };
+
     function getBusinessTourCornerPortraitSVG(playerIdx) {
       const idx = Math.max(0, Math.min(3, Number(playerIdx) || 0));
-      // Selected 2D Cartoon Network avatar SVG for Monopoly hero HUD
+      if (idx === 0) {
+        const customId = localStorage.getItem('tabletop_custom_avatar') || (window.currentUser && window.currentUser.customAvatar);
+        if (customId && typeof window.getBeastAvatarSVG === 'function') {
+          return window.getBeastAvatarSVG(customId, 'w-full h-full');
+        }
+        if (typeof window.getActiveUserBeastAvatarSVG === 'function') {
+          return window.getActiveUserBeastAvatarSVG('w-full h-full');
+        }
+      }
       return BUSINESS_TOUR_AVATAR_SVGS[idx] || BUSINESS_TOUR_AVATAR_SVGS[0];
     }
 
@@ -18431,6 +18481,20 @@ function renderCashStackHTML(amount) {
       // Render updated avatars globally
       window.renderAllUserAvatars();
 
+      // Sync active in-game avatars
+      if (window.kittensState && kittensState.players && kittensState.players[0]) {
+        kittensState.players[0].avatar = (typeof window.getActiveUserBeastAvatarDataUrl === 'function') ? window.getActiveUserBeastAvatarDataUrl() : kittensState.players[0].avatar;
+        if (typeof renderKittensArena === 'function' && kittensState.initialized) {
+          renderKittensArena();
+        }
+      }
+      if (typeof updateChessStatusUI === 'function') {
+        updateChessStatusUI();
+      }
+      if (typeof renderMonopolyHUDPods === 'function' && window.monoState && monoState.players && monoState.players.length > 0) {
+        renderMonopolyHUDPods();
+      }
+
       // Audio victory fanfare
       if (typeof soundTone === 'function') {
         soundTone(523.25, 'triangle', 0.1, 0.1);
@@ -18448,6 +18512,11 @@ function renderCashStackHTML(amount) {
 
     window.renderAllUserAvatars = function() {
       const beastId = localStorage.getItem('tabletop_custom_avatar') || 'fire_dragon';
+
+      // Sync BUSINESS_TOUR_AVATAR_DATA_URLS[0]
+      if (typeof BUSINESS_TOUR_AVATAR_DATA_URLS !== 'undefined' && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
+        BUSINESS_TOUR_AVATAR_DATA_URLS[0] = window.getActiveUserBeastAvatarDataUrl();
+      }
 
       // 1. Profile Big Avatar
       const elProfileBig = document.getElementById('profileAvatarBig');
@@ -18477,6 +18546,34 @@ function renderCashStackHTML(amount) {
           p1IconBox.innerHTML = window.getBeastAvatarSVG(beastId, 'w-full h-full object-cover');
           p1IconBox.className = 'w-6 h-6 rounded-md border border-cyan-400/80 flex items-center justify-center shrink-0 overflow-hidden p-0 shadow-sm bg-slate-950';
         }
+      }
+
+      // 5. Cờ Vua FIDE Player Bottom Avatar
+      const chessBottom = document.getElementById('chessBottomAvatar');
+      if (chessBottom && typeof window.getActiveUserBeastAvatarSVG === 'function') {
+        chessBottom.innerHTML = window.getActiveUserBeastAvatarSVG();
+      }
+
+      // 6. Cờ Tỷ Phú Monopoly Player 0 Corner Portrait
+      const monoP0Corner = document.getElementById('monoCornerPortrait_0');
+      if (monoP0Corner && typeof getBusinessTourCornerPortraitSVG === 'function') {
+        monoP0Corner.innerHTML = getBusinessTourCornerPortraitSVG(0);
+      }
+
+      // 7. Game Mèo Nổ / Exploding Kittens Pod 0
+      if (window.kittensState && kittensState.players && kittensState.players[0]) {
+        kittensState.players[0].avatar = (typeof window.getActiveUserBeastAvatarDataUrl === 'function') ? window.getActiveUserBeastAvatarDataUrl() : kittensState.players[0].avatar;
+        const pod0Img = document.querySelector('#kittenPlayerPod_0 img');
+        if (pod0Img) pod0Img.src = kittensState.players[0].avatar;
+        const curAvImg = document.querySelector('#kittenCurrentTurnAvatar img');
+        if (curAvImg && kittensState.currentTurn === 0) curAvImg.src = kittensState.players[0].avatar;
+      }
+
+      // 8. Leaderboard User Avatar
+      const elLb = document.getElementById('leaderboardUserAvatarInTable');
+      if (elLb && typeof window.getActiveUserBeastAvatarSVG === 'function') {
+        elLb.innerHTML = window.getActiveUserBeastAvatarSVG('w-full h-full object-cover');
+        elLb.classList.add('overflow-hidden', 'p-0');
       }
     };
 
@@ -20044,8 +20141,10 @@ function renderCashStackHTML(amount) {
         }
       }
       const bottomAvatar = document.getElementById('chessBottomAvatar');
-      if (bottomAvatar && typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined' && !bottomAvatar.querySelector('svg')) {
-        bottomAvatar.innerHTML = BUSINESS_TOUR_AVATAR_SVGS[0];
+      if (bottomAvatar) {
+        bottomAvatar.innerHTML = (typeof window.getActiveUserBeastAvatarSVG === 'function') 
+          ? window.getActiveUserBeastAvatarSVG('w-full h-full object-cover') 
+          : (typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined' ? BUSINESS_TOUR_AVATAR_SVGS[0] : '');
       }
     }
 
@@ -22201,6 +22300,11 @@ function renderCashStackHTML(amount) {
         }
       }
 
+      // Đồng bộ Khung Mùa 1 Thích Ứng Topbar: Non-Admin lấp khoảng trống, Admin giữ nguyên
+      if (typeof window.syncSeasonPillUI === 'function') {
+        window.syncSeasonPillUI(isAdmin);
+      }
+
       // Đồng bộ hiển thị nút Changelog ở Footer: Chỉ Admin mới thấy
       const footerChangelogItem = document.getElementById('footerChangelogItem');
       if (footerChangelogItem) {
@@ -23743,6 +23847,9 @@ function renderCashStackHTML(amount) {
     };
 
     function getKittenAvatarUrl(playerIdx) {
+      if (playerIdx === 0 && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
+        return window.getActiveUserBeastAvatarDataUrl();
+      }
       if (typeof BUSINESS_TOUR_AVATAR_DATA_URLS !== 'undefined' && BUSINESS_TOUR_AVATAR_DATA_URLS[playerIdx]) {
         return BUSINESS_TOUR_AVATAR_DATA_URLS[playerIdx];
       }
@@ -23763,9 +23870,9 @@ function renderCashStackHTML(amount) {
       // 4 Players Setup (User + 3 AI Bots)
       kittensState.players = [
         { id: 0, name: 'Bạn (Chỉ Huy)', isHuman: true, avatar: getKittenAvatarUrl(0), hand: [], isAlive: true },
-        { id: 1, name: 'Tiên Tinh Linh', isHuman: false, avatar: getKittenAvatarUrl(0), hand: [], isAlive: true },
-        { id: 2, name: 'Kỳ Lân Ngố', isHuman: false, avatar: getKittenAvatarUrl(1), hand: [], isAlive: true },
-        { id: 3, name: 'Rồng Lửa Béo', isHuman: false, avatar: getKittenAvatarUrl(2), hand: [], isAlive: true }
+        { id: 1, name: 'Tiên Tinh Linh', isHuman: false, avatar: getKittenAvatarUrl(1), hand: [], isAlive: true },
+        { id: 2, name: 'Kỳ Lân Ngố', isHuman: false, avatar: getKittenAvatarUrl(2), hand: [], isAlive: true },
+        { id: 3, name: 'Rồng Lửa Béo', isHuman: false, avatar: getKittenAvatarUrl(3), hand: [], isAlive: true }
       ];
 
       // Prepare Initial Safe Pool (50 non-bomb, non-defuse cards)
@@ -23843,6 +23950,9 @@ function renderCashStackHTML(amount) {
       // 1. Update Cockpit Header
       const avEl = document.getElementById('kittenCurrentTurnAvatar');
       if (avEl && pCur) {
+        if (pCur.id === 0 && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
+          pCur.avatar = window.getActiveUserBeastAvatarDataUrl();
+        }
         avEl.innerHTML = `<img src="${pCur.avatar}" class="w-full h-full object-cover" />`;
       }
       const nameEl = document.getElementById('kittenCurrentTurnName');
@@ -23897,6 +24007,9 @@ function renderCashStackHTML(amount) {
       const p0 = kittensState.players[0];
       const pod0 = document.getElementById('kittenPlayerPod_0');
       if (pod0 && p0) {
+        if (typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
+          p0.avatar = window.getActiveUserBeastAvatarDataUrl();
+        }
         const isTurn0 = kittensState.currentTurn === 0 && p0.isAlive;
         pod0.innerHTML = `
           <div class="relative w-9 h-9 rounded-xl overflow-hidden border ${isTurn0 ? 'border-amber-400 kitten-pulse-gold' : 'border-slate-700'} shrink-0">

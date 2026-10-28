@@ -1382,7 +1382,6 @@
     .kitten-flip-back {
       transform: rotateY(0deg);
     }
-    }
 
 
     @keyframes profileTabSmoothFade {
@@ -24656,9 +24655,11 @@ function renderCashStackHTML(amount) {
       switch (cardId) {
         case 'attack':
           // End current player turn immediately without drawing
-          setKittenToast(`⚔️ ${p.name} TẤN CÔNG 2X! Lượt chuyển sang đối thủ tiếp theo với 2 lượt rút!`);
+          // Stacking Attack Turns: Cộng dồn nếu người chơi đang bị Attack
+          const attackTurns = (kittensState.turnsLeftForPlayer > 1) ? (kittensState.turnsLeftForPlayer + 2) : 2;
+          setKittenToast(`⚔️ ${p.name} TẤN CÔNG 2X! Chuyển lượt cho đối thủ tiếp theo với ${attackTurns} lượt rút!`);
           kittensState.isLocked = false;
-          passTurnToNextPlayer(2);
+          passTurnToNextPlayer(attackTurns);
           return;
 
         case 'skip':
@@ -24824,7 +24825,8 @@ function renderCashStackHTML(amount) {
       stealer.hand.push(stolenCard);
 
       const def = window.KITTEN_CARD_DEFS[stolenCard];
-      setKittenToast(`🎉 Bạn đã lấy được lá [${def ? def.name : stolenCard}] từ ${target.name}!`);
+      setKittenToast(`🎴 Bạn đã lấy 1 lá bài úp từ ${target.name}!`);
+      showToast(`🎉 Bạn đã lấy được lá [${def ? def.name : stolenCard}] từ ${target.name}!`);
       renderKittensArena();
       if (typeof soundTone === 'function') soundTone(750, 'triangle', 0.2, 0.25);
     }
@@ -25061,10 +25063,9 @@ function renderCashStackHTML(amount) {
       if (desc) desc.innerHTML = 'Đối thủ đang cầm <strong class="text-amber-400 font-mono font-bold">' + target.hand.length + '</strong> lá bài úp. Hãy chọn 1 lá bài may mắn mà bạn muốn cướp:';
       if (countEl) countEl.textContent = target.hand.length;
 
-      // Render face-down cards with fanned layout and hover tilt
+      // Render face-down cards with zero leak (Front face empty until flipped!)
       const totalCards = target.hand.length;
       container.innerHTML = target.hand.map((cardId, idx) => {
-        const def = window.KITTEN_CARD_DEFS[cardId] || window.KITTEN_CARD_DEFS.beard_cat;
         const offsetFromCenter = idx - (totalCards - 1) / 2;
         const fanRot = Math.round(offsetFromCenter * 3.5);
         const fanY = Math.round(Math.abs(offsetFromCenter) * 4);
@@ -25088,15 +25089,9 @@ function renderCashStackHTML(amount) {
                 <div class="absolute inset-0 bg-amber-400/0 group-hover:bg-amber-400/15 transition-colors pointer-events-none"></div>
               </div>
 
-              <!-- Front Face (Revealed on flip) -->
-              <div class="kitten-flip-front rounded-xl border-2 border-amber-400 shadow-2xl overflow-hidden bg-slate-950">
-                <img src="${def.img}" class="w-full h-full object-cover" />
-                <div class="absolute top-1 left-1">
-                  <span class="px-1.5 py-0.5 rounded text-[8px] font-black uppercase text-white shadow-sm" style="background: ${def.color};">${def.badge}</span>
-                </div>
-                <div class="absolute bottom-0 inset-x-0 p-1.5 bg-gradient-to-t from-black via-black/85 to-transparent text-center">
-                  <span class="text-[10px] font-black text-amber-300 font-cinzel line-clamp-1">${def.name}</span>
-                </div>
+              <!-- Front Face (Blank initially, injected on flip!) -->
+              <div id="blindCardFront_${idx}" class="kitten-flip-front rounded-xl border-2 border-amber-400 shadow-2xl overflow-hidden bg-slate-950 flex items-center justify-center">
+                <div class="text-xs text-amber-400 font-mono animate-pulse">Lật bài...</div>
               </div>
             </div>
           </div>
@@ -25115,6 +25110,7 @@ function renderCashStackHTML(amount) {
 
       const inner = document.getElementById('blindCardInner_' + cardIdx);
       const slot = document.getElementById('blindCardSlot_' + cardIdx);
+      const front = document.getElementById('blindCardFront_' + cardIdx);
       const container = document.getElementById('kittenBlindPickCardsRow');
       const banner = document.getElementById('kittenBlindPickResultBanner');
       const bannerText = document.getElementById('kittenBlindPickResultText');
@@ -25132,25 +25128,39 @@ function renderCashStackHTML(amount) {
         });
       }
 
-      // Flip card to reveal front
-      if (inner) inner.classList.add('is-flipped');
-      if (slot) {
-        slot.style.transform = 'translateY(-12px) rotate(0deg) scale(1.22)';
-        slot.classList.add('z-50');
-        slot.style.boxShadow = '0 0 40px rgba(245, 158, 11, 0.95)';
-      }
-
-      playKittenCardRevealSFX();
-
+      // Splice stolen card from target
       const stolenCard = target.hand.splice(cardIdx, 1)[0];
       const def = window.KITTEN_CARD_DEFS[stolenCard] || window.KITTEN_CARD_DEFS.beard_cat;
 
+      // Inject revealed card data into front face right before flip!
+      if (front) {
+        front.innerHTML = `
+          <img src="${def.img}" class="w-full h-full object-cover" />
+          <div class="absolute top-1 left-1">
+            <span class="px-1.5 py-0.5 rounded text-[8px] font-black uppercase text-white shadow-sm" style="background: ${def.color};">${def.badge}</span>
+          </div>
+          <div class="absolute bottom-0 inset-x-0 p-1.5 bg-gradient-to-t from-black via-black/85 to-transparent text-center">
+            <span class="text-[10px] font-black text-amber-300 font-cinzel line-clamp-1">${def.name}</span>
+          </div>
+        `;
+      }
+
+      // Flip card to reveal front with 3D animation
+      if (inner) {
+        inner.classList.add('is-flipped');
+      }
+      if (slot) {
+        slot.classList.add('scale-115', 'z-40');
+      }
+
+      if (typeof soundTone === 'function') soundTone(780, 'triangle', 0.25, 0.3);
+
       if (banner && bannerText) {
-        bannerText.textContent = '🎉 BẠN ĐÃ BỐC TRÚNG: ' + def.name.toUpperCase() + ' (' + def.badge + ')!';
+        bannerText.innerHTML = '🎉 BẠN VỪA BỐC ĐƯỢC: <b class="text-amber-300 font-chakra text-base uppercase">' + def.name + ' (' + def.badge + ')</b>!';
         banner.classList.remove('hidden');
       }
 
-      // 100% Discard Cat Pair if played
+      // Discard Cat Pair if played
       if (isCatPair && kittensState.pendingCatPair && Array.isArray(kittensState.pendingCatPair)) {
         const sortedIndices = [...kittensState.pendingCatPair].sort((a, b) => b - a);
         sortedIndices.forEach(idx => {
@@ -25176,7 +25186,9 @@ function renderCashStackHTML(amount) {
         closeKittensModal('kittenModalBlindPick');
         kittensState.isLocked = false;
         renderKittensArena();
-        setKittenToast('🎉 Bạn đã tự tay bốc được lá [' + def.name + '] từ ' + target.name + '!');
+        // Thông báo chung bàn đấu chỉ nói đã bốc 1 lá (bí mật với đối thủ):
+        setKittenToast('🎴 ' + stealer.name + ' đã bốc 1 lá bài úp từ ' + target.name + '!');
+        // Thông báo riêng cho bạn biết bạn đã cướp được lá gì:
         showToast('🎉 Bạn đã cướp được lá ' + def.name + ' (' + def.badge + ')!');
       }, 980);
     }
@@ -25289,10 +25301,15 @@ async function executeDrawCard(playerIdx) {
           }
         }
       } else {
-        // Safe card drawn
+        // Safe card drawn - BẢO MẬT: Tuyệt đối không để lộ tên lá bài bốc được cho người khác!
         p.hand.push(drawnCardId);
         const def = window.KITTEN_CARD_DEFS[drawnCardId];
-        setKittenToast(`${p.name} đã rút 1 lá bài an toàn (${def ? def.name : drawnCardId}).`);
+        if (p.isHuman) {
+          setKittenToast(`🃏 ${p.name} đã rút 1 lá bài an toàn từ Chồng bài úp.`);
+          showToast(`🃏 Bạn vừa rút được lá bài: ${def ? def.name : drawnCardId} (${def ? def.badge : ''})`);
+        } else {
+          setKittenToast(`🃏 ${p.name} đã rút 1 lá bài an toàn từ Chồng bài úp.`);
+        }
       }
 
       kittensState.turnsLeftForPlayer--;
@@ -25347,6 +25364,10 @@ async function executeDrawCard(playerIdx) {
       kittensState.currentTurn = nextIdx;
       kittensState.turnsLeftForPlayer = turnsCount;
       renderKittensArena();
+
+      // FIX DỨT ĐIỂM BOT ĐƠ: Tự động kích hoạt bot khi chuyển lượt!
+      kittensState.isLocked = false;
+      checkAndRunBot();
     }
 
     function checkAndRunBot() {

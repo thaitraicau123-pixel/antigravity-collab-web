@@ -1301,8 +1301,11 @@
       20%, 80% { transform: translate3d(5px, 0, 0); }
       30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
       40%, 60% { transform: translate3d(6px, 0, 0); }
+    }
 
     .kitten-card-drawing {
+      position: fixed !important;
+      z-index: 99999 !important;
       position: fixed;
       z-index: 9999;
       pointer-events: none;
@@ -24952,7 +24955,9 @@ function renderCashStackHTML(amount) {
 
     // Feature 1: Flying Card Animation from center draw pile to player hand / bot pod
     function animateKittenCardDraw(playerIdx, onComplete) {
-      playKittenCardDrawSFX();
+      if (typeof playKittenCardDrawSFX === 'function') {
+        playKittenCardDrawSFX();
+      }
 
       const srcEl = document.getElementById('kittenDrawPileTopCard') || document.getElementById('kittenDrawPileBtn');
       const targetEl = (playerIdx === 0)
@@ -24975,14 +24980,22 @@ function renderCashStackHTML(amount) {
         deckBtn.classList.add('kitten-deck-draw-pop');
       }
 
+      // Tạo thẻ bài bay 3D với inline style tuyệt đối chống lỗi layout
       const flyEl = document.createElement('div');
-      flyEl.className = 'kitten-card-drawing border-2 border-amber-400 select-none bg-slate-900';
-      flyEl.style.width = Math.round(srcRect.width) + 'px';
-      flyEl.style.height = Math.round(srcRect.height) + 'px';
+      flyEl.className = 'kitten-card-drawing border-2 border-amber-400 select-none bg-slate-900 shadow-2xl';
+      flyEl.style.position = 'fixed';
+      flyEl.style.zIndex = '99999';
+      flyEl.style.pointerEvents = 'none';
+      flyEl.style.borderRadius = '1rem';
+      flyEl.style.overflow = 'hidden';
+      flyEl.style.width = Math.max(70, Math.round(srcRect.width)) + 'px';
+      flyEl.style.height = Math.max(105, Math.round(srcRect.height)) + 'px';
       flyEl.style.left = Math.round(srcRect.left) + 'px';
       flyEl.style.top = Math.round(srcRect.top) + 'px';
       flyEl.style.transform = 'translate3d(0, 0, 0) scale(1) rotate(0deg)';
-      flyEl.style.boxShadow = '0 0 35px rgba(245, 158, 11, 0.95), 0 25px 50px rgba(0,0,0,0.9)';
+      flyEl.style.boxShadow = '0 0 35px rgba(245, 158, 11, 0.95), 0 25px 50px rgba(0,0,0,0.95)';
+      flyEl.style.transition = 'transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s ease-out';
+      flyEl.style.willChange = 'transform, opacity';
       flyEl.innerHTML = `<img src="${window.KITTEN_CARD_BACK_URI}" class="w-full h-full object-cover pointer-events-none rounded-xl" />`;
       document.body.appendChild(flyEl);
 
@@ -25000,16 +25013,16 @@ function renderCashStackHTML(amount) {
 
       const dx = endX - (srcRect.left + srcRect.width / 2);
       const dy = endY - (srcRect.top + srcRect.height / 2);
-      const targetScale = (playerIdx === 0) ? 0.85 : 0.42;
-      const targetRot = (playerIdx === 0) ? 5 : (playerIdx === 2 ? 0 : playerIdx === 1 ? -12 : 12);
+      const targetScale = (playerIdx === 0) ? 0.9 : 0.45;
+      const targetRot = (playerIdx === 0) ? 6 : (playerIdx === 2 ? 0 : playerIdx === 1 ? -14 : 14);
 
-      // Trigger arc-glide animation
+      // Trigger arc-glide animation with requestAnimationFrame
       requestAnimationFrame(() => {
         flyEl.style.transform = `translate3d(${dx}px, ${dy}px, 0) scale(${targetScale}) rotate(${targetRot}deg)`;
         flyEl.style.opacity = '1';
       });
 
-      // After 560ms: Trigger hand impact bounce & sound tone
+      // After 650ms: Trigger hand impact bounce & sound tone
       setTimeout(() => {
         if (playerIdx === 0) {
           const handContainer = document.getElementById('kittenHandCardsContainer');
@@ -25018,13 +25031,13 @@ function renderCashStackHTML(amount) {
             void handContainer.offsetWidth;
             handContainer.classList.add('kitten-hand-landing-bounce');
           }
-          if (typeof soundTone === 'function') soundTone(620, 'triangle', 0.1, 0.15);
+          if (typeof soundTone === 'function') soundTone(620, 'triangle', 0.12, 0.2);
         }
         if (flyEl && flyEl.parentNode) {
           flyEl.parentNode.removeChild(flyEl);
         }
         if (typeof onComplete === 'function') onComplete();
-      }, 560);
+      }, 650);
     }
     window.animateKittenCardDraw = animateKittenCardDraw;
 

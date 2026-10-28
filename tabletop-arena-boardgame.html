@@ -1423,6 +1423,73 @@
       100% { background-position: 200% 0; }
     }
 
+
+    /* ================= UNO BATTLE ROYALE 3D STYLES ================= */
+    @keyframes unoRotateCw {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes unoRotateCcw {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
+    }
+    @keyframes unoPulseRing {
+      0%, 100% { box-shadow: 0 0 15px rgba(250, 204, 21, 0.4), inset 0 0 10px rgba(250, 204, 21, 0.2); }
+      50% { box-shadow: 0 0 30px rgba(250, 204, 21, 0.85), inset 0 0 20px rgba(250, 204, 21, 0.5); }
+    }
+    @keyframes unoReverseShock {
+      0% { transform: scale(1) rotate(0deg); filter: brightness(1); }
+      50% { transform: scale(1.25) rotate(360deg); filter: brightness(2) drop-shadow(0 0 30px #38bdf8); }
+      100% { transform: scale(1) rotate(720deg); filter: brightness(1); }
+    }
+    @keyframes unoUnoBellShake {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      20% { transform: rotate(-15deg) scale(1.15); }
+      40% { transform: rotate(15deg) scale(1.15); }
+      60% { transform: rotate(-10deg) scale(1.1); }
+      80% { transform: rotate(10deg) scale(1.1); }
+    }
+    .uno-cw-spin {
+      animation: unoRotateCw 14s linear infinite;
+    }
+    .uno-ccw-spin {
+      animation: unoRotateCcw 14s linear infinite;
+    }
+    .uno-reverse-shock {
+      animation: unoReverseShock 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    .uno-bell-ring {
+      animation: unoUnoBellShake 0.7s ease-in-out infinite;
+    }
+    .can-play-card {
+      transform: translateY(-14px);
+      filter: drop-shadow(0 0 12px rgba(250, 204, 21, 0.9)) drop-shadow(0 8px 16px rgba(0,0,0,0.5));
+      cursor: pointer !important;
+      z-index: 20;
+    }
+    .can-play-card:hover {
+      transform: translateY(-26px) scale(1.1) !important;
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 1)) drop-shadow(0 12px 24px rgba(0,0,0,0.6)) !important;
+      z-index: 30;
+    }
+    .cannot-play-card {
+      opacity: 0.68;
+      filter: grayscale(20%);
+    }
+    .cannot-play-card:hover {
+      transform: translateY(-4px) !important;
+      opacity: 0.85;
+    }
+    .uno-table-felt {
+      background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 65%, #020617 100%);
+      box-shadow: inset 0 0 60px rgba(0,0,0,0.8), 0 0 40px rgba(250, 204, 21, 0.15);
+    }
+    .uno-flying-card-anim {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
 </style>
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col antialiased selection:bg-amber-400 selection:text-slate-900 w-full max-w-full overflow-x-hidden">
@@ -1994,6 +2061,54 @@
             <span>CHƠI NGAY (4 NGƯỜI)</span>
           </button>
         </div>
+
+        <!-- Game 6: UNO Battle Royale (108 Lá Bài) -->
+        <div class="group relative rounded-3xl bg-gradient-to-b from-white/95 to-slate-50/90 border-2 border-yellow-400/80 hover:border-yellow-500 p-5 sm:p-6 shadow-xl hover:shadow-2xl hover:shadow-yellow-500/25 transition-all duration-300 flex flex-col justify-between overflow-hidden backdrop-blur-md">
+          <div class="absolute -top-12 -right-12 w-32 h-32 bg-yellow-400/20 rounded-full blur-2xl group-hover:bg-yellow-400/35 transition-all"></div>
+          
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-gradient-to-r from-red-500 via-amber-500 to-blue-500 text-white shadow-sm">
+                SIÊU HOT • 108 LÁ
+              </span>
+              <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-yellow-500/20 via-red-500/20 to-blue-500/20 border-2 border-yellow-500/50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform shrink-0">
+                <svg viewBox="0 0 32 32" class="w-6 h-6 filter drop-shadow-[0_0_8px_rgba(234,179,8,0.7)]" fill="none">
+                  <rect x="3" y="6" width="16" height="22" rx="3" fill="#DC2626" stroke="#FEF08A" stroke-width="1.2" transform="rotate(-15 11 17)"/>
+                  <rect x="13" y="6" width="16" height="22" rx="3" fill="#2563EB" stroke="#FEF08A" stroke-width="1.2" transform="rotate(15 21 17)"/>
+                  <text x="16" y="19" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="10" fill="#FEF08A" stroke="#B91C1C" stroke-width="0.8" text-anchor="middle" font-style="italic">UNO</text>
+                </svg>
+              </div>
+            </div>
+
+            <h3 class="font-cinzel text-base sm:text-lg font-black text-slate-900 mb-1 group-hover:text-amber-600 transition-colors tracking-tight whitespace-nowrap truncate" title="UNO Battle Royale (108 Lá Bài)">
+              UNO Battle Royale (108 Lá Bài)
+            </h3>
+            <p class="text-[11px] text-slate-600 font-semibold mb-3 font-sans truncate" title="Game bài số 1 thế giới! Cấm lượt, Đảo chiều, Dồn phạt +2/+4 và Hô UNO!">
+              Game bài số 1 thế giới! Đảo chiều, Phạt +2/+4 & Hô UNO!
+            </p>
+
+            <div class="space-y-1.5 mb-5 text-[11px] text-slate-800 font-bold">
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
+                <span class="truncate">108 Lá bài Vector SVG HD chuẩn Mattel</span>
+              </div>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
+                <span class="truncate">Đảo chiều 🔄, Cấm lượt 🚫, Dồn phạt +2/+4 💥</span>
+              </div>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
+                <span class="truncate">Đấu trí 4 người kịch tính cùng 3 AI Bot</span>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="enterGameFromLobby('uno')" class="btn-spring w-full py-2.5 sm:py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-red-600 hover:from-amber-400 hover:to-red-500 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-amber-500/35 border-2 border-amber-600 transition-all cursor-pointer whitespace-nowrap">
+            <i data-lucide="play" class="w-3.5 h-3.5 fill-white text-white"></i>
+            <span>CHƠI NGAY (4 NGƯỜI)</span>
+          </button>
+        </div>
+
 
       </div>
 
@@ -4244,6 +4359,282 @@
             </div>
             <button onclick="closeKittensModal('kittenModalRules')" class="mt-6 btn-spring w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs font-mono">
               ĐÃ HIỂU LUẬT
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      
+      <!-- ================= VIEW 6: UNO BATTLE ROYALE (108 LÁ BÀI) ================= -->
+      <div id="unoView" class="hidden relative w-full flex-col items-center justify-center p-2 sm:p-4 my-auto select-none overflow-hidden max-w-[1400px] mx-auto">
+        
+        <!-- Uno Match Cockpit Header -->
+        <div class="w-full flex items-center justify-between gap-3 mb-3 px-4 py-2.5 rounded-2xl bg-slate-900/90 border-2 border-yellow-500/40 shadow-xl backdrop-blur-md flex-wrap">
+          <!-- Left: Current Turn Info & Active Color Indicator -->
+          <div class="flex items-center gap-3">
+            <div id="unoTurnBadge" class="flex items-center gap-2 px-3 py-1 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 font-black text-xs font-mono shadow-md">
+              <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+              <span id="unoCurrentTurnText">LƯỢT: BẠN (CHỈ HUY)</span>
+            </div>
+
+            <!-- Active Color Badge -->
+            <div class="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-black/60 border border-slate-700 text-xs font-bold font-mono">
+              <span class="text-slate-400">Màu Cần Đánh:</span>
+              <span id="unoActiveColorBadge" class="px-2 py-0.5 rounded font-black uppercase text-white bg-red-600 shadow-sm">
+                ĐỎ 🔴
+              </span>
+            </div>
+
+            <!-- Direction Indicator Badge -->
+            <div id="unoDirectionBadge" class="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 text-xs font-mono font-bold">
+              <span id="unoDirectionIcon">🔄</span>
+              <span id="unoDirectionText">THUẬN CHIỀU</span>
+            </div>
+          </div>
+
+          <!-- Right: Control Utilities -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="toggleUnoAutoPlay()" id="btnUnoAutoPlay" class="btn-spring px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold border border-slate-600 flex items-center gap-1.5 transition">
+              <i data-lucide="bot" class="w-3.5 h-3.5 text-cyan-400"></i>
+              <span id="unoAutoPlayLabel">Tự Động (Auto)</span>
+            </button>
+            <button onclick="openUnoModal('unoModalRules')" class="btn-spring px-3 py-1 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 text-xs font-bold border border-amber-500/40 flex items-center gap-1.5 transition">
+              <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+              <span>Luật UNO</span>
+            </button>
+            <button onclick="initUnoGame()" class="btn-spring px-3 py-1 rounded-xl bg-red-500/15 hover:bg-red-500/25 text-red-300 text-xs font-bold border border-red-500/40 flex items-center gap-1.5 transition">
+              <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+              <span>Ván Mới</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- UNO Oval Table Mat Arena -->
+        <div class="w-full relative rounded-3xl uno-table-felt border-4 border-yellow-500/30 p-4 sm:p-6 shadow-2xl flex flex-col justify-between min-h-[580px] sm:min-h-[640px] overflow-hidden">
+          
+          <!-- Background Ambient Glow & Radial Rings -->
+          <div class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-20">
+            <div class="w-[500px] h-[500px] rounded-full border border-yellow-400/30"></div>
+            <div class="absolute w-[700px] h-[700px] rounded-full border border-cyan-400/20"></div>
+          </div>
+
+          <!-- TOP TIER: 3 BOTS PODS -->
+          <div class="w-full grid grid-cols-3 gap-2 sm:gap-4 z-10">
+            <!-- Bot 1 (Left: Tiên Tinh Linh) -->
+            <div id="unoPod1" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-black/50 border-2 border-slate-700/80 transition-all duration-300">
+              <div class="flex items-center gap-2 mb-1.5">
+                <div class="relative">
+                  <img id="unoAvatar1" src="" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-cyan-400 shadow-md object-cover" alt="Bot 1"/>
+                  <span id="unoUnoBadge1" class="hidden absolute -top-1 -right-1 px-1 py-0.2 rounded bg-yellow-400 text-slate-950 font-black text-[9px] uno-bell-ring shadow-lg">UNO!</span>
+                </div>
+                <div class="text-left">
+                  <div class="text-xs sm:text-sm font-bold text-white leading-tight">Tiên Tinh Linh</div>
+                  <div class="text-[10px] sm:text-xs font-mono text-cyan-300 font-semibold"><span id="unoCount1">7</span> lá bài</div>
+                </div>
+              </div>
+              <div id="unoCardStack1" class="flex items-center -space-x-3 overflow-hidden h-14 sm:h-16 pt-1"></div>
+            </div>
+
+            <!-- Bot 2 (Center: Kỳ Lân Ngố) -->
+            <div id="unoPod2" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-black/50 border-2 border-slate-700/80 transition-all duration-300">
+              <div class="flex items-center gap-2 mb-1.5">
+                <div class="relative">
+                  <img id="unoAvatar2" src="" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-purple-400 shadow-md object-cover" alt="Bot 2"/>
+                  <span id="unoUnoBadge2" class="hidden absolute -top-1 -right-1 px-1 py-0.2 rounded bg-yellow-400 text-slate-950 font-black text-[9px] uno-bell-ring shadow-lg">UNO!</span>
+                </div>
+                <div class="text-left">
+                  <div class="text-xs sm:text-sm font-bold text-white leading-tight">Kỳ Lân Ngố</div>
+                  <div class="text-[10px] sm:text-xs font-mono text-purple-300 font-semibold"><span id="unoCount2">7</span> lá bài</div>
+                </div>
+              </div>
+              <div id="unoCardStack2" class="flex items-center -space-x-3 overflow-hidden h-14 sm:h-16 pt-1"></div>
+            </div>
+
+            <!-- Bot 3 (Right: Rồng Lửa Béo) -->
+            <div id="unoPod3" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-black/50 border-2 border-slate-700/80 transition-all duration-300">
+              <div class="flex items-center gap-2 mb-1.5">
+                <div class="relative">
+                  <img id="unoAvatar3" src="" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-rose-400 shadow-md object-cover" alt="Bot 3"/>
+                  <span id="unoUnoBadge3" class="hidden absolute -top-1 -right-1 px-1 py-0.2 rounded bg-yellow-400 text-slate-950 font-black text-[9px] uno-bell-ring shadow-lg">UNO!</span>
+                </div>
+                <div class="text-left">
+                  <div class="text-xs sm:text-sm font-bold text-white leading-tight">Rồng Lửa Béo</div>
+                  <div class="text-[10px] sm:text-xs font-mono text-rose-300 font-semibold"><span id="unoCount3">7</span> lá bài</div>
+                </div>
+              </div>
+              <div id="unoCardStack3" class="flex items-center -space-x-3 overflow-hidden h-14 sm:h-16 pt-1"></div>
+            </div>
+          </div>
+
+          <!-- CENTER STAGE: DRAW PILE, DISCARD PILE & DIRECTION DYNAMIC RING -->
+          <div class="relative my-4 sm:my-6 flex flex-col items-center justify-center">
+            
+            <!-- Dynamic Orbit Direction Ring -->
+            <div id="unoDirectionRing" class="absolute w-64 h-64 sm:w-72 sm:h-72 rounded-full border-2 border-dashed border-yellow-400/40 pointer-events-none uno-cw-spin flex items-center justify-center">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-yellow-400 text-slate-950 font-black text-[10px] shadow-lg">▲ CHIỀU ĐÁNH</div>
+            </div>
+
+            <!-- Stacking Penalty Banner (If pendingDrawPenalty > 0) -->
+            <div id="unoStackingPenaltyBanner" class="hidden mb-3 px-4 py-1.5 rounded-2xl bg-gradient-to-r from-red-600 via-rose-600 to-orange-600 text-white font-black text-xs sm:text-sm font-mono shadow-2xl animate-bounce flex items-center gap-2 z-20">
+              <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+              <span>CỘNG DỒN PHẠT: +<span id="unoPenaltyCount">0</span> LÁ! (ĐÁNH +2/+4 ĐỂ CHUYỂN TIẾP HOẶC BẤM RÚT ĐỂ CHỊU PHẠT)</span>
+            </div>
+
+            <!-- Center Table Piles -->
+            <div class="flex items-center gap-6 sm:gap-10 z-10">
+              
+              <!-- DRAW PILE (Chồng bài rút) -->
+              <div class="flex flex-col items-center">
+                <div onclick="handleUnoPlayerDrawClick()" id="unoDrawPileBtn" class="relative group cursor-pointer transition-all duration-300 hover:scale-105" title="Bấm vào để rút bài!">
+                  <!-- Stack 3D depth shadows -->
+                  <div class="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-xl bg-yellow-900/60 blur-xs"></div>
+                  <div class="absolute inset-0 translate-x-1 translate-y-1 rounded-xl bg-slate-900 border border-slate-700"></div>
+                  <div id="unoDrawPileTopCard" class="relative transition-transform">
+                    <!-- SVG rendered dynamically -->
+                  </div>
+                  <!-- Hover Badge -->
+                  <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-amber-500 text-slate-950 font-black text-[10px] font-mono shadow-md whitespace-nowrap opacity-90 group-hover:opacity-100">
+                    RÚT BÀI 📥
+                  </div>
+                </div>
+                <span class="mt-3 text-[11px] font-mono font-bold text-slate-400"><span id="unoDrawPileCount">108</span> lá còn lại</span>
+              </div>
+
+              <!-- DISCARD PILE (Chồng bài bỏ) -->
+              <div class="flex flex-col items-center">
+                <div class="relative">
+                  <!-- Previous card ghost under -->
+                  <div id="unoDiscardGhostCard" class="absolute inset-0 rotate-6 opacity-40 scale-95 transition-transform pointer-events-none"></div>
+                  <!-- Top Card Active -->
+                  <div id="unoDiscardTopCard" class="relative transition-all duration-300">
+                    <!-- SVG rendered dynamically -->
+                  </div>
+                </div>
+                <span class="mt-3 text-[11px] font-mono font-bold text-yellow-400">Lá Trên Cùng (Active)</span>
+              </div>
+
+            </div>
+
+            <!-- Toast / Event Message in Table Center -->
+            <div id="unoCenterToast" class="hidden mt-3 px-4 py-1.5 rounded-xl bg-black/80 border border-yellow-400/60 text-yellow-300 font-bold text-xs font-mono shadow-xl transition-all">
+              Thông báo sự kiện
+            </div>
+          </div>
+
+          <!-- BOTTOM TIER: PLAYER 0 (HUMAN) POD & HAND CARDS -->
+          <div class="w-full z-10 flex flex-col items-center">
+            
+            <!-- Controls Bar: HÔ UNO, BẮT PHẠT UNO, RÚT BÀI -->
+            <div class="w-full max-w-2xl flex items-center justify-between gap-2 mb-2 px-3 py-1.5 rounded-2xl bg-black/60 border border-slate-700/80 backdrop-blur-md flex-wrap">
+              <div class="flex items-center gap-2">
+                <img id="unoAvatar0" src="" class="w-8 h-8 rounded-full border-2 border-amber-400 shadow-md object-cover" alt="User Avatar"/>
+                <div class="text-left">
+                  <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                    <span>Bạn (Chỉ Huy)</span>
+                    <span id="unoPlayerTurnIndicator" class="hidden px-1.5 py-0.2 rounded bg-amber-400 text-slate-950 font-black text-[10px]">LƯỢT CỦA BẠN ⭐</span>
+                  </div>
+                  <div class="text-[10px] font-mono text-amber-300 font-semibold"><span id="unoCount0">7</span> lá trên tay</div>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex items-center gap-2">
+                <!-- Say UNO Button -->
+                <button onclick="handleSayUnoClick()" id="btnSayUno" class="btn-spring px-4 py-1.5 rounded-xl bg-gradient-to-r from-yellow-500 via-amber-400 to-yellow-500 text-slate-950 font-black text-xs font-mono flex items-center gap-1.5 shadow-lg shadow-yellow-500/30 border border-yellow-300 cursor-pointer" title="Hô UNO khi còn 1 lá bài!">
+                  <i data-lucide="bell" class="w-3.5 h-3.5 fill-slate-950"></i>
+                  <span>HÔ UNO! 🔔</span>
+                </button>
+
+                <!-- Catch UNO Button -->
+                <button onclick="handleCatchUnoClick()" id="btnCatchUno" class="btn-spring px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-red-700 hover:from-rose-500 hover:to-red-600 text-white font-black text-xs font-mono flex items-center gap-1.5 shadow-md border border-rose-500 cursor-pointer" title="Bắt phạt đối thủ nào còn 1 lá mà quên hô UNO!">
+                  <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i>
+                  <span>BẮT UNO! ⚠️</span>
+                </button>
+
+                <!-- Draw Button Manual -->
+                <button onclick="handleUnoPlayerDrawClick()" id="btnManualDraw" class="btn-spring px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs font-mono flex items-center gap-1 border border-slate-600 cursor-pointer">
+                  <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                  <span>Rút 1 Lá</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- User Hand Cards Carousel / Deck Grid -->
+            <div id="unoPlayerHand" class="w-full flex items-center justify-center -space-x-4 sm:-space-x-6 overflow-x-auto py-4 px-2 min-h-[140px] max-w-full">
+              <!-- Hand cards rendered dynamically -->
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ================= MODAL: CHỌN MÀU WILD (COLOR PICKER MODAL) ================= -->
+        <div id="unoModalColorPicker" class="fixed inset-0 z-[120] hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
+          <div class="w-full max-w-sm rounded-3xl bg-slate-900 border-2 border-yellow-400 p-6 shadow-2xl text-center space-y-4">
+            <h3 class="text-base font-black font-cinzel text-white flex items-center justify-center gap-2">
+              <span class="text-xl">🌈</span> CHỌN MÀU YÊU CẦU TIẾP THEO
+            </h3>
+            <p class="text-xs text-slate-300 font-mono">Lá Wild cho phép bạn chuyển màu bàn đấu sang bất kỳ màu nào!</p>
+            
+            <div class="grid grid-cols-2 gap-3 pt-2">
+              <button onclick="chooseUnoWildColor('red')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 text-white font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-red-500/40 border-2 border-red-400 cursor-pointer">
+                <span class="text-2xl">🔴</span>
+                <span>MÀU ĐỎ</span>
+              </button>
+              <button onclick="chooseUnoWildColor('blue')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 hover:from-blue-400 hover:to-blue-600 text-white font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-blue-500/40 border-2 border-blue-400 cursor-pointer">
+                <span class="text-2xl">🔵</span>
+                <span>XANH DƯƠNG</span>
+              </button>
+              <button onclick="chooseUnoWildColor('green')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-green-500 to-green-700 hover:from-green-400 hover:to-green-600 text-white font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-green-500/40 border-2 border-green-400 cursor-pointer">
+                <span class="text-2xl">🟢</span>
+                <span>XANH LÁ</span>
+              </button>
+              <button onclick="chooseUnoWildColor('yellow')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-yellow-400 to-amber-600 hover:from-yellow-300 hover:to-amber-500 text-slate-950 font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-yellow-500/40 border-2 border-yellow-300 cursor-pointer">
+                <span class="text-2xl">🟡</span>
+                <span>MÀU VÀNG</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= MODAL: LUẬT CHƠI UNO (RULES MODAL) ================= -->
+        <div id="unoModalRules" class="fixed inset-0 z-[120] hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
+          <div class="w-full max-w-lg rounded-3xl bg-slate-900 border-2 border-yellow-500 p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto text-left">
+            <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+              <h3 class="text-base font-black font-cinzel text-yellow-400 flex items-center gap-2">
+                <span>📖</span> LUẬT CHƠI UNO BATTLE ROYALE (108 LÁ)
+              </h3>
+              <button onclick="closeUnoModal('unoModalRules')" class="p-1 rounded-lg text-slate-400 hover:text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+              </button>
+            </div>
+
+            <div class="space-y-3 text-xs text-slate-300 font-sans leading-relaxed">
+              <p><strong class="text-yellow-400">🎯 Mục Tiêu:</strong> Người chơi đầu tiên đánh hết toàn bộ bài trên tay sẽ giành chiến thắng!</p>
+              <p><strong class="text-cyan-400">🃏 Cách Đánh Bài:</strong> Đánh 1 lá bài khớp <span class="text-amber-300 font-bold">CÙNG MÀU</span> hoặc <span class="text-amber-300 font-bold">CÙNG SỐ / BIỂU TƯỢNG</span> với lá bài ngửa trên cùng của Chồng Bài Bỏ.</p>
+              
+              <div class="p-3 rounded-xl bg-black/40 border border-slate-700 space-y-2">
+                <div class="font-bold text-white text-[13px]">✨ CÁC LÁ BÀI HÀNH ĐỘNG ĐẶC BIỆT:</div>
+                <p><strong class="text-red-400">🚫 Cấm Lượt (Skip):</strong> Bỏ qua lượt đi của người kế tiếp.</p>
+                <p><strong class="text-blue-400">🔄 Đảo Chiều (Reverse):</strong> Đổi chiều đánh bàn cờ (Thuận ⟲⟳ Ngược).</p>
+                <p><strong class="text-yellow-400">📥 Rút 2 (+2 Draw Two):</strong> Người kế tiếp phải rút 2 lá và mất lượt (hoặc đánh tiếp +2 để dồn phạt tiếp!).</p>
+                <p><strong class="text-purple-400">🌈 Đổi Màu (Wild):</strong> Đánh tự do bất kỳ lúc nào, được chọn màu tiếp theo cho bàn đấu.</p>
+                <p><strong class="text-rose-400">💥 Rút 4 Đổi Màu (Wild +4):</strong> Vừa đổi màu vừa buộc người kế tiếp rút 4 lá (hoặc dồn tiếp +4!).</p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-yellow-500/10 border border-yellow-500/30 space-y-1.5">
+                <div class="font-bold text-yellow-300 text-[13px]">🔔 LUẬT HÔ UNO & BẮT PHẠT:</div>
+                <p>• Khi trên tay bạn chỉ còn lại <span class="font-bold text-white">1 lá duy nhất</span>, bạn PHẢI bấm nút <strong class="text-yellow-400">"HÔ UNO! 🔔"</strong>!</p>
+                <p>• Nếu bạn quên hô UNO mà đối thủ bấm <strong class="text-rose-400">"BẮT UNO! ⚠️"</strong>, bạn sẽ bị phạt rút ngay 2 lá bài!</p>
+                <p>• Tương tự, nếu bất kỳ Bot nào còn 1 lá mà chưa hô, bạn có thể bấm "BẮT UNO!" để phạt Bot đó rút 2 lá!</p>
+              </div>
+
+              <p><strong class="text-emerald-400">💥 Luật Dồn Phạt (Stacking Penalty):</strong> Khi một người bị đánh +2 hoặc +4, nếu họ có lá cùng loại (+2 hoặc +4), họ có thể đánh tiếp để chuyển toàn bộ số lá phạt dồn cho người kế tiếp!</p>
+            </div>
+
+            <button onclick="closeUnoModal('unoModalRules')" class="mt-4 btn-spring w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 font-black text-xs font-mono shadow-lg">
+              ĐÃ HIỂU LUẬT • CHIẾN NGAY!
             </button>
           </div>
         </div>
@@ -17742,6 +18133,24 @@ function renderCashStackHTML(amount) {
           titleEl.className = 'flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 font-cinzel text-xs font-bold shadow-inner transition-all duration-200';
           titleEl.innerHTML = `${(window.APP_SVGS && window.APP_SVGS.chess) || ''}<span class="tracking-wider">CỜ VUA HOÀNG GIA (8x8 FIDE)</span>`;
         }
+      } else if (tab === 'uno') {
+        const vUno = document.getElementById('unoView');
+        if (vUno) {
+          vUno.style.display = '';
+          vUno.classList.remove('hidden');
+          void vUno.offsetWidth;
+          vUno.classList.add('flex', 'view-fade-slide');
+          if (typeof initUnoGame === 'function' && (!window.unoState || !window.unoState.initialized)) {
+            initUnoGame();
+          } else if (typeof renderUnoArena === 'function') {
+            renderUnoArena();
+          }
+        }
+        if (titleEl) {
+          titleEl.className = 'flex items-center gap-2 px-3 py-1.5 rounded-xl bg-yellow-500/10 border border-yellow-500/30 text-amber-400 font-cinzel text-xs font-bold shadow-inner transition-all duration-200';
+          titleEl.innerHTML = `<span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-black bg-gradient-to-r from-red-500 via-amber-500 via-green-500 to-blue-500 text-white shadow-sm">UNO</span><span class="tracking-wider">UNO BATTLE ROYALE (108 LÁ BÀI)</span>`;
+        }
+        if (specBar) specBar.classList.add('hidden');
       } else if (tab === 'kittens') {
         const vKittens = document.getElementById('kittensView');
         if (vKittens) {
@@ -17790,6 +18199,7 @@ function renderCashStackHTML(amount) {
         { id: 'pillGameTTT', key: 'tictactoe', activeCls: 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold shadow-sm' },
         { id: 'pillGameMono', key: 'monopoly', activeCls: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold shadow-sm' },
         { id: 'pillGameKittens', key: 'kittens', activeCls: 'bg-red-500/20 text-red-300 border border-red-500/40 font-bold shadow-sm' },
+        { id: 'pillGameUno', key: 'uno', activeCls: 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/40 font-bold shadow-sm' },
       ];
       gamePills.forEach(p => {
         const el = document.getElementById(p.id);
@@ -26015,6 +26425,1018 @@ async function executeDrawCard(playerIdx) {
     }
 
     function closeKittensModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('hidden');
+    }
+
+
+    
+    /* ==========================================================================
+       ================= UNO BATTLE ROYALE GAME ENGINE (108 CARDS) =================
+       ========================================================================== */
+    var unoState = window.unoState = {
+      initialized: false,
+      players: [],
+      drawPile: [],
+      discardPile: [],
+      currentTurn: 0,
+      direction: 1, // 1: Clockwise (0 -> 1 -> 2 -> 3), -1: Counter-Clockwise
+      activeColor: 'red', // 'red' | 'blue' | 'green' | 'yellow'
+      pendingDrawPenalty: 0,
+      unoCallDeadline: 0,
+      unoCallTargetPlayer: null,
+      unoCallTimer: null,
+      isLocked: false,
+      autoPlay: false,
+      botTimer: null,
+      selectedWildCardIdx: -1
+    };
+
+    // Color definitions and utilities
+    const UNO_COLORS = ['red', 'blue', 'green', 'yellow'];
+    const UNO_COLOR_NAMES = {
+      red: 'ĐỎ 🔴',
+      blue: 'XANH DƯƠNG 🔵',
+      green: 'XANH LÁ 🟢',
+      yellow: 'VÀNG 🟡'
+    };
+    const UNO_COLOR_CLASSES = {
+      red: 'bg-red-600',
+      blue: 'bg-blue-600',
+      green: 'bg-green-600',
+      yellow: 'bg-amber-500 text-slate-950'
+    };
+
+    // Card SVG Renderer (Standard Mattel HD Vector)
+    function getUnoCardSvg(card, isBack = false, width = 76, height = 114) {
+      if (isBack) {
+        return `<svg viewBox="0 0 100 150" width="${width}" height="${height}" class="uno-card-svg select-none drop-shadow-md rounded-xl overflow-hidden shrink-0" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="unoBackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1e1e24"/>
+              <stop offset="50%" stop-color="#111116"/>
+              <stop offset="100%" stop-color="#09090b"/>
+            </linearGradient>
+            <linearGradient id="unoGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fef08a"/>
+              <stop offset="50%" stop-color="#eab308"/>
+              <stop offset="100%" stop-color="#ca8a04"/>
+            </linearGradient>
+            <radialGradient id="unoRedOval" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ef4444"/>
+              <stop offset="70%" stop-color="#dc2626"/>
+              <stop offset="100%" stop-color="#991b1b"/>
+            </radialGradient>
+          </defs>
+          <rect x="1" y="1" width="98" height="148" rx="12" fill="url(#unoBackGrad)" stroke="#374151" stroke-width="2"/>
+          <rect x="4" y="4" width="92" height="142" rx="10" fill="none" stroke="url(#unoGoldGrad)" stroke-width="1.2" opacity="0.8"/>
+          <g transform="translate(50, 75) rotate(-26)">
+            <ellipse cx="0" cy="0" rx="38" ry="22" fill="url(#unoRedOval)" stroke="#ffffff" stroke-width="2"/>
+            <text x="0" y="7" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="28" fill="url(#unoGoldGrad)" stroke="#ffffff" stroke-width="1.2" text-anchor="middle" font-style="italic" letter-spacing="1">UNO</text>
+          </g>
+          <circle cx="10" cy="12" r="2" fill="#eab308"/>
+          <circle cx="90" cy="12" r="2" fill="#eab308"/>
+          <circle cx="10" cy="138" r="2" fill="#eab308"/>
+          <circle cx="90" cy="138" r="2" fill="#eab308"/>
+        </svg>`;
+      }
+
+      const colorMap = {
+        red: { bg1: '#ef4444', bg2: '#b91c1c', border: '#fca5a5', text: '#dc2626' },
+        blue: { bg1: '#3b82f6', bg2: '#1d4ed8', border: '#93c5fd', text: '#2563eb' },
+        green: { bg1: '#22c55e', bg2: '#15803d', border: '#86efac', text: '#16a34a' },
+        yellow: { bg1: '#facc15', bg2: '#ca8a04', border: '#fef08a', text: '#ca8a04' }
+      };
+
+      const isWild = card.color === 'wild';
+      const cTheme = colorMap[card.color] || colorMap.red;
+
+      let centerContent = '';
+      let cornerContent = '';
+
+      if (isWild) {
+        if (card.value === 'wild4') {
+          centerContent = `
+            <g transform="translate(50, 75)">
+              <g transform="translate(-14, -14)"><rect width="13" height="18" rx="2" fill="#ef4444" stroke="#fff" stroke-width="0.8"/></g>
+              <g transform="translate(1, -14)"><rect width="13" height="18" rx="2" fill="#3b82f6" stroke="#fff" stroke-width="0.8"/></g>
+              <g transform="translate(-14, 2)"><rect width="13" height="18" rx="2" fill="#22c55e" stroke="#fff" stroke-width="0.8"/></g>
+              <g transform="translate(1, 2)"><rect width="13" height="18" rx="2" fill="#facc15" stroke="#fff" stroke-width="0.8"/></g>
+              <text x="0" y="10" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="28" fill="#ffffff" stroke="#000000" stroke-width="1.8" text-anchor="middle" font-style="italic">+4</text>
+            </g>`;
+          cornerContent = `<text x="9" y="18" font-family="'Impact', 'Arial Black', sans-serif" font-size="14" font-weight="900" fill="#ffffff" stroke="#000" stroke-width="0.8">+4</text>`;
+        } else {
+          centerContent = `
+            <g transform="translate(50, 75) rotate(-24)">
+              <ellipse cx="0" cy="0" rx="36" ry="22" fill="#111827" stroke="#ffffff" stroke-width="1.5"/>
+              <path d="M 0 0 L -30 -12 A 32 18 0 0 1 0 -18 Z" fill="#ef4444"/>
+              <path d="M 0 0 L 0 -18 A 32 18 0 0 1 30 -12 Z" fill="#3b82f6"/>
+              <path d="M 0 0 L 30 12 A 32 18 0 0 1 0 18 Z" fill="#facc15"/>
+              <path d="M 0 0 L 0 18 A 32 18 0 0 1 -30 12 Z" fill="#22c55e"/>
+              <text x="0" y="5" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="16" fill="#ffffff" stroke="#000" stroke-width="0.8" text-anchor="middle" font-style="italic">WILD</text>
+            </g>`;
+          cornerContent = `
+            <g transform="translate(5, 5)">
+              <path d="M 0 0 L 7 0 A 7 7 0 0 1 7 7 Z" fill="#ef4444"/>
+              <path d="M 7 0 L 14 0 A 7 7 0 0 1 14 7 Z" fill="#3b82f6"/>
+              <path d="M 0 7 L 7 7 A 7 7 0 0 1 7 14 Z" fill="#22c55e"/>
+              <path d="M 7 7 L 14 7 A 7 7 0 0 1 14 14 Z" fill="#facc15"/>
+            </g>`;
+        }
+      } else {
+        if (card.value === 'skip') {
+          centerContent = `
+            <g transform="translate(50, 75) rotate(-24)">
+              <ellipse cx="0" cy="0" rx="36" ry="22" fill="#ffffff"/>
+              <circle cx="0" cy="0" r="15" fill="none" stroke="${cTheme.text}" stroke-width="4.5"/>
+              <line x1="-10.5" y1="-10.5" x2="10.5" y2="10.5" stroke="${cTheme.text}" stroke-width="4.5"/>
+            </g>`;
+          cornerContent = `
+            <g transform="translate(6, 6)">
+              <circle cx="6" cy="6" r="5" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="#ffffff" stroke-width="2"/>
+            </g>`;
+        } else if (card.value === 'reverse') {
+          centerContent = `
+            <g transform="translate(50, 75) rotate(-24)">
+              <ellipse cx="0" cy="0" rx="36" ry="22" fill="#ffffff"/>
+              <g transform="translate(-16, -14)">
+                <path d="M 5 8 C 8 2, 22 2, 26 8" fill="none" stroke="${cTheme.text}" stroke-width="3.5" stroke-linecap="round"/>
+                <polygon points="28,8 24,3 24,11" fill="${cTheme.text}"/>
+                <path d="M 27 20 C 24 26, 10 26, 6 20" fill="none" stroke="${cTheme.text}" stroke-width="3.5" stroke-linecap="round"/>
+                <polygon points="4,20 8,15 8,23" fill="${cTheme.text}"/>
+              </g>
+            </g>`;
+          cornerContent = `
+            <g transform="translate(5, 5)">
+              <path d="M 2 4 C 4 1, 9 1, 11 4" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+              <polygon points="12,4 10,1 10,6" fill="#ffffff"/>
+              <path d="M 12 10 C 10 13, 5 13, 3 10" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+              <polygon points="2,10 4,8 4,12" fill="#ffffff"/>
+            </g>`;
+        } else if (card.value === 'draw2') {
+          centerContent = `
+            <g transform="translate(50, 75) rotate(-24)">
+              <ellipse cx="0" cy="0" rx="36" ry="22" fill="#ffffff"/>
+              <g transform="translate(-20, -18)">
+                <rect x="6" y="2" width="13" height="19" rx="2" fill="${cTheme.text}" stroke="#ffffff" stroke-width="1.2"/>
+                <rect x="14" y="9" width="13" height="19" rx="2" fill="${cTheme.text}" stroke="#ffffff" stroke-width="1.2"/>
+              </g>
+              <text x="14" y="10" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="24" fill="${cTheme.text}" font-style="italic">+2</text>
+            </g>`;
+          cornerContent = `<text x="8" y="18" font-family="'Impact', 'Arial Black', sans-serif" font-size="14" font-weight="900" fill="#ffffff" stroke="#000" stroke-width="0.5">+2</text>`;
+        } else {
+          // Numbers 0-9
+          centerContent = `
+            <g transform="translate(50, 75) rotate(-24)">
+              <ellipse cx="0" cy="0" rx="36" ry="22" fill="#ffffff"/>
+              <text x="0" y="16" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="44" fill="${cTheme.text}" text-anchor="middle" font-style="italic" letter-spacing="-1">${card.value}</text>
+            </g>`;
+          cornerContent = `<text x="9" y="18" font-family="'Impact', 'Arial Black', sans-serif" font-size="16" font-weight="900" fill="#ffffff" stroke="#000" stroke-width="0.5">${card.value}</text>`;
+        }
+      }
+
+      const bgGradId = isWild ? 'unoWildBg' : `unoGrad_${card.color}_${card.value}`;
+
+      return `<svg viewBox="0 0 100 150" width="${width}" height="${height}" class="uno-card-svg select-none drop-shadow-md rounded-xl overflow-hidden shrink-0" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          ${isWild ? `
+            <linearGradient id="unoWildBg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#18181b"/>
+              <stop offset="100%" stop-color="#09090b"/>
+            </linearGradient>
+          ` : `
+            <linearGradient id="${bgGradId}" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="${cTheme.bg1}"/>
+              <stop offset="100%" stop-color="${cTheme.bg2}"/>
+            </linearGradient>
+          `}
+          <linearGradient id="unoGlossySheen" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+            <stop offset="45%" stop-color="#ffffff" stop-opacity="0.08"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <rect x="1" y="1" width="98" height="148" rx="12" fill="url(#${bgGradId})" stroke="${isWild ? '#f59e0b' : cTheme.border}" stroke-width="2"/>
+        <rect x="5" y="5" width="90" height="140" rx="8" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.6"/>
+        ${centerContent}
+        <g transform="translate(0, 0)">${cornerContent}</g>
+        <g transform="translate(100, 150) rotate(180)">${cornerContent}</g>
+        <path d="M 5 5 L 95 5 A 8 8 0 0 1 95 65 Q 50 85 5 55 Z" fill="url(#unoGlossySheen)" pointer-events="none"/>
+      </svg>`;
+    }
+
+    // Audio SFX Engine for Uno
+    function playUnoSound(type) {
+      try {
+        if (typeof soundTone !== 'function') return;
+        if (type === 'card_play') {
+          soundTone(580, 'triangle', 0.08, 0.15);
+          setTimeout(() => soundTone(880, 'sine', 0.06, 0.1), 50);
+        } else if (type === 'draw') {
+          soundTone(420, 'sine', 0.1, 0.12);
+        } else if (type === 'reverse') {
+          soundTone(400, 'square', 0.08, 0.12);
+          setTimeout(() => soundTone(600, 'square', 0.08, 0.12), 80);
+          setTimeout(() => soundTone(800, 'square', 0.12, 0.15), 160);
+        } else if (type === 'skip') {
+          soundTone(300, 'sawtooth', 0.15, 0.15);
+        } else if (type === 'uno_bell') {
+          soundTone(1046.5, 'sine', 0.25, 0.2); // C6
+          setTimeout(() => soundTone(1318.5, 'sine', 0.35, 0.25), 120); // E6
+        } else if (type === 'penalty') {
+          soundTone(220, 'sawtooth', 0.2, 0.2);
+          setTimeout(() => soundTone(180, 'sawtooth', 0.25, 0.2), 100);
+        } else if (type === 'win') {
+          [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+            setTimeout(() => soundTone(freq, 'triangle', 0.25, 0.2), idx * 120);
+          });
+        }
+      } catch (e) {}
+    }
+
+    // Initialize Standard 108 Cards Deck
+    function initUnoDeck() {
+      const deck = [];
+      let cardIdCounter = 1;
+
+      UNO_COLORS.forEach(color => {
+        // One '0' per color
+        deck.push({ id: `c_${cardIdCounter++}`, color, value: '0', type: 'number' });
+
+        // Two '1' through '9' per color
+        for (let num = 1; num <= 9; num++) {
+          deck.push({ id: `c_${cardIdCounter++}`, color, value: String(num), type: 'number' });
+          deck.push({ id: `c_${cardIdCounter++}`, color, value: String(num), type: 'number' });
+        }
+
+        // Two 'skip', 'reverse', 'draw2' per color
+        ['skip', 'reverse', 'draw2'].forEach(act => {
+          deck.push({ id: `c_${cardIdCounter++}`, color, value: act, type: 'action' });
+          deck.push({ id: `c_${cardIdCounter++}`, color, value: act, type: 'action' });
+        });
+      });
+
+      // 4 Wild and 4 Wild Draw Four
+      for (let i = 0; i < 4; i++) {
+        deck.push({ id: `c_${cardIdCounter++}`, color: 'wild', value: 'wild', type: 'wild' });
+        deck.push({ id: `c_${cardIdCounter++}`, color: 'wild', value: 'wild4', type: 'wild' });
+      }
+
+      // Total must be exactly 108 cards
+      return deck;
+    }
+
+    // Fisher-Yates Shuffle
+    function shuffleUnoDeck(deck) {
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+      }
+      return deck;
+    }
+
+    // Get Avatar for UNO Player
+    function getUnoAvatarUrl(playerIdx) {
+      if (playerIdx === 0 && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
+        return window.getActiveUserBeastAvatarDataUrl();
+      }
+      if (typeof BUSINESS_TOUR_AVATAR_DATA_URLS !== 'undefined' && BUSINESS_TOUR_AVATAR_DATA_URLS[playerIdx]) {
+        return BUSINESS_TOUR_AVATAR_DATA_URLS[playerIdx];
+      }
+      return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><circle cx="20" cy="20" r="18" fill="%23eab308"/></svg>';
+    }
+
+    // Start New UNO Game
+    function initUnoGame() {
+      if (unoState.botTimer) {
+        clearTimeout(unoState.botTimer);
+        unoState.botTimer = null;
+      }
+      if (unoState.unoCallTimer) {
+        clearTimeout(unoState.unoCallTimer);
+        unoState.unoCallTimer = null;
+      }
+
+      unoState.isLocked = false;
+      unoState.direction = 1;
+      unoState.pendingDrawPenalty = 0;
+      unoState.currentTurn = 0;
+      unoState.unoCallDeadline = 0;
+      unoState.unoCallTargetPlayer = null;
+
+      // 4 Players Setup
+      unoState.players = [
+        { id: 0, name: 'Bạn (Chỉ Huy)', isHuman: true, avatar: getUnoAvatarUrl(0), hand: [], hasSaidUno: false, isOut: false },
+        { id: 1, name: 'Tiên Tinh Linh', isHuman: false, avatar: getUnoAvatarUrl(1), hand: [], hasSaidUno: false, isOut: false },
+        { id: 2, name: 'Kỳ Lân Ngố', isHuman: false, avatar: getUnoAvatarUrl(2), hand: [], hasSaidUno: false, isOut: false },
+        { id: 3, name: 'Rồng Lửa Béo', isHuman: false, avatar: getUnoAvatarUrl(3), hand: [], hasSaidUno: false, isOut: false }
+      ];
+
+      // Prepare & shuffle deck
+      unoState.drawPile = shuffleUnoDeck(initUnoDeck());
+      unoState.discardPile = [];
+
+      // Deal 7 cards each
+      for (let round = 0; round < 7; round++) {
+        unoState.players.forEach(p => {
+          if (unoState.drawPile.length > 0) {
+            p.hand.push(unoState.drawPile.pop());
+          }
+        });
+      }
+
+      // Draw initial top card (Ensure not Wild4 for fair start)
+      let initialTopCard = unoState.drawPile.pop();
+      while (initialTopCard.value === 'wild4') {
+        unoState.drawPile.unshift(initialTopCard);
+        initialTopCard = unoState.drawPile.pop();
+      }
+      unoState.discardPile.push(initialTopCard);
+
+      // Set initial active color
+      if (initialTopCard.color === 'wild') {
+        unoState.activeColor = UNO_COLORS[Math.floor(Math.random() * UNO_COLORS.length)];
+      } else {
+        unoState.activeColor = initialTopCard.color;
+      }
+
+      unoState.initialized = true;
+
+      // Handle special start card action
+      if (initialTopCard.value === 'skip') {
+        unoState.currentTurn = 1; // Player 0 skipped
+      } else if (initialTopCard.value === 'reverse') {
+        unoState.direction = -1;
+        unoState.currentTurn = 3; // Direction reversed at start
+      } else if (initialTopCard.value === 'draw2') {
+        unoState.pendingDrawPenalty = 2;
+      }
+
+      renderUnoArena();
+      playUnoSound('card_play');
+      showUnoCenterToast('🔥 TRẬN ĐẤU UNO BẮT ĐẦU! CHÚC BẠN MAY MẮN!', 2500);
+
+      // If initial turn is Bot
+      if (unoState.currentTurn !== 0) {
+        checkAndRunUnoBot();
+      }
+    }
+
+    // Check if a card can be legally played
+    function canPlayUnoCard(card, topCard, activeColor, pendingPenalty) {
+      if (pendingPenalty > 0) {
+        // In stacking mode: only Draw2 (if top is Draw2) or Wild4 (if top is Wild4) can stack
+        if (topCard.value === 'draw2' && card.value === 'draw2') return true;
+        if (topCard.value === 'wild4' && card.value === 'wild4') return true;
+        return false;
+      }
+
+      // Normal mode
+      if (card.color === 'wild') return true;
+      if (card.color === (activeColor || topCard.color)) return true;
+      if (card.value === topCard.value) return true;
+      return false;
+    }
+
+    // Render Full Arena UI
+    function renderUnoArena() {
+      if (!unoState.initialized) return;
+
+      const topCard = unoState.discardPile[unoState.discardPile.length - 1];
+      const curPlayer = unoState.players[unoState.currentTurn];
+
+      // Update Turn Badge & Cockpit
+      const turnBadgeText = document.getElementById('unoCurrentTurnText');
+      if (turnBadgeText) {
+        turnBadgeText.innerText = `LƯỢT: ${curPlayer ? curPlayer.name.toUpperCase() : '...'}`;
+      }
+      const playerTurnInd = document.getElementById('unoPlayerTurnIndicator');
+      if (playerTurnInd) {
+        if (unoState.currentTurn === 0) {
+          playerTurnInd.classList.remove('hidden');
+        } else {
+          playerTurnInd.classList.add('hidden');
+        }
+      }
+
+      // Update Active Color Badge
+      const activeColorBadge = document.getElementById('unoActiveColorBadge');
+      if (activeColorBadge) {
+        activeColorBadge.innerText = UNO_COLOR_NAMES[unoState.activeColor] || 'ĐỎ 🔴';
+        activeColorBadge.className = `px-2 py-0.5 rounded font-black uppercase text-white shadow-sm ${UNO_COLOR_CLASSES[unoState.activeColor] || 'bg-red-600'}`;
+      }
+
+      // Update Direction Badge & Ring Animation
+      const dirBadge = document.getElementById('unoDirectionBadge');
+      const dirText = document.getElementById('unoDirectionText');
+      const dirRing = document.getElementById('unoDirectionRing');
+      if (dirText) {
+        dirText.innerText = unoState.direction === 1 ? 'THUẬN CHIỀU' : 'NGƯỢC CHIỀU';
+      }
+      if (dirRing) {
+        if (unoState.direction === 1) {
+          dirRing.className = 'absolute w-64 h-64 sm:w-72 sm:h-72 rounded-full border-2 border-dashed border-yellow-400/40 pointer-events-none uno-cw-spin flex items-center justify-center';
+        } else {
+          dirRing.className = 'absolute w-64 h-64 sm:w-72 sm:h-72 rounded-full border-2 border-dashed border-cyan-400/40 pointer-events-none uno-ccw-spin flex items-center justify-center';
+        }
+      }
+
+      // Update Stacking Penalty Banner
+      const stackingBanner = document.getElementById('unoStackingPenaltyBanner');
+      const penaltyCountEl = document.getElementById('unoPenaltyCount');
+      if (stackingBanner && penaltyCountEl) {
+        if (unoState.pendingDrawPenalty > 0) {
+          penaltyCountEl.innerText = unoState.pendingDrawPenalty;
+          stackingBanner.classList.remove('hidden');
+        } else {
+          stackingBanner.classList.add('hidden');
+        }
+      }
+
+      // Render 3 Bot Pods
+      for (let bIdx = 1; bIdx <= 3; bIdx++) {
+        const bot = unoState.players[bIdx];
+        const podEl = document.getElementById(`unoPod${bIdx}`);
+        const avatarEl = document.getElementById(`unoAvatar${bIdx}`);
+        const countEl = document.getElementById(`unoCount${bIdx}`);
+        const unoBadge = document.getElementById(`unoUnoBadge${bIdx}`);
+        const stackEl = document.getElementById(`unoCardStack${bIdx}`);
+
+        if (avatarEl && !avatarEl.src) avatarEl.src = bot.avatar;
+        if (countEl) countEl.innerText = bot.hand.length;
+
+        if (unoBadge) {
+          if (bot.hand.length === 1 && bot.hasSaidUno) {
+            unoBadge.classList.remove('hidden');
+          } else {
+            unoBadge.classList.add('hidden');
+          }
+        }
+
+        if (podEl) {
+          if (unoState.currentTurn === bIdx) {
+            podEl.className = 'relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-slate-900/90 border-2 border-yellow-400 shadow-[0_0_20px_rgba(250,204,21,0.5)] transition-all duration-300 scale-105 z-20';
+          } else {
+            podEl.className = 'relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-black/50 border-2 border-slate-700/80 transition-all duration-300 z-10';
+          }
+        }
+
+        if (stackEl) {
+          let cardsHtml = '';
+          const maxShow = Math.min(bot.hand.length, 6);
+          for (let i = 0; i < maxShow; i++) {
+            cardsHtml += getUnoCardSvg({}, true, 34, 52);
+          }
+          if (bot.hand.length > 6) {
+            cardsHtml += `<div class="w-8 h-12 rounded-lg bg-slate-800 border border-slate-600 flex items-center justify-center text-[10px] text-white font-mono font-bold shrink-0">+${bot.hand.length - 6}</div>`;
+          }
+          stackEl.innerHTML = cardsHtml;
+        }
+      }
+
+      // Render Draw Pile
+      const drawPileTop = document.getElementById('unoDrawPileTopCard');
+      const drawPileCount = document.getElementById('unoDrawPileCount');
+      if (drawPileTop) {
+        drawPileTop.innerHTML = getUnoCardSvg({}, true, 80, 120);
+      }
+      if (drawPileCount) {
+        drawPileCount.innerText = unoState.drawPile.length;
+      }
+
+      // Render Discard Pile
+      const discardTop = document.getElementById('unoDiscardTopCard');
+      const discardGhost = document.getElementById('unoDiscardGhostCard');
+      if (discardTop && topCard) {
+        discardTop.innerHTML = getUnoCardSvg(topCard, false, 84, 126);
+      }
+      if (discardGhost && unoState.discardPile.length > 1) {
+        const prevCard = unoState.discardPile[unoState.discardPile.length - 2];
+        discardGhost.innerHTML = getUnoCardSvg(prevCard, false, 84, 126);
+      }
+
+      // Render Player 0 (Human) Pod & Hand
+      const userAvatar = document.getElementById('unoAvatar0');
+      const userCount = document.getElementById('unoCount0');
+      if (userAvatar && !userAvatar.src) userAvatar.src = unoState.players[0].avatar;
+      if (userCount) userCount.innerText = unoState.players[0].hand.length;
+
+      const playerHandEl = document.getElementById('unoPlayerHand');
+      if (playerHandEl) {
+        let handHtml = '';
+        const isUserTurn = (unoState.currentTurn === 0);
+
+        unoState.players[0].hand.forEach((c, idx) => {
+          const playable = isUserTurn && canPlayUnoCard(c, topCard, unoState.activeColor, unoState.pendingDrawPenalty);
+          const cardClass = playable ? 'can-play-card' : 'cannot-play-card';
+          
+          handHtml += `
+            <div onclick="handlePlayerCardClick(${idx})" class="relative group ${cardClass} transition-all duration-200" title="${playable ? 'Bấm để đánh lá bài này!' : 'Chưa thể đánh lá này'}">
+              ${getUnoCardSvg(c, false, 80, 120)}
+              ${playable ? '<div class="absolute -top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-yellow-400 animate-ping"></div>' : ''}
+            </div>`;
+        });
+
+        playerHandEl.innerHTML = handHtml;
+      }
+
+      // Update UNO Bell Glow button
+      const btnSayUno = document.getElementById('btnSayUno');
+      if (btnSayUno) {
+        if (unoState.players[0].hand.length <= 2) {
+          btnSayUno.classList.add('uno-bell-ring', 'border-yellow-200');
+        } else {
+          btnSayUno.classList.remove('uno-bell-ring', 'border-yellow-200');
+        }
+      }
+
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    // Show Central Table Toast
+    function showUnoCenterToast(msg, duration = 2000) {
+      const toast = document.getElementById('unoCenterToast');
+      if (!toast) return;
+      toast.innerText = msg;
+      toast.classList.remove('hidden');
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.classList.add('hidden'), 300);
+      }, duration);
+    }
+
+    // Handle Player Click on Hand Card
+    function handlePlayerCardClick(cardIdx) {
+      if (unoState.isLocked) return;
+      if (unoState.currentTurn !== 0) {
+        showToast('⏳ Chưa tới lượt của bạn!');
+        return;
+      }
+
+      const player = unoState.players[0];
+      const card = player.hand[cardIdx];
+      const topCard = unoState.discardPile[unoState.discardPile.length - 1];
+
+      if (!canPlayUnoCard(card, topCard, unoState.activeColor, unoState.pendingDrawPenalty)) {
+        showToast('❌ Lá bài này không khớp màu hoặc số/kí hiệu!');
+        playUnoSound('skip');
+        return;
+      }
+
+      // If card is Wild or Wild4: open Color Picker Modal
+      if (card.color === 'wild') {
+        unoState.selectedWildCardIdx = cardIdx;
+        openUnoModal('unoModalColorPicker');
+        return;
+      }
+
+      // Execute normal card play
+      executePlayUnoCard(0, cardIdx, card.color);
+    }
+
+    // Color Picker Selection for Wild Cards
+    function chooseUnoWildColor(color) {
+      closeUnoModal('unoModalColorPicker');
+      if (unoState.selectedWildCardIdx < 0) return;
+      const cardIdx = unoState.selectedWildCardIdx;
+      unoState.selectedWildCardIdx = -1;
+      executePlayUnoCard(0, cardIdx, color);
+    }
+
+    // Play Uno Card with 3D Arc Flying Animation
+    function executePlayUnoCard(playerIdx, cardIdx, chosenColor) {
+      unoState.isLocked = true;
+      const player = unoState.players[playerIdx];
+      const card = player.hand.splice(cardIdx, 1)[0];
+
+      // Flying Card Animation
+      animateUnoCardPlay(playerIdx, card, () => {
+        unoState.discardPile.push(card);
+        unoState.activeColor = chosenColor || card.color;
+        playUnoSound('card_play');
+
+        // Check if hand now has 1 card: trigger UNO deadline
+        if (player.hand.length === 1) {
+          player.hasSaidUno = false;
+          unoState.unoCallDeadline = Date.now() + 2000;
+          unoState.unoCallTargetPlayer = playerIdx;
+
+          if (player.isHuman) {
+            showUnoCenterToast('🔔 HÃY BẤM "HÔ UNO!" NGAY KẺO BỊ PHẠT!', 2000);
+          } else {
+            // Bot automatically says UNO after short reaction delay (85% probability)
+            setTimeout(() => {
+              if (player.hand.length === 1 && !player.hasSaidUno && Math.random() < 0.9) {
+                player.hasSaidUno = true;
+                playUnoSound('uno_bell');
+                showUnoCenterToast(`🔔 ${player.name} VỪA HÔ UNO!`, 2000);
+                renderUnoArena();
+              }
+            }, 500 + Math.random() * 600);
+          }
+        } else if (player.hand.length === 0) {
+          // Player Wins!
+          handleUnoGameWin(playerIdx);
+          return;
+        }
+
+        // Handle Card Actions
+        let stepCount = 1;
+
+        if (card.value === 'skip') {
+          playUnoSound('skip');
+          const skippedPlayerIdx = getNextUnoPlayer(1);
+          showUnoCenterToast(`🚫 ${unoState.players[skippedPlayerIdx].name} BỊ CẤM LƯỢT!`, 2000);
+          stepCount = 2; // Skip next player
+        } else if (card.value === 'reverse') {
+          playUnoSound('reverse');
+          unoState.direction *= -1;
+          const dirRing = document.getElementById('unoDirectionRing');
+          if (dirRing) {
+            dirRing.classList.add('uno-reverse-shock');
+            setTimeout(() => dirRing.classList.remove('uno-reverse-shock'), 1000);
+          }
+          showUnoCenterToast(`🔄 ĐẢO CHIỀU BÀN ĐẤU (${unoState.direction === 1 ? 'THUẬN' : 'NGƯỢC'})!`, 2000);
+          // Standard UNO 2-player rule: reverse acts like skip
+          const activePlayers = unoState.players.filter(p => !p.isOut);
+          if (activePlayers.length === 2) {
+            stepCount = 2;
+          }
+        } else if (card.value === 'draw2') {
+          playUnoSound('penalty');
+          unoState.pendingDrawPenalty += 2;
+          showUnoCenterToast(`📥 CỘNG DỒN PHẠT: +${unoState.pendingDrawPenalty} LÁ!`, 2000);
+        } else if (card.value === 'wild4') {
+          playUnoSound('penalty');
+          unoState.pendingDrawPenalty += 4;
+          showUnoCenterToast(`💥 WILD +4: CỘNG DỒN PHẠT +${unoState.pendingDrawPenalty} LÁ!`, 2000);
+        }
+
+        // Advance Turn
+        advanceUnoTurn(stepCount);
+        unoState.isLocked = false;
+        renderUnoArena();
+
+        // Check if next turn is Bot
+        if (unoState.currentTurn !== 0) {
+          checkAndRunUnoBot();
+        } else if (unoState.autoPlay) {
+          setTimeout(runUnoAutoPlayer, 800);
+        }
+      });
+    }
+
+    // Animate Card Play (Bezier Flight to Discard Pile)
+    function animateUnoCardPlay(playerIdx, card, onDone) {
+      try {
+        let startRect = null;
+        if (playerIdx === 0) {
+          const handEl = document.getElementById('unoPlayerHand');
+          if (handEl && handEl.children.length > 0) {
+            startRect = handEl.children[0].getBoundingClientRect();
+          }
+        } else {
+          const podEl = document.getElementById(`unoPod${playerIdx}`);
+          if (podEl) startRect = podEl.getBoundingClientRect();
+        }
+
+        const targetEl = document.getElementById('unoDiscardTopCard') || document.getElementById('unoDrawPileBtn');
+        const endRect = targetEl ? targetEl.getBoundingClientRect() : null;
+
+        if (!startRect || !endRect) {
+          onDone();
+          return;
+        }
+
+        const flyer = document.createElement('div');
+        flyer.className = 'uno-flying-card-anim';
+        flyer.innerHTML = getUnoCardSvg(card, false, 80, 120);
+        flyer.style.left = `${startRect.left + startRect.width / 2 - 40}px`;
+        flyer.style.top = `${startRect.top + startRect.height / 2 - 60}px`;
+        flyer.style.transform = 'scale(1) rotate(0deg)';
+        document.body.appendChild(flyer);
+
+        requestAnimationFrame(() => {
+          flyer.style.left = `${endRect.left + endRect.width / 2 - 40}px`;
+          flyer.style.top = `${endRect.top + endRect.height / 2 - 60}px`;
+          flyer.style.transform = `scale(1.05) rotate(${(Math.random() - 0.5) * 20}deg)`;
+        });
+
+        setTimeout(() => {
+          if (flyer.parentNode) flyer.parentNode.removeChild(flyer);
+          onDone();
+        }, 500);
+      } catch (e) {
+        onDone();
+      }
+    }
+
+    // Helper: Compute Next Player Index
+    function getNextUnoPlayer(steps = 1) {
+      let next = unoState.currentTurn;
+      for (let s = 0; s < steps; s++) {
+        next = (next + unoState.direction + 4) % 4;
+        while (unoState.players[next].isOut) {
+          next = (next + unoState.direction + 4) % 4;
+        }
+      }
+      return next;
+    }
+
+    // Advance Turn
+    function advanceUnoTurn(steps = 1) {
+      unoState.currentTurn = getNextUnoPlayer(steps);
+    }
+
+    // Handle Player Clicking Draw Pile
+    function handleUnoPlayerDrawClick() {
+      if (unoState.isLocked) return;
+      if (unoState.currentTurn !== 0) {
+        showToast('⏳ Chưa tới lượt của bạn để rút bài!');
+        return;
+      }
+      executeDrawUnoCard(0);
+    }
+
+    // Execute Draw Card Logic
+    function executeDrawUnoCard(playerIdx) {
+      unoState.isLocked = true;
+      const player = unoState.players[playerIdx];
+
+      // If pending penalty > 0: Must draw penalty amount and forfeit turn!
+      if (unoState.pendingDrawPenalty > 0) {
+        const count = unoState.pendingDrawPenalty;
+        unoState.pendingDrawPenalty = 0;
+        playUnoSound('penalty');
+        showUnoCenterToast(`⚠️ ${player.name} PHẢI RÚT PHẠT ${count} LÁ VÀ MẤT LƯỢT!`, 2200);
+
+        for (let i = 0; i < count; i++) {
+          ensureDrawPileHasCards();
+          if (unoState.drawPile.length > 0) {
+            player.hand.push(unoState.drawPile.pop());
+          }
+        }
+
+        setTimeout(() => {
+          advanceUnoTurn(1);
+          unoState.isLocked = false;
+          renderUnoArena();
+          if (unoState.currentTurn !== 0) {
+            checkAndRunUnoBot();
+          }
+        }, 600);
+        return;
+      }
+
+      // Normal single card draw
+      ensureDrawPileHasCards();
+      if (unoState.drawPile.length === 0) {
+        showToast('Đã hết bài trong cọc rút!');
+        unoState.isLocked = false;
+        return;
+      }
+
+      const drawnCard = unoState.drawPile.pop();
+      player.hand.push(drawnCard);
+      playUnoSound('draw');
+
+      const topCard = unoState.discardPile[unoState.discardPile.length - 1];
+      const canPlayDrawn = canPlayUnoCard(drawnCard, topCard, unoState.activeColor, 0);
+
+      renderUnoArena();
+
+      if (canPlayDrawn) {
+        if (player.isHuman && !unoState.autoPlay) {
+          showUnoCenterToast('✨ BẠN VỪA RÚT ĐƯỢC LÁ BÀI HỢP LỆ! CÓ THỂ ĐÁNH NGAY HOẶC BỎ QUA.', 2500);
+          unoState.isLocked = false;
+        } else {
+          // Bot or Auto-Play automatically plays valid drawn card
+          setTimeout(() => {
+            const cardIdx = player.hand.length - 1;
+            let chosenColor = drawnCard.color;
+            if (drawnCard.color === 'wild') {
+              chosenColor = chooseBestBotColor(player);
+            }
+            executePlayUnoCard(playerIdx, cardIdx, chosenColor);
+          }, 600);
+        }
+      } else {
+        // Cannot play, pass turn to next
+        setTimeout(() => {
+          advanceUnoTurn(1);
+          unoState.isLocked = false;
+          renderUnoArena();
+          if (unoState.currentTurn !== 0) {
+            checkAndRunUnoBot();
+          }
+        }, 500);
+      }
+    }
+
+    // Ensure Draw Pile Not Empty (Recycle Discard Pile)
+    function ensureDrawPileHasCards() {
+      if (unoState.drawPile.length === 0 && unoState.discardPile.length > 1) {
+        const topCard = unoState.discardPile.pop();
+        unoState.drawPile = shuffleUnoDeck(unoState.discardPile);
+        unoState.discardPile = [topCard];
+        showUnoCenterToast('🔀 ĐÃ XÁO LẠI CỌC BÀI BỎ THÀNH CỌC RÚT MỚI!', 1800);
+      }
+    }
+
+    // Say UNO Click Handler
+    function handleSayUnoClick() {
+      const player = unoState.players[0];
+      if (player.hand.length <= 2) {
+        player.hasSaidUno = true;
+        playUnoSound('uno_bell');
+        showUnoCenterToast('🔔 BẠN ĐÃ HÔ UNO! AN TOÀN!', 2000);
+        renderUnoArena();
+      } else {
+        showToast('⚠️ Chỉ được hô UNO khi bạn còn 1 hoặc 2 lá bài!');
+      }
+    }
+
+    // Catch UNO Penalty Click Handler
+    function handleCatchUnoClick() {
+      let caughtBot = null;
+      for (let i = 1; i <= 3; i++) {
+        const bot = unoState.players[i];
+        if (bot.hand.length === 1 && !bot.hasSaidUno) {
+          caughtBot = bot;
+          break;
+        }
+      }
+
+      if (caughtBot) {
+        playUnoSound('penalty');
+        showUnoCenterToast(`⚠️ BẮT QUẢ TANG ${caughtBot.name.toUpperCase()} QUÊN HÔ UNO! PHẠT RÚT 2 LÁ!`, 2500);
+        for (let k = 0; k < 2; k++) {
+          ensureDrawPileHasCards();
+          if (unoState.drawPile.length > 0) {
+            caughtBot.hand.push(unoState.drawPile.pop());
+          }
+        }
+        renderUnoArena();
+      } else {
+        showToast('Không có đối thủ nào quên hô UNO lúc này!');
+      }
+    }
+
+    // AI Bot Decision Engine
+    function checkAndRunUnoBot() {
+      if (unoState.botTimer) {
+        clearTimeout(unoState.botTimer);
+      }
+
+      const botIdx = unoState.currentTurn;
+      if (botIdx === 0) return; // User turn
+
+      unoState.botTimer = setTimeout(() => {
+        runUnoBotTurn(botIdx);
+      }, 1000 + Math.random() * 400); // 1.0s to 1.4s human-like pacing
+    }
+
+    // Run Single Bot Turn
+    function runUnoBotTurn(botIdx) {
+      if (!unoState.initialized || unoState.currentTurn !== botIdx) return;
+      const bot = unoState.players[botIdx];
+      const topCard = unoState.discardPile[unoState.discardPile.length - 1];
+
+      // Find all playable cards in bot hand
+      const playableIndices = [];
+      bot.hand.forEach((c, idx) => {
+        if (canPlayUnoCard(c, topCard, unoState.activeColor, unoState.pendingDrawPenalty)) {
+          playableIndices.push(idx);
+        }
+      });
+
+      if (playableIndices.length > 0) {
+        // Bot Heuristic: Prioritize Action / Stacking / Color matching
+        let bestIdx = playableIndices[0];
+
+        // 1. If pending penalty, prioritize stacking Draw2 or Wild4
+        if (unoState.pendingDrawPenalty > 0) {
+          const stackIdx = playableIndices.find(i => bot.hand[i].value === 'draw2' || bot.hand[i].value === 'wild4');
+          if (stackIdx !== undefined) bestIdx = stackIdx;
+        } else {
+          // 2. Prioritize Skip or Reverse if next player has <= 3 cards
+          const nextPlayer = unoState.players[getNextUnoPlayer(1)];
+          if (nextPlayer.hand.length <= 3) {
+            const blockIdx = playableIndices.find(i => bot.hand[i].value === 'skip' || bot.hand[i].value === 'draw2' || bot.hand[i].value === 'wild4');
+            if (blockIdx !== undefined) bestIdx = blockIdx;
+          }
+        }
+
+        const chosenCard = bot.hand[bestIdx];
+        let chosenColor = chosenCard.color;
+        if (chosenCard.color === 'wild') {
+          chosenColor = chooseBestBotColor(bot);
+        }
+
+        executePlayUnoCard(botIdx, bestIdx, chosenColor);
+      } else {
+        // No playable card, bot must draw
+        executeDrawUnoCard(botIdx);
+      }
+    }
+
+    // Helper: Bot chooses color it holds the most
+    function chooseBestBotColor(bot) {
+      const counts = { red: 0, blue: 0, green: 0, yellow: 0 };
+      bot.hand.forEach(c => {
+        if (counts[c.color] !== undefined) counts[c.color]++;
+      });
+      let bestColor = 'red';
+      let maxCount = -1;
+      for (const col of UNO_COLORS) {
+        if (counts[col] > maxCount) {
+          maxCount = counts[col];
+          bestColor = col;
+        }
+      }
+      return bestColor;
+    }
+
+    // Toggle Uno Auto-Play
+    function toggleUnoAutoPlay() {
+      unoState.autoPlay = !unoState.autoPlay;
+      const label = document.getElementById('unoAutoPlayLabel');
+      const btn = document.getElementById('btnUnoAutoPlay');
+      if (label && btn) {
+        if (unoState.autoPlay) {
+          label.innerText = 'Đang Tự Động 🔥';
+          btn.className = 'btn-spring px-3 py-1 rounded-xl bg-amber-500 text-slate-950 text-xs font-black border border-yellow-300 flex items-center gap-1.5 transition shadow-lg';
+          if (unoState.currentTurn === 0) {
+            setTimeout(runUnoAutoPlayer, 400);
+          }
+        } else {
+          label.innerText = 'Tự Động (Auto)';
+          btn.className = 'btn-spring px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold border border-slate-600 flex items-center gap-1.5 transition';
+        }
+      }
+    }
+
+    // Human Auto Player Turn Logic
+    function runUnoAutoPlayer() {
+      if (unoState.currentTurn !== 0 || !unoState.autoPlay || unoState.isLocked) return;
+      const player = unoState.players[0];
+      const topCard = unoState.discardPile[unoState.discardPile.length - 1];
+
+      // Auto say UNO if 2 cards
+      if (player.hand.length <= 2) {
+        player.hasSaidUno = true;
+      }
+
+      const playableIdx = player.hand.findIndex(c => canPlayUnoCard(c, topCard, unoState.activeColor, unoState.pendingDrawPenalty));
+      if (playableIdx !== -1) {
+        const card = player.hand[playableIdx];
+        let color = card.color;
+        if (card.color === 'wild') {
+          color = chooseBestBotColor(player);
+        }
+        executePlayUnoCard(0, playableIdx, color);
+      } else {
+        executeDrawUnoCard(0);
+      }
+    }
+
+    // Handle Victory
+    function handleUnoGameWin(winnerIdx) {
+      unoState.isLocked = true;
+      const winner = unoState.players[winnerIdx];
+      playUnoSound('win');
+
+      // Calculate score based on remaining opponent cards
+      let totalScore = 0;
+      unoState.players.forEach(p => {
+        p.hand.forEach(c => {
+          if (c.type === 'number') totalScore += parseInt(c.value, 10);
+          else if (c.type === 'action') totalScore += 20;
+          else if (c.type === 'wild') totalScore += 50;
+        });
+      });
+
+      if (winnerIdx === 0) {
+        // Human Win: Award Coins & XP
+        showToast(`🏆 CHÚC MỪNG BẠN ĐÃ CHIẾN THẮNG TRẬN UNO! (+500 Xu, +${totalScore} Điểm)`, 5000);
+        if (typeof showVictory === 'function') {
+          showVictory('Bạn (Chỉ Huy)', 1);
+        }
+      } else {
+        showToast(`🎉 ${winner.name} ĐÃ HẾT BÀI VÀ CHIẾN THẮNG TRẬN ĐẤU! (${totalScore} Điểm)`, 5000);
+      }
+
+      showUnoCenterToast(`👑 NHÀ VÔ ĐỊCH: ${winner.name.toUpperCase()}!`, 4000);
+    }
+
+    // Modal Helper
+    function openUnoModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('hidden');
+    }
+    function closeUnoModal(id) {
       const el = document.getElementById(id);
       if (el) el.classList.add('hidden');
     }

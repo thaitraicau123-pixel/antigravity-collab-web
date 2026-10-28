@@ -2163,6 +2163,10 @@
           <span id="onlineHUDSyncStatus" class="hidden sm:flex items-center gap-1.5 text-[11px] text-emerald-400 font-mono px-2 py-0.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Sync Cloud 1.2s
           </span>
+          <button id="btnOnlineHudReopenRoom" onclick="reopenCurrentOnlineRoom()" class="btn-spring px-3 py-1.5 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/40 text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer" title="Xem lại phòng thi đấu P2P (Phím tắt P)">
+            <i data-lucide="radio" class="w-3.5 h-3.5 text-purple-400"></i>
+            <span>Phòng P2P (P)</span>
+          </button>
           <button onclick="leaveOnlineMatch()" class="btn-spring px-3 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
             <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
             <span>Rời Phòng</span>
@@ -2190,7 +2194,7 @@
             </div>
 
             <!-- P2P Room Button -->
-            <button onclick="openMultiplayerModal()" class="btn-spring px-2.5 py-1 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/40 text-cyan-300 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Mở phòng chơi nhiều người P2P">
+            <button onclick="reopenCurrentOnlineRoom()" class="btn-spring px-2.5 py-1 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/40 text-cyan-300 text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Mở / Xem lại phòng chơi P2P (Phím tắt P)">
               <i data-lucide="radio" class="w-3.5 h-3.5 text-cyan-700"></i>
               <span class="hidden 2xl:inline">Phòng Chơi</span>
               <span class="px-1 rounded bg-cyan-400/20 text-[10px] font-mono">P2P</span>
@@ -2455,6 +2459,11 @@
 
           <!-- PHÍA PHẢI: Live Match HUD tương ứng game đang chơi -->
           <div id="arenaActiveMatchHUDWrapper" class="flex items-center gap-2 shrink-0 ml-auto">
+            <!-- P2P Online Room Quick Link Button (Visible when online) -->
+            <button id="btnMatchHudReopenRoom" onclick="reopenCurrentOnlineRoom()" class="hidden flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 text-purple-700 dark:text-purple-300 border border-purple-500/40 text-xs font-bold transition shadow-sm cursor-pointer" title="Xem lại phòng thi đấu P2P (Phím tắt P)">
+              <i data-lucide="radio" class="w-3.5 h-3.5 text-purple-400"></i>
+              <span>Phòng P2P</span>
+            </button>
             <!-- Dice 20 Ô Status Chip -->
             <div id="arenaDiceStatusHUD" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-amber-500/40 text-xs font-semibold shadow-inner" title="Trạng thái ván Xúc Xắc">
               <span class="flex items-center gap-1 text-amber-400">🎯 <span id="hudDiceTurnText" class="font-bold text-white">Lượt: P1 (Bạn)</span></span>
@@ -3355,6 +3364,10 @@
             </button>
             <button onclick="resignChessGame()" class="btn-spring p-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-800 border-2 border-rose-300 text-xs font-black shadow-sm" title="Đầu hàng ván đấu">
               <i data-lucide="flag" class="w-3.5 h-3.5"></i>
+            </button>
+            <button id="btnChessReopenRoom" onclick="reopenCurrentOnlineRoom()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/40 text-xs font-bold transition shadow-sm cursor-pointer" title="Xem lại phòng thi đấu P2P (Phím tắt P)">
+              <i data-lucide="radio" class="w-3.5 h-3.5 text-purple-400"></i>
+              <span>Phòng P2P</span>
             </button>
           </div>
         </div>
@@ -13022,6 +13035,32 @@
       return BUSINESS_TOUR_AVATAR_SVGS[idx] || BUSINESS_TOUR_AVATAR_SVGS[0];
     }
 
+    window.renderPlayerAvatarSafe = function(avatar, extraCls = 'w-full h-full') {
+      if (!avatar) {
+        if (typeof window.getActiveUserBeastAvatarSVG === 'function') {
+          return window.getActiveUserBeastAvatarSVG(extraCls);
+        }
+        return `<div class="flex items-center justify-center ${extraCls} text-lg">👑</div>`;
+      }
+      const str = String(avatar).trim();
+      if (str.startsWith('<svg') || str.includes('</svg>')) {
+        return `<div class="flex items-center justify-center ${extraCls}">${str}</div>`;
+      }
+      if (typeof window.getBeastAvatarSVG === 'function' && (window.BEAST_AVATAR_PRESETS?.[str] || (typeof window.isBeastAvatarId === 'function' && window.isBeastAvatarId(str)))) {
+        return window.getBeastAvatarSVG(str, extraCls);
+      }
+      if (str.startsWith('data:image/') || str.startsWith('http://') || str.startsWith('https://') || str.startsWith('./') || str.startsWith('/')) {
+        return `<img src="${str}" class="${extraCls} object-cover" onerror="this.parentElement.innerHTML='👑'" />`;
+      }
+      if (str.length <= 4) {
+        return `<div class="flex items-center justify-center ${extraCls} text-xl">${str}</div>`;
+      }
+      if (typeof window.getActiveUserBeastAvatarSVG === 'function') {
+        return window.getActiveUserBeastAvatarSVG(extraCls);
+      }
+      return `<div class="flex items-center justify-center ${extraCls} text-lg">👑</div>`;
+    };
+
     // 3D Studio Masterpiece White Canvas Money Bag ($) with Vintage Banknotes + Tall Flush Gold Coin Cylinders & Embossed "$" Coins (v4.0.8)
     let __wealthSvgUidCounter = 0;
 
@@ -16552,11 +16591,8 @@ function playMonoDiceTumbleSFX(durationMs) {
           const cfg = MONOPOLY_PRESET_CONFIGS[i] || MONOPOLY_PRESET_CONFIGS[0];
           const rp = roomPlayers[i] || { name: `Người Chơi ${i + 1}` };
           let pAvatar = rp.avatar;
-          if ((!pAvatar || pAvatar === '👑' || pAvatar === '⚔️') && i === 0 && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
-            pAvatar = window.getActiveUserBeastAvatarDataUrl();
-          }
-          if ((!pAvatar || pAvatar === '👑' || pAvatar === '⚔️') && window.myRoomPlayerIndex === i && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
-            pAvatar = window.getActiveUserBeastAvatarDataUrl();
+          if ((!pAvatar || pAvatar === '👑' || pAvatar === '⚔️') && (i === 0 || window.myRoomPlayerIndex === i) && typeof window.getActiveUserBeastAvatarSVG === 'function') {
+            pAvatar = window.getActiveUserBeastAvatarSVG();
           }
           if (!pAvatar || pAvatar === '👑' || pAvatar === '⚔️') {
             pAvatar = cfg.avatar;
@@ -16669,13 +16705,7 @@ function playMonoDiceTumbleSFX(durationMs) {
         monoState.players.forEach((p, i) => {
           const cornerEl = document.getElementById(`monoCornerPortrait_${i}`);
           if (cornerEl) {
-            if (p.avatar && typeof p.avatar === 'string' && (p.avatar.startsWith('data:image') || p.avatar.startsWith('http://') || p.avatar.startsWith('https://'))) {
-              cornerEl.innerHTML = `<img src="${p.avatar}" class="w-full h-full object-cover rounded-xl" />`;
-            } else if (p.avatar && typeof p.avatar === 'string' && p.avatar.trim().startsWith('<svg')) {
-              cornerEl.innerHTML = p.avatar;
-            } else {
-              cornerEl.innerHTML = getBusinessTourCornerPortraitSVG(i);
-            }
+            cornerEl.innerHTML = window.renderPlayerAvatarSafe(p.avatar || getBusinessTourCornerPortraitSVG(i), 'w-full h-full object-cover rounded-xl');
           }
         });
       }
@@ -19384,11 +19414,12 @@ function renderCashStackHTML(amount) {
 
       // 7. Game Mèo Nổ / Exploding Kittens Pod 0
       if (window.kittensState && kittensState.players && kittensState.players[0]) {
-        kittensState.players[0].avatar = (typeof window.getActiveUserBeastAvatarDataUrl === 'function') ? window.getActiveUserBeastAvatarDataUrl() : kittensState.players[0].avatar;
-        const pod0Img = document.querySelector('#kittenPlayerPod_0 img');
-        if (pod0Img) pod0Img.src = kittensState.players[0].avatar;
-        const curAvImg = document.querySelector('#kittenCurrentTurnAvatar img');
-        if (curAvImg && kittensState.currentTurn === 0) curAvImg.src = kittensState.players[0].avatar;
+        if (kittensState.mode !== 'online') {
+          kittensState.players[0].avatar = (typeof window.getActiveUserBeastAvatarSVG === 'function') ? window.getActiveUserBeastAvatarSVG() : kittensState.players[0].avatar;
+        }
+        if (typeof renderKittensArena === 'function' && kittensState.initialized) {
+          renderKittensArena();
+        }
       }
 
       // 8. Leaderboard User Avatar
@@ -20662,7 +20693,7 @@ function renderCashStackHTML(amount) {
       // Execute real move
       const move = chessGame.move({ from, to, promotion });
       window.hasPlayerActivelyPlayedInMatch = true;
-      chessLastMove = { from, to };
+      chessLastMove = { from, to, san: move.san, color: move.color, piece: move.piece, flags: move.flags };
 
       if (targetPiece) {
         const capturedColor = targetPiece.color;
@@ -20738,6 +20769,85 @@ function renderCashStackHTML(amount) {
         countEl.textContent = `${chessGame.history().length} nước`;
       }
     }
+    window.recordChessMoveNotation = recordChessMoveNotation;
+
+    function rebuildChessMoveHistoryUI() {
+      const log = document.getElementById('chessMoveHistoryLog');
+      const countEl = document.getElementById('chessMoveCount');
+      if (!log || !chessGame) return;
+      const history = chessGame.history({ verbose: true });
+      log.innerHTML = '';
+      for (let i = 0; i < history.length; i += 2) {
+        const moveNum = Math.floor(i / 2) + 1;
+        const wMove = history[i];
+        const bMove = history[i + 1];
+        const row = document.createElement('div');
+        row.id = `chess-pgn-row-${moveNum}`;
+        row.className = 'flex items-center justify-between py-0.5 px-2 rounded hover:bg-white/[0.03] transition';
+        row.innerHTML = `
+          <span class="text-slate-500 w-8">${moveNum}.</span>
+          <span class="text-amber-300 font-bold flex-1 text-left">${wMove ? wMove.san : '-'}</span>
+          <span class="${bMove ? 'text-cyan-300 font-bold' : 'text-slate-400'} flex-1 text-right" id="chess-pgn-b-${moveNum}">${bMove ? bMove.san : '-'}</span>
+        `;
+        log.appendChild(row);
+      }
+      log.scrollTop = log.scrollHeight;
+      if (countEl) {
+        countEl.textContent = `${history.length} nước`;
+      }
+    }
+    window.rebuildChessMoveHistoryUI = rebuildChessMoveHistoryUI;
+
+    function appendOrRecordChessMoveNotation(move, turnAfterMove) {
+      if (!move) return;
+      const log = document.getElementById('chessMoveHistoryLog');
+      const countEl = document.getElementById('chessMoveCount');
+      if (!log) return;
+
+      const isWhite = (move.color === 'w') || (turnAfterMove === 'b');
+      const san = move.san || (move.from && move.to ? `${move.from}-${move.to}` : 'Nước đi');
+
+      const existingRows = log.querySelectorAll('div[id^="chess-pgn-row-"]');
+      let moveNum = existingRows.length;
+
+      if (isWhite) {
+        moveNum = moveNum + 1;
+        const row = document.createElement('div');
+        row.id = `chess-pgn-row-${moveNum}`;
+        row.className = 'flex items-center justify-between py-0.5 px-2 rounded hover:bg-white/[0.03] transition';
+        row.innerHTML = `
+          <span class="text-slate-500 w-8">${moveNum}.</span>
+          <span class="text-amber-300 font-bold flex-1 text-left">${san}</span>
+          <span class="text-slate-400 flex-1 text-right" id="chess-pgn-b-${moveNum}">-</span>
+        `;
+        log.appendChild(row);
+      } else {
+        if (moveNum === 0) {
+          moveNum = 1;
+          const row = document.createElement('div');
+          row.id = `chess-pgn-row-${moveNum}`;
+          row.className = 'flex items-center justify-between py-0.5 px-2 rounded hover:bg-white/[0.03] transition';
+          row.innerHTML = `
+            <span class="text-slate-500 w-8">${moveNum}.</span>
+            <span class="text-amber-300 font-bold flex-1 text-left">...</span>
+            <span class="text-cyan-300 font-bold flex-1 text-right" id="chess-pgn-b-${moveNum}">${san}</span>
+          `;
+          log.appendChild(row);
+        } else {
+          const bCell = document.getElementById(`chess-pgn-b-${moveNum}`);
+          if (bCell) {
+            bCell.textContent = san;
+            bCell.className = 'text-cyan-300 font-bold flex-1 text-right';
+          }
+        }
+      }
+      log.scrollTop = log.scrollHeight;
+      if (countEl) {
+        const total = (moveNum - 1) * 2 + (isWhite ? 1 : 2);
+        countEl.textContent = `${total} nước`;
+      }
+    }
+    window.appendOrRecordChessMoveNotation = appendOrRecordChessMoveNotation;
 
     function triggerChessBotTurn() {
       chessIsBotThinking = true;
@@ -21064,7 +21174,7 @@ function renderCashStackHTML(amount) {
       }
     }
 
-    function setChessMode(mode) {
+    function setChessMode(mode, quiet = false) {
       chessMode = mode;
       const bBot = document.getElementById('chessModeBtnBot');
       const bLocal = document.getElementById('chessModeBtnLocal');
@@ -21080,23 +21190,32 @@ function renderCashStackHTML(amount) {
         if (bBot) bBot.className = 'px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition shadow-sm';
         if (botWrapper) botWrapper.classList.remove('hidden');
         if (colorWrapper) colorWrapper.classList.remove('hidden');
-        showToast('🤖 Đã chuyển sang Chế độ Đấu với BOT AI.');
+        if (!quiet) showToast('🤖 Đã chuyển sang Chế độ Đấu với BOT AI.');
       } else if (mode === 'local') {
         if (bLocal) bLocal.className = 'px-2.5 py-1 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-700 text-white font-bold transition shadow-sm';
         if (botWrapper) botWrapper.classList.add('hidden');
         if (colorWrapper) colorWrapper.classList.add('hidden');
-        showToast('👥 Chế độ 2 Người Chơi (Pass & Play) trên cùng thiết bị.');
+        if (!quiet) showToast('👥 Chế độ 2 Người Chơi (Pass & Play) trên cùng thiết bị.');
       } else if (mode === 'online') {
         if (bOnline) bOnline.className = 'px-2.5 py-1 rounded-lg bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold transition shadow-sm';
         if (botWrapper) botWrapper.classList.add('hidden');
         if (colorWrapper) colorWrapper.classList.add('hidden');
-        const code = prompt('Nhập mã phòng cờ vua để kết nối, hoặc để trống để tạo phòng mới:', 'CHESS-' + Math.floor(1000 + Math.random() * 9000));
-        if (code) {
-          showToast(`🌐 Đã tham gia phòng trực tuyến: ${code}! Đang chờ đối thủ...`);
+        if (!quiet && !window.isOnlineRoomMatch) {
+          if (typeof window.openMultiplayerModal === 'function') {
+            window.openMultiplayerModal('create');
+            const selectGame = document.getElementById('mpCreateGameSelect');
+            if (selectGame) selectGame.value = 'chess';
+          } else {
+            const code = prompt('Nhập mã phòng cờ vua để kết nối, hoặc để trống để tạo phòng mới:', 'CHESS-' + Math.floor(1000 + Math.random() * 9000));
+            if (code) {
+              showToast(`🌐 Đã tham gia phòng trực tuyến: ${code}! Đang chờ đối thủ...`);
+            }
+          }
         }
       }
       resetChessGame();
     }
+    window.setChessMode = setChessMode;
 
     function setChessBotElo(elo) {
       chessBotElo = elo;
@@ -23523,7 +23642,7 @@ function renderCashStackHTML(amount) {
           id: uid,
           name: hostName,
           isHost: true,
-          avatar: '👑',
+          avatar: (typeof window.getActiveUserBeastAvatarSVG === 'function' ? window.getActiveUserBeastAvatarSVG() : '👑'),
           joinedAt: Date.now()
         };
 
@@ -23667,12 +23786,15 @@ function renderCashStackHTML(amount) {
         const existingIdx = roomData.players.findIndex(p => p.id === guestUid || p.name === guestName);
         if (existingIdx !== -1) {
           window.myRoomPlayerIndex = existingIdx;
+          if (typeof window.getActiveUserBeastAvatarSVG === 'function') {
+            roomData.players[existingIdx].avatar = window.getActiveUserBeastAvatarSVG();
+          }
         } else {
           roomData.players.push({
             id: guestUid,
             name: guestName,
             isHost: false,
-            avatar: '⚔️',
+            avatar: (typeof window.getActiveUserBeastAvatarSVG === 'function' ? window.getActiveUserBeastAvatarSVG() : '⚔️'),
             joinedAt: Date.now()
           });
           window.myRoomPlayerIndex = roomData.players.length - 1;
@@ -23798,6 +23920,8 @@ function renderCashStackHTML(amount) {
 
       const bWaiting = document.getElementById('mpTabBtnWaiting');
       if (bWaiting) bWaiting.classList.add('hidden');
+      const btnMatchHud = document.getElementById('btnMatchHudReopenRoom');
+      if (btnMatchHud) btnMatchHud.classList.add('hidden');
 
       window.mpRoomState.currentRoom = null;
       window.mpRoomState.isHost = false;
@@ -23806,6 +23930,38 @@ function renderCashStackHTML(amount) {
 
       switchMultiplayerTab('create');
       if (typeof window.showToast === 'function') window.showToast('Đã rời phòng chơi.');
+    };
+
+    window.reopenCurrentOnlineRoom = function() {
+      if (window.mpRoomState && window.mpRoomState.currentRoom) {
+        if (typeof switchMultiplayerTab === 'function') {
+          switchMultiplayerTab('waiting');
+        }
+        const bWaiting = document.getElementById('mpTabBtnWaiting');
+        if (bWaiting) bWaiting.classList.remove('hidden');
+
+        if (typeof renderMpWaitingRoomUI === 'function') {
+          renderMpWaitingRoomUI(window.mpRoomState.currentRoom);
+        }
+        if (typeof openModal === 'function') {
+          openModal('multiplayerRoomModal');
+        }
+        if (typeof soundTone === 'function') {
+          soundTone(600, 'sine', 0.08, 0.08);
+        }
+        if (typeof showToast === 'function') {
+          showToast('🚪 Đang xem phòng thi đấu #' + window.mpRoomState.currentRoom.code);
+        }
+        if (window.lucide && typeof lucide.createIcons === 'function') {
+          lucide.createIcons();
+        }
+      } else {
+        if (typeof openMultiplayerModal === 'function') {
+          openMultiplayerModal('create');
+        } else if (typeof openModal === 'function') {
+          openModal('multiplayerRoomModal');
+        }
+      }
     };
 
     function renderMpWaitingRoomUI(customRoom) {
@@ -23840,8 +23996,8 @@ function renderCashStackHTML(amount) {
             slotsHtml += `
               <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-300 flex items-center justify-between gap-3 shadow-sm">
                 <div class="flex items-center gap-2.5">
-                  <div class="w-9 h-9 rounded-xl bg-cyan-100 border border-cyan-300 flex items-center justify-center text-cyan-800 font-bold text-base shadow-sm">
-                    ${player.avatar || '⚔️'}
+                  <div class="w-9 h-9 rounded-xl bg-cyan-100 border border-cyan-300 flex items-center justify-center text-cyan-800 font-bold text-base shadow-sm overflow-hidden">
+                    ${window.renderPlayerAvatarSafe ? window.renderPlayerAvatarSafe(player.avatar, 'w-full h-full') : (player.avatar || '⚔️')}
                   </div>
                   <div>
                     <div class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
@@ -23947,16 +24103,16 @@ function renderCashStackHTML(amount) {
 
       // 2. High-Frequency REST Polling (Every 1.2s guaranteed across devices and networks)
       const projectId = "colap-c2e9c";
-      const restUrl = 'https://firestore.googleapis.com/v1/projects/' + projectId + '/databases/(default)/documents/game_rooms/' + code;
 
       window.mpRoomState.pollInterval = setInterval(async () => {
         if (!window.mpRoomState.currentRoom || window.mpRoomState.currentRoom.code !== code) {
           clearInterval(window.mpRoomState.pollInterval);
           window.mpRoomState.pollInterval = null;
-
+          return;
         }
         try {
-          const res = await fetch(restUrl);
+          const restUrl = 'https://firestore.googleapis.com/v1/projects/' + projectId + '/databases/(default)/documents/game_rooms/' + code + '?t=' + Date.now();
+          const res = await fetch(restUrl, { cache: 'no-store' });
           if (res.ok) {
             const data = await res.json();
             if (data && data.fields) {
@@ -24242,20 +24398,10 @@ function renderCashStackHTML(amount) {
           const p = room.players[i];
           let av = p ? p.avatar : null;
           if ((!av || av === '👑' || av === '⚔️') && (i === 0 || i === window.myRoomPlayerIndex) && typeof window.getActiveUserBeastAvatarSVG === 'function') {
-            iconBox.innerHTML = window.getActiveUserBeastAvatarSVG('w-full h-full object-cover');
-            iconBox.className = 'w-6 h-6 rounded-md border border-cyan-400/80 flex items-center justify-center shrink-0 overflow-hidden p-0 shadow-sm bg-slate-950';
-          } else if (av) {
-            if (typeof av === 'string' && (av.startsWith('data:image') || av.startsWith('http://') || av.startsWith('https://'))) {
-              iconBox.innerHTML = `<img src="${av}" class="w-full h-full object-cover" />`;
-            } else if (typeof av === 'string' && av.trim().startsWith('<svg')) {
-              iconBox.innerHTML = av;
-            } else if (typeof window.getBeastAvatarSVG === 'function' && (window.BEAST_AVATAR_PRESETS?.[av] || (typeof window.isBeastAvatarId === 'function' && window.isBeastAvatarId(av)))) {
-              iconBox.innerHTML = window.getBeastAvatarSVG(av, 'w-full h-full object-cover');
-            } else {
-              iconBox.innerHTML = `<span class="text-xs">${av}</span>`;
-            }
-            iconBox.className = 'w-6 h-6 rounded-md border border-slate-700/80 flex items-center justify-center shrink-0 overflow-hidden p-0 shadow-sm bg-slate-950';
+            av = window.getActiveUserBeastAvatarSVG('w-full h-full object-cover');
           }
+          iconBox.innerHTML = window.renderPlayerAvatarSafe(av, 'w-full h-full object-cover');
+          iconBox.className = 'w-6 h-6 rounded-md border ' + (i === window.myRoomPlayerIndex ? 'border-cyan-400/80' : 'border-slate-700/80') + ' flex items-center justify-center shrink-0 overflow-hidden p-0 shadow-sm bg-slate-950';
         }
       }
 
@@ -24279,7 +24425,26 @@ function renderCashStackHTML(amount) {
     };
 
     window.setupOnlineChess = function(room) {
-      chessMode = 'online';
+      if (typeof setChessMode === 'function') {
+        setChessMode('online', true);
+      } else {
+        chessMode = 'online';
+      }
+
+      // Cập nhật giao diện mode pills (ẩn botWrapper, ẩn colorWrapper, highlight nút online)
+      const bBot = document.getElementById('chessModeBtnBot');
+      const bLocal = document.getElementById('chessModeBtnLocal');
+      const bOnline = document.getElementById('chessModeBtnOnline');
+      const botWrapper = document.getElementById('chessBotTierWrapper');
+      const colorWrapper = document.getElementById('chessColorWrapper');
+      [bBot, bLocal, bOnline].forEach(b => {
+        if (b) b.className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition';
+      });
+      if (bOnline) bOnline.className = 'px-2.5 py-1 rounded-lg bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold transition shadow-sm';
+      if (botWrapper) botWrapper.classList.add('hidden');
+      if (colorWrapper) colorWrapper.classList.add('hidden');
+
+      // Xác định chính xác quân cầm của mình & lật bàn cờ nếu cầm quân Đen
       chessPlayerColor = (window.myRoomPlayerIndex === 0) ? 'w' : 'b';
       chessFlipped = (chessPlayerColor === 'b');
       resetChessGame();
@@ -24297,13 +24462,7 @@ function renderCashStackHTML(amount) {
       if (bElo) bElo.textContent = 'P2P Trực Tuyến';
       const bAvatar = document.getElementById('chessBottomAvatar');
       if (bAvatar) {
-        if (myPlayer?.avatar && typeof myPlayer.avatar === 'string' && myPlayer.avatar.includes('<svg')) {
-          bAvatar.innerHTML = myPlayer.avatar;
-        } else if (typeof window.getActiveUserBeastAvatarSVG === 'function') {
-          bAvatar.innerHTML = window.getActiveUserBeastAvatarSVG('w-full h-full object-cover');
-        } else if (myPlayer?.avatar) {
-          bAvatar.innerHTML = `<span class="text-xl flex items-center justify-center">${myPlayer.avatar}</span>`;
-        }
+        bAvatar.innerHTML = window.renderPlayerAvatarSafe(myPlayer?.avatar, 'w-full h-full object-cover');
       }
 
       // Đối thủ (phía trên)
@@ -24313,15 +24472,7 @@ function renderCashStackHTML(amount) {
       if (tElo) tElo.textContent = 'P2P Trực Tuyến';
       const tAvatar = document.getElementById('chessTopAvatar');
       if (tAvatar) {
-        if (oppPlayer?.avatar && typeof oppPlayer.avatar === 'string' && oppPlayer.avatar.includes('<svg')) {
-          tAvatar.innerHTML = oppPlayer.avatar;
-        } else if (oppPlayer?.avatar && typeof oppPlayer.avatar === 'string' && oppPlayer.avatar.length <= 4) {
-          tAvatar.innerHTML = `<span class="text-xl flex items-center justify-center">${oppPlayer.avatar}</span>`;
-        } else if (typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined') {
-          tAvatar.innerHTML = BUSINESS_TOUR_AVATAR_SVGS[oppIdx] || BUSINESS_TOUR_AVATAR_SVGS[3];
-        } else {
-          tAvatar.textContent = '♟️';
-        }
+        tAvatar.innerHTML = window.renderPlayerAvatarSafe(oppPlayer?.avatar || BUSINESS_TOUR_AVATAR_SVGS?.[oppIdx] || '♟️', 'w-full h-full object-cover');
       }
 
       // Cập nhật card bot profile sang thông tin đối thủ trực tuyến
@@ -24334,8 +24485,9 @@ function renderCashStackHTML(amount) {
       const botCardIcon = document.getElementById('chessBotCardIcon');
       if (botCardIcon && tAvatar) botCardIcon.innerHTML = tAvatar.innerHTML;
 
-      if (room && room.matchState && room.matchState.game === 'chess') {
-        applyOnlineGameState('chess', room.matchState);
+      // Nếu room.matchState đã có FEN hoặc nước đi, gọi ngay applyOnlineGameState('chess', room.matchState)
+      if (room && room.matchState && (room.matchState.game === 'chess' || room.matchState.fen || room.matchState.lastMove || (room.matchState.payload && (room.matchState.payload.fen || room.matchState.payload.lastMove)))) {
+        applyOnlineGameState('chess', room.matchState, true);
       }
     };
 
@@ -24432,8 +24584,10 @@ function renderCashStackHTML(amount) {
       for (let i = 0; i < pCount; i++) {
         const rp = roomPlayers[i] || { name: `Kỳ Thủ ${i + 1}`, avatar: '' };
         let pAv = rp.avatar;
-        if (!pAv && i === 0 && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
-          pAv = window.getActiveUserBeastAvatarDataUrl();
+        if ((!pAv || pAv === '👑' || pAv === '⚔️') && (i === window.myRoomPlayerIndex || (window.myRoomPlayerIndex === 0 && i === 0))) {
+          if (typeof window.getActiveUserBeastAvatarSVG === 'function') {
+            pAv = window.getActiveUserBeastAvatarSVG();
+          }
         }
         if (!pAv) {
           pAv = getKittenAvatarUrl(i);
@@ -24479,13 +24633,13 @@ function renderCashStackHTML(amount) {
       await syncMpRoomToStorageAndCloud(room);
     };
 
-    window.applyOnlineGameState = function(gameType, matchState) {
-      if (!matchState || !matchState.payload) return;
-      if (matchState.updatedBy === window.myRoomPlayerIndex) return;
-      if (window.lastAppliedSeq && matchState.seq <= window.lastAppliedSeq) return;
-      window.lastAppliedSeq = matchState.seq;
-
-      const payload = matchState.payload;
+    window.applyOnlineGameState = function(gameType, matchState, force = false) {
+      if (!matchState) return;
+      const payload = matchState.payload || matchState;
+      if (!payload) return;
+      if (!force && matchState.updatedBy === window.myRoomPlayerIndex) return;
+      if (!force && window.lastAppliedSeq && matchState.seq && matchState.seq <= window.lastAppliedSeq) return;
+      if (matchState.seq) window.lastAppliedSeq = matchState.seq;
 
       if (gameType === 'monopoly') {
         // A0. Real-Time Airport Flight Broadcast
@@ -24723,16 +24877,52 @@ function renderCashStackHTML(amount) {
 
       } else if (gameType === 'chess') {
         if (payload.fen && chessGame) {
-          chessGame.load(payload.fen);
+          const prevFen = chessGame.fen();
+          let loadedPgn = false;
+          if (payload.pgn && typeof chessGame.load_pgn === 'function') {
+            try {
+              loadedPgn = chessGame.load_pgn(payload.pgn);
+            } catch (e) {
+              loadedPgn = false;
+            }
+          }
+          if (!loadedPgn) {
+            chessGame.load(payload.fen);
+          }
           if (payload.lastMove) chessLastMove = payload.lastMove;
           if (payload.captured) chessCaptured = payload.captured;
-          if (payload.clocks) chessClocks = payload.clocks;
+          if (payload.clocks) {
+            chessClocks = { ...payload.clocks };
+            chessTurnDeadline = 0;
+          }
 
+          // Cập nhật lịch sử nước đi & PGN cho máy đối thủ
+          if (loadedPgn && typeof window.rebuildChessMoveHistoryUI === 'function') {
+            window.rebuildChessMoveHistoryUI();
+          } else if (payload.lastMove) {
+            if (typeof window.appendOrRecordChessMoveNotation === 'function') {
+              window.appendOrRecordChessMoveNotation(payload.lastMove, payload.turn);
+            } else if (typeof window.recordChessMoveNotation === 'function' && payload.lastMove.san) {
+              window.recordChessMoveNotation(payload.lastMove);
+            }
+          }
+
+          // Phát âm thanh nước đi
+          try {
+            soundTone(520, 'sine', 0.08, 0.1);
+          } catch (e) {}
+
+          // Đồng bộ thời gian
+          if (typeof syncChessClock === 'function') syncChessClock();
+
+          // Cập nhật giao diện bàn cờ & HUD
           renderChessBoard();
           updateChessUI();
           updateOnlineRoomHUD();
 
-          if (payload.isGameOver) handleChessGameOver();
+          if (payload.isGameOver && typeof handleChessGameOver === 'function') {
+            handleChessGameOver();
+          }
         }
       } else if (gameType === 'kittens') {
         if (!payload) return;
@@ -24854,7 +25044,8 @@ function renderCashStackHTML(amount) {
         captured: chessCaptured,
         clocks: chessClocks,
         isGameOver: chessGame.game_over(),
-        turn: chessGame.turn()
+        turn: chessGame.turn(),
+        pgn: chessGame.pgn()
       };
       pushOnlineGameState('chess', payload);
     };
@@ -24885,6 +25076,14 @@ function renderCashStackHTML(amount) {
 
     window.updateOnlineRoomHUD = function() {
       const hud = document.getElementById('onlineRoomHUD');
+      const btnMatchHud = document.getElementById('btnMatchHudReopenRoom');
+      if (btnMatchHud) {
+        if (window.isOnlineRoomMatch || (window.mpRoomState && window.mpRoomState.currentRoom)) {
+          btnMatchHud.classList.remove('hidden');
+        } else {
+          btnMatchHud.classList.add('hidden');
+        }
+      }
       if (!hud) return;
       if (!window.isOnlineRoomMatch || !window.mpRoomState.currentRoom) {
         hud.classList.add('hidden');
@@ -24946,6 +25145,8 @@ function renderCashStackHTML(amount) {
         }
         const hud = document.getElementById('onlineRoomHUD');
         if (hud) hud.classList.add('hidden');
+        const btnMatchHud = document.getElementById('btnMatchHudReopenRoom');
+        if (btnMatchHud) btnMatchHud.classList.add('hidden');
         switchMainTab('lobby');
         if (typeof window.showToast === 'function') window.showToast('Đã rời phòng đấu P2P và quay lại Sảnh chính.');
       }
@@ -25208,10 +25409,10 @@ function renderCashStackHTML(amount) {
       // 1. Update Cockpit Header
       const avEl = document.getElementById('kittenCurrentTurnAvatar');
       if (avEl && pCur) {
-        if (pCur.id === 0 && kittensState.mode !== 'online' && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
-          pCur.avatar = window.getActiveUserBeastAvatarDataUrl();
+        if (pCur.id === 0 && kittensState.mode !== 'online' && typeof window.getActiveUserBeastAvatarSVG === 'function') {
+          pCur.avatar = window.getActiveUserBeastAvatarSVG();
         }
-        avEl.innerHTML = `<img src="${pCur.avatar}" class="w-full h-full object-cover" />`;
+        avEl.innerHTML = window.renderPlayerAvatarSafe(pCur.avatar, 'w-full h-full');
       }
       const nameEl = document.getElementById('kittenCurrentTurnName');
       if (nameEl && pCur) {
@@ -25258,8 +25459,8 @@ function renderCashStackHTML(amount) {
 
         podEl.innerHTML = `
           <div class="flex items-center gap-2.5">
-            <div class="relative w-10 h-10 rounded-xl overflow-hidden border ${isTurn ? 'border-amber-400' : 'border-slate-700'} shrink-0">
-              <img src="${p.avatar}" class="w-full h-full object-cover" />
+            <div class="relative w-10 h-10 rounded-xl overflow-hidden border ${isTurn ? 'border-amber-400' : 'border-slate-700'} shrink-0 flex items-center justify-center bg-slate-950">
+              ${window.renderPlayerAvatarSafe(p.avatar, 'w-full h-full')}
               ${!p.isAlive ? '<div class="absolute inset-0 bg-red-950/80 flex items-center justify-center text-sm">☠️</div>' : ''}
             </div>
             <div>
@@ -25283,14 +25484,14 @@ function renderCashStackHTML(amount) {
       // 3. Render Human Pod 0 (My Pod)
       const pod0 = document.getElementById('kittenPlayerPod_0');
       if (pod0 && pMe) {
-        if (pMe.id === 0 && kittensState.mode !== 'online' && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
-          pMe.avatar = window.getActiveUserBeastAvatarDataUrl();
+        if (pMe.id === 0 && kittensState.mode !== 'online' && typeof window.getActiveUserBeastAvatarSVG === 'function') {
+          pMe.avatar = window.getActiveUserBeastAvatarSVG();
         }
         const isTurnMe = kittensState.currentTurn === myIdx && pMe.isAlive;
         const myBadgeText = (kittensState.mode === 'online') ? `BẠN (P${myIdx + 1})` : 'BẠN';
         pod0.innerHTML = `
-          <div class="relative w-9 h-9 rounded-xl overflow-hidden border ${isTurnMe ? 'border-amber-400 kitten-pulse-gold' : 'border-slate-700'} shrink-0">
-            <img src="${pMe.avatar}" class="w-full h-full object-cover" />
+          <div class="relative w-9 h-9 rounded-xl overflow-hidden border ${isTurnMe ? 'border-amber-400 kitten-pulse-gold' : 'border-slate-700'} shrink-0 flex items-center justify-center bg-slate-950">
+            ${window.renderPlayerAvatarSafe(pMe.avatar, 'w-full h-full')}
             ${!pMe.isAlive ? '<div class="absolute inset-0 bg-red-950/80 flex items-center justify-center text-sm">☠️</div>' : ''}
           </div>
           <div>
@@ -25684,7 +25885,9 @@ function renderCashStackHTML(amount) {
       list.innerHTML = targets.map(t => `
         <button onclick="openBlindPickModal(${t.id}, ${isCatPair ? 'true' : 'false'}); closeKittensModal('kittenModalTarget');" class="btn-spring w-full p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-amber-400 flex items-center justify-between transition-all">
           <div class="flex items-center gap-2.5">
-            <img src="${t.avatar}" class="w-8 h-8 rounded-lg object-cover" />
+            <div class="w-8 h-8 rounded-lg overflow-hidden shrink-0 flex items-center justify-center bg-slate-950">
+              ${window.renderPlayerAvatarSafe(t.avatar, 'w-full h-full')}
+            </div>
             <span class="text-xs font-bold text-slate-200">${t.name}</span>
           </div>
           <span class="text-xs font-mono text-amber-400 font-bold">${t.hand.length} lá trên tay (BẤM ĐỂ BỐC 🎴)</span>
@@ -27522,6 +27725,48 @@ async function executeDrawCard(playerIdx) {
           window.applyUserUI(u);
         } catch (e) {}
       }
+      // Global Keyboard Shortcuts: 'P' to Reopen/Toggle P2P Room, 'Escape' to close multiplayer modal
+      window.addEventListener('keydown', (e) => {
+        const activeEl = document.activeElement;
+        const isInput = activeEl && (
+          activeEl.tagName === 'INPUT' ||
+          activeEl.tagName === 'TEXTAREA' ||
+          activeEl.tagName === 'SELECT' ||
+          activeEl.isContentEditable
+        );
+
+        // Shortcut 'P' or 'p': Reopen / toggle current online room
+        if ((e.key === 'p' || e.key === 'P') && !e.ctrlKey && !e.altKey && !e.metaKey) {
+          if (!isInput) {
+            e.preventDefault();
+            const mpModal = document.getElementById('multiplayerRoomModal');
+            if (mpModal && !mpModal.classList.contains('hidden')) {
+              if (typeof closeModal === 'function') {
+                closeModal('multiplayerRoomModal');
+              } else {
+                mpModal.classList.add('hidden');
+              }
+            } else {
+              if (typeof window.reopenCurrentOnlineRoom === 'function') {
+                window.reopenCurrentOnlineRoom();
+              }
+            }
+          }
+        }
+
+        // Shortcut 'Escape': Close multiplayerRoomModal to return immediately to the game
+        if (e.key === 'Escape') {
+          const mpModal = document.getElementById('multiplayerRoomModal');
+          if (mpModal && !mpModal.classList.contains('hidden')) {
+            e.preventDefault();
+            if (typeof closeModal === 'function') {
+              closeModal('multiplayerRoomModal');
+            } else {
+              mpModal.classList.add('hidden');
+            }
+          }
+        }
+      });
     });
   </script>
 

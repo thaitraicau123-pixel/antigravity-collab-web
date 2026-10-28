@@ -13755,9 +13755,6 @@ function getRainbowChanceWheelSVG() {
         levelEl.textContent = 'Ô ĐẶC BIỆT';
         levelEl.className = 'text-[9px] font-black text-amber-300 px-1.5 py-0.2 rounded bg-amber-400/20 border border-amber-400/40';
         subEl.innerHTML = '<span class="text-amber-300 font-bold">' + (t.type === "start" ? "Nhận lương thương mại +$400" : (t.type === "jail" ? "Trại Giam Song Sắt (Bảo lãnh $250)" : (t.type === "airport" ? "World Tour Airport (+$300 & bay ngẫu nhiên đến 1 ô bất kỳ)" : "Bị bắt giam ngay lập tức!"))) + '</span>';
-        if (t.id === 22) {
-          subEl.innerHTML += ' <button onclick="triggerMonoAirplaneFlyby({ player: monoState.players[monoState.turn], destTile: monoState.tiles[22] })" class="ml-2 px-2.5 py-0.5 rounded-lg bg-amber-400 text-slate-950 font-black text-[9px] hover:bg-yellow-300 cursor-pointer shadow-md border border-white pointer-events-auto">✈️ Bay Thử</button>';
-        }
       } else if (t.type === 'chance' || t.type === 'fate') {
         levelEl.textContent = 'VÒNG QUAY MAY MẮN';
         levelEl.className = 'text-[9px] font-black text-cyan-300 px-1.5 py-0.2 rounded bg-cyan-400/20 border border-cyan-400/40';
@@ -17055,9 +17052,6 @@ function renderCashStackHTML(amount) {
         let actionHtml = '';
         if (isOwned && t.owner === monoState.turn && !monoState.players[monoState.turn].isBot) {
           actionHtml += '<button onclick="closeMonoTileDetailsModal(); openMonoAssetManager(monoState.turn);" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs cursor-pointer shadow-md">🏦 Quản Lý BĐS Này</button>';
-        }
-        if (t.id === 22) {
-          actionHtml += '<button onclick="closeMonoTileDetailsModal(); triggerMonoAirplaneFlyby({ player: monoState.players[monoState.turn], destTile: monoState.tiles[22] });" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-black text-xs cursor-pointer shadow-md">✈️ Bay Thử Ngay</button>';
         }
         actionHtml += '<button onclick="closeMonoTileDetailsModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-600 cursor-pointer">✕ Đóng (Esc)</button>';
         actions.innerHTML = actionHtml;

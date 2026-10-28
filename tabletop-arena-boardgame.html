@@ -22787,14 +22787,16 @@ function renderCashStackHTML(amount) {
       dice: 'Xúc Xắc 20 Ô Hoàng Kim',
       chess: 'Cờ Vua FIDE',
       tictactoe: 'Ca-rô Neon',
-      monopoly: 'Cờ Tỷ Phú 2.5D'
+      monopoly: 'Cờ Tỷ Phú 2.5D',
+      kittens: 'Mèo Nổ Tabletop'
     };
 
     const MP_GAME_ICONS = {
       dice: '🎲',
       chess: '♟️',
       tictactoe: '⭕❌',
-      monopoly: '🏰'
+      monopoly: '🏰',
+      kittens: '💣'
     };
 
     // Initialize Broadcast Channel
@@ -22904,7 +22906,7 @@ function renderCashStackHTML(amount) {
     window.selectMpGame = function(gameKey) {
       window.mpRoomState.selectedGame = gameKey;
       
-      const games = ['dice', 'chess', 'tictactoe', 'monopoly'];
+      const games = ['dice', 'chess', 'tictactoe', 'monopoly', 'kittens'];
       games.forEach(g => {
         const card = document.getElementById('mpGameCard_' + g);
         if (!card) return;
@@ -22924,24 +22926,28 @@ function renderCashStackHTML(amount) {
       if (label) label.textContent = MP_GAME_NAMES[gameKey] || gameKey;
 
       const hint = document.getElementById('mpPlayerCountHint');
+      const btn2 = document.getElementById('mpCountBtn_2');
       const btn3 = document.getElementById('mpCountBtn_3');
       const btn4 = document.getElementById('mpCountBtn_4');
 
       if (gameKey === 'chess' || gameKey === 'tictactoe') {
-        selectMpPlayerCount(2);
+        window.selectMpAiCount(1);
+        if (btn2) { btn2.classList.add('opacity-40', 'cursor-not-allowed'); btn2.disabled = true; }
         if (btn3) { btn3.classList.add('opacity-40', 'cursor-not-allowed'); btn3.disabled = true; }
         if (btn4) { btn4.classList.add('opacity-40', 'cursor-not-allowed'); btn4.disabled = true; }
-        if (hint) hint.textContent = (gameKey === 'chess' ? 'Cờ Vua FIDE' : 'Ca-rô Neon') + ' chuẩn quy chế đối kháng 2 người.';
-      } else {
+        if (hint) hint.textContent = 'Cờ Vua / Ca-rô chuẩn quy chế đối kháng 1v1 (1 Bot AI).';
+      } else if (gameKey === 'dice' || gameKey === 'monopoly' || gameKey === 'kittens') {
+        if (btn2) { btn2.classList.remove('opacity-40', 'cursor-not-allowed'); btn2.disabled = false; }
         if (btn3) { btn3.classList.remove('opacity-40', 'cursor-not-allowed'); btn3.disabled = false; }
         if (btn4) { btn4.classList.remove('opacity-40', 'cursor-not-allowed'); btn4.disabled = false; }
-        if (hint) hint.textContent = 'Hỗ trợ 2 đến 4 người cùng tranh tài kịch tính.';
+        if (hint) hint.textContent = 'Tùy chọn so tài cùng 1 đến 3 Bot AI đối thủ (tối đa 4 người chơi).';
       }
     };
 
-    window.selectMpPlayerCount = function(count) {
-      window.mpRoomState.maxPlayers = count;
-      [2, 3, 4].forEach(c => {
+    window.selectMpAiCount = function(count) {
+      window.mpRoomState.aiCount = count;
+      window.mpRoomState.maxPlayers = count + 1; // 1 AI = 2 người, 2 AI = 3 người, 3 AI = 4 người
+      [1, 2, 3].forEach(c => {
         const btn = document.getElementById('mpCountBtn_' + c);
         if (!btn) return;
         if (c === count) {
@@ -22950,6 +22956,44 @@ function renderCashStackHTML(amount) {
           btn.className = 'flex-1 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-slate-900 hover:bg-white font-bold';
         }
       });
+    };
+
+    window.selectMpPlayerCount = function(playerCount) {
+      // Tương thích ngược: playerCount 2 -> 1 AI, 3 -> 2 AI, 4 -> 3 AI
+      window.selectMpAiCount(Math.max(1, Math.min(3, playerCount - 1)));
+    };
+
+    window.filterMpGames = function(query) {
+      const q = (query || '').toLowerCase().trim();
+      const games = [
+        { id: 'dice', name: 'xúc xắc 20 ô hoàng kim dice' },
+        { id: 'chess', name: 'cờ vua fide chess' },
+        { id: 'tictactoe', name: 'ca-rô neon caro tic tac toe' },
+        { id: 'monopoly', name: 'cờ tỷ phú 2.5d monopoly' },
+        { id: 'kittens', name: 'mèo nổ tabletop exploding kittens' }
+      ];
+      let visibleCount = 0;
+      games.forEach(g => {
+        const card = document.getElementById('mpGameCard_' + g.id);
+        if (!card) return;
+        if (!q || g.name.includes(q)) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      const noResults = document.getElementById('mpGameNoResults');
+      if (noResults) {
+        if (visibleCount === 0) noResults.classList.remove('hidden');
+        else noResults.classList.add('hidden');
+      }
+    };
+
+    window.showAllMpGames = function() {
+      const inp = document.getElementById('mpGameSearchInput');
+      if (inp) inp.value = '';
+      window.filterMpGames('');
     };
 
     window.handleCreateMultiplayerRoom = async function() {
@@ -23524,6 +23568,8 @@ function renderCashStackHTML(amount) {
         setupOnlineChess(room);
       } else if (room.game === 'tictactoe') {
         setupOnlineTicTacToe(room);
+      } else if (room.game === 'kittens') {
+        if (typeof initKittensGame === 'function') initKittensGame();
       }
 
       updateOnlineRoomHUD();
@@ -25606,13 +25652,26 @@ async function executeDrawCard(playerIdx) {
       <!-- ================= TAB 1: TẠO PHÒNG MỚI (#mpViewCreate) ================= -->
       <div id="mpViewCreate" class="space-y-5 mp-tab-enter">
         
-        <!-- Choose Game -->
+        <!-- Choose Game Header with Search & View All -->
         <div>
-          <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-2.5 flex items-center justify-between">
-            <span class="flex items-center gap-1.5"><i data-lucide="gamepad-2" class="w-4 h-4 text-cyan-600"></i> 1. Chọn Tựa Game Đấu Trí:</span>
-            <span id="mpSelectedGameLabel" class="text-amber-700 font-mono text-[11px] font-black">Xúc Xắc 20 Ô</span>
-          </label>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+            <label class="text-xs font-extrabold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
+              <i data-lucide="gamepad-2" class="w-4 h-4 text-cyan-600"></i>
+              <span>1. Chọn Tựa Game Đấu Trí:</span>
+              <span id="mpSelectedGameLabel" class="text-amber-700 font-mono text-[11px] font-black ml-1">Xúc Xắc 20 Ô</span>
+            </label>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <div class="relative">
+                <input type="text" id="mpGameSearchInput" oninput="filterMpGames(this.value)" placeholder="🔍 Tìm game..." class="w-28 sm:w-36 px-2.5 py-1 rounded-xl bg-slate-50 border border-slate-300 text-[11px] font-bold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-cyan-500 focus:bg-white shadow-2xs">
+              </div>
+              <button type="button" onclick="showAllMpGames()" id="btnMpViewAllGames" class="btn-spring px-2 py-1 rounded-xl bg-cyan-50 hover:bg-cyan-100 border border-cyan-300 text-cyan-900 text-[10px] font-black cursor-pointer shadow-2xs">
+                Xem Tất Cả (5)
+              </button>
+            </div>
+          </div>
+
+          <!-- Grid games wrap / xuống dòng linh hoạt: 2 cột trên mobile, 3 cột trên tablet/desktop, cuộn nhẹ nếu dài -->
+          <div id="mpGamesGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 max-h-[260px] overflow-y-auto custom-scrollbar p-0.5">
             <!-- Game 1: Dice -->
             <button type="button" onclick="selectMpGame('dice')" id="mpGameCard_dice" class="mp-game-card group p-3 rounded-2xl bg-cyan-50/90 border-2 border-cyan-500 shadow-md shadow-cyan-500/15 text-left transition-all hover:border-cyan-600 relative cursor-pointer">
               <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-700/20 border border-amber-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform mb-2.5">
@@ -25652,22 +25711,51 @@ async function executeDrawCard(playerIdx) {
               <div class="text-[10px] text-slate-600 font-mono font-bold">2-4 Người</div>
               <div class="mp-check-badge hidden absolute top-2 right-2 text-cyan-600 font-black text-xs">✓</div>
             </button>
+
+            <!-- Game 5: Mèo Nổ Tabletop (MỚI BỔ SUNG) -->
+            <button type="button" onclick="selectMpGame('kittens')" id="mpGameCard_kittens" class="mp-game-card group p-3 rounded-2xl bg-slate-50 border-2 border-slate-200 hover:border-cyan-400 hover:bg-white text-left transition-all relative cursor-pointer">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-500/20 to-amber-700/20 border border-rose-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform mb-2.5">
+                <!-- Icon Bom Mèo SVG Độc Bản Tinh Xảo -->
+                <svg viewBox="0 0 32 32" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(244,63,94,0.7)]" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="mpCatBombGrad" x1="4" y1="4" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#FB7185"/>
+                      <stop offset="60%" stop-color="#E11D48"/>
+                      <stop offset="100%" stop-color="#881337"/>
+                    </linearGradient>
+                  </defs>
+                  <circle cx="16" cy="18" r="10" fill="url(#mpCatBombGrad)" stroke="#FECDD3" stroke-width="0.8"/>
+                  <polygon points="10,10 6,4 12,6" fill="#E11D48" stroke="#FECDD3" stroke-width="0.7"/>
+                  <polygon points="22,10 26,4 20,6" fill="#E11D48" stroke="#FECDD3" stroke-width="0.7"/>
+                  <path d="M16 8 Q17 4 22 4" stroke="#FDE047" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                  <polygon points="22,4 25,2 24,5 27,6 23,7" fill="#FACC15"/>
+                  <circle cx="13" cy="16" r="1.3" fill="#FFFFFF"/>
+                  <circle cx="19" cy="16" r="1.3" fill="#FFFFFF"/>
+                  <polygon points="16,18 15,20 17,20" fill="#FDE047"/>
+                </svg>
+              </div>
+              <div class="text-xs font-black text-slate-900 group-hover:text-rose-700">Mèo Nổ Tabletop</div>
+              <div class="text-[10px] text-slate-600 font-mono font-bold">2-4 Người / AI</div>
+              <div class="mp-check-badge hidden absolute top-2 right-2 text-cyan-600 font-black text-xs">✓</div>
+            </button>
           </div>
+          <div id="mpGameNoResults" class="hidden py-4 text-center text-xs text-slate-500 font-bold">Không tìm thấy tựa game phù hợp.</div>
         </div>
 
         <!-- Choose Player Count & Player Name -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <!-- Max Players -->
+          <!-- Max Players -> Number of AI Bots (Max 3) -->
           <div>
             <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-2 flex items-center gap-1.5">
-              <i data-lucide="users" class="w-3.5 h-3.5 text-cyan-600"></i> 2. Số Lượng Kỳ Thủ:
+              <i data-lucide="bot" class="w-3.5 h-3.5 text-cyan-600"></i>
+              <span>2. Số Lượng Bot AI (Tối Đa 3):</span>
             </label>
             <div class="flex items-center gap-2 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
-              <button type="button" onclick="selectMpPlayerCount(2)" id="mpCountBtn_2" class="flex-1 py-1.5 rounded-xl text-xs font-bold transition-all bg-cyan-600 text-white shadow-sm font-bold">2 Người</button>
-              <button type="button" onclick="selectMpPlayerCount(3)" id="mpCountBtn_3" class="flex-1 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-slate-900 hover:bg-white font-bold">3 Người</button>
-              <button type="button" onclick="selectMpPlayerCount(4)" id="mpCountBtn_4" class="flex-1 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-slate-900 hover:bg-white font-bold">4 Người</button>
+              <button type="button" onclick="selectMpAiCount(1)" id="mpCountBtn_1" class="flex-1 py-1.5 rounded-xl text-xs font-bold transition-all bg-cyan-600 text-white shadow-sm font-bold">1 AI</button>
+              <button type="button" onclick="selectMpAiCount(2)" id="mpCountBtn_2" class="flex-1 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-slate-900 hover:bg-white font-bold">2 AI</button>
+              <button type="button" onclick="selectMpAiCount(3)" id="mpCountBtn_3" class="flex-1 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-slate-900 hover:bg-white font-bold">3 AI</button>
             </div>
-            <p id="mpPlayerCountHint" class="text-[10px] text-slate-600 mt-1.5 font-medium">Tối ưu cho trận đấu kịch tính cùng bạn bè</p>
+            <p id="mpPlayerCountHint" class="text-[10px] text-slate-600 mt-1.5 font-medium">Thiết lập số lượng máy tự động so tài cùng bạn (tối đa 3 đối thủ AI)</p>
           </div>
 
           <!-- Host Name -->

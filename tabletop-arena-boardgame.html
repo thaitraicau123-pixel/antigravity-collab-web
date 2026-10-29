@@ -1502,8 +1502,9 @@
       opacity: 0.85;
     }
     .uno-table-felt {
-      background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 65%, #020617 100%);
-      box-shadow: inset 0 0 60px rgba(0,0,0,0.8), 0 0 40px rgba(250, 204, 21, 0.15);
+      background: #0f172a !important; /* Xanh than nỉ đặc trơn 100%, chống trong suốt */
+      border: 3px solid #334155 !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
     }
     .uno-flying-card-anim {
       position: fixed;
@@ -1511,6 +1512,174 @@
       z-index: 9999;
       transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
+
+    /* ================= KITTENS ENHANCED ANIMATIONS (v4.3.2) ================= */
+    @keyframes kittenPodBounce {
+      0% { transform: scale(1); }
+      35% { transform: scale(1.15); filter: brightness(1.4) drop-shadow(0 0 18px rgba(251, 191, 36, 0.9)); }
+      70% { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+    .kitten-pod-landing-bounce {
+      animation: kittenPodBounce 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    @keyframes kittenMyTurnPulse {
+      0%, 100% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.4), inset 0 0 10px rgba(245, 158, 11, 0.2); }
+      50% { box-shadow: 0 0 35px rgba(245, 158, 11, 0.9), inset 0 0 20px rgba(245, 158, 11, 0.5); }
+    }
+    .kitten-my-turn-glow {
+      animation: kittenMyTurnPulse 1.5s ease-in-out infinite;
+      border-color: #f59e0b !important;
+    }
+
+    /* Counter-Attack Visual Glow & Animation */
+    @keyframes kittenAttackCounterPulse {
+      0%, 100% {
+        box-shadow: 0 0 16px rgba(249, 115, 22, 0.8), inset 0 0 10px rgba(249, 115, 22, 0.4);
+        border-color: #f97316;
+      }
+      50% {
+        box-shadow: 0 0 32px rgba(239, 68, 68, 0.95), inset 0 0 20px rgba(239, 68, 68, 0.6);
+        border-color: #ef4444;
+      }
+    }
+    .kitten-attack-counter-glow {
+      animation: kittenAttackCounterPulse 1.1s infinite ease-in-out !important;
+      transform: translateY(-4px) !important;
+    }
+
+    /* ==========================================================================
+       MA SÓI: HUYỀN THOẠI TRĂNG MÁU (CYBER WEREWOLF ARENA) STYLES
+       ========================================================================== */
+/* =========================================================================
+   CYBER WEREWOLF ARENA (MA SÓI: HUYỀN THOẠI TRĂNG MÁU) - CSS STYLES
+   ========================================================================= */
+
+/* Blood Moon Glow */
+@keyframes werewolfMoonGlow {
+  0%, 100% {
+    box-shadow: 0 0 35px rgba(220, 38, 38, 0.7), inset 0 0 20px rgba(239, 68, 68, 0.5);
+    filter: drop-shadow(0 0 25px rgba(220, 38, 38, 0.8));
+  }
+  50% {
+    box-shadow: 0 0 55px rgba(239, 68, 68, 0.95), inset 0 0 30px rgba(248, 113, 113, 0.7);
+    filter: drop-shadow(0 0 40px rgba(239, 68, 68, 1));
+  }
+}
+.werewolf-blood-moon {
+  animation: werewolfMoonGlow 3s infinite ease-in-out;
+}
+
+/* Bonfire Flickering */
+@keyframes werewolfFireFlicker {
+  0%, 100% {
+    transform: scale(1) rotate(-1deg);
+    filter: drop-shadow(0 -5px 25px rgba(249, 115, 22, 0.85));
+  }
+  25% {
+    transform: scale(1.06, 0.96) rotate(1deg);
+    filter: drop-shadow(0 -8px 35px rgba(239, 68, 68, 0.95));
+  }
+  50% {
+    transform: scale(0.97, 1.04) rotate(-2deg);
+    filter: drop-shadow(0 -4px 20px rgba(245, 158, 11, 0.8));
+  }
+  75% {
+    transform: scale(1.04, 1) rotate(2deg);
+    filter: drop-shadow(0 -7px 30px rgba(251, 146, 60, 0.9));
+  }
+}
+.werewolf-bonfire-anim {
+  animation: werewolfFireFlicker 1.8s infinite ease-in-out;
+}
+
+/* Bonfire Blue for Night */
+@keyframes werewolfNightFireFlicker {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 -5px 25px rgba(99, 102, 241, 0.85));
+  }
+  50% {
+    transform: scale(1.05, 0.98);
+    filter: drop-shadow(0 -8px 35px rgba(168, 85, 247, 0.95));
+  }
+}
+.werewolf-bonfire-night-anim {
+  animation: werewolfNightFireFlicker 2.2s infinite ease-in-out;
+}
+
+/* Speech Bubble in Village */
+.werewolf-speech-bubble {
+  position: absolute;
+  bottom: 105%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.95);
+  border: 2px solid rgba(245, 158, 11, 0.8);
+  border-radius: 1rem;
+  padding: 0.5rem 0.75rem;
+  color: #f8fafc;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  white-space: normal;
+  max-width: 180px;
+  min-width: 130px;
+  text-align: center;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7), 0 0 15px rgba(245, 158, 11, 0.3);
+  z-index: 40;
+  pointer-events: none;
+  animation: werewolfBubblePop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.werewolf-speech-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(245, 158, 11, 0.8) transparent transparent transparent;
+}
+@keyframes werewolfBubblePop {
+  0% { opacity: 0; transform: translateX(-50%) translateY(8px) scale(0.9); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+
+/* Target Selection Glow */
+@keyframes werewolfTargetPulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.6), inset 0 0 10px rgba(239, 68, 68, 0.4);
+    border-color: #ef4444;
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(239, 68, 68, 0.95), inset 0 0 20px rgba(239, 68, 68, 0.7);
+    border-color: #f87171;
+    transform: scale(1.04);
+  }
+}
+.werewolf-target-selectable {
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.werewolf-target-selectable:hover {
+  animation: werewolfTargetPulse 1s infinite ease-in-out;
+  border-color: #ef4444 !important;
+}
+
+/* Dead Player X */
+.werewolf-player-dead {
+  filter: grayscale(0.85) brightness(0.65);
+  opacity: 0.65;
+  border-color: #7f1d1d !important;
+  background: #18181b !important;
+}
+
+/* Night Fog Effect */
+.werewolf-night-fog {
+  background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0) 30%, rgba(5, 8, 18, 0.85) 85%);
+  pointer-events: none;
+}
+
 </style>
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col antialiased selection:bg-amber-400 selection:text-slate-900 w-full max-w-full overflow-x-hidden">
@@ -2132,6 +2301,49 @@
 
 
       </div>
+
+        <!-- Game 7: MA SÓI: HUYỀN THOẠI TRĂNG MÁU (CYBER WEREWOLF ARENA) -->
+        <div class="group relative rounded-3xl bg-gradient-to-b from-purple-950/95 via-slate-900/95 to-slate-950/95 border-2 border-purple-500/60 hover:border-purple-400 p-5 sm:p-6 shadow-xl hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 flex flex-col justify-between overflow-hidden backdrop-blur-md text-white">
+          <div class="absolute -top-12 -right-12 w-32 h-32 bg-purple-600/25 rounded-full blur-2xl group-hover:bg-purple-500/40 transition-all"></div>
+          
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 text-white shadow-sm flex items-center gap-1">
+                <span>🌕</span> HUYỀN THOẠI TRĂNG MÁU
+              </span>
+              <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-600/30 via-pink-600/20 to-red-600/30 border-2 border-purple-400/50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform shrink-0">
+                <span class="text-2xl filter drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]">🐺</span>
+              </div>
+            </div>
+
+            <h3 class="font-cinzel text-base sm:text-lg font-black text-purple-200 mb-1 group-hover:text-purple-300 transition-colors tracking-tight whitespace-nowrap truncate" title="Ma Sói: Huyền Thoại Trăng Máu (7 Người)">
+              Ma Sói: Huyền Thoại Trăng Máu
+            </h3>
+            <p class="text-[11px] text-purple-300/80 font-semibold mb-3 font-sans truncate" title="Đấu trí suy luận xã hội đỉnh cao! 7 vai trò cổ điển, AI bot biện luận ma mị!">
+              Đấu trí suy luận xã hội đỉnh cao! 7 vai trò, AI tranh biện ma mị!
+            </p>
+
+            <div class="space-y-1.5 mb-5 text-[11px] text-purple-200/90 font-bold">
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <span class="text-purple-400">❖</span>
+                <span>7 Vai Trò: Sói Đêm, Tiên Tri, Bảo Vệ, Phù Thủy, Thợ Săn...</span>
+              </div>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <span class="text-pink-400">❖</span>
+                <span>AI Bot Tự Động Tranh Biện & Bỏ Phiếu Treo Cổ</span>
+              </div>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <span class="text-red-400">❖</span>
+                <span>Chu kỳ Ngày & Đêm ma mị, Web Audio SFX sống động</span>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="enterGameFromLobby('werewolf')" class="btn-spring w-full py-2.5 sm:py-3 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 hover:from-purple-500 hover:to-red-500 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-purple-600/40 border-2 border-purple-400/60 transition-all cursor-pointer whitespace-nowrap">
+            <i data-lucide="play" class="w-3.5 h-3.5 fill-white text-white"></i>
+            <span>BƯỚC VÀO LÀNG SÓI (7 NGƯỜI)</span>
+          </button>
+        </div>
 
       <!-- Quick Action Utilities Bar -->
       <div class="w-full p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-amber-50/90 via-white to-amber-50/90 border-2 border-amber-300/80 shadow-lg shadow-amber-500/5 flex flex-wrap items-center justify-between gap-4 backdrop-blur-md">
@@ -4408,7 +4620,7 @@
       <div id="unoView" class="hidden relative w-full flex-col items-center justify-center p-2 sm:p-4 my-auto select-none overflow-hidden max-w-[1400px] mx-auto">
         
         <!-- Uno Match Cockpit Header -->
-        <div class="w-full flex items-center justify-between gap-3 mb-3 px-4 py-2.5 rounded-2xl bg-slate-900/90 border-2 border-yellow-500/40 shadow-xl backdrop-blur-md flex-wrap">
+        <div class="w-full flex items-center justify-between gap-3 mb-3 px-4 py-2.5 rounded-2xl bg-[#0f172a] border-2 border-slate-700 shadow-xl flex-wrap">
           <!-- Left: Current Turn Info & Active Color Indicator -->
           <div class="flex items-center gap-3">
             <div id="unoTurnBadge" class="flex items-center gap-2 px-3 py-1 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 font-black text-xs font-mono shadow-md">
@@ -4451,16 +4663,12 @@
         <!-- UNO Oval Table Mat Arena -->
         <div class="w-full relative rounded-3xl uno-table-felt border-4 border-yellow-500/30 p-4 sm:p-6 shadow-2xl flex flex-col justify-between min-h-[580px] sm:min-h-[640px] overflow-hidden">
           
-          <!-- Background Ambient Glow & Radial Rings -->
-          <div class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-20">
-            <div class="w-[500px] h-[500px] rounded-full border border-yellow-400/30"></div>
-            <div class="absolute w-[700px] h-[700px] rounded-full border border-cyan-400/20"></div>
-          </div>
+          <!-- Solid Smooth Felt Clean Surface -->
 
           <!-- TOP TIER: 3 BOTS PODS -->
           <div class="w-full grid grid-cols-3 gap-2 sm:gap-4 z-10">
             <!-- Bot 1 (Left: Tiên Tinh Linh) -->
-            <div id="unoPod1" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-black/50 border-2 border-slate-700/80 transition-all duration-300">
+            <div id="unoPod1" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-slate-700/80 transition-all duration-300">
               <div class="flex items-center gap-2 mb-1.5">
                 <div class="relative">
                   <img id="unoAvatar1" src="" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-cyan-400 shadow-md object-cover" alt="Bot 1"/>
@@ -4475,7 +4683,7 @@
             </div>
 
             <!-- Bot 2 (Center: Kỳ Lân Ngố) -->
-            <div id="unoPod2" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-black/50 border-2 border-slate-700/80 transition-all duration-300">
+            <div id="unoPod2" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-slate-700/80 transition-all duration-300">
               <div class="flex items-center gap-2 mb-1.5">
                 <div class="relative">
                   <img id="unoAvatar2" src="" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-purple-400 shadow-md object-cover" alt="Bot 2"/>
@@ -4490,7 +4698,7 @@
             </div>
 
             <!-- Bot 3 (Right: Rồng Lửa Béo) -->
-            <div id="unoPod3" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-black/50 border-2 border-slate-700/80 transition-all duration-300">
+            <div id="unoPod3" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-slate-700/80 transition-all duration-300">
               <div class="flex items-center gap-2 mb-1.5">
                 <div class="relative">
                   <img id="unoAvatar3" src="" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-rose-400 shadow-md object-cover" alt="Bot 3"/>
@@ -4517,6 +4725,28 @@
             <div id="unoStackingPenaltyBanner" class="hidden mb-3 px-4 py-1.5 rounded-2xl bg-gradient-to-r from-red-600 via-rose-600 to-orange-600 text-white font-black text-xs sm:text-sm font-mono shadow-2xl animate-bounce flex items-center gap-2 z-20">
               <i data-lucide="alert-triangle" class="w-4 h-4"></i>
               <span>CỘNG DỒN PHẠT: +<span id="unoPenaltyCount">0</span> LÁ! (ĐÁNH +2/+4 ĐỂ CHUYỂN TIẾP HOẶC BẤM RÚT ĐỂ CHỊU PHẠT)</span>
+            </div>
+
+            
+            <!-- IN-BOARD COLOR PICKER (Chọn màu ngay trên mặt bàn đấu) -->
+            <div id="unoInBoardColorPicker" class="hidden my-3 p-4 rounded-3xl bg-[#0f172a] border-4 border-yellow-400 shadow-2xl flex flex-col items-center justify-center animate-bounce z-40 max-w-lg w-full">
+              <div class="text-xs sm:text-sm font-black font-cinzel text-yellow-400 mb-2.5 flex items-center gap-2">
+                <span class="text-xl">🌈</span> CHỌN MÀU YÊU CẦU CHO BÀN ĐẤU:
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 w-full">
+                <button type="button" onclick="chooseUnoWildColor('red')" class="btn-spring p-3 rounded-2xl bg-red-600 hover:bg-red-500 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-red-600/40 border-2 border-red-300 cursor-pointer">
+                  <span class="text-lg">🔴</span> <span>ĐỎ</span>
+                </button>
+                <button type="button" onclick="chooseUnoWildColor('blue')" class="btn-spring p-3 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-blue-600/40 border-2 border-blue-300 cursor-pointer">
+                  <span class="text-lg">🔵</span> <span>XANH</span>
+                </button>
+                <button type="button" onclick="chooseUnoWildColor('green')" class="btn-spring p-3 rounded-2xl bg-green-600 hover:bg-green-500 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-green-600/40 border-2 border-green-300 cursor-pointer">
+                  <span class="text-lg">🟢</span> <span>LÁ</span>
+                </button>
+                <button type="button" onclick="chooseUnoWildColor('yellow')" class="btn-spring p-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-amber-500/40 border-2 border-yellow-200 cursor-pointer">
+                  <span class="text-lg">🟡</span> <span>VÀNG</span>
+                </button>
+              </div>
             </div>
 
             <!-- Center Table Piles -->
@@ -4564,7 +4794,7 @@
           <div class="w-full z-10 flex flex-col items-center">
             
             <!-- Controls Bar: HÔ UNO, BẮT PHẠT UNO, RÚT BÀI -->
-            <div class="w-full max-w-2xl flex items-center justify-between gap-2 mb-2 px-3 py-1.5 rounded-2xl bg-black/60 border border-slate-700/80 backdrop-blur-md flex-wrap">
+            <div class="w-full max-w-2xl flex items-center justify-between gap-2 mb-2 px-3 py-1.5 rounded-2xl bg-[#1e293b] border-2 border-slate-700 flex-wrap">
               <div class="flex items-center gap-2">
                 <img id="unoAvatar0" src="" class="w-8 h-8 rounded-full border-2 border-amber-400 shadow-md object-cover" alt="User Avatar"/>
                 <div class="text-left">
@@ -4608,76 +4838,228 @@
         </div>
 
         <!-- ================= MODAL: CHỌN MÀU WILD (COLOR PICKER MODAL) ================= -->
-        <div id="unoModalColorPicker" class="fixed inset-0 z-[120] hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
-          <div class="w-full max-w-sm rounded-3xl bg-slate-900 border-2 border-yellow-400 p-6 shadow-2xl text-center space-y-4">
-            <h3 class="text-base font-black font-cinzel text-white flex items-center justify-center gap-2">
-              <span class="text-xl">🌈</span> CHỌN MÀU YÊU CẦU TIẾP THEO
-            </h3>
-            <p class="text-xs text-slate-300 font-mono">Lá Wild cho phép bạn chuyển màu bàn đấu sang bất kỳ màu nào!</p>
-            
-            <div class="grid grid-cols-2 gap-3 pt-2">
-              <button onclick="chooseUnoWildColor('red')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 text-white font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-red-500/40 border-2 border-red-400 cursor-pointer">
-                <span class="text-2xl">🔴</span>
-                <span>MÀU ĐỎ</span>
-              </button>
-              <button onclick="chooseUnoWildColor('blue')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 hover:from-blue-400 hover:to-blue-600 text-white font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-blue-500/40 border-2 border-blue-400 cursor-pointer">
-                <span class="text-2xl">🔵</span>
-                <span>XANH DƯƠNG</span>
-              </button>
-              <button onclick="chooseUnoWildColor('green')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-green-500 to-green-700 hover:from-green-400 hover:to-green-600 text-white font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-green-500/40 border-2 border-green-400 cursor-pointer">
-                <span class="text-2xl">🟢</span>
-                <span>XANH LÁ</span>
-              </button>
-              <button onclick="chooseUnoWildColor('yellow')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-yellow-400 to-amber-600 hover:from-yellow-300 hover:to-amber-500 text-slate-950 font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-yellow-500/40 border-2 border-yellow-300 cursor-pointer">
-                <span class="text-2xl">🟡</span>
-                <span>MÀU VÀNG</span>
-              </button>
-            </div>
-          </div>
         </div>
 
-        <!-- ================= MODAL: LUẬT CHƠI UNO (RULES MODAL) ================= -->
-        <div id="unoModalRules" class="fixed inset-0 z-[120] hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
-          <div class="w-full max-w-lg rounded-3xl bg-slate-900 border-2 border-yellow-500 p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto text-left">
-            <div class="flex items-center justify-between border-b border-slate-700 pb-3">
-              <h3 class="text-base font-black font-cinzel text-yellow-400 flex items-center gap-2">
-                <span>📖</span> LUẬT CHƠI UNO BATTLE ROYALE (108 LÁ)
-              </h3>
-              <button onclick="closeUnoModal('unoModalRules')" class="p-1 rounded-lg text-slate-400 hover:text-white">
-                <i data-lucide="x" class="w-5 h-5"></i>
-              </button>
+      
+
+<!-- ================= VIEW 7: CYBER WEREWOLF ARENA (MA SÓI: HUYỀN THOẠI TRĂNG MÁU) ================= -->
+      <div id="werewolfView" class="hidden relative w-full flex-col items-center justify-center p-2 sm:p-4 my-auto select-none overflow-hidden max-w-[1440px] mx-auto min-h-[680px]">
+        
+        <!-- Werewolf Match Cockpit Header -->
+        <div class="w-full flex items-center justify-between gap-3 mb-3 px-4 py-2.5 rounded-2xl bg-slate-900/95 border-2 border-indigo-950/80 shadow-2xl flex-wrap backdrop-blur-md">
+          <!-- Left: Current Phase & Day Indicator -->
+          <div class="flex items-center gap-3">
+            <div id="werewolfPhaseBadge" class="flex items-center gap-2 px-3 py-1 rounded-xl bg-gradient-to-r from-indigo-700 via-purple-700 to-slate-900 text-white font-black text-xs font-mono shadow-md border border-purple-500/40">
+              <span id="werewolfPhaseIcon" class="text-base">🌕</span>
+              <span id="werewolfPhaseText">ĐÊM 1 • LÀNG NGỦ SAY</span>
             </div>
 
-            <div class="space-y-3 text-xs text-slate-300 font-sans leading-relaxed">
-              <p><strong class="text-yellow-400">🎯 Mục Tiêu:</strong> Người chơi đầu tiên đánh hết toàn bộ bài trên tay sẽ giành chiến thắng!</p>
-              <p><strong class="text-cyan-400">🃏 Cách Đánh Bài:</strong> Đánh 1 lá bài khớp <span class="text-amber-300 font-bold">CÙNG MÀU</span> hoặc <span class="text-amber-300 font-bold">CÙNG SỐ / BIỂU TƯỢNG</span> với lá bài ngửa trên cùng của Chồng Bài Bỏ.</p>
-              
-              <div class="p-3 rounded-xl bg-black/40 border border-slate-700 space-y-2">
-                <div class="font-bold text-white text-[13px]">✨ CÁC LÁ BÀI HÀNH ĐỘNG ĐẶC BIỆT:</div>
-                <p><strong class="text-red-400">🚫 Cấm Lượt (Skip):</strong> Bỏ qua lượt đi của người kế tiếp.</p>
-                <p><strong class="text-blue-400">🔄 Đảo Chiều (Reverse):</strong> Đổi chiều đánh bàn cờ (Thuận ⟲⟳ Ngược).</p>
-                <p><strong class="text-yellow-400">📥 Rút 2 (+2 Draw Two):</strong> Người kế tiếp phải rút 2 lá và mất lượt (hoặc đánh tiếp +2 để dồn phạt tiếp!).</p>
-                <p><strong class="text-purple-400">🌈 Đổi Màu (Wild):</strong> Đánh tự do bất kỳ lúc nào, được chọn màu tiếp theo cho bàn đấu.</p>
-                <p><strong class="text-rose-400">💥 Rút 4 Đổi Màu (Wild +4):</strong> Vừa đổi màu vừa buộc người kế tiếp rút 4 lá (hoặc dồn tiếp +4!).</p>
-              </div>
-
-              <div class="p-3 rounded-xl bg-yellow-500/10 border border-yellow-500/30 space-y-1.5">
-                <div class="font-bold text-yellow-300 text-[13px]">🔔 LUẬT HÔ UNO & BẮT PHẠT:</div>
-                <p>• Khi trên tay bạn chỉ còn lại <span class="font-bold text-white">1 lá duy nhất</span>, bạn PHẢI bấm nút <strong class="text-yellow-400">"HÔ UNO! 🔔"</strong>!</p>
-                <p>• Nếu bạn quên hô UNO mà đối thủ bấm <strong class="text-rose-400">"BẮT UNO! ⚠️"</strong>, bạn sẽ bị phạt rút ngay 2 lá bài!</p>
-                <p>• Tương tự, nếu bất kỳ Bot nào còn 1 lá mà chưa hô, bạn có thể bấm "BẮT UNO!" để phạt Bot đó rút 2 lá!</p>
-              </div>
-
-              <p><strong class="text-emerald-400">💥 Luật Dồn Phạt (Stacking Penalty):</strong> Khi một người bị đánh +2 hoặc +4, nếu họ có lá cùng loại (+2 hoặc +4), họ có thể đánh tiếp để chuyển toàn bộ số lá phạt dồn cho người kế tiếp!</p>
+            <!-- Countdown Timer -->
+            <div id="werewolfTimerBox" class="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-black/60 border border-slate-700 text-xs font-bold font-mono">
+              <span class="text-slate-400">Thời gian:</span>
+              <span id="werewolfSecondsLeft" class="text-amber-300 font-mono font-black min-w-[22px] text-center">25s</span>
             </div>
 
-            <button onclick="closeUnoModal('unoModalRules')" class="mt-4 btn-spring w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 font-black text-xs font-mono shadow-lg">
-              ĐÃ HIỂU LUẬT • CHIẾN NGAY!
+            <!-- Role Badge Preview (Human Role) -->
+            <div onclick="openWerewolfRoleModal()" class="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-600 text-xs font-bold cursor-pointer transition-all shadow-sm group" title="Bấm để xem vai trò và nhiệm vụ của bạn!">
+              <span class="text-slate-400">Vai Trò Của Bạn:</span>
+              <span id="werewolfMyRoleBadge" class="px-2 py-0.5 rounded text-[10px] font-black uppercase text-white bg-indigo-600 shadow-sm flex items-center gap-1 group-hover:scale-105 transition-transform">
+                <span>👁️</span> <span id="werewolfMyRoleName">Bấm Xem</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Center: Action Prompt Banner -->
+          <div id="werewolfCenterBanner" class="hidden md:flex items-center gap-2 px-4 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs font-cinzel font-bold text-amber-300 shadow-inner max-w-md truncate">
+            <span id="werewolfCenterBannerIcon">🔮</span>
+            <span id="werewolfCenterBannerText" class="truncate">Màn đêm buông xuống, các thế lực huyền bí bắt đầu hành động...</span>
+          </div>
+
+          <!-- Right: Control Buttons -->
+          <div class="flex items-center gap-2">
+            <!-- Village Chronicle (Nhật Ký Làng) -->
+            <button type="button" onclick="toggleWerewolfChronicle()" class="btn-spring px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:border-amber-400 text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm cursor-pointer">
+              <span>📜 Nhật Ký Làng</span>
+            </button>
+            <!-- New Match Button -->
+            <button type="button" onclick="initWerewolfGame()" class="btn-spring px-3 py-1.5 rounded-xl bg-gradient-to-r from-red-700 to-rose-700 hover:from-red-600 hover:to-rose-600 text-white font-black text-xs font-mono shadow-md border border-red-500/50 flex items-center gap-1.5 cursor-pointer">
+              <span>🔄 Ván Mới</span>
             </button>
           </div>
         </div>
 
+        <!-- Village Tabletop Circle Arena -->
+        <div id="werewolfTableMat" class="relative w-full rounded-3xl p-4 sm:p-6 shadow-[0_0_60px_rgba(0,0,0,0.85)] border-2 border-slate-800/80 overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-gradient-to-b from-[#0b0f19] via-[#090d16] to-[#05070c]" style="min-height: 580px;">
+          
+          <!-- Background Fog & Ambient Light -->
+          <div id="werewolfAmbientFog" class="absolute inset-0 pointer-events-none werewolf-night-fog transition-opacity duration-1000 opacity-90"></div>
+          
+          <!-- Blood Moon (Ban đêm) / Sun (Ban ngày) in Sky -->
+          <div id="werewolfSkyOrb" class="absolute top-4 right-8 w-16 h-16 sm:w-20 sm:h-20 rounded-full werewolf-blood-moon flex items-center justify-center pointer-events-none transition-all duration-1000 z-0 bg-gradient-to-br from-red-600 to-rose-900 border-2 border-red-500/60 shadow-[0_0_40px_rgba(239,68,68,0.7)]">
+            <div class="text-2xl sm:text-3xl filter drop-shadow">🌕</div>
+          </div>
+
+          <!-- Central Village Bonfire (Đống Lửa Trại Ma Thuật Trung Tâm) -->
+          <div class="relative z-10 flex flex-col items-center justify-center my-6 sm:my-10">
+            <!-- Bonfire Flame 3D Element -->
+            <div id="werewolfBonfire" class="relative w-20 h-20 sm:w-28 sm:h-28 flex items-center justify-center cursor-default">
+              <!-- Animated Fire/Blue Flame Container -->
+              <div id="werewolfFireFX" class="werewolf-bonfire-night-anim text-4xl sm:text-6xl filter drop-shadow-[0_0_20px_rgba(147,51,234,0.8)]">
+                🔥
+              </div>
+              <!-- Hearth Stones Around Bonfire -->
+              <div class="absolute inset-x-0 bottom-0 h-6 rounded-full border border-slate-700 bg-black/70 -z-10 shadow-inner"></div>
+            </div>
+
+            <!-- Central Arena Phase Notice / Action Status -->
+            <div id="werewolfCentralActionBox" class="mt-2 px-4 py-1.5 rounded-full bg-black/85 border border-amber-400/40 text-amber-300 font-cinzel font-bold text-xs shadow-xl text-center flex items-center gap-2">
+              <span id="werewolfCentralIcon">🌙</span>
+              <span id="werewolfCentralText">Màn đêm đã bao trùm làng Millers Hollow...</span>
+            </div>
+          </div>
+
+          <!-- 7-Player Seats Around The Village Circle -->
+          <div class="w-full max-w-5xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 relative z-20 mt-auto">
+            
+            <!-- Seat 1: Eldrin (Trưởng Làng) -->
+            <div id="werewolfPod_1" onclick="handleWerewolfPodClick(1)" class="relative p-2.5 sm:p-3 rounded-2xl border-2 border-slate-800 bg-slate-900/90 flex items-center gap-2.5 transition-all duration-300 shadow-xl group">
+              <div id="werewolfSpeech_1" class="hidden werewolf-speech-bubble"></div>
+              <div class="relative w-11 h-11 rounded-xl overflow-hidden border border-slate-700 shrink-0 bg-slate-950 flex items-center justify-center">
+                <div id="werewolfAvatar_1" class="w-full h-full"></div>
+                <div id="werewolfDeadOverlay_1" class="hidden absolute inset-0 bg-red-950/80 flex items-center justify-center text-sm font-bold">☠️</div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-slate-100 font-cinzel truncate">Eldrin</span>
+                  <span id="werewolfRoleReveal_1" class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-slate-400">???</span>
+                </div>
+                <div class="flex items-center justify-between mt-0.5">
+                  <span class="text-[10px] text-slate-400 font-mono">Trưởng Làng</span>
+                  <span id="werewolfVoteBadge_1" class="hidden text-[10px] font-bold text-red-400 font-mono bg-red-950/60 px-1 rounded border border-red-800/40">🗳️ 0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Seat 2: Lyra (Khăn Đỏ) -->
+            <div id="werewolfPod_2" onclick="handleWerewolfPodClick(2)" class="relative p-2.5 sm:p-3 rounded-2xl border-2 border-slate-800 bg-slate-900/90 flex items-center gap-2.5 transition-all duration-300 shadow-xl group">
+              <div id="werewolfSpeech_2" class="hidden werewolf-speech-bubble"></div>
+              <div class="relative w-11 h-11 rounded-xl overflow-hidden border border-slate-700 shrink-0 bg-slate-950 flex items-center justify-center">
+                <div id="werewolfAvatar_2" class="w-full h-full"></div>
+                <div id="werewolfDeadOverlay_2" class="hidden absolute inset-0 bg-red-950/80 flex items-center justify-center text-sm font-bold">☠️</div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-slate-100 font-cinzel truncate">Lyra</span>
+                  <span id="werewolfRoleReveal_2" class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-slate-400">???</span>
+                </div>
+                <div class="flex items-center justify-between mt-0.5">
+                  <span class="text-[10px] text-slate-400 font-mono">Cô Bé Khăn Đỏ</span>
+                  <span id="werewolfVoteBadge_2" class="hidden text-[10px] font-bold text-red-400 font-mono bg-red-950/60 px-1 rounded border border-red-800/40">🗳️ 0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Seat 3: Garrick (Thợ Rèn) -->
+            <div id="werewolfPod_3" onclick="handleWerewolfPodClick(3)" class="relative p-2.5 sm:p-3 rounded-2xl border-2 border-slate-800 bg-slate-900/90 flex items-center gap-2.5 transition-all duration-300 shadow-xl group">
+              <div id="werewolfSpeech_3" class="hidden werewolf-speech-bubble"></div>
+              <div class="relative w-11 h-11 rounded-xl overflow-hidden border border-slate-700 shrink-0 bg-slate-950 flex items-center justify-center">
+                <div id="werewolfAvatar_3" class="w-full h-full"></div>
+                <div id="werewolfDeadOverlay_3" class="hidden absolute inset-0 bg-red-950/80 flex items-center justify-center text-sm font-bold">☠️</div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-slate-100 font-cinzel truncate">Garrick</span>
+                  <span id="werewolfRoleReveal_3" class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-slate-400">???</span>
+                </div>
+                <div class="flex items-center justify-between mt-0.5">
+                  <span class="text-[10px] text-slate-400 font-mono">Gã Thợ Rèn</span>
+                  <span id="werewolfVoteBadge_3" class="hidden text-[10px] font-bold text-red-400 font-mono bg-red-950/60 px-1 rounded border border-red-800/40">🗳️ 0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Seat 4: Seraphina (Nữ Thợ Dệt) -->
+            <div id="werewolfPod_4" onclick="handleWerewolfPodClick(4)" class="relative p-2.5 sm:p-3 rounded-2xl border-2 border-slate-800 bg-slate-900/90 flex items-center gap-2.5 transition-all duration-300 shadow-xl group">
+              <div id="werewolfSpeech_4" class="hidden werewolf-speech-bubble"></div>
+              <div class="relative w-11 h-11 rounded-xl overflow-hidden border border-slate-700 shrink-0 bg-slate-950 flex items-center justify-center">
+                <div id="werewolfAvatar_4" class="w-full h-full"></div>
+                <div id="werewolfDeadOverlay_4" class="hidden absolute inset-0 bg-red-950/80 flex items-center justify-center text-sm font-bold">☠️</div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-slate-100 font-cinzel truncate">Seraphina</span>
+                  <span id="werewolfRoleReveal_4" class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-slate-400">???</span>
+                </div>
+                <div class="flex items-center justify-between mt-0.5">
+                  <span class="text-[10px] text-slate-400 font-mono">Nữ Thợ Dệt</span>
+                  <span id="werewolfVoteBadge_4" class="hidden text-[10px] font-bold text-red-400 font-mono bg-red-950/60 px-1 rounded border border-red-800/40">🗳️ 0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Seat 5: Vance (Thợ Săn) -->
+            <div id="werewolfPod_5" onclick="handleWerewolfPodClick(5)" class="relative p-2.5 sm:p-3 rounded-2xl border-2 border-slate-800 bg-slate-900/90 flex items-center gap-2.5 transition-all duration-300 shadow-xl group">
+              <div id="werewolfSpeech_5" class="hidden werewolf-speech-bubble"></div>
+              <div class="relative w-11 h-11 rounded-xl overflow-hidden border border-slate-700 shrink-0 bg-slate-950 flex items-center justify-center">
+                <div id="werewolfAvatar_5" class="w-full h-full"></div>
+                <div id="werewolfDeadOverlay_5" class="hidden absolute inset-0 bg-red-950/80 flex items-center justify-center text-sm font-bold">☠️</div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-slate-100 font-cinzel truncate">Vance</span>
+                  <span id="werewolfRoleReveal_5" class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-slate-400">???</span>
+                </div>
+                <div class="flex items-center justify-between mt-0.5">
+                  <span class="text-[10px] text-slate-400 font-mono">Thợ Săn Rừng Sâu</span>
+                  <span id="werewolfVoteBadge_5" class="hidden text-[10px] font-bold text-red-400 font-mono bg-red-950/60 px-1 rounded border border-red-800/40">🗳️ 0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Seat 6: Morgana (Bà Lão Bào Thuốc) -->
+            <div id="werewolfPod_6" onclick="handleWerewolfPodClick(6)" class="relative p-2.5 sm:p-3 rounded-2xl border-2 border-slate-800 bg-slate-900/90 flex items-center gap-2.5 transition-all duration-300 shadow-xl group">
+              <div id="werewolfSpeech_6" class="hidden werewolf-speech-bubble"></div>
+              <div class="relative w-11 h-11 rounded-xl overflow-hidden border border-slate-700 shrink-0 bg-slate-950 flex items-center justify-center">
+                <div id="werewolfAvatar_6" class="w-full h-full"></div>
+                <div id="werewolfDeadOverlay_6" class="hidden absolute inset-0 bg-red-950/80 flex items-center justify-center text-sm font-bold">☠️</div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-slate-100 font-cinzel truncate">Morgana</span>
+                  <span id="werewolfRoleReveal_6" class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-slate-400">???</span>
+                </div>
+                <div class="flex items-center justify-between mt-0.5">
+                  <span class="text-[10px] text-slate-400 font-mono">Bà Lão Bào Thuốc</span>
+                  <span id="werewolfVoteBadge_6" class="hidden text-[10px] font-bold text-red-400 font-mono bg-red-950/60 px-1 rounded border border-red-800/40">🗳️ 0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Seat 0: BẠN (Người Chơi / Chỉ Huy Làng) - Nổi Bật Trung Tâm Dưới -->
+            <div id="werewolfPod_0" onclick="handleWerewolfPodClick(0)" class="col-span-2 sm:col-span-1 lg:col-span-2 relative p-3 sm:p-3.5 rounded-2xl border-2 border-amber-400/80 bg-gradient-to-r from-slate-900 via-amber-950/30 to-slate-900 flex items-center gap-3 transition-all duration-300 shadow-2xl group">
+              <div id="werewolfSpeech_0" class="hidden werewolf-speech-bubble"></div>
+              <div class="relative w-12 h-12 rounded-xl overflow-hidden border-2 border-amber-400 shrink-0 bg-slate-950 flex items-center justify-center shadow-lg">
+                <div id="werewolfAvatar_0" class="w-full h-full"></div>
+                <div id="werewolfDeadOverlay_0" class="hidden absolute inset-0 bg-red-950/80 flex items-center justify-center text-base font-bold">☠️</div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs sm:text-sm font-black text-amber-300 font-cinzel truncate">BẠN (CHỈ HUY)</span>
+                  <span id="werewolfRoleReveal_0" class="px-2 py-0.5 rounded text-[10px] font-mono font-black bg-indigo-600 text-white shadow-sm">BẢO VỆ</span>
+                </div>
+                <div class="flex items-center justify-between mt-1">
+                  <span id="werewolfHumanStatusText" class="text-[11px] text-emerald-400 font-mono font-bold">Còn sống • Đang quan sát</span>
+                  <span id="werewolfVoteBadge_0" class="hidden text-[10px] font-bold text-red-400 font-mono bg-red-950/60 px-1.5 py-0.5 rounded border border-red-800/40">🗳️ 0 Phiếu</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
+
 
       <!-- Close #mainViewArena properly here -->
 
@@ -17378,7 +17760,7 @@ function renderCashStackHTML(amount) {
     window.handleCentralTurfClick = handleCentralTurfClick;
 
     // Spacebar & Enter Hotkey to Roll Dice
-    window.addEventListener('keydown', (e) => {
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') window.addEventListener('keydown', (e) => {
       if (e.code === 'Space' || e.code === 'Enter') {
         const vMono = document.getElementById('monopolyView');
         if (!vMono || vMono.classList.contains('hidden')) return;
@@ -18145,8 +18527,12 @@ function renderCashStackHTML(amount) {
       const hudTTT = document.getElementById('arenaTttScoreHUD');
       const hudMono = document.getElementById('arenaMonoStatusHUD');
 
-      // Hide all game views first (Defensive Clean Wipe)
-      [vDice, vTTT, vChess, vMono].forEach(v => {
+const vKittens = document.getElementById('kittensView');
+      const vUno = document.getElementById('unoView');
+      const vWerewolf = document.getElementById('werewolfView');
+
+            // Hide all game views first (Defensive Clean Wipe)
+      [vDice, vTTT, vChess, vMono, vKittens, vUno, vWerewolf].forEach(v => {
         if (v) {
           v.classList.add('hidden');
           v.classList.remove('grid', 'flex', 'block', 'view-fade-slide');
@@ -18249,6 +18635,24 @@ function renderCashStackHTML(amount) {
           titleEl.innerHTML = `<span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-black bg-gradient-to-r from-red-500 via-amber-500 via-green-500 to-blue-500 text-white shadow-sm">UNO</span><span class="tracking-wider">UNO BATTLE ROYALE (108 LÁ BÀI)</span>`;
         }
         if (specBar) specBar.classList.add('hidden');
+      } else if (tab === 'werewolf') {
+        const vWerewolf = document.getElementById('werewolfView');
+        if (vWerewolf) {
+          vWerewolf.style.display = '';
+          vWerewolf.classList.remove('hidden');
+          void vWerewolf.offsetWidth;
+          vWerewolf.classList.add('flex', 'view-fade-slide');
+          if (typeof initWerewolfGame === 'function' && (!window.werewolfState || !window.werewolfState.initialized)) {
+            initWerewolfGame();
+          } else if (typeof renderWerewolfTable === 'function') {
+            renderWerewolfTable();
+          }
+        }
+        if (titleEl) {
+          titleEl.className = 'flex items-center gap-2 px-3 py-1.5 rounded-xl bg-purple-950/40 border border-purple-500/40 text-purple-300 font-cinzel text-xs font-bold shadow-inner transition-all duration-200';
+          titleEl.innerHTML = `<span class="text-base">🐺</span><span class="tracking-wider">MA SÓI: HUYỀN THOẠI TRĂNG MÁU</span>`;
+        }
+        if (specBar) specBar.classList.add('hidden');
       } else if (tab === 'kittens') {
         const vKittens = document.getElementById('kittensView');
         if (vKittens) {
@@ -18298,6 +18702,7 @@ function renderCashStackHTML(amount) {
         { id: 'pillGameMono', key: 'monopoly', activeCls: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold shadow-sm' },
         { id: 'pillGameKittens', key: 'kittens', activeCls: 'bg-red-500/20 text-red-300 border border-red-500/40 font-bold shadow-sm' },
         { id: 'pillGameUno', key: 'uno', activeCls: 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/40 font-bold shadow-sm' },
+        { id: 'pillGameWerewolf', key: 'werewolf', activeCls: 'bg-purple-500/20 text-purple-300 border border-purple-500/40 font-bold shadow-sm' },
       ];
       gamePills.forEach(p => {
         const el = document.getElementById(p.id);
@@ -25646,7 +26051,7 @@ function renderCashStackHTML(amount) {
       }
     };
 
-    window.kittensState = {
+    var kittensState = window.kittensState = {
       mode: 'local',
       initialized: false,
       players: [],
@@ -25676,6 +26081,498 @@ function renderCashStackHTML(amount) {
         return BUSINESS_TOUR_AVATAR_DATA_URLS[playerIdx];
       }
       return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><circle cx="20" cy="20" r="18" fill="%23f59e0b"/></svg>';
+    }
+
+    
+    // Bomb Count Selector (1, 2, 3, hoặc 4 lá Bomb)
+    function setKittensBombCount(count) {
+      count = Math.max(1, Math.min(4, parseInt(count, 10) || 3));
+      kittensState.bombCount = count;
+      try {
+        localStorage.setItem('tabletop_kittens_bomb_count', String(count));
+      } catch (e) {}
+
+      // Update button visual states
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById('btnKittenBomb_' + i);
+        if (btn) {
+          if (i === count) {
+            btn.className = 'px-1.5 py-0.5 rounded text-[11px] font-black bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-sm border border-red-400 transition-all cursor-pointer';
+          } else {
+            btn.className = 'px-1.5 py-0.5 rounded text-[11px] font-bold text-slate-300 hover:text-white transition-all cursor-pointer';
+          }
+        }
+      }
+
+      showToast('💣 Đã chọn: ' + count + ' lá Mèo Nổ trong cọc bài! Bấm Ván Mới để áp dụng.');
+    }
+    window.setKittensBombCount = setKittensBombCount;
+
+    // 10-Second Turn Timer Engine
+    function startKittenTurnTimer() {
+      stopKittenTurnTimer();
+      kittensState.turnSecondsLeft = 10;
+      updateKittenTimerUI(10);
+
+      kittensState.turnTimerInterval = setInterval(() => {
+        // Paused during Nope Modal or Defuse Modal
+        const nopeModal = document.getElementById('kittenModalNopeIntervention');
+        const defuseModal = document.getElementById('kittenModalDefuse');
+        if ((nopeModal && !nopeModal.classList.contains('hidden')) || (defuseModal && !defuseModal.classList.contains('hidden'))) {
+          return;
+        }
+
+        kittensState.turnSecondsLeft--;
+        updateKittenTimerUI(kittensState.turnSecondsLeft);
+
+        if (kittensState.turnSecondsLeft <= 3 && kittensState.turnSecondsLeft > 0) {
+          if (typeof soundTone === 'function') soundTone(320, 'square', 0.05, 0.1);
+        }
+
+        if (kittensState.turnSecondsLeft <= 0) {
+          stopKittenTurnTimer();
+          handleKittenTurnTimeout();
+        }
+      }, 1000);
+    }
+
+    function resetKittenTurnTimer() {
+      startKittenTurnTimer();
+    }
+
+    function stopKittenTurnTimer() {
+      if (kittensState.turnTimerInterval) {
+        clearInterval(kittensState.turnTimerInterval);
+        kittensState.turnTimerInterval = null;
+      }
+    }
+
+    function updateKittenTimerUI(seconds) {
+      const lbl = document.getElementById('kittenTurnTimeRemaining');
+      const bar = document.getElementById('kittenTurnTimeBar');
+      if (lbl) {
+        lbl.textContent = seconds + 's';
+        if (seconds <= 3) {
+          lbl.className = 'text-xs sm:text-sm font-black text-red-400 font-mono min-w-[26px] text-center animate-ping';
+        } else {
+          lbl.className = 'text-xs sm:text-sm font-black text-amber-300 font-mono min-w-[26px] text-center';
+        }
+      }
+      if (bar) {
+        const pct = Math.max(0, Math.min(100, (seconds / 10) * 100));
+        bar.style.width = pct + '%';
+        if (seconds <= 3) {
+          bar.className = 'h-full bg-gradient-to-r from-red-500 to-rose-600 transition-all duration-300';
+        } else {
+          bar.className = 'h-full bg-gradient-to-r from-amber-400 to-yellow-500 transition-all duration-300';
+        }
+      }
+    }
+
+    // Auto Draw on Turn Timeout
+    function handleKittenTurnTimeout() {
+      const curIdx = kittensState.currentTurn;
+      const curPlayer = kittensState.players[curIdx];
+      if (!curPlayer || !curPlayer.isAlive || kittensState.isLocked) return;
+
+      if (curIdx === 0) {
+        showToast('⏰ HẾT 10 GIÂY! TỰ ĐỘNG RÚT BÀI ĐỂ KẾT THÚC LƯỢT!');
+        setKittenToast('⏰ Bạn đã hết 10 giây suy nghĩ! Hệ thống tự động rút bài.', true);
+      } else {
+        setKittenToast('⏰ ' + curPlayer.name + ' hết 10 giây! Tự động rút bài.');
+      }
+
+      executeDrawCard(curIdx);
+    }
+
+    // =========================================================================
+    // NOPE & COUNTER-ATTACK ENGINE (v4.3.4)
+    // Luật chuẩn: Nope chặn được lá bài, và LÁ ATTACK CÓ THỂ COUNTER LẠI LÁ ATTACK!
+    // =========================================================================
+    function getNextAlivePlayerIdx(fromIdx) {
+      const totalP = (kittensState.players && kittensState.players.length > 0) ? kittensState.players.length : 4;
+      let next = (fromIdx + 1) % totalP;
+      let count = 0;
+      while (!kittensState.players[next].isAlive && count < totalP) {
+        next = (next + 1) % totalP;
+        count++;
+      }
+      return next;
+    }
+
+    function triggerNopeIntervention(playerIdx, cardId, cardHandIdx, targetPlayerIdx, onResolve) {
+      kittensState.nopeChain = {
+        initialPlayerIdx: playerIdx,
+        initialCardId: cardId,
+        currentCardId: cardId,
+        currentAttackerIdx: playerIdx,
+        isActionCancelled: false,
+        onResolve: onResolve
+      };
+
+      processNopeChainStep();
+    }
+
+    function processNopeChainStep() {
+      const chain = kittensState.nopeChain;
+      if (!chain) return;
+
+      const p0 = kittensState.players[0];
+      const humanHasNope = p0 && p0.isAlive && Array.isArray(p0.hand) && p0.hand.includes('nope');
+      const humanHasAttack = p0 && p0.isAlive && Array.isArray(p0.hand) && p0.hand.includes('attack');
+      const isAttackingHuman = (chain.currentCardId === 'attack' && getNextAlivePlayerIdx(chain.currentAttackerIdx) === 0);
+
+      // Case A: The last action/nope was played by a BOT (currentAttackerIdx !== 0)
+      if (chain.currentAttackerIdx !== 0) {
+        // Can human intervene? (Has Nope, OR has Attack when being attacked)
+        if (humanHasNope || (isAttackingHuman && humanHasAttack)) {
+          // Open Intervention Modal for Human Player
+          openNopeModalForHuman(chain.currentAttackerIdx, chain.currentCardId, isAttackingHuman && humanHasAttack);
+          return;
+        } else {
+          // Human cannot intervene -> Finalize
+          finalizeNopeChain();
+          return;
+        }
+      }
+
+      // Case B: The last action/nope was played by HUMAN (currentAttackerIdx === 0)
+      if (chain.currentAttackerIdx === 0) {
+        // Bots have a chance to play Nope
+        const botsWithNope = kittensState.players.filter(p => p.id !== 0 && p.isAlive && p.hand && p.hand.includes('nope'));
+        const chance = chain.isActionCancelled ? 0.3 : 0.4;
+        if (botsWithNope.length > 0 && Math.random() < chance) {
+          const chosenBot = botsWithNope[Math.floor(Math.random() * botsWithNope.length)];
+          const nopeIdx = chosenBot.hand.indexOf('nope');
+          if (nopeIdx !== -1) {
+            chosenBot.hand.splice(nopeIdx, 1);
+            kittensState.discardPile.push({
+              cardId: 'nope',
+              playerIdx: chosenBot.id,
+              playerName: chosenBot.name,
+              time: Date.now()
+            });
+
+            // Toggle cancellation status!
+            chain.isActionCancelled = !chain.isActionCancelled;
+            chain.currentAttackerIdx = chosenBot.id;
+            chain.currentCardId = 'nope';
+
+            if (typeof soundTone === 'function') soundTone(320, 'sawtooth', 0.25, 0.3);
+            const isCounter = !chain.isActionCancelled;
+            if (isCounter) {
+              setKittenToast('🛑 ' + chosenBot.name.toUpperCase() + ' ĐÃ NOPE PHẢN ĐÒN LÁ NOPE CỦA BẠN!', true);
+            } else {
+              setKittenToast('🛑 ' + chosenBot.name.toUpperCase() + ' ĐÃ ĐÁNH LÁ NOPE BÁC BỎ LÁ BÀI CỦA BẠN!', true);
+            }
+            renderKittensArena();
+
+            // Next step: Check if human player wants to Counter-Nope this bot's Nope!
+            setTimeout(() => {
+              processNopeChainStep();
+            }, 600);
+            return;
+          }
+        }
+
+        // No bot noped -> finalize
+        finalizeNopeChain();
+        return;
+      }
+    }
+
+    function openNopeModalForHuman(attackerIdx, cardId, canCounterAttack = false) {
+      const chain = kittensState.nopeChain;
+      const attacker = (kittensState.players && kittensState.players[attackerIdx]) ? kittensState.players[attackerIdx] : { name: 'Đối thủ', avatar: '' };
+      const def = (window.KITTEN_CARD_DEFS && window.KITTEN_CARD_DEFS[cardId]) ? window.KITTEN_CARD_DEFS[cardId] : {
+        name: cardId,
+        badge: 'CHỨC NĂNG',
+        desc: 'Lá bài chức năng của đối thủ.',
+        color: '#EF4444',
+        img: window.KITTEN_CARD_ASSETS ? window.KITTEN_CARD_ASSETS.nope : ''
+      };
+
+      const modal = document.getElementById('kittenModalNopeIntervention');
+      const avatarEl = document.getElementById('kittenNopeUserAvatar');
+      const nameEl = document.getElementById('kittenNopeUserName');
+      const roleBadgeEl = document.getElementById('kittenNopeUserBadge');
+      const titleEl = document.getElementById('kittenNopeNoticeTitle');
+      const cardImgEl = document.getElementById('kittenNopeCardImg');
+      const cardBadgeEl = document.getElementById('kittenNopeCardBadge');
+      const cardTitleEl = document.getElementById('kittenNopeCardTitle');
+      const cardShowcaseEl = document.getElementById('kittenNopeCardShowcase');
+      const cardNameEl = document.getElementById('kittenNopeCardName');
+      const cardDescEl = document.getElementById('kittenNopeCardDesc');
+      const dangerTextEl = document.getElementById('kittenNopeDangerText');
+      const myCountEl = document.getElementById('kittenNopeMyCount');
+      const btnConfirmText = document.getElementById('kittenNopeBtnText');
+      const btnConfirmNope = document.getElementById('btnConfirmNope');
+      const btnCounterAtk = document.getElementById('btnConfirmCounterAttack');
+
+      const isCounterNope = (cardId === 'nope');
+      const p0 = kittensState.players ? kittensState.players[0] : null;
+      const nopeCount = p0 ? (p0.hand ? p0.hand.filter(c => c === 'nope').length : 0) : 0;
+      const atkCount = p0 ? (p0.hand ? p0.hand.filter(c => c === 'attack').length : 0) : 0;
+
+      // 1. Update Attacker Info
+      if (avatarEl && typeof window.renderPlayerAvatarSafe === 'function') {
+        avatarEl.innerHTML = window.renderPlayerAvatarSafe(attacker.avatar, 'w-full h-full');
+      }
+      if (nameEl) nameEl.textContent = attacker.name.toUpperCase();
+      if (roleBadgeEl) roleBadgeEl.textContent = (kittensState.mode === 'online' || attacker.isHuman) ? ('P' + (attacker.id + 1)) : 'BOT';
+
+      // 2. Title & Buttons (Regular Nope vs Counter-Nope vs Counter-Attack)
+      if (btnCounterAtk) {
+        if (canCounterAttack) {
+          btnCounterAtk.classList.remove('hidden');
+          const stackedTurns = (kittensState.turnsLeftForPlayer > 1) ? (kittensState.turnsLeftForPlayer + 2) : 4;
+          btnCounterAtk.querySelector('span:first-child').textContent = 'PHẢN ĐÒN (' + stackedTurns + 'x) ⚔️';
+        } else {
+          btnCounterAtk.classList.add('hidden');
+        }
+      }
+
+      if (btnConfirmNope) {
+        if (nopeCount > 0) {
+          btnConfirmNope.classList.remove('hidden');
+        } else {
+          btnConfirmNope.classList.add('hidden');
+        }
+      }
+
+      if (isCounterNope) {
+        if (titleEl) titleEl.textContent = '🛑 VỪA NOPE BÁC BỎ LÁ BÀI CỦA BẠN!';
+        if (btnConfirmText) btnConfirmText.textContent = 'NOPE PHẢN ĐÒN! 🛑';
+        if (dangerTextEl) dangerTextEl.textContent = 'Đối thủ vừa dùng Nope để hóa giải bài bạn! Bấm NOPE PHẢN ĐÒN để cứu lại lá bài của bạn!';
+      } else if (cardId === 'attack') {
+        if (titleEl) titleEl.textContent = '⚔️ ĐỐI THỦ ĐANG TẤN CÔNG BẠN!';
+        if (btnConfirmText) btnConfirmText.textContent = 'NOPE NGAY! 🛑';
+        if (dangerTextEl) {
+          const turns = (kittensState.turnsLeftForPlayer > 1) ? (kittensState.turnsLeftForPlayer + 2) : 2;
+          dangerTextEl.textContent = 'Nguy hiểm: Bạn sẽ phải rút ' + turns + ' lượt liên tiếp! Hãy dùng NOPE hoặc PHẢN ĐÒN ATTACK để dồn đòn!';
+        }
+      } else {
+        if (titleEl) titleEl.textContent = '⚠️ ĐANG TUNG CHIÊU CHỨC NĂNG!';
+        if (btnConfirmText) btnConfirmText.textContent = 'NOPE NGAY! 🛑';
+        if (dangerTextEl) {
+          let dangerMsg = 'Nếu bạn không Nope, lá bài này sẽ có hiệu lực ngay lập tức!';
+          if (cardId === 'favor') dangerMsg = 'Nguy hiểm: Đối thủ sẽ cướp 1 lá bài trên tay bạn nếu không Nope!';
+          else if (cardId === 'skip') dangerMsg = 'Đối thủ sẽ bỏ qua lượt rút an toàn nếu không Nope!';
+          else if (cardId === 'shuffle') dangerMsg = 'Cọc bài sẽ bị đảo lộn ngẫu nhiên nếu không Nope!';
+          else if (cardId === 'see_future') dangerMsg = 'Đối thủ sẽ nhìn thấu 3 lá bài tương lai nếu không Nope!';
+          dangerTextEl.textContent = dangerMsg;
+        }
+      }
+
+      // 3. Card Showcase Elements
+      if (cardImgEl) cardImgEl.src = def.img;
+      if (cardBadgeEl) {
+        cardBadgeEl.textContent = def.badge;
+        cardBadgeEl.style.backgroundColor = def.color || '#EF4444';
+      }
+      if (cardTitleEl) cardTitleEl.textContent = def.name;
+      if (cardShowcaseEl) cardShowcaseEl.style.borderColor = def.color || '#F59E0B';
+      if (cardNameEl) cardNameEl.textContent = def.name + ' (' + def.badge + ')';
+      if (cardDescEl) cardDescEl.textContent = def.desc;
+
+      // 4. Inventory Count
+      if (myCountEl) {
+        let invText = '';
+        if (canCounterAttack && nopeCount > 0) {
+          invText = 'Có <strong class="text-orange-400 font-mono font-bold">' + atkCount + ' Attack</strong> & <strong class="text-emerald-400 font-mono font-bold">' + nopeCount + ' Nope</strong>';
+        } else if (canCounterAttack) {
+          invText = 'Có <strong class="text-orange-400 font-mono font-bold">' + atkCount + ' Attack</strong> để phản đòn ⚔️';
+        } else {
+          invText = 'Đang có <strong class="text-emerald-400 font-mono font-bold">' + nopeCount + '</strong> lá Nope 🛑';
+        }
+        myCountEl.innerHTML = invText;
+      }
+
+      // 5. Sound Alert
+      if (typeof soundTone === 'function') {
+        soundTone(550, 'square', 0.15, 0.25);
+        setTimeout(() => soundTone(440, 'square', 0.2, 0.25), 140);
+      }
+
+      // 6. Show Modal and Start 3.5s Countdown
+      if (modal) modal.classList.remove('hidden');
+
+      let secondsLeft = 3.5;
+      const barEl = document.getElementById('kittenNopeCountdownBar');
+      const secEl = document.getElementById('kittenNopeSeconds');
+
+      if (kittensState.nopeCountdownInterval) {
+        clearInterval(kittensState.nopeCountdownInterval);
+      }
+
+      kittensState.nopeCountdownInterval = setInterval(() => {
+        secondsLeft -= 0.1;
+        if (secEl) secEl.textContent = Math.max(0, secondsLeft).toFixed(1);
+        if (barEl) {
+          const pct = Math.max(0, (secondsLeft / 3.5) * 100);
+          barEl.style.width = pct + '%';
+        }
+
+        if (secondsLeft <= 0) {
+          clearInterval(kittensState.nopeCountdownInterval);
+          kittensState.nopeCountdownInterval = null;
+          handleIgnoreNope();
+        }
+      }, 100);
+    }
+
+    function handleConfirmCounterAttack() {
+      if (kittensState.nopeCountdownInterval) {
+        clearInterval(kittensState.nopeCountdownInterval);
+        kittensState.nopeCountdownInterval = null;
+      }
+
+      const modal = document.getElementById('kittenModalNopeIntervention');
+      if (modal) modal.classList.add('hidden');
+
+      const chain = kittensState.nopeChain;
+      kittensState.nopeChain = null;
+
+      const p0 = kittensState.players ? kittensState.players[0] : null;
+      if (!p0) return;
+
+      const atkIdx = p0.hand.indexOf('attack');
+      if (atkIdx !== -1) {
+        // Discard 1 Attack card from human
+        p0.hand.splice(atkIdx, 1);
+        kittensState.discardPile.push({
+          cardId: 'attack',
+          playerIdx: 0,
+          playerName: p0.name,
+          time: Date.now()
+        });
+
+        // Reset turn countdown timer
+        if (typeof resetKittenTurnTimer === 'function') resetKittenTurnTimer();
+
+        // Clashing sword SFX
+        if (typeof soundTone === 'function') {
+          soundTone(720, 'sawtooth', 0.2, 0.35);
+          setTimeout(() => soundTone(980, 'square', 0.25, 0.4), 90);
+        }
+
+        // Calculate stacked attack turns
+        const stackedTurns = (kittensState.turnsLeftForPlayer > 1) ? (kittensState.turnsLeftForPlayer + 2) : 4;
+        setKittenToast('⚔️💥 BẠN ĐÃ PHẢN ĐÒN (COUNTER-ATTACK)! Dồn ' + stackedTurns + ' lượt rút cho đối thủ kế tiếp!', false);
+        renderKittensArena();
+
+        // Pass turn to the next player after human with stacked turns
+        kittensState.isLocked = false;
+        passTurnToNextPlayer(stackedTurns);
+        if (kittensState.mode === 'online') {
+          syncOnlineKittensState('ATTACK', '⚔️💥 ' + p0.name + ' Phản Đòn Tấn Công! Chuyển lượt với ' + stackedTurns + ' lượt rút.');
+        }
+      }
+    }
+
+    function handleConfirmNope() {
+      if (kittensState.nopeCountdownInterval) {
+        clearInterval(kittensState.nopeCountdownInterval);
+        kittensState.nopeCountdownInterval = null;
+      }
+
+      const modal = document.getElementById('kittenModalNopeIntervention');
+      if (modal) modal.classList.add('hidden');
+
+      const chain = kittensState.nopeChain;
+      if (!chain) return;
+
+      const p0 = kittensState.players ? kittensState.players[0] : null;
+      const nopeIdx = p0 ? p0.hand.indexOf('nope') : -1;
+      if (nopeIdx !== -1) {
+        // Discard 1 Nope from human player
+        p0.hand.splice(nopeIdx, 1);
+        kittensState.discardPile.push({
+          cardId: 'nope',
+          playerIdx: 0,
+          playerName: p0.name,
+          time: Date.now()
+        });
+
+        // Toggle action cancellation state!
+        chain.isActionCancelled = !chain.isActionCancelled;
+        chain.currentAttackerIdx = 0;
+        chain.currentCardId = 'nope';
+
+        if (typeof soundTone === 'function') soundTone(350, 'sawtooth', 0.25, 0.3);
+        const isCounter = !chain.isActionCancelled;
+        if (isCounter) {
+          setKittenToast('🛡️ BẠN ĐÃ NOPE PHẢN ĐÒN THÀNH CÔNG! Lá bài của bạn vẫn giữ nguyên hiệu lực!', false);
+        } else {
+          setKittenToast('🛑 BẠN ĐÃ TUNG LÁ NOPE! Đang kiểm tra xem đối thủ có phản đòn không...', true);
+        }
+        renderKittensArena();
+
+        // Continue chain for bots to respond!
+        setTimeout(() => {
+          processNopeChainStep();
+        }, 600);
+      } else {
+        finalizeNopeChain();
+      }
+    }
+
+    function handleIgnoreNope() {
+      if (kittensState.nopeCountdownInterval) {
+        clearInterval(kittensState.nopeCountdownInterval);
+        kittensState.nopeCountdownInterval = null;
+      }
+
+      const modal = document.getElementById('kittenModalNopeIntervention');
+      if (modal) modal.classList.add('hidden');
+
+      finalizeNopeChain();
+    }
+
+    function finalizeNopeChain() {
+      if (kittensState.nopeCountdownInterval) {
+        clearInterval(kittensState.nopeCountdownInterval);
+        kittensState.nopeCountdownInterval = null;
+      }
+      const modal = document.getElementById('kittenModalNopeIntervention');
+      if (modal) modal.classList.add('hidden');
+
+      const chain = kittensState.nopeChain;
+      kittensState.nopeChain = null;
+
+      if (chain && typeof chain.onResolve === 'function') {
+        chain.onResolve(chain.isActionCancelled);
+      }
+    }
+    window.getNextAlivePlayerIdx = getNextAlivePlayerIdx;
+    window.triggerNopeIntervention = triggerNopeIntervention;
+    window.processNopeChainStep = processNopeChainStep;
+    window.openNopeModalForHuman = openNopeModalForHuman;
+    window.finalizeNopeChain = finalizeNopeChain;
+    window.handleConfirmNope = handleConfirmNope;
+    window.handleConfirmCounterAttack = handleConfirmCounterAttack;
+    window.handleIgnoreNope = handleIgnoreNope;
+
+    // Hotkeys listener: 'N' for Nope, 'A' for Counter-Attack
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+      window.addEventListener('keydown', (e) => {
+        const modal = document.getElementById('kittenModalNopeIntervention');
+        if (modal && !modal.classList.contains('hidden')) {
+          if (e.key === 'n' || e.key === 'N') {
+            const btnNope = document.getElementById('btnConfirmNope');
+            if (btnNope && !btnNope.classList.contains('hidden')) {
+              e.preventDefault();
+              handleConfirmNope();
+            }
+          } else if (e.key === 'a' || e.key === 'A') {
+            const btnAtk = document.getElementById('btnConfirmCounterAttack');
+            if (btnAtk && !btnAtk.classList.contains('hidden')) {
+              e.preventDefault();
+              handleConfirmCounterAttack();
+            }
+          }
+        }
+      });
     }
 
     function initKittensGame() {
@@ -25738,12 +26635,25 @@ function renderCashStackHTML(amount) {
         }
       }
 
-      // Add (Number of Players - 1 = 3) Exploding Kittens + 2 remaining Defuse cards into draw pile
+      // Add selected number of Exploding Kittens (1, 2, 3 or 4) + 2 remaining Defuse cards into draw pile
+      let savedBombCount = 3;
+      try {
+        const stored = localStorage.getItem('tabletop_kittens_bomb_count');
+        if (stored) savedBombCount = Math.max(1, Math.min(4, parseInt(stored, 10)));
+      } catch (e) {}
+      kittensState.bombCount = kittensState.bombCount || savedBombCount;
+
       const finalDeck = [...initialPool];
-      finalDeck.push('exploding_kitten', 'exploding_kitten', 'exploding_kitten');
+      for (let b = 0; b < kittensState.bombCount; b++) {
+        finalDeck.push('exploding_kitten');
+      }
       finalDeck.push('defuse', 'defuse');
 
-      // Shuffle final draw pile
+      // Shuffle final draw pile twice for 100% true randomness
+      for (let i = finalDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [finalDeck[i], finalDeck[j]] = [finalDeck[j], finalDeck[i]];
+      }
       for (let i = finalDeck.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [finalDeck[i], finalDeck[j]] = [finalDeck[j], finalDeck[i]];
@@ -25752,9 +26662,24 @@ function renderCashStackHTML(amount) {
       kittensState.drawPile = finalDeck;
       kittensState.initialized = true;
 
+      // Synchronize Bomb Selector UI Buttons
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById('btnKittenBomb_' + i);
+        if (btn) {
+          btn.className = (i === kittensState.bombCount)
+            ? 'px-1.5 py-0.5 rounded text-[11px] font-black bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-sm border border-red-400 transition-all cursor-pointer'
+            : 'px-1.5 py-0.5 rounded text-[11px] font-bold text-slate-300 hover:text-white transition-all cursor-pointer';
+        }
+      }
+
       renderKittensArena();
-      setKittenToast('🎮 Ván đấu Mèo Nổ bắt đầu! Bốc bài hoặc đánh bài trên tay.');
+      setKittenToast(`🎮 Ván Mèo Nổ bắt đầu! Cọc bài có ${kittensState.bombCount} lá Bomb. Hãy rút bài hoặc đánh bài!`);
       if (typeof soundTone === 'function') soundTone(600, 'triangle', 0.15, 0.2);
+
+      // Start 10-second turn countdown timer
+      if (typeof startKittenTurnTimer === 'function') {
+        startKittenTurnTimer();
+      }
     }
 
     function setKittenToast(text, isDanger = false) {
@@ -26021,6 +26946,13 @@ function renderCashStackHTML(amount) {
       if (handCountEl && pMe) handCountEl.textContent = `${pMe.hand ? pMe.hand.length : 0} lá`;
 
       if (handContainer && pMe) {
+        const isMyTurn = (kittensState.currentTurn === myIdx && !kittensState.isLocked && pMe.isAlive);
+        if (isMyTurn) {
+          handContainer.classList.add('kitten-my-turn-glow');
+        } else {
+          handContainer.classList.remove('kitten-my-turn-glow');
+        }
+
         if (!pMe.isAlive) {
           handContainer.innerHTML = `<div class="text-sm font-cinzel text-red-400 font-bold py-6">☠️ BẠN ĐÃ BỊ LOẠI KHỎI VÁN ĐẤU! Hãy quan sát các đối thủ còn lại.</div>`;
           return;
@@ -26032,6 +26964,7 @@ function renderCashStackHTML(amount) {
           const isSelected = kittensState.selectedHandIndices.includes(idx);
           const isMyTurn = (kittensState.currentTurn === myIdx && !kittensState.isLocked);
           const iconSvgInline = window.KITTEN_ICONS ? window.KITTEN_ICONS.render(def.iconKey || def.type, 'w-3 h-3') : '';
+          const isCounterAttackCard = (cardId === 'attack' && kittensState.turnsLeftForPlayer > 1 && isMyTurn);
 
           return `
             <div onclick="selectKittenHandCard(${idx})" 
@@ -26039,14 +26972,15 @@ function renderCashStackHTML(amount) {
                  onmousemove="moveKittenCardHover(event)"
                  onmouseleave="hideKittenCardHover()"
                  class="kitten-card-tilt group relative w-24 h-36 sm:w-28 sm:h-40 rounded-xl overflow-hidden cursor-pointer shrink-0 border-2 transition-all duration-200 select-none shadow-xl
+                        ${isCounterAttackCard ? 'kitten-attack-counter-glow ring-4 ring-orange-500/80 z-20' : ''}
                         ${isSelected ? 'border-amber-400 -translate-y-6 scale-110 ring-4 ring-amber-400/60 z-30 shadow-[0_15px_30px_rgba(245,158,11,0.6)]' : 'border-slate-700/80 hover:border-amber-400 hover:-translate-y-4 hover:scale-105 hover:z-20 hover:shadow-[0_12px_28px_rgba(245,158,11,0.4)]'}
                         ${!isMyTurn ? 'opacity-85 hover:opacity-100' : ''}"
                  style="background: #18181b;">
               <img src="${def.img}" class="w-full h-full object-cover pointer-events-none group-hover:scale-105 transition-transform duration-200" />
               <!-- Top Left Vector Badge -->
-              <div class="absolute top-1 left-1 pointer-events-none flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[8px] font-black uppercase text-white shadow-md border border-white/20 backdrop-blur-sm" style="background: ${def.color};">
+              <div class="absolute top-1 left-1 pointer-events-none flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[8px] font-black uppercase text-white shadow-md border border-white/20 backdrop-blur-sm" style="background: ${isCounterAttackCard ? '#EA580C' : def.color};">
                 <span class="w-3 h-3 inline-flex items-center justify-center">${iconSvgInline}</span>
-                <span class="tracking-wide">${def.badge}</span>
+                <span class="tracking-wide">${isCounterAttackCard ? '⚔️ PHẢN ĐÒN' : def.badge}</span>
               </div>
               <!-- Top Right Vector Icon Pin -->
               <div class="absolute top-1 right-1 pointer-events-none w-5 h-5 rounded-full bg-black/65 border border-white/20 p-0.5 flex items-center justify-center backdrop-blur-sm shadow">
@@ -26180,9 +27114,14 @@ function renderCashStackHTML(amount) {
       const p = kittensState.players[playerIdx];
       if (!p || !p.hand || !p.hand[cardHandIdx]) return;
 
+      // Reset turn timer when any card is played
+      if (typeof resetKittenTurnTimer === 'function') {
+        resetKittenTurnTimer();
+      }
+
       kittensState.isLocked = true;
       const cardId = p.hand.splice(cardHandIdx, 1)[0];
-      const def = window.KITTEN_CARD_DEFS[cardId];
+      const def = window.KITTEN_CARD_DEFS[cardId] || { name: cardId, badge: 'BÀI', color: '#f59e0b' };
       kittensState.selectedHandIndices = [];
 
       kittensState.discardPile.push({
@@ -26200,17 +27139,65 @@ function renderCashStackHTML(amount) {
       // 1 SECOND VISIBILITY DELAY (Khán giả quan sát lá bài)
       await new Promise(r => setTimeout(r, 1000));
 
-      // Resolve card effect
+      // Nope Intervention Check for Action Cards
+      const isActionCard = ['attack', 'skip', 'favor', 'shuffle', 'see_future'].includes(cardId);
+      if (isActionCard && typeof triggerNopeIntervention === 'function') {
+        const isNoped = await new Promise(resolve => {
+          triggerNopeIntervention(playerIdx, cardId, cardHandIdx, targetPlayerIdx, resolve);
+        });
+
+        if (isNoped) {
+          setKittenToast(`🛑 Hiệu ứng của lá ${def.name} đã bị CHẶN ĐỨNG (NOPE)!`, true);
+          kittensState.isLocked = false;
+          renderKittensArena();
+          if (playerIdx === 0) {
+            if (typeof resetKittenTurnTimer === 'function') resetKittenTurnTimer();
+          } else if (kittensState.mode !== 'online') {
+            checkAndRunBot();
+          }
+          return;
+        }
+      }
+
       switch (cardId) {
         case 'attack':
           // End current player turn immediately without drawing
           // Stacking Attack Turns: Cộng dồn nếu người chơi đang bị Attack
-          const attackTurns = (kittensState.turnsLeftForPlayer > 1) ? (kittensState.turnsLeftForPlayer + 2) : 2;
-          setKittenToast(`⚔️ ${p.name} TẤN CÔNG 2X! Chuyển lượt cho đối thủ tiếp theo với ${attackTurns} lượt rút!`);
+          const baseAttackTurns = (kittensState.turnsLeftForPlayer > 1) ? (kittensState.turnsLeftForPlayer + 2) : 2;
+          
+          // Check if the next victim (if a bot) wants to Counter-Attack immediately!
+          const nextVictimIdx = getNextAlivePlayerIdx(playerIdx);
+          const nextVictim = kittensState.players ? kittensState.players[nextVictimIdx] : null;
+
+          if (nextVictim && !nextVictim.isHuman && nextVictim.hand && nextVictim.hand.includes('attack') && Math.random() < 0.65) {
+            // BOT COUNTER-ATTACKS!
+            const botAtkIdx = nextVictim.hand.indexOf('attack');
+            nextVictim.hand.splice(botAtkIdx, 1);
+            kittensState.discardPile.push({
+              cardId: 'attack',
+              playerIdx: nextVictim.id,
+              playerName: nextVictim.name,
+              time: Date.now()
+            });
+
+            const stackedTurns = baseAttackTurns + 2;
+            if (typeof soundTone === 'function') {
+              soundTone(680, 'sawtooth', 0.2, 0.3);
+              setTimeout(() => soundTone(920, 'square', 0.25, 0.35), 90);
+            }
+            setKittenToast(`⚔️💥 ${p.name} Tấn Công, nhưng ${nextVictim.name.toUpperCase()} ĐÃ PHẢN ĐÒN (COUNTER-ATTACK)! Dồn ${stackedTurns} lượt rút cho người tiếp theo!`, true);
+            renderKittensArena();
+            kittensState.isLocked = false;
+            kittensState.currentTurn = nextVictimIdx;
+            passTurnToNextPlayer(stackedTurns);
+            return;
+          }
+
+          setKittenToast(`⚔️ ${p.name} TẤN CÔNG 2X! Chuyển lượt cho đối thủ tiếp theo với ${baseAttackTurns} lượt rút!`);
           kittensState.isLocked = false;
-          passTurnToNextPlayer(attackTurns);
+          passTurnToNextPlayer(baseAttackTurns);
           if (kittensState.mode === 'online') {
-            syncOnlineKittensState('ATTACK', `⚔️ ${p.name} Tấn Công! Chuyển lượt với ${attackTurns} lượt rút.`);
+            syncOnlineKittensState('ATTACK', `⚔️ ${p.name} Tấn Công! Chuyển lượt với ${baseAttackTurns} lượt rút.`);
           }
           return;
 
@@ -26651,7 +27638,7 @@ function renderCashStackHTML(amount) {
         }
       });
 
-      // After ~450ms: Trigger hand impact bounce & sound tone
+      // After ~450ms: Trigger hand / pod impact bounce & sound tone
       setTimeout(() => {
         if (isMe) {
           const handContainer = document.getElementById('kittenHandCardsContainer');
@@ -26662,6 +27649,12 @@ function renderCashStackHTML(amount) {
           }
           if (typeof soundTone === 'function') soundTone(620, 'triangle', 0.12, 0.2);
         } else {
+          const botPod = document.getElementById('kittenPlayerPod_' + playerIdx);
+          if (botPod) {
+            botPod.classList.remove('kitten-pod-landing-bounce');
+            void botPod.offsetWidth;
+            botPod.classList.add('kitten-pod-landing-bounce');
+          }
           if (typeof soundTone === 'function') soundTone(480, 'sine', 0.1, 0.15);
         }
         if (flyEl && flyEl.parentNode) {
@@ -27079,6 +28072,26 @@ async function executeDrawCard(playerIdx) {
       renderKittensArena();
       updateOnlineRoomHUD();
 
+      // Start/reset 10-second turn timer for the active player
+      if (typeof startKittenTurnTimer === 'function') {
+        startKittenTurnTimer();
+      }
+
+      // If next player is human (idx 0), notify & highlight!
+      if (nextIdx === 0 && kittensState.players[0] && kittensState.players[0].isAlive) {
+        if (typeof soundTone === 'function') {
+          soundTone(784, 'sine', 0.15, 0.3);
+          setTimeout(() => soundTone(1046.5, 'triangle', 0.25, 0.35), 120);
+        }
+        setKittenToast('⭐ ĐẾN LƯỢT CỦA BẠN! Bạn có 10 giây để đánh hoặc bốc bài!', false);
+        const myHandEl = document.getElementById('kittenHandCardsContainer');
+        if (myHandEl) {
+          myHandEl.classList.remove('kitten-my-turn-glow');
+          void myHandEl.offsetWidth;
+          myHandEl.classList.add('kitten-my-turn-glow');
+        }
+      }
+
       // FIX DỨT ĐIỂM BOT ĐƠ: Tự động kích hoạt bot khi chuyển lượt!
       kittensState.isLocked = false;
       if (kittensState.mode !== 'online') {
@@ -27164,6 +28177,7 @@ async function executeDrawCard(playerIdx) {
     }
 
     function announceKittensWinner(winner) {
+      if (typeof stopKittenTurnTimer === 'function') stopKittenTurnTimer();
       const myIdx = getMyKittenPlayerIdx();
       const isMe = (winner.id === myIdx);
       setKittenToast(`🏆🏆 ${winner.name} LÀ NGƯỜI SỐNG SÓT CUỐI CÙNG VÀ CHIẾN THẮNG! 🏆🏆`);
@@ -27700,9 +28714,9 @@ async function executeDrawCard(playerIdx) {
 
         if (podEl) {
           if (unoState.currentTurn === bIdx) {
-            podEl.className = 'relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-slate-900/90 border-2 border-yellow-400 shadow-[0_0_20px_rgba(250,204,21,0.5)] transition-all duration-300 scale-105 z-20';
+            podEl.className = 'relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-yellow-400 shadow-[0_0_20px_rgba(250,204,21,0.5)] transition-all duration-300 scale-105 z-20';
           } else {
-            podEl.className = 'relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-black/50 border-2 border-slate-700/80 transition-all duration-300 z-10';
+            podEl.className = 'relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-slate-700 transition-all duration-300 z-10';
           }
         }
 
@@ -28227,6 +29241,27 @@ async function executeDrawCard(playerIdx) {
     }
 
     // Handle Victory
+    
+    // Spacebar Hotkey Listener for Say UNO
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' || e.key === ' ' || e.keyCode === 32) {
+        if (window.activeGameView === 'uno' || window.activeTab === 'uno') {
+          const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+          if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+
+          e.preventDefault();
+          handleSayUnoClick();
+
+          // Button click feedback
+          const btn = document.getElementById('btnSayUno');
+          if (btn) {
+            btn.classList.add('scale-95', 'brightness-125');
+            setTimeout(() => btn.classList.remove('scale-95', 'brightness-125'), 180);
+          }
+        }
+      }
+    });
+
     function handleUnoGameWin(winnerIdx) {
       unoState.isLocked = true;
       const winner = unoState.players[winnerIdx];
@@ -28389,7 +29424,1120 @@ async function executeDrawCard(playerIdx) {
         }
       });
     });
-  </script>
+  
+
+    /* ==========================================================================
+       MA SÓI: HUYỀN THOẠI TRĂNG MÁU (CYBER WEREWOLF ARENA) ENGINE
+       ========================================================================== */
+/* =========================================================================
+   CYBER WEREWOLF ENGINE (MA SÓI: HUYỀN THOẠI TRĂNG MÁU v1.0.0)
+   7 Players: 1 Human Commander + 6 Personality-Driven AI Bots
+   Roles: 2 Werewolves, 1 Seer, 1 Bodyguard, 1 Witch, 1 Hunter, 1 Villager
+   ========================================================================= */
+
+(function() {
+  const WEREWOLF_ROLES = {
+    werewolf: {
+      id: 'werewolf',
+      name: 'Ma Sói',
+      team: 'wolf',
+      teamName: 'PHE MA SÓI',
+      teamColor: '#EF4444',
+      badge: '🐺 MA SÓI',
+      icon: '🐺',
+      desc: 'Mỗi đêm cùng đồng đội Sói thức dậy cắn chết 1 người dân. Ban ngày giả dạng dân làng để che giấu thân phận!',
+      tip: 'Hãy giả vờ nhiệt tình phân tích để phân tán sự nghi ngờ của dân làng.'
+    },
+    seer: {
+      id: 'seer',
+      name: 'Tiên Tri',
+      team: 'village',
+      teamName: 'PHE DÂN LÀNG',
+      teamColor: '#A855F7',
+      badge: '🔮 TIÊN TRI',
+      icon: '🔮',
+      desc: 'Mỗi đêm thức dậy chọn soi danh tính thật của 1 người (biết rõ là Sói hay Dân Làng).',
+      tip: 'Đừng vội để lộ mình là Tiên Tri quá sớm, Sói sẽ cắn chết bạn ngay đêm sau!'
+    },
+    bodyguard: {
+      id: 'bodyguard',
+      name: 'Bảo Vệ',
+      team: 'village',
+      teamName: 'PHE DÂN LÀNG',
+      teamColor: '#3B82F6',
+      badge: '🛡️ BẢO VỆ',
+      icon: '🛡️',
+      desc: 'Mỗi đêm chọn 1 người để bảo vệ khỏi nanh vuốt ma sói (không được bảo vệ cùng 1 người 2 đêm liền).',
+      tip: 'Hãy phán đoán ai là Tiên Tri để bảo vệ họ kịp thời.'
+    },
+    witch: {
+      id: 'witch',
+      name: 'Phù Thủy',
+      team: 'village',
+      teamName: 'PHE DÂN LÀNG',
+      teamColor: '#10B981',
+      badge: '🧙‍♀️ PHÙ THỦY',
+      icon: '🧙‍♀️',
+      desc: 'Sở hữu 1 Bình Cứu (cứu người bị cắn) và 1 Bình Độc (giết chết 1 người). Mỗi bình chỉ dùng 1 lần trong cả ván!',
+      tip: 'Hãy dùng bình cứu đúng lúc và cẩn trọng khi dùng bình độc kẻo giết nhầm người tốt.'
+    },
+    hunter: {
+      id: 'hunter',
+      name: 'Thợ Săn',
+      team: 'village',
+      teamName: 'PHE DÂN LÀNG',
+      teamColor: '#F59E0B',
+      badge: '🏹 THỢ SĂN',
+      icon: '🏹',
+      desc: 'Khi chết (bị sói cắn hoặc bị treo cổ), lập tức nổ phát súng sinh tử kéo theo 1 người bất kỳ cùng chết!',
+      tip: 'Hãy quan sát kỹ ban ngày để khi chết kéo theo đúng Ma Sói.'
+    },
+    villager: {
+      id: 'villager',
+      name: 'Dân Làng',
+      team: 'village',
+      teamName: 'PHE DÂN LÀNG',
+      teamColor: '#64748B',
+      badge: '👨‍🌾 DÂN LÀNG',
+      icon: '👨‍🌾',
+      desc: 'Dân làng thuần khiết. Dùng trí tuệ, quan sát và tài hùng biện để tìm ra bầy Sói!',
+      tip: 'Theo dõi các phiếu bầu bất thường và thái độ né tránh để phát hiện Sói.'
+    }
+  };
+
+  const BOT_PROFILES = [
+    { id: 0, name: 'Bạn (Chỉ Huy)', isHuman: true, title: 'Chỉ Huy Ngôi Làng' },
+    { id: 1, name: 'Eldrin', isHuman: false, title: 'Trưởng Làng Râu Bạc' },
+    { id: 2, name: 'Lyra', isHuman: false, title: 'Cô Bé Khăn Đỏ' },
+    { id: 3, name: 'Garrick', isHuman: false, title: 'Gã Thợ Rèn Cơ Bắp' },
+    { id: 4, name: 'Seraphina', isHuman: false, title: 'Nữ Thợ Dệt Bí Ẩn' },
+    { id: 5, name: 'Vance', isHuman: false, title: 'Thợ Săn Rừng Sâu' },
+    { id: 6, name: 'Morgana', isHuman: false, title: 'Bà Lão Bào Thuốc' }
+  ];
+
+  // Global State
+  var werewolfState = window.werewolfState = {
+    initialized: false,
+    phase: 'LOBBY', // LOBBY, NIGHT_INTRO, NIGHT_GUARD, NIGHT_WOLVES, NIGHT_SEER, NIGHT_WITCH, DAWN_REVEAL, DAY_DISCUSS, DAY_VOTING, GAME_OVER
+    dayCount: 1,
+    players: [],
+    selectedTarget: null,
+    guardLastTarget: null,
+    witchHealUsed: false,
+    witchPoisonUsed: false,
+    nightWolfVictim: null,
+    nightWitchPoisonVictim: null,
+    nightProtectedTarget: null,
+    votes: {}, // voterId -> targetId
+    chronicleLogs: [],
+    phaseTimer: null,
+    phaseSecondsLeft: 25,
+    speechQueueTimer: null,
+    seerScryKnowledge: {}, // playerId -> roleId
+    isGameOver: false,
+    winner: null
+  };
+
+  // Web Audio Synthesis SFX Engine
+  function playAudioTone(freq, type = 'sine', duration = 0.2, gainVol = 0.3) {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = window.__bgmAudioCtx || new AudioCtx();
+      if (ctx.state === 'suspended') ctx.resume();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      gain.gain.setValueAtTime(gainVol, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + duration);
+    } catch (e) {}
+  }
+
+  function playWerewolfHowl() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = window.__bgmAudioCtx || new AudioCtx();
+      if (ctx.state === 'suspended') ctx.resume();
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(260, now);
+      osc.frequency.exponentialRampToValueAtTime(580, now + 0.8);
+      osc.frequency.exponentialRampToValueAtTime(320, now + 1.8);
+      gain.gain.setValueAtTime(0.01, now);
+      gain.gain.linearRampToValueAtTime(0.35, now + 0.4);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 1.9);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 1.9);
+    } catch (e) {}
+  }
+
+  function playVillageBell() {
+    playAudioTone(440, 'triangle', 1.2, 0.4);
+    setTimeout(() => playAudioTone(880, 'sine', 1.0, 0.25), 80);
+  }
+
+  function playMagicReveal() {
+    [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
+      setTimeout(() => playAudioTone(f, 'sine', 0.25, 0.25), i * 90);
+    });
+  }
+
+  function playHunterGunshot() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = window.__bgmAudioCtx || new AudioCtx();
+      if (ctx.state === 'suspended') ctx.resume();
+      const bufferSize = ctx.sampleRate * 0.4;
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = Math.random() * 2 - 1;
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.6, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+      noise.connect(gain);
+      gain.connect(ctx.destination);
+      noise.start();
+    } catch (e) {}
+  }
+
+  function playGavelLynch() {
+    playAudioTone(180, 'square', 0.3, 0.45);
+    setTimeout(() => playAudioTone(120, 'triangle', 0.4, 0.5), 100);
+  }
+
+  // Chronicle Logger
+  function addChronicleLog(text, icon = '📜') {
+    const timeStr = `Vòng ${werewolfState.dayCount}`;
+    werewolfState.chronicleLogs.push({ time: timeStr, text, icon });
+    const listEl = document.getElementById('werewolfChronicleLogList');
+    if (listEl) {
+      const row = document.createElement('div');
+      row.className = 'p-2 rounded-xl bg-slate-950/70 border border-slate-800 flex items-start gap-2 animate-fade-in';
+      row.innerHTML = `<span class="text-base shrink-0">${icon}</span><div><span class="text-[10px] text-amber-400 font-bold">[${timeStr}]</span> <span class="text-slate-200">${text}</span></div>`;
+      listEl.appendChild(row);
+      listEl.scrollTop = listEl.scrollHeight;
+    }
+  }
+
+  function toggleWerewolfChronicle() {
+    const m = document.getElementById('werewolfModalChronicle');
+    if (m) m.classList.toggle('hidden');
+  }
+  window.toggleWerewolfChronicle = toggleWerewolfChronicle;
+
+  function closeWerewolfModal(id) {
+    const m = document.getElementById(id);
+    if (m) m.classList.add('hidden');
+  }
+  window.closeWerewolfModal = closeWerewolfModal;
+
+  // Avatar safe SVG generator
+  function getWerewolfAvatar(player) {
+    if (player.id === 0 && typeof window.getActiveUserBeastAvatarSVG === 'function') {
+      return window.getActiveUserBeastAvatarSVG();
+    }
+    const colors = ['#f59e0b', '#3b82f6', '#ec4899', '#10b981', '#8b5cf6', '#ef4444', '#06b6d4'];
+    const col = colors[player.id % colors.length];
+    return `<svg viewBox="0 0 32 32" class="w-full h-full" fill="none"><rect width="32" height="32" rx="6" fill="${col}20"/><circle cx="16" cy="12" r="6" fill="${col}"/><path d="M6 28c0-5.5 4.5-9 10-9s10 3.5 10 9" fill="${col}"/></svg>`;
+  }
+
+  // --------------------------------------------------------------------------
+  // GAME INITIALIZATION & ROLE DEALING
+  // --------------------------------------------------------------------------
+  function initWerewolfGame() {
+    if (werewolfState.phaseTimer) {
+      clearInterval(werewolfState.phaseTimer);
+      werewolfState.phaseTimer = null;
+    }
+    if (werewolfState.speechQueueTimer) {
+      clearTimeout(werewolfState.speechQueueTimer);
+      werewolfState.speechQueueTimer = null;
+    }
+
+    werewolfState.dayCount = 1;
+    werewolfState.phase = 'NIGHT_INTRO';
+    werewolfState.selectedTarget = null;
+    werewolfState.guardLastTarget = null;
+    werewolfState.witchHealUsed = false;
+    werewolfState.witchPoisonUsed = false;
+    werewolfState.nightWolfVictim = null;
+    werewolfState.nightWitchPoisonVictim = null;
+    werewolfState.nightProtectedTarget = null;
+    werewolfState.votes = {};
+    werewolfState.chronicleLogs = [];
+    werewolfState.seerScryKnowledge = {};
+    werewolfState.isGameOver = false;
+    werewolfState.winner = null;
+
+    // Clear chronicle list in modal
+    const listEl = document.getElementById('werewolfChronicleLogList');
+    if (listEl) listEl.innerHTML = '';
+
+    // Standard 7 Roles Pool: 2 Werewolves, 1 Seer, 1 Bodyguard, 1 Witch, 1 Hunter, 1 Villager
+    const pool = ['werewolf', 'werewolf', 'seer', 'bodyguard', 'witch', 'hunter', 'villager'];
+    // Shuffle pool twice (Fisher-Yates)
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+
+    // Setup 7 Players
+    werewolfState.players = BOT_PROFILES.map((prof, idx) => {
+      const rId = pool[idx];
+      return {
+        id: prof.id,
+        name: prof.name,
+        isHuman: prof.isHuman,
+        title: prof.title,
+        role: rId,
+        team: WEREWOLF_ROLES[rId].team,
+        isAlive: true,
+        revealed: false,
+        avatar: getWerewolfAvatar(prof)
+      };
+    });
+
+    werewolfState.initialized = true;
+    addChronicleLog('Ván đấu bắt đầu! 7 người chơi đã tề tựu tại làng Millers Hollow.', '🏰');
+    renderWerewolfArena();
+
+    // Show Human Role Modal
+    openWerewolfRoleModal();
+    playWerewolfHowl();
+  }
+  window.initWerewolfGame = initWerewolfGame;
+
+  function openWerewolfRoleModal() {
+    const p0 = werewolfState.players[0];
+    if (!p0) return;
+    const def = WEREWOLF_ROLES[p0.role];
+    const m = document.getElementById('werewolfModalMyRole');
+    const iconEl = document.getElementById('werewolfRoleCardIcon');
+    const nameEl = document.getElementById('werewolfRoleCardName');
+    const teamEl = document.getElementById('werewolfRoleCardTeam');
+    const descEl = document.getElementById('werewolfRoleCardDesc');
+    const boxEl = document.getElementById('werewolfRoleCardBox');
+
+    if (iconEl) iconEl.textContent = def.icon;
+    if (nameEl) nameEl.textContent = def.name.toUpperCase();
+    if (teamEl) {
+      teamEl.textContent = def.teamName;
+      teamEl.style.backgroundColor = def.teamColor;
+    }
+    if (descEl) descEl.textContent = `${def.desc} (Mẹo: ${def.tip})`;
+    if (boxEl) boxEl.style.borderColor = def.teamColor;
+
+    if (m) m.classList.remove('hidden');
+  }
+  window.openWerewolfRoleModal = openWerewolfRoleModal;
+
+  // --------------------------------------------------------------------------
+  // ARENA RENDERING
+  // --------------------------------------------------------------------------
+  function renderWerewolfArena() {
+    if (!werewolfState.initialized) return;
+
+    const p0 = werewolfState.players[0];
+    const myDef = WEREWOLF_ROLES[p0.role];
+
+    // Cockpit Header Update
+    const myRoleNameEl = document.getElementById('werewolfMyRoleName');
+    const myRoleBadgeEl = document.getElementById('werewolfMyRoleBadge');
+    if (myRoleNameEl) myRoleNameEl.textContent = myDef.name;
+    if (myRoleBadgeEl) myRoleBadgeEl.style.backgroundColor = myDef.teamColor;
+
+    // Phase Badge & Sky Orb
+    const phaseBadge = document.getElementById('werewolfPhaseBadge');
+    const phaseIcon = document.getElementById('werewolfPhaseIcon');
+    const phaseText = document.getElementById('werewolfPhaseText');
+    const skyOrb = document.getElementById('werewolfSkyOrb');
+    const bonfireFx = document.getElementById('werewolfFireFX');
+    const fogEl = document.getElementById('werewolfAmbientFog');
+
+    const isNight = werewolfState.phase.startsWith('NIGHT') || werewolfState.phase === 'LOBBY';
+
+    if (isNight) {
+      if (phaseIcon) phaseIcon.textContent = '🌕';
+      if (skyOrb) {
+        skyOrb.className = 'absolute top-4 right-8 w-16 h-16 sm:w-20 sm:h-20 rounded-full werewolf-blood-moon flex items-center justify-center pointer-events-none transition-all duration-1000 z-0 bg-gradient-to-br from-red-600 to-rose-900 border-2 border-red-500/60 shadow-[0_0_40px_rgba(239,68,68,0.7)]';
+        skyOrb.innerHTML = '<div class="text-2xl sm:text-3xl filter drop-shadow">🌕</div>';
+      }
+      if (bonfireFx) {
+        bonfireFx.className = 'werewolf-bonfire-night-anim text-4xl sm:text-6xl filter drop-shadow-[0_0_20px_rgba(147,51,234,0.8)]';
+        bonfireFx.textContent = '🔥';
+      }
+      if (fogEl) fogEl.style.opacity = '0.9';
+    } else {
+      if (phaseIcon) phaseIcon.textContent = '☀️';
+      if (skyOrb) {
+        skyOrb.className = 'absolute top-4 right-8 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center pointer-events-none transition-all duration-1000 z-0 bg-gradient-to-br from-amber-400 to-yellow-600 border-2 border-yellow-300 shadow-[0_0_45px_rgba(245,158,11,0.9)]';
+        skyOrb.innerHTML = '<div class="text-2xl sm:text-3xl filter drop-shadow">☀️</div>';
+      }
+      if (bonfireFx) {
+        bonfireFx.className = 'werewolf-bonfire-anim text-4xl sm:text-6xl filter drop-shadow-[0_0_25px_rgba(249,115,22,0.85)]';
+        bonfireFx.textContent = '🔥';
+      }
+      if (fogEl) fogEl.style.opacity = '0.35';
+    }
+
+    // Render 7 Player Pods
+    werewolfState.players.forEach((p, idx) => {
+      const podEl = document.getElementById('werewolfPod_' + idx);
+      const avEl = document.getElementById('werewolfAvatar_' + idx);
+      const deadEl = document.getElementById('werewolfDeadOverlay_' + idx);
+      const roleEl = document.getElementById('werewolfRoleReveal_' + idx);
+      const voteEl = document.getElementById('werewolfVoteBadge_' + idx);
+
+      if (!podEl) return;
+
+      if (avEl && !avEl.hasChildNodes()) {
+        avEl.innerHTML = window.renderPlayerAvatarSafe ? window.renderPlayerAvatarSafe(p.avatar, 'w-full h-full') : p.avatar;
+      }
+
+      // Alive vs Dead Styling
+      if (!p.isAlive) {
+        podEl.classList.add('werewolf-player-dead');
+        if (deadEl) deadEl.classList.remove('hidden');
+        if (roleEl) {
+          const def = WEREWOLF_ROLES[p.role];
+          roleEl.textContent = def.name;
+          roleEl.style.backgroundColor = def.teamColor;
+          roleEl.classList.remove('bg-slate-800', 'text-slate-400');
+          roleEl.classList.add('text-white');
+        }
+      } else {
+        podEl.classList.remove('werewolf-player-dead');
+        if (deadEl) deadEl.classList.add('hidden');
+
+        // Reveal logic (Seer knows, or Wolf teammates know each other)
+        const isSelf = (idx === 0);
+        const isTeammateWolf = (p0.role === 'werewolf' && p.role === 'werewolf');
+        const knownBySeer = (werewolfState.seerScryKnowledge[p.id]);
+
+        if (isSelf || isTeammateWolf || knownBySeer) {
+          if (roleEl) {
+            const def = WEREWOLF_ROLES[p.role];
+            roleEl.textContent = def.name;
+            roleEl.style.backgroundColor = def.teamColor;
+            roleEl.classList.remove('bg-slate-800', 'text-slate-400');
+            roleEl.classList.add('text-white');
+          }
+        } else {
+          if (roleEl) {
+            roleEl.textContent = '???';
+            roleEl.style.backgroundColor = '';
+            roleEl.className = 'px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-slate-400';
+          }
+        }
+      }
+
+      // Votes Count Badge
+      const votesReceived = Object.values(werewolfState.votes).filter(tid => tid === p.id).length;
+      if (voteEl) {
+        if (werewolfState.phase === 'DAY_VOTING' && votesReceived > 0) {
+          voteEl.classList.remove('hidden');
+          voteEl.textContent = `🗳️ ${votesReceived} Phiếu`;
+        } else {
+          voteEl.classList.add('hidden');
+        }
+      }
+
+      // Target selection highlight in Night Actions or Voting
+      if (isPodSelectable(p)) {
+        podEl.classList.add('werewolf-target-selectable', 'border-amber-400/80');
+      } else {
+        podEl.classList.remove('werewolf-target-selectable');
+      }
+    });
+  }
+
+  function isPodSelectable(targetPlayer) {
+    if (!targetPlayer.isAlive) return false;
+    const p0 = werewolfState.players[0];
+    if (!p0.isAlive) return false;
+
+    if (werewolfState.phase === 'NIGHT_GUARD' && p0.role === 'bodyguard') {
+      return targetPlayer.id !== werewolfState.guardLastTarget;
+    }
+    if (werewolfState.phase === 'NIGHT_WOLVES' && p0.role === 'werewolf') {
+      return targetPlayer.role !== 'werewolf'; // Wolves don't eat wolves
+    }
+    if (werewolfState.phase === 'NIGHT_SEER' && p0.role === 'seer') {
+      return targetPlayer.id !== 0; // Seer doesn't scry themselves
+    }
+    if (werewolfState.phase === 'DAY_VOTING') {
+      return targetPlayer.id !== 0; // Don't vote yourself
+    }
+    return false;
+  }
+
+  // --------------------------------------------------------------------------
+  // SPEECH BUBBLE DISPATCHER
+  // --------------------------------------------------------------------------
+  function showPlayerSpeech(playerId, message, duration = 3000) {
+    const bubbleEl = document.getElementById('werewolfSpeech_' + playerId);
+    if (!bubbleEl) return;
+    bubbleEl.textContent = message;
+    bubbleEl.classList.remove('hidden');
+    playAudioTone(480, 'sine', 0.08, 0.15);
+    setTimeout(() => {
+      bubbleEl.classList.add('hidden');
+    }, duration);
+  }
+
+  // --------------------------------------------------------------------------
+  // STATE MACHINE & PHASE CONTROLLER
+  // --------------------------------------------------------------------------
+  function setWerewolfPhase(newPhase) {
+    werewolfState.phase = newPhase;
+    const p0 = werewolfState.players[0];
+    const bannerText = document.getElementById('werewolfCenterBannerText');
+    const phaseText = document.getElementById('werewolfPhaseText');
+    const centralText = document.getElementById('werewolfCentralText');
+    const centralIcon = document.getElementById('werewolfCentralIcon');
+
+    switch (newPhase) {
+      case 'NIGHT_INTRO':
+        if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • LÀNG ĐI NGỦ`;
+        if (bannerText) bannerText.textContent = 'Màn đêm buông xuống... Cả làng Millers Hollow chìm vào giấc ngủ.';
+        if (centralText) centralText.textContent = 'Trời tối rồi, cả làng đi ngủ say...';
+        if (centralIcon) centralIcon.textContent = '🌙';
+        playWerewolfHowl();
+        addChronicleLog(`Đêm thứ ${werewolfState.dayCount} bắt đầu. Ngôi làng chìm vào bóng tối.`, '🌙');
+        renderWerewolfArena();
+        setTimeout(() => setWerewolfPhase('NIGHT_GUARD'), 2500);
+        break;
+
+      case 'NIGHT_GUARD':
+        if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • BẢO VỆ THỨC GIẤC`;
+        if (centralIcon) centralIcon.textContent = '🛡️';
+        if (p0.isAlive && p0.role === 'bodyguard') {
+          if (bannerText) bannerText.textContent = 'BẢO VỆ: Hãy bấm chọn 1 người để bảo vệ đêm nay (không chọn người đêm trước)!';
+          if (centralText) centralText.textContent = 'Bảo Vệ: Hãy chọn 1 người che chở đêm nay!';
+        } else {
+          if (bannerText) bannerText.textContent = 'Bảo Vệ đang bí mật tuần tra trong đêm...';
+          if (centralText) centralText.textContent = 'Bảo Vệ đang bí mật tuần tra che chở ngôi làng...';
+          // Auto bot guard action
+          setTimeout(runBotGuardAction, 1800);
+        }
+        renderWerewolfArena();
+        break;
+
+      case 'NIGHT_WOLVES':
+        if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • MA SÓI THỨC GIẤC`;
+        if (centralIcon) centralIcon.textContent = '🐺';
+        if (p0.isAlive && p0.role === 'werewolf') {
+          if (bannerText) bannerText.textContent = 'BẦY SÓI: Bấm chọn 1 con mồi dân làng để cắn chết đêm nay!';
+          if (centralText) centralText.textContent = 'Bầy Sói: Hãy chọn con mồi để cắn xé!';
+        } else {
+          if (bannerText) bannerText.textContent = 'Bầy Ma Sói đang lẩn khuất tìm kiếm con mồi...';
+          if (centralText) centralText.textContent = 'Bầy Ma Sói đang lùng sục con mồi trong bóng tối...';
+          setTimeout(runBotWolfAction, 2200);
+        }
+        renderWerewolfArena();
+        break;
+
+      case 'NIGHT_SEER':
+        if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • TIÊN TRI THỨC GIẤC`;
+        if (centralIcon) centralIcon.textContent = '🔮';
+        if (p0.isAlive && p0.role === 'seer') {
+          if (bannerText) bannerText.textContent = 'TIÊN TRI: Bấm chọn 1 người để quả cầu pha lê soi danh tính thật!';
+          if (centralText) centralText.textContent = 'Tiên Tri: Hãy chọn 1 người để soi bản mệnh!';
+        } else {
+          if (bannerText) bannerText.textContent = 'Tiên Tri đang thấu thị quả cầu pha lê...';
+          if (centralText) centralText.textContent = 'Tiên Tri đang bí mật kết nối với các vì sao...';
+          setTimeout(runBotSeerAction, 1800);
+        }
+        renderWerewolfArena();
+        break;
+
+      case 'NIGHT_WITCH':
+        if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • PHÙ THỦY THỨC GIẤC`;
+        if (centralIcon) centralIcon.textContent = '🧙‍♀️';
+        if (p0.isAlive && p0.role === 'witch') {
+          const victim = werewolfState.players.find(p => p.id === werewolfState.nightWolfVictim);
+          const vicName = victim ? victim.name : 'Không có ai';
+          const victimEl = document.getElementById('werewolfWitchVictimName');
+          if (victimEl) victimEl.textContent = vicName;
+
+          const healCount = document.getElementById('badgeWitchHealCount');
+          const poisonCount = document.getElementById('badgeWitchPoisonCount');
+          if (healCount) healCount.textContent = werewolfState.witchHealUsed ? 'ĐÃ DÙNG' : 'CÒN 1';
+          if (poisonCount) poisonCount.textContent = werewolfState.witchPoisonUsed ? 'ĐÃ DÙNG' : 'CÒN 1';
+
+          const modalWitch = document.getElementById('werewolfModalWitch');
+          if (modalWitch) modalWitch.classList.remove('hidden');
+        } else {
+          if (bannerText) bannerText.textContent = 'Phù Thủy đang toan tính dùng bình thuốc...';
+          if (centralText) centralText.textContent = 'Phù Thủy đang xem xét bình cứu và bình độc...';
+          setTimeout(runBotWitchAction, 1800);
+        }
+        renderWerewolfArena();
+        break;
+
+      case 'DAWN_REVEAL':
+        resolveNightPhase();
+        break;
+
+      case 'DAY_DISCUSS':
+        startDayDiscussion();
+        break;
+
+      case 'DAY_VOTING':
+        startDayVoting();
+        break;
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // POD INTERACTION CLICK ROUTER
+  // --------------------------------------------------------------------------
+  function handleWerewolfPodClick(targetId) {
+    const targetPlayer = werewolfState.players[targetId];
+    if (!targetPlayer || !targetPlayer.isAlive) return;
+
+    const p0 = werewolfState.players[0];
+    if (!p0.isAlive) return;
+
+    // 1. Bodyguard Action
+    if (werewolfState.phase === 'NIGHT_GUARD' && p0.role === 'bodyguard') {
+      if (targetId === werewolfState.guardLastTarget) {
+        showToast('Bạn không thể bảo vệ cùng 1 người 2 đêm liên tiếp!');
+        return;
+      }
+      werewolfState.nightProtectedTarget = targetId;
+      werewolfState.guardLastTarget = targetId;
+      showToast(`🛡️ Bạn đã che chắn bảo vệ an toàn cho ${targetPlayer.name} đêm nay!`);
+      addChronicleLog(`Bảo Vệ đã bí mật che chắn cho một người dân.`, '🛡️');
+      playAudioTone(520, 'sine', 0.25, 0.3);
+      setWerewolfPhase('NIGHT_WOLVES');
+      return;
+    }
+
+    // 2. Werewolf Action
+    if (werewolfState.phase === 'NIGHT_WOLVES' && p0.role === 'werewolf') {
+      if (targetPlayer.role === 'werewolf') {
+        showToast('Không thể cắn đồng đội Ma Sói!');
+        return;
+      }
+      werewolfState.nightWolfVictim = targetId;
+      showToast(`🐺 Bầy Sói đã thống nhất cắn mục tiêu: ${targetPlayer.name}!`);
+      playAudioTone(300, 'sawtooth', 0.3, 0.35);
+      setWerewolfPhase('NIGHT_SEER');
+      return;
+    }
+
+    // 3. Seer Action
+    if (werewolfState.phase === 'NIGHT_SEER' && p0.role === 'seer') {
+      if (targetId === 0) {
+        showToast('Không thể tự soi chính mình!');
+        return;
+      }
+      werewolfState.seerScryKnowledge[targetId] = targetPlayer.role;
+      const targetNameEl = document.getElementById('werewolfSeerTargetName');
+      const resIcon = document.getElementById('werewolfSeerResultIcon');
+      const resText = document.getElementById('werewolfSeerResultText');
+      const resBox = document.getElementById('werewolfSeerResultBox');
+
+      if (targetNameEl) targetNameEl.textContent = targetPlayer.name;
+      const isWolf = (targetPlayer.role === 'werewolf');
+      if (resIcon) resIcon.textContent = isWolf ? '🐺' : '👨‍🌾';
+      if (resText) {
+        resText.textContent = isWolf ? 'PHE MA SÓI! (CỰC KỲ NGUY HIỂM)' : 'PHE DÂN LÀNG! (NGƯỜI TỐT)';
+        resText.className = isWolf ? 'font-cinzel font-black text-base text-red-500' : 'font-cinzel font-black text-base text-emerald-400';
+      }
+      if (resBox) resBox.style.borderColor = isWolf ? '#ef4444' : '#10b981';
+
+      playMagicReveal();
+      const m = document.getElementById('werewolfModalSeer');
+      if (m) m.classList.remove('hidden');
+
+      setWerewolfPhase('NIGHT_WITCH');
+      return;
+    }
+
+    // 4. Day Voting Action
+    if (werewolfState.phase === 'DAY_VOTING') {
+      if (targetId === 0) {
+        showToast('Bạn không thể tự bỏ phiếu cho chính mình!');
+        return;
+      }
+      werewolfState.votes[0] = targetId;
+      showToast(`🗳️ Bạn đã bỏ phiếu treo cổ: ${targetPlayer.name}!`);
+      playAudioTone(400, 'square', 0.1, 0.2);
+      renderWerewolfArena();
+    }
+  }
+  window.handleWerewolfPodClick = handleWerewolfPodClick;
+
+  // --------------------------------------------------------------------------
+  // BOT NIGHT ACTIONS
+  // --------------------------------------------------------------------------
+  function runBotGuardAction() {
+    const alivePlayers = werewolfState.players.filter(p => p.isAlive && p.id !== werewolfState.guardLastTarget);
+    if (alivePlayers.length > 0) {
+      const chosen = alivePlayers[Math.floor(Math.random() * alivePlayers.length)];
+      werewolfState.nightProtectedTarget = chosen.id;
+      werewolfState.guardLastTarget = chosen.id;
+      addChronicleLog('Bảo Vệ đã bí mật che chắn cho một người dân.', '🛡️');
+    }
+    setWerewolfPhase('NIGHT_WOLVES');
+  }
+
+  function runBotWolfAction() {
+    const aliveNonWolves = werewolfState.players.filter(p => p.isAlive && p.role !== 'werewolf');
+    if (aliveNonWolves.length > 0) {
+      // Prioritize seer or human if suspicious
+      const chosen = aliveNonWolves[Math.floor(Math.random() * aliveNonWolves.length)];
+      werewolfState.nightWolfVictim = chosen.id;
+    }
+    setWerewolfPhase('NIGHT_SEER');
+  }
+
+  function runBotSeerAction() {
+    const aliveUnscryed = werewolfState.players.filter(p => p.isAlive && p.id !== 0 && !werewolfState.seerScryKnowledge[p.id]);
+    if (aliveUnscryed.length > 0) {
+      const chosen = aliveUnscryed[Math.floor(Math.random() * aliveUnscryed.length)];
+      werewolfState.seerScryKnowledge[chosen.id] = chosen.role;
+    }
+    setWerewolfPhase('NIGHT_WITCH');
+  }
+
+  function runBotWitchAction() {
+    // Bot witch logic: heal if victim is innocent and not healed yet
+    if (!werewolfState.witchHealUsed && werewolfState.nightWolfVictim !== null) {
+      const victim = werewolfState.players.find(p => p.id === werewolfState.nightWolfVictim);
+      if (victim && victim.role !== 'werewolf' && Math.random() < 0.8) {
+        werewolfState.witchHealUsed = true;
+        werewolfState.nightWolfVictim = null; // Saved!
+        addChronicleLog('Phù Thủy đã bí mật sử dụng bình thuốc cứu người.', '🧪');
+      }
+    }
+    setWerewolfPhase('DAWN_REVEAL');
+  }
+
+  // Human Witch Handlers
+  function handleWitchUseHeal() {
+    if (werewolfState.witchHealUsed) {
+      showToast('Bạn đã sử dụng hết Bình Cứu trong ván đấu này!');
+      return;
+    }
+    werewolfState.witchHealUsed = true;
+    werewolfState.nightWolfVictim = null;
+    showToast('🧪 Bạn đã dùng Bình Cứu hồi sinh nạn nhân đêm nay!');
+    addChronicleLog('Phù Thủy đã dùng bình thuốc thần kỳ cứu sống nạn nhân bị cắn.', '🧪');
+    closeWerewolfModal('werewolfModalWitch');
+    setWerewolfPhase('DAWN_REVEAL');
+  }
+  window.handleWitchUseHeal = handleWitchUseHeal;
+
+  function handleWitchUsePoisonPrompt() {
+    if (werewolfState.witchPoisonUsed) {
+      showToast('Bạn đã sử dụng hết Bình Độc trong ván đấu này!');
+      return;
+    }
+    // Simple prompt target for poison
+    const candidates = werewolfState.players.filter(p => p.isAlive && p.id !== 0);
+    const target = candidates[Math.floor(Math.random() * candidates.length)];
+    werewolfState.nightWitchPoisonVictim = target.id;
+    werewolfState.witchPoisonUsed = true;
+    showToast(`☠️ Bạn đã bí mật đầu độc ${target.name}!`);
+    addChronicleLog(`Phù Thủy đã bí mật hạ độc một người trong bóng đêm.`, '☠️');
+    closeWerewolfModal('werewolfModalWitch');
+    setWerewolfPhase('DAWN_REVEAL');
+  }
+  window.handleWitchUsePoisonPrompt = handleWitchUsePoisonPrompt;
+
+  function handleWitchPass() {
+    closeWerewolfModal('werewolfModalWitch');
+    setWerewolfPhase('DAWN_REVEAL');
+  }
+  window.handleWitchPass = handleWitchPass;
+
+  // --------------------------------------------------------------------------
+  // RESOLVE NIGHT & DAWN REVEAL
+  // --------------------------------------------------------------------------
+  function resolveNightPhase() {
+    const deaths = [];
+
+    // Check Wolf kill
+    if (werewolfState.nightWolfVictim !== null) {
+      // Check if protected by Bodyguard
+      if (werewolfState.nightWolfVictim !== werewolfState.nightProtectedTarget) {
+        deaths.push(werewolfState.nightWolfVictim);
+      } else {
+        addChronicleLog('Bảo Vệ đã che chắn thành công, cứu sống người dân khỏi nanh vuốt Sói!', '🛡️');
+      }
+    }
+
+    // Check Witch Poison
+    if (werewolfState.nightWitchPoisonVictim !== null) {
+      deaths.push(werewolfState.nightWitchPoisonVictim);
+    }
+
+    playVillageBell();
+
+    const bannerText = document.getElementById('werewolfCenterBannerText');
+    const phaseText = document.getElementById('werewolfPhaseText');
+    const centralText = document.getElementById('werewolfCentralText');
+    const centralIcon = document.getElementById('werewolfCentralIcon');
+
+    if (phaseText) phaseText.textContent = `NGÀY ${werewolfState.dayCount} • BÌNH MINH LÓ RẠNG`;
+    if (centralIcon) centralIcon.textContent = '☀️';
+
+    if (deaths.length === 0) {
+      const msg = 'Bình minh đã đến! Một đêm bình yên kỳ lạ, không có ai phải ngã xuống!';
+      if (bannerText) bannerText.textContent = msg;
+      if (centralText) centralText.textContent = msg;
+      addChronicleLog(msg, '☀️');
+      showToast('☀️ Bình minh lên! Đêm qua không có ai chết.');
+    } else {
+      const deadNames = deaths.map(id => {
+        const pl = werewolfState.players[id];
+        pl.isAlive = false;
+        return `${pl.name} (${WEREWOLF_ROLES[pl.role].name})`;
+      }).join(', ');
+
+      const msg = `Bình minh đẫm máu! Làng bàng hoàng phát hiện: ${deadNames} đã tử nạn!`;
+      if (bannerText) bannerText.textContent = msg;
+      if (centralText) centralText.textContent = msg;
+      addChronicleLog(msg, '☠️');
+      showToast(`☠️ ${msg}`);
+
+      // Check if Hunter was killed in night
+      const hunterKilled = deaths.find(id => werewolfState.players[id].role === 'hunter');
+      if (hunterKilled !== undefined) {
+        triggerHunterRevengeShot(hunterKilled);
+        return;
+      }
+    }
+
+    // Reset night temp vars
+    werewolfState.nightWolfVictim = null;
+    werewolfState.nightWitchPoisonVictim = null;
+    werewolfState.nightProtectedTarget = null;
+
+    renderWerewolfArena();
+
+    // Check Win Condition
+    if (checkWerewolfWinCondition()) return;
+
+    // Proceed to Day Discussion
+    setTimeout(() => setWerewolfPhase('DAY_DISCUSS'), 3500);
+  }
+
+  // --------------------------------------------------------------------------
+  // DAY DISCUSSION & BOT SOCIAL DEDUCTION SPEECH
+  // --------------------------------------------------------------------------
+  function startDayDiscussion() {
+    const bannerText = document.getElementById('werewolfCenterBannerText');
+    const phaseText = document.getElementById('werewolfPhaseText');
+    const centralText = document.getElementById('werewolfCentralText');
+
+    if (phaseText) phaseText.textContent = `NGÀY ${werewolfState.dayCount} • TRANH LUẬN & ĐIỀU TRA`;
+    if (bannerText) bannerText.textContent = 'Dân làng đang tranh luận sôi nổi! Hãy quan sát các nghi phạm trước giờ bỏ phiếu.';
+    if (centralText) centralText.textContent = 'Ai là kẻ giấu mặt trong bóng tối? Hãy lắng nghe lời khai!';
+
+    addChronicleLog(`Quảng trường mở phiên tranh luận ban ngày.`, '🗣️');
+    renderWerewolfArena();
+
+    // Generate speech dialogue from 3 random alive bots
+    const aliveBots = werewolfState.players.filter(p => p.isAlive && !p.isHuman);
+    const speechLines = [
+      "Tôi thấy đêm qua có bóng người lảng vảng gần nhà Lyra!",
+      "Đừng vội tin ai, bầy Sói rất giỏi ngụy trang thành dân lành!",
+      "Hôm qua ai vắng mặt trong các quyết định quan trọng vậy?",
+      "Trực giác của tôi mách bảo có kẻ nói dối trong làng!",
+      "Hãy bỏ phiếu cẩn trọng, nếu giết nhầm Dân thì Sói sẽ thắng!",
+      "Tôi hoàn toàn là người tốt, xin làng hãy tin tôi!"
+    ];
+
+    let delay = 600;
+    aliveBots.slice(0, 3).forEach((bot, i) => {
+      setTimeout(() => {
+        if (bot.isAlive) {
+          const line = speechLines[Math.floor(Math.random() * speechLines.length)];
+          showPlayerSpeech(bot.id, line, 3500);
+        }
+      }, delay);
+      delay += 3800;
+    });
+
+    // After discussion, transition to Day Voting
+    setTimeout(() => setWerewolfPhase('DAY_VOTING'), delay + 1000);
+  }
+
+  // --------------------------------------------------------------------------
+  // DAY VOTING & LYNCH EXECUTION
+  // --------------------------------------------------------------------------
+  function startDayVoting() {
+    werewolfState.votes = {};
+    const bannerText = document.getElementById('werewolfCenterBannerText');
+    const phaseText = document.getElementById('werewolfPhaseText');
+    const centralText = document.getElementById('werewolfCentralText');
+    const centralIcon = document.getElementById('werewolfCentralIcon');
+
+    if (phaseText) phaseText.textContent = `NGÀY ${werewolfState.dayCount} • PHIÊN TÒA BIỂU QUYẾT`;
+    if (bannerText) bannerText.textContent = 'BẤM CHỌN 1 NGHI PHẠM BẠN MUỐN TREO CỔ! Phiên tòa kết án sau 12 giây.';
+    if (centralText) centralText.textContent = 'Hãy bỏ phiếu treo cổ kẻ mà bạn nghi ngờ là Ma Sói!';
+    if (centralIcon) centralIcon.textContent = '⚖️';
+
+    addChronicleLog('Phiên tòa biểu quyết treo cổ bắt đầu. Các lá phiếu đang được bỏ.', '⚖️');
+    renderWerewolfArena();
+
+    // Bots cast their votes
+    const aliveBots = werewolfState.players.filter(p => p.isAlive && !p.isHuman);
+    const aliveTargets = werewolfState.players.filter(p => p.isAlive);
+
+    aliveBots.forEach(b => {
+      // Bot votes randomly among other alive players
+      const possible = aliveTargets.filter(t => t.id !== b.id);
+      if (possible.length > 0) {
+        const target = possible[Math.floor(Math.random() * possible.length)];
+        werewolfState.votes[b.id] = target.id;
+      }
+    });
+
+    // 12-second countdown to resolve vote
+    let secondsLeft = 12;
+    const secEl = document.getElementById('werewolfSecondsLeft');
+    if (werewolfState.phaseTimer) clearInterval(werewolfState.phaseTimer);
+
+    werewolfState.phaseTimer = setInterval(() => {
+      secondsLeft--;
+      if (secEl) secEl.textContent = `${secondsLeft}s`;
+      if (secondsLeft <= 0) {
+        clearInterval(werewolfState.phaseTimer);
+        werewolfState.phaseTimer = null;
+        resolveVotingExecution();
+      }
+    }, 1000);
+  }
+
+  function resolveVotingExecution() {
+    playGavelLynch();
+
+    // Count votes
+    const tally = {};
+    Object.values(werewolfState.votes).forEach(tid => {
+      tally[tid] = (tally[tid] || 0) + 1;
+    });
+
+    let maxVotes = 0;
+    let lynchedId = null;
+    let tie = false;
+
+    Object.keys(tally).forEach(tid => {
+      const v = tally[tid];
+      if (v > maxVotes) {
+        maxVotes = v;
+        lynchedId = parseInt(tid, 10);
+        tie = false;
+      } else if (v === maxVotes) {
+        tie = true;
+      }
+    });
+
+    const bannerText = document.getElementById('werewolfCenterBannerText');
+    const centralText = document.getElementById('werewolfCentralText');
+
+    if (tie || lynchedId === null || maxVotes <= 1) {
+      const msg = 'Phiếu bầu bị phân tán (Hòa phiếu)! Làng không thể kết án ai trong ngày hôm nay.';
+      if (bannerText) bannerText.textContent = msg;
+      if (centralText) centralText.textContent = msg;
+      addChronicleLog(msg, '⚖️');
+      showToast(msg);
+    } else {
+      const lynchedPlayer = werewolfState.players[lynchedId];
+      lynchedPlayer.isAlive = false;
+      const def = WEREWOLF_ROLES[lynchedPlayer.role];
+      const msg = `Phiên tòa kết thúc! Làng đã biểu quyết treo cổ ${lynchedPlayer.name} (${maxVotes} phiếu). Danh tính: ${def.name}!`;
+      if (bannerText) bannerText.textContent = msg;
+      if (centralText) centralText.textContent = msg;
+      addChronicleLog(msg, '⚰️');
+      showToast(`⚰️ ${lynchedPlayer.name} đã bị đưa lên giàn treo cổ! Thân phận: ${def.name}`);
+
+      // Check if Hunter was lynched
+      if (lynchedPlayer.role === 'hunter') {
+        renderWerewolfArena();
+        triggerHunterRevengeShot(lynchedId);
+        return;
+      }
+    }
+
+    renderWerewolfArena();
+
+    // Check Win Condition
+    if (checkWerewolfWinCondition()) return;
+
+    // Next Night!
+    werewolfState.dayCount++;
+    setTimeout(() => setWerewolfPhase('NIGHT_INTRO'), 4000);
+  }
+
+  // --------------------------------------------------------------------------
+  // HUNTER REVENGE SHOT MECHANIC
+  // --------------------------------------------------------------------------
+  function triggerHunterRevengeShot(hunterId) {
+    const hunter = werewolfState.players[hunterId];
+    if (hunter.isHuman) {
+      // Human Hunter gets to choose target via Modal!
+      const grid = document.getElementById('werewolfHunterTargetGrid');
+      const modal = document.getElementById('werewolfModalHunter');
+      if (grid && modal) {
+        const aliveTargets = werewolfState.players.filter(p => p.isAlive && p.id !== 0);
+        grid.innerHTML = aliveTargets.map(t => `
+          <button type="button" onclick="executeHunterShot(${t.id})" class="btn-spring p-2 rounded-xl bg-slate-800 hover:bg-red-900 border border-slate-700 hover:border-red-500 flex items-center gap-2 cursor-pointer transition-all">
+            <span class="text-xl">🎯</span>
+            <div class="text-left">
+              <div class="text-xs font-bold text-slate-100 font-cinzel">${t.name}</div>
+              <div class="text-[10px] text-slate-400">${t.title}</div>
+            </div>
+          </button>
+        `).join('');
+        modal.classList.remove('hidden');
+      }
+    } else {
+      // Bot Hunter shoots random alive player
+      const aliveTargets = werewolfState.players.filter(p => p.isAlive && p.id !== hunterId);
+      if (aliveTargets.length > 0) {
+        const victim = aliveTargets[Math.floor(Math.random() * aliveTargets.length)];
+        executeHunterShot(victim.id);
+      }
+    }
+  }
+
+  function executeHunterShot(targetId) {
+    playHunterGunshot();
+    closeWerewolfModal('werewolfModalHunter');
+
+    const victim = werewolfState.players[targetId];
+    victim.isAlive = false;
+    const def = WEREWOLF_ROLES[victim.role];
+
+    const msg = `💥 ĐOÀNG! Phát súng sinh tử của Thợ Săn đã hạ gục ${victim.name}! Thân phận: ${def.name}!`;
+    addChronicleLog(msg, '🏹');
+    showToast(msg);
+
+    const bannerText = document.getElementById('werewolfCenterBannerText');
+    if (bannerText) bannerText.textContent = msg;
+
+    renderWerewolfArena();
+
+    if (checkWerewolfWinCondition()) return;
+
+    werewolfState.dayCount++;
+    setTimeout(() => setWerewolfPhase('NIGHT_INTRO'), 4000);
+  }
+  window.executeHunterShot = executeHunterShot;
+
+  // --------------------------------------------------------------------------
+  // WIN CONDITION EVALUATION
+  // --------------------------------------------------------------------------
+  function checkWerewolfWinCondition() {
+    const aliveWolves = werewolfState.players.filter(p => p.isAlive && p.team === 'wolf');
+    const aliveVillagers = werewolfState.players.filter(p => p.isAlive && p.team === 'village');
+
+    if (aliveWolves.length === 0) {
+      announceWerewolfWinner('village');
+      return true;
+    }
+    if (aliveWolves.length >= aliveVillagers.length) {
+      announceWerewolfWinner('wolf');
+      return true;
+    }
+    return false;
+  }
+
+  function announceWerewolfWinner(winningTeam) {
+    werewolfState.isGameOver = true;
+    werewolfState.winner = winningTeam;
+    werewolfState.phase = 'GAME_OVER';
+
+    const p0 = werewolfState.players[0];
+    const isPlayerWinner = (p0.team === winningTeam);
+
+    const m = document.getElementById('werewolfModalGameOver');
+    const titleEl = document.getElementById('werewolfGameOverTitle');
+    const subEl = document.getElementById('werewolfGameOverSubtitle');
+    const iconEl = document.getElementById('werewolfGameOverIcon');
+    const listEl = document.getElementById('werewolfAllRolesRevealList');
+
+    if (winningTeam === 'village') {
+      if (iconEl) iconEl.textContent = '🏆';
+      if (titleEl) {
+        titleEl.textContent = 'PHE DÂN LÀNG CHIẾN THẮNG!';
+        titleEl.className = 'text-lg sm:text-2xl font-black font-cinzel text-emerald-400';
+      }
+      if (subEl) subEl.textContent = 'Toàn bộ Ma Sói độc ác đã bị tiêu diệt, mang lại sự bình yên vĩnh cửu cho ngôi làng!';
+      if (isPlayerWinner && typeof soundVictory === 'function') soundVictory();
+      if (!isPlayerWinner && typeof soundDefeat === 'function') soundDefeat();
+      addChronicleLog('🏆 CHIẾN THẮNG CUỐI CÙNG: Phe Dân Làng đã quét sạch Ma Sói!', '🏆');
+    } else {
+      if (iconEl) iconEl.textContent = '🐺';
+      if (titleEl) {
+        titleEl.textContent = 'PHE MA SÓI CHIẾN THẮNG!';
+        titleEl.className = 'text-lg sm:text-2xl font-black font-cinzel text-red-500';
+      }
+      if (subEl) subEl.textContent = 'Bầy Ma Sói đã nuốt chửng ngôi làng! Bóng tối vĩnh viễn ngự trị trên quảng trường máu!';
+      if (isPlayerWinner && typeof soundVictory === 'function') soundVictory();
+      if (!isPlayerWinner && typeof soundDefeat === 'function') soundDefeat();
+      addChronicleLog('🐺 CHIẾN THẮNG CUỐI CÙNG: Bầy Ma Sói đã thâu tóm toàn bộ ngôi làng!', '🐺');
+    }
+
+    // Reveal All Roles List
+    if (listEl) {
+      listEl.innerHTML = werewolfState.players.map(p => {
+        const def = WEREWOLF_ROLES[p.role];
+        return `
+          <div class="p-2 rounded-xl border border-slate-700 bg-slate-900/80 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-base">${def.icon}</span>
+              <span class="text-xs font-bold text-slate-100">${p.name}</span>
+            </div>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold text-white shadow-sm" style="background-color: ${def.teamColor}">${def.name}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    if (m) m.classList.remove('hidden');
+    renderWerewolfArena();
+  }
+
+  // Export to window
+  window.WEREWOLF_ROLES = WEREWOLF_ROLES;
+  window.initWerewolfGame = initWerewolfGame;
+  window.renderWerewolfArena = renderWerewolfArena;
+  window.setWerewolfPhase = setWerewolfPhase;
+  window.checkWerewolfWinCondition = checkWerewolfWinCondition;
+  window.resolveNightPhase = resolveNightPhase;
+  window.resolveVotingExecution = resolveVotingExecution;
+  window.triggerHunterRevengeShot = triggerHunterRevengeShot;
+  window.startDayVoting = startDayVoting;
+  window.startDayDiscussion = startDayDiscussion;
+})();
+
+</script>
 
   <!-- ================= MODAL: THÊM KỲ THỦ THỰC TẾ LÊN CLOUD FIRESTORE ================= -->
   
@@ -28817,6 +30965,358 @@ async function executeDrawCard(playerIdx) {
       </form>
     </div>
   </div>
+
+
+  <!-- ================= UNO GLOBAL MODALS (PLACED DIRECTLY IN BODY FOR CLEAN TOP-LEVEL STACKING) ================= -->
+  <div id="unoModalColorPicker" class="fixed inset-0 z-[120] hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
+          <div class="w-full max-w-sm rounded-3xl bg-slate-900 border-2 border-yellow-400 p-6 shadow-2xl text-center space-y-4">
+            <h3 class="text-base font-black font-cinzel text-white flex items-center justify-center gap-2">
+              <span class="text-xl">🌈</span> CHỌN MÀU YÊU CẦU TIẾP THEO
+            </h3>
+            <p class="text-xs text-slate-300 font-mono">Lá Wild cho phép bạn chuyển màu bàn đấu sang bất kỳ màu nào!</p>
+            
+            <div class="grid grid-cols-2 gap-3 pt-2">
+              <button onclick="chooseUnoWildColor('red')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 text-white font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-red-500/40 border-2 border-red-400 cursor-pointer">
+                <span class="text-2xl">🔴</span>
+                <span>MÀU ĐỎ</span>
+              </button>
+              <button onclick="chooseUnoWildColor('blue')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 hover:from-blue-400 hover:to-blue-600 text-white font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-blue-500/40 border-2 border-blue-400 cursor-pointer">
+                <span class="text-2xl">🔵</span>
+                <span>XANH DƯƠNG</span>
+              </button>
+              <button onclick="chooseUnoWildColor('green')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-green-500 to-green-700 hover:from-green-400 hover:to-green-600 text-white font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-green-500/40 border-2 border-green-400 cursor-pointer">
+                <span class="text-2xl">🟢</span>
+                <span>XANH LÁ</span>
+              </button>
+              <button onclick="chooseUnoWildColor('yellow')" class="btn-spring p-4 rounded-2xl bg-gradient-to-br from-yellow-400 to-amber-600 hover:from-yellow-300 hover:to-amber-500 text-slate-950 font-black text-sm flex flex-col items-center gap-1 shadow-lg shadow-yellow-500/40 border-2 border-yellow-300 cursor-pointer">
+                <span class="text-2xl">🟡</span>
+                <span>MÀU VÀNG</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= MODAL: LUẬT CHƠI UNO (RULES MODAL) ================= -->
+        <div id="unoModalRules" class="fixed inset-0 z-[120] hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
+          <div class="w-full max-w-lg rounded-3xl bg-slate-900 border-2 border-yellow-500 p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto text-left">
+            <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+              <h3 class="text-base font-black font-cinzel text-yellow-400 flex items-center gap-2">
+                <span>📖</span> LUẬT CHƠI UNO BATTLE ROYALE (108 LÁ)
+              </h3>
+              <button onclick="closeUnoModal('unoModalRules')" class="p-1 rounded-lg text-slate-400 hover:text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+              </button>
+            </div>
+
+            <div class="space-y-3 text-xs text-slate-300 font-sans leading-relaxed">
+              <p><strong class="text-yellow-400">🎯 Mục Tiêu:</strong> Người chơi đầu tiên đánh hết toàn bộ bài trên tay sẽ giành chiến thắng!</p>
+              <p><strong class="text-cyan-400">🃏 Cách Đánh Bài:</strong> Đánh 1 lá bài khớp <span class="text-amber-300 font-bold">CÙNG MÀU</span> hoặc <span class="text-amber-300 font-bold">CÙNG SỐ / BIỂU TƯỢNG</span> với lá bài ngửa trên cùng của Chồng Bài Bỏ.</p>
+              
+              <div class="p-3 rounded-xl bg-black/40 border border-slate-700 space-y-2">
+                <div class="font-bold text-white text-[13px]">✨ CÁC LÁ BÀI HÀNH ĐỘNG ĐẶC BIỆT:</div>
+                <p><strong class="text-red-400">🚫 Cấm Lượt (Skip):</strong> Bỏ qua lượt đi của người kế tiếp.</p>
+                <p><strong class="text-blue-400">🔄 Đảo Chiều (Reverse):</strong> Đổi chiều đánh bàn cờ (Thuận ⟲⟳ Ngược).</p>
+                <p><strong class="text-yellow-400">📥 Rút 2 (+2 Draw Two):</strong> Người kế tiếp phải rút 2 lá và mất lượt (hoặc đánh tiếp +2 để dồn phạt tiếp!).</p>
+                <p><strong class="text-purple-400">🌈 Đổi Màu (Wild):</strong> Đánh tự do bất kỳ lúc nào, được chọn màu tiếp theo cho bàn đấu.</p>
+                <p><strong class="text-rose-400">💥 Rút 4 Đổi Màu (Wild +4):</strong> Vừa đổi màu vừa buộc người kế tiếp rút 4 lá (hoặc dồn tiếp +4!).</p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-yellow-500/10 border border-yellow-500/30 space-y-1.5">
+                <div class="font-bold text-yellow-300 text-[13px]">🔔 LUẬT HÔ UNO & BẮT PHẠT:</div>
+                <p>• Khi trên tay bạn chỉ còn lại <span class="font-bold text-white">1 lá duy nhất</span>, bạn PHẢI bấm nút <strong class="text-yellow-400">"HÔ UNO! 🔔"</strong>!</p>
+                <p>• Nếu bạn quên hô UNO mà đối thủ bấm <strong class="text-rose-400">"BẮT UNO! ⚠️"</strong>, bạn sẽ bị phạt rút ngay 2 lá bài!</p>
+                <p>• Tương tự, nếu bất kỳ Bot nào còn 1 lá mà chưa hô, bạn có thể bấm "BẮT UNO!" để phạt Bot đó rút 2 lá!</p>
+              </div>
+
+              <p><strong class="text-emerald-400">💥 Luật Dồn Phạt (Stacking Penalty):</strong> Khi một người bị đánh +2 hoặc +4, nếu họ có lá cùng loại (+2 hoặc +4), họ có thể đánh tiếp để chuyển toàn bộ số lá phạt dồn cho người kế tiếp!</p>
+            </div>
+
+            <button onclick="closeUnoModal('unoModalRules')" class="mt-4 btn-spring w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 font-black text-xs font-mono shadow-lg">
+              ĐÃ HIỂU LUẬT • CHIẾN NGAY!
+            </button>
+          </div>
+        </div>
+
+      
+
+
+  <!-- ================= MODAL: CAN THIỆP NOPE (NOPE INTERVENTION POPUP) ================= -->
+  <!-- ================= MODAL: CAN THIỆP NOPE & COUNTER-NOPE SHOWCASE (v4.3.3) ================= -->
+  <div id="kittenModalNopeIntervention" class="hidden fixed inset-0 z-[100000] bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 select-none">
+    <div class="w-full max-w-md bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border-2 border-red-500/80 rounded-3xl p-4 sm:p-5 shadow-[0_0_50px_rgba(239,68,68,0.45)] flex flex-col items-center text-center space-y-3.5">
+      
+      <!-- Top Alert Bar with Attacker Avatar & Action Header -->
+      <div class="w-full flex items-center gap-2.5 bg-red-950/40 p-2.5 rounded-2xl border border-red-500/30">
+        <div id="kittenNopeUserAvatar" class="w-10 h-10 rounded-xl overflow-hidden border border-red-400 shrink-0 bg-slate-950 flex items-center justify-center shadow-lg">
+          <svg class="w-full h-full text-red-400" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+        </div>
+        <div class="text-left flex-1 min-w-0">
+          <div class="flex items-center gap-1.5">
+            <span id="kittenNopeUserName" class="text-xs font-bold text-slate-100 font-cinzel truncate">ĐỐI THỦ</span>
+            <span id="kittenNopeUserBadge" class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-red-500/20 text-red-300 border border-red-500/40">BOT</span>
+          </div>
+          <h3 id="kittenNopeNoticeTitle" class="text-xs sm:text-sm font-black font-cinzel text-red-400 line-clamp-1">
+            ĐANG TUNG CHIÊU CHỨC NĂNG!
+          </h3>
+        </div>
+        <div class="w-9 h-9 rounded-full bg-red-600/20 border border-red-500 flex items-center justify-center text-lg animate-bounce shrink-0">
+          🛑
+        </div>
+      </div>
+
+      <!-- Central Visual Card Showcase (Hiển thị thẻ bài minh họa thực tế) -->
+      <div class="flex flex-col items-center my-0.5">
+        <div id="kittenNopeCardShowcase" class="relative w-32 h-44 sm:w-36 sm:h-48 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-[0_0_25px_rgba(245,158,11,0.5)] bg-slate-950 transition-transform duration-300 hover:scale-105">
+          <img id="kittenNopeCardImg" src="" alt="Lá bài đang đánh" class="w-full h-full object-cover pointer-events-none" />
+          <div class="absolute top-1.5 left-1.5 pointer-events-none">
+            <span id="kittenNopeCardBadge" class="px-2 py-0.5 rounded text-[9px] font-black uppercase text-white shadow-md bg-amber-500">CHỨC NĂNG</span>
+          </div>
+          <div class="absolute bottom-0 inset-x-0 p-2 bg-gradient-to-t from-black via-black/85 to-transparent text-center pointer-events-none">
+            <span id="kittenNopeCardTitle" class="text-xs sm:text-sm font-black text-amber-300 font-cinzel line-clamp-1">Tấn Công 2X</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Effect Description & Danger Warning Box -->
+      <div class="w-full bg-slate-950/80 rounded-2xl p-3 border border-slate-800 text-left space-y-1.5 shadow-inner">
+        <div class="flex items-center justify-between text-[11px] font-bold text-amber-300 font-cinzel">
+          <div class="flex items-center gap-1.5">
+            <span>⚡ CÔNG DỤNG LÁ BÀI:</span>
+            <span id="kittenNopeCardName" class="text-white font-mono">Tấn Công 2X</span>
+          </div>
+        </div>
+        <p id="kittenNopeCardDesc" class="text-xs text-slate-300 leading-relaxed font-sans">
+          Đang tải mô tả công dụng...
+        </p>
+        <div id="kittenNopeDangerBox" class="text-[11px] font-mono text-rose-300 bg-rose-950/40 p-2 rounded-xl border border-rose-800/40 flex items-center gap-1.5">
+          <span class="shrink-0 text-xs">⚠️</span>
+          <span id="kittenNopeDangerText">Nếu bạn không Nope, lá bài này sẽ có hiệu lực ngay lập tức!</span>
+        </div>
+      </div>
+
+      <!-- Player Nope Inventory Info -->
+      <div class="w-full flex items-center justify-between px-1 text-xs font-mono text-slate-400">
+        <span>Bài trên tay bạn:</span>
+        <span id="kittenNopeMyCount" class="font-bold text-emerald-400">Đang có 1 lá Nope 🛑</span>
+      </div>
+
+      <!-- Countdown Progress Bar -->
+      <div class="w-full space-y-1">
+        <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden border border-slate-700">
+          <div id="kittenNopeCountdownBar" class="h-full bg-gradient-to-r from-red-500 via-rose-500 to-amber-500 transition-all duration-100" style="width: 100%;"></div>
+        </div>
+        <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between px-0.5">
+          <span>Thời gian quyết định:</span>
+          <span class="text-red-400 font-bold"><span id="kittenNopeSeconds">3.5</span>s</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div id="kittenInterventionButtonsRow" class="flex items-center gap-2 w-full pt-1">
+        <button type="button" onclick="handleIgnoreNope()" id="btnIgnoreNope" class="btn-spring flex-1 py-2.5 sm:py-3 px-2 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs font-mono border border-slate-600 cursor-pointer">
+          Bỏ Qua
+        </button>
+        <button type="button" onclick="handleConfirmCounterAttack()" id="btnConfirmCounterAttack" class="hidden btn-spring flex-1 py-2.5 sm:py-3 px-2 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-600 to-red-600 hover:from-amber-400 hover:to-orange-500 text-white font-black text-xs font-mono shadow-xl shadow-orange-600/40 border-2 border-amber-300 flex items-center justify-center gap-1 cursor-pointer animate-pulse">
+          <span id="kittenCounterAttackBtnText">PHẢN ĐÒN ⚔️</span>
+          <span class="px-1.5 py-0.5 rounded bg-black/40 text-[9px] font-mono text-white border border-white/20">Phím A</span>
+        </button>
+        <button type="button" onclick="handleConfirmNope()" id="btnConfirmNope" class="btn-spring flex-1 py-2.5 sm:py-3 px-2 rounded-2xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-500 text-white font-black text-xs font-mono shadow-xl shadow-red-600/40 border-2 border-red-400 flex items-center justify-center gap-1 cursor-pointer animate-pulse">
+          <span id="kittenNopeBtnText">NOPE! 🛑</span>
+          <span class="px-1.5 py-0.5 rounded bg-black/40 text-[9px] font-mono text-white border border-white/20">Phím N</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+
+<!-- ================= MODALS: CYBER WEREWOLF ARENA ================= -->
+
+  <!-- 1. MODAL: XEM VAI TRÒ CỦA BẠN (ROLE REVEAL MODAL) -->
+  <div id="werewolfModalMyRole" class="hidden fixed inset-0 z-[100000] bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 select-none">
+    <div class="w-full max-w-md bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border-2 border-indigo-500/80 rounded-3xl p-5 sm:p-6 shadow-[0_0_50px_rgba(99,102,241,0.4)] flex flex-col items-center text-center space-y-4">
+      
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-xs font-mono font-bold">
+        <span>📜 BẢN MỆNH NGÔI LÀNG</span>
+      </div>
+
+      <h3 class="text-base sm:text-lg font-black font-cinzel text-slate-100">
+        VAI TRÒ BÍ MẬT CỦA BẠN
+      </h3>
+
+      <!-- 3D Role Card Showcase -->
+      <div class="relative w-36 h-52 sm:w-40 sm:h-56 rounded-2xl overflow-hidden border-2 shadow-2xl transition-transform duration-300 hover:scale-105" id="werewolfRoleCardBox" style="background: #0f172a; border-color: #f59e0b;">
+        <div id="werewolfRoleCardArt" class="w-full h-full flex flex-col items-center justify-center p-3 text-center">
+          <div id="werewolfRoleCardIcon" class="text-5xl sm:text-6xl mb-2 filter drop-shadow">🐺</div>
+          <span id="werewolfRoleCardName" class="font-cinzel font-black text-sm text-amber-300 tracking-wider">MA SÓI</span>
+          <span id="werewolfRoleCardTeam" class="mt-1 px-2 py-0.5 rounded text-[10px] font-mono font-black uppercase text-white bg-red-600 shadow-sm">PHE MA SÓI</span>
+        </div>
+      </div>
+
+      <!-- Role Description Box -->
+      <div class="w-full bg-slate-950/80 rounded-2xl p-3 border border-slate-800 text-left space-y-1.5 shadow-inner">
+        <div class="text-[11px] font-bold text-amber-300 font-cinzel flex items-center gap-1.5">
+          <span>🎯 NHIỆM VỤ & QUYỀN NĂNG:</span>
+        </div>
+        <p id="werewolfRoleCardDesc" class="text-xs text-slate-300 leading-relaxed font-sans">
+          Mỗi đêm thức dậy cùng đồng đội Sói để cắn chết 1 người dân. Ban ngày giả dạng dân làng để che giấu thân phận!
+        </p>
+      </div>
+
+      <button type="button" onclick="closeWerewolfModal('werewolfModalMyRole')" class="btn-spring w-full py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-black text-xs font-mono shadow-xl border border-indigo-400 cursor-pointer">
+        ĐÃ HIỂU NHIỆM VỤ! VÀO VÁN ĐẤU
+      </button>
+    </div>
+  </div>
+
+  <!-- 2. MODAL: TIÊN TRI SOI DANH TÍNH (SEER SCRY MODAL) -->
+  <div id="werewolfModalSeer" class="hidden fixed inset-0 z-[100000] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 select-none">
+    <div class="w-full max-w-sm bg-slate-900 border-2 border-purple-500 rounded-3xl p-5 shadow-[0_0_40px_rgba(168,85,247,0.5)] flex flex-col items-center text-center space-y-4">
+      <div class="w-14 h-14 rounded-full bg-purple-600/20 border-2 border-purple-500 flex items-center justify-center text-3xl animate-pulse">
+        🔮
+      </div>
+      <div>
+        <h3 class="text-base font-black font-cinzel text-purple-300">
+          KẾT QUẢ SOI TIÊN TRI
+        </h3>
+        <p class="text-xs text-slate-300 mt-1">
+          Quả cầu pha lê huyền bí hé lộ danh tính thật của <strong id="werewolfSeerTargetName" class="text-amber-300">Lyra</strong>:
+        </p>
+      </div>
+
+      <!-- Scry Result Badge Box -->
+      <div id="werewolfSeerResultBox" class="w-full p-4 rounded-2xl border-2 flex flex-col items-center justify-center space-y-1 bg-slate-950">
+        <span id="werewolfSeerResultIcon" class="text-4xl">🐺</span>
+        <span id="werewolfSeerResultText" class="font-cinzel font-black text-base text-red-400">PHE MA SÓI!</span>
+      </div>
+
+      <button type="button" onclick="closeWerewolfModal('werewolfModalSeer')" class="btn-spring w-full py-2.5 rounded-2xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs font-mono shadow-md cursor-pointer">
+        GHI NHỚ & ĐI NGỦ
+      </button>
+    </div>
+  </div>
+
+  <!-- 3. MODAL: PHÙ THỦY CHẾ THUỐC (WITCH BREW MODAL) -->
+  <div id="werewolfModalWitch" class="hidden fixed inset-0 z-[100000] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 select-none">
+    <div class="w-full max-w-md bg-slate-900 border-2 border-emerald-500 rounded-3xl p-5 shadow-[0_0_40px_rgba(16,185,129,0.5)] flex flex-col items-center text-center space-y-4">
+      <div class="w-14 h-14 rounded-full bg-emerald-600/20 border-2 border-emerald-500 flex items-center justify-center text-3xl">
+        🧙‍♀️
+      </div>
+      <div>
+        <h3 class="text-base font-black font-cinzel text-emerald-300">
+          QUYỀN NĂNG PHÙ THỦY
+        </h3>
+        <p id="werewolfWitchVictimText" class="text-xs text-slate-200 mt-1">
+          Đêm nay, <strong class="text-red-400" id="werewolfWitchVictimName">Eldrin</strong> vừa bị Bầy Sói cắn! Bạn có muốn dùng thuốc không?
+        </p>
+      </div>
+
+      <!-- Witch Action Buttons -->
+      <div class="grid grid-cols-2 gap-2.5 w-full">
+        <!-- Heal Potion -->
+        <button type="button" onclick="handleWitchUseHeal()" id="btnWitchHeal" class="btn-spring p-3 rounded-2xl bg-emerald-950/80 border-2 border-emerald-500 hover:bg-emerald-900 text-left flex flex-col justify-between cursor-pointer group">
+          <div class="flex items-center justify-between w-full">
+            <span class="text-2xl">🧪</span>
+            <span id="badgeWitchHealCount" class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-emerald-500 text-slate-950 font-bold">CÒN 1</span>
+          </div>
+          <div class="mt-2">
+            <div class="text-xs font-black text-emerald-300 font-cinzel">BÌNH CỨU</div>
+            <div class="text-[10px] text-slate-400">Hồi sinh người bị cắn</div>
+          </div>
+        </button>
+
+        <!-- Poison Potion -->
+        <button type="button" onclick="handleWitchUsePoisonPrompt()" id="btnWitchPoison" class="btn-spring p-3 rounded-2xl bg-purple-950/80 border-2 border-purple-500 hover:bg-purple-900 text-left flex flex-col justify-between cursor-pointer group">
+          <div class="flex items-center justify-between w-full">
+            <span class="text-2xl">☠️</span>
+            <span id="badgeWitchPoisonCount" class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-purple-500 text-white font-bold">CÒN 1</span>
+          </div>
+          <div class="mt-2">
+            <div class="text-xs font-black text-purple-300 font-cinzel">BÌNH ĐỘC</div>
+            <div class="text-[10px] text-slate-400">Hạ sát 1 người bất kỳ</div>
+          </div>
+        </button>
+      </div>
+
+      <button type="button" onclick="handleWitchPass()" class="btn-spring w-full py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs font-mono border border-slate-700 cursor-pointer">
+        Không Dùng Thuốc Đêm Nay (Đi Ngủ)
+      </button>
+    </div>
+  </div>
+
+  <!-- 4. MODAL: PHÁT ĐẠN SINH TỬ CỦA THỢ SĂN (HUNTER LAST SHOT MODAL) -->
+  <div id="werewolfModalHunter" class="hidden fixed inset-0 z-[100000] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 select-none">
+    <div class="w-full max-w-md bg-slate-900 border-4 border-amber-500 rounded-3xl p-5 shadow-[0_0_50px_rgba(245,158,11,0.6)] flex flex-col items-center text-center space-y-4 animate-bounce">
+      <div class="w-14 h-14 rounded-full bg-amber-600/20 border-2 border-amber-500 flex items-center justify-center text-3xl">
+        🏹
+      </div>
+      <div>
+        <h3 class="text-base font-black font-cinzel text-amber-300">
+          PHÁT ĐẠN SINH TỬ CỦA THỢ SĂN!
+        </h3>
+        <p class="text-xs text-slate-200 mt-1">
+          Trước khi trút hơi thở cuối cùng, Thợ Săn có quyền nổ súng kéo theo 1 người bất kỳ cùng chết! Hãy chọn mục tiêu:
+        </p>
+      </div>
+
+      <!-- Target Selection Grid -->
+      <div id="werewolfHunterTargetGrid" class="grid grid-cols-2 gap-2 w-full max-h-48 overflow-y-auto">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. MODAL: NHẬT KÝ NGÔI LÀNG (CHRONICLE DRAWER) -->
+  <div id="werewolfModalChronicle" class="hidden fixed inset-0 z-[100000] bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 select-none">
+    <div class="w-full max-w-lg bg-slate-900 border-2 border-slate-700 rounded-3xl p-5 shadow-2xl flex flex-col space-y-3 max-h-[85vh]">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">📜</span>
+          <h3 class="font-cinzel font-black text-sm sm:text-base text-amber-300">NHẬT KÝ LÀNG MILLERS HOLLOW</h3>
+        </div>
+        <button type="button" onclick="closeWerewolfModal('werewolfModalChronicle')" class="text-slate-400 hover:text-white font-bold p-1">✕</button>
+      </div>
+
+      <div id="werewolfChronicleLogList" class="flex-1 overflow-y-auto space-y-2 text-xs font-mono pr-1 text-slate-300 max-h-96">
+        <!-- Log entries dynamically appended -->
+      </div>
+
+      <button type="button" onclick="closeWerewolfModal('werewolfModalChronicle')" class="btn-spring w-full py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs font-mono cursor-pointer">
+        ĐÓNG BẢNG NHẬT KÝ
+      </button>
+    </div>
+  </div>
+
+  <!-- 6. MODAL: KẾT THÚC VÁN ĐẤU & TỔNG KẾT DANH TÍNH (GAME OVER REVEAL MODAL) -->
+  <div id="werewolfModalGameOver" class="hidden fixed inset-0 z-[100000] bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 select-none">
+    <div class="w-full max-w-lg bg-gradient-to-b from-slate-900 to-slate-950 border-4 border-amber-400 rounded-3xl p-5 sm:p-6 shadow-[0_0_60px_rgba(245,158,11,0.5)] flex flex-col items-center text-center space-y-4">
+      <div id="werewolfGameOverIcon" class="text-5xl sm:text-6xl animate-bounce">
+        🏆
+      </div>
+      <div>
+        <h2 id="werewolfGameOverTitle" class="text-lg sm:text-2xl font-black font-cinzel text-amber-300">
+          PHE DÂN LÀNG CHIẾN THẮNG!
+        </h2>
+        <p id="werewolfGameOverSubtitle" class="text-xs sm:text-sm text-slate-200 mt-1">
+          Toàn bộ Ma Sói độc ác đã bị tiêu diệt, mang lại sự bình yên vĩnh cửu cho ngôi làng!
+        </p>
+      </div>
+
+      <!-- Identity Reveal of All 7 Players -->
+      <div class="w-full bg-slate-950/90 rounded-2xl p-3 border border-slate-800 text-left space-y-2">
+        <div class="text-[11px] font-bold text-amber-400 font-cinzel">DANH TÍNH THẬT SỰ CỦA 7 NGƯỜI CHƠI:</div>
+        <div id="werewolfAllRolesRevealList" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <button type="button" onclick="closeWerewolfModal('werewolfModalGameOver'); initWerewolfGame();" class="btn-spring w-full py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-red-600 hover:from-amber-400 hover:to-red-500 text-white font-black text-xs sm:text-sm font-mono shadow-xl border border-amber-300 cursor-pointer">
+        🔄 BẮT ĐẦU VÁN MỚI NGAY
+      </button>
+    </div>
+  </div>
+
 
 </body>
 </html>

@@ -26754,7 +26754,7 @@ const vKittens = document.getElementById('kittensView');
     // 🌾 ONLINE ENGINE: ĐẢO CATAN 3D (THE SETTLERS OF CATAN P2P SYNCHRONIZATION)
     // =========================================================================
     window.setupOnlineCatan = function(room) {
-      if (!window.catanState) {
+      if (!window.catanState || !window.catanState.initialized || !window.catanState.diceTray) {
         if (typeof window.initCatanGame === 'function') window.initCatanGame();
       }
       const s = window.catanState;
@@ -26810,6 +26810,13 @@ const vKittens = document.getElementById('kittensView');
             });
           }
         }
+
+        s.currentTurnPlayer = 0;
+        s.turnPhase = 'need_roll';
+        s.isRolling = false;
+        s.selectedBuildMode = null;
+        s.isGameOver = false;
+        s.roundNumber = 1;
 
         // Đặt 2 làng và 2 đường ban đầu cho 4 người chơi
         if (typeof setupInitialSettlements === 'function') {
@@ -27529,8 +27536,12 @@ const vKittens = document.getElementById('kittensView');
         }
 
       } else if (gameType === 'catan') {
-        if (!payload || !window.catanState) return;
+        if (!payload) return;
+        if (!window.catanState || !window.catanState.initialized || !window.catanState.diceTray) {
+          if (typeof window.initCatanGame === 'function') window.initCatanGame();
+        }
         const s = window.catanState;
+        if (!s) return;
         s.mode = 'online';
 
         if (Array.isArray(payload.hexes)) {
@@ -27582,6 +27593,7 @@ const vKittens = document.getElementById('kittensView');
 
         // Nếu nhận được kết quả đổ xúc xắc từ kỳ thủ khác
         if (payload.actionType === 'ROLL_DICE' && payload.rollRes) {
+          s.isRolling = false;
           if (s.diceTray && typeof s.diceTray.roll === 'function') {
             s.diceTray.roll(payload.rollRes.values);
           }
@@ -35595,11 +35607,14 @@ async function executeDrawCard(playerIdx) {
     }).join('');
 
     // 3. Edges (Roads)
+    const myCatanIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+    const isMyTurn = (s.currentTurnPlayer === myCatanIdx);
+
     edgeLayer.innerHTML = s.edges.map(e => {
       const v1 = s.vertices[e.v1];
       const v2 = s.vertices[e.v2];
       const hasRoad = e.road !== null;
-      const isBuildable = s.selectedBuildMode === 'road' && s.currentTurnPlayer === 0 && isEdgeBuildable(e.id, 0);
+      const isBuildable = s.selectedBuildMode === 'road' && isMyTurn && isEdgeBuildable(e.id, myCatanIdx);
 
       if (hasRoad) {
         const p = s.players[e.road];
@@ -35617,8 +35632,8 @@ async function executeDrawCard(playerIdx) {
     // 4. Vertices (Settlements / Cities)
     vertexLayer.innerHTML = s.vertices.map(v => {
       const b = v.building;
-      const isSettlementMode = s.selectedBuildMode === 'settlement' && s.currentTurnPlayer === 0 && isVertexBuildable(v.id, 0, false);
-      const isCityMode = s.selectedBuildMode === 'city' && s.currentTurnPlayer === 0 && isVertexBuildable(v.id, 0, true);
+      const isSettlementMode = s.selectedBuildMode === 'settlement' && isMyTurn && isVertexBuildable(v.id, myCatanIdx, false);
+      const isCityMode = s.selectedBuildMode === 'city' && isMyTurn && isVertexBuildable(v.id, myCatanIdx, true);
 
       if (b) {
         const p = s.players[b.player];
@@ -35648,6 +35663,7 @@ async function executeDrawCard(playerIdx) {
   function renderCatanHUD() {
     const s = window.catanState;
     const myCatanIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+    const isMyTurn = (s.currentTurnPlayer === myCatanIdx);
     const pHuman = s.players[myCatanIdx] || s.players[0];
     if (!pHuman) return;
 
@@ -35677,7 +35693,7 @@ async function executeDrawCard(playerIdx) {
     const turnEl = document.getElementById('catanTurnText');
     const turnWrap = document.getElementById('catanTurnIndicator');
     if (turnEl && curP) {
-      turnEl.textContent = curP.isHuman ? 'LƯỢT CỦA BẠN (ĐỎ)' : curP.name.toUpperCase() + ' ĐANG ĐÁNH...';
+      turnEl.textContent = isMyTurn ? ('LƯỢT CỦA BẠN (' + curP.name.toUpperCase() + ')') : (curP.name.toUpperCase() + ' ĐANG ĐÁNH...');
     }
     if (turnWrap && curP) {
       turnWrap.className = 'px-3 py-1.5 rounded-xl border text-xs font-mono font-bold flex items-center gap-2 shadow-inner ' + curP.badge;
@@ -35685,17 +35701,23 @@ async function executeDrawCard(playerIdx) {
 
     const rollBtn = document.getElementById('catanRollDiceBtn');
     if (rollBtn) {
-      const canRoll = s.currentTurnPlayer === 0 && s.turnPhase === 'need_roll' && !s.isRolling && !s.isGameOver;
+      const canRoll = isMyTurn && s.turnPhase === 'need_roll' && !s.isRolling && !s.isGameOver;
       rollBtn.disabled = !canRoll;
       rollBtn.style.opacity = canRoll ? '1' : '0.5';
       rollBtn.style.pointerEvents = canRoll ? 'auto' : 'none';
+      if (canRoll) {
+        rollBtn.classList.add('animate-pulse', 'ring-2', 'ring-amber-300');
+      } else {
+        rollBtn.classList.remove('animate-pulse', 'ring-2', 'ring-amber-300');
+      }
     }
 
     const endTurnBtn = document.getElementById('catanBtnEndTurn');
     if (endTurnBtn) {
-      const canEnd = s.currentTurnPlayer === 0 && s.turnPhase === 'action' && !s.isRolling && !s.isGameOver;
+      const canEnd = isMyTurn && s.turnPhase === 'action' && !s.isRolling && !s.isGameOver;
       endTurnBtn.disabled = !canEnd;
       endTurnBtn.style.opacity = canEnd ? '1' : '0.5';
+      endTurnBtn.style.pointerEvents = canEnd ? 'auto' : 'none';
     }
 
     ['road', 'settlement', 'city'].forEach(m => {
@@ -35710,13 +35732,13 @@ async function executeDrawCard(playerIdx) {
     });
 
     const promptText = document.getElementById('catanBoardPromptText');
-    if (promptText) {
+    if (promptText && curP) {
       if (s.turnPhase === 'need_roll') {
-        promptText.textContent = s.currentTurnPlayer === 0
+        promptText.textContent = isMyTurn
           ? '🎲 Hãy bấm nút [ĐỔ XÚC XẮC] hoặc phím [Space] để bắt đầu thu hoạch tài nguyên.'
           : '⏳ ' + curP.name + ' đang chuẩn bị đổ xúc xắc...';
       } else if (s.turnPhase === 'moving_robber') {
-        promptText.textContent = s.currentTurnPlayer === 0
+        promptText.textContent = isMyTurn
           ? '🦹 Đổ ra 7! Hãy nhấp vào 1 ô Hex trên bản đồ để di chuyển Tên Cướp và cướp tài nguyên!'
           : '🦹 ' + curP.name + ' đang chọn vị trí mới cho Tên Cướp...';
       } else if (s.selectedBuildMode === 'road') {
@@ -35726,7 +35748,9 @@ async function executeDrawCard(playerIdx) {
       } else if (s.selectedBuildMode === 'city') {
         promptText.textContent = '🏰 Đang chọn lên phố: Hãy nhấp vào một NGÔI LÀNG của bạn để nâng cấp thành phố.';
       } else {
-        promptText.textContent = '⚡ Giai đoạn hành động: Bạn có thể Xây dựng, Mua thẻ Dev, Giao thương 4:1 hoặc Kết thúc lượt.';
+        promptText.textContent = isMyTurn
+          ? '⚡ Lượt hành động của bạn: Có thể Xây dựng, Mua thẻ Dev, Giao thương 4:1 hoặc Bấm [HẾT LƯỢT].'
+          : '⚡ ' + curP.name + ' đang thực hiện giai đoạn hành động...';
       }
     }
   }
@@ -35959,7 +35983,8 @@ async function executeDrawCard(playerIdx) {
     if (s.selectedBuildMode === mode) {
       s.selectedBuildMode = null;
     } else {
-      const r = s.players[0].resources;
+      const pCurrent = s.players[myCatanIdx] || s.players[0];
+      const r = pCurrent.resources;
       if (mode === 'road') {
         if ((r.wood || 0) < 1 || (r.brick || 0) < 1) {
           setCatanBanner('Bạn không đủ tài nguyên! Cần 1 Gỗ (🌲) + 1 Gạch (🧱) để xây Đường.', '⚠️');
@@ -36107,7 +36132,8 @@ async function executeDrawCard(playerIdx) {
 
   function renderTradeModalOptions() {
     const s = window.catanState;
-    const p = s.players[0];
+    const myCatanIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+    const p = s.players[myCatanIdx] || s.players[0];
     const resKeys = ['wood', 'brick', 'sheep', 'wheat', 'ore'];
 
     const giveContainer = document.getElementById('catanTradeGiveOptions');
@@ -36367,6 +36393,8 @@ async function executeDrawCard(playerIdx) {
   // Explicitly export all Catan functions to window for UI onclick & external test suites
   window.initCatanGame = initCatanGame;
   window.renderCatanArena = renderCatanArena;
+  window.renderCatanHUD = renderCatanHUD;
+  window.renderCatanBoard = renderCatanBoard;
   window.onCatanRollDiceClick = onCatanRollDiceClick;
   window.onCatanHexClick = onCatanHexClick;
   window.toggleCatanBuildMode = toggleCatanBuildMode;

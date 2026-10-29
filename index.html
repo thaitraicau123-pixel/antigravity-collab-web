@@ -2018,8 +2018,8 @@
         </div>
       </div>
 
-      <!-- Bento Grid of Games (Bố cục khoa học 5 Đấu Trường, Chữ 100% Không Xuống Dòng) -->
-      <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-5 mb-8">
+      <!-- Bento Grid of Games (Bố cục khoa học 7 Đấu Trường, 4 Cột Cân Đối Hoàn Hảo) -->
+      <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 mb-8">
         
         <!-- GAME CARD 1: XÚC XẮC 12 Ô -->
         <style>#diceLobbyCard svg.lucide-check-circle-2, #diceLobbyCard i[data-lucide="check-circle-2"] { color: #f59e0b !important; }</style>
@@ -2299,11 +2299,8 @@
           </button>
         </div>
 
-
-      </div>
-
         <!-- Game 7: MA SÓI: HUYỀN THOẠI TRĂNG MÁU (CYBER WEREWOLF ARENA) -->
-        <div class="group relative rounded-3xl bg-gradient-to-b from-purple-950/95 via-slate-900/95 to-slate-950/95 border-2 border-purple-500/60 hover:border-purple-400 p-5 sm:p-6 shadow-xl hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 flex flex-col justify-between overflow-hidden backdrop-blur-md text-white">
+        <div class="col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-2 group relative rounded-3xl bg-gradient-to-b from-purple-950/95 via-slate-900/95 to-slate-950/95 border-2 border-purple-500/60 hover:border-purple-400 p-5 sm:p-6 shadow-xl hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 flex flex-col justify-between overflow-hidden backdrop-blur-md text-white">
           <div class="absolute -top-12 -right-12 w-32 h-32 bg-purple-600/25 rounded-full blur-2xl group-hover:bg-purple-500/40 transition-all"></div>
           
           <div>
@@ -2344,6 +2341,8 @@
             <span>BƯỚC VÀO LÀNG SÓI (7 NGƯỜI)</span>
           </button>
         </div>
+
+      </div>
 
       <!-- Quick Action Utilities Bar -->
       <div class="w-full p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-amber-50/90 via-white to-amber-50/90 border-2 border-amber-300/80 shadow-lg shadow-amber-500/5 flex flex-wrap items-center justify-between gap-4 backdrop-blur-md">
@@ -2578,13 +2577,13 @@
                 <span class="text-[11px] text-slate-700 px-1.5 flex items-center gap-1">
                   <i data-lucide="gamepad-2" class="w-3.5 h-3.5 text-amber-600"></i>
                 </span>
-                <button onclick="setChessMode('bot')" id="chessModeBtnBot" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 text-white font-black transition shadow-sm">
+                <button onclick="setChessMode('bot')" data-chess-mode="bot" id="chessModeBtnBotTop" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 text-white font-black transition shadow-sm">
                   Đấu BOT
                 </button>
-                <button onclick="setChessMode('local')" id="chessModeBtnLocal" class="px-2.5 py-1 rounded-lg text-slate-700 hover:text-slate-900 font-bold transition">
+                <button onclick="setChessMode('local')" data-chess-mode="local" id="chessModeBtnLocalTop" class="px-2.5 py-1 rounded-lg text-slate-700 hover:text-slate-900 font-bold transition">
                   2 Người
                 </button>
-                <button onclick="setChessMode('online')" id="chessModeBtnOnline" class="px-2.5 py-1 rounded-lg text-slate-700 hover:text-slate-900 font-bold transition">
+                <button onclick="setChessMode('online')" data-chess-mode="online" id="chessModeBtnOnlineTop" class="px-2.5 py-1 rounded-lg text-slate-700 hover:text-slate-900 font-bold transition">
                   Online
                 </button>
               </div>
@@ -3547,13 +3546,13 @@
               <span class="text-[11px] text-slate-400 px-2 flex items-center gap-1">
                 <i data-lucide="gamepad-2" class="w-3.5 h-3.5 text-amber-400"></i> Chế Độ:
               </span>
-              <button onclick="setChessMode('bot')" id="chessModeBtnBot" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition shadow-sm">
+              <button onclick="setChessMode('bot')" data-chess-mode="bot" id="chessModeBtnBot" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition shadow-sm">
                 🤖 Đấu BOT
               </button>
-              <button onclick="setChessMode('local')" id="chessModeBtnLocal" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">
+              <button onclick="setChessMode('local')" data-chess-mode="local" id="chessModeBtnLocal" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">
                 👥 2 Người
               </button>
-              <button onclick="setChessMode('online')" id="chessModeBtnOnline" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">
+              <button onclick="setChessMode('online')" data-chess-mode="online" id="chessModeBtnOnline" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">
                 🌐 Online
               </button>
             </div>
@@ -3715,7 +3714,7 @@
                     <span id="chessBotCardElo" class="text-[10px] text-cyan-800 font-black font-mono">1600 Elo • Chiến Thuật Sâu</span>
                   </div>
                 </div>
-                <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-900 border border-cyan-300 font-black">AI BOT</span>
+                <span id="chessBotCardBadge" class="text-[10px] px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-900 border border-cyan-300 font-black">AI BOT</span>
               </div>
               <p id="chessBotCardDesc" class="text-[11px] text-slate-700 font-medium leading-relaxed pl-1">
                 Kiểm soát trung tâm bàn cờ, phối hợp Mã và Tượng chặt chẽ. Khai thác sơ hở chiến thuật và không bao giờ bỏ lỡ cơ hội chiếu bắt quân.
@@ -4671,7 +4670,7 @@
             <div id="unoPod1" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-slate-700/80 transition-all duration-300">
               <div class="flex items-center gap-2 mb-1.5">
                 <div class="relative">
-                  <img id="unoAvatar1" src="" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-cyan-400 shadow-md object-cover" alt="Bot 1"/>
+                  <div id="unoAvatar1" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-cyan-400 shadow-md overflow-hidden flex items-center justify-center bg-slate-900"></div>
                   <span id="unoUnoBadge1" class="hidden absolute -top-1 -right-1 px-1 py-0.2 rounded bg-yellow-400 text-slate-950 font-black text-[9px] uno-bell-ring shadow-lg">UNO!</span>
                 </div>
                 <div class="text-left">
@@ -4686,7 +4685,7 @@
             <div id="unoPod2" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-slate-700/80 transition-all duration-300">
               <div class="flex items-center gap-2 mb-1.5">
                 <div class="relative">
-                  <img id="unoAvatar2" src="" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-purple-400 shadow-md object-cover" alt="Bot 2"/>
+                  <div id="unoAvatar2" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-purple-400 shadow-md overflow-hidden flex items-center justify-center bg-slate-900"></div>
                   <span id="unoUnoBadge2" class="hidden absolute -top-1 -right-1 px-1 py-0.2 rounded bg-yellow-400 text-slate-950 font-black text-[9px] uno-bell-ring shadow-lg">UNO!</span>
                 </div>
                 <div class="text-left">
@@ -4701,7 +4700,7 @@
             <div id="unoPod3" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-slate-700/80 transition-all duration-300">
               <div class="flex items-center gap-2 mb-1.5">
                 <div class="relative">
-                  <img id="unoAvatar3" src="" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-rose-400 shadow-md object-cover" alt="Bot 3"/>
+                  <div id="unoAvatar3" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-rose-400 shadow-md overflow-hidden flex items-center justify-center bg-slate-900"></div>
                   <span id="unoUnoBadge3" class="hidden absolute -top-1 -right-1 px-1 py-0.2 rounded bg-yellow-400 text-slate-950 font-black text-[9px] uno-bell-ring shadow-lg">UNO!</span>
                 </div>
                 <div class="text-left">
@@ -4796,7 +4795,7 @@
             <!-- Controls Bar: HÔ UNO, BẮT PHẠT UNO, RÚT BÀI -->
             <div class="w-full max-w-2xl flex items-center justify-between gap-2 mb-2 px-3 py-1.5 rounded-2xl bg-[#1e293b] border-2 border-slate-700 flex-wrap">
               <div class="flex items-center gap-2">
-                <img id="unoAvatar0" src="" class="w-8 h-8 rounded-full border-2 border-amber-400 shadow-md object-cover" alt="User Avatar"/>
+                <div id="unoAvatar0" class="w-8 h-8 rounded-full border-2 border-amber-400 shadow-md overflow-hidden flex items-center justify-center bg-slate-900"></div>
                 <div class="text-left">
                   <div class="text-xs font-bold text-white flex items-center gap-1.5">
                     <span>Bạn (Chỉ Huy)</span>
@@ -12226,8 +12225,15 @@
 
       if (window.isOnlineRoomMatch) {
         stopTimingGauge();
+        const roomPlayers = window.mpRoomState?.currentRoom?.players || [];
+        const isCurrentSlotBot = (currentTurn - 1 >= roomPlayers.length);
         const isMyTurn = (window.myRoomPlayerIndex === (currentTurn - 1));
-        if (isMyTurn) {
+
+        if (isCurrentSlotBot) {
+          if (badge) badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-50 border-2 border-purple-300 text-purple-950 font-black text-[11px] font-bold shadow-inner';
+          if (text) text.textContent = `Lượt của Bot AI (${pName})...`;
+          if (hint) hint.textContent = `🤖 ${pName} đang tính toán gieo xúc xắc...`;
+        } else if (isMyTurn) {
           if (badge) badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border-2 border-emerald-300 text-emerald-950 font-black text-[11px] font-bold shadow-inner';
           if (text) text.textContent = `Lượt của bạn (${pName})!`;
           if (hint) hint.textContent = 'Chạm vào xúc xắc để gieo hoặc canh lực';
@@ -12242,6 +12248,17 @@
         }
         if (typeof window.updateOnlineRoomHUD === 'function') {
           window.updateOnlineRoomHUD();
+        }
+
+        // Nếu lượt này là Bot AI và máy này là Chủ phòng (Host): Tự động gieo xúc xắc
+        if (isCurrentSlotBot && window.myRoomPlayerIndex === 0) {
+          const botDelay = Math.max(600, Math.floor(1000 / (window.diceSpeed || 1)));
+          if (window.botTurnTimeout) clearTimeout(window.botTurnTimeout);
+          window.botTurnTimeout = setTimeout(() => {
+            if (window.isOnlineRoomMatch && !isDiceRolling) {
+              triggerAutoRoll(currentTurn);
+            }
+          }, botDelay);
         }
 
         if (window.diceAutoPlay && (currentTurn - 1 === window.myRoomPlayerIndex)) {
@@ -12306,9 +12323,13 @@
     }
 
     async function triggerAutoRoll(player) {
-      if (window.isOnlineRoomMatch) return; // Completely blocked in online room match
+      if (window.isOnlineRoomMatch) {
+        const roomPlayers = window.mpRoomState?.currentRoom?.players || [];
+        const isBotSlot = (player - 1 >= roomPlayers.length);
+        if (!isBotSlot || window.myRoomPlayerIndex !== 0) return;
+      }
       if (spectatorPaused) return;
-      if (player === 1 && !isSpectatorMode) return;
+      if (player === 1 && !isSpectatorMode && !window.isOnlineRoomMatch) return;
       if (isDiceRolling) {
         setTimeout(() => triggerAutoRoll(player), 200);
         return;
@@ -12656,6 +12677,7 @@
     function resetTTTGame() {
       window.hasPlayerActivelyPlayedInMatch = false;
       window.matchRewardClaimed = false;
+      if (typeof closeModal === 'function') closeModal('victoryModal');
       tttBoard = Array(9).fill(null);
       tttTurn = 'X';
       tttGameOver = false;
@@ -12665,6 +12687,21 @@
         sign.className = 'text-lg text-cyan-400 font-black';
       }
       renderTicTacToe();
+
+      if (tttMode === 'online' || window.isOnlineRoomMatch) {
+        if (typeof pushOnlineGameState === 'function') {
+          pushOnlineGameState('tictactoe', {
+            actionType: 'RESTART_MATCH',
+            tttBoard: tttBoard,
+            tttTurn: 'X',
+            tttGameOver: false,
+            tttScores: { ...tttScores }
+          });
+        }
+        if (typeof updateOnlineRoomHUD === 'function') updateOnlineRoomHUD();
+        showToast('🔄 Bạn đã khởi động ván Ca-rô mới!');
+        try { soundTone(523, 'triangle', 0.15, 0.12); } catch(e) {}
+      }
     }
 
     function resetTTTScores() {
@@ -13564,8 +13601,20 @@
       if (typeof window.getBeastAvatarSVG === 'function' && (window.BEAST_AVATAR_PRESETS?.[str] || (typeof window.isBeastAvatarId === 'function' && window.isBeastAvatarId(str)))) {
         return window.getBeastAvatarSVG(str, extraCls);
       }
+      if (str.startsWith('data:image/svg+xml')) {
+        try {
+          const commaIdx = str.indexOf(',');
+          if (commaIdx !== -1) {
+            const payload = str.slice(commaIdx + 1);
+            const decoded = decodeURIComponent(payload);
+            if (decoded.includes('<svg')) {
+              return `<div class="flex items-center justify-center ${extraCls}">${decoded}</div>`;
+            }
+          }
+        } catch (e) {}
+      }
       if (str.startsWith('data:image/') || str.startsWith('http://') || str.startsWith('https://') || str.startsWith('./') || str.startsWith('/')) {
-        return `<img src="${str}" class="${extraCls} object-cover" onerror="this.parentElement.innerHTML='👑'" />`;
+        return `<img src="${str}" class="${extraCls} object-cover" onerror="this.onerror=null;this.parentElement.innerHTML='<span class=\\'text-lg flex items-center justify-center\\'>👑</span>';" />`;
       }
       if (str.length <= 4) {
         return `<div class="flex items-center justify-center ${extraCls} text-xl">${str}</div>`;
@@ -14923,15 +14972,23 @@ function getRainbowChanceWheelSVG() {
       if (rollBtn && curPlayer) {
         if (window.isOnlineRoomMatch) {
           const isMyTurn = (window.myRoomPlayerIndex === monoState.turn);
-          rollBtn.disabled = monoState.isRolling || !isMyTurn;
-          if (!isMyTurn) {
+          if (curPlayer.isBot) {
+            rollBtn.disabled = true;
+            rollBtn.classList.add('opacity-75', 'cursor-wait');
+            rollBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            if (diceTray) diceTray.classList.add('opacity-60', 'pointer-events-none');
+            rollBtn.innerHTML = `<span class="text-base sm:text-lg animate-spin">🤖</span><span class="tracking-wider text-xs sm:text-sm font-bold">Bot AI (${curPlayer.name}) Đang Đi...</span>`;
+          } else if (!isMyTurn) {
+            rollBtn.disabled = true;
             rollBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            rollBtn.classList.remove('opacity-75', 'cursor-wait');
             if (diceTray) diceTray.classList.add('opacity-60', 'pointer-events-none');
             rollBtn.innerHTML = `<span class="text-base sm:text-lg animate-pulse">⏳</span><span class="tracking-wider text-xs sm:text-sm">Đang chờ ${curPlayer.name} đi...</span>`;
             const box = document.getElementById('mono2dDecisionBox');
             if (box) { box.classList.add('hidden'); box.classList.remove('flex'); }
           } else {
-            rollBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            rollBtn.disabled = monoState.isRolling;
+            rollBtn.classList.remove('opacity-50', 'opacity-75', 'cursor-not-allowed', 'cursor-wait');
             if (diceTray) diceTray.classList.remove('opacity-60', 'pointer-events-none');
             rollBtn.innerHTML = `<span class="text-lg sm:text-xl group-hover:rotate-12 transition-transform">🎲</span><span class="tracking-wider uppercase font-black" id="btnMono2dRollText">LƯỢT BẠN: ĐỔ XÚC XẮC</span>`;
           }
@@ -14963,9 +15020,10 @@ function getRainbowChanceWheelSVG() {
       const curPlayer = data.player || (monoState && monoState.players ? monoState.players[monoState.turn] : null);
       if (!curPlayer || curPlayer.isBankrupt) return;
 
-      // Online Multiplayer Turn Protection: Tuyệt đối KHÔNG hiển thị Decision Dialog cho người không có lượt!
+      // Online Multiplayer Turn Protection: Host điều phối thay cho Bot AI trong trận đấu Online
       const isOnline = Boolean(window.isOnlineRoomMatch);
-      const isLocalTurn = isOnline ? (curPlayer && curPlayer.id === window.myRoomPlayerIndex) : (curPlayer && !curPlayer.isBot);
+      const isHost = (window.myRoomPlayerIndex === 0);
+      const isLocalTurn = isOnline ? (curPlayer && (curPlayer.id === window.myRoomPlayerIndex || (curPlayer.isBot && isHost))) : (curPlayer && !curPlayer.isBot);
 
       if (isOnline && !isLocalTurn) {
         box.classList.add('hidden');
@@ -16000,7 +16058,7 @@ function playMonoDiceTumbleSFX(durationMs) {
         visualSvg: `<div class="w-24 h-24 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-[0_0_25px_rgba(245,158,11,0.8)] mx-auto">${getBusinessTourCornerPortraitSVG(winner.id)}</div>`,
         amountLabel: 'Tổng Tài Sản Chung Cuộc:',
         amountVal: getMonoPlayerNetWorth(winner),
-        onConfirm: () => initMonopolyGame()
+        onConfirm: () => restartMonopolyGame()
       });
     }
 
@@ -16059,7 +16117,7 @@ function playMonoDiceTumbleSFX(durationMs) {
         setMonoDialogMode('ready');
 
         const rollBtn = document.getElementById('btnMono2dRoll') || document.getElementById('btnMonoRoll');
-        if (curPlayer.isBot) {
+        if (curPlayer.isBot && (!window.isOnlineRoomMatch || window.myRoomPlayerIndex === 0)) {
           const botDelay = Math.max(600, Math.round(1000 / (window.monoSpeed || monoState.speed || 1)));
           if (rollBtn) {
             rollBtn.disabled = true;
@@ -16113,6 +16171,24 @@ function playMonoDiceTumbleSFX(durationMs) {
         }
         if (typeof window.updateOnlineRoomHUD === 'function') {
           window.updateOnlineRoomHUD();
+        }
+        // Nếu lượt tiếp theo là Bot AI và máy này là Chủ phòng (Host): Tự động gieo xúc xắc và phát sóng
+        if (nextPlayer.isBot && !nextPlayer.isBankrupt && window.myRoomPlayerIndex === 0) {
+          if (nextPlayer.inJail > 0) {
+            setMonoDialogMode('ready');
+            return;
+          }
+          const botDelay = Math.max(600, Math.round(1000 / (window.monoSpeed || monoState.speed || 1)));
+          if (rollBtn) {
+            rollBtn.disabled = true;
+            rollBtn.innerHTML = `<span>🤖</span> <span>${nextPlayer.name.toUpperCase()} (BOT AI) ĐANG ĐI...</span>`;
+          }
+          if (monoState.botTimeoutId) clearTimeout(monoState.botTimeoutId);
+          monoState.botTimeoutId = setTimeout(() => {
+            if (window.isOnlineRoomMatch && monoState.turn === nextPlayer.id) {
+              executeMono2dRoll();
+            }
+          }, botDelay);
         }
       } else if (nextPlayer.isBot && !nextPlayer.isBankrupt) {
         if (nextPlayer.inJail > 0) {
@@ -16624,8 +16700,41 @@ function playMonoDiceTumbleSFX(durationMs) {
     }
 
     function restartMonopolyGame() {
+      if (window.isOnlineRoomMatch) {
+        monoState.mode = 'online';
+      }
       initMonopolyGame();
-      showToast('🔄 Đã khởi tạo ván cờ Business Tour mới (Vốn $3,500)!');
+      if (window.isOnlineRoomMatch && typeof window.pushOnlineGameState === 'function') {
+        const payload = {
+          actionType: 'RESTART_MATCH',
+          players: monoState.players.map(p => ({
+            id: p.id,
+            name: p.name,
+            avatar: p.avatar,
+            color: p.color,
+            border: p.border,
+            glow: p.glow,
+            cash: p.cash,
+            pos: 0,
+            inJail: 0,
+            isBankrupt: false,
+            properties: []
+          })),
+          tiles: monoState.tiles.map(t => ({
+            id: t.id,
+            owner: null,
+            level: 0
+          })),
+          round: 1,
+          turn: 0,
+          lastRollSum: 0,
+          toast: '🔄 Đối thủ / Chủ phòng đã khởi động ván Cờ Tỷ Phú mới!'
+        };
+        window.pushOnlineGameState('monopoly', payload);
+        showToast('🔄 Bạn đã khởi động ván Cờ Tỷ Phú mới!');
+      } else {
+        showToast('🔄 Đã khởi tạo ván cờ Business Tour mới (Vốn $3,500)!');
+      }
     }
 
     // 1x - 25x Ultra Speed Engine for Monopoly
@@ -17101,17 +17210,19 @@ function playMonoDiceTumbleSFX(durationMs) {
         const room = window.mpRoomState.currentRoom;
         const roomPlayers = room.players;
         const isBotEnabled = room.botConfig ? (room.botConfig.enabled !== false) : true;
+        const configuredBotCount = (room.botConfig && room.botConfig.count) ? Number(room.botConfig.count) : Math.max(1, 4 - roomPlayers.length);
         const pCount = isBotEnabled 
-          ? Math.max(2, Math.min(4, room.maxPlayers || roomPlayers.length))
+          ? Math.min(4, Math.max(2, roomPlayers.length + configuredBotCount))
           : Math.max(2, Math.min(4, roomPlayers.length));
         monoState.playerCount = pCount;
         monoState.players = [];
-        const MONO_BOT_NAMES = ['Kỳ Lân Ngố', 'Rồng Lửa Béo', 'Phượng Hoàng Lửa'];
+        const MONO_BOT_NAMES = ['Tiên Tinh Linh', 'Kỳ Lân Ngố', 'Rồng Lửa Béo', 'Phượng Hoàng Lửa'];
 
         for (let i = 0; i < pCount; i++) {
           const cfg = MONOPOLY_PRESET_CONFIGS[i] || MONOPOLY_PRESET_CONFIGS[0];
           const isRealHuman = (i < roomPlayers.length);
-          const rp = roomPlayers[i] || { name: `🤖 ${MONO_BOT_NAMES[(i - 1) % MONO_BOT_NAMES.length] || 'Bot AI ' + (i + 1)}` };
+          const botIdx = i - roomPlayers.length;
+          const rp = roomPlayers[i] || { name: `🤖 ${MONO_BOT_NAMES[botIdx % MONO_BOT_NAMES.length] || 'Bot AI ' + (i + 1)}` };
           let pAvatar = rp.avatar;
           if (isRealHuman && (!pAvatar || pAvatar === '👑' || pAvatar === '⚔️') && (i === 0 || window.myRoomPlayerIndex === i) && typeof window.getActiveUserBeastAvatarSVG === 'function') {
             pAvatar = window.getActiveUserBeastAvatarSVG();
@@ -18914,6 +19025,24 @@ const vKittens = document.getElementById('kittensView');
         updateDiceUI();
         renderCircuitBoard();
         highlightTurnCard(1);
+
+        if (window.isOnlineRoomMatch) {
+          if (typeof pushOnlineGameState === 'function') {
+            pushOnlineGameState('dice', {
+              actionType: 'RESTART_MATCH',
+              positions: positions,
+              scores: scores,
+              playerEnergy: playerEnergy,
+              playerShields: playerShields,
+              boardTraps: boardTraps,
+              currentTurn: 1
+            });
+          }
+          if (typeof updateOnlineRoomHUD === 'function') updateOnlineRoomHUD();
+          showToast('🔄 Bạn đã khởi động ván Đua Xúc Xắc mới!');
+          try { soundTone(523, 'triangle', 0.15, 0.12); } catch(e) {}
+        }
+
         if (isSpectatorMode) {
           const hint = document.getElementById('diceActionHint');
           if (hint) hint.textContent = '👁️ Chế độ Quan Sát đang tự động khởi chạy...';
@@ -18925,13 +19054,10 @@ const vKittens = document.getElementById('kittensView');
           const hint = document.getElementById('diceActionHint');
           if (hint) hint.textContent = 'Chạm vào xúc xắc để gieo';
         }
+      } else if (activeTab === 'chess') {
+        resetChessGame();
       } else {
-        tttBoard = Array(9).fill(null);
-        tttTurn = 'X';
-        tttGameOver = false;
-        document.getElementById('tttTurnSign').textContent = 'X';
-        document.getElementById('tttTurnSign').className = 'text-lg text-cyan-400 font-black';
-        renderTicTacToe();
+        resetTTTGame();
       }
     }
 
@@ -20708,6 +20834,7 @@ const vKittens = document.getElementById('kittensView');
     function resetChessGame() {
       window.hasPlayerActivelyPlayedInMatch = false;
       window.matchRewardClaimed = false;
+      if (typeof closeModal === 'function') closeModal('victoryModal');
       chessGame = new Chess();
       chessSelectedSquare = null;
       chessLegalMoves = [];
@@ -20722,7 +20849,22 @@ const vKittens = document.getElementById('kittensView');
       renderChessBoard();
       updateChessUI();
       startChessTimer();
-      showToast('🔄 Đã khởi tạo ván Cờ Vua Hoàng Gia mới!');
+
+      if (chessMode === 'online' || window.isOnlineRoomMatch) {
+        if (typeof pushOnlineGameState === 'function') {
+          pushOnlineGameState('chess', {
+            actionType: 'RESTART_MATCH',
+            fen: chessGame.fen(),
+            clocks: chessClocks,
+            turn: 'w',
+            pgn: ''
+          });
+        }
+        if (typeof updateOnlineRoomHUD === 'function') updateOnlineRoomHUD();
+        showToast('🔄 Bạn đã khởi động ván Cờ Vua mới!');
+      } else {
+        showToast('🔄 Đã khởi tạo ván Cờ Vua Hoàng Gia mới!');
+      }
       soundTone(523, 'triangle', 0.15, 0.12);
 
       // If playing with Bot and player is Black, Bot moves first as White
@@ -21598,18 +21740,15 @@ const vKittens = document.getElementById('kittensView');
         if (topName) topName.textContent = oppPlayer?.name || 'Đối Thủ';
         if (topElo) topElo.textContent = 'P2P Trực Tuyến';
         if (topAvatar) {
-          if (oppPlayer?.avatar && typeof oppPlayer.avatar === 'string' && oppPlayer.avatar.includes('<svg')) {
-            topAvatar.innerHTML = oppPlayer.avatar;
-          } else if (oppPlayer?.avatar && typeof oppPlayer.avatar === 'string' && oppPlayer.avatar.length <= 4) {
-            topAvatar.innerHTML = `<span class="text-xl flex items-center justify-center">${oppPlayer.avatar}</span>`;
-          } else if (typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined') {
-            topAvatar.innerHTML = BUSINESS_TOUR_AVATAR_SVGS[oppIdx] || BUSINESS_TOUR_AVATAR_SVGS[3];
-          } else {
-            topAvatar.textContent = '♟️';
-          }
+          topAvatar.innerHTML = window.renderPlayerAvatarSafe(oppPlayer?.avatar || (typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined' ? BUSINESS_TOUR_AVATAR_SVGS[oppIdx] : '♟️'), 'w-full h-full object-cover');
         }
         if (botCardTitle) botCardTitle.textContent = 'Đấu Trực Tuyến P2P';
         if (botCardElo) botCardElo.textContent = `Phòng #${room?.code || 'ONLINE'}`;
+        const botCardBadge = document.getElementById('chessBotCardBadge');
+        if (botCardBadge) {
+          botCardBadge.textContent = 'P2P REALTIME';
+          botCardBadge.className = 'text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-400 font-black';
+        }
         if (botCardDesc) botCardDesc.textContent = `Thi đấu trực tuyến với ${oppPlayer?.name || 'Đối Thủ'}. Bạn cầm quân ${chessPlayerColor === 'w' ? 'Trắng (Đi trước)' : 'Đen (Đi sau)'}.`;
         if (botCardIcon && topAvatar) botCardIcon.innerHTML = topAvatar.innerHTML;
 
@@ -21619,13 +21758,7 @@ const vKittens = document.getElementById('kittensView');
         if (bottomElo) bottomElo.textContent = 'P2P Trực Tuyến';
         const bottomAvatar = document.getElementById('chessBottomAvatar');
         if (bottomAvatar) {
-          if (myPlayer?.avatar && typeof myPlayer.avatar === 'string' && myPlayer.avatar.includes('<svg')) {
-            bottomAvatar.innerHTML = myPlayer.avatar;
-          } else if (typeof window.getActiveUserBeastAvatarSVG === 'function') {
-            bottomAvatar.innerHTML = window.getActiveUserBeastAvatarSVG('w-full h-full object-cover');
-          } else if (myPlayer?.avatar) {
-            bottomAvatar.innerHTML = `<span class="text-xl flex items-center justify-center">${myPlayer.avatar}</span>`;
-          }
+          bottomAvatar.innerHTML = window.renderPlayerAvatarSafe(myPlayer?.avatar || (typeof window.getActiveUserBeastAvatarSVG === 'function' ? window.getActiveUserBeastAvatarSVG('w-full h-full object-cover') : '👑'), 'w-full h-full object-cover');
         }
       } else if (isTopBot) {
         if (topName) topName.textContent = tier.name;
@@ -21636,6 +21769,11 @@ const vKittens = document.getElementById('kittensView');
         }
         if (botCardTitle) botCardTitle.textContent = tier.cardTitle;
         if (botCardElo) botCardElo.textContent = `${tier.elo} Elo • AI Minimax`;
+        const botCardBadge = document.getElementById('chessBotCardBadge');
+        if (botCardBadge) {
+          botCardBadge.textContent = 'AI BOT';
+          botCardBadge.className = 'text-[10px] px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-900 border border-cyan-300 font-black';
+        }
         if (botCardDesc) botCardDesc.textContent = tier.desc;
         if (botCardIcon) {
           if (tier.avatarSVG) botCardIcon.innerHTML = tier.avatarSVG;
@@ -21649,6 +21787,11 @@ const vKittens = document.getElementById('kittensView');
           else topAvatar.textContent = '♟️';
         }
         if (botCardTitle) botCardTitle.textContent = 'Chế Độ 2 Người Chơi';
+        const botCardBadge = document.getElementById('chessBotCardBadge');
+        if (botCardBadge) {
+          botCardBadge.textContent = '2 NGƯỜI';
+          botCardBadge.className = 'text-[10px] px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-900 border border-purple-300 font-black';
+        }
         if (botCardElo) botCardElo.textContent = 'PvP Đối Kháng';
         if (botCardDesc) botCardDesc.textContent = 'Hai kỳ thủ trực tiếp so tài trên cùng thiết bị. Lần lượt điều khiển quân Trắng và Đen.';
         if (botCardIcon) {
@@ -21721,28 +21864,48 @@ const vKittens = document.getElementById('kittensView');
 
     function setChessMode(mode, quiet = false) {
       chessMode = mode;
-      const bBot = document.getElementById('chessModeBtnBot');
-      const bLocal = document.getElementById('chessModeBtnLocal');
-      const bOnline = document.getElementById('chessModeBtnOnline');
       const botWrapper = document.getElementById('chessBotTierWrapper');
       const colorWrapper = document.getElementById('chessColorWrapper');
+      const botCardBadge = document.getElementById('chessBotCardBadge');
 
-      [bBot, bLocal, bOnline].forEach(b => {
-        if (b) b.className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition';
+      // Update all mode button instances across header controls and board tray
+      document.querySelectorAll('#chessModeBtnBot, #chessModeBtnBotTop, [data-chess-mode="bot"]').forEach(b => {
+        b.className = (mode === 'bot')
+          ? 'px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition shadow-sm'
+          : 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition';
+      });
+      document.querySelectorAll('#chessModeBtnLocal, #chessModeBtnLocalTop, [data-chess-mode="local"]').forEach(b => {
+        b.className = (mode === 'local')
+          ? 'px-2.5 py-1 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-700 text-white font-bold transition shadow-sm'
+          : 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition';
+      });
+      document.querySelectorAll('#chessModeBtnOnline, #chessModeBtnOnlineTop, [data-chess-mode="online"]').forEach(b => {
+        b.className = (mode === 'online')
+          ? 'px-2.5 py-1 rounded-lg bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold transition shadow-sm'
+          : 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition';
       });
 
       if (mode === 'bot') {
-        if (bBot) bBot.className = 'px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold transition shadow-sm';
+        if (botCardBadge) {
+          botCardBadge.textContent = 'AI BOT';
+          botCardBadge.className = 'text-[10px] px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-900 border border-cyan-300 font-black';
+        }
         if (botWrapper) botWrapper.classList.remove('hidden');
         if (colorWrapper) colorWrapper.classList.remove('hidden');
         if (!quiet) showToast('🤖 Đã chuyển sang Chế độ Đấu với BOT AI.');
       } else if (mode === 'local') {
-        if (bLocal) bLocal.className = 'px-2.5 py-1 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-700 text-white font-bold transition shadow-sm';
+        if (botCardBadge) {
+          botCardBadge.textContent = '2 NGƯỜI';
+          botCardBadge.className = 'text-[10px] px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-900 border border-purple-300 font-black';
+        }
         if (botWrapper) botWrapper.classList.add('hidden');
         if (colorWrapper) colorWrapper.classList.add('hidden');
         if (!quiet) showToast('👥 Chế độ 2 Người Chơi (Pass & Play) trên cùng thiết bị.');
       } else if (mode === 'online') {
-        if (bOnline) bOnline.className = 'px-2.5 py-1 rounded-lg bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold transition shadow-sm';
+        if (botCardBadge) {
+          botCardBadge.textContent = 'P2P REALTIME';
+          botCardBadge.className = 'text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-400 font-black';
+        }
         if (botWrapper) botWrapper.classList.add('hidden');
         if (colorWrapper) colorWrapper.classList.add('hidden');
         if (!quiet && !window.isOnlineRoomMatch) {
@@ -24508,13 +24671,35 @@ const vKittens = document.getElementById('kittensView');
         return;
       }
       if (!room.botConfig) {
-        room.botConfig = { enabled: false };
+        room.botConfig = { enabled: true, count: 2 };
       } else {
         room.botConfig.enabled = !room.botConfig.enabled;
+        if (room.botConfig.enabled && !room.botConfig.count) {
+          room.botConfig.count = 2;
+        }
       }
       await syncMpRoomToStorageAndCloud(room);
       renderMpWaitingRoomUI(room);
-      showToast(room.botConfig.enabled ? '🤖 Đã BẬT tính năng Bot AI lấp đầy slot trống!' : '🛑 Đã TẮT tính năng Bot AI.');
+      showToast(room.botConfig.enabled ? `🤖 Đã BẬT Bot AI thật lấp đầy trận đấu (${room.botConfig.count || 2} Bot)!` : '🛑 Đã TẮT tính năng Bot AI.');
+    };
+
+    window.setMpRoomBotCount = async function(count) {
+      const room = window.mpRoomState?.currentRoom;
+      if (!room) return;
+      if (!window.mpRoomState.isHost) {
+        showToast('⚠️ Chỉ có Chủ phòng mới có quyền đổi số lượng Bot AI!');
+        return;
+      }
+      const num = Math.max(1, Math.min(3, parseInt(count, 10) || 1));
+      if (!room.botConfig) {
+        room.botConfig = { enabled: true, count: num };
+      } else {
+        room.botConfig.enabled = true;
+        room.botConfig.count = num;
+      }
+      await syncMpRoomToStorageAndCloud(room);
+      renderMpWaitingRoomUI(room);
+      showToast(`🤖 Đã đặt số lượng Bot AI thật nạp vào: ${num} Bot!`);
     };
 
     window.handleLeaveMultiplayerRoom = function() {
@@ -24589,21 +24774,40 @@ const vKittens = document.getElementById('kittensView');
       const titleEl = document.getElementById('mpWaitingGameTitle');
       if (titleEl) titleEl.textContent = (MP_GAME_NAMES[room.game] || room.game).toUpperCase();
 
+      const GAME_MAX_CAPACITIES = {
+        chess: 2,
+        tictactoe: 2,
+        dice: 4,
+        monopoly: 4,
+        kittens: 4,
+        uno: 4,
+        werewolf: 7
+      };
+      const gameCapacity = GAME_MAX_CAPACITIES[room.game] || room.maxPlayers || 4;
+
+      const isBotEnabled = room.botConfig ? (room.botConfig.enabled !== false) : true;
+      const botCountSetting = (room.botConfig && room.botConfig.count) ? Number(room.botConfig.count) : (gameCapacity === 2 ? 1 : 2);
+      const currentCount = room.players ? room.players.length : 1;
+      const activeBots = isBotEnabled ? Math.min(botCountSetting, Math.max(0, gameCapacity - currentCount)) : 0;
+      const totalVisualSlots = Math.max(gameCapacity, currentCount + activeBots);
+
       const countBadge = document.getElementById('mpWaitingPlayerCountBadge');
-      if (countBadge) countBadge.textContent = 'Chế độ ' + room.maxPlayers + ' Người Chơi';
+      if (countBadge) countBadge.textContent = 'Chế độ ' + totalVisualSlots + ' Người Chơi';
 
       const slotCounter = document.getElementById('mpWaitingSlotCounter');
-      const currentCount = room.players ? room.players.length : 1;
-      if (slotCounter) slotCounter.textContent = currentCount + '/' + room.maxPlayers + ' Đã Vào';
+      if (slotCounter) {
+        slotCounter.textContent = activeBots > 0 
+          ? `${currentCount + activeBots}/${totalVisualSlots} Đã Vào (${currentCount} Người + ${activeBots} Bot)` 
+          : `${currentCount}/${totalVisualSlots} Đã Vào`;
+      }
 
       // Cập nhật trạng thái nút và nhãn Bot AI
       const botBadge = document.getElementById('mpBotBadge');
       const btnToggleBots = document.getElementById('btnToggleMpBots');
       const txtToggleBots = document.getElementById('txtToggleMpBots');
-      const isBotEnabled = room.botConfig ? (room.botConfig.enabled !== false) : true;
 
       if (botBadge) {
-        botBadge.textContent = isBotEnabled ? 'BẬT' : 'TẮT';
+        botBadge.textContent = isBotEnabled ? `BẬT (${botCountSetting} AI)` : 'TẮT';
         botBadge.className = isBotEnabled 
           ? 'text-[9px] font-mono px-1.5 py-0.2 rounded bg-purple-100 text-purple-900 border border-purple-300 font-bold'
           : 'text-[9px] font-mono px-1.5 py-0.2 rounded bg-slate-100 text-slate-500 border border-slate-300 font-bold';
@@ -24617,13 +24821,33 @@ const vKittens = document.getElementById('kittensView');
         txtToggleBots.textContent = isBotEnabled ? 'ĐANG BẬT BOT AI' : 'BẬT BOT AI';
       }
 
+      // Cập nhật các nút chọn số lượng Bot AI
+      [1, 2, 3].forEach(n => {
+        const b = document.getElementById('btnMpBotCount_' + n);
+        if (b) {
+          if (!isBotEnabled) {
+            b.className = 'btn-spring px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed opacity-50';
+            b.disabled = true;
+          } else if (n === botCountSetting) {
+            b.className = 'btn-spring px-2.5 py-1 rounded-lg text-xs font-black bg-gradient-to-r from-purple-600 to-pink-600 text-white border border-purple-400 shadow-sm cursor-pointer';
+            b.disabled = false;
+          } else {
+            b.className = 'btn-spring px-2.5 py-1 rounded-lg text-xs font-semibold bg-white/80 hover:bg-purple-100 text-purple-900 border border-purple-200 cursor-pointer';
+            b.disabled = false;
+          }
+        }
+      });
+
       const container = document.getElementById('mpPlayerSlotsContainer');
+      const players = room.players || [];
+
+      const MP_BOT_NAMES = ['Tiên Tinh Linh', 'Kỳ Lân Ngố', 'Rồng Lửa Béo', 'Phượng Hoàng Lửa'];
+      const MP_BOT_AVATARS = ['🤖', '🦄', '🐲', '🦅'];
+
       if (container) {
         let slotsHtml = '';
-        const max = room.maxPlayers || 2;
-        const players = room.players || [];
 
-        for (let i = 0; i < max; i++) {
+        for (let i = 0; i < totalVisualSlots; i++) {
           const player = players[i];
           if (player) {
             slotsHtml += `
@@ -24646,25 +24870,28 @@ const vKittens = document.getElementById('kittensView');
                 <div class="text-xs font-mono font-bold text-slate-500">Slot #${i + 1}</div>
               </div>
             `;
-          } else if (isBotEnabled) {
+          } else if (isBotEnabled && i < currentCount + activeBots) {
+            const bIdx = i - currentCount;
+            const bName = MP_BOT_NAMES[bIdx % MP_BOT_NAMES.length];
+            const bAv = MP_BOT_AVATARS[bIdx % MP_BOT_AVATARS.length];
             slotsHtml += `
-              <div class="p-3.5 rounded-2xl bg-purple-50/80 border border-dashed border-purple-300 flex items-center justify-between gap-3 shadow-2xs">
+              <div class="p-3.5 rounded-2xl bg-purple-50/90 border border-dashed border-purple-300 flex items-center justify-between gap-3 shadow-2xs">
                 <div class="flex items-center gap-2.5">
-                  <div class="w-9 h-9 rounded-xl bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-700 text-base shadow-xs">
-                    🤖
+                  <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-100 to-indigo-100 border border-purple-300 flex items-center justify-center text-purple-700 text-base shadow-xs shrink-0">
+                    ${bAv}
                   </div>
                   <div>
                     <div class="text-xs font-bold text-purple-950 flex items-center gap-1.5">
-                      <span>Slot #${i + 1}: Bot AI Thật</span>
-                      <span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-purple-100 text-purple-900 border border-purple-300 font-bold">LẤP ĐẦY</span>
+                      <span>🤖 ${bName}</span>
+                      <span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-purple-200/80 text-purple-950 border border-purple-300 font-bold">BOT AI THẬT</span>
                     </div>
                     <div class="text-[10px] text-purple-700 flex items-center gap-1 font-semibold">
                       <span class="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse"></span>
-                      <span>Sẵn Sàng Tham Chiến</span>
+                      <span>Sẵn Sàng Tham Chiến (AI Thật)</span>
                     </div>
                   </div>
                 </div>
-                <div class="text-xs font-mono font-bold text-purple-600">Bot AI</div>
+                <div class="text-xs font-mono font-bold text-purple-600">Slot #${i + 1}</div>
               </div>
             `;
           } else {
@@ -24690,21 +24917,20 @@ const vKittens = document.getElementById('kittensView');
       // Start Button visibility/state
       const startBtn = document.getElementById('btnStartMpMatch');
       if (startBtn) {
+        const totalCombatants = currentCount + activeBots;
         if (!window.mpRoomState.isHost) {
           startBtn.classList.add('opacity-60', 'cursor-not-allowed');
           startBtn.disabled = true;
           startBtn.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span><span>ĐỢI CHỦ PHÒNG BẮT ĐẦU TRẬN ĐẤU</span>';
-        } else if (currentCount < 2 && !isBotEnabled) {
+        } else if (totalCombatants < 2) {
           startBtn.classList.add('opacity-60', 'cursor-not-allowed');
           startBtn.disabled = true;
           startBtn.innerHTML = '<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span><span>ĐANG ĐỢI BẠN BÈ VÀO PHÒNG (HOẶC BẬT BOT AI)...</span>';
         } else {
           startBtn.classList.remove('opacity-60', 'cursor-not-allowed');
           startBtn.disabled = false;
-          const totalCombatants = isBotEnabled ? (room.maxPlayers || currentCount) : currentCount;
-          const botCount = Math.max(0, totalCombatants - currentCount);
-          const labelText = botCount > 0 
-            ? `BẮT ĐẦU TRẬN ĐẤU (${currentCount} Người + ${botCount} Bot AI)` 
+          const labelText = activeBots > 0 
+            ? `BẮT ĐẦU TRẬN ĐẤU (${currentCount} Người + ${activeBots} Bot AI Thật)` 
             : `BẮT ĐẦU TRẬN ĐẤU NGAY (${currentCount} KỲ THỦ)`;
           startBtn.innerHTML = '<i data-lucide="play" class="w-4 h-4 fill-slate-950"></i><span>' + labelText + '</span>';
         }
@@ -24933,6 +25159,10 @@ const vKittens = document.getElementById('kittensView');
         setupOnlineTicTacToe(room);
       } else if (room.game === 'kittens') {
         setupOnlineKittens(room);
+      } else if (room.game === 'uno') {
+        setupOnlineUno(room);
+      } else if (room.game === 'werewolf') {
+        setupOnlineWerewolf(room);
       }
 
       updateOnlineRoomHUD();
@@ -25045,6 +25275,15 @@ const vKittens = document.getElementById('kittensView');
       if (room.matchState && room.matchState.game === 'monopoly') {
         applyOnlineGameState('monopoly', room.matchState);
       }
+      // Nếu là Host và lượt đầu tiên là Bot AI, tự động kích hoạt bot gieo xúc xắc
+      if (window.myRoomPlayerIndex === 0 && monoState.players[monoState.turn]?.isBot) {
+        const botDelay = Math.max(600, Math.round(1000 / (window.monoSpeed || monoState.speed || 1)));
+        setTimeout(() => {
+          if (window.isOnlineRoomMatch && monoState.players[monoState.turn]?.isBot) {
+            executeMono2dRoll();
+          }
+        }, botDelay);
+      }
     };
 
     window.setupOnlineDice = function(room) {
@@ -25063,8 +25302,9 @@ const vKittens = document.getElementById('kittensView');
 
       const isBotEnabled = room.botConfig ? (room.botConfig.enabled !== false) : true;
       const roomPlayers = (room && room.players) ? room.players : [];
-      const pCount = isBotEnabled ? Math.max(2, Math.min(4, room.maxPlayers || roomPlayers.length)) : Math.max(2, Math.min(4, roomPlayers.length));
-      botCount = Math.max(1, pCount - 1);
+      const configuredBotCount = (room.botConfig && room.botConfig.count) ? Number(room.botConfig.count) : Math.max(1, 4 - roomPlayers.length);
+      const pCount = isBotEnabled ? Math.min(4, Math.max(2, roomPlayers.length + configuredBotCount)) : Math.max(2, Math.min(4, roomPlayers.length));
+      botCount = isBotEnabled ? Math.max(0, pCount - roomPlayers.length) : 0;
       scores = { 1: 0, 2: 0, 3: 0, 4: 0 };
       positions = { 1: 0, 2: 0, 3: 0, 4: 0 };
       playerEnergy = { 1: 3, 2: 3, 3: 3, 4: 3 };
@@ -25134,6 +25374,17 @@ const vKittens = document.getElementById('kittensView');
       if (room.matchState && room.matchState.game === 'dice') {
         applyOnlineGameState('dice', room.matchState);
       }
+
+      // Nếu lượt đầu tiên là Bot AI và máy này là Chủ phòng (Host)
+      if (window.myRoomPlayerIndex === 0 && (currentTurn - 1 >= roomPlayers.length)) {
+        const botDelay = Math.max(600, Math.floor(1000 / (window.diceSpeed || 1)));
+        if (window.botTurnTimeout) clearTimeout(window.botTurnTimeout);
+        window.botTurnTimeout = setTimeout(() => {
+          if (window.isOnlineRoomMatch && !isDiceRolling) {
+            triggerAutoRoll(currentTurn);
+          }
+        }, botDelay);
+      }
     };
 
     window.setupOnlineChess = function(room) {
@@ -25143,16 +25394,18 @@ const vKittens = document.getElementById('kittensView');
         chessMode = 'online';
       }
 
-      // Cập nhật giao diện mode pills (ẩn botWrapper, ẩn colorWrapper, highlight nút online)
-      const bBot = document.getElementById('chessModeBtnBot');
-      const bLocal = document.getElementById('chessModeBtnLocal');
-      const bOnline = document.getElementById('chessModeBtnOnline');
+      // Cập nhật giao diện mode pills (ẩn botWrapper, ẩn colorWrapper, highlight nút online trên toàn trang)
       const botWrapper = document.getElementById('chessBotTierWrapper');
       const colorWrapper = document.getElementById('chessColorWrapper');
-      [bBot, bLocal, bOnline].forEach(b => {
-        if (b) b.className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition';
+      document.querySelectorAll('#chessModeBtnBot, #chessModeBtnBotTop, [data-chess-mode="bot"]').forEach(b => {
+        b.className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition';
       });
-      if (bOnline) bOnline.className = 'px-2.5 py-1 rounded-lg bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold transition shadow-sm';
+      document.querySelectorAll('#chessModeBtnLocal, #chessModeBtnLocalTop, [data-chess-mode="local"]').forEach(b => {
+        b.className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition';
+      });
+      document.querySelectorAll('#chessModeBtnOnline, #chessModeBtnOnlineTop, [data-chess-mode="online"]').forEach(b => {
+        b.className = 'px-2.5 py-1 rounded-lg bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold transition shadow-sm';
+      });
       if (botWrapper) botWrapper.classList.add('hidden');
       if (colorWrapper) colorWrapper.classList.add('hidden');
 
@@ -25184,7 +25437,7 @@ const vKittens = document.getElementById('kittensView');
       if (tElo) tElo.textContent = 'P2P Trực Tuyến';
       const tAvatar = document.getElementById('chessTopAvatar');
       if (tAvatar) {
-        tAvatar.innerHTML = window.renderPlayerAvatarSafe(oppPlayer?.avatar || BUSINESS_TOUR_AVATAR_SVGS?.[oppIdx] || '♟️', 'w-full h-full object-cover');
+        tAvatar.innerHTML = window.renderPlayerAvatarSafe(oppPlayer?.avatar || (typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined' ? BUSINESS_TOUR_AVATAR_SVGS[oppIdx] : '♟️'), 'w-full h-full object-cover');
       }
 
       // Cập nhật card bot profile sang thông tin đối thủ trực tuyến
@@ -25192,6 +25445,11 @@ const vKittens = document.getElementById('kittensView');
       if (botCardTitle) botCardTitle.textContent = 'Đấu Trực Tuyến P2P';
       const botCardElo = document.getElementById('chessBotCardElo');
       if (botCardElo) botCardElo.textContent = `Phòng #${room?.code || 'ONLINE'}`;
+      const botCardBadge = document.getElementById('chessBotCardBadge');
+      if (botCardBadge) {
+        botCardBadge.textContent = 'P2P REALTIME';
+        botCardBadge.className = 'text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-400 font-black';
+      }
       const botCardDesc = document.getElementById('chessBotCardDesc');
       if (botCardDesc) botCardDesc.textContent = `Thi đấu trực tuyến với ${oppPlayer?.name || 'Đối Thủ'}. Bạn cầm quân ${chessPlayerColor === 'w' ? 'Trắng (Đi trước)' : 'Đen (Đi sau)'}.`;
       const botCardIcon = document.getElementById('chessBotCardIcon');
@@ -25290,8 +25548,9 @@ const vKittens = document.getElementById('kittensView');
       const roomPlayers = (room && room.players) ? room.players : [];
       // Đọc cấu hình bot từ room.botConfig hoặc số slot còn thiếu trong phòng
       const isBotEnabled = room.botConfig ? (room.botConfig.enabled !== false) : true;
-      const maxSlots = room.maxPlayers || 4;
-      const targetCount = isBotEnabled ? Math.max(2, Math.min(4, maxSlots)) : Math.max(2, Math.min(4, roomPlayers.length));
+      const maxSlots = 4; // Mèo Nổ Tabletop hỗ trợ tối đa 4 kỳ thủ / Bot
+      const configuredBotCount = (room.botConfig && room.botConfig.count) ? Number(room.botConfig.count) : Math.max(1, maxSlots - roomPlayers.length);
+      const targetCount = isBotEnabled ? Math.min(4, Math.max(2, roomPlayers.length + configuredBotCount)) : Math.max(2, Math.min(4, roomPlayers.length));
 
       const BOT_NAMES = ['Tiên Tinh Linh', 'Kỳ Lân Ngố', 'Rồng Lửa Béo', 'Phượng Hoàng Lửa'];
 
@@ -25307,7 +25566,7 @@ const vKittens = document.getElementById('kittensView');
             }
           }
           if (!pAv) {
-            pAv = getKittenAvatarUrl(i);
+            pAv = (typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined') ? BUSINESS_TOUR_AVATAR_SVGS[i % BUSINESS_TOUR_AVATAR_SVGS.length] : getKittenAvatarUrl(i);
           }
           kittensState.players.push({
             id: i,
@@ -25321,7 +25580,7 @@ const vKittens = document.getElementById('kittensView');
           // Bổ sung Bot AI thật vào các slot còn trống
           const botIdx = i - roomPlayers.length;
           const botName = BOT_NAMES[botIdx % BOT_NAMES.length] || `Bot AI ${i + 1}`;
-          const botAvatar = getKittenAvatarUrl(i);
+          const botAvatar = (typeof BUSINESS_TOUR_AVATAR_SVGS !== 'undefined') ? BUSINESS_TOUR_AVATAR_SVGS[(i + 1) % BUSINESS_TOUR_AVATAR_SVGS.length] : getKittenAvatarUrl(i);
           kittensState.players.push({
             id: i,
             name: `🤖 ${botName}`,
@@ -25345,6 +25604,95 @@ const vKittens = document.getElementById('kittensView');
       }
 
       renderKittensArena();
+      updateOnlineRoomHUD();
+    };
+
+    window.setupOnlineUno = function(room) {
+      unoState.mode = 'online';
+      if (!window.mpRoomState) window.mpRoomState = {};
+      window.mpRoomState.currentRoom = room;
+
+      const roomPlayers = (room && room.players) ? room.players : [];
+      const isBotEnabled = room.botConfig ? (room.botConfig.enabled !== false) : true;
+      const maxSlots = 4;
+      const configuredBotCount = (room.botConfig && room.botConfig.count) ? Number(room.botConfig.count) : Math.max(1, maxSlots - roomPlayers.length);
+      const targetCount = isBotEnabled ? Math.min(4, Math.max(2, roomPlayers.length + configuredBotCount)) : Math.max(2, Math.min(4, roomPlayers.length));
+      const UNO_BOT_NAMES = ['Tiên Tinh Linh', 'Kỳ Lân Ngố', 'Rồng Lửa Béo', 'Phượng Hoàng Lửa'];
+
+      if (window.myRoomPlayerIndex === 0 && (!room.matchState || !room.matchState.payload || !room.matchState.payload.drawPile)) {
+        initUnoGame();
+        // Cập nhật người chơi thật và Bot AI vào unoState
+        unoState.players = [];
+        for (let i = 0; i < targetCount; i++) {
+          if (i < roomPlayers.length) {
+            const rp = roomPlayers[i];
+            unoState.players.push({
+              id: i,
+              name: rp.name || `Kỳ Thủ ${i + 1}`,
+              isHuman: true,
+              avatar: rp.avatar || getUnoAvatarUrl(i),
+              hand: [],
+              hasSaidUno: false,
+              isOut: false
+            });
+          } else {
+            const botIdx = i - roomPlayers.length;
+            unoState.players.push({
+              id: i,
+              name: `🤖 ${UNO_BOT_NAMES[botIdx % UNO_BOT_NAMES.length]}`,
+              isHuman: false,
+              avatar: getUnoAvatarUrl(i),
+              hand: [],
+              hasSaidUno: false,
+              isOut: false
+            });
+          }
+        }
+        // Chia bài lại cho đúng số lượng người chơi
+        unoState.drawPile = shuffleUnoDeck(initUnoDeck());
+        unoState.discardPile = [];
+        for (let r = 0; r < 7; r++) {
+          unoState.players.forEach(p => {
+            if (unoState.drawPile.length > 0) p.hand.push(unoState.drawPile.pop());
+          });
+        }
+        let initialTopCard = unoState.drawPile.pop();
+        while (initialTopCard.value === 'wild4') {
+          unoState.drawPile.unshift(initialTopCard);
+          initialTopCard = unoState.drawPile.pop();
+        }
+        unoState.discardPile.push(initialTopCard);
+        unoState.activeColor = (initialTopCard.color === 'wild') ? UNO_COLORS[Math.floor(Math.random() * UNO_COLORS.length)] : initialTopCard.color;
+        unoState.initialized = true;
+
+        if (typeof window.syncOnlineUnoState === 'function') {
+          window.syncOnlineUnoState('INIT_DECK', 'Trận đấu UNO Online đã bắt đầu!');
+        }
+        if (unoState.players[unoState.currentTurn] && !unoState.players[unoState.currentTurn].isHuman) {
+          checkAndRunUnoBot();
+        }
+      } else if (room.matchState && room.matchState.game === 'uno') {
+        applyOnlineGameState('uno', room.matchState);
+      } else {
+        initUnoGame();
+      }
+      renderUnoArena();
+      updateOnlineRoomHUD();
+    };
+
+    window.setupOnlineWerewolf = function(room) {
+      werewolfState.mode = 'online';
+      if (!window.mpRoomState) window.mpRoomState = {};
+      window.mpRoomState.currentRoom = room;
+
+      if (window.myRoomPlayerIndex === 0 && (!room.matchState || !room.matchState.payload || !room.matchState.payload.players)) {
+        initWerewolfGame();
+      } else if (room.matchState && room.matchState.game === 'werewolf') {
+        applyOnlineGameState('werewolf', room.matchState);
+      } else {
+        initWerewolfGame();
+      }
+      renderWerewolfArena();
       updateOnlineRoomHUD();
     };
 
@@ -25376,6 +25724,72 @@ const vKittens = document.getElementById('kittensView');
       if (matchState.seq) window.lastAppliedSeq = matchState.seq;
 
       if (gameType === 'monopoly') {
+        // A00. Real-Time Synchronized Match Restart (Ván Mới P2P)
+        if (payload.actionType === 'RESTART_MATCH') {
+          if (typeof stopMonopolyTimers === 'function') stopMonopolyTimers();
+          monoState.turn = (typeof payload.turn === 'number') ? payload.turn : 0;
+          monoState.round = (typeof payload.round === 'number') ? payload.round : 1;
+          monoState.lastRollSum = (typeof payload.lastRollSum === 'number') ? payload.lastRollSum : 0;
+          monoState.isRolling = false;
+          monoState.hasExtraTurn = false;
+          monoState.doublesStreak = 0;
+          monoState.pendingAction = null;
+          monoState.eventCallback = null;
+
+          if (Array.isArray(payload.players)) {
+            payload.players.forEach(p => {
+              const localP = monoState.players[p.id];
+              if (localP) {
+                localP.pos = 0;
+                localP.cash = (typeof p.cash === 'number') ? p.cash : (BUSINESS_TOUR_STARTING_CASH || 3500);
+                localP.inJail = 0;
+                localP.isBankrupt = false;
+                localP.properties = [];
+                localP._isRemoteMoving = false;
+              }
+            });
+          } else if (monoState.players) {
+            monoState.players.forEach(p => {
+              p.pos = 0;
+              p.cash = BUSINESS_TOUR_STARTING_CASH || 3500;
+              p.inJail = 0;
+              p.isBankrupt = false;
+              p.properties = [];
+              p._isRemoteMoving = false;
+            });
+          }
+
+          if (monoState.tiles) {
+            monoState.tiles.forEach(t => {
+              t.owner = null;
+              t.level = 0;
+            });
+          }
+          if (Array.isArray(payload.tiles)) {
+            payload.tiles.forEach(t => {
+              const localT = monoState.tiles[t.id];
+              if (localT) {
+                localT.owner = null;
+                localT.level = 0;
+              }
+            });
+          }
+
+          renderMonopolyBoard();
+          updateMonopolyPawns();
+          updateMonopolyHUD();
+          updateOnlineRoomHUD();
+          setMonoDialogMode('ready');
+
+          try {
+            if (typeof soundTone === 'function') soundTone(659, 'triangle', 0.15, 0.2);
+          } catch (e) {}
+
+          const restartMsg = payload.toast || '🔄 Đối thủ / Chủ phòng đã khởi động ván Cờ Tỷ Phú mới!';
+          showToast(restartMsg);
+          return;
+        }
+
         // A0. Real-Time Airport Flight Broadcast
         if (payload.actionType === 'AIRPLANE_FLIGHT') {
           if (payload.toast) showToast(payload.toast);
@@ -25538,6 +25952,43 @@ const vKittens = document.getElementById('kittensView');
         }
 
       } else if (gameType === 'dice') {
+        if (payload.actionType === 'RESTART_MATCH') {
+          if (typeof closeModal === 'function') closeModal('victoryModal');
+          scores = { 1: 0, 2: 0, 3: 0, 4: 0 };
+          positions = { 1: 0, 2: 0, 3: 0, 4: 0 };
+          if (payload.positions) {
+            if (Array.isArray(payload.positions)) {
+              payload.positions.forEach((p, idx) => { positions[idx + 1] = p; });
+            } else {
+              Object.keys(payload.positions).forEach(k => { positions[k] = payload.positions[k]; });
+            }
+          }
+          if (payload.scores) scores = { ...payload.scores };
+          currentTurn = (typeof payload.currentTurn === 'number') ? payload.currentTurn : 1;
+          playerEnergy = payload.playerEnergy ? { ...payload.playerEnergy } : { 1: 3, 2: 3, 3: 3, 4: 3 };
+          playerShields = payload.playerShields ? { ...payload.playerShields } : { 1: false, 2: false, 3: false, 4: false };
+          playerFrozen = { 1: 0, 2: 0, 3: 0, 4: 0 };
+          boardTraps = payload.boardTraps ? { ...payload.boardTraps } : {};
+          isDiceRolling = false;
+
+          const diceFace = document.getElementById('diceFaceDisplay');
+          if (diceFace) diceFace.innerHTML = getDiceFaceSvg(0);
+          const hint = document.getElementById('diceActionHint');
+          if (hint) hint.textContent = 'Chạm vào xúc xắc để gieo';
+          if (typeof addBattleLog === 'function') {
+            addBattleLog('🔄 Đối thủ đã bắt đầu ván Đua Xúc Xắc mới!', 'system');
+          }
+
+          renderCircuitBoard();
+          updateDiceUI();
+          updateEnergyUI();
+          highlightTurnCard(currentTurn);
+          if (typeof updateOnlineRoomHUD === 'function') updateOnlineRoomHUD();
+          showToast('🔄 Đối thủ đã bắt đầu ván Đua Xúc Xắc mới!');
+          try { soundTone(523, 'triangle', 0.15, 0.12); } catch(e) {}
+          return;
+        }
+
         // A. Real-Time Pre-Move Broadcast: Opponent rolled dice!
         if (payload.actionType === 'ROLL_START') {
           const dice = document.getElementById('diceButton');
@@ -25593,6 +26044,25 @@ const vKittens = document.getElementById('kittensView');
         }
 
       } else if (gameType === 'tictactoe') {
+        if (payload.actionType === 'RESTART_MATCH') {
+          if (typeof closeModal === 'function') closeModal('victoryModal');
+          tttBoard = Array(9).fill(null);
+          tttTurn = 'X';
+          tttGameOver = false;
+          if (payload.tttScores) tttScores = { ...payload.tttScores };
+          const sign = document.getElementById('tttTurnSign');
+          if (sign) {
+            sign.textContent = 'X';
+            sign.className = 'text-lg text-cyan-400 font-black';
+          }
+          renderTicTacToe();
+          updateTTTScores();
+          if (typeof updateOnlineRoomHUD === 'function') updateOnlineRoomHUD();
+          showToast('🔄 Đối thủ đã bắt đầu ván Ca-rô mới!');
+          try { soundTone(523, 'triangle', 0.15, 0.12); } catch(e) {}
+          return;
+        }
+
         if (payload.tttBoard) tttBoard = [...payload.tttBoard];
         if (payload.tttTurn) tttTurn = payload.tttTurn;
         if (typeof payload.tttGameOver === 'boolean') tttGameOver = payload.tttGameOver;
@@ -25610,6 +26080,31 @@ const vKittens = document.getElementById('kittensView');
         if (payload.winner) showVictory(payload.winner);
 
       } else if (gameType === 'chess') {
+        if (payload.actionType === 'RESTART_MATCH') {
+          if (typeof closeModal === 'function') closeModal('victoryModal');
+          chessGame = new Chess();
+          if (payload.fen) {
+            try { chessGame.load(payload.fen); } catch(e) {}
+          }
+          chessSelectedSquare = null;
+          chessLegalMoves = [];
+          chessLastMove = null;
+          chessPendingPromotion = null;
+          chessIsBotThinking = false;
+          chessMoveHistory = [];
+          chessCaptured = { w: [], b: [] };
+          chessClocks = payload.clocks ? { ...payload.clocks } : { w: 600, b: 600 };
+          chessFlipped = (chessPlayerColor === 'b');
+          if (typeof startChessTimer === 'function') startChessTimer();
+          if (typeof window.rebuildChessMoveHistoryUI === 'function') window.rebuildChessMoveHistoryUI();
+          renderChessBoard();
+          updateChessUI();
+          if (typeof updateOnlineRoomHUD === 'function') updateOnlineRoomHUD();
+          showToast('🔄 Đối thủ / Chủ phòng đã khởi động ván Cờ Vua mới!');
+          try { soundTone(523, 'triangle', 0.15, 0.12); } catch(e) {}
+          return;
+        }
+
         if (payload.fen && chessGame) {
           const prevFen = chessGame.fen();
           let loadedPgn = false;
@@ -25771,6 +26266,152 @@ const vKittens = document.getElementById('kittensView');
         if (curP && !curP.isHuman && window.myRoomPlayerIndex === 0) {
           checkAndRunBot();
         }
+      } else if (gameType === 'uno') {
+        if (!payload) return;
+        unoState.mode = 'online';
+
+        if (payload.actionType === 'RESTART_MATCH') {
+          if (unoState.botTimer) {
+            clearTimeout(unoState.botTimer);
+            unoState.botTimer = null;
+          }
+          if (unoState.unoCallTimer) {
+            clearTimeout(unoState.unoCallTimer);
+            unoState.unoCallTimer = null;
+          }
+
+          unoState.isLocked = false;
+          unoState.direction = (typeof payload.direction === 'number') ? payload.direction : 1;
+          unoState.pendingDrawPenalty = (typeof payload.pendingDrawPenalty === 'number') ? payload.pendingDrawPenalty : 0;
+          unoState.currentTurn = (typeof payload.currentTurn === 'number') ? payload.currentTurn : 0;
+          unoState.activeColor = payload.activeColor || 'red';
+
+          if (Array.isArray(payload.drawPile)) unoState.drawPile = [...payload.drawPile];
+          if (Array.isArray(payload.discardPile)) unoState.discardPile = [...payload.discardPile];
+
+          if (Array.isArray(payload.players)) {
+            unoState.players = payload.players.map((rp, idx) => ({
+              id: rp.id !== undefined ? rp.id : idx,
+              name: rp.name || `Kỳ Thủ ${idx + 1}`,
+              avatar: rp.avatar || getUnoAvatarUrl(idx),
+              isHuman: (typeof rp.isHuman === 'boolean') ? rp.isHuman : true,
+              hand: Array.isArray(rp.hand) ? [...rp.hand] : [],
+              hasSaidUno: !!rp.hasSaidUno,
+              isOut: !!rp.isOut
+            }));
+          }
+
+          unoState.initialized = true;
+
+          renderUnoArena();
+          updateOnlineRoomHUD();
+
+          try {
+            if (typeof playUnoSound === 'function') playUnoSound('card_play');
+          } catch (e) {}
+
+          const restartMsg = payload.toast || '🔄 Đối thủ / Chủ phòng đã khởi động ván UNO mới!';
+          if (typeof showUnoCenterToast === 'function') showUnoCenterToast(restartMsg, 2500);
+          if (typeof showToast === 'function') showToast(restartMsg);
+
+          const curP = unoState.players[unoState.currentTurn];
+          if (curP && !curP.isHuman && window.myRoomPlayerIndex === 0) {
+            checkAndRunUnoBot();
+          }
+          return;
+        }
+
+        if (Array.isArray(payload.drawPile)) unoState.drawPile = [...payload.drawPile];
+        if (Array.isArray(payload.discardPile)) unoState.discardPile = [...payload.discardPile];
+        if (payload.activeColor) unoState.activeColor = payload.activeColor;
+        if (typeof payload.currentTurn === 'number') unoState.currentTurn = payload.currentTurn;
+        if (typeof payload.direction === 'number') unoState.direction = payload.direction;
+        if (typeof payload.pendingDrawPenalty === 'number') unoState.pendingDrawPenalty = payload.pendingDrawPenalty;
+
+        if (Array.isArray(payload.players)) {
+          payload.players.forEach((rp, idx) => {
+            if (unoState.players[idx]) {
+              unoState.players[idx].name = rp.name || unoState.players[idx].name;
+              if (Array.isArray(rp.hand)) unoState.players[idx].hand = [...rp.hand];
+              unoState.players[idx].hasSaidUno = !!rp.hasSaidUno;
+              unoState.players[idx].isOut = !!rp.isOut;
+            }
+          });
+        }
+
+        renderUnoArena();
+        updateOnlineRoomHUD();
+        if (payload.toast && typeof showToast === 'function') showToast(payload.toast);
+        if (payload.winner && typeof showUnoVictoryModal === 'function') showUnoVictoryModal(payload.winner);
+
+        // Nếu chuyển sang lượt của một Bot AI và máy này là Chủ phòng (Host):
+        const curUnoP = unoState.players[unoState.currentTurn];
+        if (curUnoP && !curUnoP.isHuman && window.myRoomPlayerIndex === 0) {
+          checkAndRunUnoBot();
+        }
+
+      } else if (gameType === 'werewolf') {
+        if (!payload) return;
+        werewolfState.mode = 'online';
+
+        if (payload.actionType === 'RESTART_MATCH') {
+          if (werewolfState.phaseTimer) {
+            clearInterval(werewolfState.phaseTimer);
+            werewolfState.phaseTimer = null;
+          }
+          if (werewolfState.speechQueueTimer) {
+            clearTimeout(werewolfState.speechQueueTimer);
+            werewolfState.speechQueueTimer = null;
+          }
+
+          werewolfState.dayCount = payload.dayCount || 1;
+          werewolfState.phase = payload.phase || 'NIGHT_INTRO';
+          werewolfState.selectedTarget = null;
+          werewolfState.guardLastTarget = null;
+          werewolfState.witchHealUsed = false;
+          werewolfState.witchPoisonUsed = false;
+          werewolfState.nightWolfVictim = null;
+          werewolfState.nightWitchPoisonVictim = null;
+          werewolfState.nightProtectedTarget = null;
+          werewolfState.votes = {};
+          werewolfState.chronicleLogs = [];
+          werewolfState.seerScryKnowledge = {};
+          werewolfState.isGameOver = false;
+          werewolfState.winner = null;
+
+          const listEl = document.getElementById('werewolfChronicleLogList');
+          if (listEl) listEl.innerHTML = '';
+
+          if (Array.isArray(payload.players)) {
+            werewolfState.players = payload.players.map((p, idx) => ({
+              ...p,
+              id: p.id !== undefined ? p.id : idx,
+              isAlive: true,
+              revealed: false
+            }));
+          }
+
+          werewolfState.initialized = true;
+          if (typeof addChronicleLog === 'function') {
+            addChronicleLog('Ván đấu bắt đầu! 7 người chơi đã tề tựu tại làng Millers Hollow.', '🏰');
+          }
+          renderWerewolfArena();
+          updateOnlineRoomHUD();
+
+          if (typeof openWerewolfRoleModal === 'function') openWerewolfRoleModal();
+          if (typeof playWerewolfHowl === 'function') playWerewolfHowl();
+
+          const restartMsg = payload.toast || '🔄 Đối thủ / Chủ phòng đã khởi động ván Ma Sói mới!';
+          if (typeof showToast === 'function') showToast(restartMsg);
+          return;
+        }
+
+        if (payload.phase) werewolfState.phase = payload.phase;
+        if (typeof payload.dayCount === 'number') werewolfState.dayCount = payload.dayCount;
+        if (Array.isArray(payload.players)) werewolfState.players = payload.players;
+        renderWerewolfArena();
+        updateOnlineRoomHUD();
+        if (payload.toast && typeof showToast === 'function') showToast(payload.toast);
       }
     };
 
@@ -25869,6 +26510,32 @@ const vKittens = document.getElementById('kittensView');
       pushOnlineGameState('kittens', payload);
     };
 
+    window.syncOnlineUnoState = function(actionType, toastMsg, extra = {}) {
+      if (!window.isOnlineRoomMatch) return;
+      const payload = {
+        actionType: actionType || 'UPDATE',
+        drawPile: [...unoState.drawPile],
+        discardPile: [...unoState.discardPile],
+        currentTurn: unoState.currentTurn,
+        direction: unoState.direction,
+        activeColor: unoState.activeColor,
+        pendingDrawPenalty: unoState.pendingDrawPenalty,
+        players: unoState.players.map(p => ({
+          id: p.id,
+          name: p.name,
+          avatar: p.avatar,
+          isHuman: (typeof p.isHuman === 'boolean') ? p.isHuman : true,
+          hand: [...p.hand],
+          hasSaidUno: !!p.hasSaidUno,
+          isOut: !!p.isOut
+        })),
+        toast: toastMsg || null,
+        winner: extra.winner || null,
+        extra: extra
+      };
+      pushOnlineGameState('uno', payload);
+    };
+
     window.updateOnlineRoomHUD = function() {
       const hud = document.getElementById('onlineRoomHUD');
       const btnMatchHud = document.getElementById('btnMatchHudReopenRoom');
@@ -25917,6 +26584,11 @@ const vKittens = document.getElementById('kittensView');
       } else if (room.game === 'kittens') {
         const curP = (kittensState && kittensState.players) ? kittensState.players[kittensState.currentTurn] : null;
         activePlayerName = curP ? (curP.name + ' (Slot #' + (curP.id + 1) + ')') : 'Kỳ Thủ';
+      } else if (room.game === 'uno') {
+        const curP = (unoState && unoState.players) ? unoState.players[unoState.currentTurn] : null;
+        activePlayerName = curP ? curP.name : 'Kỳ Thủ';
+      } else if (room.game === 'werewolf') {
+        activePlayerName = (werewolfState && werewolfState.phase) ? ('Giai đoạn ' + werewolfState.phase) : 'Làng';
       }
 
       if (curTurnEl) curTurnEl.textContent = activePlayerName;
@@ -28281,6 +28953,7 @@ async function executeDrawCard(playerIdx) {
 
     function restartKittensGame() {
       if (kittensState.mode === 'online' || window.isOnlineRoomMatch) {
+        kittensState.mode = 'online';
         if (kittensState.botTimer) {
           clearTimeout(kittensState.botTimer);
           kittensState.botTimer = null;
@@ -28324,6 +28997,7 @@ async function executeDrawCard(playerIdx) {
         showToast('Đã khởi động ván Mèo Nổ mới!');
       }
     }
+    window.restartKittensGame = restartKittensGame;
 
     function showKittensRulesModal() {
       openKittensModal('kittenModalRules');
@@ -28608,13 +29282,15 @@ async function executeDrawCard(playerIdx) {
 
     // Get Avatar for UNO Player
     function getUnoAvatarUrl(playerIdx) {
-      if (playerIdx === 0 && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
-        return window.getActiveUserBeastAvatarDataUrl();
+      if (playerIdx === 0 && typeof window.getActiveUserBeastAvatarSVG === 'function') {
+        return window.getActiveUserBeastAvatarSVG();
       }
-      if (typeof BUSINESS_TOUR_AVATAR_DATA_URLS !== 'undefined' && BUSINESS_TOUR_AVATAR_DATA_URLS[playerIdx]) {
-        return BUSINESS_TOUR_AVATAR_DATA_URLS[playerIdx];
+      const unoBotBeasts = ['frost_kirin', 'mystic_fox', 'fire_dragon', 'solar_phoenix'];
+      const bId = unoBotBeasts[playerIdx % unoBotBeasts.length];
+      if (typeof window.getBeastAvatarSVG === 'function') {
+        return window.getBeastAvatarSVG(bId, 'w-full h-full');
       }
-      return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><circle cx="20" cy="20" r="18" fill="%23eab308"/></svg>';
+      return bId;
     }
 
     // Start New UNO Game
@@ -28635,13 +29311,48 @@ async function executeDrawCard(playerIdx) {
       unoState.unoCallDeadline = 0;
       unoState.unoCallTargetPlayer = null;
 
-      // 4 Players Setup
-      unoState.players = [
-        { id: 0, name: 'Bạn (Chỉ Huy)', isHuman: true, avatar: getUnoAvatarUrl(0), hand: [], hasSaidUno: false, isOut: false },
-        { id: 1, name: 'Tiên Tinh Linh', isHuman: false, avatar: getUnoAvatarUrl(1), hand: [], hasSaidUno: false, isOut: false },
-        { id: 2, name: 'Kỳ Lân Ngố', isHuman: false, avatar: getUnoAvatarUrl(2), hand: [], hasSaidUno: false, isOut: false },
-        { id: 3, name: 'Rồng Lửa Béo', isHuman: false, avatar: getUnoAvatarUrl(3), hand: [], hasSaidUno: false, isOut: false }
-      ];
+      if ((window.isOnlineRoomMatch || unoState.mode === 'online') && window.mpRoomState?.currentRoom?.players) {
+        unoState.mode = 'online';
+        const room = window.mpRoomState.currentRoom;
+        const roomPlayers = room.players || [];
+        const isBotEnabled = room.botConfig ? (room.botConfig.enabled !== false) : true;
+        const maxSlots = room.maxPlayers || 4;
+        const targetCount = isBotEnabled ? Math.max(2, Math.min(4, maxSlots)) : Math.max(2, Math.min(4, roomPlayers.length));
+        const UNO_BOT_NAMES = ['Tiên Tinh Linh', 'Kỳ Lân Ngố', 'Rồng Lửa Béo'];
+        unoState.players = [];
+        for (let i = 0; i < targetCount; i++) {
+          if (i < roomPlayers.length) {
+            const rp = roomPlayers[i];
+            unoState.players.push({
+              id: i,
+              name: rp.name || `Kỳ Thủ ${i + 1}`,
+              isHuman: true,
+              avatar: rp.avatar || getUnoAvatarUrl(i),
+              hand: [],
+              hasSaidUno: false,
+              isOut: false
+            });
+          } else {
+            unoState.players.push({
+              id: i,
+              name: `🤖 ${UNO_BOT_NAMES[(i - 1) % UNO_BOT_NAMES.length] || 'Bot AI ' + (i + 1)}`,
+              isHuman: false,
+              avatar: getUnoAvatarUrl(i),
+              hand: [],
+              hasSaidUno: false,
+              isOut: false
+            });
+          }
+        }
+      } else {
+        // 4 Players Setup
+        unoState.players = [
+          { id: 0, name: 'Bạn (Chỉ Huy)', isHuman: true, avatar: getUnoAvatarUrl(0), hand: [], hasSaidUno: false, isOut: false },
+          { id: 1, name: 'Tiên Tinh Linh', isHuman: false, avatar: getUnoAvatarUrl(1), hand: [], hasSaidUno: false, isOut: false },
+          { id: 2, name: 'Kỳ Lân Ngố', isHuman: false, avatar: getUnoAvatarUrl(2), hand: [], hasSaidUno: false, isOut: false },
+          { id: 3, name: 'Rồng Lửa Béo', isHuman: false, avatar: getUnoAvatarUrl(3), hand: [], hasSaidUno: false, isOut: false }
+        ];
+      }
 
       // Prepare & shuffle deck
       unoState.drawPile = shuffleUnoDeck(initUnoDeck());
@@ -28687,11 +29398,36 @@ async function executeDrawCard(playerIdx) {
       playUnoSound('card_play');
       showUnoCenterToast('🔥 TRẬN ĐẤU UNO BẮT ĐẦU! CHÚC BẠN MAY MẮN!', 2500);
 
+      if (window.isOnlineRoomMatch && typeof window.pushOnlineGameState === 'function') {
+        window.pushOnlineGameState('uno', {
+          actionType: 'RESTART_MATCH',
+          players: unoState.players.map(p => ({
+            id: p.id,
+            name: p.name,
+            avatar: p.avatar,
+            isHuman: p.isHuman,
+            hand: [...p.hand],
+            hasSaidUno: false,
+            isOut: false
+          })),
+          drawPile: [...unoState.drawPile],
+          discardPile: [...unoState.discardPile],
+          activeColor: unoState.activeColor,
+          currentTurn: unoState.currentTurn,
+          direction: unoState.direction,
+          pendingDrawPenalty: unoState.pendingDrawPenalty,
+          toast: '🔄 Đối thủ / Chủ phòng đã khởi động ván UNO mới!'
+        });
+        showToast('🔄 Bạn đã khởi động ván UNO mới!');
+      }
+
       // If initial turn is Bot
       if (unoState.currentTurn !== 0) {
         checkAndRunUnoBot();
       }
     }
+    window.initUnoGame = initUnoGame;
+    window.restartUnoGame = initUnoGame;
 
     // Check if a card can be legally played
     function canPlayUnoCard(card, topCard, activeColor, pendingPenalty) {
@@ -28773,7 +29509,7 @@ async function executeDrawCard(playerIdx) {
         const unoBadge = document.getElementById(`unoUnoBadge${bIdx}`);
         const stackEl = document.getElementById(`unoCardStack${bIdx}`);
 
-        if (avatarEl && !avatarEl.src) avatarEl.src = bot.avatar;
+        if (avatarEl) avatarEl.innerHTML = window.renderPlayerAvatarSafe(bot.avatar, 'w-full h-full');
         if (countEl) countEl.innerText = bot.hand.length;
 
         if (unoBadge) {
@@ -28829,7 +29565,7 @@ async function executeDrawCard(playerIdx) {
       // Render Player 0 (Human) Pod & Hand
       const userAvatar = document.getElementById('unoAvatar0');
       const userCount = document.getElementById('unoCount0');
-      if (userAvatar && !userAvatar.src) userAvatar.src = unoState.players[0].avatar;
+      if (userAvatar) userAvatar.innerHTML = window.renderPlayerAvatarSafe(unoState.players[0].avatar, 'w-full h-full');
       if (userCount) userCount.innerText = unoState.players[0].hand.length;
 
       const playerHandEl = document.getElementById('unoPlayerHand');
@@ -28989,9 +29725,15 @@ async function executeDrawCard(playerIdx) {
         unoState.isLocked = false;
         renderUnoArena();
 
+        if (window.isOnlineRoomMatch && typeof window.syncOnlineUnoState === 'function') {
+          window.syncOnlineUnoState('PLAY_CARD', `${player.name} vừa đánh lá ${card.value || ''}!`);
+        }
+
         // Check if next turn is Bot
         if (unoState.currentTurn !== 0) {
-          checkAndRunUnoBot();
+          if (!window.isOnlineRoomMatch || window.myRoomPlayerIndex === 0) {
+            checkAndRunUnoBot();
+          }
         } else if (unoState.autoPlay) {
           setTimeout(runUnoAutoPlayer, 800);
         }
@@ -29093,8 +29835,13 @@ async function executeDrawCard(playerIdx) {
           advanceUnoTurn(1);
           unoState.isLocked = false;
           renderUnoArena();
+          if (window.isOnlineRoomMatch && typeof window.syncOnlineUnoState === 'function') {
+            window.syncOnlineUnoState('DRAW_PENALTY', `${player.name} vừa rút phạt ${count} lá!`);
+          }
           if (unoState.currentTurn !== 0) {
-            checkAndRunUnoBot();
+            if (!window.isOnlineRoomMatch || window.myRoomPlayerIndex === 0) {
+              checkAndRunUnoBot();
+            }
           }
         }, 600);
         return;
@@ -29138,8 +29885,13 @@ async function executeDrawCard(playerIdx) {
           advanceUnoTurn(1);
           unoState.isLocked = false;
           renderUnoArena();
+          if (window.isOnlineRoomMatch && typeof window.syncOnlineUnoState === 'function') {
+            window.syncOnlineUnoState('DRAW_PASS', `${player.name} rút bài và chuyển lượt.`);
+          }
           if (unoState.currentTurn !== 0) {
-            checkAndRunUnoBot();
+            if (!window.isOnlineRoomMatch || window.myRoomPlayerIndex === 0) {
+              checkAndRunUnoBot();
+            }
           }
         }, 500);
       }
@@ -29200,8 +29952,11 @@ async function executeDrawCard(playerIdx) {
         clearTimeout(unoState.botTimer);
       }
 
+      if (window.isOnlineRoomMatch && window.myRoomPlayerIndex !== 0) return; // Chỉ Host điều phối Bot
+
       const botIdx = unoState.currentTurn;
-      if (botIdx === 0) return; // User turn
+      if (botIdx === 0 && !window.isOnlineRoomMatch) return; // User turn in local
+      if (unoState.players[botIdx]?.isHuman) return; // Human turn in online
 
       unoState.botTimer = setTimeout(() => {
         runUnoBotTurn(botIdx);
@@ -29574,13 +30329,13 @@ async function executeDrawCard(playerIdx) {
   };
 
   const BOT_PROFILES = [
-    { id: 0, isHuman: true, name: 'Bạn (Chỉ Huy)', title: 'Chỉ Huy Chiến Thuật' },
-    { id: 1, isHuman: false, name: 'Eldrin', title: 'Trưởng Làng Uy Quyền' },
-    { id: 2, isHuman: false, name: 'Lyra', title: 'Người Làm Gốm' },
-    { id: 3, isHuman: false, name: 'Garrick', title: 'Bác Thợ Rèn Cơ Bắp' },
-    { id: 4, isHuman: false, name: 'Seraphina', title: 'Cô Thợ Dệt Khéo Tay' },
-    { id: 5, isHuman: false, name: 'Vance', title: 'Bác Làm Vườn Già' },
-    { id: 6, isHuman: false, name: 'Morgana', title: 'Chủ Tiệm Trà Cổ Kính' }
+    { id: 0, isHuman: true, name: 'Bạn (Chỉ Huy)', title: 'Chỉ Huy Chiến Thuật', beastId: 'frost_kirin' },
+    { id: 1, isHuman: false, name: 'Eldrin', title: 'Trưởng Làng Uy Quyền', beastId: 'white_tiger' },
+    { id: 2, isHuman: false, name: 'Lyra', title: 'Người Làm Gốm', beastId: 'mystic_fox' },
+    { id: 3, isHuman: false, name: 'Garrick', title: 'Bác Thợ Rèn Cơ Bắp', beastId: 'storm_bear' },
+    { id: 4, isHuman: false, name: 'Seraphina', title: 'Cô Thợ Dệt Khéo Tay', beastId: 'solar_phoenix' },
+    { id: 5, isHuman: false, name: 'Vance', title: 'Bác Làm Vườn Già', beastId: 'golden_eagle' },
+    { id: 6, isHuman: false, name: 'Morgana', title: 'Chủ Tiệm Trà Cổ Kính', beastId: 'fire_dragon' }
   ];
 
   var werewolfState = window.werewolfState = {
@@ -29957,9 +30712,23 @@ async function executeDrawCard(playerIdx) {
     if (player.id === 0 && typeof window.getActiveUserBeastAvatarSVG === 'function') {
       return window.getActiveUserBeastAvatarSVG();
     }
-    const colors = ['#f59e0b', '#3b82f6', '#ec4899', '#10b981', '#8b5cf6', '#ef4444', '#06b6d4'];
-    const col = colors[player.id % colors.length];
-    return `<svg viewBox="0 0 32 32" class="w-full h-full" fill="none"><rect width="32" height="32" rx="6" fill="${col}20"/><circle cx="16" cy="12" r="6" fill="${col}"/><path d="M6 28c0-5.5 4.5-9 10-9s10 3.5 10 9" fill="${col}"/></svg>`;
+    const beastMapping = [
+      'frost_kirin',   // 0
+      'white_tiger',   // 1 Eldrin (Bạch Hổ Hoàng Gia)
+      'mystic_fox',    // 2 Lyra (Cáo Ma Thuật Kitsune)
+      'storm_bear',    // 3 Garrick (Gấu Bão Táp)
+      'solar_phoenix', // 4 Seraphina (Phượng Hoàng Lửa)
+      'golden_eagle',  // 5 Vance (Đại Bàng Hoàng Kim)
+      'fire_dragon'    // 6 Morgana (Rồng Lửa Ruby)
+    ];
+    const beastId = player.beastId || beastMapping[player.id % beastMapping.length] || 'shadow_wolf';
+    if (typeof window.getBeastAvatarSVG === 'function') {
+      return window.getBeastAvatarSVG(beastId, 'w-full h-full');
+    }
+    if (typeof window.renderPlayerAvatarSafe === 'function') {
+      return window.renderPlayerAvatarSafe(beastId, 'w-full h-full');
+    }
+    return `<div class="w-full h-full flex items-center justify-center font-bold text-amber-300 font-mono text-sm">${player.name ? player.name[0] : '🐺'}</div>`;
   }
 
   function clearAllWerewolfTimers() {
@@ -30178,30 +30947,58 @@ async function executeDrawCard(playerIdx) {
       [pool[i], pool[j]] = [pool[j], pool[i]];
     }
 
-    // Setup 7 Players (Fill with online real players first, then fallback to Bots)
-    const roomPlayers = (onlineRoom && onlineRoom.players) ? onlineRoom.players : [];
-    werewolfState.players = BOT_PROFILES.map((prof, idx) => {
-      const rId = pool[idx];
-      let pName = prof.name;
-      let isHuman = prof.isHuman;
-
-      if (roomPlayers[idx]) {
-        pName = roomPlayers[idx].name || pName;
-        isHuman = true;
+    // Setup 7 Players
+    if ((window.isOnlineRoomMatch || werewolfState.mode === 'online') && window.mpRoomState?.currentRoom?.players) {
+      werewolfState.mode = 'online';
+      const room = window.mpRoomState.currentRoom;
+      const roomPlayers = room.players || [];
+      werewolfState.players = [];
+      for (let idx = 0; idx < 7; idx++) {
+        const rId = pool[idx];
+        if (idx < roomPlayers.length) {
+          const rp = roomPlayers[idx];
+          werewolfState.players.push({
+            id: idx,
+            name: rp.name || `Kỳ Thủ ${idx + 1}`,
+            isHuman: true,
+            title: (idx === 0) ? 'Chủ Phòng' : `Khách #${idx}`,
+            role: rId,
+            team: WEREWOLF_ROLES[rId].team,
+            isAlive: true,
+            revealed: false,
+            avatar: rp.avatar || getWerewolfAvatar(BOT_PROFILES[idx] || { id: idx, avatar: '' })
+          });
+        } else {
+          const prof = BOT_PROFILES[idx] || { id: idx, name: `Bot ${idx + 1}`, isHuman: false, title: 'Dân Làng' };
+          werewolfState.players.push({
+            id: prof.id,
+            name: prof.name,
+            isHuman: false,
+            title: prof.title,
+            role: rId,
+            team: WEREWOLF_ROLES[rId].team,
+            isAlive: true,
+            revealed: false,
+            avatar: getWerewolfAvatar(prof)
+          });
+        }
       }
-
-      return {
-        id: prof.id,
-        name: pName,
-        isHuman: isHuman,
-        title: prof.title,
-        role: rId,
-        team: WEREWOLF_ROLES[rId].team,
-        isAlive: true,
-        revealed: false,
-        avatar: getWerewolfAvatar(prof)
-      };
-    });
+    } else {
+      werewolfState.players = BOT_PROFILES.map((prof, idx) => {
+        const rId = pool[idx];
+        return {
+          id: prof.id,
+          name: prof.name,
+          isHuman: prof.isHuman,
+          title: prof.title,
+          role: rId,
+          team: WEREWOLF_ROLES[rId].team,
+          isAlive: true,
+          revealed: false,
+          avatar: getWerewolfAvatar(prof)
+        };
+      });
+    }
 
     werewolfState.initialized = true;
     addChronicleLog('Ván đấu bắt đầu! 7 người chơi đã tề tựu tại làng Millers Hollow.', '🏰');
@@ -30212,6 +31009,17 @@ async function executeDrawCard(playerIdx) {
     openWerewolfRoleModal();
     playWerewolfHowl();
     speakWerewolfNarrator('Chào mừng đến với làng Millers Hollow. Hãy ghi nhớ vai trò của bạn.');
+
+    if (window.isOnlineRoomMatch && typeof window.pushOnlineGameState === 'function') {
+      window.pushOnlineGameState('werewolf', {
+        actionType: 'RESTART_MATCH',
+        players: werewolfState.players,
+        dayCount: 1,
+        phase: 'NIGHT_INTRO',
+        toast: '🔄 Đối thủ / Chủ phòng đã khởi động ván Ma Sói mới!'
+      });
+      showToast('🔄 Bạn đã khởi động ván Ma Sói mới!');
+    }
   }
   window.initWerewolfGame = initWerewolfGame;
   window.restartWerewolfGame = initWerewolfGame;
@@ -30341,7 +31149,8 @@ async function executeDrawCard(playerIdx) {
 
       if (!podEl) return;
 
-      if (avEl && !avEl.hasChildNodes()) {
+      if (avEl && (!avEl.hasChildNodes() || avEl.dataset.renderedAvatar !== String(p.id) + '_' + (p.avatar || ''))) {
+        avEl.dataset.renderedAvatar = String(p.id) + '_' + (p.avatar || '');
         avEl.innerHTML = window.renderPlayerAvatarSafe ? window.renderPlayerAvatarSafe(p.avatar, 'w-full h-full') : p.avatar;
       }
 
@@ -31634,21 +32443,35 @@ async function executeDrawCard(playerIdx) {
         </div>
 
         <!-- Bot AI Filling Control Box -->
-        <div id="mpBotConfigBox" class="p-3.5 rounded-2xl bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-cyan-500/10 border border-purple-300/60 flex items-center justify-between gap-3 shadow-xs">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-xl bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-700 text-base shadow-xs shrink-0">🤖</div>
-            <div>
-              <div class="text-xs font-black text-slate-900 flex items-center gap-1.5">
-                <span>Bot AI Thật Lấp Đầy Slot Trống</span>
-                <span id="mpBotBadge" class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-purple-100 text-purple-900 border border-purple-300 font-bold">BẬT</span>
+        <div id="mpBotConfigBox" class="p-3.5 rounded-2xl bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-cyan-500/10 border border-purple-300/60 flex flex-col gap-2.5 shadow-xs">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-700 text-base shadow-xs shrink-0">🤖</div>
+              <div>
+                <div class="text-xs font-black text-slate-900 flex items-center gap-1.5">
+                  <span>Bot AI Thật Lấp Đầy Slot Trống</span>
+                  <span id="mpBotBadge" class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-purple-100 text-purple-900 border border-purple-300 font-bold">BẬT</span>
+                </div>
+                <div class="text-[10px] text-slate-500 font-medium">Bổ sung Bot AI thật vào các trận đấu online</div>
               </div>
-              <div class="text-[10px] text-slate-500 font-medium">Bổ sung Bot AI thật vào các slot còn trống trong trận đấu</div>
+            </div>
+            <button type="button" onclick="toggleMpRoomBotFill()" id="btnToggleMpBots" class="btn-spring px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shadow-purple-600/20 cursor-pointer transition-all shrink-0">
+              <i data-lucide="bot" class="w-3.5 h-3.5 text-purple-200"></i>
+              <span id="txtToggleMpBots">ĐANG BẬT BOT AI</span>
+            </button>
+          </div>
+          <!-- Bot Count Selector Row -->
+          <div id="mpBotCountWrapper" class="flex items-center justify-between pt-2 border-t border-purple-200/60 text-xs">
+            <span class="text-[11px] font-bold text-purple-950 flex items-center gap-1.5">
+              <i data-lucide="users" class="w-3.5 h-3.5 text-purple-600"></i>
+              <span>Số lượng Bot AI thêm vào:</span>
+            </span>
+            <div class="flex items-center gap-1.5" id="mpBotCountBtns">
+              <button type="button" onclick="setMpRoomBotCount(1)" id="btnMpBotCount_1" class="btn-spring px-2.5 py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer">1 AI</button>
+              <button type="button" onclick="setMpRoomBotCount(2)" id="btnMpBotCount_2" class="btn-spring px-2.5 py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer">2 AI</button>
+              <button type="button" onclick="setMpRoomBotCount(3)" id="btnMpBotCount_3" class="btn-spring px-2.5 py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer">3 AI</button>
             </div>
           </div>
-          <button type="button" onclick="toggleMpRoomBotFill()" id="btnToggleMpBots" class="btn-spring px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shadow-purple-600/20 cursor-pointer transition-all shrink-0">
-            <i data-lucide="bot" class="w-3.5 h-3.5 text-purple-200"></i>
-            <span id="txtToggleMpBots">ĐANG BẬT BOT AI</span>
-          </button>
         </div>
 
         <!-- Host Match Controls & Leave Button -->

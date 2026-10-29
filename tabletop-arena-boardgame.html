@@ -1482,6 +1482,14 @@
     .uno-bell-ring {
       animation: unoUnoBellShake 0.7s ease-in-out infinite;
     }
+    @keyframes unoCatchAlertShake {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(239, 68, 68, 0.6); }
+      50% { transform: scale(1.08); box-shadow: 0 0 25px rgba(239, 68, 68, 0.95); }
+    }
+    .uno-catch-ring {
+      animation: unoCatchAlertShake 0.6s ease-in-out infinite;
+      border-color: #f87171 !important;
+    }
     .can-play-card {
       transform: translateY(-14px);
       filter: drop-shadow(0 0 12px rgba(250, 204, 21, 0.9)) drop-shadow(0 8px 16px rgba(0,0,0,0.5));
@@ -4787,6 +4795,18 @@
             <div id="unoCenterToast" class="hidden mt-3 px-4 py-1.5 rounded-xl bg-black/80 border border-yellow-400/60 text-yellow-300 font-bold text-xs font-mono shadow-xl transition-all">
               Thông báo sự kiện
             </div>
+
+            <!-- Real-Time 5-Second UNO Countdown Banner -->
+            <div id="unoCountdownBanner" class="hidden mt-3 px-4 py-2 rounded-2xl bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 text-white font-mono font-black text-xs sm:text-sm flex items-center justify-between gap-3 shadow-[0_0_30px_rgba(244,63,94,0.7)] border-2 border-yellow-300 animate-pulse transition-all">
+              <div class="flex items-center gap-2">
+                <span class="text-xl animate-bounce">🔔</span>
+                <span id="unoCountdownText">CẢNH BÁO UNO: ĐỐI THỦ CÒN 1 LÁ!</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[11px] font-sans text-yellow-200">Đếm ngược:</span>
+                <span id="unoCountdownTimerSec" class="text-base sm:text-lg font-mono font-black px-2.5 py-0.5 rounded-xl bg-black/70 text-yellow-300 border border-yellow-400 min-w-[55px] text-center">5.0s</span>
+              </div>
+            </div>
           </div>
 
           <!-- BOTTOM TIER: PLAYER 0 (HUMAN) POD & HAND CARDS -->
@@ -4810,11 +4830,11 @@
                 <!-- Say UNO Button -->
                 <button onclick="handleSayUnoClick()" id="btnSayUno" class="btn-spring px-4 py-1.5 rounded-xl bg-gradient-to-r from-yellow-500 via-amber-400 to-yellow-500 text-slate-950 font-black text-xs font-mono flex items-center gap-1.5 shadow-lg shadow-yellow-500/30 border border-yellow-300 cursor-pointer" title="Hô UNO khi còn 1 lá bài!">
                   <i data-lucide="bell" class="w-3.5 h-3.5 fill-slate-950"></i>
-                  <span>HÔ UNO! 🔔</span>
+                  <span>HÔ UNO (Space) 🔔</span>
                 </button>
 
                 <!-- Catch UNO Button -->
-                <button onclick="handleCatchUnoClick()" id="btnCatchUno" class="btn-spring px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-red-700 hover:from-rose-500 hover:to-red-600 text-white font-black text-xs font-mono flex items-center gap-1.5 shadow-md border border-rose-500 cursor-pointer" title="Bắt phạt đối thủ nào còn 1 lá mà quên hô UNO!">
+                <button onclick="handleCatchUnoClick()" id="btnCatchUno" class="btn-spring px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-red-700 hover:from-rose-500 hover:to-red-600 text-white font-black text-xs font-mono flex items-center gap-1.5 shadow-md border border-rose-500 cursor-pointer" title="Bắt phạt đối thủ nào còn 1 lá mà quên hô UNO! (Bắt láo bị phạt 2 lá)">
                   <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i>
                   <span>BẮT UNO! ⚠️</span>
                 </button>
@@ -29030,6 +29050,10 @@ async function executeDrawCard(playerIdx) {
       unoCallDeadline: 0,
       unoCallTargetPlayer: null,
       unoCallTimer: null,
+      unoCountdownTarget: null,
+      unoCountdownEndTime: 0,
+      unoCountdownInterval: null,
+      unoCountdownActive: false,
       isLocked: false,
       autoPlay: false,
       botTimer: null,
@@ -29302,6 +29326,9 @@ async function executeDrawCard(playerIdx) {
       if (unoState.unoCallTimer) {
         clearTimeout(unoState.unoCallTimer);
         unoState.unoCallTimer = null;
+      }
+      if (typeof stopUnoCountdown === 'function') {
+        stopUnoCountdown();
       }
 
       unoState.isLocked = false;
@@ -29587,7 +29614,7 @@ async function executeDrawCard(playerIdx) {
         playerHandEl.innerHTML = handHtml;
       }
 
-      // Update UNO Bell Glow button
+      // Update UNO Bell Glow button & Catch Alert Glow
       const btnSayUno = document.getElementById('btnSayUno');
       if (btnSayUno) {
         if (unoState.players[0].hand.length <= 2) {
@@ -29597,8 +29624,19 @@ async function executeDrawCard(playerIdx) {
         }
       }
 
+      const btnCatchUno = document.getElementById('btnCatchUno');
+      if (btnCatchUno) {
+        const canCatchSomeone = unoState.players.slice(1).some(b => b && b.hand.length === 1 && !b.hasSaidUno);
+        if (canCatchSomeone) {
+          btnCatchUno.classList.add('uno-catch-ring');
+        } else {
+          btnCatchUno.classList.remove('uno-catch-ring');
+        }
+      }
+
       if (window.lucide) window.lucide.createIcons();
     }
+    window.renderUnoArena = renderUnoArena;
 
     // Show Central Table Toast
     function showUnoCenterToast(msg, duration = 2000) {
@@ -29663,29 +29701,17 @@ async function executeDrawCard(playerIdx) {
         unoState.activeColor = chosenColor || card.color;
         playUnoSound('card_play');
 
-        // Check if hand now has 1 card: trigger UNO deadline
+        // Check if hand now has 1 card: trigger 5-Second Real-Time Countdown
         if (player.hand.length === 1) {
           player.hasSaidUno = false;
-          unoState.unoCallDeadline = Date.now() + 2000;
-          unoState.unoCallTargetPlayer = playerIdx;
-
-          if (player.isHuman) {
-            showUnoCenterToast('🔔 HÃY BẤM "HÔ UNO!" NGAY KẺO BỊ PHẠT!', 2000);
-          } else {
-            // Bot automatically says UNO after short reaction delay (85% probability)
-            setTimeout(() => {
-              if (player.hand.length === 1 && !player.hasSaidUno && Math.random() < 0.9) {
-                player.hasSaidUno = true;
-                playUnoSound('uno_bell');
-                showUnoCenterToast(`🔔 ${player.name} VỪA HÔ UNO!`, 2000);
-                renderUnoArena();
-              }
-            }, 500 + Math.random() * 600);
-          }
+          startUnoCountdown(playerIdx);
         } else if (player.hand.length === 0) {
-          // Player Wins!
+          stopUnoCountdown();
           handleUnoGameWin(playerIdx);
           return;
+        } else {
+          // Hand has > 1 card
+          player.hasSaidUno = false;
         }
 
         // Handle Card Actions
@@ -29857,6 +29883,12 @@ async function executeDrawCard(playerIdx) {
 
       const drawnCard = unoState.drawPile.pop();
       player.hand.push(drawnCard);
+      if (player.hand.length > 1) {
+        if (unoState.unoCountdownActive && unoState.unoCountdownTarget === playerIdx) {
+          stopUnoCountdown();
+        }
+        player.hasSaidUno = false;
+      }
       playUnoSound('draw');
 
       const topCard = unoState.discardPile[unoState.discardPile.length - 1];
@@ -29907,44 +29939,171 @@ async function executeDrawCard(playerIdx) {
       }
     }
 
-    // Say UNO Click Handler
-    function handleSayUnoClick() {
-      const player = unoState.players[0];
-      if (player.hand.length <= 2) {
-        player.hasSaidUno = true;
-        playUnoSound('uno_bell');
-        showUnoCenterToast('🔔 BẠN ĐÃ HÔ UNO! AN TOÀN!', 2000);
+    // --------------------------------------------------------------------------
+    // 5-SECOND REAL-TIME COUNTDOWN ENGINE & BẮT UNO LÁO PENALTY
+    // --------------------------------------------------------------------------
+    function startUnoCountdown(targetPlayerIdx) {
+      stopUnoCountdown();
+      const targetPlayer = unoState.players[targetPlayerIdx];
+      if (!targetPlayer || targetPlayer.hand.length !== 1) return;
+
+      unoState.unoCountdownTarget = targetPlayerIdx;
+      unoState.unoCountdownEndTime = Date.now() + 5000;
+      unoState.unoCountdownActive = true;
+
+      const banner = document.getElementById('unoCountdownBanner');
+      const textEl = document.getElementById('unoCountdownText');
+      const secEl = document.getElementById('unoCountdownTimerSec');
+
+      if (banner) banner.classList.remove('hidden');
+      if (textEl) {
+        if (targetPlayer.isHuman) {
+          textEl.textContent = '🔔 CẢNH BÁO: BẠN CÒN 1 LÁ! BẤM "HÔ UNO" (PHÍM SPACE) TRONG 5S!';
+        } else {
+          textEl.textContent = `⚠️ CẢNH BÁO: ${targetPlayer.name.toUpperCase()} CÒN 1 LÁ! BẤM "BẮT UNO!" TRONG 5S ĐỂ PHẠT 2 LÁ!`;
+        }
+      }
+
+      playUnoSound('uno_bell');
+
+      // Bot reaction timer (if bot has 1 card)
+      if (!targetPlayer.isHuman) {
+        const botWillSay = Math.random() < 0.85; // 85% chance bot calls UNO in time
+        const botReactionTime = 1600 + Math.random() * 2400; // 1.6s to 4.0s
+        setTimeout(() => {
+          if (unoState.unoCountdownActive && unoState.unoCountdownTarget === targetPlayerIdx && !targetPlayer.hasSaidUno && targetPlayer.hand.length === 1) {
+            if (botWillSay) {
+              targetPlayer.hasSaidUno = true;
+              stopUnoCountdown();
+              playUnoSound('uno_bell');
+              showUnoCenterToast(`🔔 ${targetPlayer.name.toUpperCase()} ĐÃ HÔ UNO KỊP THỜI TRONG 5S!`, 2000);
+              renderUnoArena();
+            }
+          }
+        }, botReactionTime);
+      }
+
+      unoState.unoCountdownInterval = setInterval(() => {
+        const remainingMs = unoState.unoCountdownEndTime - Date.now();
+        const sec = Math.max(0, (remainingMs / 1000)).toFixed(1);
+        if (secEl) secEl.textContent = `${sec}s`;
+
+        if (remainingMs <= 0) {
+          stopUnoCountdown();
+          handleUnoCountdownExpired(targetPlayerIdx);
+        }
+      }, 100);
+
+      renderUnoArena();
+    }
+    window.startUnoCountdown = startUnoCountdown;
+
+    function stopUnoCountdown() {
+      if (unoState.unoCountdownInterval) {
+        clearInterval(unoState.unoCountdownInterval);
+        unoState.unoCountdownInterval = null;
+      }
+      unoState.unoCountdownActive = false;
+      unoState.unoCountdownTarget = null;
+      const banner = document.getElementById('unoCountdownBanner');
+      if (banner) banner.classList.add('hidden');
+    }
+    window.stopUnoCountdown = stopUnoCountdown;
+
+    function handleUnoCountdownExpired(targetPlayerIdx) {
+      const targetPlayer = unoState.players[targetPlayerIdx];
+      if (!targetPlayer || targetPlayer.hand.length !== 1 || targetPlayer.hasSaidUno) return;
+
+      if (targetPlayer.isHuman) {
+        // Người chơi quên hô UNO trong 5s! Bot bắt quả tang
+        const catcherBot = unoState.players[1] || { name: 'Bot AI' };
+        playUnoSound('penalty');
+        showUnoCenterToast(`⚠️ HẾT 5 GIÂY! BẠN QUÊN HÔ UNO NÊN BỊ ${catcherBot.name.toUpperCase()} BẮT QUẢ TANG! PHẠT BỐC THÊM 2 LÁ!`, 3000);
+        for (let k = 0; k < 2; k++) {
+          ensureDrawPileHasCards();
+          if (unoState.drawPile.length > 0) {
+            targetPlayer.hand.push(unoState.drawPile.pop());
+          }
+        }
+        targetPlayer.hasSaidUno = false;
         renderUnoArena();
       } else {
-        showToast('⚠️ Chỉ được hô UNO khi bạn còn 1 hoặc 2 lá bài!');
+        // Bot quên hô UNO: lộ sườn cho người chơi bắt phạt
+        showUnoCenterToast(`⚠️ ${targetPlayer.name.toUpperCase()} HẾT 5S CHƯA HÔ UNO! BẤM "BẮT UNO!" ĐỂ PHẠT 2 LÁ!`, 2500);
       }
     }
+    window.handleUnoCountdownExpired = handleUnoCountdownExpired;
 
-    // Catch UNO Penalty Click Handler
+    // Hô UNO (Space): Hô đúng được an toàn, Hô láo (>= 3 lá) bị phạt bốc 2 lá
+    function handleSayUnoClick() {
+      const player = unoState.players[0];
+      if (!player) return;
+
+      // 1. HÔ UNO LÁO: Khi trên tay có từ 3 lá bài trở lên
+      if (player.hand.length >= 3) {
+        playUnoSound('penalty');
+        showUnoCenterToast(`🚫 HÔ UNO LÁO! BẠN ĐANG CÓ ${player.hand.length} LÁ BÀI TRÊN TAY! PHẠT BỐC THÊM 2 LÁ!`, 3000);
+        for (let k = 0; k < 2; k++) {
+          ensureDrawPileHasCards();
+          if (unoState.drawPile.length > 0) {
+            player.hand.push(unoState.drawPile.pop());
+          }
+        }
+        renderUnoArena();
+        return;
+      }
+
+      // 2. Hô UNO hợp lệ (còn 1 hoặc 2 lá)
+      player.hasSaidUno = true;
+      if (unoState.unoCountdownActive && unoState.unoCountdownTarget === 0) {
+        stopUnoCountdown();
+      }
+      playUnoSound('uno_bell');
+      showUnoCenterToast('🔔 BẠN ĐÃ HÔ UNO KỊP THỜI (TRONG 5S)! AN TOÀN!', 2000);
+      renderUnoArena();
+    }
+    window.handleSayUnoClick = handleSayUnoClick;
+
+    // Bắt UNO: Bắt đúng đối thủ quên hô -> đối thủ bốc 2 lá. Bắt láo (không ai phạm quy) -> người bắt bị phạt bốc 2 lá!
     function handleCatchUnoClick() {
-      let caughtBot = null;
+      let caughtTarget = null;
       for (let i = 1; i <= 3; i++) {
         const bot = unoState.players[i];
-        if (bot.hand.length === 1 && !bot.hasSaidUno) {
-          caughtBot = bot;
+        if (bot && bot.hand.length === 1 && !bot.hasSaidUno) {
+          caughtTarget = bot;
           break;
         }
       }
 
-      if (caughtBot) {
+      if (caughtTarget) {
+        // BẮT ĐÚNG THÀNH CÔNG!
+        stopUnoCountdown();
         playUnoSound('penalty');
-        showUnoCenterToast(`⚠️ BẮT QUẢ TANG ${caughtBot.name.toUpperCase()} QUÊN HÔ UNO! PHẠT RÚT 2 LÁ!`, 2500);
+        showUnoCenterToast(`💥 BẮT QUẢ TANG ${caughtTarget.name.toUpperCase()} QUÊN HÔ UNO! PHẠT BỐC THÊM 2 LÁ!`, 3000);
         for (let k = 0; k < 2; k++) {
           ensureDrawPileHasCards();
           if (unoState.drawPile.length > 0) {
-            caughtBot.hand.push(unoState.drawPile.pop());
+            caughtTarget.hand.push(unoState.drawPile.pop());
+          }
+        }
+        caughtTarget.hasSaidUno = false;
+        renderUnoArena();
+      } else {
+        // BẮT UNO LÁO! (Không có ai phạm quy mà bấm BẮT UNO)
+        // Người bấm bị phạt bốc thêm 2 lá!
+        const human = unoState.players[0];
+        playUnoSound('penalty');
+        showUnoCenterToast('🚫 BẮT UNO LÁO! KHÔNG CÓ AI PHẠM QUY! BẠN BỊ PHẠT BỐC THÊM 2 LÁ!', 3000);
+        for (let k = 0; k < 2; k++) {
+          ensureDrawPileHasCards();
+          if (unoState.drawPile.length > 0) {
+            human.hand.push(unoState.drawPile.pop());
           }
         }
         renderUnoArena();
-      } else {
-        showToast('Không có đối thủ nào quên hô UNO lúc này!');
       }
     }
+    window.handleCatchUnoClick = handleCatchUnoClick;
 
     // AI Bot Decision Engine
     function checkAndRunUnoBot() {
@@ -32611,10 +32770,12 @@ async function executeDrawCard(playerIdx) {
               </div>
 
               <div class="p-3 rounded-xl bg-yellow-500/10 border border-yellow-500/30 space-y-1.5">
-                <div class="font-bold text-yellow-300 text-[13px]">🔔 LUẬT HÔ UNO & BẮT PHẠT:</div>
-                <p>• Khi trên tay bạn chỉ còn lại <span class="font-bold text-white">1 lá duy nhất</span>, bạn PHẢI bấm nút <strong class="text-yellow-400">"HÔ UNO! 🔔"</strong>!</p>
-                <p>• Nếu bạn quên hô UNO mà đối thủ bấm <strong class="text-rose-400">"BẮT UNO! ⚠️"</strong>, bạn sẽ bị phạt rút ngay 2 lá bài!</p>
-                <p>• Tương tự, nếu bất kỳ Bot nào còn 1 lá mà chưa hô, bạn có thể bấm "BẮT UNO!" để phạt Bot đó rút 2 lá!</p>
+                <div class="font-bold text-yellow-300 text-[13px]">🔔 LUẬT HÔ UNO, COUNTDOWN 5S & BẮT UNO LÁO:</div>
+                <p>• Khi trên tay bất kỳ ai chỉ còn lại <span class="font-bold text-white">1 lá bài duy nhất</span>, đồng hồ <strong class="text-yellow-400">ĐẾM NGƯỢC 5 GIÂY (COUNTDOWN 5S)</strong> lập tức kích hoạt!</p>
+                <p>• <strong class="text-emerald-400">Hô UNO An Toàn:</strong> Bạn phải bấm nút <strong class="text-yellow-400">"HÔ UNO" (hoặc phím Space)</strong> trong vòng 5 giây đó để an toàn.</p>
+                <p>• <strong class="text-rose-400">Quên Hô UNO:</strong> Nếu hết 5 giây mà chưa hô UNO hoặc bị đối thủ bấm <strong class="text-rose-400">"BẮT UNO! ⚠️"</strong>, bạn sẽ <strong class="text-red-400">BỊ PHẠT BỐC THÊM 2 LÁ</strong>!</p>
+                <p>• <strong class="text-amber-300">Bắt UNO Láo:</strong> Nếu bấm "BẮT UNO!" khi không có ai phạm quy (bắt bừa / bắt láo), chính bạn sẽ <strong class="text-red-400">BỊ PHẠT BỐC THÊM 2 LÁ</strong>!</p>
+                <p>• <strong class="text-amber-300">Hô UNO Láo:</strong> Nếu bấm "HÔ UNO!" khi trên tay còn từ 3 lá bài trở lên, bạn sẽ <strong class="text-red-400">BỊ PHẠT BỐC THÊM 2 LÁ</strong>!</p>
               </div>
 
               <p><strong class="text-emerald-400">💥 Luật Dồn Phạt (Stacking Penalty):</strong> Khi một người bị đánh +2 hoặc +4, nếu họ có lá cùng loại (+2 hoặc +4), họ có thể đánh tiếp để chuyển toàn bộ số lá phạt dồn cho người kế tiếp!</p>

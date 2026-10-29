@@ -5214,6 +5214,9 @@ html.dark #headerSeasonPillContainer svg {
             <button type="button" onclick="skipWerewolfWaitOrAct()" class="btn-spring px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Bỏ qua chờ đợi / Hành động ngay (Phím Space)">
               <span>⚡ Tua Nhanh (Space)</span>
             </button>
+            <button type="button" onclick="openWerewolfRulesModal()" class="btn-spring px-3 py-1.5 rounded-xl bg-purple-900/40 hover:bg-purple-800/60 text-purple-200 border border-purple-500/40 text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Xem Luật Chơi Ma Sói">
+              <span>📖 Luật Chơi</span>
+            </button>
             <button type="button" onclick="toggleWerewolfChronicle()" class="btn-spring px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:border-amber-400 text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm cursor-pointer">
               <span>📜 Nhật Ký Làng</span>
             </button>
@@ -5747,23 +5750,39 @@ html.dark #headerSeasonPillContainer svg {
       <div class="flex items-center gap-1.5 sm:gap-2 mb-6 p-1.5 rounded-2xl bg-slate-100 border-2 border-slate-200 overflow-x-auto no-scrollbar text-xs font-black" id="rulesCategoryTabs">
         <button onclick="filterRulesCategory('all')" id="ruleTabAll" class="btn-spring px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-md flex items-center gap-2 whitespace-nowrap">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-200"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
-          <span>Toàn Cảnh 4 Bộ Môn</span>
+          <span>Toàn Cảnh 8 Bộ Môn</span>
         </button>
         <button onclick="filterRulesCategory('dice')" id="ruleTabDice" class="btn-spring px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-white/80 flex items-center gap-2 whitespace-nowrap transition-all font-bold">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-400"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-          <span>1. Đua Ngựa Xúc Xắc (12 Ô)</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-500"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          <span>1. Đua Xúc Xắc (20 Ô)</span>
         </button>
         <button onclick="filterRulesCategory('caro')" id="ruleTabCaro" class="btn-spring px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-white/80 flex items-center gap-2 whitespace-nowrap transition-all font-bold">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-cyan-400"><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
-          <span>2. Cờ Ca-rô Neon (3x3)</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-cyan-500"><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+          <span>2. Cờ Ca-rô Neon</span>
         </button>
         <button onclick="filterRulesCategory('chess')" id="ruleTabChess" class="btn-spring px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-white/80 flex items-center gap-2 whitespace-nowrap transition-all font-bold">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-300"><path d="M12 2v4m-2-2h4"/><path d="M6 7l3 2 3-3 3 3 3-2 1 6H5l1-6z"/><path d="M5 13h14v3a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3z"/><path d="M4 21h16v-1a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v1z"/></svg>
-          <span>3. Cờ Vua Quốc Tế (FIDE 8x8)</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-amber-600"><path d="M12 2v4m-2-2h4"/><path d="M6 7l3 2 3-3 3 3 3-2 1 6H5l1-6z"/><path d="M5 13h14v3a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3z"/><path d="M4 21h16v-1a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v1z"/></svg>
+          <span>3. Cờ Vua FIDE</span>
         </button>
         <button onclick="filterRulesCategory('monopoly')" id="ruleTabMonopoly" class="btn-spring px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-white/80 flex items-center gap-2 whitespace-nowrap transition-all font-bold">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-emerald-400"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 10a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v11H9V10z"/></svg>
-          <span>4. Cờ Tỷ Phú 2.5D (Isometric)</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-emerald-600"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 10a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v11H9V10z"/></svg>
+          <span>4. Cờ Tỷ Phú 2.5D</span>
+        </button>
+        <button onclick="filterRulesCategory('kittens')" id="ruleTabKittens" class="btn-spring px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-white/80 flex items-center gap-2 whitespace-nowrap transition-all font-bold">
+          <span class="text-rose-500 font-bold">💣</span>
+          <span>5. Mèo Nổ Tabletop</span>
+        </button>
+        <button onclick="filterRulesCategory('werewolf')" id="ruleTabWerewolf" class="btn-spring px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-white/80 flex items-center gap-2 whitespace-nowrap transition-all font-bold">
+          <span class="text-purple-500 font-bold">🐺</span>
+          <span>6. Ma Sói Trăng Máu</span>
+        </button>
+        <button onclick="filterRulesCategory('uno')" id="ruleTabUno" class="btn-spring px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-white/80 flex items-center gap-2 whitespace-nowrap transition-all font-bold">
+          <span class="text-amber-500 font-bold">🃏</span>
+          <span>7. UNO Battle Royale</span>
+        </button>
+        <button onclick="filterRulesCategory('catan')" id="ruleTabCatan" class="btn-spring px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-white/80 flex items-center gap-2 whitespace-nowrap transition-all font-bold">
+          <span class="text-amber-600 font-bold">🌾</span>
+          <span>8. Đảo Catan 3D</span>
         </button>
       </div>
 
@@ -5899,6 +5918,103 @@ html.dark #headerSeasonPillContainer svg {
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 shrink-0 text-rose-600"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
               <span>Không tính thưởng nếu bấm Phá Sản sớm ở vòng ≤ 2.</span>
             </div>
+          </div>
+
+          <!-- Game 5: Kittens -->
+          <div class="p-4 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between hover:border-rose-300 hover:shadow-md transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-black text-rose-800 flex items-center gap-1.5"><span class="text-base">💣</span> Mèo Nổ Tabletop</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-rose-100 text-rose-900 border border-rose-300 font-mono font-black shrink-0">1.0x - 1.5x</span>
+              </div>
+              <div class="space-y-1.5 text-slate-700 font-bold">
+                <div class="flex justify-between items-center py-1 border-b border-slate-100 text-[11px]"><span class="text-emerald-700 font-extrabold flex items-center gap-1 shrink-0">🏆 Thắng:</span><span class="font-mono font-black text-slate-900 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200 shrink-0">+220🪙 / +12💎</span></div>
+                <div class="flex justify-between items-center py-1 border-b border-slate-100 text-[11px]"><span class="text-rose-700 font-extrabold flex items-center gap-1 shrink-0">💔 Thua:</span><span class="font-mono font-black text-slate-900 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200 shrink-0">+35🪙 / +2💎</span></div>
+              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200/80">
+                <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-1 flex items-center gap-1">
+                  <span>📊 Hệ Số Đối Thủ:</span>
+                </div>
+                <div class="flex flex-wrap items-center gap-1 text-[11px] font-mono font-black text-slate-800">
+                  <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 shadow-xs">2P: 1.0x</span>
+                  <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 shadow-xs">3P: 1.25x</span>
+                  <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 shadow-xs">4P: 1.5x</span>
+                </div>
+              </div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-slate-100 text-[10px] text-slate-500 font-semibold leading-relaxed">Sống sót cuối cùng tránh Mèo Nổ Bom.</div>
+          </div>
+
+          <!-- Game 6: Werewolf -->
+          <div class="p-4 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between hover:border-purple-300 hover:shadow-md transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-black text-purple-900 flex items-center gap-1.5"><span class="text-base">🐺</span> Ma Sói Trăng Máu</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-purple-100 text-purple-900 border border-purple-300 font-mono font-black shrink-0">Bàn 7 Người</span>
+              </div>
+              <div class="space-y-1.5 text-slate-700 font-bold">
+                <div class="flex justify-between items-center py-1 border-b border-slate-100 text-[11px]"><span class="text-emerald-700 font-extrabold flex items-center gap-1 shrink-0">🏆 Thắng Phe:</span><span class="font-mono font-black text-slate-900 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200 shrink-0">+300🪙 / +18💎</span></div>
+                <div class="flex justify-between items-center py-1 border-b border-slate-100 text-[11px]"><span class="text-rose-700 font-extrabold flex items-center gap-1 shrink-0">💔 Thua Phe:</span><span class="font-mono font-black text-slate-900 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200 shrink-0">+45🪙 / +3💎</span></div>
+              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200/80">
+                <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-1 flex items-center gap-1">
+                  <span>📊 Thưởng Thêm Danh Dự:</span>
+                </div>
+                <div class="flex flex-wrap items-center gap-1 text-[11px] font-mono font-black text-slate-800">
+                  <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 shadow-xs">Sói Sống: +50🪙</span>
+                  <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 shadow-xs">Tiên Tri Soi Trúng: +30🪙</span>
+                </div>
+              </div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-slate-100 text-[10px] text-slate-500 font-semibold leading-relaxed">Đấu trí âm thầm, treo cổ ma sói ban ngày.</div>
+          </div>
+
+          <!-- Game 7: UNO -->
+          <div class="p-4 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between hover:border-amber-300 hover:shadow-md transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-black text-amber-800 flex items-center gap-1.5"><span class="text-base">🃏</span> UNO Battle Royale</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono font-black shrink-0">108 Lá Bài</span>
+              </div>
+              <div class="space-y-1.5 text-slate-700 font-bold">
+                <div class="flex justify-between items-center py-1 border-b border-slate-100 text-[11px]"><span class="text-emerald-700 font-extrabold flex items-center gap-1 shrink-0">🏆 Hết Bài (Thắng):</span><span class="font-mono font-black text-slate-900 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200 shrink-0">+260🪙 / +15💎</span></div>
+                <div class="flex justify-between items-center py-1 border-b border-slate-100 text-[11px]"><span class="text-rose-700 font-extrabold flex items-center gap-1 shrink-0">💔 Thua Cuộc:</span><span class="font-mono font-black text-slate-900 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200 shrink-0">+40🪙 / +2💎</span></div>
+              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200/80">
+                <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-1 flex items-center gap-1">
+                  <span>📊 Thưởng Bắt Phạt:</span>
+                </div>
+                <div class="flex flex-wrap items-center gap-1 text-[11px] font-mono font-black text-slate-800">
+                  <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 shadow-xs">Bắt Quả Tang: +20🪙</span>
+                  <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 shadow-xs">Hô UNO Chuẩn: +10🪙</span>
+                </div>
+              </div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-slate-100 text-[10px] text-slate-500 font-semibold leading-relaxed">Đánh hết bài đầu tiên và nhớ hô UNO!</div>
+          </div>
+
+          <!-- Game 8: Catan -->
+          <div class="p-4 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between hover:border-amber-400 hover:shadow-md transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-black text-amber-900 flex items-center gap-1.5"><span class="text-base">🌾</span> Đảo Catan 3D</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono font-black shrink-0">Chiến Thuật 10 VP</span>
+              </div>
+              <div class="space-y-1.5 text-slate-700 font-bold">
+                <div class="flex justify-between items-center py-1 border-b border-slate-100 text-[11px]"><span class="text-emerald-700 font-extrabold flex items-center gap-1 shrink-0">🏆 Đạt 10 VP (Thắng):</span><span class="font-mono font-black text-slate-900 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200 shrink-0">+380🪙 / +25💎</span></div>
+                <div class="flex justify-between items-center py-1 border-b border-slate-100 text-[11px]"><span class="text-rose-700 font-extrabold flex items-center gap-1 shrink-0">💔 Thua Cuộc:</span><span class="font-mono font-black text-slate-900 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200 shrink-0">+60🪙 / +4💎</span></div>
+              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200/80">
+                <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-1 flex items-center gap-1">
+                  <span>📊 Thưởng Điểm Thắng:</span>
+                </div>
+                <div class="flex flex-wrap items-center gap-1 text-[11px] font-mono font-black text-slate-800">
+                  <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 shadow-xs">Mỗi VP: +20🪙</span>
+                  <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 shadow-xs">Thành Phố: +30🪙</span>
+                </div>
+              </div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-slate-100 text-[10px] text-slate-500 font-semibold leading-relaxed">Xây đường, lập làng, thu hoạch tài nguyên.</div>
           </div>
         </div>
       </div>
@@ -6130,6 +6246,233 @@ html.dark #headerSeasonPillContainer svg {
             </div>
             <button onclick="enterGameFromLobby('monopoly')" class="btn-spring w-full py-2.5 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border border-emerald-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
               <span>Chơi Cờ Tỷ Phú Ngay</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- CARD 5: MEO NO TABLETOP (EXPLODING KITTENS) -->
+        <div id="ruleCardKittens" class="rule-bento-card p-5 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between space-y-4 hover:border-rose-400 transition-all">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between pb-3 border-b border-board-border/60">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-500 text-lg shadow-inner">
+                  💣
+                </div>
+                <div>
+                  <h3 class="font-cinzel font-black text-slate-900 text-sm">Mèo Nổ Tabletop</h3>
+                  <span class="text-[10px] text-slate-600 font-mono font-bold">Chồng Bài Tử Thần • Nope Duel</span>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-900 border border-rose-300 text-[10px] font-bold">2-4 Người / AI</span>
+            </div>
+
+            <p class="text-slate-700 leading-relaxed font-medium">
+              Đấu trường thẻ bài sinh tồn kịch tính bậc nhất thế giới. Đánh thẻ bài chức năng mưu mẹo để tránh rút phải lá Mèo Nổ Bom!
+            </p>
+
+            <div class="space-y-2">
+              <div class="p-2.5 rounded-xl bg-rose-50 border-2 border-rose-300 text-rose-950 space-y-1">
+                <div class="font-black flex items-center gap-1.5 text-rose-900">
+                  <span>💥</span>
+                  <span>Bom Nổ & Thẻ Gỡ Bom (Defuse):</span>
+                </div>
+                <div class="text-[11px] text-slate-700 font-bold pl-5">
+                  Rút trúng Bom mà không có Defuse sẽ bị nổ tung và loại ngay! Nếu có Defuse, gỡ bom thành công và được quyền bí mật cất Bom lại vào chồng bài.
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-950 space-y-1">
+                <div class="font-black flex items-center gap-1.5 text-amber-900">
+                  <span>⚡</span>
+                  <span>Tấn Công (Attack) & Chặn Đòn (Nope):</span>
+                </div>
+                <div class="text-[11px] text-slate-700 font-bold pl-5">
+                  • <strong>Attack</strong>: Kết thúc lượt và ép người kế tiếp đi 2 lượt! Attack có thể counter đòn Attack.<br>
+                  • <strong>Nope</strong>: Vô hiệu hóa thẻ của đối thủ. Nope chặn được cả Nope (Nope Duel vô tận)!<br>
+                  • <strong>See Future</strong>: Xem trộm 3 lá trên cùng của chồng bài.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-2 pt-2 border-t border-board-border/60">
+            <div class="p-2.5 rounded-xl bg-emerald-50 border-2 border-emerald-300 text-emerald-950 font-black font-bold flex items-center gap-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 shrink-0"><circle cx="12" cy="12" r="9"/><polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"/></svg>
+              <span>Mục tiêu: Sống sót duy nhất trên bàn cờ khi đối thủ nổ tung!</span>
+            </div>
+            <button onclick="enterGameFromLobby('kittens')" class="btn-spring w-full py-2.5 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-900 border border-rose-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+              <span>Chơi Mèo Nổ Ngay</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- CARD 6: MA SOI TRANG MAU (WEREWOLF) -->
+        <div id="ruleCardWerewolf" class="rule-bento-card p-5 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between space-y-4 hover:border-purple-400 transition-all">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between pb-3 border-b border-board-border/60">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-600 text-lg shadow-inner">
+                  🐺
+                </div>
+                <div>
+                  <h3 class="font-cinzel font-black text-slate-900 text-sm">Ma Sói Trăng Máu</h3>
+                  <span class="text-[10px] text-slate-600 font-mono font-bold">Bàn 7 Người • Đấu Trí Đêm & Ngày</span>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded-full bg-purple-100 text-purple-900 border border-purple-300 text-[10px] font-bold">Phe Sói vs Dân</span>
+            </div>
+
+            <p class="text-slate-700 leading-relaxed font-medium">
+              Kiệt tác boardgame ẩn vai trò. Ban đêm làng nhắm mắt ngủ say tối mật; ban ngày tranh luận live chat và bỏ phiếu treo cổ.
+            </p>
+
+            <div class="space-y-2">
+              <div class="p-2.5 rounded-xl bg-purple-50 border-2 border-purple-300 text-purple-950 space-y-1">
+                <div class="font-black flex items-center gap-1.5 text-purple-900">
+                  <span>🌙</span>
+                  <span>Đêm Tối Tối Mật (Zero Role Leak):</span>
+                </div>
+                <div class="text-[11px] text-slate-700 font-bold pl-5">
+                  Màn hình phủ bóng đêm bảo mật. Sói thức dậy cắn mồi, Tiên Tri soi thân phận, Bảo Vệ đặt khiên, Phù Thủy dùng 2 bình thuốc (Cứu & Độc).
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-indigo-50 border-2 border-indigo-300 text-indigo-950 space-y-1">
+                <div class="font-black flex items-center gap-1.5 text-indigo-900">
+                  <span>☀️</span>
+                  <span>Bình Minh & Biểu Quyết Treo Cổ:</span>
+                </div>
+                <div class="text-[11px] text-slate-700 font-bold pl-5">
+                  Làng thức giấc nghe Quản trò công bố. Tranh luận trong khung Chat (phím C), bỏ phiếu đưa kẻ tình nghi lên giàn treo cổ! Thợ Săn khi chết được kéo theo 1 người.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-2 pt-2 border-t border-board-border/60">
+            <div class="p-2.5 rounded-xl bg-purple-50 border-2 border-purple-300 text-purple-950 font-black font-bold flex items-center gap-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-purple-600 shrink-0"><circle cx="12" cy="12" r="9"/><polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"/></svg>
+              <span>Mục tiêu: Phe Sói nuốt chửng Dân / Dân treo cổ hết Sói!</span>
+            </div>
+            <button onclick="enterGameFromLobby('werewolf')" class="btn-spring w-full py-2.5 rounded-xl bg-purple-100 hover:bg-purple-200 text-purple-900 border border-purple-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+              <span>Chơi Ma Sói Ngay</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- CARD 7: UNO BATTLE ROYALE (108 LA) -->
+        <div id="ruleCardUno" class="rule-bento-card p-5 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between space-y-4 hover:border-amber-400 transition-all">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between pb-3 border-b border-board-border/60">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-600 text-lg shadow-inner">
+                  🃏
+                </div>
+                <div>
+                  <h3 class="font-cinzel font-black text-slate-900 text-sm">UNO Battle Royale</h3>
+                  <span class="text-[10px] text-slate-600 font-mono font-bold">108 Lá Bài • Đếm Ngược 5s</span>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-bold">2-4 Người / P2P</span>
+            </div>
+
+            <p class="text-slate-700 leading-relaxed font-medium">
+              Đấu trường UNO đỉnh cao 108 lá. Đánh cùng màu, cùng số hoặc bài chức năng; nhớ hô UNO khi còn đúng 1 lá bài!
+            </p>
+
+            <div class="space-y-2">
+              <div class="p-2.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-950 space-y-1">
+                <div class="font-black flex items-center gap-1.5 text-amber-900">
+                  <span>⚡</span>
+                  <span>Bài Chức Năng & Dồn Phạt (Stacking):</span>
+                </div>
+                <div class="text-[11px] text-slate-700 font-bold pl-5">
+                  • <strong>+2 & Wild +4</strong>: Bắt đối thủ bốc bài; hỗ trợ dồn phạt nếu có cùng loại lá.<br>
+                  • <strong>Skip</strong>: Cấm lượt | <strong>Reverse</strong>: Đổi chiều kim đồng hồ.<br>
+                  • <strong>Wild</strong>: Tự do đổi sang 1 trong 4 màu bất kỳ.
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-rose-50 border-2 border-rose-300 text-rose-950 space-y-1">
+                <div class="font-black flex items-center gap-1.5 text-rose-900">
+                  <span>🚨</span>
+                  <span>Đếm Ngược 5 Giây & Bắt UNO Láo:</span>
+                </div>
+                <div class="text-[11px] text-slate-700 font-bold pl-5">
+                  Khi còn 1 lá trên tay, bạn có 5 giây để bấm nút <strong>Hô UNO</strong> (phím Space). Quên hô bị đối thủ bắt phạt bốc thêm 2 lá! Bắt UNO láo tự phạt 2 lá cho chính mình.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-2 pt-2 border-t border-board-border/60">
+            <div class="p-2.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-950 font-black font-bold flex items-center gap-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-amber-600 shrink-0"><circle cx="12" cy="12" r="9"/><polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"/></svg>
+              <span>Mục tiêu: Kỳ thủ đầu tiên đánh sạch bài trên tay chiến thắng!</span>
+            </div>
+            <button onclick="enterGameFromLobby('uno')" class="btn-spring w-full py-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+              <span>Chơi UNO Ngay</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- CARD 8: DAO CATAN 3D (THE SETTLERS OF CATAN) -->
+        <div id="ruleCardCatan" class="rule-bento-card p-5 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between space-y-4 hover:border-amber-400 transition-all">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between pb-3 border-b border-board-border/60">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-600 text-lg shadow-inner">
+                  🌾
+                </div>
+                <div>
+                  <h3 class="font-cinzel font-black text-slate-900 text-sm">Đảo Catan 3D</h3>
+                  <span class="text-[10px] text-slate-600 font-mono font-bold">19 Hexes • Xúc Xắc 3D • 10 VP</span>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-bold">3-4 Người / P2P</span>
+            </div>
+
+            <p class="text-slate-700 leading-relaxed font-medium">
+              Huyền thoại The Settlers of Catan tái hiện 3D. Thu hoạch 5 nguồn tài nguyên trên 19 ô lục giác, mở rộng lãnh thổ và tích lũy 10 Điểm Thắng.
+            </p>
+
+            <div class="space-y-2">
+              <div class="p-2.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-950 space-y-1">
+                <div class="font-black flex items-center gap-1.5 text-amber-900">
+                  <span>🎲</span>
+                  <span>Xúc Xắc 3D & 5 Nguồn Tài Nguyên:</span>
+                </div>
+                <div class="text-[11px] text-slate-700 font-bold pl-5">
+                  Đổ 2 xúc xắc 3D Obsidian-Cyan: Gỗ (Rừng), Gạch (Đồi), Cừu (Đồng Cỏ), Lúa (Cánh Đồng), Đá (Núi). Đổ số 7: Kích hoạt Tên Cướp khóa ô và phạt bỏ nửa bài nếu > 7 lá!
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-emerald-50 border-2 border-emerald-300 text-emerald-950 space-y-1">
+                <div class="font-black flex items-center gap-1.5 text-emerald-900">
+                  <span>🏰</span>
+                  <span>Xây Dựng & Nâng Cấp Công Trình:</span>
+                </div>
+                <div class="text-[11px] text-slate-700 font-bold pl-5">
+                  • <strong>Đường</strong>: 1 Gỗ + 1 Gạch.<br>
+                  • <strong>Làng</strong>: 1 Gỗ + 1 Gạch + 1 Cừu + 1 Lúa (+1 VP, cách xa làng khác $\ge 2$ cạnh).<br>
+                  • <strong>Thành Phố</strong>: 2 Lúa + 3 Đá (+1 VP, x2 thu hoạch).<br>
+                  • <strong>Thẻ Dev</strong>: 1 Cừu + 1 Lúa + 1 Đá | Đổi 4:1 Ngân hàng.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-2 pt-2 border-t border-board-border/60">
+            <div class="p-2.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-950 font-black font-bold flex items-center gap-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-amber-600 shrink-0"><circle cx="12" cy="12" r="9"/><polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"/></svg>
+              <span>Mục tiêu: Đạt 10 Điểm Thắng (VP) đầu tiên để chiến thắng!</span>
+            </div>
+            <button onclick="enterGameFromLobby('catan')" class="btn-spring w-full py-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+              <span>Chơi Catan Ngay</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </button>
           </div>
@@ -7015,42 +7358,112 @@ html.dark #headerSeasonPillContainer svg {
 
   <!-- ================= MODAL RULES ================= -->
   <div id="rulesModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
-    <div id="rulesCard" class="w-full max-w-md tabletop-mat rounded-3xl p-6 shadow-2xl border border-board-border transform scale-90 transition-transform duration-300 relative">
-      <button onclick="closeModal('rulesModal')" class="absolute top-5 right-5 p-1.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white">
+    <div id="rulesCard" class="w-full max-w-xl tabletop-mat rounded-3xl p-5 sm:p-6 shadow-2xl border border-board-border transform scale-90 transition-transform duration-300 relative max-h-[88vh] overflow-y-auto">
+      <button onclick="closeModal('rulesModal')" class="absolute top-5 right-5 p-1.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white transition-colors">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
 
-      <div class="flex items-center gap-3 mb-5 pb-4 border-b border-board-border">
-        <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 text-lg shadow-inner">
+      <div class="flex items-center gap-3 mb-4 pb-3 border-b border-board-border">
+        <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 text-lg shadow-inner shrink-0">
           📖
         </div>
         <div>
-          <h3 class="font-cinzel text-base font-bold text-white">Bí Kíp & Luật Chơi</h3>
-          <p class="text-[11px] text-slate-400">Quy tắc chuẩn mực của bàn cờ thi đấu</p>
+          <h3 class="font-cinzel text-base font-bold text-white flex items-center gap-2">
+            Cẩm Nang & Luật Chơi 8 Bộ Môn
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono">Master Rulebook</span>
+          </h3>
+          <p class="text-[11px] text-slate-400">Tra cứu nhanh luật thi đấu chuẩn quốc tế của toàn bộ sàn đấu</p>
         </div>
       </div>
 
-      <div class="space-y-3 text-xs text-slate-300">
-        <div class="p-3 rounded-xl bg-board-tray border border-board-border">
-          <div class="font-bold text-amber-400 mb-1 flex items-center gap-1.5 font-cinzel">
-            🎲 Bàn Cờ Xúc Xắc 12 Ô:
+      <!-- Quick Game Selector Tabs -->
+      <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-2 mb-3 text-[11px] font-bold" id="quickRuleTabsContainer">
+        <button onclick="switchQuickRuleTab('dice')" id="qRuleTab_dice" class="px-2.5 py-1 rounded-lg bg-amber-500/30 text-amber-300 border border-amber-500/50 whitespace-nowrap transition-all">🎲 Xúc Xắc</button>
+        <button onclick="switchQuickRuleTab('caro')" id="qRuleTab_caro" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-white whitespace-nowrap transition-all">⭕ Ca-rô</button>
+        <button onclick="switchQuickRuleTab('chess')" id="qRuleTab_chess" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-white whitespace-nowrap transition-all">👑 Cờ Vua</button>
+        <button onclick="switchQuickRuleTab('monopoly')" id="qRuleTab_monopoly" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-white whitespace-nowrap transition-all">🏙️ Cờ Tỷ Phú</button>
+        <button onclick="switchQuickRuleTab('kittens')" id="qRuleTab_kittens" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-white whitespace-nowrap transition-all">💣 Mèo Nổ</button>
+        <button onclick="switchQuickRuleTab('werewolf')" id="qRuleTab_werewolf" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-white whitespace-nowrap transition-all">🐺 Ma Sói</button>
+        <button onclick="switchQuickRuleTab('uno')" id="qRuleTab_uno" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-white whitespace-nowrap transition-all">🃏 UNO</button>
+        <button onclick="switchQuickRuleTab('catan')" id="qRuleTab_catan" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-white whitespace-nowrap transition-all">🌾 Đảo Catan</button>
+      </div>
+
+      <!-- Quick Rule Contents Panel -->
+      <div class="space-y-3 text-xs text-slate-300" id="quickRuleContentsContainer">
+        
+        <!-- 1. DICE -->
+        <div id="qRuleContent_dice" class="p-4 rounded-2xl bg-amber-50/80 border-2 border-amber-200 space-y-2 text-slate-800">
+          <div class="font-bold text-amber-700 flex items-center gap-1.5 text-sm font-cinzel">
+            🎲 ĐUA XÚC XẮC 20 Ô (DICE QUEST)
           </div>
-          Mỗi lượt gieo xúc xắc từ 1 đến 6 nút. Quân cờ Meeple nhảy theo vòng chu vi.
-          <ul class="list-disc list-inside mt-1.5 space-y-1 text-slate-300 text-[11px]">
-            <li>Ô ⭐ <b>Ngôi Sao</b>: +15 điểm</li>
-            <li>Ô 👑 <b>Kho Báu Cổ</b>: +20 điểm</li>
-            <li>Ô 🗝️ <b>Chìa Khóa Thần</b>: +30 điểm</li>
-            <li>Ô 💣 <b>Hố Đen</b> & 🌩️ <b>Bão Điện</b>: Trừ 10 đến 15 điểm</li>
-          </ul>
-          Kỳ thủ nào cán mốc <b>50 điểm</b> trước sẽ là Người Chiến Thắng!
+          <p class="text-slate-700 leading-relaxed font-medium">Gieo xúc xắc 1-6 nút để di chuyển linh thú quanh 20 ô thiên hà. Ô Ngôi Sao (+15đ), Kho Báu (+20đ), Chìa Khóa Thần (+30đ), Hố Đen & Sấm Sét (-10đ đến -15đ). Kỳ thủ đầu tiên cán mốc <strong>50 hoặc 100 điểm</strong> chiến thắng!</p>
         </div>
 
-        <div class="p-3 rounded-xl bg-board-tray border border-board-border">
-          <div class="font-bold text-cyan-400 mb-1 flex items-center gap-1.5 font-cinzel">
-            ⭕❌ Cờ Ca-rô Hoàng Gia (3x3):
+        <!-- 2. CARO -->
+        <div id="qRuleContent_caro" class="hidden p-4 rounded-2xl bg-cyan-50/80 border-2 border-cyan-200 space-y-2 text-slate-800">
+          <div class="font-bold text-cyan-700 flex items-center gap-1.5 text-sm font-cinzel">
+            ⭕❌ CỜ CA-RÔ NEON (GOMOKU)
           </div>
-          Đưa 3 quân cờ (ngang, dọc hoặc chéo) về cùng một đường thẳng để phân định thắng bại!
+          <p class="text-slate-700 leading-relaxed font-medium">Đấu trí đối kháng X và O. Kỳ thủ lần lượt đặt quân cờ; ai tạo được <strong>đường 5 quân thẳng hàng</strong> (hàng ngang, dọc hoặc đường chéo) trước mà không bị chặn cả 2 đầu sẽ giành chiến thắng tuyệt đối!</p>
         </div>
+
+        <!-- 3. CHESS -->
+        <div id="qRuleContent_chess" class="hidden p-4 rounded-2xl bg-amber-50/80 border-2 border-amber-200 space-y-2 text-slate-800">
+          <div class="font-bold text-amber-800 flex items-center gap-1.5 text-sm font-cinzel">
+            👑 CỜ VUA QUỐC TẾ (FIDE 8x8)
+          </div>
+          <p class="text-slate-700 leading-relaxed font-medium">Chuẩn luật FIDE quốc tế: Đầy đủ Nhập thành (O-O / O-O-O), Bắt tốt qua đường (En Passant), Phong cấp Tốt khi chạm đáy bàn cờ. Mục tiêu tối thượng: Chiếu hết (Checkmate) Vua của đối phương!</p>
+        </div>
+
+        <!-- 4. MONOPOLY -->
+        <div id="qRuleContent_monopoly" class="hidden p-4 rounded-2xl bg-emerald-50/80 border-2 border-emerald-200 space-y-2 text-slate-800">
+          <div class="font-bold text-emerald-800 flex items-center gap-1.5 text-sm font-cinzel">
+            🏙️ CỜ TỶ PHÚ 2.5D (BUSINESS TOUR)
+          </div>
+          <p class="text-slate-700 leading-relaxed font-medium">Đổ 2 xúc xắc 3D, đổ trúng đôi được đi tiếp (đổ đôi 3 lần vào Tù). Mua đất, nâng cấp biệt thự, dựng Landmark độc quyền thu phí thuê khủng. Mục tiêu: Thâu tóm bất động sản và đẩy đối thủ vào đường phá sản!</p>
+        </div>
+
+        <!-- 5. KITTENS -->
+        <div id="qRuleContent_kittens" class="hidden p-4 rounded-2xl bg-rose-50/80 border-2 border-rose-200 space-y-2 text-slate-800">
+          <div class="font-bold text-rose-700 flex items-center gap-1.5 text-sm font-cinzel">
+            💣 MÈO NỔ TABLETOP (EXPLODING KITTENS)
+          </div>
+          <p class="text-slate-700 leading-relaxed font-medium">Rút phải Bom mà không có lá Gỡ Bom (Defuse) sẽ bị nổ tung và loại ngay! Dùng lá <strong>Attack</strong> ép đối thủ đi 2 lượt (counter được Attack), dùng lá <strong>Nope</strong> chặn mọi hành động đối thủ (Nope Duel vô tận), dùng <strong>See Future</strong> soi 3 lá đầu. Sống sót cuối cùng chiến thắng!</p>
+        </div>
+
+        <!-- 6. WEREWOLF -->
+        <div id="qRuleContent_werewolf" class="hidden p-4 rounded-2xl bg-purple-50/80 border-2 border-purple-200 space-y-2 text-slate-800">
+          <div class="font-bold text-purple-800 flex items-center gap-1.5 text-sm font-cinzel">
+            🐺 MA SÓI TRĂNG MÁU (7 NGƯỜI)
+          </div>
+          <p class="text-slate-700 leading-relaxed font-medium">Chu kỳ Đêm / Ngày đối lập. Ban đêm nhắm mắt phủ đen bảo mật Zero Role Leak: Sói cắn mồi, Tiên Tri soi danh tính, Bảo Vệ đặt khiên, Phù Thủy dùng 2 bình thuốc. Ban ngày làng tranh luận qua Live Chat và bỏ phiếu treo cổ kẻ tình nghi. Thợ Săn chết được bắn trả 1 người!</p>
+        </div>
+
+        <!-- 7. UNO -->
+        <div id="qRuleContent_uno" class="hidden p-4 rounded-2xl bg-amber-50/80 border-2 border-amber-200 space-y-2 text-slate-800">
+          <div class="font-bold text-amber-700 flex items-center gap-1.5 text-sm font-cinzel">
+            🃏 UNO BATTLE ROYALE (108 LÁ)
+          </div>
+          <p class="text-slate-700 leading-relaxed font-medium">Đánh trùng màu hoặc cùng số. Bài chức năng +2, +4 hỗ trợ luật dồn phạt (Stacking). Khi còn đúng 1 lá trên tay, người chơi có <strong>5 giây đếm ngược</strong> để nhấn <strong>HÔ UNO</strong> (phím Space). Quên hô bị phạt bốc 2 lá; Bắt UNO láo tự phạt 2 lá cho chính mình!</p>
+        </div>
+
+        <!-- 8. CATAN -->
+        <div id="qRuleContent_catan" class="hidden p-4 rounded-2xl bg-amber-50/80 border-2 border-amber-200 space-y-2 text-slate-800">
+          <div class="font-bold text-amber-800 flex items-center gap-1.5 text-sm font-cinzel">
+            🌾 ĐẢO CATAN 3D (THE SETTLERS OF CATAN)
+          </div>
+          <p class="text-slate-700 leading-relaxed font-medium">Đổ 2 xúc xắc 3D Obsidian-Cyan để thu hoạch 5 tài nguyên (Gỗ, Gạch, Cừu, Lúa, Đá) từ 19 lục giác. Xây Đường (Gỗ+Gạch), dựng Làng (+1 VP, cách xa nhau ≥ 2 cạnh), nâng Thành Phố (+2 VP, x2 thu hoạch), Tên Cướp số 7 phạt bỏ nửa bài nếu > 7 lá, đổi 4:1 Ngân hàng. Kỳ thủ đầu tiên đạt <strong>10 Điểm Thắng (VP)</strong> chiến thắng!</p>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-board-border flex items-center justify-between gap-2">
+        <button onclick="switchMainTab('rules'); closeModal('rulesModal');" class="btn-spring px-3.5 py-1.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/40 text-cyan-300 border border-cyan-500/40 text-xs font-bold flex items-center gap-1.5 cursor-pointer">
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          <span>Xem Toàn Bộ 8 Bộ Môn Chi Tiết</span>
+        </button>
+        <button onclick="closeModal('rulesModal')" class="btn-spring px-4 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs font-mono">
+          Đóng
+        </button>
       </div>
     </div>
   </div>
@@ -13464,21 +13877,29 @@ html.dark #headerSeasonPillContainer svg {
         dice: document.getElementById('ruleCardDice'),
         caro: document.getElementById('ruleCardCaro'),
         chess: document.getElementById('ruleCardChess'),
-        monopoly: document.getElementById('ruleCardMonopoly')
+        monopoly: document.getElementById('ruleCardMonopoly'),
+        kittens: document.getElementById('ruleCardKittens'),
+        werewolf: document.getElementById('ruleCardWerewolf'),
+        uno: document.getElementById('ruleCardUno'),
+        catan: document.getElementById('ruleCardCatan')
       };
       const tabs = {
         all: document.getElementById('ruleTabAll'),
         dice: document.getElementById('ruleTabDice'),
         caro: document.getElementById('ruleTabCaro'),
         chess: document.getElementById('ruleTabChess'),
-        monopoly: document.getElementById('ruleTabMonopoly')
+        monopoly: document.getElementById('ruleTabMonopoly'),
+        kittens: document.getElementById('ruleTabKittens'),
+        werewolf: document.getElementById('ruleTabWerewolf'),
+        uno: document.getElementById('ruleTabUno'),
+        catan: document.getElementById('ruleTabCatan')
       };
       
       const container = document.getElementById('rulesCardsContainer');
       if (!container) return;
 
       if (cat === 'all') {
-        container.className = 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 text-xs';
+        container.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 text-xs';
         Object.values(cards).forEach(c => {
           if (c) {
             c.classList.remove('hidden');
@@ -13509,10 +13930,29 @@ html.dark #headerSeasonPillContainer svg {
           if (k === cat) {
             tabs[k].className = 'btn-spring px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-md flex items-center gap-2 whitespace-nowrap font-bold';
           } else {
-            tabs[k].className = 'btn-spring px-3.5 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-2 whitespace-nowrap font-semibold transition-all';
+            tabs[k].className = 'btn-spring px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-white/80 flex items-center gap-2 whitespace-nowrap font-bold transition-all';
           }
         }
       }
+    };
+
+    window.switchQuickRuleTab = function(game) {
+      const allGames = ['dice', 'caro', 'chess', 'monopoly', 'kittens', 'werewolf', 'uno', 'catan'];
+      allGames.forEach(g => {
+        const content = document.getElementById('qRuleContent_' + g);
+        const tab = document.getElementById('qRuleTab_' + g);
+        if (content) {
+          if (g === game) content.classList.remove('hidden');
+          else content.classList.add('hidden');
+        }
+        if (tab) {
+          if (g === game) {
+            tab.className = 'px-2.5 py-1 rounded-lg bg-amber-500/30 text-amber-300 border border-amber-500/50 whitespace-nowrap transition-all font-bold';
+          } else {
+            tab.className = 'px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-white whitespace-nowrap transition-all';
+          }
+        }
+      });
     };
 
     function switchMainTab(tab, force = false) {
@@ -33070,6 +33510,14 @@ async function executeDrawCard(playerIdx) {
   window.startDayVoting = startDayVoting;
   window.startDayDiscussion = startDayDiscussion;
   window.appendChatMessage = appendChatMessage;
+  window.openWerewolfRulesModal = function() {
+    const m = document.getElementById('werewolfRulesModal');
+    if (m) {
+      m.classList.remove('hidden');
+      void m.offsetWidth;
+      m.classList.add('opacity-100');
+    }
+  };
 })();
 
     
@@ -34001,7 +34449,96 @@ async function executeDrawCard(playerIdx) {
   </script>
 
 
-    <!-- ================= MODAL: CATAN RULES (#catanRulesModal) ================= -->
+    <!-- ================= MODAL: WEREWOLF RULES (#werewolfRulesModal) ================= -->
+  <div id="werewolfRulesModal" class="fixed inset-0 z-[100005] flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div class="w-full max-w-2xl bg-slate-900 border-2 border-purple-500/50 rounded-3xl p-5 sm:p-7 shadow-2xl relative max-h-[90vh] overflow-y-auto text-slate-200">
+      <button onclick="closeModal('werewolfRulesModal')" class="absolute top-5 right-5 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="flex items-center gap-3 pb-4 border-b border-purple-900/50">
+        <span class="text-3xl">🐺</span>
+        <div>
+          <h3 class="font-cinzel text-xl font-black text-purple-300 tracking-wide">LUẬT CHƠI MA SÓI: HUYỀN THOẠI TRĂNG MÁU</h3>
+          <p class="text-xs text-purple-400/80 font-mono">Bàn Đấu Trí 7 Người Chuẩn • Ngày & Đêm Đối Lập</p>
+        </div>
+      </div>
+
+      <div class="space-y-4 py-4 text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
+        <div class="bg-purple-950/40 border border-purple-500/30 rounded-2xl p-3.5 space-y-1">
+          <div class="font-black text-amber-300 text-xs sm:text-sm flex items-center gap-1.5">
+            <span>🎯</span> MỤC TIÊU VÀ PHÂN TRANH PHE PHÁI:
+          </div>
+          <p class="text-xs text-slate-300">
+            • <strong class="text-red-400">Phe Ma Sói (2 Sói):</strong> Giả dạng dân làng, âm thầm cắn chết người ban đêm và dẫn dắt biểu quyết ban ngày. Chiến thắng khi số Sói bằng hoặc lớn hơn số Dân còn sống.<br>
+            • <strong class="text-emerald-400">Phe Dân Làng (5 Dân):</strong> Dùng lập luận, thông tin soi của Tiên Tri và biểu quyết treo cổ ban ngày để tiêu diệt sạch cả 2 con Ma Sói.
+          </p>
+        </div>
+
+        <div class="space-y-2">
+          <div class="font-bold text-cyan-300 text-xs sm:text-sm flex items-center gap-1.5">
+            <span>👥</span> CHI TIẾT 6 VAI TRÒ TRONG LÀNG (BÀN 7 NGƯỜI):
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div class="p-2.5 rounded-xl bg-red-950/30 border border-red-500/30">
+              <strong class="text-red-300 flex items-center gap-1">🐺 Ma Sói (2 Người):</strong>
+              Thức dậy mỗi đêm cùng đồng bọn chọn cắn 1 nạn nhân. Ban ngày giả làm dân lương thiện để không bị nghi ngờ.
+            </div>
+            <div class="p-2.5 rounded-xl bg-blue-950/30 border border-blue-500/30">
+              <strong class="text-blue-300 flex items-center gap-1">🔮 Tiên Tri (1 Người):</strong>
+              Mỗi đêm được Quản trò cho soi thân phận của 1 người chơi còn sống để biết rõ là Sói hay Dân.
+            </div>
+            <div class="p-2.5 rounded-xl bg-emerald-950/30 border border-emerald-500/30">
+              <strong class="text-emerald-300 flex items-center gap-1">🛡️ Bảo Vệ (1 Người):</strong>
+              Mỗi đêm chọn 1 người để dựng khiên hộ mệnh. Người được bảo vệ nếu bị Sói cắn sẽ sống sót qua đêm (không bảo vệ trùng 2 đêm liên tiếp).
+            </div>
+            <div class="p-2.5 rounded-xl bg-purple-950/30 border border-purple-500/30">
+              <strong class="text-purple-300 flex items-center gap-1">🧙‍♀️ Phù Thủy (1 Người):</strong>
+              Sở hữu 2 bình thuốc quý (mỗi bình dùng 1 lần trong cả trận): 1 Bình Cứu (hồi sinh nạn nhân bị Sói cắn) và 1 Bình Độc (đầu độc giết 1 người ban đêm).
+            </div>
+            <div class="p-2.5 rounded-xl bg-amber-950/30 border border-amber-500/30">
+              <strong class="text-amber-300 flex items-center gap-1">🏹 Thợ Săn (1 Người):</strong>
+              Khi tử nạn (bị Sói cắn hoặc bị Dân làng vote treo cổ), Thợ Săn có quyền nổ phát súng ân oán cuối cùng để kéo theo 1 người bất kỳ cùng chết!
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-800/50 border border-slate-700">
+              <strong class="text-slate-300 flex items-center gap-1">👨‍🌾 Dân Làng (1 Người):</strong>
+              Không có kỹ năng ban đêm. Vũ khí mạnh nhất của Dân là con mắt quan sát tinh tường và lá phiếu biểu quyết công lý ban ngày.
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <div class="font-bold text-amber-300 text-xs sm:text-sm flex items-center gap-1.5">
+            <span>🌓</span> TIẾN TRÌNH VÒNG LẶP NGÀY & ĐÊM:
+          </div>
+          <div class="space-y-1.5 text-xs text-slate-300 bg-slate-800/40 p-3 rounded-2xl border border-slate-700">
+            <p><strong>1. Màn Đêm Xuống (Nhắm Mắt Ngủ Say):</strong> Toàn bộ giao diện phủ bóng tối bảo mật 100% (Zero Role Leak). Quản trò lần lượt đánh thức: Sói chọn mồi → Tiên Tri soi → Bảo Vệ che chắn → Phù Thủy dùng thuốc.</p>
+            <p><strong>2. Bình Minh Lên (Làng Thức Giấc):</strong> Quản trò công bố danh tính người tử nạn đêm qua (nếu có). Tiếng chuông làng vang vọng.</p>
+            <p><strong>3. Tranh Luận & Biểu Quyết:</strong> Làng mở khung Chat thời gian thực (phím <kbd class="px-1.5 py-0.5 rounded bg-purple-900 border border-purple-500 text-[10px] text-purple-200">C</kbd>) để thẩm vấn. Sau đó mỗi người bỏ phiếu treo cổ kẻ nghi ngờ. Ai nhận nhiều phiếu nhất sẽ bị đưa lên giàn treo cổ và lật bài công khai!</p>
+          </div>
+        </div>
+
+        <div class="p-3 bg-indigo-950/40 border border-indigo-500/30 rounded-2xl text-xs space-y-1">
+          <div class="font-bold text-indigo-300 flex items-center gap-1">
+            <span>💡</span> MẸO CHIẾN THUẬT & PHÍM TẮT:
+          </div>
+          <p class="text-slate-300">
+            • Phím <strong class="text-amber-400">Space</strong>: Tua nhanh thời gian chờ lượt của Bot AI.<br>
+            • Phím <strong class="text-purple-400">C</strong>: Đóng/Mở khung Chat trực tiếp với đối thủ và người cùng phòng.<br>
+            • Nút <strong class="text-indigo-300">Quản Trò</strong>: Bật/Tắt giọng đọc AI kể chuyện nhập vai chân thực.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-purple-900/50 flex justify-end">
+        <button onclick="closeModal('werewolfRulesModal')" class="btn-spring px-5 py-2.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs font-mono shadow-lg shadow-purple-900/40">
+          ĐÃ HIỂU LUẬT • CHIẾN NGAY
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CATAN RULES (#catanRulesModal) ================= -->
   <div id="catanRulesModal" class="fixed inset-0 z-[120] flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
     <div class="w-full max-w-2xl bg-slate-900 border-2 border-amber-500/50 rounded-3xl p-5 sm:p-7 shadow-2xl relative max-h-[90vh] overflow-y-auto text-slate-200">
       <button onclick="closeModal('catanRulesModal')" class="absolute top-5 right-5 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors">

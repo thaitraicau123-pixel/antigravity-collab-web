@@ -25383,68 +25383,50 @@ function renderCashStackHTML(amount) {
       executeDrawCard(curIdx);
     }
 
-    // Nope Intervention Engine
+    // =========================================================================
+    // NOPE DUEL & COUNTER-NOPE ENGINE (v4.3.3)
+    // Luật chuẩn: Nope chặn được bất kỳ lá chức năng nào, và NOPE CHẶN ĐƯỢC CẢ LÁ NOPE!
+    // =========================================================================
     function triggerNopeIntervention(playerIdx, cardId, cardHandIdx, targetPlayerIdx, onResolve) {
+      kittensState.nopeChain = {
+        initialPlayerIdx: playerIdx,
+        initialCardId: cardId,
+        currentCardId: cardId,
+        currentAttackerIdx: playerIdx,
+        isActionCancelled: false,
+        onResolve: onResolve
+      };
+
+      processNopeChainStep();
+    }
+
+    function processNopeChainStep() {
+      const chain = kittensState.nopeChain;
+      if (!chain) return;
+
       const p0 = kittensState.players[0];
-      const hasNope = p0 && p0.isAlive && p0.hand && p0.hand.includes('nope');
+      const humanHasNope = p0 && p0.isAlive && Array.isArray(p0.hand) && p0.hand.includes('nope');
 
-      // Case 1: Bot played an action card and Human has Nope
-      if (playerIdx !== 0 && hasNope) {
-        const def = window.KITTEN_CARD_DEFS[cardId] || { name: cardId, badge: 'CHỨC NĂNG' };
-        const modal = document.getElementById('kittenModalNopeIntervention');
-        const cardNameEl = document.getElementById('kittenNopeCardName');
-        const titleEl = document.getElementById('kittenNopeNoticeTitle');
-        const botName = kittensState.players[playerIdx] ? kittensState.players[playerIdx].name : 'Đối thủ';
-
-        if (titleEl) titleEl.textContent = botName.toUpperCase() + ' ĐANG ĐÁNH LÁ CHỨC NĂNG!';
-        if (cardNameEl) cardNameEl.textContent = def.name + ' (' + def.badge + ')';
-
-        if (modal) modal.classList.remove('hidden');
-        if (typeof soundTone === 'function') {
-          soundTone(550, 'square', 0.15, 0.25);
-          setTimeout(() => soundTone(440, 'square', 0.2, 0.25), 150);
+      // Case A: The last action/nope was played by a BOT (currentAttackerIdx !== 0)
+      if (chain.currentAttackerIdx !== 0) {
+        if (humanHasNope) {
+          // Open Nope Intervention Modal for Human Player
+          openNopeModalForHuman(chain.currentAttackerIdx, chain.currentCardId);
+          return;
+        } else {
+          // Human does not have Nope -> Finalize
+          finalizeNopeChain();
+          return;
         }
-
-        let secondsLeft = 3.5;
-        const barEl = document.getElementById('kittenNopeCountdownBar');
-        const secEl = document.getElementById('kittenNopeSeconds');
-
-        if (kittensState.nopeCountdownInterval) {
-          clearInterval(kittensState.nopeCountdownInterval);
-        }
-
-        kittensState.pendingNopeAction = {
-          playerIdx,
-          cardId,
-          cardHandIdx,
-          targetPlayerIdx,
-          onResolve
-        };
-
-        kittensState.nopeCountdownInterval = setInterval(() => {
-          secondsLeft -= 0.1;
-          if (secEl) secEl.textContent = Math.max(0, secondsLeft).toFixed(1);
-          if (barEl) {
-            const pct = Math.max(0, (secondsLeft / 3.5) * 100);
-            barEl.style.width = pct + '%';
-          }
-
-          if (secondsLeft <= 0) {
-            clearInterval(kittensState.nopeCountdownInterval);
-            kittensState.nopeCountdownInterval = null;
-            handleIgnoreNope();
-          }
-        }, 100);
-
-        return;
       }
 
-      // Case 2: Human played action card and Bots might have Nope
-      if (playerIdx === 0) {
-        // Check alive bots for Nope
-        const botsWithNope = kittensState.players.filter(p => p.id !== 0 && p.isAlive && p.hand.includes('nope'));
-        if (botsWithNope.length > 0 && Math.random() < 0.4) {
-          // A bot decides to NOPE the human player!
+      // Case B: The last action/nope was played by HUMAN (currentAttackerIdx === 0)
+      if (chain.currentAttackerIdx === 0) {
+        // Bots have a chance to play Nope
+        const botsWithNope = kittensState.players.filter(p => p.id !== 0 && p.isAlive && p.hand && p.hand.includes('nope'));
+        // 40% chance if action is currently active, 30% chance if counter-noping
+        const chance = chain.isActionCancelled ? 0.3 : 0.4;
+        if (botsWithNope.length > 0 && Math.random() < chance) {
           const chosenBot = botsWithNope[Math.floor(Math.random() * botsWithNope.length)];
           const nopeIdx = chosenBot.hand.indexOf('nope');
           if (nopeIdx !== -1) {
@@ -25456,17 +25438,137 @@ function renderCashStackHTML(amount) {
               time: Date.now()
             });
 
-            if (typeof soundTone === 'function') soundTone(300, 'sawtooth', 0.25, 0.3);
-            setKittenToast('🛑 ' + chosenBot.name.toUpperCase() + ' ĐÃ ĐÁNH NOPE BÁC BỎ LÁ BÀI CỦA BẠN!', true);
+            // Toggle cancellation status!
+            chain.isActionCancelled = !chain.isActionCancelled;
+            chain.currentAttackerIdx = chosenBot.id;
+            chain.currentCardId = 'nope';
+
+            if (typeof soundTone === 'function') soundTone(320, 'sawtooth', 0.25, 0.3);
+            const isCounter = !chain.isActionCancelled;
+            if (isCounter) {
+              setKittenToast('🛑 ' + chosenBot.name.toUpperCase() + ' ĐÃ NOPE PHẢN ĐÒN LÁ NOPE CỦA BẠN!', true);
+            } else {
+              setKittenToast('🛑 ' + chosenBot.name.toUpperCase() + ' ĐÃ ĐÁNH LÁ NOPE BÁC BỎ LÁ BÀI CỦA BẠN!', true);
+            }
             renderKittensArena();
-            onResolve(true); // isNoped = true
+
+            // Next step: Check if human player wants to Counter-Nope this bot's Nope!
+            setTimeout(() => {
+              processNopeChainStep();
+            }, 600);
             return;
           }
         }
+
+        // No bot noped -> finalize
+        finalizeNopeChain();
+        return;
+      }
+    }
+
+    function openNopeModalForHuman(attackerIdx, cardId) {
+      const chain = kittensState.nopeChain;
+      const attacker = (kittensState.players && kittensState.players[attackerIdx]) ? kittensState.players[attackerIdx] : { name: 'Đối thủ', avatar: '' };
+      const def = (window.KITTEN_CARD_DEFS && window.KITTEN_CARD_DEFS[cardId]) ? window.KITTEN_CARD_DEFS[cardId] : {
+        name: cardId,
+        badge: 'CHỨC NĂNG',
+        desc: 'Lá bài chức năng của đối thủ.',
+        color: '#EF4444',
+        img: window.KITTEN_CARD_ASSETS ? window.KITTEN_CARD_ASSETS.nope : ''
+      };
+
+      const modal = document.getElementById('kittenModalNopeIntervention');
+      const avatarEl = document.getElementById('kittenNopeUserAvatar');
+      const nameEl = document.getElementById('kittenNopeUserName');
+      const roleBadgeEl = document.getElementById('kittenNopeUserBadge');
+      const titleEl = document.getElementById('kittenNopeNoticeTitle');
+      const cardImgEl = document.getElementById('kittenNopeCardImg');
+      const cardBadgeEl = document.getElementById('kittenNopeCardBadge');
+      const cardTitleEl = document.getElementById('kittenNopeCardTitle');
+      const cardShowcaseEl = document.getElementById('kittenNopeCardShowcase');
+      const cardNameEl = document.getElementById('kittenNopeCardName');
+      const cardDescEl = document.getElementById('kittenNopeCardDesc');
+      const dangerTextEl = document.getElementById('kittenNopeDangerText');
+      const myCountEl = document.getElementById('kittenNopeMyCount');
+      const btnConfirmText = document.getElementById('kittenNopeBtnText');
+
+      const isCounterNope = (cardId === 'nope');
+      const p0 = kittensState.players ? kittensState.players[0] : null;
+      const nopeCount = p0 ? (p0.hand ? p0.hand.filter(c => c === 'nope').length : 0) : 0;
+
+      // 1. Update Attacker Info
+      if (avatarEl && typeof window.renderPlayerAvatarSafe === 'function') {
+        avatarEl.innerHTML = window.renderPlayerAvatarSafe(attacker.avatar, 'w-full h-full');
+      }
+      if (nameEl) nameEl.textContent = attacker.name.toUpperCase();
+      if (roleBadgeEl) roleBadgeEl.textContent = (kittensState.mode === 'online' || attacker.isHuman) ? ('P' + (attacker.id + 1)) : 'BOT';
+
+      // 2. Title & Buttons (Regular Nope vs Counter-Nope)
+      if (isCounterNope) {
+        if (titleEl) titleEl.textContent = '🛑 VỪA NOPE BÁC BỎ LÁ BÀI CỦA BẠN!';
+        if (btnConfirmText) btnConfirmText.textContent = 'NOPE PHẢN ĐÒN! 🛑';
+        if (dangerTextEl) dangerTextEl.textContent = 'Đối thủ vừa dùng Nope để hóa giải bài bạn! Bấm NOPE PHẢN ĐÒN để cứu lại lá bài của bạn!';
+      } else {
+        if (titleEl) titleEl.textContent = '⚠️ ĐANG TUNG CHIÊU CHỨC NĂNG!';
+        if (btnConfirmText) btnConfirmText.textContent = 'NOPE NGAY! 🛑';
+        if (dangerTextEl) {
+          let dangerMsg = 'Nếu bạn không Nope, lá bài này sẽ có hiệu lực ngay lập tức!';
+          if (cardId === 'attack') dangerMsg = 'Nguy hiểm: Bạn sẽ bị dồn 2 lượt rút liên tiếp nếu không Nope!';
+          else if (cardId === 'favor') dangerMsg = 'Nguy hiểm: Đối thủ sẽ cướp 1 lá bài trên tay bạn nếu không Nope!';
+          else if (cardId === 'skip') dangerMsg = 'Đối thủ sẽ bỏ qua lượt rút an toàn nếu không Nope!';
+          else if (cardId === 'shuffle') dangerMsg = 'Cọc bài sẽ bị đảo lộn ngẫu nhiên nếu không Nope!';
+          else if (cardId === 'see_future') dangerMsg = 'Đối thủ sẽ nhìn thấu 3 lá bài tương lai nếu không Nope!';
+          dangerTextEl.textContent = dangerMsg;
+        }
       }
 
-      // No Nope triggered, proceed normally
-      onResolve(false);
+      // 3. Card Showcase Elements
+      if (cardImgEl) cardImgEl.src = def.img;
+      if (cardBadgeEl) {
+        cardBadgeEl.textContent = def.badge;
+        cardBadgeEl.style.backgroundColor = def.color || '#EF4444';
+      }
+      if (cardTitleEl) cardTitleEl.textContent = def.name;
+      if (cardShowcaseEl) cardShowcaseEl.style.borderColor = def.color || '#F59E0B';
+      if (cardNameEl) cardNameEl.textContent = def.name + ' (' + def.badge + ')';
+      if (cardDescEl) cardDescEl.textContent = def.desc;
+
+      // 4. Inventory Count
+      if (myCountEl) {
+        myCountEl.innerHTML = 'Đang có <strong class="text-emerald-400 font-mono font-bold">' + nopeCount + '</strong> lá Nope 🛑';
+      }
+
+      // 5. Sound Alert
+      if (typeof soundTone === 'function') {
+        soundTone(550, 'square', 0.15, 0.25);
+        setTimeout(() => soundTone(440, 'square', 0.2, 0.25), 140);
+      }
+
+      // 6. Show Modal and Start 3.5s Countdown
+      if (modal) modal.classList.remove('hidden');
+
+      let secondsLeft = 3.5;
+      const barEl = document.getElementById('kittenNopeCountdownBar');
+      const secEl = document.getElementById('kittenNopeSeconds');
+
+      if (kittensState.nopeCountdownInterval) {
+        clearInterval(kittensState.nopeCountdownInterval);
+      }
+
+      kittensState.nopeCountdownInterval = setInterval(() => {
+        secondsLeft -= 0.1;
+        if (secEl) secEl.textContent = Math.max(0, secondsLeft).toFixed(1);
+        if (barEl) {
+          const pct = Math.max(0, (secondsLeft / 3.5) * 100);
+          barEl.style.width = pct + '%';
+        }
+
+        if (secondsLeft <= 0) {
+          clearInterval(kittensState.nopeCountdownInterval);
+          kittensState.nopeCountdownInterval = null;
+          handleIgnoreNope();
+        }
+      }, 100);
     }
 
     function handleConfirmNope() {
@@ -25478,15 +25580,13 @@ function renderCashStackHTML(amount) {
       const modal = document.getElementById('kittenModalNopeIntervention');
       if (modal) modal.classList.add('hidden');
 
-      const action = kittensState.pendingNopeAction;
-      kittensState.pendingNopeAction = null;
+      const chain = kittensState.nopeChain;
+      if (!chain) return;
 
-      if (!action) return;
-
-      // Human player discards 1 Nope
-      const p0 = kittensState.players[0];
-      const nopeIdx = p0.hand.indexOf('nope');
+      const p0 = kittensState.players ? kittensState.players[0] : null;
+      const nopeIdx = p0 ? p0.hand.indexOf('nope') : -1;
       if (nopeIdx !== -1) {
+        // Discard 1 Nope from human player
         p0.hand.splice(nopeIdx, 1);
         kittensState.discardPile.push({
           cardId: 'nope',
@@ -25495,14 +25595,26 @@ function renderCashStackHTML(amount) {
           time: Date.now()
         });
 
-        if (typeof soundTone === 'function') soundTone(320, 'sawtooth', 0.25, 0.3);
-        const botName = kittensState.players[action.playerIdx] ? kittensState.players[action.playerIdx].name : 'Đối thủ';
-        setKittenToast('🛑 BẠN ĐÃ NOPE THÀNH CÔNG! LÁ BÀI CỦA ' + botName.toUpperCase() + ' BỊ VÔ HIỆU HÓA!');
+        // Toggle action cancellation state!
+        chain.isActionCancelled = !chain.isActionCancelled;
+        chain.currentAttackerIdx = 0;
+        chain.currentCardId = 'nope';
+
+        if (typeof soundTone === 'function') soundTone(350, 'sawtooth', 0.25, 0.3);
+        const isCounter = !chain.isActionCancelled;
+        if (isCounter) {
+          setKittenToast('🛡️ BẠN ĐÃ NOPE PHẢN ĐÒN THÀNH CÔNG! Lá bài của bạn vẫn giữ nguyên hiệu lực!', false);
+        } else {
+          setKittenToast('🛑 BẠN ĐÃ TUNG LÁ NOPE! Đang kiểm tra xem đối thủ có phản đòn không...', true);
+        }
         renderKittensArena();
 
-        action.onResolve(true); // Action cancelled!
+        // Continue chain for bots to respond!
+        setTimeout(() => {
+          processNopeChainStep();
+        }, 600);
       } else {
-        action.onResolve(false);
+        finalizeNopeChain();
       }
     }
 
@@ -25515,13 +25627,28 @@ function renderCashStackHTML(amount) {
       const modal = document.getElementById('kittenModalNopeIntervention');
       if (modal) modal.classList.add('hidden');
 
-      const action = kittensState.pendingNopeAction;
-      kittensState.pendingNopeAction = null;
+      finalizeNopeChain();
+    }
 
-      if (action && typeof action.onResolve === 'function') {
-        action.onResolve(false); // Action executes normally!
+    function finalizeNopeChain() {
+      if (kittensState.nopeCountdownInterval) {
+        clearInterval(kittensState.nopeCountdownInterval);
+        kittensState.nopeCountdownInterval = null;
+      }
+      const modal = document.getElementById('kittenModalNopeIntervention');
+      if (modal) modal.classList.add('hidden');
+
+      const chain = kittensState.nopeChain;
+      kittensState.nopeChain = null;
+
+      if (chain && typeof chain.onResolve === 'function') {
+        chain.onResolve(chain.isActionCancelled);
       }
     }
+    window.triggerNopeIntervention = triggerNopeIntervention;
+    window.processNopeChainStep = processNopeChainStep;
+    window.openNopeModalForHuman = openNopeModalForHuman;
+    window.finalizeNopeChain = finalizeNopeChain;
     window.handleConfirmNope = handleConfirmNope;
     window.handleIgnoreNope = handleIgnoreNope;
 
@@ -25537,7 +25664,6 @@ function renderCashStackHTML(amount) {
         }
       });
     }
-
 
     function initKittensGame() {
       kittensState.mode = 'local';
@@ -28543,36 +28669,87 @@ async function executeDrawCard(playerIdx) {
 
 
   <!-- ================= MODAL: CAN THIỆP NOPE (NOPE INTERVENTION POPUP) ================= -->
-  <div id="kittenModalNopeIntervention" class="hidden fixed inset-0 z-[100000] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 select-none">
-    <div class="w-full max-w-md bg-slate-900 border-4 border-red-500 rounded-3xl p-6 shadow-2xl flex flex-col items-center text-center space-y-4">
-      <div class="w-16 h-16 rounded-full bg-red-600/20 border-2 border-red-500 flex items-center justify-center text-3xl animate-bounce">
-        🛑
+  <!-- ================= MODAL: CAN THIỆP NOPE & COUNTER-NOPE SHOWCASE (v4.3.3) ================= -->
+  <div id="kittenModalNopeIntervention" class="hidden fixed inset-0 z-[100000] bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 select-none">
+    <div class="w-full max-w-md bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border-2 border-red-500/80 rounded-3xl p-4 sm:p-5 shadow-[0_0_50px_rgba(239,68,68,0.45)] flex flex-col items-center text-center space-y-3.5">
+      
+      <!-- Top Alert Bar with Attacker Avatar & Action Header -->
+      <div class="w-full flex items-center gap-2.5 bg-red-950/40 p-2.5 rounded-2xl border border-red-500/30">
+        <div id="kittenNopeUserAvatar" class="w-10 h-10 rounded-xl overflow-hidden border border-red-400 shrink-0 bg-slate-950 flex items-center justify-center shadow-lg">
+          <svg class="w-full h-full text-red-400" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+        </div>
+        <div class="text-left flex-1 min-w-0">
+          <div class="flex items-center gap-1.5">
+            <span id="kittenNopeUserName" class="text-xs font-bold text-slate-100 font-cinzel truncate">ĐỐI THỦ</span>
+            <span id="kittenNopeUserBadge" class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-red-500/20 text-red-300 border border-red-500/40">BOT</span>
+          </div>
+          <h3 id="kittenNopeNoticeTitle" class="text-xs sm:text-sm font-black font-cinzel text-red-400 line-clamp-1">
+            ĐANG TUNG CHIÊU CHỨC NĂNG!
+          </h3>
+        </div>
+        <div class="w-9 h-9 rounded-full bg-red-600/20 border border-red-500 flex items-center justify-center text-lg animate-bounce shrink-0">
+          🛑
+        </div>
       </div>
-      <div>
-        <h3 id="kittenNopeNoticeTitle" class="text-base sm:text-lg font-black font-cinzel text-red-400">
-          ĐỐI THỦ ĐANG ĐÁNH LÁ CHỨC NĂNG!
-        </h3>
-        <p id="kittenNopeNoticeDesc" class="text-xs sm:text-sm text-slate-200 mt-1">
-          Đối thủ vừa đánh lá: <strong class="text-amber-300 font-bold" id="kittenNopeCardName">Tấn Công 2X</strong>! Bạn có muốn dùng lá <strong>NOPE 🛑</strong> để chặn không?
+
+      <!-- Central Visual Card Showcase (Hiển thị thẻ bài minh họa thực tế) -->
+      <div class="flex flex-col items-center my-0.5">
+        <div id="kittenNopeCardShowcase" class="relative w-32 h-44 sm:w-36 sm:h-48 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-[0_0_25px_rgba(245,158,11,0.5)] bg-slate-950 transition-transform duration-300 hover:scale-105">
+          <img id="kittenNopeCardImg" src="" alt="Lá bài đang đánh" class="w-full h-full object-cover pointer-events-none" />
+          <div class="absolute top-1.5 left-1.5 pointer-events-none">
+            <span id="kittenNopeCardBadge" class="px-2 py-0.5 rounded text-[9px] font-black uppercase text-white shadow-md bg-amber-500">CHỨC NĂNG</span>
+          </div>
+          <div class="absolute bottom-0 inset-x-0 p-2 bg-gradient-to-t from-black via-black/85 to-transparent text-center pointer-events-none">
+            <span id="kittenNopeCardTitle" class="text-xs sm:text-sm font-black text-amber-300 font-cinzel line-clamp-1">Tấn Công 2X</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Effect Description & Danger Warning Box -->
+      <div class="w-full bg-slate-950/80 rounded-2xl p-3 border border-slate-800 text-left space-y-1.5 shadow-inner">
+        <div class="flex items-center justify-between text-[11px] font-bold text-amber-300 font-cinzel">
+          <div class="flex items-center gap-1.5">
+            <span>⚡ CÔNG DỤNG LÁ BÀI:</span>
+            <span id="kittenNopeCardName" class="text-white font-mono">Tấn Công 2X</span>
+          </div>
+        </div>
+        <p id="kittenNopeCardDesc" class="text-xs text-slate-300 leading-relaxed font-sans">
+          Đang tải mô tả công dụng...
         </p>
+        <div id="kittenNopeDangerBox" class="text-[11px] font-mono text-rose-300 bg-rose-950/40 p-2 rounded-xl border border-rose-800/40 flex items-center gap-1.5">
+          <span class="shrink-0 text-xs">⚠️</span>
+          <span id="kittenNopeDangerText">Nếu bạn không Nope, lá bài này sẽ có hiệu lực ngay lập tức!</span>
+        </div>
+      </div>
+
+      <!-- Player Nope Inventory Info -->
+      <div class="w-full flex items-center justify-between px-1 text-xs font-mono text-slate-400">
+        <span>Bài trên tay bạn:</span>
+        <span id="kittenNopeMyCount" class="font-bold text-emerald-400">Đang có 1 lá Nope 🛑</span>
       </div>
 
       <!-- Countdown Progress Bar -->
-      <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden border border-slate-700">
-        <div id="kittenNopeCountdownBar" class="h-full bg-gradient-to-r from-red-500 to-rose-600 transition-all duration-100" style="width: 100%;"></div>
+      <div class="w-full space-y-1">
+        <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden border border-slate-700">
+          <div id="kittenNopeCountdownBar" class="h-full bg-gradient-to-r from-red-500 via-rose-500 to-amber-500 transition-all duration-100" style="width: 100%;"></div>
+        </div>
+        <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between px-0.5">
+          <span>Thời gian quyết định:</span>
+          <span class="text-red-400 font-bold"><span id="kittenNopeSeconds">3.5</span>s</span>
+        </div>
       </div>
-      <div class="text-xs font-mono text-slate-400">Thời gian quyết định: <span id="kittenNopeSeconds" class="text-red-400 font-bold">3.5</span>s</div>
 
       <!-- Action Buttons -->
       <div class="flex items-center gap-3 w-full pt-1">
-        <button type="button" onclick="handleIgnoreNope()" class="btn-spring flex-1 py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs font-mono border border-slate-600 cursor-pointer">
-          Bỏ Qua (Không Nope)
+        <button type="button" onclick="handleIgnoreNope()" id="btnIgnoreNope" class="btn-spring flex-1 py-2.5 sm:py-3 px-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs font-mono border border-slate-600 cursor-pointer">
+          Bỏ Qua (Giữ Lá)
         </button>
-        <button type="button" onclick="handleConfirmNope()" class="btn-spring flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-500 text-white font-black text-xs font-mono shadow-xl shadow-red-600/40 border-2 border-red-400 flex items-center justify-center gap-1.5 cursor-pointer animate-pulse">
-          <span>NOPE NGAY! 🛑</span>
-          <span class="px-1.5 py-0.5 rounded bg-black/40 text-[10px] font-mono text-white border border-white/20">Phím N</span>
+        <button type="button" onclick="handleConfirmNope()" id="btnConfirmNope" class="btn-spring flex-1 py-2.5 sm:py-3 px-3 rounded-2xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-500 text-white font-black text-xs font-mono shadow-xl shadow-red-600/40 border-2 border-red-400 flex items-center justify-center gap-1.5 cursor-pointer animate-pulse">
+          <span id="kittenNopeBtnText">NOPE NGAY! 🛑</span>
+          <span class="px-1.5 py-0.5 rounded bg-black/40 text-[9px] font-mono text-white border border-white/20">Phím N</span>
         </button>
       </div>
+
     </div>
   </div>
 

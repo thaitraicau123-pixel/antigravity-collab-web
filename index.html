@@ -2018,8 +2018,8 @@
         </div>
       </div>
 
-      <!-- Bento Grid of Games (Bố cục khoa học 5 Đấu Trường, Chữ 100% Không Xuống Dòng) -->
-      <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-5 mb-8">
+      <!-- Bento Grid of Games (Bố cục khoa học 7 Đấu Trường, 4 Cột Cân Đối Hoàn Hảo) -->
+      <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 mb-8">
         
         <!-- GAME CARD 1: XÚC XẮC 12 Ô -->
         <style>#diceLobbyCard svg.lucide-check-circle-2, #diceLobbyCard i[data-lucide="check-circle-2"] { color: #f59e0b !important; }</style>
@@ -2299,11 +2299,8 @@
           </button>
         </div>
 
-
-      </div>
-
         <!-- Game 7: MA SÓI: HUYỀN THOẠI TRĂNG MÁU (CYBER WEREWOLF ARENA) -->
-        <div class="group relative rounded-3xl bg-gradient-to-b from-purple-950/95 via-slate-900/95 to-slate-950/95 border-2 border-purple-500/60 hover:border-purple-400 p-5 sm:p-6 shadow-xl hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 flex flex-col justify-between overflow-hidden backdrop-blur-md text-white">
+        <div class="col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-2 group relative rounded-3xl bg-gradient-to-b from-purple-950/95 via-slate-900/95 to-slate-950/95 border-2 border-purple-500/60 hover:border-purple-400 p-5 sm:p-6 shadow-xl hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 flex flex-col justify-between overflow-hidden backdrop-blur-md text-white">
           <div class="absolute -top-12 -right-12 w-32 h-32 bg-purple-600/25 rounded-full blur-2xl group-hover:bg-purple-500/40 transition-all"></div>
           
           <div>
@@ -2344,6 +2341,8 @@
             <span>BƯỚC VÀO LÀNG SÓI (7 NGƯỜI)</span>
           </button>
         </div>
+
+      </div>
 
       <!-- Quick Action Utilities Bar -->
       <div class="w-full p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-amber-50/90 via-white to-amber-50/90 border-2 border-amber-300/80 shadow-lg shadow-amber-500/5 flex flex-wrap items-center justify-between gap-4 backdrop-blur-md">
@@ -4671,7 +4670,7 @@
             <div id="unoPod1" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-slate-700/80 transition-all duration-300">
               <div class="flex items-center gap-2 mb-1.5">
                 <div class="relative">
-                  <img id="unoAvatar1" src="" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-cyan-400 shadow-md object-cover" alt="Bot 1"/>
+                  <div id="unoAvatar1" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-cyan-400 shadow-md overflow-hidden flex items-center justify-center bg-slate-900"></div>
                   <span id="unoUnoBadge1" class="hidden absolute -top-1 -right-1 px-1 py-0.2 rounded bg-yellow-400 text-slate-950 font-black text-[9px] uno-bell-ring shadow-lg">UNO!</span>
                 </div>
                 <div class="text-left">
@@ -4686,7 +4685,7 @@
             <div id="unoPod2" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-slate-700/80 transition-all duration-300">
               <div class="flex items-center gap-2 mb-1.5">
                 <div class="relative">
-                  <img id="unoAvatar2" src="" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-purple-400 shadow-md object-cover" alt="Bot 2"/>
+                  <div id="unoAvatar2" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-purple-400 shadow-md overflow-hidden flex items-center justify-center bg-slate-900"></div>
                   <span id="unoUnoBadge2" class="hidden absolute -top-1 -right-1 px-1 py-0.2 rounded bg-yellow-400 text-slate-950 font-black text-[9px] uno-bell-ring shadow-lg">UNO!</span>
                 </div>
                 <div class="text-left">
@@ -4701,7 +4700,7 @@
             <div id="unoPod3" class="relative flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-[#1e293b] border-2 border-slate-700/80 transition-all duration-300">
               <div class="flex items-center gap-2 mb-1.5">
                 <div class="relative">
-                  <img id="unoAvatar3" src="" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-rose-400 shadow-md object-cover" alt="Bot 3"/>
+                  <div id="unoAvatar3" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-rose-400 shadow-md overflow-hidden flex items-center justify-center bg-slate-900"></div>
                   <span id="unoUnoBadge3" class="hidden absolute -top-1 -right-1 px-1 py-0.2 rounded bg-yellow-400 text-slate-950 font-black text-[9px] uno-bell-ring shadow-lg">UNO!</span>
                 </div>
                 <div class="text-left">
@@ -4796,7 +4795,7 @@
             <!-- Controls Bar: HÔ UNO, BẮT PHẠT UNO, RÚT BÀI -->
             <div class="w-full max-w-2xl flex items-center justify-between gap-2 mb-2 px-3 py-1.5 rounded-2xl bg-[#1e293b] border-2 border-slate-700 flex-wrap">
               <div class="flex items-center gap-2">
-                <img id="unoAvatar0" src="" class="w-8 h-8 rounded-full border-2 border-amber-400 shadow-md object-cover" alt="User Avatar"/>
+                <div id="unoAvatar0" class="w-8 h-8 rounded-full border-2 border-amber-400 shadow-md overflow-hidden flex items-center justify-center bg-slate-900"></div>
                 <div class="text-left">
                   <div class="text-xs font-bold text-white flex items-center gap-1.5">
                     <span>Bạn (Chỉ Huy)</span>
@@ -29279,13 +29278,15 @@ async function executeDrawCard(playerIdx) {
 
     // Get Avatar for UNO Player
     function getUnoAvatarUrl(playerIdx) {
-      if (playerIdx === 0 && typeof window.getActiveUserBeastAvatarDataUrl === 'function') {
-        return window.getActiveUserBeastAvatarDataUrl();
+      if (playerIdx === 0 && typeof window.getActiveUserBeastAvatarSVG === 'function') {
+        return window.getActiveUserBeastAvatarSVG();
       }
-      if (typeof BUSINESS_TOUR_AVATAR_DATA_URLS !== 'undefined' && BUSINESS_TOUR_AVATAR_DATA_URLS[playerIdx]) {
-        return BUSINESS_TOUR_AVATAR_DATA_URLS[playerIdx];
+      const unoBotBeasts = ['frost_kirin', 'mystic_fox', 'fire_dragon', 'solar_phoenix'];
+      const bId = unoBotBeasts[playerIdx % unoBotBeasts.length];
+      if (typeof window.getBeastAvatarSVG === 'function') {
+        return window.getBeastAvatarSVG(bId, 'w-full h-full');
       }
-      return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><circle cx="20" cy="20" r="18" fill="%23eab308"/></svg>';
+      return bId;
     }
 
     // Start New UNO Game
@@ -29504,7 +29505,7 @@ async function executeDrawCard(playerIdx) {
         const unoBadge = document.getElementById(`unoUnoBadge${bIdx}`);
         const stackEl = document.getElementById(`unoCardStack${bIdx}`);
 
-        if (avatarEl && !avatarEl.src) avatarEl.src = bot.avatar;
+        if (avatarEl) avatarEl.innerHTML = window.renderPlayerAvatarSafe(bot.avatar, 'w-full h-full');
         if (countEl) countEl.innerText = bot.hand.length;
 
         if (unoBadge) {
@@ -29560,7 +29561,7 @@ async function executeDrawCard(playerIdx) {
       // Render Player 0 (Human) Pod & Hand
       const userAvatar = document.getElementById('unoAvatar0');
       const userCount = document.getElementById('unoCount0');
-      if (userAvatar && !userAvatar.src) userAvatar.src = unoState.players[0].avatar;
+      if (userAvatar) userAvatar.innerHTML = window.renderPlayerAvatarSafe(unoState.players[0].avatar, 'w-full h-full');
       if (userCount) userCount.innerText = unoState.players[0].hand.length;
 
       const playerHandEl = document.getElementById('unoPlayerHand');
@@ -30324,13 +30325,13 @@ async function executeDrawCard(playerIdx) {
   };
 
   const BOT_PROFILES = [
-    { id: 0, isHuman: true, name: 'Bạn (Chỉ Huy)', title: 'Chỉ Huy Chiến Thuật' },
-    { id: 1, isHuman: false, name: 'Eldrin', title: 'Trưởng Làng Uy Quyền' },
-    { id: 2, isHuman: false, name: 'Lyra', title: 'Nhà Thơ Mộng Mơ' },
-    { id: 3, isHuman: false, name: 'Garrick', title: 'Bác Thợ Rèn Cơ Bắp' },
-    { id: 4, isHuman: false, name: 'Seraphina', title: 'Nữ Dược Sĩ Bí Ẩn' },
-    { id: 5, isHuman: false, name: 'Vance', title: 'Thợ Săn Rừng Sâu' },
-    { id: 6, isHuman: false, name: 'Morgana', title: 'Bà Lão Tiên Tri Mù' }
+    { id: 0, isHuman: true, name: 'Bạn (Chỉ Huy)', title: 'Chỉ Huy Chiến Thuật', beastId: 'frost_kirin' },
+    { id: 1, isHuman: false, name: 'Eldrin', title: 'Trưởng Làng Uy Quyền', beastId: 'white_tiger' },
+    { id: 2, isHuman: false, name: 'Lyra', title: 'Cô Bé Khăn Đỏ', beastId: 'mystic_fox' },
+    { id: 3, isHuman: false, name: 'Garrick', title: 'Gã Thợ Rèn Cơ Bắp', beastId: 'storm_bear' },
+    { id: 4, isHuman: false, name: 'Seraphina', title: 'Nữ Thợ Dệt Bí Ẩn', beastId: 'solar_phoenix' },
+    { id: 5, isHuman: false, name: 'Vance', title: 'Thợ Săn Rừng Sâu', beastId: 'golden_eagle' },
+    { id: 6, isHuman: false, name: 'Morgana', title: 'Bà Lão Bào Thuốc', beastId: 'fire_dragon' }
   ];
 
   var werewolfState = window.werewolfState = {
@@ -30482,9 +30483,20 @@ async function executeDrawCard(playerIdx) {
     if (player.id === 0 && typeof window.getActiveUserBeastAvatarSVG === 'function') {
       return window.getActiveUserBeastAvatarSVG();
     }
-    const colors = ['#f59e0b', '#3b82f6', '#ec4899', '#10b981', '#8b5cf6', '#ef4444', '#06b6d4'];
-    const col = colors[player.id % colors.length];
-    return `<svg viewBox="0 0 32 32" class="w-full h-full" fill="none"><rect width="32" height="32" rx="6" fill="${col}20"/><circle cx="16" cy="12" r="6" fill="${col}"/><path d="M6 28c0-5.5 4.5-9 10-9s10 3.5 10 9" fill="${col}"/></svg>`;
+    const beastMapping = [
+      'frost_kirin',   // 0
+      'white_tiger',   // 1 Eldrin (Bạch Hổ Hoàng Gia)
+      'mystic_fox',    // 2 Lyra (Cáo Ma Thuật Kitsune)
+      'storm_bear',    // 3 Garrick (Gấu Bão Táp)
+      'solar_phoenix', // 4 Seraphina (Phượng Hoàng Lửa)
+      'golden_eagle',  // 5 Vance (Đại Bàng Hoàng Kim)
+      'fire_dragon'    // 6 Morgana (Rồng Lửa Ruby)
+    ];
+    const beastId = player.beastId || beastMapping[player.id % beastMapping.length] || 'shadow_wolf';
+    if (typeof window.getBeastAvatarSVG === 'function') {
+      return window.getBeastAvatarSVG(beastId, 'w-full h-full');
+    }
+    return window.renderPlayerAvatarSafe(beastId, 'w-full h-full');
   }
 
   function clearAllWerewolfTimers() {
@@ -30904,7 +30916,8 @@ async function executeDrawCard(playerIdx) {
 
       if (!podEl) return;
 
-      if (avEl && !avEl.hasChildNodes()) {
+      if (avEl && (!avEl.hasChildNodes() || avEl.dataset.renderedAvatar !== String(p.id) + '_' + (p.avatar || ''))) {
+        avEl.dataset.renderedAvatar = String(p.id) + '_' + (p.avatar || '');
         avEl.innerHTML = window.renderPlayerAvatarSafe ? window.renderPlayerAvatarSafe(p.avatar, 'w-full h-full') : p.avatar;
       }
 

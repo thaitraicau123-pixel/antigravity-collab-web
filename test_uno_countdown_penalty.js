@@ -57,7 +57,7 @@ global.document = {
   removeEventListener: () => {}
 };
 
-global.setTimeout = (fn) => { if (typeof fn === 'function') fn(); return 1; };
+global.setTimeout = (fn, ms) => { if (typeof fn === 'function' && (!ms || ms <= 50)) fn(); return 1; };
 global.clearTimeout = () => {};
 global.setInterval = () => 1;
 global.clearInterval = () => {};

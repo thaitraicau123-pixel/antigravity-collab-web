@@ -1688,6 +1688,243 @@
   pointer-events: none;
 }
 
+
+/* <!-- Lucian UX/UI Prompt #219 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#219 --> */
+:root {
+  color-scheme: light;
+  --ux-page: #F4F2EE;
+  --ux-surface: #FFFFFF;
+  --ux-surface-2: #F5F3EF;
+  --ux-surface-3: #EAE7E1;
+  --ux-ink: #16151B;
+  --ux-ink-2: #57535F;
+  --ux-ink-3: #8E8A97;
+  --ux-line: rgba(22,21,27,.09);
+  --ux-line-2: rgba(22,21,27,.17);
+  --ux-accent: #6A57F2;
+  --ux-accent-2: #2F8FE0;
+  --ux-accent-soft: rgba(106,87,242,.12);
+  --ux-accent-ink: #FFFFFF;
+  --ux-mint: #119C72;
+  --ux-warn: #D6731E;
+  --ux-danger: #D93A55;
+  --ux-glass: rgba(255,255,255,.58);
+  --ux-glass-line: rgba(255,255,255,.85);
+  --ux-shadow: rgba(40,30,80,.14);
+  --ux-shadow-strong: rgba(40,30,80,.3);
+  --ux-grad: linear-gradient(120deg,#7B61FF,#3D8BFF 55%,#1FB89A);
+  --ux-ease: cubic-bezier(.2,.8,.2,1);
+  --ux-spring: cubic-bezier(.34,1.45,.64,1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ux-page: #07080D;
+    --ux-surface: #13141C;
+    --ux-surface-2: #1A1B25;
+    --ux-surface-3: #252632;
+    --ux-ink: #F4F0E8;
+    --ux-ink-2: rgba(244,240,232,.68);
+    --ux-ink-3: rgba(244,240,232,.42);
+    --ux-line: rgba(255,255,255,.08);
+    --ux-line-2: rgba(255,255,255,.16);
+    --ux-accent: #B7A4FF;
+    --ux-accent-2: #7DB4FF;
+    --ux-accent-soft: rgba(183,164,255,.15);
+    --ux-accent-ink: #0B0C12;
+    --ux-mint: #7EE8C0;
+    --ux-warn: #FFB26B;
+    --ux-danger: #FF7D8C;
+    --ux-glass: rgba(255,255,255,.07);
+    --ux-glass-line: rgba(255,255,255,.18);
+    --ux-shadow: rgba(0,0,0,.45);
+    --ux-shadow-strong: rgba(0,0,0,.72);
+    --ux-grad: linear-gradient(120deg,#B7A4FF,#7DB4FF 55%,#A5F2D3);
+  }
+}
+
+:root[data-theme="dark"], html.dark {
+  color-scheme: dark;
+  --ux-page: #07080D;
+  --ux-surface: #13141C;
+  --ux-surface-2: #1A1B25;
+  --ux-surface-3: #252632;
+  --ux-ink: #F4F0E8;
+  --ux-ink-2: rgba(244,240,232,.68);
+  --ux-ink-3: rgba(244,240,232,.42);
+  --ux-line: rgba(255,255,255,.08);
+  --ux-line-2: rgba(255,255,255,.16);
+  --ux-accent: #B7A4FF;
+  --ux-accent-2: #7DB4FF;
+  --ux-accent-soft: rgba(183,164,255,.15);
+  --ux-accent-ink: #0B0C12;
+  --ux-mint: #7EE8C0;
+  --ux-warn: #FFB26B;
+  --ux-danger: #FF7D8C;
+  --ux-glass: rgba(255,255,255,.07);
+  --ux-glass-line: rgba(255,255,255,.18);
+  --ux-shadow: rgba(0,0,0,.45);
+  --ux-shadow-strong: rgba(0,0,0,.72);
+  --ux-grad: linear-gradient(120deg,#B7A4FF,#7DB4FF 55%,#A5F2D3);
+}
+
+.u219-wrap {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.u219-tg {
+  width: 36px;
+  height: 36px;
+  border: 2px solid #CBD5E1;
+  border-radius: 12px;
+  background: var(--ux-surface, #FFFFFF);
+  color: #D97706;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  transition: transform .15s ease, background .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease;
+}
+
+.u219-tg:hover {
+  transform: scale(1.05);
+  border-color: #F59E0B;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+}
+
+.u219-tg:active {
+  transform: scale(0.95);
+}
+
+.u219-tg:focus-visible {
+  outline: 2px solid var(--ux-accent, #6A57F2);
+  outline-offset: 2px;
+}
+
+.u219-tg svg {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  transition: transform .6s cubic-bezier(.3,1.4,.5,1), opacity .3s ease;
+}
+
+.u219-sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.u219-moon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+  color: #818CF8;
+}
+
+html.dark .u219-tg {
+  background: #1E293B;
+  border-color: #475569;
+  color: #A5B4FC;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+html.dark .u219-tg:hover {
+  border-color: #818CF8;
+  box-shadow: 0 4px 14px rgba(129, 140, 248, 0.3);
+}
+
+html.dark .u219-sun {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+}
+
+html.dark .u219-moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* Fullscreen Circular-Reveal Screen Layer */
+.u219-reveal-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  pointer-events: none;
+  clip-path: circle(0px at var(--cx, 50%) var(--cy, 50%));
+  transition: clip-path .7s cubic-bezier(.65,0,.35,1);
+  will-change: clip-path;
+}
+
+.u219-reveal-layer.is-revealing {
+  clip-path: circle(calc(150vmax + 120px) at var(--cx, 50%) var(--cy, 50%));
+}
+
+.u219-reveal-layer.is-dark {
+  background-color: #07080D;
+}
+
+.u219-reveal-layer.is-light {
+  background-color: #F8FAFD;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .u219-tg svg,
+  .u219-reveal-layer {
+    transition: none !important;
+  }
+}
+
+/* Adaptive Theme Styling for Cyber Tabletop Arena */
+html.dark body {
+  background-color: #07080D !important;
+  background-image:
+    radial-gradient(circle at 50% -5%, rgba(245, 158, 11, 0.12) 0%, transparent 60%),
+    radial-gradient(circle at 92% 16%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.06) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) !important;
+  color: #E2E8F0 !important;
+}
+
+html.dark header {
+  background-color: rgba(15, 23, 42, 0.94) !important;
+  border-color: rgba(51, 65, 85, 0.8) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark header .text-slate-800 {
+  color: #F8FAFC !important;
+}
+
+html.dark #mainNavBar {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+  border-color: rgba(51, 65, 85, 0.8) !important;
+}
+
+html.dark #mainNavBar button:not(.bg-gradient-to-r) {
+  color: #94A3B8 !important;
+}
+
+html.dark #mainNavBar button:not(.bg-gradient-to-r):hover {
+  background-color: rgba(51, 65, 85, 0.6) !important;
+  color: #F8FAFC !important;
+}
+
+html.dark #headerSeasonPillContainer {
+  background: linear-gradient(to right, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)) !important;
+  border-color: rgba(217, 119, 6, 0.6) !important;
+}
+
+html.dark #headerSeasonText {
+  color: #FDE68A !important;
+}
+
+html.dark #headerSeasonPillContainer svg {
+  color: #FBBF24 !important;
+}
+
 </style>
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col antialiased selection:bg-amber-400 selection:text-slate-900 w-full max-w-full overflow-x-hidden">
@@ -1920,6 +2157,23 @@
         <button onclick="toggleSound()" class="btn-spring p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border-2 border-slate-300 shadow-sm shrink-0" title="Bật/Tắt âm thanh">
           <span id="soundIcon" class="flex items-center justify-center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-slate-700"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></span>
         </button>
+
+        <!-- Lucian UX/UI Prompt #219 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#219 -->
+        <!-- Theme Toggle: Circular-reveal dark mode (#219) -->
+        <div class="u219-wrap shrink-0">
+          <button type="button" class="u219-tg btn-spring" id="btnThemeToggle" aria-label="Chuyển sang chế độ tối (Dark mode)" aria-pressed="false" title="Chuyển chế độ Sáng / Tối (Circular Reveal)">
+            <svg class="u219-sun" viewBox="0 0 16 16" aria-hidden="true">
+              <circle cx="8" cy="8" r="3" fill="currentColor"/>
+              <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M8 1.5v1.4M8 13.1v1.4M1.5 8h1.4M13.1 8h1.4M3.4 3.4l1 1M11.6 11.6l1 1M3.4 12.6l1-1M11.6 4.4l1-1"/>
+              </g>
+            </svg>
+            <svg class="u219-moon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M13.5 9.8A5.6 5.6 0 0 1 6.2 2.5a5.6 5.6 0 1 0 7.3 7.3z" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+
 
         <!-- User Authentication & Profile Widget -->
         <div id="authArea" class="shrink-0 mr-1 sm:mr-0 pl-1.5 sm:pl-2.5 border-l-2 border-slate-200">
@@ -2347,6 +2601,56 @@
           <button onclick="enterGameFromLobby('werewolf')" class="btn-spring w-full py-2.5 sm:py-3 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 hover:from-purple-500 hover:to-red-500 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-purple-600/40 border-2 border-purple-400/60 transition-all cursor-pointer whitespace-nowrap">
             <i data-lucide="play" class="w-3.5 h-3.5 fill-white text-white"></i>
             <span>BƯỚC VÀO LÀNG SÓI (7 NGƯỜI)</span>
+          </button>
+        </div>
+
+        <!-- BENTO CARD 8: ĐẢO CATAN 3D (THE SETTLERS OF CATAN) -->
+        <div class="group relative rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-slate-900/90 via-amber-950/40 to-emerald-950/50 border-2 border-amber-500/40 hover:border-amber-400/80 shadow-2xl hover:shadow-amber-500/20 transition-all duration-300 flex flex-col justify-between overflow-hidden backdrop-blur-xl">
+          <div class="absolute -top-16 -right-16 w-44 h-44 rounded-full bg-gradient-to-br from-amber-500/20 to-emerald-500/20 blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-500"></div>
+
+          <div class="space-y-3 relative z-10">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl sm:text-4xl filter drop-shadow-md group-hover:scale-110 transition-transform">🌾</span>
+              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[10px] font-mono font-black tracking-wide">
+                <span>4 NGƯỜI • AI BOTS</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+              </div>
+            </div>
+
+            <div>
+              <div class="text-[11px] font-mono text-emerald-400 font-bold uppercase tracking-wider">Chiến Thuật Đỉnh Cao • Xúc Xắc 3D Obsidian</div>
+              <h3 class="text-xl sm:text-2xl font-cinzel font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-emerald-300 tracking-wide mt-0.5">
+                ĐẢO CATAN 3D
+              </h3>
+            </div>
+
+            <p class="text-xs sm:text-sm text-slate-300 line-clamp-3 leading-relaxed">
+              Xây dựng thuộc địa, mở rộng mạng lưới giao thương, thu hoạch tài nguyên theo số đổ xúc xắc 3D, né tránh Tên Cướp và cạnh tranh để đạt 10 Điểm Thắng trên hòn đảo lục giác trù phú!
+            </p>
+
+            <div class="pt-2 border-t border-slate-700/60 grid grid-cols-2 gap-2 text-[11px] text-slate-300 font-mono">
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <span class="text-amber-400">❖</span>
+                <span>Bản đồ 19 Hexes Vector HD</span>
+              </div>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <span class="text-emerald-400">❖</span>
+                <span>Xúc Xắc 3D Obsidian Pips</span>
+              </div>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <span class="text-yellow-400">❖</span>
+                <span>Thu hoạch & Giao thương 4:1</span>
+              </div>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <span class="text-sky-400">❖</span>
+                <span>Đua 10 Điểm Thắng (VP)</span>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="enterGameFromLobby('catan')" class="btn-spring w-full py-2.5 sm:py-3 mt-4 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-500 to-emerald-600 hover:from-amber-400 hover:to-emerald-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-amber-500/30 border-2 border-amber-300/80 transition-all cursor-pointer whitespace-nowrap">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3.5 h-3.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>BƯỚC VÀO ĐẢO CATAN (4 NGƯỜI)</span>
           </button>
         </div>
 
@@ -5836,7 +6140,244 @@
 
   </div>
 
-  <!-- ================= TABLETOP FOOTER ================= -->
+  <!-- ================= VIEW 8: CATAN 3D ARENA (ĐẢO CATAN 3D - THE SETTLERS OF CATAN) ================= -->
+      <div id="catanView" class="hidden relative w-full flex-col items-center justify-center p-2 sm:p-4 my-auto select-none overflow-hidden max-w-[1440px] mx-auto min-h-[680px]">
+        
+        <!-- Catan Top Match Cockpit Header -->
+        <div class="w-full flex items-center justify-between gap-3 mb-3 px-4 py-2.5 rounded-2xl bg-slate-900/95 border-2 border-amber-950/80 shadow-2xl flex-wrap backdrop-blur-xl">
+          <div class="flex items-center gap-3">
+            <button onclick="exitGameToLobby()" class="btn-spring px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs font-black flex items-center gap-1.5 transition-all cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span>VỀ SẢNH</span>
+            </button>
+            <div class="flex items-center gap-2">
+              <span class="text-xl sm:text-2xl filter drop-shadow">🌾</span>
+              <div>
+                <h2 class="text-sm sm:text-base font-cinzel font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-emerald-300 tracking-wider uppercase leading-none">
+                  ĐẢO CATAN 3D
+                </h2>
+                <div class="text-[10px] font-mono text-slate-400 mt-0.5 flex items-center gap-1.5">
+                  <span id="catanRoundText" class="text-amber-400 font-bold">VÒNG 1</span>
+                  <span>•</span>
+                  <span>THE SETTLERS OF CATAN</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Turn & Target Indicator -->
+          <div class="flex items-center gap-3 flex-wrap">
+            <div id="catanTurnIndicator" class="px-3 py-1.5 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-mono font-bold flex items-center gap-2 shadow-inner">
+              <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+              <span id="catanTurnText">LƯỢT CỦA BẠN (ĐỎ)</span>
+            </div>
+
+            <div class="px-3 py-1.5 rounded-xl bg-emerald-950/60 border border-emerald-600/40 text-emerald-300 text-xs font-mono font-bold flex items-center gap-1.5">
+              <span>🏆 MỤC TIÊU:</span>
+              <span class="text-amber-300 font-black">10 ĐIỂM THẮNG (VP)</span>
+            </div>
+
+            <!-- Action buttons -->
+            <button onclick="openCatanRulesModal()" class="btn-spring px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs font-bold flex items-center gap-1 cursor-pointer" title="Xem Luật Chơi Catan">
+              <span>📖 LUẬT CHƠI</span>
+            </button>
+            <button onclick="initCatanGame()" class="btn-spring px-2.5 py-1.5 rounded-xl bg-amber-600/20 hover:bg-amber-600/40 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1 cursor-pointer" title="Bắt đầu ván mới">
+              <span>🔄 VÁN MỚI</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Notification Banner Toast (Harvest / Events) -->
+        <div id="catanEventBanner" class="w-full mb-3 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-900/80 via-slate-900/90 to-amber-900/80 border border-amber-500/40 text-amber-200 text-xs sm:text-sm font-mono flex items-center justify-between shadow-lg transition-all duration-300">
+          <div class="flex items-center gap-2">
+            <span id="catanBannerIcon">🌾</span>
+            <span id="catanBannerMsg" class="font-bold">Chào mừng tới Đảo Catan! Hãy bấm [ĐỔ XÚC XẮC] để bắt đầu lượt thu hoạch.</span>
+          </div>
+          <span id="catanBannerDetail" class="text-[11px] text-amber-400/80"></span>
+        </div>
+
+        <!-- Main Arena Grid: Board (Left) & Cockpit Control (Right) -->
+        <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4 items-start">
+          
+          <!-- LEFT: Catan Island 19 Hexes SVG Vector HD (lg:col-span-7 xl:col-span-8) -->
+          <div class="lg:col-span-7 xl:col-span-8 w-full bg-slate-950/80 rounded-3xl p-3 sm:p-4 border-2 border-slate-800/80 shadow-2xl relative flex flex-col items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 bg-radial from-sky-950/40 via-slate-950 to-slate-950 pointer-events-none"></div>
+            
+            <div class="w-full max-w-[760px] aspect-[760/680] relative z-10 flex items-center justify-center">
+              <svg id="catanBoardSVG" viewBox="0 0 760 680" class="w-full h-full drop-shadow-2xl select-none" style="filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));">
+                <defs>
+                  <radialGradient id="catanSeaGrad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#0369a1" stop-opacity="0.25"/>
+                    <stop offset="70%" stop-color="#0c4a6e" stop-opacity="0.15"/>
+                    <stop offset="100%" stop-color="#021f36" stop-opacity="0.05"/>
+                  </radialGradient>
+                  <filter id="hexShadow" x="-10%" y="-10%" width="125%" height="125%">
+                    <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.6"/>
+                  </filter>
+                </defs>
+
+                <rect x="0" y="0" width="760" height="680" rx="32" fill="#031628" />
+                <circle cx="380" cy="320" r="330" fill="url(#catanSeaGrad)" />
+
+                <g id="catanHexLayer"></g>
+                <g id="catanTokenLayer"></g>
+                <g id="catanEdgeLayer"></g>
+                <g id="catanVertexLayer"></g>
+              </svg>
+            </div>
+
+            <div id="catanBoardPrompt" class="w-full mt-2.5 py-1.5 px-3 rounded-xl bg-slate-900/90 border border-slate-700/60 text-slate-300 text-xs font-mono text-center flex items-center justify-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span id="catanBoardPromptText">Bàn cờ sẵn sàng. Bạn có thể đổ xúc xắc hoặc chọn hành động xây dựng bên phải.</span>
+            </div>
+          </div>
+
+          <!-- RIGHT: Cockpit & Controls (lg:col-span-5 xl:col-span-4) -->
+          <div class="lg:col-span-5 xl:col-span-4 w-full flex flex-col gap-3">
+            
+            <!-- 1. 3D Obsidian Dice Box -->
+            <div class="w-full bg-slate-900/90 rounded-3xl p-3.5 sm:p-4 border-2 border-slate-800 shadow-xl flex flex-col items-center">
+              <div class="text-[11px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-2 flex items-center justify-between w-full">
+                <span>🎲 XÚC XẮC 3D OBSIDIAN PIPS</span>
+                <span class="text-[10px] text-amber-400">CÔNG NGHỆ 3D THẬT</span>
+              </div>
+
+              <!-- Mount target for Dice3DObsidianEngine -->
+              <div id="catanDiceContainer" class="w-full flex items-center justify-center py-1">
+                <div id="dice-container" class="w-full flex items-center justify-center"></div>
+              </div>
+
+              <!-- Roll Action Button -->
+              <button id="catanRollDiceBtn" onclick="onCatanRollDiceClick()" class="btn-spring w-full mt-3 py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm font-cinzel flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 border-2 border-amber-300 cursor-pointer transition-all">
+                <span class="text-lg">🎲</span>
+                <span>ĐỔ XÚC XẮC [SPACE]</span>
+              </button>
+            </div>
+
+            <!-- 2. Player Resource Inventory -->
+            <div class="w-full bg-slate-900/90 rounded-3xl p-3.5 sm:p-4 border-2 border-slate-800 shadow-xl">
+              <div class="text-[11px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-2.5 flex items-center justify-between">
+                <span>🎒 KHO TÀI NGUYÊN CỦA BẠN</span>
+                <span id="catanTotalResCount" class="text-amber-400 font-bold text-xs">0 THẺ</span>
+              </div>
+
+              <div class="grid grid-cols-5 gap-1.5 text-center">
+                <div class="bg-emerald-950/40 border border-emerald-600/40 rounded-2xl p-1.5 flex flex-col items-center shadow-inner">
+                  <span class="text-xl">🌲</span>
+                  <span class="text-[10px] font-bold text-emerald-300 mt-0.5">GỖ</span>
+                  <span id="catanResWood" class="text-base font-black text-white font-mono">0</span>
+                </div>
+                <div class="bg-red-950/40 border border-red-600/40 rounded-2xl p-1.5 flex flex-col items-center shadow-inner">
+                  <span class="text-xl">🧱</span>
+                  <span class="text-[10px] font-bold text-red-300 mt-0.5">GẠCH</span>
+                  <span id="catanResBrick" class="text-base font-black text-white font-mono">0</span>
+                </div>
+                <div class="bg-lime-950/40 border border-lime-600/40 rounded-2xl p-1.5 flex flex-col items-center shadow-inner">
+                  <span class="text-xl">🐑</span>
+                  <span class="text-[10px] font-bold text-lime-300 mt-0.5">CỪU</span>
+                  <span id="catanResSheep" class="text-base font-black text-white font-mono">0</span>
+                </div>
+                <div class="bg-amber-950/40 border border-amber-600/40 rounded-2xl p-1.5 flex flex-col items-center shadow-inner">
+                  <span class="text-xl">🌾</span>
+                  <span class="text-[10px] font-bold text-amber-300 mt-0.5">LÚA</span>
+                  <span id="catanResWheat" class="text-base font-black text-white font-mono">0</span>
+                </div>
+                <div class="bg-slate-800/60 border border-slate-500/40 rounded-2xl p-1.5 flex flex-col items-center shadow-inner">
+                  <span class="text-xl">⛰️</span>
+                  <span class="text-[10px] font-bold text-slate-300 mt-0.5">ĐÁ</span>
+                  <span id="catanResOre" class="text-base font-black text-white font-mono">0</span>
+                </div>
+              </div>
+
+              <div class="mt-2.5 pt-2 border-t border-slate-800 flex items-center justify-between text-xs font-mono text-slate-300">
+                <div class="flex items-center gap-1.5">
+                  <span>🃏 Thẻ Dev:</span>
+                  <span id="catanDevCardSummary" class="text-amber-300 font-bold">0 thẻ</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span>⚔️ Hiệp sĩ:</span>
+                  <span id="catanKnightsCount" class="text-red-400 font-bold">0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Building & Trade Action Center -->
+            <div class="w-full bg-slate-900/90 rounded-3xl p-3.5 sm:p-4 border-2 border-slate-800 shadow-xl">
+              <div class="text-[11px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-2.5 flex items-center justify-between">
+                <span>🔨 XÂY DỰNG & GIAO THƯƠNG</span>
+                <span class="text-[10px] text-emerald-400">CHI PHÍ CHUẨN</span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <button id="catanBtnBuildRoad" onclick="toggleCatanBuildMode('road')" class="btn-spring p-2 rounded-2xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-left flex flex-col gap-1 transition-all cursor-pointer">
+                  <div class="flex items-center justify-between text-xs font-bold text-amber-300">
+                    <span class="flex items-center gap-1"><span>🛣️</span><span>XÂY ĐƯỜNG</span></span>
+                    <span id="catanCostRoad" class="text-[10px] font-mono text-slate-400">1🌲 1🧱</span>
+                  </div>
+                  <div class="text-[10px] text-slate-400 font-mono">Mở rộng thương lộ</div>
+                </button>
+
+                <button id="catanBtnBuildSettlement" onclick="toggleCatanBuildMode('settlement')" class="btn-spring p-2 rounded-2xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-left flex flex-col gap-1 transition-all cursor-pointer">
+                  <div class="flex items-center justify-between text-xs font-bold text-emerald-300">
+                    <span class="flex items-center gap-1"><span>🏠</span><span>XÂY LÀNG</span></span>
+                    <span id="catanCostSettlement" class="text-[10px] font-mono text-slate-400">🌲🧱🐑🌾</span>
+                  </div>
+                  <div class="text-[10px] text-slate-400 font-mono">+1 Điểm Thắng (VP)</div>
+                </button>
+
+                <button id="catanBtnBuildCity" onclick="toggleCatanBuildMode('city')" class="btn-spring p-2 rounded-2xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-left flex flex-col gap-1 transition-all cursor-pointer">
+                  <div class="flex items-center justify-between text-xs font-bold text-sky-300">
+                    <span class="flex items-center gap-1"><span>🏰</span><span>LÊN PHỐ</span></span>
+                    <span id="catanCostCity" class="text-[10px] font-mono text-slate-400">2🌾 3⛰️</span>
+                  </div>
+                  <div class="text-[10px] text-slate-400 font-mono">+1 VP • x2 Thu hoạch</div>
+                </button>
+
+                <button id="catanBtnBuyDevCard" onclick="buyCatanDevCard()" class="btn-spring p-2 rounded-2xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-left flex flex-col gap-1 transition-all cursor-pointer">
+                  <div class="flex items-center justify-between text-xs font-bold text-purple-300">
+                    <span class="flex items-center gap-1"><span>🃏</span><span>THẺ DEV</span></span>
+                    <span class="text-[10px] font-mono text-slate-400">🐑🌾⛰️</span>
+                  </div>
+                  <div class="text-[10px] text-slate-400 font-mono">Hiệp sĩ hoặc +1 VP</div>
+                </button>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2 mt-2 pt-2 border-t border-slate-800">
+                <button onclick="openCatanTradeModal()" class="btn-spring py-2 px-2.5 rounded-xl bg-amber-600/20 hover:bg-amber-600/40 border border-amber-500/40 text-amber-300 text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer">
+                  <span>⚖️ ĐỔI 4:1 NGÂN HÀNG</span>
+                </button>
+                <button id="catanBtnEndTurn" onclick="endCatanTurn()" class="btn-spring py-2 px-2.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white text-xs font-black flex items-center justify-center gap-1.5 cursor-pointer shadow-lg">
+                  <span>⏭️ HẾT LƯỢT</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 4. 4-Player Scoreboard HUD -->
+            <div class="w-full bg-slate-900/90 rounded-3xl p-3.5 sm:p-4 border-2 border-slate-800 shadow-xl">
+              <div class="text-[11px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
+                <span>🏆 BẢNG ĐIỂM 4 KỲ THỦ</span>
+                <span class="text-[10px] text-amber-400">MỤC TIÊU 10 VP</span>
+              </div>
+
+              <div id="catanScoreboardList" class="space-y-1.5"></div>
+            </div>
+
+            <!-- 5. Action Log -->
+            <div class="w-full bg-slate-900/90 rounded-3xl p-3.5 sm:p-4 border-2 border-slate-800 shadow-xl flex flex-col">
+              <div class="text-[11px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
+                <span>📜 NHẬT KÝ CHIẾN THUẬT</span>
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              </div>
+              <div id="catanActionLog" class="h-28 overflow-y-auto space-y-1 font-mono text-[11px] pr-1 select-text"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ================= TABLETOP FOOTER ================= -->
   <footer class="w-full mt-auto bg-[#070B14] border-t border-board-border/80 px-4 sm:px-8 py-7 text-xs text-slate-400">
     <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-6">
       <div>
@@ -5856,6 +6397,9 @@
           <li><button onclick="switchMainTab('arena'); switchGameView('tictactoe')" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-cyan-400"><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg><span>Cờ Ca-rô Hoàng Gia</span></button></li>
           <li><button onclick="switchMainTab('arena'); switchGameView('chess')" class="hover:text-amber-400 transition-colors font-semibold text-amber-300 flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-300"><path d="M12 2v4m-2-2h4"/><path d="M6 7l3 2 3-3 3 3 3-2 1 6H5l1-6z"/></svg><span>Cờ Vua Hoàng Gia (FIDE 8x8)</span></button></li>
               <li><button onclick="switchMainTab('arena'); switchGameView('monopoly')" class="hover:text-emerald-400 transition-colors font-bold text-emerald-400 flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-emerald-400"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 10a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v11H9V10z"/></svg><span>Cờ Tỷ Phú Hoàng Gia (2.5D)</span></button></li>
+          <li><button onclick="switchMainTab('arena'); switchGameView('catan')" class="hover:text-amber-400 transition-colors font-bold text-amber-300 flex items-center gap-1.5"><span class="text-sm">🌾</span><span>Đảo Catan 3D (Settlers)</span></button></li>
+          <li><button onclick="switchMainTab('arena'); switchGameView('werewolf')" class="hover:text-purple-400 transition-colors font-bold text-purple-300 flex items-center gap-1.5"><span class="text-sm">🐺</span><span>Ma Sói Online</span></button></li>
+          <li><button onclick="switchMainTab('arena'); switchGameView('uno')" class="hover:text-yellow-400 transition-colors font-bold text-yellow-300 flex items-center gap-1.5"><span class="text-sm">🃏</span><span>UNO Battle Royale</span></button></li>
           <li><button onclick="switchMainTab('leaderboard')" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-400"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M6 4h12v5a6 6 0 0 1-12 0V4z"/></svg><span>Bảng Xếp Hạng Kỳ Thủ</span></button></li>
         </ul>
       </div>
@@ -12905,7 +13449,7 @@
     }
 
     function playRandomGame() {
-      const games = ['dice', 'chess', 'tictactoe', 'monopoly', 'kittens', 'werewolf'];
+      const games = ['dice', 'chess', 'tictactoe', 'monopoly', 'kittens', 'werewolf', 'catan', 'uno'];
       const chosen = games[Math.floor(Math.random() * games.length)];
       enterGameFromLobby(chosen);
       showToast(`🎲 Đã ghép ngẫu nhiên vào: ${chosen === 'dice' ? 'Xúc Xắc 12 Ô' : (chosen === 'chess' ? 'Cờ Vua FIDE' : 'Ca-rô Neon')}!`);
@@ -18733,9 +19277,10 @@ function renderCashStackHTML(amount) {
 const vKittens = document.getElementById('kittensView');
       const vUno = document.getElementById('unoView');
       const vWerewolf = document.getElementById('werewolfView');
+      const vCatan = document.getElementById('catanView');
 
             // Hide all game views first (Defensive Clean Wipe)
-      [vDice, vTTT, vChess, vMono, vKittens, vUno, vWerewolf].forEach(v => {
+      [vDice, vTTT, vChess, vMono, vKittens, vUno, vWerewolf, vCatan].forEach(v => {
         if (v) {
           v.classList.add('hidden');
           v.classList.remove('grid', 'flex', 'block', 'view-fade-slide');
@@ -18854,6 +19399,24 @@ const vKittens = document.getElementById('kittensView');
         if (titleEl) {
           titleEl.className = 'flex items-center gap-2 px-3 py-1.5 rounded-xl bg-purple-950/40 border border-purple-500/40 text-purple-300 font-cinzel text-xs font-bold shadow-inner transition-all duration-200';
           titleEl.innerHTML = `<span class="text-base">🐺</span><span class="tracking-wider">MA SÓI: HUYỀN THOẠI TRĂNG MÁU</span>`;
+        }
+        if (specBar) specBar.classList.add('hidden');
+      } else if (tab === 'catan') {
+        const vCatan = document.getElementById('catanView');
+        if (vCatan) {
+          vCatan.style.display = '';
+          vCatan.classList.remove('hidden');
+          void vCatan.offsetWidth;
+          vCatan.classList.add('flex', 'view-fade-slide');
+          if (typeof initCatanGame === 'function' && (!window.catanState || !window.catanState.initialized)) {
+            initCatanGame();
+          } else if (typeof renderCatanArena === 'function') {
+            renderCatanArena();
+          }
+        }
+        if (titleEl) {
+          titleEl.className = 'flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-950/40 border border-amber-500/40 text-amber-300 font-cinzel text-xs font-bold shadow-inner transition-all duration-200';
+          titleEl.innerHTML = `<span class="text-base">🌾</span><span class="tracking-wider">ĐẢO CATAN 3D (SETTLERS OF CATAN)</span>`;
         }
         if (specBar) specBar.classList.add('hidden');
       } else if (tab === 'kittens') {
@@ -24140,7 +24703,9 @@ const vKittens = document.getElementById('kittensView');
       tictactoe: 'Ca-rô Neon',
       monopoly: 'Cờ Tỷ Phú 2.5D',
       kittens: 'Mèo Nổ Tabletop',
-      uno: 'UNO Battle Royale'
+      uno: 'UNO Battle Royale',
+      werewolf: 'Ma Sói Huyền Thoại',
+      catan: 'Đảo Catan 3D'
     };
 
     const MP_GAME_ICONS = {
@@ -24149,7 +24714,9 @@ const vKittens = document.getElementById('kittensView');
       tictactoe: '⭕❌',
       monopoly: '🏰',
       kittens: '💣',
-      uno: '🃏'
+      uno: '🃏',
+      werewolf: '🐺',
+      catan: '🌾'
     };
 
     // Initialize Broadcast Channel
@@ -33067,6 +33634,1939 @@ async function executeDrawCard(playerIdx) {
     </div>
   </div>
 
+
+
+  <!-- Lucian UX/UI Prompt #219 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#219 -->
+  <script>
+  (function initCircularRevealTheme() {
+    const THEME_STORAGE_KEY = 'tabletop_theme';
+
+    function getStoredTheme() {
+      try {
+        const val = localStorage.getItem(THEME_STORAGE_KEY);
+        if (val === 'dark' || val === 'light') return val;
+      } catch (e) {}
+      return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    }
+
+    function syncButtonState(isDark) {
+      const btn = document.getElementById('btnThemeToggle');
+      if (!btn) return;
+      btn.setAttribute('aria-label', isDark ? 'Chuyển sang chế độ sáng (Light mode)' : 'Chuyển sang chế độ tối (Dark mode)');
+      btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      btn.setAttribute('title', isDark ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối');
+    }
+
+    function applyThemeImmediate(theme) {
+      const isDark = theme === 'dark';
+      document.documentElement.classList.toggle('dark', isDark);
+      document.documentElement.setAttribute('data-theme', theme);
+      syncButtonState(isDark);
+    }
+
+    function toggleThemeWithCircularReveal(triggerBtn) {
+      const currentIsDark = document.documentElement.classList.contains('dark');
+      const nextTheme = currentIsDark ? 'light' : 'dark';
+      const isNextDark = nextTheme === 'dark';
+
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+      } catch (e) {}
+
+      // If prefers-reduced-motion is active, skip circular animation
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        applyThemeImmediate(nextTheme);
+        return;
+      }
+
+      const btn = triggerBtn || document.getElementById('btnThemeToggle');
+      let cx = '50%', cy = '50%';
+      if (btn) {
+        const rect = btn.getBoundingClientRect();
+        cx = (rect.left + rect.width / 2).toFixed(1) + 'px';
+        cy = (rect.top + rect.height / 2).toFixed(1) + 'px';
+      }
+
+      document.documentElement.style.setProperty('--cx', cx);
+      document.documentElement.style.setProperty('--cy', cy);
+
+      // Create animated circular reveal overlay
+      const revealLayer = document.createElement('div');
+      revealLayer.className = 'u219-reveal-layer ' + (isNextDark ? 'is-dark' : 'is-light');
+      document.body.appendChild(revealLayer);
+
+      // Force layout reflow before triggering transition
+      void revealLayer.offsetWidth;
+      revealLayer.classList.add('is-revealing');
+      syncButtonState(isNextDark);
+
+      // Switch theme classes at optimal reveal point (280ms)
+      setTimeout(function () {
+        document.documentElement.classList.toggle('dark', isNextDark);
+        document.documentElement.setAttribute('data-theme', nextTheme);
+      }, 280);
+
+      // Clean up overlay when animation completes
+      setTimeout(function () {
+        if (revealLayer && revealLayer.parentNode) {
+          revealLayer.parentNode.removeChild(revealLayer);
+        }
+      }, 750);
+    }
+
+    window.toggleCircularRevealTheme = toggleThemeWithCircularReveal;
+
+    function bindEvents() {
+      const savedTheme = getStoredTheme();
+      applyThemeImmediate(savedTheme);
+
+      const btn = document.getElementById('btnThemeToggle');
+      if (btn && !btn._u219Bound) {
+        btn._u219Bound = true;
+        btn.addEventListener('click', function (e) {
+          toggleThemeWithCircularReveal(btn);
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bindEvents);
+    } else {
+      bindEvents();
+    }
+  })();
+  </script>
+
+
+    <!-- ================= MODAL: CATAN RULES (#catanRulesModal) ================= -->
+  <div id="catanRulesModal" class="fixed inset-0 z-[120] flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div class="w-full max-w-2xl bg-slate-900 border-2 border-amber-500/50 rounded-3xl p-5 sm:p-7 shadow-2xl relative max-h-[90vh] overflow-y-auto text-slate-200">
+      <button onclick="closeModal('catanRulesModal')" class="absolute top-5 right-5 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="flex items-center gap-3 pb-4 border-b border-slate-800">
+        <span class="text-3xl">🌾</span>
+        <div>
+          <h3 class="font-cinzel text-xl font-black text-amber-300 tracking-wide">LUẬT CHƠI ĐẢO CATAN 3D</h3>
+          <p class="text-xs text-slate-400 font-mono">The Settlers of Catan • Hướng Dẫn Nhanh</p>
+        </div>
+      </div>
+
+      <div class="space-y-4 py-4 text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
+        <div class="bg-amber-950/40 border border-amber-500/30 rounded-2xl p-3.5 space-y-1">
+          <div class="text-amber-400 font-bold flex items-center gap-1.5 font-cinzel">
+            <span>🏆 MỤC TIÊU CHIẾN THẮNG:</span>
+          </div>
+          <p>Người chơi đầu tiên đạt <strong class="text-amber-300 font-black">10 Điểm Thắng (Victory Points - VP)</strong> sẽ giành chiến thắng ngay lập tức!</p>
+          <ul class="list-disc list-inside space-y-1 text-slate-300 pl-1 mt-1 text-xs font-mono">
+            <li>Mỗi <span class="text-emerald-400 font-bold">Làng (Settlement)</span> = 1 Điểm Thắng.</li>
+            <li>Mỗi <span class="text-sky-400 font-bold">Thành Phố (City)</span> = 2 Điểm Thắng.</li>
+            <li>Thẻ <span class="text-purple-400 font-bold">Điểm Thắng Ẩn</span> trong Thẻ Dev = 1 Điểm Thắng.</li>
+          </ul>
+        </div>
+
+        <div class="space-y-2">
+          <div class="font-bold text-amber-400 font-cinzel">1. GIAI ĐOẠN ĐỔ XÚC XẮC & THU HOẠCH (HARVEST):</div>
+          <p>Mỗi lượt bắt đầu bằng việc đổ 2 viên xúc xắc 3D:</p>
+          <ul class="list-disc list-inside pl-2 space-y-1 text-xs">
+            <li>Nếu tổng điểm từ 2 đến 12 (khác 7): Mọi ô Hex có số trùng với tổng điểm sẽ sinh tài nguyên cho người chơi có Làng (1 thẻ) hoặc Thành Phố (2 thẻ) kề với ô đó.</li>
+            <li>Ô bị <strong class="text-red-400">Tên Cướp (Robber)</strong> đứng sẽ bị khóa sản xuất hoàn toàn!</li>
+          </ul>
+        </div>
+
+        <div class="space-y-2">
+          <div class="font-bold text-red-400 font-cinzel">2. KHI ĐỔ RA SỐ 7 (TÊN CƯỚP XUẤT HIỆN):</div>
+          <p>Không có ô nào sinh tài nguyên khi ra 7:</p>
+          <ul class="list-disc list-inside pl-2 space-y-1 text-xs">
+            <li>Người nào có <strong class="text-red-300">&gt; 7 thẻ tài nguyên</strong> sẽ bị phạt bỏ đi 1 nửa (làm tròn xuống).</li>
+            <li>Người vừa đổ xúc xắc được phép di chuyển Tên Cướp sang một ô Hex khác và cướp ngẫu nhiên 1 tài nguyên từ đối thủ kề ô đó.</li>
+          </ul>
+        </div>
+
+        <div class="space-y-2">
+          <div class="font-bold text-emerald-400 font-cinzel">3. BẢNG GIÁ XÂY DỰNG:</div>
+          <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+            <div class="bg-slate-800/80 p-2.5 rounded-xl border border-slate-700">
+              <div class="text-amber-300 font-bold">🛣️ Con Đường:</div>
+              <div class="text-slate-300">1 Gỗ + 1 Gạch</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Xây trên cạnh kề với đường/làng của bạn.</div>
+            </div>
+            <div class="bg-slate-800/80 p-2.5 rounded-xl border border-slate-700">
+              <div class="text-emerald-300 font-bold">🏠 Ngôi Làng (+1 VP):</div>
+              <div class="text-slate-300">1 Gỗ + 1 Gạch + 1 Cừu + 1 Lúa</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Khoảng cách: Cách các làng khác ít nhất 2 cạnh!</div>
+            </div>
+            <div class="bg-slate-800/80 p-2.5 rounded-xl border border-slate-700">
+              <div class="text-sky-300 font-bold">🏰 Thành Phố (+1 VP, x2 thu hoạch):</div>
+              <div class="text-slate-300">2 Lúa + 3 Quặng Đá</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Nâng cấp trực tiếp từ 1 Làng của bạn.</div>
+            </div>
+            <div class="bg-slate-800/80 p-2.5 rounded-xl border border-slate-700">
+              <div class="text-purple-300 font-bold">🃏 Thẻ Phát Triển:</div>
+              <div class="text-slate-300">1 Cừu + 1 Lúa + 1 Quặng Đá</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Nhận ngẫu nhiên Hiệp Sĩ hoặc Điểm Thắng ẩn.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <div class="font-bold text-yellow-400 font-cinzel">4. GIAO THƯƠNG NGÂN HÀNG (4:1):</div>
+          <p class="text-xs">Bạn có thể đổi 4 thẻ tài nguyên giống nhau bất kỳ để lấy 1 thẻ tài nguyên mong muốn bất cứ lúc nào trong lượt của mình!</p>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-800 flex justify-end">
+        <button onclick="closeModal('catanRulesModal')" class="btn-spring px-5 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs font-mono">
+          ĐÃ HIỂU LUẬT • CHIẾN NGAY
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CATAN BANK TRADE 4:1 (#catanTradeModal) ================= -->
+  <div id="catanTradeModal" class="fixed inset-0 z-[120] flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div class="w-full max-w-lg bg-slate-900 border-2 border-amber-500/50 rounded-3xl p-5 sm:p-6 shadow-2xl relative text-slate-200">
+      <button onclick="closeModal('catanTradeModal')" class="absolute top-5 right-5 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="flex items-center gap-3 pb-3 border-b border-slate-800">
+        <span class="text-3xl">⚖️</span>
+        <div>
+          <h3 class="font-cinzel text-lg font-black text-amber-300 tracking-wide">GIAO THƯƠNG NGÂN HÀNG (4:1)</h3>
+          <p class="text-xs text-slate-400 font-mono">Đổi 4 tài nguyên bất kỳ lấy 1 tài nguyên bạn cần</p>
+        </div>
+      </div>
+
+      <div class="py-4 space-y-4">
+        <div>
+          <label class="text-xs font-mono font-bold text-amber-400 block mb-2">1. CHỌN 4 TÀI NGUYÊN ĐEM BỎ (Cần có ít nhất 4 thẻ):</label>
+          <div id="catanTradeGiveOptions" class="grid grid-cols-5 gap-2 text-center"></div>
+        </div>
+
+        <div>
+          <label class="text-xs font-mono font-bold text-emerald-400 block mb-2">2. CHỌN 1 TÀI NGUYÊN MUỐN NHẬN:</label>
+          <div id="catanTradeReceiveOptions" class="grid grid-cols-5 gap-2 text-center"></div>
+        </div>
+
+        <div id="catanTradeStatusMsg" class="text-xs font-mono text-center min-h-[20px] text-amber-300"></div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
+        <button onclick="closeModal('catanTradeModal')" class="btn-spring px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-mono">
+          HỦY BỎ
+        </button>
+        <button id="catanTradeConfirmBtn" onclick="confirmCatanTrade()" class="btn-spring px-5 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-xs font-mono shadow-lg disabled:opacity-40 disabled:pointer-events-none">
+          XÁC NHẬN ĐỔI 4:1
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CATAN VICTORY (#catanWinModal) ================= -->
+  <div id="catanWinModal" class="fixed inset-0 z-[130] flex items-center justify-center p-3 sm:p-5 bg-black/90 backdrop-blur-xl hidden opacity-0 transition-opacity duration-300">
+    <div class="w-full max-w-md bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-amber-400 rounded-3xl p-6 sm:p-8 shadow-2xl text-center space-y-4 relative overflow-hidden">
+      <div class="text-6xl animate-bounce">👑</div>
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-cinzel font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-emerald-300 tracking-wide">
+          CHÚA TỂ ĐẢO CATAN!
+        </h2>
+        <div id="catanWinnerTitle" class="text-sm font-mono text-amber-400 mt-1 font-bold">
+          BẠN ĐÃ ĐẠT 10 ĐIỂM THẮNG (VICTORY POINTS)!
+        </div>
+      </div>
+
+      <p id="catanWinnerDesc" class="text-xs text-slate-300 leading-relaxed font-sans">
+        Thuộc địa phồn vinh, mạng lưới thương lộ thống nhất hòn đảo lục giác trù phú! Chiến thuật tài ba của bạn đã ghi danh vào lịch sử Catan.
+      </p>
+
+      <div class="pt-4 border-t border-slate-800">
+        <button onclick="closeModal('catanWinModal'); initCatanGame();" class="btn-spring w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm font-mono shadow-xl border border-amber-300 cursor-pointer">
+          🔄 BẮT ĐẦU VÁN MỚI NGAY
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CATAN 3D & DICE 3D OBSIDIAN ENGINE SCRIPT ================= -->
+  <script>
+/**
+ * 🎲 Dice3DObsidianEngine v1.0.0
+ * Standalone 3D Glossy Obsidian Pip Dice & 3-Stage Suspense Roll Engine
+ * Zero external dependencies — auto-injects CSS, builds 6-sided 3D cubes,
+ * plays Web Audio decelerating clacks, and manages 3-stage suspense timing.
+ */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) {
+    module.exports = factory();
+  } else {
+    root.Dice3DObsidianEngine = factory();
+  }
+})(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  const PIP_LAYOUT_MAP = {
+    1: ['mc'],
+    2: ['tl', 'br'],
+    3: ['tl', 'mc', 'br'],
+    4: ['tl', 'tr', 'bl', 'br'],
+    5: ['tl', 'tr', 'mc', 'bl', 'br'],
+    6: ['tl', 'tr', 'ml', 'mr', 'bl', 'br']
+  };
+
+  const DIE_FACE_ANGLES = {
+    1: { rx: -14, ry: 16, rz: 0 },
+    6: { rx: -14, ry: 196, rz: 0 },
+    2: { rx: -104, ry: 0, rz: 14 },
+    5: { rx: 76, ry: 0, rz: -14 },
+    3: { rx: -14, ry: -74, rz: 0 },
+    4: { rx: -14, ry: 106, rz: 0 }
+  };
+
+  const THEME_PRESETS = {
+    'obsidian-cyan': {
+      faceBg: 'radial-gradient(circle at 28% 24%, #374151 0%, #18202f 48%, #090d16 100%)',
+      faceBorder: 'rgba(255, 255, 255, 0.24)',
+      coreBg: '#090d16',
+      pipBg: 'radial-gradient(circle at 35% 32%, #ffffff 0%, #f1f5f9 62%, #cbd5e1 100%)',
+      pipGlow: 'rgba(255, 255, 255, 0.60)',
+      acePipBg: 'radial-gradient(circle at 35% 32%, #ffffff 0%, #e0f2fe 58%, #7dd3fc 100%)',
+      acePipGlow: 'rgba(125, 211, 252, 0.85)',
+      auraColor: 'rgba(56, 189, 248, 0.72)'
+    },
+    'royal-gold': {
+      faceBg: 'radial-gradient(circle at 28% 24%, #292524 0%, #1c1917 52%, #0c0a09 100%)',
+      faceBorder: 'rgba(245, 158, 11, 0.45)',
+      coreBg: '#0c0a09',
+      pipBg: 'radial-gradient(circle at 35% 32%, #fef3c7 0%, #fbbf24 65%, #d97706 100%)',
+      pipGlow: 'rgba(251, 191, 36, 0.65)',
+      acePipBg: 'radial-gradient(circle at 35% 32%, #ffffff 0%, #fde68a 55%, #f59e0b 100%)',
+      acePipGlow: 'rgba(245, 158, 11, 0.92)',
+      auraColor: 'rgba(245, 158, 11, 0.75)'
+    },
+    'crimson-casino': {
+      faceBg: 'radial-gradient(circle at 28% 24%, #dc2626 0%, #991b1b 52%, #450a0a 100%)',
+      faceBorder: 'rgba(254, 202, 202, 0.35)',
+      coreBg: '#450a0a',
+      pipBg: 'radial-gradient(circle at 35% 32%, #ffffff 0%, #f8fafc 65%, #e2e8f0 100%)',
+      pipGlow: 'rgba(255, 255, 255, 0.65)',
+      acePipBg: 'radial-gradient(circle at 35% 32%, #fef9c3 0%, #fde047 58%, #eab308 100%)',
+      acePipGlow: 'rgba(250, 204, 21, 0.90)',
+      auraColor: 'rgba(248, 113, 113, 0.75)'
+    },
+    'ivory-classic': {
+      faceBg: 'radial-gradient(circle at 28% 24%, #ffffff 0%, #f1f5f9 55%, #cbd5e1 100%)',
+      faceBorder: 'rgba(148, 163, 184, 0.55)',
+      coreBg: '#cbd5e1',
+      pipBg: 'radial-gradient(circle at 35% 32%, #334155 0%, #0f172a 70%, #020617 100%)',
+      pipGlow: 'rgba(15, 23, 42, 0.25)',
+      acePipBg: 'radial-gradient(circle at 35% 32%, #f87171 0%, #dc2626 62%, #991b1b 100%)',
+      acePipGlow: 'rgba(220, 38, 38, 0.65)',
+      auraColor: 'rgba(56, 189, 248, 0.72)'
+    }
+  };
+
+  function injectStylesOnce() {
+    if (typeof document === 'undefined' || document.getElementById('dice-3d-obsidian-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'dice-3d-obsidian-styles';
+    style.textContent = `
+      .d3d-tray-wrap {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 18px;
+        border-radius: 16px;
+        background: rgba(15, 23, 42, 0.88);
+        border: 1.5px solid rgba(148, 163, 184, 0.28);
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.65);
+        transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+        user-select: none;
+      }
+      .d3d-tray-wrap.mono-tray-rolling-aura {
+        border-color: var(--d3d-aura, rgba(56, 189, 248, 0.72)) !important;
+        box-shadow: 0 16px 40px rgba(0,0,0,0.75), 0 0 28px var(--d3d-aura, rgba(56, 189, 248, 0.35)) !important;
+      }
+      .d3d-tray-wrap.mono-tray-impact {
+        animation: monoTrayImpactPulse 0.32s ease-out;
+      }
+      .d3d-cubes-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        padding: 4px 2px;
+      }
+      .mono-die-scene {
+        width: var(--die-size, 44px);
+        height: var(--die-size, 44px);
+        perspective: 520px;
+        display: inline-block;
+        position: relative;
+      }
+      .mono-die-cube {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.84s cubic-bezier(0.15, 0.88, 0.24, 1);
+        will-change: transform;
+      }
+      .mono-die-scene.mono-die-bouncing {
+        animation: monoDieBounceArc 0.84s cubic-bezier(0.22, 0.68, 0.35, 1);
+      }
+      @keyframes monoDieBounceArc {
+        0%   { transform: translateY(0) scale(1); }
+        25%  { transform: translateY(-20px) scale(1.16); }
+        52%  { transform: translateY(3px) scale(0.95); }
+        75%  { transform: translateY(-7px) scale(1.04); }
+        90%  { transform: translateY(1px) scale(0.99); }
+        100% { transform: translateY(0) scale(1); }
+      }
+      @keyframes monoTrayImpactPulse {
+        0%   { transform: scale(1.05); }
+        45%  { transform: scale(0.98); }
+        100% { transform: scale(1); }
+      }
+      .mono-die-core {
+        position: absolute;
+        inset: 1px;
+        background: var(--d3d-core-bg, #090d16);
+        border-radius: 9px;
+        transform: translateZ(0);
+      }
+      .mono-die-face {
+        position: absolute;
+        width: var(--die-size, 44px);
+        height: var(--die-size, 44px);
+        border-radius: 10px;
+        background: var(--d3d-face-bg, radial-gradient(circle at 28% 24%, #374151 0%, #18202f 48%, #090d16 100%));
+        border: 1.5px solid var(--d3d-face-border, rgba(255, 255, 255, 0.24));
+        box-shadow: inset 0 2px 4px rgba(255,255,255,0.30), inset 0 -3px 6px rgba(0,0,0,0.90), 0 4px 12px rgba(0,0,0,0.55);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        padding: 6px;
+        box-sizing: border-box;
+        backface-visibility: hidden;
+        overflow: hidden;
+      }
+      .mono-die-face::before {
+        content: '';
+        position: absolute;
+        top: -35%;
+        left: -35%;
+        width: 115%;
+        height: 85%;
+        background: linear-gradient(135deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.05) 45%, transparent 62%);
+        transform: rotate(-12deg);
+        pointer-events: none;
+      }
+      .mono-die-face--1 { transform: rotateY(0deg) translateZ(var(--die-half, 22px)); }
+      .mono-die-face--6 { transform: rotateY(180deg) translateZ(var(--die-half, 22px)); }
+      .mono-die-face--2 { transform: rotateX(90deg) translateZ(var(--die-half, 22px)); }
+      .mono-die-face--5 { transform: rotateX(-90deg) translateZ(var(--die-half, 22px)); }
+      .mono-die-face--3 { transform: rotateY(90deg) translateZ(var(--die-half, 22px)); }
+      .mono-die-face--4 { transform: rotateY(-90deg) translateZ(var(--die-half, 22px)); }
+      .mono-pip {
+        width: calc(var(--die-size, 44px) * 0.17);
+        height: calc(var(--die-size, 44px) * 0.17);
+        border-radius: 50%;
+        background: var(--d3d-pip-bg, radial-gradient(circle at 35% 32%, #ffffff 0%, #f1f5f9 62%, #cbd5e1 100%));
+        box-shadow: 0 0 5px var(--d3d-pip-glow, rgba(255,255,255,0.60)), inset 0 1px 1.5px rgba(255,255,255,0.95), 0 1.5px 2px rgba(0,0,0,0.92);
+        place-self: center;
+        z-index: 1;
+      }
+      .mono-die-face--1 .mono-pip {
+        width: calc(var(--die-size, 44px) * 0.24);
+        height: calc(var(--die-size, 44px) * 0.24);
+        background: var(--d3d-ace-bg, radial-gradient(circle at 35% 32%, #ffffff 0%, #e0f2fe 58%, #7dd3fc 100%));
+        box-shadow: 0 0 9px var(--d3d-ace-glow, rgba(125,211,252,0.85)), inset 0 1px 2px #ffffff, 0 2px 3px rgba(0,0,0,0.95);
+      }
+      .mono-pip--tl { grid-area: 1 / 1; }
+      .mono-pip--tr { grid-area: 1 / 3; }
+      .mono-pip--ml { grid-area: 2 / 1; }
+      .mono-pip--mc { grid-area: 2 / 2; }
+      .mono-pip--mr { grid-area: 2 / 3; }
+      .mono-pip--bl { grid-area: 3 / 1; }
+      .mono-pip--br { grid-area: 3 / 3; }
+      .d3d-status-bar {
+        font-size: 11px;
+        font-weight: 800;
+        color: #f8fafc;
+        letter-spacing: 0.04em;
+        min-height: 16px;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function build3DDieCubeHTML(cubeId, initialTransform) {
+    const transform = initialTransform || 'rotateX(-14deg) rotateY(16deg) rotateZ(0deg)';
+    const facesHtml = [1, 2, 3, 4, 5, 6].map(function (faceVal) {
+      const pips = PIP_LAYOUT_MAP[faceVal]
+        .map(function (pos) {
+          return '<span class="mono-pip mono-pip--' + pos + '"></span>';
+        })
+        .join('');
+      return '<div class="mono-die-face mono-die-face--' + faceVal + '">' + pips + '</div>';
+    }).join('');
+
+    return (
+      '<div class="mono-die-scene" id="' + cubeId + 'Scene">' +
+        '<div class="mono-die-cube" id="' + cubeId + '" style="transform:' + transform + ';">' +
+          '<div class="mono-die-core"></div>' +
+          facesHtml +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function playDiceTumbleSFX(durationMs) {
+    const dur = durationMs || 840;
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      if (!window.__dice3DAudioCtx) window.__dice3DAudioCtx = new AudioCtx();
+      const ctx = window.__dice3DAudioCtx;
+      if (ctx.state === 'suspended') ctx.resume();
+
+      const clackTimes = [0.03, 0.12, 0.23, 0.36, 0.51, 0.67, 0.81];
+      clackTimes.forEach(function (offsetSec, idx) {
+        if (offsetSec * 1000 > dur) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = idx % 2 === 0 ? 'triangle' : 'sine';
+        const baseFreq = 260 + ((idx * 67) % 240);
+        osc.frequency.setValueAtTime(baseFreq, ctx.currentTime + offsetSec);
+        osc.frequency.exponentialRampToValueAtTime(95, ctx.currentTime + offsetSec + 0.045);
+
+        const vol = Math.max(0.025, 0.095 - idx * 0.009);
+        gain.gain.setValueAtTime(vol, ctx.currentTime + offsetSec);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + offsetSec + 0.048);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + offsetSec);
+        osc.stop(ctx.currentTime + offsetSec + 0.052);
+      });
+
+      const settleSec = dur / 1000;
+      const settleOsc = ctx.createOscillator();
+      const settleGain = ctx.createGain();
+      settleOsc.type = 'sine';
+      settleOsc.frequency.setValueAtTime(520, ctx.currentTime + settleSec);
+      settleOsc.frequency.exponentialRampToValueAtTime(780, ctx.currentTime + settleSec + 0.11);
+      settleGain.gain.setValueAtTime(0.08, ctx.currentTime + settleSec);
+      settleGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + settleSec + 0.13);
+      settleOsc.connect(settleGain);
+      settleGain.connect(ctx.destination);
+      settleOsc.start(ctx.currentTime + settleSec);
+      settleOsc.stop(ctx.currentTime + settleSec + 0.14);
+    } catch (e) {}
+  }
+
+  function mount(containerSelectorOrEl, options) {
+    injectStylesOnce();
+    const opts = Object.assign({
+      diceCount: 2,
+      sizePx: 44,
+      theme: 'obsidian-cyan',
+      spinDurationMs: 1500,
+      postSettlePauseMs: 400,
+      sound: true
+    }, options || {});
+
+    const container = typeof containerSelectorOrEl === 'string'
+      ? document.querySelector(containerSelectorOrEl)
+      : containerSelectorOrEl;
+
+    if (!container) {
+      throw new Error('Dice3DObsidianEngine.mount: Target container not found.');
+    }
+
+    const themeCfg = THEME_PRESETS[opts.theme] || THEME_PRESETS['obsidian-cyan'];
+    const instanceId = 'd3d_' + Math.random().toString(36).slice(2, 8);
+    let spinRound = 0;
+
+    const cubesHtml = [];
+    for (let i = 0; i < opts.diceCount; i++) {
+      const initRot = i % 2 === 0
+        ? 'rotateX(-14deg) rotateY(16deg) rotateZ(0deg)'
+        : 'rotateX(-14deg) rotateY(196deg) rotateZ(0deg)';
+      cubesHtml.push(build3DDieCubeHTML(instanceId + '_cube_' + i, initRot));
+    }
+
+    container.innerHTML =
+      '<div class="d3d-tray-wrap" id="' + instanceId + '_tray" style="' +
+        '--die-size:' + opts.sizePx + 'px;' +
+        '--die-half:' + (opts.sizePx / 2) + 'px;' +
+        '--d3d-face-bg:' + themeCfg.faceBg + ';' +
+        '--d3d-face-border:' + themeCfg.faceBorder + ';' +
+        '--d3d-core-bg:' + themeCfg.coreBg + ';' +
+        '--d3d-pip-bg:' + themeCfg.pipBg + ';' +
+        '--d3d-pip-glow:' + themeCfg.pipGlow + ';' +
+        '--d3d-ace-bg:' + themeCfg.acePipBg + ';' +
+        '--d3d-ace-glow:' + themeCfg.acePipGlow + ';' +
+        '--d3d-aura:' + themeCfg.auraColor + ';' +
+      '">' +
+        '<div class="d3d-cubes-row">' + cubesHtml.join('') + '</div>' +
+        '<div class="d3d-status-bar" id="' + instanceId + '_status">SẴN SÀNG ĐỔ XÚC XẮC</div>' +
+      '</div>';
+
+    const trayEl = document.getElementById(instanceId + '_tray');
+    const statusEl = document.getElementById(instanceId + '_status');
+
+    function roll(forcedValues) {
+      return new Promise(function (resolve) {
+        const values = [];
+        for (let i = 0; i < opts.diceCount; i++) {
+          const val = (Array.isArray(forcedValues) && forcedValues[i] >= 1 && forcedValues[i] <= 6)
+            ? Math.floor(forcedValues[i])
+            : (1 + Math.floor(Math.random() * 6));
+          values.push(val);
+        }
+
+        spinRound += 1;
+
+        if (trayEl) {
+          trayEl.classList.remove('mono-tray-impact');
+          trayEl.classList.add('mono-tray-rolling-aura');
+        }
+        if (statusEl) {
+          statusEl.innerHTML = '<span style="color:#38bdf8;">ĐANG LĂN •••</span>';
+        }
+        if (opts.sound) {
+          playDiceTumbleSFX(opts.spinDurationMs);
+        }
+
+        for (let i = 0; i < opts.diceCount; i++) {
+          const cubeEl = document.getElementById(instanceId + '_cube_' + i);
+          const sceneEl = document.getElementById(instanceId + '_cube_' + i + 'Scene');
+          const target = DIE_FACE_ANGLES[values[i]] || DIE_FACE_ANGLES[1];
+          const extraX = spinRound * 1080 + (i % 2 === 0 ? 0 : 360);
+          const extraY = spinRound * 1440 + (i * 360);
+          const extraZ = spinRound * 360 * (i % 2 === 0 ? 1 : -1);
+
+          if (sceneEl) {
+            sceneEl.classList.remove('mono-die-bouncing');
+            void sceneEl.offsetWidth;
+            sceneEl.classList.add('mono-die-bouncing');
+          }
+          if (cubeEl) {
+            cubeEl.style.transition = 'transform ' + (opts.spinDurationMs / 1000).toFixed(2) + 's cubic-bezier(0.15, 0.88, 0.24, 1)';
+            cubeEl.style.transform =
+              'rotateX(' + (target.rx + extraX) + 'deg) ' +
+              'rotateY(' + (target.ry + extraY) + 'deg) ' +
+              'rotateZ(' + (target.rz + extraZ) + 'deg)';
+          }
+        }
+
+        setTimeout(function () {
+          for (let i = 0; i < opts.diceCount; i++) {
+            const sceneEl = document.getElementById(instanceId + '_cube_' + i + 'Scene');
+            if (sceneEl) sceneEl.classList.remove('mono-die-bouncing');
+          }
+
+          if (trayEl) {
+            trayEl.classList.remove('mono-tray-rolling-aura');
+            trayEl.classList.add('mono-tray-impact');
+          }
+
+          const sum = values.reduce(function (a, b) { return a + b; }, 0);
+          const isDoubles = values.length >= 2 && values.every(function (v) { return v === values[0]; });
+
+          if (statusEl) {
+            statusEl.innerHTML =
+              'TỔNG: <strong style="color:#fde68a;font-size:13px;">' + sum + '</strong>' +
+              (isDoubles ? ' <span style="color:#38bdf8;margin-left:4px;">⚡ ĐÔI!</span>' : '');
+          }
+
+          setTimeout(function () {
+            resolve({
+              values: values,
+              sum: sum,
+              isDoubles: isDoubles
+            });
+          }, opts.postSettlePauseMs);
+        }, opts.spinDurationMs);
+      });
+    }
+
+    return {
+      roll: roll,
+      playDiceTumbleSFX: playDiceTumbleSFX,
+      DIE_FACE_ANGLES: DIE_FACE_ANGLES
+    };
+  }
+
+  return {
+    mount: mount,
+    build3DDieCubeHTML: build3DDieCubeHTML,
+    playDiceTumbleSFX: playDiceTumbleSFX,
+    DIE_FACE_ANGLES: DIE_FACE_ANGLES,
+    PIP_LAYOUT_MAP: PIP_LAYOUT_MAP
+  };
+});
+
+  </script>
+  <script>
+/**
+ * =========================================================================
+ * 🌾 ĐẢO CATAN 3D (THE SETTLERS OF CATAN) - ENGINE HOÀN CHỈNH
+ * Tích hợp Xúc Xắc 3D Obsidian Pips (Dice3DObsidianEngine)
+ * Đạt chuẩn Argon-Flash & The Agency 282 Agents (Zero-Regression)
+ * =========================================================================
+ */
+(function() {
+  'use strict';
+
+  // Sound Synthesizer SFX for Catan
+  function playCatanSFX(type) {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      if (!window.__catanAudioCtx) window.__catanAudioCtx = new AudioCtx();
+      const ctx = window.__catanAudioCtx;
+      if (ctx.state === 'suspended') ctx.resume();
+
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      if (type === 'build') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(320, now);
+        osc.frequency.exponentialRampToValueAtTime(640, now + 0.12);
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+        osc.start(now);
+        osc.stop(now + 0.2);
+      } else if (type === 'harvest') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(520, now);
+        osc.frequency.exponentialRampToValueAtTime(780, now + 0.15);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+        osc.start(now);
+        osc.stop(now + 0.25);
+      } else if (type === 'robber') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(160, now);
+        osc.frequency.exponentialRampToValueAtTime(90, now + 0.35);
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+        osc.start(now);
+        osc.stop(now + 0.45);
+      } else if (type === 'victory') {
+        [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+          const vOsc = ctx.createOscillator();
+          const vGain = ctx.createGain();
+          vOsc.type = 'triangle';
+          vOsc.frequency.setValueAtTime(freq, now + idx * 0.08);
+          vGain.gain.setValueAtTime(0.12, now + idx * 0.08);
+          vGain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.5);
+          vOsc.connect(vGain);
+          vGain.connect(ctx.destination);
+          vOsc.start(now + idx * 0.08);
+          vOsc.stop(now + idx * 0.08 + 0.55);
+        });
+      }
+    } catch (e) {}
+  }
+
+  // Catan State Object
+  window.catanState = {
+    initialized: false,
+    hexes: [],
+    vertices: [],
+    edges: [],
+    players: [],
+    currentTurnPlayer: 0,
+    turnPhase: 'need_roll', // 'need_roll' | 'action' | 'moving_robber'
+    roundNumber: 1,
+    robberHexId: 0,
+    diceTray: null,
+    isRolling: false,
+    selectedBuildMode: null, // null | 'road' | 'settlement' | 'city'
+    tradeState: { giveRes: null, receiveRes: null },
+    actionLogs: [],
+    isGameOver: false,
+    botTimer: null
+  };
+
+  const RES_CONFIG = {
+    wood:   { name: 'Gỗ', icon: '🌲', color: '#15803d', light: '#22c55e', border: '#166534' },
+    brick:  { name: 'Gạch', icon: '🧱', color: '#b91c1c', light: '#ef4444', border: '#991b1b' },
+    sheep:  { name: 'Cừu', icon: '🐑', color: '#65a30d', light: '#84cc16', border: '#4d7c0f' },
+    wheat:  { name: 'Lúa mì', icon: '🌾', color: '#ca8a04', light: '#eab308', border: '#a16207' },
+    ore:    { name: 'Quặng đá', icon: '⛰️', color: '#475569', light: '#94a3b8', border: '#334155' },
+    desert: { name: 'Sa mạc', icon: '🏜️', color: '#d97706', light: '#f59e0b', border: '#b45309' }
+  };
+
+  const PLAYER_PRESETS = [
+    { id: 0, name: 'Bạn (Chỉ Huy)', isHuman: true, color: '#ef4444', border: '#b91c1c', badge: 'bg-red-500/20 text-red-400 border-red-500/40' },
+    { id: 1, name: 'Bot Cedric (Chiến Binh)', isHuman: false, color: '#3b82f6', border: '#1d4ed8', badge: 'bg-blue-500/20 text-blue-400 border-blue-500/40' },
+    { id: 2, name: 'Bot Elora (Thương Nhân)', isHuman: false, color: '#f59e0b', border: '#b45309', badge: 'bg-amber-500/20 text-amber-400 border-amber-500/40' },
+    { id: 3, name: 'Bot Thorin (Thợ Mỏ)', isHuman: false, color: '#10b981', border: '#047857', badge: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40' }
+  ];
+
+  // Helper: Append Action Log
+  function appendCatanLog(text, icon = '📜') {
+    const s = window.catanState;
+    const entry = { text, icon, time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) };
+    s.actionLogs.unshift(entry);
+    if (s.actionLogs.length > 50) s.actionLogs.pop();
+
+    const logContainer = document.getElementById('catanActionLog');
+    if (logContainer) {
+      logContainer.innerHTML = s.actionLogs.map(l =>
+        '<div class="flex items-start gap-1.5 text-slate-300 py-0.5 border-b border-slate-800/40">' +
+          '<span class="text-xs shrink-0">' + l.icon + '</span>' +
+          '<span class="flex-1 leading-snug">' + l.text + '</span>' +
+          '<span class="text-[9px] text-slate-400 shrink-0 font-mono">' + l.time + '</span>' +
+        '</div>'
+      ).join('');
+    }
+  }
+
+  // Helper: Set Event Banner
+  function setCatanBanner(msg, icon = '🌾', detail = '') {
+    const elMsg = document.getElementById('catanBannerMsg');
+    const elIcon = document.getElementById('catanBannerIcon');
+    const elDetail = document.getElementById('catanBannerDetail');
+    if (elMsg) elMsg.textContent = msg;
+    if (elIcon) elIcon.textContent = icon;
+    if (elDetail) elDetail.textContent = detail;
+  }
+
+  // Generate 19 Hexes Graph with 54 Vertices and 72 Edges
+  function buildCatanBoardGraph() {
+    const R = 54;
+    const H = R * Math.sqrt(3); // ~93.53
+    const V = R * 1.5;          // 81
+    const originX = 380;
+    const originY = 320;
+
+    const rowConfigs = [
+      { r: 0, count: 3, yOffset: -2 * V, xStart: -1 * H },
+      { r: 1, count: 4, yOffset: -1 * V, xStart: -1.5 * H },
+      { r: 2, count: 5, yOffset:  0 * V, xStart: -2 * H },
+      { r: 3, count: 4, yOffset:  1 * V, xStart: -1.5 * H },
+      { r: 4, count: 3, yOffset:  2 * V, xStart: -1 * H }
+    ];
+
+    const baseResources = [
+      'wood', 'wood', 'wood', 'wood',
+      'brick', 'brick', 'brick',
+      'sheep', 'sheep', 'sheep', 'sheep',
+      'wheat', 'wheat', 'wheat', 'wheat',
+      'ore', 'ore', 'ore',
+      'desert'
+    ];
+    for (let i = baseResources.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = baseResources[i];
+      baseResources[i] = baseResources[j];
+      baseResources[j] = temp;
+    }
+
+    const baseNumbers = [2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12];
+    for (let i = baseNumbers.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = baseNumbers[i];
+      baseNumbers[i] = baseNumbers[j];
+      baseNumbers[j] = temp;
+    }
+
+    const hexes = [];
+    let hexId = 0;
+    let numIdx = 0;
+    let robberHexId = 0;
+
+    rowConfigs.forEach(row => {
+      for (let c = 0; c < row.count; c++) {
+        const cx = Math.round((originX + row.xStart + c * H) * 10) / 10;
+        const cy = Math.round((originY + row.yOffset) * 10) / 10;
+        const res = baseResources[hexId];
+        const isDesert = res === 'desert';
+        const num = isDesert ? null : baseNumbers[numIdx++];
+        if (isDesert) robberHexId = hexId;
+
+        hexes.push({
+          id: hexId++,
+          row: row.r,
+          col: c,
+          cx: cx,
+          cy: cy,
+          resource: res,
+          number: num,
+          hasRobber: isDesert,
+          vertexIds: [],
+          edgeIds: []
+        });
+      }
+    });
+
+    const vertices = [];
+    const edges = [];
+    const edgeMap = new Map();
+
+    function getOrCreateVertex(vx, vy) {
+      // Euclidean distance threshold clustering (< 2.5px) ensures exactly 54 unique vertices
+      let vId = vertices.findIndex(v => Math.hypot(v.x - vx, v.y - vy) < 2.5);
+      if (vId === -1) {
+        vId = vertices.length;
+        vertices.push({
+          id: vId,
+          x: Math.round(vx * 10) / 10,
+          y: Math.round(vy * 10) / 10,
+          building: null,
+          adjacentEdges: [],
+          adjacentVertices: [],
+          adjacentHexes: []
+        });
+      }
+      return vId;
+    }
+
+    hexes.forEach(hex => {
+      const hexVerts = [];
+      for (let i = 0; i < 6; i++) {
+        const angleRad = (30 + i * 60) * Math.PI / 180;
+        const vx = hex.cx + R * Math.cos(angleRad);
+        const vy = hex.cy + R * Math.sin(angleRad);
+        const vId = getOrCreateVertex(vx, vy);
+
+        hexVerts.push(vId);
+        hex.vertexIds.push(vId);
+        if (!vertices[vId].adjacentHexes.includes(hex.id)) {
+          vertices[vId].adjacentHexes.push(hex.id);
+        }
+      }
+
+      for (let i = 0; i < 6; i++) {
+        const v1 = hexVerts[i];
+        const v2 = hexVerts[(i + 1) % 6];
+        const eKey = Math.min(v1, v2) + '_' + Math.max(v1, v2);
+
+        let eId;
+        if (edgeMap.has(eKey)) {
+          eId = edgeMap.get(eKey);
+        } else {
+          eId = edges.length;
+          edgeMap.set(eKey, eId);
+          edges.push({
+            id: eId,
+            v1: v1,
+            v2: v2,
+            road: null,
+            adjacentHexes: []
+          });
+
+          if (!vertices[v1].adjacentEdges.includes(eId)) vertices[v1].adjacentEdges.push(eId);
+          if (!vertices[v2].adjacentEdges.includes(eId)) vertices[v2].adjacentEdges.push(eId);
+          if (!vertices[v1].adjacentVertices.includes(v2)) vertices[v1].adjacentVertices.push(v2);
+          if (!vertices[v2].adjacentVertices.includes(v1)) vertices[v2].adjacentVertices.push(v1);
+        }
+        hex.edgeIds.push(eId);
+        if (!edges[eId].adjacentHexes.includes(hex.id)) {
+          edges[eId].adjacentHexes.push(hex.id);
+        }
+      }
+    });
+
+    return { hexes, vertices, edges, robberHexId };
+  }
+
+  function isVertexBuildable(vertexId, playerId, isCityUpgrade = false) {
+    const s = window.catanState;
+    const v = s.vertices[vertexId];
+    if (!v) return false;
+
+    if (isCityUpgrade) {
+      return v.building && v.building.player === playerId && v.building.type === 'settlement';
+    }
+
+    if (v.building) return false;
+
+    for (const adjVId of v.adjacentVertices) {
+      if (s.vertices[adjVId].building) return false;
+    }
+
+    for (const eId of v.adjacentEdges) {
+      if (s.edges[eId].road === playerId) return true;
+    }
+
+    return false;
+  }
+
+  function isEdgeBuildable(edgeId, playerId) {
+    const s = window.catanState;
+    const e = s.edges[edgeId];
+    if (!e || e.road !== null) return false;
+
+    const v1 = s.vertices[e.v1];
+    const v2 = s.vertices[e.v2];
+
+    if ((v1.building && v1.building.player === playerId) || (v2.building && v2.building.player === playerId)) {
+      return true;
+    }
+
+    for (const adjEId of v1.adjacentEdges) {
+      if (adjEId !== edgeId && s.edges[adjEId].road === playerId) return true;
+    }
+    for (const adjEId of v2.adjacentEdges) {
+      if (adjEId !== edgeId && s.edges[adjEId].road === playerId) return true;
+    }
+
+    return false;
+  }
+
+  function setupInitialSettlements(hexes, vertices, edges, players) {
+    const validSpots = [];
+    vertices.forEach(v => {
+      if (v.adjacentHexes.length >= 2) {
+        validSpots.push(v.id);
+      }
+    });
+
+    const usedVertices = new Set();
+    players.forEach(p => {
+      for (let sIdx = 0; sIdx < 2; sIdx++) {
+        let chosenV = null;
+        for (const vId of validSpots) {
+          if (!usedVertices.has(vId)) {
+            let ok = true;
+            for (const adjV of vertices[vId].adjacentVertices) {
+              if (usedVertices.has(adjV)) { ok = false; break; }
+            }
+            if (ok) {
+              chosenV = vId;
+              break;
+            }
+          }
+        }
+
+        if (chosenV !== null) {
+          usedVertices.add(chosenV);
+          vertices[chosenV].building = { player: p.id, type: 'settlement' };
+
+          const adjEdges = vertices[chosenV].adjacentEdges;
+          for (const eId of adjEdges) {
+            if (edges[eId].road === null) {
+              edges[eId].road = p.id;
+              break;
+            }
+          }
+
+          if (sIdx === 1) {
+            vertices[chosenV].adjacentHexes.forEach(hId => {
+              const res = hexes[hId].resource;
+              if (res && res !== 'desert') {
+                p.resources[res] = (p.resources[res] || 0) + 1;
+              }
+            });
+          }
+        }
+      }
+    });
+  }
+
+  function initCatanGame() {
+    const s = window.catanState;
+    if (s.botTimer) {
+      clearTimeout(s.botTimer);
+      s.botTimer = null;
+    }
+
+    const graph = buildCatanBoardGraph();
+    s.hexes = graph.hexes;
+    s.vertices = graph.vertices;
+    s.edges = graph.edges;
+    s.robberHexId = graph.robberHexId;
+    s.roundNumber = 1;
+    s.currentTurnPlayer = 0;
+    s.turnPhase = 'need_roll';
+    s.isRolling = false;
+    s.selectedBuildMode = null;
+    s.actionLogs = [];
+    s.isGameOver = false;
+
+    s.players = PLAYER_PRESETS.map(p => ({
+      ...p,
+      resources: { wood: 1, brick: 1, sheep: 1, wheat: 1, ore: 0 },
+      victoryPoints: 2,
+      devCards: { knight: 0, victoryPoint: 0 },
+      playedKnights: 0
+    }));
+
+    setupInitialSettlements(s.hexes, s.vertices, s.edges, s.players);
+
+    try {
+      if (typeof window.Dice3DObsidianEngine !== 'undefined') {
+        const diceTarget = document.querySelector('#dice-container') ? '#dice-container' : '#catanDiceContainer';
+        s.diceTray = window.Dice3DObsidianEngine.mount(diceTarget, {
+          diceCount: 2,          // 2 viên xúc xắc 3D
+          sizePx: 44,            // Kích thước mỗi viên 44px
+          theme: 'obsidian-cyan', // Theme Obsidian viền xanh cyan cao cấp
+          spinDurationMs: 1000,   // Giai đoạn 1: Lăn hồi hộp 1000ms
+          postSettlePauseMs: 600  // Giai đoạn 3: Nghỉ 600ms sau khi chốt mặt chấm
+        });
+      }
+    } catch (e) {
+      console.warn('Dice3DObsidianEngine mount notice:', e);
+    }
+
+    s.initialized = true;
+
+    appendCatanLog('Chào mừng đến với Đảo Catan 3D! Ván chơi 4 người đã được khởi tạo.', '🌾');
+    appendCatanLog('Mỗi kỳ thủ bắt đầu với 2 Làng (2 VP) và 2 Con Đường.', '🏠');
+    setCatanBanner('Lượt của Bạn! Hãy bấm [ĐỔ XÚC XẮC] để bắt đầu thu hoạch tài nguyên.', '🎲');
+
+    renderCatanArena();
+  };
+
+  function renderCatanArena() {
+    const s = window.catanState;
+    if (!s.initialized) return;
+
+    renderCatanBoard();
+    renderCatanHUD();
+    renderCatanScoreboard();
+  };
+
+  function renderCatanBoard() {
+    const s = window.catanState;
+    const R = 54;
+
+    const hexLayer = document.getElementById('catanHexLayer');
+    const tokenLayer = document.getElementById('catanTokenLayer');
+    const edgeLayer = document.getElementById('catanEdgeLayer');
+    const vertexLayer = document.getElementById('catanVertexLayer');
+    if (!hexLayer || !tokenLayer || !edgeLayer || !vertexLayer) return;
+
+    // 1. Hex Polygons
+    hexLayer.innerHTML = s.hexes.map(hex => {
+      const pts = [];
+      for (let i = 0; i < 6; i++) {
+        const rad = (30 + i * 60) * Math.PI / 180;
+        pts.push((hex.cx + R * Math.cos(rad)).toFixed(1) + ',' + (hex.cy + R * Math.sin(rad)).toFixed(1));
+      }
+      const cfg = RES_CONFIG[hex.resource] || RES_CONFIG.desert;
+      const isRobberTarget = s.turnPhase === 'moving_robber' && hex.id !== s.robberHexId;
+
+      return '<polygon id="catanHex_' + hex.id + '" points="' + pts.join(' ') + '" fill="' + cfg.color + '" stroke="' + (isRobberTarget ? '#f59e0b' : '#334155') + '" stroke-width="' + (isRobberTarget ? '3.5' : '2') + '" stroke-dasharray="' + (isRobberTarget ? '5 3' : 'none') + '" filter="url(#hexShadow)" class="' + (isRobberTarget ? 'cursor-pointer hover:fill-amber-600 transition-colors animate-pulse' : 'transition-colors') + '"' + (isRobberTarget ? ' onclick="onCatanHexClick(' + hex.id + ')"' : '') + '><title>' + cfg.name + ' (Ô #' + hex.id + ')</title></polygon>';
+    }).join('');
+
+    // 2. Tokens & Robber
+    tokenLayer.innerHTML = s.hexes.map(hex => {
+      const cfg = RES_CONFIG[hex.resource];
+      let innerHtml = '';
+
+      if (hex.hasRobber) {
+        innerHtml = '<g transform="translate(' + hex.cx + ', ' + hex.cy + ')">' +
+          '<circle r="20" fill="#090d16" stroke="#f43f5e" stroke-width="2.5" filter="url(#hexShadow)"/>' +
+          '<text y="5" text-anchor="middle" font-size="16" fill="#f43f5e" font-weight="900" pointer-events="none">🦹</text>' +
+          '<circle r="22" fill="none" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.8"/>' +
+        '</g>';
+      } else if (hex.number !== null) {
+        const isHotSpot = hex.number === 6 || hex.number === 8;
+        const textColor = isHotSpot ? '#dc2626' : '#1e293b';
+        const dotsCount = hex.number === 2 || hex.number === 12 ? 1
+                        : hex.number === 3 || hex.number === 11 ? 2
+                        : hex.number === 4 || hex.number === 10 ? 3
+                        : hex.number === 5 || hex.number === 9 ? 4 : 5;
+        const dots = '•'.repeat(dotsCount);
+
+        innerHtml = '<g transform="translate(' + hex.cx + ', ' + hex.cy + ')">' +
+          '<circle r="17" fill="#fef3c7" stroke="' + (isHotSpot ? '#dc2626' : '#d97706') + '" stroke-width="' + (isHotSpot ? '2.5' : '1.5') + '" filter="url(#hexShadow)"/>' +
+          '<text y="-1" text-anchor="middle" font-size="' + (isHotSpot ? '15' : '13') + '" fill="' + textColor + '" font-weight="900" font-family="Cinzel, serif">' + hex.number + '</text>' +
+          '<text y="9" text-anchor="middle" font-size="10" fill="' + textColor + '" font-weight="900">' + dots + '</text>' +
+        '</g>';
+      }
+
+      const watermark = '<text x="' + hex.cx + '" y="' + (hex.cy - 24) + '" text-anchor="middle" font-size="13" opacity="0.75" pointer-events="none">' + cfg.icon + '</text>';
+      return watermark + innerHtml;
+    }).join('');
+
+    // 3. Edges (Roads)
+    edgeLayer.innerHTML = s.edges.map(e => {
+      const v1 = s.vertices[e.v1];
+      const v2 = s.vertices[e.v2];
+      const hasRoad = e.road !== null;
+      const isBuildable = s.selectedBuildMode === 'road' && s.currentTurnPlayer === 0 && isEdgeBuildable(e.id, 0);
+
+      if (hasRoad) {
+        const p = s.players[e.road];
+        return '<line x1="' + v1.x + '" y1="' + v1.y + '" x2="' + v2.x + '" y2="' + v2.y + '" stroke="' + p.color + '" stroke-width="7" stroke-linecap="round" filter="url(#hexShadow)"/>' +
+          '<line x1="' + v1.x + '" y1="' + v1.y + '" x2="' + v2.x + '" y2="' + v2.y + '" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>';
+      }
+
+      if (isBuildable) {
+        return '<line x1="' + v1.x + '" y1="' + v1.y + '" x2="' + v2.x + '" y2="' + v2.y + '" stroke="#fde047" stroke-width="7" stroke-linecap="round" stroke-dasharray="6 4" class="cursor-pointer hover:stroke-amber-400 transition-colors animate-pulse" onclick="onCatanEdgeClick(' + e.id + ')"><title>Nhấp để xây Đường</title></line>';
+      }
+
+      return '';
+    }).join('');
+
+    // 4. Vertices (Settlements / Cities)
+    vertexLayer.innerHTML = s.vertices.map(v => {
+      const b = v.building;
+      const isSettlementMode = s.selectedBuildMode === 'settlement' && s.currentTurnPlayer === 0 && isVertexBuildable(v.id, 0, false);
+      const isCityMode = s.selectedBuildMode === 'city' && s.currentTurnPlayer === 0 && isVertexBuildable(v.id, 0, true);
+
+      if (b) {
+        const p = s.players[b.player];
+        if (b.type === 'city') {
+          return '<g transform="translate(' + v.x + ', ' + v.y + ')">' +
+            '<circle r="14" fill="' + p.color + '" stroke="#ffffff" stroke-width="2.5" filter="url(#hexShadow)"/>' +
+            '<text y="5" text-anchor="middle" font-size="14" fill="#ffffff" font-weight="bold" pointer-events="none">🏰</text>' +
+            '<title>Thành Phố của ' + p.name + ' (2 VP)</title>' +
+          '</g>';
+        } else {
+          return '<g transform="translate(' + v.x + ', ' + v.y + ')"' + (isCityMode ? ' class="cursor-pointer animate-bounce" onclick="onCatanVertexClick(' + v.id + ')"' : '') + '>' +
+            '<circle r="11" fill="' + p.color + '" stroke="' + (isCityMode ? '#38bdf8' : '#ffffff') + '" stroke-width="' + (isCityMode ? '3' : '2') + '" filter="url(#hexShadow)"/>' +
+            '<text y="4" text-anchor="middle" font-size="11" fill="#ffffff" font-weight="bold" pointer-events="none">🏠</text>' +
+            '<title>' + (isCityMode ? 'Nhấp để nâng cấp lên Thành Phố' : 'Làng của ' + p.name + ' (1 VP)') + '</title>' +
+          '</g>';
+        }
+      }
+
+      if (isSettlementMode) {
+        return '<circle cx="' + v.x + '" cy="' + v.y + '" r="8" fill="#22c55e" stroke="#ffffff" stroke-width="2" class="cursor-pointer hover:scale-150 transition-transform animate-pulse" onclick="onCatanVertexClick(' + v.id + ')"><title>Nhấp để xây Làng</title></circle>';
+      }
+
+      return '';
+    }).join('');
+  }
+
+  function renderCatanHUD() {
+    const s = window.catanState;
+    const pHuman = s.players[0];
+    if (!pHuman) return;
+
+    const r = pHuman.resources;
+    const elWood = document.getElementById('catanResWood');
+    const elBrick = document.getElementById('catanResBrick');
+    const elSheep = document.getElementById('catanResSheep');
+    const elWheat = document.getElementById('catanResWheat');
+    const elOre = document.getElementById('catanResOre');
+    const elTotal = document.getElementById('catanTotalResCount');
+
+    if (elWood) elWood.textContent = r.wood || 0;
+    if (elBrick) elBrick.textContent = r.brick || 0;
+    if (elSheep) elSheep.textContent = r.sheep || 0;
+    if (elWheat) elWheat.textContent = r.wheat || 0;
+    if (elOre) elOre.textContent = r.ore || 0;
+
+    const totalCards = (r.wood || 0) + (r.brick || 0) + (r.sheep || 0) + (r.wheat || 0) + (r.ore || 0);
+    if (elTotal) elTotal.textContent = totalCards + ' THẺ';
+
+    const elDev = document.getElementById('catanDevCardSummary');
+    const elKnights = document.getElementById('catanKnightsCount');
+    if (elDev) elDev.textContent = ((pHuman.devCards.knight || 0) + (pHuman.devCards.victoryPoint || 0)) + ' thẻ';
+    if (elKnights) elKnights.textContent = pHuman.playedKnights || 0;
+
+    const curP = s.players[s.currentTurnPlayer];
+    const turnEl = document.getElementById('catanTurnText');
+    const turnWrap = document.getElementById('catanTurnIndicator');
+    if (turnEl && curP) {
+      turnEl.textContent = curP.isHuman ? 'LƯỢT CỦA BẠN (ĐỎ)' : curP.name.toUpperCase() + ' ĐANG ĐÁNH...';
+    }
+    if (turnWrap && curP) {
+      turnWrap.className = 'px-3 py-1.5 rounded-xl border text-xs font-mono font-bold flex items-center gap-2 shadow-inner ' + curP.badge;
+    }
+
+    const rollBtn = document.getElementById('catanRollDiceBtn');
+    if (rollBtn) {
+      const canRoll = s.currentTurnPlayer === 0 && s.turnPhase === 'need_roll' && !s.isRolling && !s.isGameOver;
+      rollBtn.disabled = !canRoll;
+      rollBtn.style.opacity = canRoll ? '1' : '0.5';
+      rollBtn.style.pointerEvents = canRoll ? 'auto' : 'none';
+    }
+
+    const endTurnBtn = document.getElementById('catanBtnEndTurn');
+    if (endTurnBtn) {
+      const canEnd = s.currentTurnPlayer === 0 && s.turnPhase === 'action' && !s.isRolling && !s.isGameOver;
+      endTurnBtn.disabled = !canEnd;
+      endTurnBtn.style.opacity = canEnd ? '1' : '0.5';
+    }
+
+    ['road', 'settlement', 'city'].forEach(m => {
+      const btn = document.getElementById('catanBtnBuild' + m.charAt(0).toUpperCase() + m.slice(1));
+      if (btn) {
+        if (s.selectedBuildMode === m) {
+          btn.classList.add('border-amber-400', 'bg-amber-500/20', 'ring-2', 'ring-amber-400/50');
+        } else {
+          btn.classList.remove('border-amber-400', 'bg-amber-500/20', 'ring-2', 'ring-amber-400/50');
+        }
+      }
+    });
+
+    const promptText = document.getElementById('catanBoardPromptText');
+    if (promptText) {
+      if (s.turnPhase === 'need_roll') {
+        promptText.textContent = s.currentTurnPlayer === 0
+          ? '🎲 Hãy bấm nút [ĐỔ XÚC XẮC] hoặc phím [Space] để bắt đầu thu hoạch tài nguyên.'
+          : '⏳ ' + curP.name + ' đang chuẩn bị đổ xúc xắc...';
+      } else if (s.turnPhase === 'moving_robber') {
+        promptText.textContent = s.currentTurnPlayer === 0
+          ? '🦹 Đổ ra 7! Hãy nhấp vào 1 ô Hex trên bản đồ để di chuyển Tên Cướp và cướp tài nguyên!'
+          : '🦹 ' + curP.name + ' đang chọn vị trí mới cho Tên Cướp...';
+      } else if (s.selectedBuildMode === 'road') {
+        promptText.textContent = '🛣️ Đang chọn xây đường: Hãy nhấp vào một CẠNH phát sáng màu vàng trên bàn cờ.';
+      } else if (s.selectedBuildMode === 'settlement') {
+        promptText.textContent = '🏠 Đang chọn xây làng: Hãy nhấp vào một ĐỈNH phát sáng màu xanh lá trên bàn cờ.';
+      } else if (s.selectedBuildMode === 'city') {
+        promptText.textContent = '🏰 Đang chọn lên phố: Hãy nhấp vào một NGÔI LÀNG của bạn để nâng cấp thành phố.';
+      } else {
+        promptText.textContent = '⚡ Giai đoạn hành động: Bạn có thể Xây dựng, Mua thẻ Dev, Giao thương 4:1 hoặc Kết thúc lượt.';
+      }
+    }
+  }
+
+  function renderCatanScoreboard() {
+    const s = window.catanState;
+    const container = document.getElementById('catanScoreboardList');
+    if (!container) return;
+
+    let maxVP = 0;
+    s.players.forEach(p => { if (p.victoryPoints > maxVP) maxVP = p.victoryPoints; });
+
+    container.innerHTML = s.players.map(p => {
+      const isLeader = p.victoryPoints === maxVP && maxVP >= 3;
+      const isCur = p.id === s.currentTurnPlayer;
+      const totalRes = (p.resources.wood || 0) + (p.resources.brick || 0) + (p.resources.sheep || 0) + (p.resources.wheat || 0) + (p.resources.ore || 0);
+
+      return '<div class="p-2 rounded-2xl border ' + (isCur ? 'border-amber-400/80 bg-amber-500/10' : 'border-slate-800 bg-slate-950/60') + ' flex items-center justify-between text-xs font-mono transition-all">' +
+        '<div class="flex items-center gap-2">' +
+          '<span class="w-3 h-3 rounded-full shrink-0 shadow-sm" style="background-color: ' + p.color + ';"></span>' +
+          '<div>' +
+            '<div class="font-bold text-slate-200 flex items-center gap-1">' +
+              '<span>' + p.name + '</span>' +
+              (isLeader ? '<span class="text-amber-400">👑</span>' : '') +
+            '</div>' +
+            '<div class="text-[10px] text-slate-400 flex items-center gap-2">' +
+              '<span>🎒 ' + totalRes + ' thẻ</span>' +
+              '<span>•</span>' +
+              '<span>⚔️ ' + (p.playedKnights || 0) + ' hiệp sĩ</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="text-right">' +
+          '<div class="text-sm font-black text-amber-300 font-cinzel">' + p.victoryPoints + ' / 10 VP</div>' +
+          '<div class="text-[9px] text-slate-400">' + (p.isHuman ? 'Người chơi' : 'AI Bot') + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  async function onCatanRollDiceClick() {
+    const s = window.catanState;
+    if (s.currentTurnPlayer !== 0 || s.turnPhase !== 'need_roll' || s.isRolling || s.isGameOver) return;
+
+    s.isRolling = true;
+    renderCatanHUD();
+
+    try {
+      let rollRes;
+      if (s.diceTray && typeof s.diceTray.roll === 'function') {
+        rollRes = await s.diceTray.roll();
+      } else {
+        const d1 = Math.floor(Math.random() * 6) + 1;
+        const d2 = Math.floor(Math.random() * 6) + 1;
+        rollRes = { values: [d1, d2], sum: d1 + d2, isDoubles: d1 === d2 };
+      }
+
+      const { values, sum, isDoubles } = rollRes;
+      await resolveCatanDiceResult({ values, sum, isDoubles });
+    } catch (e) {
+      console.error('Catan roll error:', e);
+    } finally {
+      s.isRolling = false;
+      renderCatanArena();
+    }
+  };
+
+  async function resolveCatanDiceResult(rollRes) {
+    const s = window.catanState;
+    const curP = s.players[s.currentTurnPlayer];
+    const sum = rollRes.sum;
+
+    appendCatanLog(curP.name + ' đã đổ ra: [' + rollRes.values.join(' + ') + ' = ' + sum + ']', '🎲');
+
+    if (sum !== 7) {
+      const harvestReport = harvestResourcesForSum(sum);
+      playCatanSFX('harvest');
+
+      if (harvestReport.length > 0) {
+        setCatanBanner('Thu hoạch số ' + sum + ': ' + harvestReport.join(' • '), '🌾');
+        appendCatanLog('Thu hoạch số ' + sum + ': ' + harvestReport.join('; '), '🌾');
+      } else {
+        setCatanBanner('Số ' + sum + ' không có công trình kề cạnh hoặc bị Tên Cướp phong tỏa.', '🍂');
+      }
+
+      s.turnPhase = 'action';
+    } else {
+      playCatanSFX('robber');
+      appendCatanLog('TỔNG 7! Tên Cướp thức giấc trên Đảo Catan!', '🦹');
+      setCatanBanner('TỔNG 7! Bị phạt nếu quá 7 lá. Hãy di chuyển Tên Cướp!', '🦹');
+
+      s.players.forEach(p => {
+        const total = (p.resources.wood || 0) + (p.resources.brick || 0) + (p.resources.sheep || 0) + (p.resources.wheat || 0) + (p.resources.ore || 0);
+        if (total > 7) {
+          const discardCount = Math.floor(total / 2);
+          discardRandomCards(p, discardCount);
+          appendCatanLog(p.name + ' có ' + total + ' thẻ (> 7), bị phạt bỏ ' + discardCount + ' thẻ!', '⚠️');
+        }
+      });
+
+      s.turnPhase = 'moving_robber';
+
+      if (!curP.isHuman) {
+        await new Promise(r => setTimeout(r, 800));
+        botMoveRobber(curP);
+      }
+    }
+  }
+
+  function harvestResourcesForSum(sum) {
+    const s = window.catanState;
+    const reports = [];
+    const playerReceived = {};
+
+    s.hexes.forEach(hex => {
+      if (hex.number === sum && !hex.hasRobber && hex.resource !== 'desert') {
+        hex.vertexIds.forEach(vId => {
+          const v = s.vertices[vId];
+          if (v && v.building) {
+            const p = s.players[v.building.player];
+            const amount = v.building.type === 'city' ? 2 : 1;
+            p.resources[hex.resource] = (p.resources[hex.resource] || 0) + amount;
+
+            if (!playerReceived[p.name]) playerReceived[p.name] = [];
+            playerReceived[p.name].push('+' + amount + ' ' + RES_CONFIG[hex.resource].icon);
+          }
+        });
+      }
+    });
+
+    Object.keys(playerReceived).forEach(pName => {
+      reports.push(pName + ': ' + playerReceived[pName].join(' '));
+    });
+
+    return reports;
+  }
+
+  function discardRandomCards(player, count) {
+    const resKeys = ['wood', 'brick', 'sheep', 'wheat', 'ore'];
+    for (let i = 0; i < count; i++) {
+      const available = resKeys.filter(k => (player.resources[k] || 0) > 0);
+      if (available.length === 0) break;
+      const pick = available[Math.floor(Math.random() * available.length)];
+      player.resources[pick]--;
+    }
+  }
+
+  function onCatanHexClick(hexId) {
+    const s = window.catanState;
+    if (s.turnPhase !== 'moving_robber' || s.currentTurnPlayer !== 0 || hexId === s.robberHexId) return;
+
+    moveRobberToHex(hexId, s.players[0]);
+  };
+
+  function moveRobberToHex(targetHexId, activePlayer) {
+    const s = window.catanState;
+    s.hexes.forEach(h => { h.hasRobber = (h.id === targetHexId); });
+    s.robberHexId = targetHexId;
+
+    const targetHex = s.hexes[targetHexId];
+    appendCatanLog(activePlayer.name + ' đã chuyển Tên Cướp sang ô #' + targetHexId + ' (' + RES_CONFIG[targetHex.resource].name + ')!', '🦹');
+
+    const victims = [];
+    targetHex.vertexIds.forEach(vId => {
+      const v = s.vertices[vId];
+      if (v && v.building && v.building.player !== activePlayer.id) {
+        const victimPlayer = s.players[v.building.player];
+        const victimTotal = (victimPlayer.resources.wood || 0) + (victimPlayer.resources.brick || 0) + (victimPlayer.resources.sheep || 0) + (victimPlayer.resources.wheat || 0) + (victimPlayer.resources.ore || 0);
+        if (victimTotal > 0 && !victims.includes(victimPlayer)) {
+          victims.push(victimPlayer);
+        }
+      }
+    });
+
+    if (victims.length > 0) {
+      const victim = victims[Math.floor(Math.random() * victims.length)];
+      const resKeys = ['wood', 'brick', 'sheep', 'wheat', 'ore'].filter(k => (victim.resources[k] || 0) > 0);
+      if (resKeys.length > 0) {
+        const stolenRes = resKeys[Math.floor(Math.random() * resKeys.length)];
+        victim.resources[stolenRes]--;
+        activePlayer.resources[stolenRes] = (activePlayer.resources[stolenRes] || 0) + 1;
+        appendCatanLog(activePlayer.name + ' đã cướp 1 ' + RES_CONFIG[stolenRes].icon + ' từ ' + victim.name + '!', '⚔️');
+      }
+    }
+
+    s.turnPhase = 'action';
+    renderCatanArena();
+  }
+
+  function botMoveRobber(botPlayer) {
+    const s = window.catanState;
+    let bestHex = null;
+    let maxDamage = -1;
+
+    s.hexes.forEach(hex => {
+      if (hex.id !== s.robberHexId && hex.resource !== 'desert') {
+        let damage = 0;
+        hex.vertexIds.forEach(vId => {
+          const v = s.vertices[vId];
+          if (v && v.building) {
+            if (v.building.player === 0) damage += 3;
+            else if (v.building.player !== botPlayer.id) damage += 1;
+          }
+        });
+        if (damage > maxDamage) {
+          maxDamage = damage;
+          bestHex = hex.id;
+        }
+      }
+    });
+
+    moveRobberToHex(bestHex !== null ? bestHex : (s.robberHexId + 1) % 19, botPlayer);
+  }
+
+  function toggleCatanBuildMode(mode) {
+    const s = window.catanState;
+    if (s.currentTurnPlayer !== 0 || s.turnPhase !== 'action' || s.isGameOver) return;
+
+    if (s.selectedBuildMode === mode) {
+      s.selectedBuildMode = null;
+    } else {
+      const r = s.players[0].resources;
+      if (mode === 'road') {
+        if ((r.wood || 0) < 1 || (r.brick || 0) < 1) {
+          setCatanBanner('Bạn không đủ tài nguyên! Cần 1 Gỗ (🌲) + 1 Gạch (🧱) để xây Đường.', '⚠️');
+          return;
+        }
+      } else if (mode === 'settlement') {
+        if ((r.wood || 0) < 1 || (r.brick || 0) < 1 || (r.sheep || 0) < 1 || (r.wheat || 0) < 1) {
+          setCatanBanner('Bạn không đủ tài nguyên! Cần 1 Gỗ + 1 Gạch + 1 Cừu + 1 Lúa để xây Làng.', '⚠️');
+          return;
+        }
+      } else if (mode === 'city') {
+        if ((r.wheat || 0) < 2 || (r.ore || 0) < 3) {
+          setCatanBanner('Bạn không đủ tài nguyên! Cần 2 Lúa (🌾) + 3 Quặng Đá (⛰️) để lên Thành Phố.', '⚠️');
+          return;
+        }
+      }
+      s.selectedBuildMode = mode;
+    }
+
+    renderCatanArena();
+  };
+
+  function onCatanEdgeClick(edgeId) {
+    const s = window.catanState;
+    if (s.selectedBuildMode !== 'road' || s.currentTurnPlayer !== 0) return;
+
+    const p = s.players[0];
+    if ((p.resources.wood || 0) < 1 || (p.resources.brick || 0) < 1) return;
+
+    p.resources.wood--;
+    p.resources.brick--;
+    s.edges[edgeId].road = 0;
+    s.selectedBuildMode = null;
+
+    playCatanSFX('build');
+    appendCatanLog('Bạn đã xây 1 Con Đường mới!', '🛣️');
+    setCatanBanner('Xây dựng thành công 1 Con Đường!', '🛣️');
+
+    renderCatanArena();
+  };
+
+  function onCatanVertexClick(vertexId) {
+    const s = window.catanState;
+    const p = s.players[0];
+
+    if (s.selectedBuildMode === 'settlement') {
+      if ((p.resources.wood || 0) < 1 || (p.resources.brick || 0) < 1 || (p.resources.sheep || 0) < 1 || (p.resources.wheat || 0) < 1) return;
+
+      p.resources.wood--;
+      p.resources.brick--;
+      p.resources.sheep--;
+      p.resources.wheat--;
+      s.vertices[vertexId].building = { player: 0, type: 'settlement' };
+      p.victoryPoints++;
+      s.selectedBuildMode = null;
+
+      playCatanSFX('build');
+      appendCatanLog('Bạn đã lập 1 Ngôi Làng mới! (+1 Điểm Thắng)', '🏠');
+      setCatanBanner('Chúc mừng! Bạn đã xây 1 Ngôi Làng (+1 VP)!', '🏠');
+
+      checkCatanWinner();
+      renderCatanArena();
+    } else if (s.selectedBuildMode === 'city') {
+      if ((p.resources.wheat || 0) < 2 || (p.resources.ore || 0) < 3) return;
+
+      p.resources.wheat -= 2;
+      p.resources.ore -= 3;
+      s.vertices[vertexId].building.type = 'city';
+      p.victoryPoints++;
+      s.selectedBuildMode = null;
+
+      playCatanSFX('build');
+      appendCatanLog('Bạn đã nâng cấp thành công 1 Thành Phố! (+1 Điểm Thắng, x2 thu hoạch)', '🏰');
+      setCatanBanner('Tuyệt vời! Làng đã nâng cấp thành Thành Phố uy nghi (+1 VP)!', '🏰');
+
+      checkCatanWinner();
+      renderCatanArena();
+    }
+  };
+
+  function buyCatanDevCard() {
+    const s = window.catanState;
+    if (s.currentTurnPlayer !== 0 || s.turnPhase !== 'action' || s.isGameOver) return;
+
+    const p = s.players[0];
+    if ((p.resources.sheep || 0) < 1 || (p.resources.wheat || 0) < 1 || (p.resources.ore || 0) < 1) {
+      setCatanBanner('Không đủ tài nguyên! Cần 1 Cừu (🐑) + 1 Lúa (🌾) + 1 Quặng Đá (⛰️) để mua Thẻ Dev.', '⚠️');
+      return;
+    }
+
+    p.resources.sheep--;
+    p.resources.wheat--;
+    p.resources.ore--;
+
+    const isVP = Math.random() < 0.4;
+    if (isVP) {
+      p.devCards.victoryPoint = (p.devCards.victoryPoint || 0) + 1;
+      p.victoryPoints++;
+      appendCatanLog('Bạn đã rút được Thẻ Dev: [🏆 ĐIỂM THẮNG ẨN] (+1 VP)!', '🃏');
+      setCatanBanner('Chúc mừng! Bạn rút được 1 Thẻ Điểm Thắng ẩn (+1 VP)!', '🏆');
+    } else {
+      p.devCards.knight = (p.devCards.knight || 0) + 1;
+      p.playedKnights = (p.playedKnights || 0) + 1;
+      appendCatanLog('Bạn đã chiêu mộ 1 [⚔️ HIỆP SĨ HOÀNG GIA]!', '🃏');
+      setCatanBanner('Bạn đã chiêu mộ 1 Hiệp Sĩ tăng cường sức mạnh quân sự!', '⚔️');
+    }
+
+    playCatanSFX('harvest');
+    checkCatanWinner();
+    renderCatanArena();
+  };
+
+  function openCatanTradeModal() {
+    const s = window.catanState;
+    if (s.currentTurnPlayer !== 0 || s.turnPhase !== 'action' || s.isGameOver) return;
+
+    s.tradeState = { giveRes: null, receiveRes: null };
+    renderTradeModalOptions();
+
+    const m = document.getElementById('catanTradeModal');
+    if (m) {
+      m.classList.remove('hidden');
+      void m.offsetWidth;
+      m.classList.add('opacity-100');
+    }
+  };
+
+  function renderTradeModalOptions() {
+    const s = window.catanState;
+    const p = s.players[0];
+    const resKeys = ['wood', 'brick', 'sheep', 'wheat', 'ore'];
+
+    const giveContainer = document.getElementById('catanTradeGiveOptions');
+    const recContainer = document.getElementById('catanTradeReceiveOptions');
+    if (!giveContainer || !recContainer) return;
+
+    giveContainer.innerHTML = resKeys.map(k => {
+      const cfg = RES_CONFIG[k];
+      const count = p.resources[k] || 0;
+      const canGive = count >= 4;
+      const isSelected = s.tradeState.giveRes === k;
+
+      return '<div onclick="' + (canGive ? "selectTradeGive('" + k + "')" : '') + '" class="p-2 rounded-2xl border ' + (isSelected ? 'border-amber-400 bg-amber-500/20 ring-2 ring-amber-400' : 'border-slate-700 bg-slate-800/80') + ' ' + (canGive ? 'cursor-pointer hover:border-slate-500' : 'opacity-40 cursor-not-allowed') + ' flex flex-col items-center">' +
+        '<span class="text-xl">' + cfg.icon + '</span>' +
+        '<span class="text-[10px] font-bold text-slate-300 mt-1">' + cfg.name + '</span>' +
+        '<span class="text-xs font-mono font-black text-amber-400">' + count + '/4</span>' +
+      '</div>';
+    }).join('');
+
+    recContainer.innerHTML = resKeys.map(k => {
+      const cfg = RES_CONFIG[k];
+      const isSelected = s.tradeState.receiveRes === k;
+
+      return '<div onclick="selectTradeReceive(\'' + k + '\')" class="p-2 rounded-2xl border ' + (isSelected ? 'border-emerald-400 bg-emerald-500/20 ring-2 ring-emerald-400' : 'border-slate-700 bg-slate-800/80') + ' cursor-pointer hover:border-slate-500 flex flex-col items-center">' +
+        '<span class="text-xl">' + cfg.icon + '</span>' +
+        '<span class="text-[10px] font-bold text-slate-300 mt-1">' + cfg.name + '</span>' +
+        '<span class="text-[10px] text-emerald-400 font-mono">+1 THẺ</span>' +
+      '</div>';
+    }).join('');
+
+    const statusEl = document.getElementById('catanTradeStatusMsg');
+    const confirmBtn = document.getElementById('catanTradeConfirmBtn');
+    if (s.tradeState.giveRes && s.tradeState.receiveRes) {
+      if (s.tradeState.giveRes === s.tradeState.receiveRes) {
+        if (statusEl) statusEl.textContent = 'Tài nguyên nhận phải khác tài nguyên đem đổi!';
+        if (confirmBtn) confirmBtn.disabled = true;
+      } else {
+        if (statusEl) statusEl.textContent = 'Đổi 4 ' + RES_CONFIG[s.tradeState.giveRes].name + ' lấy 1 ' + RES_CONFIG[s.tradeState.receiveRes].name;
+        if (confirmBtn) confirmBtn.disabled = false;
+      }
+    } else {
+      if (statusEl) statusEl.textContent = 'Vui lòng chọn 1 loại đem bỏ (cần >= 4) và 1 loại muốn nhận.';
+      if (confirmBtn) confirmBtn.disabled = true;
+    }
+  }
+
+  function selectTradeGive(res) {
+    window.catanState.tradeState.giveRes = res;
+    renderTradeModalOptions();
+  };
+
+  function selectTradeReceive(res) {
+    window.catanState.tradeState.receiveRes = res;
+    renderTradeModalOptions();
+  };
+
+  function confirmCatanTrade() {
+    const s = window.catanState;
+    const p = s.players[0];
+    const giveRes = s.tradeState.giveRes;
+    const receiveRes = s.tradeState.receiveRes;
+    if (!giveRes || !receiveRes || giveRes === receiveRes || (p.resources[giveRes] || 0) < 4) return;
+
+    p.resources[giveRes] -= 4;
+    p.resources[receiveRes] = (p.resources[receiveRes] || 0) + 1;
+
+    playCatanSFX('harvest');
+    appendCatanLog('Giao thương 4:1 thành công: Đổi 4 ' + RES_CONFIG[giveRes].name + ' lấy 1 ' + RES_CONFIG[receiveRes].name + '!', '⚖️');
+    setCatanBanner('Đổi thành công: +1 ' + RES_CONFIG[receiveRes].name + '!', '⚖️');
+
+    if (typeof closeModal === 'function') closeModal('catanTradeModal');
+    renderCatanArena();
+  };
+
+  function endCatanTurn() {
+    const s = window.catanState;
+    if (s.currentTurnPlayer !== 0 || s.turnPhase !== 'action' || s.isGameOver) return;
+
+    s.selectedBuildMode = null;
+    advanceToNextPlayer();
+  };
+
+  function advanceToNextPlayer() {
+    const s = window.catanState;
+    s.currentTurnPlayer = (s.currentTurnPlayer + 1) % 4;
+    s.turnPhase = 'need_roll';
+
+    if (s.currentTurnPlayer === 0) {
+      s.roundNumber++;
+      const rText = document.getElementById('catanRoundText');
+      if (rText) rText.textContent = 'VÒNG ' + s.roundNumber;
+    }
+
+    renderCatanArena();
+
+    const curP = s.players[s.currentTurnPlayer];
+    if (!curP.isHuman) {
+      s.botTimer = setTimeout(() => {
+        runCatanBotTurn(curP);
+      }, 1000);
+    }
+  }
+
+  async function runCatanBotTurn(botPlayer) {
+    const s = window.catanState;
+    if (s.isGameOver) return;
+
+    s.isRolling = true;
+    renderCatanHUD();
+
+    let rollRes;
+    if (s.diceTray && typeof s.diceTray.roll === 'function') {
+      rollRes = await s.diceTray.roll();
+    } else {
+      const d1 = Math.floor(Math.random() * 6) + 1;
+      const d2 = Math.floor(Math.random() * 6) + 1;
+      rollRes = { values: [d1, d2], sum: d1 + d2, isDoubles: d1 === d2 };
+    }
+
+    s.isRolling = false;
+    const { values, sum, isDoubles } = rollRes;
+    await resolveCatanDiceResult({ values, sum, isDoubles });
+    renderCatanArena();
+
+    await new Promise(r => setTimeout(r, 600));
+
+    // A. Upgrade to City
+    const r = botPlayer.resources;
+    if ((r.wheat || 0) >= 2 && (r.ore || 0) >= 3) {
+      for (const v of s.vertices) {
+        if (v.building && v.building.player === botPlayer.id && v.building.type === 'settlement') {
+          r.wheat -= 2;
+          r.ore -= 3;
+          v.building.type = 'city';
+          botPlayer.victoryPoints++;
+          appendCatanLog(botPlayer.name + ' đã nâng cấp 1 Thành Phố! (+1 VP)', '🏰');
+          playCatanSFX('build');
+          checkCatanWinner();
+          break;
+        }
+      }
+    }
+
+    // B. Build Settlement
+    if ((r.wood || 0) >= 1 && (r.brick || 0) >= 1 && (r.sheep || 0) >= 1 && (r.wheat || 0) >= 1) {
+      for (const v of s.vertices) {
+        if (isVertexBuildable(v.id, botPlayer.id, false)) {
+          r.wood--;
+          r.brick--;
+          r.sheep--;
+          r.wheat--;
+          v.building = { player: botPlayer.id, type: 'settlement' };
+          botPlayer.victoryPoints++;
+          appendCatanLog(botPlayer.name + ' đã xây 1 Ngôi Làng mới! (+1 VP)', '🏠');
+          playCatanSFX('build');
+          checkCatanWinner();
+          break;
+        }
+      }
+    }
+
+    // C. Build Road
+    if ((r.wood || 0) >= 1 && (r.brick || 0) >= 1) {
+      for (const e of s.edges) {
+        if (isEdgeBuildable(e.id, botPlayer.id)) {
+          r.wood--;
+          r.brick--;
+          e.road = botPlayer.id;
+          appendCatanLog(botPlayer.name + ' đã kéo dài 1 Con Đường!', '🛣️');
+          playCatanSFX('build');
+          break;
+        }
+      }
+    }
+
+    renderCatanArena();
+
+    await new Promise(r => setTimeout(r, 800));
+    advanceToNextPlayer();
+  }
+
+  function checkCatanWinner() {
+    const s = window.catanState;
+    if (s.isGameOver) return;
+
+    for (const p of s.players) {
+      if (p.victoryPoints >= 10) {
+        s.isGameOver = true;
+        playCatanSFX('victory');
+
+        const winModal = document.getElementById('catanWinModal');
+        const winTitle = document.getElementById('catanWinnerTitle');
+        const winDesc = document.getElementById('catanWinnerDesc');
+
+        if (winTitle) {
+          winTitle.textContent = p.isHuman
+            ? 'BẠN ĐÃ ĐẠT 10 ĐIỂM THẮNG (VICTORY POINTS)!'
+            : p.name.toUpperCase() + ' ĐÃ ĐẠT 10 ĐIỂM THẮNG!';
+        }
+        if (winDesc) {
+          winDesc.textContent = p.isHuman
+            ? 'Thuộc địa phồn vinh, mạng lưới thương lộ thống nhất hòn đảo lục giác trù phú! Chiến thuật tài ba của bạn đã ghi danh vào lịch sử Đảo Catan.'
+            : p.name + ' đã áp đảo với chiến thuật bành trướng lãnh thổ vượt trội và trở thành tân Chúa Tể Đảo Catan!';
+        }
+
+        if (winModal) {
+          winModal.classList.remove('hidden');
+          void winModal.offsetWidth;
+          winModal.classList.add('opacity-100');
+        }
+
+        appendCatanLog('🏆 TRẬN ĐẤU KẾT THÚC! ' + p.name + ' GIÀNH CHIẾN THẮNG VỚI ' + p.victoryPoints + ' VP!', '👑');
+        break;
+      }
+    }
+  }
+
+  function openCatanRulesModal() {
+    const m = document.getElementById('catanRulesModal');
+    if (m) {
+      m.classList.remove('hidden');
+      void m.offsetWidth;
+      m.classList.add('opacity-100');
+    }
+  };
+
+  // Global contract: movePlayerToken for external callers / script prompts
+  window.movePlayerToken = function(sum) {
+    if (typeof window.resolveCatanDiceResult === 'function') {
+      const d1 = Math.floor(sum / 2);
+      const d2 = sum - d1;
+      return window.resolveCatanDiceResult({ values: [d1, d2], sum: sum, isDoubles: d1 === d2 });
+    }
+  };
+
+  // Safe navigation exit helper
+  window.exitGameToLobby = function() {
+    if (typeof window.requestExitArenaToLobby === 'function') {
+      window.requestExitArenaToLobby('lobby');
+    } else if (typeof window.switchMainTab === 'function') {
+      window.switchMainTab('lobby');
+    }
+  };
+
+  // Export internal functions for unit tests & extensibility
+  window.resolveCatanDiceResult = resolveCatanDiceResult;
+  // Explicitly export all Catan functions to window for UI onclick & external test suites
+  window.initCatanGame = initCatanGame;
+  window.renderCatanArena = renderCatanArena;
+  window.onCatanRollDiceClick = onCatanRollDiceClick;
+  window.onCatanHexClick = onCatanHexClick;
+  window.toggleCatanBuildMode = toggleCatanBuildMode;
+  window.onCatanEdgeClick = onCatanEdgeClick;
+  window.onCatanVertexClick = onCatanVertexClick;
+  window.buyCatanDevCard = buyCatanDevCard;
+  window.openCatanTradeModal = openCatanTradeModal;
+  window.selectTradeGive = selectTradeGive;
+  window.selectTradeReceive = selectTradeReceive;
+  window.confirmCatanTrade = confirmCatanTrade;
+  window.endCatanTurn = endCatanTurn;
+  window.openCatanRulesModal = openCatanRulesModal;
+
+  window.harvestResourcesForSum = harvestResourcesForSum;
+  window.moveRobberToHex = moveRobberToHex;
+  window.buildCatanBoardGraph = buildCatanBoardGraph;
+
+  // Auto-route on load if hash specified (e.g. #catan, #werewolf, #uno)
+  window.addEventListener('DOMContentLoaded', function() {
+    const hash = (window.location.hash || '').replace('#', '').toLowerCase();
+    if (['catan', 'werewolf', 'uno', 'kittens', 'monopoly', 'chess', 'tictactoe', 'dice'].includes(hash)) {
+      if (typeof window.switchMainTab === 'function') window.switchMainTab('arena');
+      if (typeof window.switchGameView === 'function') window.switchGameView(hash);
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.code === 'Space' && (window.activeGameView === 'catan' || window.activeTab === 'catan')) {
+      const activeEl = document.activeElement;
+      if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')) return;
+      e.preventDefault();
+      if (typeof window.onCatanRollDiceClick === 'function') {
+        window.onCatanRollDiceClick();
+      }
+    }
+  });
+
+})();
+
+  </script>
 
 </body>
 </html>

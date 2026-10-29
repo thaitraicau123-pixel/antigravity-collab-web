@@ -4878,6 +4878,10 @@
           <!-- Right: Control Buttons -->
           <div class="flex items-center gap-2">
             <!-- Village Chronicle (Nhật Ký Làng) -->
+            <button type="button" onclick="toggleWerewolfVoiceNarration()" id="btnToggleWerewolfVoice" class="btn-spring px-3 py-1.5 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/40 text-indigo-200 border border-indigo-500/40 text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Bật/Tắt Giọng Nói Quản Trò (Web Speech)">
+              <span id="werewolfVoiceIcon">🎙️</span>
+              <span id="werewolfVoiceText">Quản Trò: Bật</span>
+            </button>
             <button type="button" onclick="toggleWerewolfChatPanel()" id="btnToggleWerewolfChat" class="btn-spring px-3 py-1.5 rounded-xl bg-purple-600/30 hover:bg-purple-600/40 text-purple-200 border border-purple-500/40 text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Bật/Tắt Khung Chat Trò Chuyện (Phím C)">
               <span id="werewolfChatBtnIcon">💬</span>
               <span>Trò Chuyện (C)</span>
@@ -4964,7 +4968,7 @@
                   <span id="werewolfRoleReveal_1" class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-slate-400">???</span>
                 </div>
                 <div class="flex items-center justify-between mt-0.5">
-                  <span class="text-[10px] text-slate-400 font-mono">Trưởng Làng</span>
+                  <span id="werewolfTitle_1" class="text-[10px] text-slate-400 font-mono truncate">Trưởng Làng Uy Quyền</span>
                   <span id="werewolfVoteBadge_1" class="hidden text-[10px] font-bold text-red-400 font-mono bg-red-950/60 px-1 rounded border border-red-800/40">🗳️ 0</span>
                 </div>
               </div>
@@ -4983,7 +4987,7 @@
                   <span id="werewolfRoleReveal_2" class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-slate-400">???</span>
                 </div>
                 <div class="flex items-center justify-between mt-0.5">
-                  <span class="text-[10px] text-slate-400 font-mono">Cô Bé Khăn Đỏ</span>
+                  <span id="werewolfTitle_2" class="text-[10px] text-slate-400 font-mono truncate">Người Làm Gốm</span>
                   <span id="werewolfVoteBadge_2" class="hidden text-[10px] font-bold text-red-400 font-mono bg-red-950/60 px-1 rounded border border-red-800/40">🗳️ 0</span>
                 </div>
               </div>
@@ -5002,7 +5006,7 @@
                   <span id="werewolfRoleReveal_3" class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-slate-400">???</span>
                 </div>
                 <div class="flex items-center justify-between mt-0.5">
-                  <span class="text-[10px] text-slate-400 font-mono">Gã Thợ Rèn</span>
+                  <span id="werewolfTitle_3" class="text-[10px] text-slate-400 font-mono truncate">Bác Thợ Rèn Cơ Bắp</span>
                   <span id="werewolfVoteBadge_3" class="hidden text-[10px] font-bold text-red-400 font-mono bg-red-950/60 px-1 rounded border border-red-800/40">🗳️ 0</span>
                 </div>
               </div>
@@ -5040,7 +5044,7 @@
                   <span id="werewolfRoleReveal_5" class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-slate-400">???</span>
                 </div>
                 <div class="flex items-center justify-between mt-0.5">
-                  <span class="text-[10px] text-slate-400 font-mono">Thợ Săn Rừng Sâu</span>
+                  <span id="werewolfTitle_5" class="text-[10px] text-slate-400 font-mono truncate">Bác Làm Vườn Già</span>
                   <span id="werewolfVoteBadge_5" class="hidden text-[10px] font-bold text-red-400 font-mono bg-red-950/60 px-1 rounded border border-red-800/40">🗳️ 0</span>
                 </div>
               </div>
@@ -5059,7 +5063,7 @@
                   <span id="werewolfRoleReveal_6" class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-slate-400">???</span>
                 </div>
                 <div class="flex items-center justify-between mt-0.5">
-                  <span class="text-[10px] text-slate-400 font-mono">Bà Lão Bào Thuốc</span>
+                  <span id="werewolfTitle_6" class="text-[10px] text-slate-400 font-mono truncate">Chủ Tiệm Trà Cổ Kính</span>
                   <span id="werewolfVoteBadge_6" class="hidden text-[10px] font-bold text-red-400 font-mono bg-red-950/60 px-1 rounded border border-red-800/40">🗳️ 0</span>
                 </div>
               </div>
@@ -5075,10 +5079,10 @@
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-2">
                   <span class="text-xs sm:text-sm font-black text-amber-300 font-cinzel truncate">BẠN (CHỈ HUY)</span>
-                  <span id="werewolfRoleReveal_0" class="px-2 py-0.5 rounded text-[10px] font-mono font-black bg-indigo-600 text-white shadow-sm">BẢO VỆ</span>
+                  <span id="werewolfRoleReveal_0" class="px-2 py-0.5 rounded text-[10px] font-mono font-black bg-slate-800 text-slate-400 shadow-sm">???</span>
                 </div>
                 <div class="flex items-center justify-between mt-1">
-                  <span id="werewolfHumanStatusText" class="text-[11px] text-emerald-400 font-mono font-bold">Còn sống • Đang quan sát</span>
+                  <span id="werewolfTitle_0" class="text-[10px] text-slate-400 font-mono truncate">Chỉ Huy Chiến Thuật</span>
                   <span id="werewolfVoteBadge_0" class="hidden text-[10px] font-bold text-red-400 font-mono bg-red-950/60 px-1.5 py-0.5 rounded border border-red-800/40">🗳️ 0 Phiếu</span>
                 </div>
               </div>
@@ -29572,11 +29576,11 @@ async function executeDrawCard(playerIdx) {
   const BOT_PROFILES = [
     { id: 0, isHuman: true, name: 'Bạn (Chỉ Huy)', title: 'Chỉ Huy Chiến Thuật' },
     { id: 1, isHuman: false, name: 'Eldrin', title: 'Trưởng Làng Uy Quyền' },
-    { id: 2, isHuman: false, name: 'Lyra', title: 'Nhà Thơ Mộng Mơ' },
+    { id: 2, isHuman: false, name: 'Lyra', title: 'Người Làm Gốm' },
     { id: 3, isHuman: false, name: 'Garrick', title: 'Bác Thợ Rèn Cơ Bắp' },
-    { id: 4, isHuman: false, name: 'Seraphina', title: 'Nữ Dược Sĩ Bí Ẩn' },
-    { id: 5, isHuman: false, name: 'Vance', title: 'Thợ Săn Rừng Sâu' },
-    { id: 6, isHuman: false, name: 'Morgana', title: 'Bà Lão Tiên Tri Mù' }
+    { id: 4, isHuman: false, name: 'Seraphina', title: 'Cô Thợ Dệt Khéo Tay' },
+    { id: 5, isHuman: false, name: 'Vance', title: 'Bác Làm Vườn Già' },
+    { id: 6, isHuman: false, name: 'Morgana', title: 'Chủ Tiệm Trà Cổ Kính' }
   ];
 
   var werewolfState = window.werewolfState = {
@@ -29604,89 +29608,314 @@ async function executeDrawCard(playerIdx) {
     roleModalTimer: null,
     seerModalTimer: null,
     actionFallbackTimer: null,
-    hunterModalTimer: null
+    hunterModalTimer: null,
+    voiceNarrationEnabled: true
   };
 
-  // Helper audio
-  function playAudioTone(freq, type, duration, vol = 0.2) {
+  // --------------------------------------------------------------------------
+  // CINEMATIC WEB AUDIO & NARRATOR SPEECH ENGINE (FIX TIẾNG GAME & HOÀN THIỆN ÂM THANH)
+  // --------------------------------------------------------------------------
+  function getWerewolfAudioContext() {
+    const ctx = window.sharedAudioCtx || (window.sharedAudioCtx = new (window.AudioContext || window.webkitAudioContext)());
+    if (ctx && ctx.state === 'suspended') {
+      ctx.resume().catch(() => {});
+    }
+    return ctx;
+  }
+
+  function playAudioTone(freq, type = 'sine', duration = 0.25, vol = 0.2, filterCutoff = 0) {
     if (window.isArenaAudioMuted) return;
     try {
-      const ctx = window.sharedAudioCtx || (window.sharedAudioCtx = new (window.AudioContext || window.webkitAudioContext)());
-      if (ctx.state === 'suspended') ctx.resume();
+      const ctx = getWerewolfAudioContext();
+      if (!ctx) return;
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = type;
       osc.frequency.setValueAtTime(freq, ctx.currentTime);
-      gain.gain.setValueAtTime(vol, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
-      osc.connect(gain);
+      gain.gain.setValueAtTime(Math.min(vol, 0.4), ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+
+      if (filterCutoff > 0) {
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(filterCutoff, ctx.currentTime);
+        osc.connect(filter);
+        filter.connect(gain);
+      } else {
+        osc.connect(gain);
+      }
       gain.connect(ctx.destination);
       osc.start();
       osc.stop(ctx.currentTime + duration);
     } catch (e) {}
   }
 
+  // Realistic Cinematic Wolf Howl (Dual-oscillator + Resonant Lowpass Filter - Bỏ Sawtooth chói tai)
   function playWerewolfHowl() {
     if (window.isArenaAudioMuted) return;
     try {
-      const ctx = window.sharedAudioCtx || (window.sharedAudioCtx = new (window.AudioContext || window.webkitAudioContext)());
-      if (ctx.state === 'suspended') ctx.resume();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'sawtooth';
+      const ctx = getWerewolfAudioContext();
+      if (!ctx) return;
       const now = ctx.currentTime;
-      osc.frequency.setValueAtTime(140, now);
-      osc.frequency.linearRampToValueAtTime(320, now + 0.6);
-      osc.frequency.linearRampToValueAtTime(260, now + 1.2);
-      osc.frequency.linearRampToValueAtTime(110, now + 2.0);
+      const duration = 2.4;
 
-      gain.gain.setValueAtTime(0.01, now);
-      gain.gain.linearRampToValueAtTime(0.25, now + 0.5);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 2.0);
+      // Master output gain
+      const masterGain = ctx.createGain();
+      masterGain.gain.setValueAtTime(0.001, now);
+      masterGain.gain.linearRampToValueAtTime(0.24, now + 0.55);
+      masterGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+      masterGain.connect(ctx.destination);
 
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(now);
-      osc.stop(now + 2.0);
+      // Lowpass resonant filter (loại bỏ tiếng cưa kim loại, tạo chất âm ma mị rừng sâu)
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.Q.setValueAtTime(3.5, now);
+      filter.frequency.setValueAtTime(320, now);
+      filter.frequency.linearRampToValueAtTime(680, now + 0.75);
+      filter.frequency.linearRampToValueAtTime(480, now + 1.5);
+      filter.frequency.linearRampToValueAtTime(220, now + duration);
+      filter.connect(masterGain);
+
+      // Osc 1: Warm hollow body (triangle)
+      const osc1 = ctx.createOscillator();
+      osc1.type = 'triangle';
+      osc1.frequency.setValueAtTime(115, now);
+      osc1.frequency.linearRampToValueAtTime(295, now + 0.65);
+      osc1.frequency.linearRampToValueAtTime(255, now + 1.35);
+      osc1.frequency.linearRampToValueAtTime(90, now + duration);
+      osc1.connect(filter);
+      osc1.start(now);
+      osc1.stop(now + duration);
+
+      // Osc 2: Sub-bass throat rumble (sine 55Hz -> 140Hz)
+      const osc2 = ctx.createOscillator();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(58, now);
+      osc2.frequency.linearRampToValueAtTime(148, now + 0.65);
+      osc2.frequency.linearRampToValueAtTime(45, now + duration);
+      const subGain = ctx.createGain();
+      subGain.gain.setValueAtTime(0.16, now);
+      osc2.connect(subGain);
+      subGain.connect(masterGain);
+      osc2.start(now);
+      osc2.stop(now + duration);
+
+      // Osc 3: Textured breath air (filtered soft sawtooth)
+      const osc3 = ctx.createOscillator();
+      osc3.type = 'sawtooth';
+      osc3.frequency.setValueAtTime(118, now);
+      osc3.frequency.linearRampToValueAtTime(298, now + 0.65);
+      osc3.frequency.linearRampToValueAtTime(92, now + duration);
+      const gritGain = ctx.createGain();
+      gritGain.gain.setValueAtTime(0.08, now);
+      osc3.connect(gritGain);
+      gritGain.connect(filter);
+      osc3.start(now);
+      osc3.stop(now + duration);
     } catch (e) {}
   }
 
+  // Realistic European Bronze Village Bell (Additive Modal Harmonics)
   function playVillageBell() {
-    playAudioTone(440, 'sine', 1.8, 0.3);
-    setTimeout(() => playAudioTone(554.37, 'sine', 1.6, 0.25), 250);
+    if (window.isArenaAudioMuted) return;
+    try {
+      const ctx = getWerewolfAudioContext();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+      const baseFreq = 330; // E4
+      const partials = [
+        { mult: 0.5, vol: 0.16, dur: 2.8 },
+        { mult: 1.0, vol: 0.32, dur: 2.4 },
+        { mult: 1.2, vol: 0.20, dur: 2.0 },
+        { mult: 1.5, vol: 0.14, dur: 1.6 },
+        { mult: 2.0, vol: 0.10, dur: 1.3 },
+        { mult: 2.76, vol: 0.06, dur: 0.9 }
+      ];
+
+      partials.forEach(p => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(baseFreq * p.mult, now);
+        gain.gain.setValueAtTime(p.vol, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + p.dur);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + p.dur);
+      });
+    } catch (e) {}
   }
 
-  function playMagicReveal() {
-    playAudioTone(880, 'sine', 0.6, 0.25);
-    setTimeout(() => playAudioTone(1320, 'triangle', 0.8, 0.3), 150);
+  // Realistic Solid Oak Gavel Strike (Impact + Resonant wood pitch drop + Rebound)
+  function playGavelLynch() {
+    if (window.isArenaAudioMuted) return;
+    try {
+      const ctx = getWerewolfAudioContext();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+
+      // Heavy wooden thud (filter pitch sweep)
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(340, now);
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(175, now);
+      osc.frequency.exponentialRampToValueAtTime(42, now + 0.22);
+
+      gain.gain.setValueAtTime(0.45, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.24);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.24);
+
+      // Rebound tap after 100ms
+      setTimeout(() => {
+        try {
+          const now2 = ctx.currentTime;
+          const osc2 = ctx.createOscillator();
+          const gain2 = ctx.createGain();
+          osc2.type = 'triangle';
+          osc2.frequency.setValueAtTime(125, now2);
+          osc2.frequency.exponentialRampToValueAtTime(38, now2 + 0.14);
+          gain2.gain.setValueAtTime(0.22, now2);
+          gain2.gain.exponentialRampToValueAtTime(0.0001, now2 + 0.15);
+          osc2.connect(gain2);
+          gain2.connect(ctx.destination);
+          osc2.start(now2);
+          osc2.stop(now2 + 0.15);
+        } catch(e) {}
+      }, 100);
+    } catch (e) {}
   }
 
+  // Realistic Hunter Gunshot (Explosive blast + Low punch + Forest echo)
   function playHunterGunshot() {
     if (window.isArenaAudioMuted) return;
     try {
-      const ctx = window.sharedAudioCtx || (window.sharedAudioCtx = new (window.AudioContext || window.webkitAudioContext)());
-      if (ctx.state === 'suspended') ctx.resume();
-      const bufferSize = ctx.sampleRate * 0.4;
+      const ctx = getWerewolfAudioContext();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+
+      const bufferSize = Math.floor(ctx.sampleRate * 0.55);
       const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
       const data = buffer.getChannelData(0);
       for (let i = 0; i < bufferSize; i++) {
-        data[i] = Math.random() * 2 - 1;
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.10));
       }
       const noise = ctx.createBufferSource();
       noise.buffer = buffer;
-      const gain = ctx.createGain();
-      gain.gain.setValueAtTime(0.8, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.38);
-      noise.connect(gain);
-      gain.connect(ctx.destination);
-      noise.start();
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(850, now);
+      filter.frequency.exponentialRampToValueAtTime(140, now + 0.38);
+      filter.Q.setValueAtTime(1.3, now);
+
+      const noiseGain = ctx.createGain();
+      noiseGain.gain.setValueAtTime(0.65, now);
+      noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.52);
+
+      noise.connect(filter);
+      filter.connect(noiseGain);
+      noiseGain.connect(ctx.destination);
+      noise.start(now);
+
+      // Low frequency sub thump (chest punch)
+      const sub = ctx.createOscillator();
+      const subGain = ctx.createGain();
+      sub.type = 'sine';
+      sub.frequency.setValueAtTime(110, now);
+      sub.frequency.exponentialRampToValueAtTime(32, now + 0.28);
+      subGain.gain.setValueAtTime(0.6, now);
+      subGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.32);
+      sub.connect(subGain);
+      subGain.connect(ctx.destination);
+      sub.start(now);
+      sub.stop(now + 0.32);
     } catch (e) {}
   }
 
-  function playGavelLynch() {
-    playAudioTone(120, 'square', 0.35, 0.4);
-    setTimeout(() => playAudioTone(95, 'square', 0.4, 0.45), 200);
+  // Crystalline Magic Chime (Pentatonic Celestial Reveal)
+  function playMagicReveal() {
+    if (window.isArenaAudioMuted) return;
+    try {
+      const ctx = getWerewolfAudioContext();
+      if (!ctx) return;
+      const notes = [659.25, 830.61, 987.77, 1318.51]; // E5, G#5, B5, E6
+      notes.forEach((freq, idx) => {
+        setTimeout(() => {
+          try {
+            const now = ctx.currentTime;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, now);
+            gain.gain.setValueAtTime(0.18, now);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.7);
+          } catch(e) {}
+        }, idx * 70);
+      });
+    } catch (e) {}
   }
+
+  // Quản Trò Narrator Speech Engine (Web Speech Synthesis tiếng Việt)
+  function speakWerewolfNarrator(text) {
+    if (window.isArenaAudioMuted || !werewolfState.voiceNarrationEnabled) return;
+    if (!('speechSynthesis' in window)) return;
+    try {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'vi-VN';
+      u.rate = 0.95;
+      u.pitch = 0.95;
+      u.volume = 0.9;
+      const voices = window.speechSynthesis.getVoices();
+      if (voices && voices.length > 0) {
+        const viVoice = voices.find(v => v.lang && (v.lang.startsWith('vi') || v.lang.includes('VN')));
+        if (viVoice) u.voice = viVoice;
+      }
+      window.speechSynthesis.speak(u);
+    } catch (e) {}
+  }
+
+  function toggleWerewolfVoiceNarration() {
+    werewolfState.voiceNarrationEnabled = !werewolfState.voiceNarrationEnabled;
+    const icon = document.getElementById('werewolfVoiceIcon');
+    const text = document.getElementById('werewolfVoiceText');
+    const btn = document.getElementById('btnToggleWerewolfVoice');
+    if (werewolfState.voiceNarrationEnabled) {
+      if (icon) icon.textContent = '🎙️';
+      if (text) text.textContent = 'Quản Trò: Bật';
+      if (btn) btn.classList.remove('opacity-50');
+      showToast('🔊 Đã bật giọng nói Quản Trò kể chuyện.');
+      speakWerewolfNarrator('Quản trò đã sẵn sàng.');
+    } else {
+      if (icon) icon.textContent = '🔇';
+      if (text) text.textContent = 'Quản Trò: Tắt';
+      if (btn) btn.classList.add('opacity-50');
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      showToast('🔇 Đã tắt giọng nói Quản Trò.');
+    }
+  }
+  window.toggleWerewolfVoiceNarration = toggleWerewolfVoiceNarration;
+  window.speakWerewolfNarrator = speakWerewolfNarrator;
+  window.playWerewolfHowl = playWerewolfHowl;
+  window.playVillageBell = playVillageBell;
+  window.playGavelLynch = playGavelLynch;
+  window.playHunterGunshot = playHunterGunshot;
+  window.playMagicReveal = playMagicReveal;
 
   // Chronicle logger
   function addChronicleLog(text, icon = '📜') {
@@ -29982,6 +30211,7 @@ async function executeDrawCard(playerIdx) {
     // Show Human Role Modal & Auto Start Countdown
     openWerewolfRoleModal();
     playWerewolfHowl();
+    speakWerewolfNarrator('Chào mừng đến với làng Millers Hollow. Hãy ghi nhớ vai trò của bạn.');
   }
   window.initWerewolfGame = initWerewolfGame;
   window.restartWerewolfGame = initWerewolfGame;
@@ -30115,32 +30345,36 @@ async function executeDrawCard(playerIdx) {
         avEl.innerHTML = window.renderPlayerAvatarSafe ? window.renderPlayerAvatarSafe(p.avatar, 'w-full h-full') : p.avatar;
       }
 
+      // Dynamic Village Title Sync
+      const titleEl = document.getElementById('werewolfTitle_' + idx);
+      if (titleEl) titleEl.textContent = p.title;
+
       // Alive vs Dead
       if (!p.isAlive) {
         podEl.classList.add('werewolf-player-dead');
         if (deadEl) deadEl.classList.remove('hidden');
         if (roleEl) {
-          // Chỉ khi chết mới lật bài thật
+          // CHỈ KHI CHẾT MỚI LẬT BÀI THẬT
           const def = WEREWOLF_ROLES[p.role];
           roleEl.textContent = def.name;
           roleEl.style.backgroundColor = def.teamColor;
-          roleEl.classList.remove('bg-slate-800', 'text-slate-500');
-          roleEl.classList.add('text-white');
+          roleEl.className = 'px-1.5 py-0.2 rounded text-[9px] font-mono font-bold text-white shadow-sm';
         }
       } else {
         podEl.classList.remove('werewolf-player-dead');
         if (deadEl) deadEl.classList.add('hidden');
 
-        // CHUẨN ĐỜI THẬT: Người sống không bao giờ bị lộ Role
+        // CHUẨN ĐỜI THẬT: NGƯỜI SỐNG TUYỆT ĐỐI KHÔNG LỘ ROLE
         const isSelf = (idx === 0);
-        const isTeammateWolf = (p0.role === 'werewolf' && p.role === 'werewolf');
-        const knownBySeer = (werewolfState.seerScryKnowledge[p.id]);
+        const isTeammateWolf = (p0.isAlive && p0.role === 'werewolf' && p.role === 'werewolf');
+        // CHỈ HIỆN BADGE SOI NẾU CHÍNH NGƯỜI CHƠI LÀ TIÊN TRI CÒN SỐNG
+        const knownBySeer = (p0.isAlive && p0.role === 'seer' && werewolfState.seerScryKnowledge[p.id]);
 
         if (isSelf) {
           if (roleEl) {
             roleEl.textContent = myDef.name;
             roleEl.style.backgroundColor = myDef.teamColor;
-            roleEl.className = 'px-1.5 py-0.2 rounded text-[9px] font-mono font-bold text-white';
+            roleEl.className = 'px-1.5 py-0.2 rounded text-[9px] font-mono font-bold text-white shadow-sm';
           }
         } else if (isTeammateWolf) {
           // Ma Sói nhận diện đồng đội bí mật
@@ -30150,7 +30384,7 @@ async function executeDrawCard(playerIdx) {
             roleEl.className = 'px-1.5 py-0.2 rounded text-[9px] font-mono font-bold text-white shadow-sm';
           }
         } else if (knownBySeer) {
-          // Tiên Tri đã soi người này
+          // Tiên Tri đã soi người này (Chỉ hiển thị cho chính Tiên Tri)
           if (roleEl) {
             const def = WEREWOLF_ROLES[p.role];
             roleEl.textContent = `🔮 ${def.name}`;
@@ -30158,7 +30392,7 @@ async function executeDrawCard(playerIdx) {
             roleEl.className = 'px-1.5 py-0.2 rounded text-[9px] font-mono font-bold text-white shadow-sm';
           }
         } else {
-          // Dân thường bí ẩn hoàn toàn không biết gì
+          // Tất cả người sống còn lại: TUYỆT ĐỐI BÍ MẬT ???
           if (roleEl) {
             roleEl.textContent = '???';
             roleEl.style.backgroundColor = '';
@@ -30273,6 +30507,7 @@ async function executeDrawCard(playerIdx) {
 
     switch (newPhase) {
       case 'NIGHT_INTRO':
+        speakWerewolfNarrator('Trời tối rồi, cả làng nhắm mắt ngủ say.');
         if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • LÀNG ĐI NGỦ`;
         if (bannerText) bannerText.textContent = 'Màn đêm buông xuống... Cả làng Millers Hollow chìm vào giấc ngủ.';
         if (centralText) centralText.textContent = 'Trời tối rồi, cả làng đi ngủ say...';
@@ -30291,6 +30526,7 @@ async function executeDrawCard(playerIdx) {
         break;
 
       case 'NIGHT_GUARD':
+        speakWerewolfNarrator('Bảo vệ thức dậy.');
         if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • BẢO VỆ THỨC GIẤC`;
         if (centralIcon) centralIcon.textContent = '🛡️';
 
@@ -30313,6 +30549,7 @@ async function executeDrawCard(playerIdx) {
         break;
 
       case 'NIGHT_WOLVES':
+        speakWerewolfNarrator('Ma Sói thức dậy, tìm con mồi.');
         if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • MA SÓI THỨC GIẤC`;
         if (centralIcon) centralIcon.textContent = '🐺';
 
@@ -30336,6 +30573,7 @@ async function executeDrawCard(playerIdx) {
         break;
 
       case 'NIGHT_SEER':
+        speakWerewolfNarrator('Tiên tri thức dậy, soi sáng bản mệnh.');
         if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • TIÊN TRI THỨC GIẤC`;
         if (centralIcon) centralIcon.textContent = '🔮';
 
@@ -30363,6 +30601,7 @@ async function executeDrawCard(playerIdx) {
         break;
 
       case 'NIGHT_WITCH':
+        speakWerewolfNarrator('Phù thủy thức dậy.');
         if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • PHÙ THỦY THỨC GIẤC`;
         if (centralIcon) centralIcon.textContent = '🧙‍♀️';
 
@@ -30397,6 +30636,7 @@ async function executeDrawCard(playerIdx) {
         break;
 
       case 'DAWN_REVEAL':
+        speakWerewolfNarrator('Trời sáng rồi, cả làng thức dậy!');
         // BÌNH MINH LÓ RẠNG: CẢ LÀNG MỞ MẮT
         if (blindOverlay) blindOverlay.classList.add('hidden');
         resolveNightPhase();
@@ -30520,7 +30760,7 @@ async function executeDrawCard(playerIdx) {
       const chosen = alivePlayers[Math.floor(Math.random() * alivePlayers.length)];
       werewolfState.nightProtectedTarget = chosen.id;
       werewolfState.guardLastTarget = chosen.id;
-      addChronicleLog('Bảo Vệ đã bí mật che chắn cho một người dân.', '🛡️');
+      // Secret guard action not logged to public village chronicle before dawn
     }
     setWerewolfPhase('NIGHT_WOLVES');
   }
@@ -30552,7 +30792,7 @@ async function executeDrawCard(playerIdx) {
       if (victim && victim.role !== 'werewolf' && Math.random() < 0.8) {
         werewolfState.witchHealUsed = true;
         werewolfState.nightWolfVictim = null;
-        addChronicleLog('Phù Thủy đã bí mật sử dụng bình thuốc cứu người.', '🧪');
+        // Secret witch action not logged to public village chronicle before dawn
       }
     }
     setWerewolfPhase('DAWN_REVEAL');
@@ -30610,7 +30850,7 @@ async function executeDrawCard(playerIdx) {
       if (werewolfState.nightWolfVictim !== werewolfState.nightProtectedTarget) {
         deaths.push(werewolfState.nightWolfVictim);
       } else {
-        addChronicleLog('Bảo Vệ đã che chắn thành công, cứu sống người dân khỏi nanh vuốt Sói!', '🛡️');
+        // Secret guard protection not leaked before dawn
       }
     }
 
@@ -30651,6 +30891,7 @@ async function executeDrawCard(playerIdx) {
       // Check if Hunter was killed in night
       const hunterKilled = deaths.find(id => werewolfState.players[id].role === 'hunter');
       if (hunterKilled !== undefined) {
+        speakWerewolfNarrator('Thợ Săn trúng đòn tử thương, nổ phát súng sinh tử!');
         triggerHunterRevengeShot(hunterKilled);
         return;
       }
@@ -30723,6 +30964,7 @@ async function executeDrawCard(playerIdx) {
   // --------------------------------------------------------------------------
   function startDayVoting() {
     clearActionFallback();
+    speakWerewolfNarrator('Dân làng mở phiên tòa xét xử và biểu quyết treo cổ.');
     werewolfState.votes = {};
     const bannerText = document.getElementById('werewolfCenterBannerText');
     const phaseText = document.getElementById('werewolfPhaseText');
@@ -30930,6 +31172,7 @@ async function executeDrawCard(playerIdx) {
     const listGrid = document.getElementById('werewolfGameOverIdentityList');
 
     if (winningTeam === 'village') {
+      speakWerewolfNarrator('Phe Dân Làng đã toàn thắng!');
       if (bannerTitle) bannerTitle.textContent = 'PHE DÂN LÀNG CHIẾN THẮNG!';
       if (bannerDesc) bannerDesc.textContent = 'Toàn bộ Ma Sói độc ác đã bị tiêu diệt! Ánh sáng công lý lại bao trùm Millers Hollow.';
       if (bannerBadge) {
@@ -30939,7 +31182,8 @@ async function executeDrawCard(playerIdx) {
       playAudioTone(587.33, 'triangle', 0.8, 0.35);
       setTimeout(() => playAudioTone(880, 'triangle', 1.2, 0.4), 250);
     } else {
-      if (bannerTitle) bannerTitle.textContent = 'PHE MA SÓI CHIẾN THẮNG!';
+      if (bannerTitle) speakWerewolfNarrator('Phe Ma Sói đã thống trị ngôi làng!');
+      bannerTitle.textContent = 'PHE MA SÓI CHIẾN THẮNG!';
       if (bannerDesc) bannerDesc.textContent = 'Bầy Sói đã áp đảo hoàn toàn dân làng! Millers Hollow vĩnh viễn chìm trong màn đêm đẫm máu.';
       if (bannerBadge) {
         bannerBadge.textContent = '🐺 MA SÓI THỐNG TRỊ';

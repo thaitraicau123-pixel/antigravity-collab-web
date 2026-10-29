@@ -95,7 +95,13 @@ const {
   executeHunterShot,
   checkWerewolfWinCondition,
   appendChatMessage,
-  toggleWerewolfChatPanel
+  toggleWerewolfChatPanel,
+  playWerewolfHowl,
+  playVillageBell,
+  playGavelLynch,
+  playHunterGunshot,
+  speakWerewolfNarrator,
+  toggleWerewolfVoiceNarration
 } = window;
 
 console.log('>>> Werewolf Online Engine evaluated into test runtime successfully!\n');
@@ -232,6 +238,45 @@ try {
   });
   let hasWon = checkWerewolfWinCondition();
   assert('Phe Dân Làng chiến thắng khi toàn bộ Ma Sói bị tiêu diệt', hasWon === true && st.winner === 'village');
+
+  // TEST NHÓM 7: BẢO VỆ TUYỆT ĐỐI KHỎI LEAK TỪ BOT SEER & TITLES
+  console.log('\n--- NHÓM 7: KIỂM TOÁN CHỐNG LỘ ROLE & ÂM THANH QUẢN TRÒ (v4.4.1) ---');
+  st.players.forEach(p => p.isAlive = true);
+  st.players[1].role = 'werewolf';
+  // 1. Bot Seer scrying does NOT leak to Villager human
+  st.players[0].role = 'villager';
+  const targetP1Id = st.players[1].id;
+  st.seerScryKnowledge[targetP1Id] = 'werewolf'; // Bot Seer knew player 1 is wolf
+  window.renderWerewolfArena();
+  assert('Dù Bot Seer đã soi, Dân thường vẫn KHÔNG THẤY role người 1 (vẫn là ???)', document.getElementById('werewolfRoleReveal_1').textContent === '???');
+
+  // 2. But if human IS the Seer, they CAN see their scry result
+  st.players[0].role = 'seer';
+  window.renderWerewolfArena();
+  assert('Nếu người chơi chính là Tiên Tri, họ thấy kết quả soi', document.getElementById('werewolfRoleReveal_1').textContent.includes('Ma Sói'));
+
+  // 3. Reset back to villager
+  st.players[0].role = 'villager';
+  window.renderWerewolfArena();
+
+  // 4. Kiểm tra các title dân làng không bị trùng lộ role
+  const botTitles = st.players.map(p => p.title);
+  assert('Không có bot nào mang danh hiệu lộ role Thợ Săn', !botTitles.some(t => t.includes('Thợ Săn Rừng')));
+  assert('Không có bot nào mang danh hiệu lộ role Tiên Tri', !botTitles.some(t => t.includes('Tiên Tri Mù')));
+
+  // 5. Kiểm tra hệ thống âm thanh & Quản trò
+  assert('Hàm playWerewolfHowl tồn tại', typeof playWerewolfHowl === 'function');
+  assert('Hàm playVillageBell tồn tại', typeof playVillageBell === 'function');
+  assert('Hàm playGavelLynch tồn tại', typeof playGavelLynch === 'function');
+  assert('Hàm playHunterGunshot tồn tại', typeof playHunterGunshot === 'function');
+  assert('Hàm speakWerewolfNarrator tồn tại', typeof speakWerewolfNarrator === 'function');
+  assert('Hàm toggleWerewolfVoiceNarration tồn tại', typeof toggleWerewolfVoiceNarration === 'function');
+
+  // Test toggle voice
+  toggleWerewolfVoiceNarration();
+  assert('Tắt giọng Quản trò chuyển state thành false', st.voiceNarrationEnabled === false);
+  toggleWerewolfVoiceNarration();
+  assert('Bật lại giọng Quản trò chuyển state thành true', st.voiceNarrationEnabled === true);
 
   console.log('\n================================================================');
   console.log(`  🎉 HOÀN TẤT: TẤT CẢ ${passed}/${total} TEST CASES ĐỀU PASSED 100%!`);

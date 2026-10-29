@@ -4878,6 +4878,9 @@
           <!-- Right: Control Buttons -->
           <div class="flex items-center gap-2">
             <!-- Village Chronicle (Nhật Ký Làng) -->
+            <button type="button" onclick="skipWerewolfWaitOrAct()" class="btn-spring px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Bỏ qua chờ đợi / Hành động ngay (Phím Space)">
+              <span>⚡ Tua Nhanh (Space)</span>
+            </button>
             <button type="button" onclick="toggleWerewolfChronicle()" class="btn-spring px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:border-amber-400 text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm cursor-pointer">
               <span>📜 Nhật Ký Làng</span>
             </button>
@@ -18644,8 +18647,8 @@ const vKittens = document.getElementById('kittensView');
           vWerewolf.classList.add('flex', 'view-fade-slide');
           if (typeof initWerewolfGame === 'function' && (!window.werewolfState || !window.werewolfState.initialized)) {
             initWerewolfGame();
-          } else if (typeof renderWerewolfTable === 'function') {
-            renderWerewolfTable();
+          } else if (typeof renderWerewolfArena === 'function') {
+            renderWerewolfArena();
           }
         }
         if (titleEl) {
@@ -29426,15 +29429,11 @@ async function executeDrawCard(playerIdx) {
     });
   
 
-    /* ==========================================================================
-       MA SÓI: HUYỀN THOẠI TRĂNG MÁU (CYBER WEREWOLF ARENA) ENGINE
-       ========================================================================== */
-/* =========================================================================
-   CYBER WEREWOLF ENGINE (MA SÓI: HUYỀN THOẠI TRĂNG MÁU v1.0.0)
+    /* =========================================================================
+   CYBER WEREWOLF ENGINE (MA SÓI: HUYỀN THOẠI TRĂNG MÁU v2.0 - ZERO-FREEZE)
    7 Players: 1 Human Commander + 6 Personality-Driven AI Bots
    Roles: 2 Werewolves, 1 Seer, 1 Bodyguard, 1 Witch, 1 Hunter, 1 Villager
    ========================================================================= */
-
 (function() {
   const WEREWOLF_ROLES = {
     werewolf: {
@@ -29506,19 +29505,18 @@ async function executeDrawCard(playerIdx) {
   };
 
   const BOT_PROFILES = [
-    { id: 0, name: 'Bạn (Chỉ Huy)', isHuman: true, title: 'Chỉ Huy Ngôi Làng' },
-    { id: 1, name: 'Eldrin', isHuman: false, title: 'Trưởng Làng Râu Bạc' },
-    { id: 2, name: 'Lyra', isHuman: false, title: 'Cô Bé Khăn Đỏ' },
-    { id: 3, name: 'Garrick', isHuman: false, title: 'Gã Thợ Rèn Cơ Bắp' },
-    { id: 4, name: 'Seraphina', isHuman: false, title: 'Nữ Thợ Dệt Bí Ẩn' },
-    { id: 5, name: 'Vance', isHuman: false, title: 'Thợ Săn Rừng Sâu' },
-    { id: 6, name: 'Morgana', isHuman: false, title: 'Bà Lão Bào Thuốc' }
+    { id: 0, isHuman: true, name: 'Bạn (Chỉ Huy)', title: 'Chỉ Huy Chiến Thuật' },
+    { id: 1, isHuman: false, name: 'Eldrin', title: 'Trưởng Làng Uy Quyền' },
+    { id: 2, isHuman: false, name: 'Lyra', title: 'Nhà Thơ Mộng Mơ' },
+    { id: 3, isHuman: false, name: 'Garrick', title: 'Bác Thợ Rèn Cơ Bắp' },
+    { id: 4, isHuman: false, name: 'Seraphina', title: 'Nữ Dược Sĩ Bí Ẩn' },
+    { id: 5, isHuman: false, name: 'Vance', title: 'Thợ Săn Rừng Sâu' },
+    { id: 6, isHuman: false, name: 'Morgana', title: 'Bà Lão Tiên Tri Mù' }
   ];
 
-  // Global State
   var werewolfState = window.werewolfState = {
     initialized: false,
-    phase: 'LOBBY', // LOBBY, NIGHT_INTRO, NIGHT_GUARD, NIGHT_WOLVES, NIGHT_SEER, NIGHT_WITCH, DAWN_REVEAL, DAY_DISCUSS, DAY_VOTING, GAME_OVER
+    phase: 'LOBBY',
     dayCount: 1,
     players: [],
     selectedTarget: null,
@@ -29528,28 +29526,30 @@ async function executeDrawCard(playerIdx) {
     nightWolfVictim: null,
     nightWitchPoisonVictim: null,
     nightProtectedTarget: null,
-    votes: {}, // voterId -> targetId
+    votes: {},
     chronicleLogs: [],
-    phaseTimer: null,
-    phaseSecondsLeft: 25,
-    speechQueueTimer: null,
-    seerScryKnowledge: {}, // playerId -> roleId
+    seerScryKnowledge: {},
     isGameOver: false,
-    winner: null
+    winner: null,
+    phaseTimer: null,
+    speechQueueTimer: null,
+    roleModalTimer: null,
+    seerModalTimer: null,
+    actionFallbackTimer: null,
+    hunterModalTimer: null
   };
 
-  // Web Audio Synthesis SFX Engine
-  function playAudioTone(freq, type = 'sine', duration = 0.2, gainVol = 0.3) {
+  // Helper audio
+  function playAudioTone(freq, type, duration, vol = 0.2) {
+    if (window.isArenaAudioMuted) return;
     try {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (!AudioCtx) return;
-      const ctx = window.__bgmAudioCtx || new AudioCtx();
+      const ctx = window.sharedAudioCtx || (window.sharedAudioCtx = new (window.AudioContext || window.webkitAudioContext)());
       if (ctx.state === 'suspended') ctx.resume();
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = type;
       osc.frequency.setValueAtTime(freq, ctx.currentTime);
-      gain.gain.setValueAtTime(gainVol, ctx.currentTime);
+      gain.gain.setValueAtTime(vol, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
       osc.connect(gain);
       gain.connect(ctx.destination);
@@ -29559,44 +29559,44 @@ async function executeDrawCard(playerIdx) {
   }
 
   function playWerewolfHowl() {
+    if (window.isArenaAudioMuted) return;
     try {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (!AudioCtx) return;
-      const ctx = window.__bgmAudioCtx || new AudioCtx();
+      const ctx = window.sharedAudioCtx || (window.sharedAudioCtx = new (window.AudioContext || window.webkitAudioContext)());
       if (ctx.state === 'suspended') ctx.resume();
-      const now = ctx.currentTime;
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(260, now);
-      osc.frequency.exponentialRampToValueAtTime(580, now + 0.8);
-      osc.frequency.exponentialRampToValueAtTime(320, now + 1.8);
+      const now = ctx.currentTime;
+      osc.frequency.setValueAtTime(140, now);
+      osc.frequency.linearRampToValueAtTime(320, now + 0.6);
+      osc.frequency.linearRampToValueAtTime(260, now + 1.2);
+      osc.frequency.linearRampToValueAtTime(110, now + 2.0);
+
       gain.gain.setValueAtTime(0.01, now);
-      gain.gain.linearRampToValueAtTime(0.35, now + 0.4);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 1.9);
+      gain.gain.linearRampToValueAtTime(0.25, now + 0.5);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 2.0);
+
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start(now);
-      osc.stop(now + 1.9);
+      osc.stop(now + 2.0);
     } catch (e) {}
   }
 
   function playVillageBell() {
-    playAudioTone(440, 'triangle', 1.2, 0.4);
-    setTimeout(() => playAudioTone(880, 'sine', 1.0, 0.25), 80);
+    playAudioTone(440, 'sine', 1.8, 0.3);
+    setTimeout(() => playAudioTone(554.37, 'sine', 1.6, 0.25), 250);
   }
 
   function playMagicReveal() {
-    [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
-      setTimeout(() => playAudioTone(f, 'sine', 0.25, 0.25), i * 90);
-    });
+    playAudioTone(880, 'sine', 0.6, 0.25);
+    setTimeout(() => playAudioTone(1320, 'triangle', 0.8, 0.3), 150);
   }
 
   function playHunterGunshot() {
+    if (window.isArenaAudioMuted) return;
     try {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (!AudioCtx) return;
-      const ctx = window.__bgmAudioCtx || new AudioCtx();
+      const ctx = window.sharedAudioCtx || (window.sharedAudioCtx = new (window.AudioContext || window.webkitAudioContext)());
       if (ctx.state === 'suspended') ctx.resume();
       const bufferSize = ctx.sampleRate * 0.4;
       const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
@@ -29607,8 +29607,8 @@ async function executeDrawCard(playerIdx) {
       const noise = ctx.createBufferSource();
       noise.buffer = buffer;
       const gain = ctx.createGain();
-      gain.gain.setValueAtTime(0.6, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+      gain.gain.setValueAtTime(0.8, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.38);
       noise.connect(gain);
       gain.connect(ctx.destination);
       noise.start();
@@ -29616,27 +29616,35 @@ async function executeDrawCard(playerIdx) {
   }
 
   function playGavelLynch() {
-    playAudioTone(180, 'square', 0.3, 0.45);
-    setTimeout(() => playAudioTone(120, 'triangle', 0.4, 0.5), 100);
+    playAudioTone(120, 'square', 0.35, 0.4);
+    setTimeout(() => playAudioTone(95, 'square', 0.4, 0.45), 200);
   }
 
-  // Chronicle Logger
+  // Chronicle logger
   function addChronicleLog(text, icon = '📜') {
-    const timeStr = `Vòng ${werewolfState.dayCount}`;
-    werewolfState.chronicleLogs.push({ time: timeStr, text, icon });
+    const timeStr = `Đêm ${werewolfState.dayCount}`;
+    const entry = { time: timeStr, text, icon, timestamp: Date.now() };
+    werewolfState.chronicleLogs.push(entry);
+
     const listEl = document.getElementById('werewolfChronicleLogList');
     if (listEl) {
-      const row = document.createElement('div');
-      row.className = 'p-2 rounded-xl bg-slate-950/70 border border-slate-800 flex items-start gap-2 animate-fade-in';
-      row.innerHTML = `<span class="text-base shrink-0">${icon}</span><div><span class="text-[10px] text-amber-400 font-bold">[${timeStr}]</span> <span class="text-slate-200">${text}</span></div>`;
-      listEl.appendChild(row);
-      listEl.scrollTop = listEl.scrollHeight;
+      const item = document.createElement('div');
+      item.className = 'p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs flex items-start gap-2 animate-fadeIn';
+      item.innerHTML = `<span class="text-base shrink-0">${icon}</span><div class="leading-relaxed"><b class="text-amber-400 font-mono">${timeStr}:</b> ${text}</div>`;
+      listEl.prepend(item);
     }
   }
 
-  function toggleWerewolfChronicle() {
-    const m = document.getElementById('werewolfModalChronicle');
-    if (m) m.classList.toggle('hidden');
+  function toggleWerewolfChronicle(forceOpen) {
+    const modal = document.getElementById('werewolfModalChronicle');
+    if (!modal) return;
+    if (forceOpen === true) {
+      modal.classList.remove('hidden');
+    } else if (forceOpen === false) {
+      modal.classList.add('hidden');
+    } else {
+      modal.classList.toggle('hidden');
+    }
   }
   window.toggleWerewolfChronicle = toggleWerewolfChronicle;
 
@@ -29656,10 +29664,7 @@ async function executeDrawCard(playerIdx) {
     return `<svg viewBox="0 0 32 32" class="w-full h-full" fill="none"><rect width="32" height="32" rx="6" fill="${col}20"/><circle cx="16" cy="12" r="6" fill="${col}"/><path d="M6 28c0-5.5 4.5-9 10-9s10 3.5 10 9" fill="${col}"/></svg>`;
   }
 
-  // --------------------------------------------------------------------------
-  // GAME INITIALIZATION & ROLE DEALING
-  // --------------------------------------------------------------------------
-  function initWerewolfGame() {
+  function clearAllWerewolfTimers() {
     if (werewolfState.phaseTimer) {
       clearInterval(werewolfState.phaseTimer);
       werewolfState.phaseTimer = null;
@@ -29668,9 +29673,32 @@ async function executeDrawCard(playerIdx) {
       clearTimeout(werewolfState.speechQueueTimer);
       werewolfState.speechQueueTimer = null;
     }
+    if (werewolfState.roleModalTimer) {
+      clearInterval(werewolfState.roleModalTimer);
+      werewolfState.roleModalTimer = null;
+    }
+    if (werewolfState.seerModalTimer) {
+      clearInterval(werewolfState.seerModalTimer);
+      werewolfState.seerModalTimer = null;
+    }
+    if (werewolfState.actionFallbackTimer) {
+      clearInterval(werewolfState.actionFallbackTimer);
+      werewolfState.actionFallbackTimer = null;
+    }
+    if (werewolfState.hunterModalTimer) {
+      clearInterval(werewolfState.hunterModalTimer);
+      werewolfState.hunterModalTimer = null;
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // GAME INITIALIZATION & ROLE DEALING
+  // --------------------------------------------------------------------------
+  function initWerewolfGame() {
+    clearAllWerewolfTimers();
 
     werewolfState.dayCount = 1;
-    werewolfState.phase = 'NIGHT_INTRO';
+    werewolfState.phase = 'LOBBY';
     werewolfState.selectedTarget = null;
     werewolfState.guardLastTarget = null;
     werewolfState.witchHealUsed = false;
@@ -29690,7 +29718,6 @@ async function executeDrawCard(playerIdx) {
 
     // Standard 7 Roles Pool: 2 Werewolves, 1 Seer, 1 Bodyguard, 1 Witch, 1 Hunter, 1 Villager
     const pool = ['werewolf', 'werewolf', 'seer', 'bodyguard', 'witch', 'hunter', 'villager'];
-    // Shuffle pool twice (Fisher-Yates)
     for (let i = pool.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [pool[i], pool[j]] = [pool[j], pool[i]];
@@ -29720,11 +29747,23 @@ async function executeDrawCard(playerIdx) {
     addChronicleLog('Ván đấu bắt đầu! 7 người chơi đã tề tựu tại làng Millers Hollow.', '🏰');
     renderWerewolfArena();
 
-    // Show Human Role Modal
+    // Show Human Role Modal & Auto Start Countdown
     openWerewolfRoleModal();
     playWerewolfHowl();
   }
   window.initWerewolfGame = initWerewolfGame;
+  window.restartWerewolfGame = initWerewolfGame;
+
+  // Confirm Role and start Night 1
+  function confirmWerewolfRoleAndStart() {
+    if (werewolfState.roleModalTimer) {
+      clearInterval(werewolfState.roleModalTimer);
+      werewolfState.roleModalTimer = null;
+    }
+    closeWerewolfModal('werewolfModalMyRole');
+    setWerewolfPhase('NIGHT_INTRO');
+  }
+  window.confirmWerewolfRoleAndStart = confirmWerewolfRoleAndStart;
 
   function openWerewolfRoleModal() {
     const p0 = werewolfState.players[0];
@@ -29736,6 +29775,7 @@ async function executeDrawCard(playerIdx) {
     const teamEl = document.getElementById('werewolfRoleCardTeam');
     const descEl = document.getElementById('werewolfRoleCardDesc');
     const boxEl = document.getElementById('werewolfRoleCardBox');
+    const btnText = document.getElementById('btnConfirmWerewolfRoleText');
 
     if (iconEl) iconEl.textContent = def.icon;
     if (nameEl) nameEl.textContent = def.name.toUpperCase();
@@ -29746,9 +29786,35 @@ async function executeDrawCard(playerIdx) {
     if (descEl) descEl.textContent = `${def.desc} (Mẹo: ${def.tip})`;
     if (boxEl) boxEl.style.borderColor = def.teamColor;
 
+    let sec = 8;
+    if (btnText) btnText.textContent = `ĐÃ HIỂU NHIỆM VỤ! VÀO VÁN ĐẤU (${sec}s)`;
+
     if (m) m.classList.remove('hidden');
+
+    // Auto-confirm fallback after 8s so game never freezes
+    if (werewolfState.roleModalTimer) clearInterval(werewolfState.roleModalTimer);
+    werewolfState.roleModalTimer = setInterval(() => {
+      sec--;
+      if (btnText) btnText.textContent = `ĐÃ HIỂU NHIỆM VỤ! VÀO VÁN ĐẤU (${sec}s)`;
+      if (sec <= 0) {
+        clearInterval(werewolfState.roleModalTimer);
+        werewolfState.roleModalTimer = null;
+        confirmWerewolfRoleAndStart();
+      }
+    }, 1000);
   }
   window.openWerewolfRoleModal = openWerewolfRoleModal;
+
+  // Seer modal confirm
+  function confirmSeerScryAndContinue() {
+    if (werewolfState.seerModalTimer) {
+      clearInterval(werewolfState.seerModalTimer);
+      werewolfState.seerModalTimer = null;
+    }
+    closeWerewolfModal('werewolfModalSeer');
+    setWerewolfPhase('NIGHT_WITCH');
+  }
+  window.confirmSeerScryAndContinue = confirmSeerScryAndContinue;
 
   // --------------------------------------------------------------------------
   // ARENA RENDERING
@@ -29861,14 +29927,17 @@ async function executeDrawCard(playerIdx) {
         }
       }
 
-      // Target selection highlight in Night Actions or Voting
-      if (isPodSelectable(p)) {
+      // Interactive highlights
+      const selectable = isPodSelectable(p);
+      if (selectable) {
         podEl.classList.add('werewolf-target-selectable', 'border-amber-400/80');
       } else {
         podEl.classList.remove('werewolf-target-selectable');
       }
     });
   }
+  window.renderWerewolfArena = renderWerewolfArena;
+  window.renderWerewolfTable = renderWerewolfArena;
 
   function isPodSelectable(targetPlayer) {
     if (!targetPlayer.isAlive) return false;
@@ -29879,20 +29948,18 @@ async function executeDrawCard(playerIdx) {
       return targetPlayer.id !== werewolfState.guardLastTarget;
     }
     if (werewolfState.phase === 'NIGHT_WOLVES' && p0.role === 'werewolf') {
-      return targetPlayer.role !== 'werewolf'; // Wolves don't eat wolves
+      return targetPlayer.role !== 'werewolf';
     }
     if (werewolfState.phase === 'NIGHT_SEER' && p0.role === 'seer') {
-      return targetPlayer.id !== 0; // Seer doesn't scry themselves
+      return targetPlayer.id !== 0;
     }
     if (werewolfState.phase === 'DAY_VOTING') {
-      return targetPlayer.id !== 0; // Don't vote yourself
+      return targetPlayer.id !== 0;
     }
     return false;
   }
 
-  // --------------------------------------------------------------------------
-  // SPEECH BUBBLE DISPATCHER
-  // --------------------------------------------------------------------------
+  // Speech bubble
   function showPlayerSpeech(playerId, message, duration = 3000) {
     const bubbleEl = document.getElementById('werewolfSpeech_' + playerId);
     if (!bubbleEl) return;
@@ -29904,16 +29971,47 @@ async function executeDrawCard(playerIdx) {
     }, duration);
   }
 
+  // Action Fallback Timer helper (prevents freezing if player doesn't click)
+  function startActionFallback(seconds, onTimeout, messagePrefix) {
+    if (werewolfState.actionFallbackTimer) clearInterval(werewolfState.actionFallbackTimer);
+    let sec = seconds;
+    const bannerText = document.getElementById('werewolfCenterBannerText');
+    const secEl = document.getElementById('werewolfSecondsLeft');
+
+    if (secEl) secEl.textContent = `${sec}s`;
+    if (bannerText) bannerText.textContent = `${messagePrefix} (Tự động sau ${sec}s)`;
+
+    werewolfState.actionFallbackTimer = setInterval(() => {
+      sec--;
+      if (secEl) secEl.textContent = `${sec}s`;
+      if (bannerText) bannerText.textContent = `${messagePrefix} (Tự động sau ${sec}s)`;
+      if (sec <= 0) {
+        clearInterval(werewolfState.actionFallbackTimer);
+        werewolfState.actionFallbackTimer = null;
+        onTimeout();
+      }
+    }, 1000);
+  }
+
+  function clearActionFallback() {
+    if (werewolfState.actionFallbackTimer) {
+      clearInterval(werewolfState.actionFallbackTimer);
+      werewolfState.actionFallbackTimer = null;
+    }
+  }
+
   // --------------------------------------------------------------------------
-  // STATE MACHINE & PHASE CONTROLLER
+  // NIGHT/DAY PHASE STATE MACHINE (FSM)
   // --------------------------------------------------------------------------
   function setWerewolfPhase(newPhase) {
+    clearActionFallback();
     werewolfState.phase = newPhase;
     const p0 = werewolfState.players[0];
     const bannerText = document.getElementById('werewolfCenterBannerText');
     const phaseText = document.getElementById('werewolfPhaseText');
     const centralText = document.getElementById('werewolfCentralText');
     const centralIcon = document.getElementById('werewolfCentralIcon');
+    const secEl = document.getElementById('werewolfSecondsLeft');
 
     switch (newPhase) {
       case 'NIGHT_INTRO':
@@ -29921,6 +30019,7 @@ async function executeDrawCard(playerIdx) {
         if (bannerText) bannerText.textContent = 'Màn đêm buông xuống... Cả làng Millers Hollow chìm vào giấc ngủ.';
         if (centralText) centralText.textContent = 'Trời tối rồi, cả làng đi ngủ say...';
         if (centralIcon) centralIcon.textContent = '🌙';
+        if (secEl) secEl.textContent = '3s';
         playWerewolfHowl();
         addChronicleLog(`Đêm thứ ${werewolfState.dayCount} bắt đầu. Ngôi làng chìm vào bóng tối.`, '🌙');
         renderWerewolfArena();
@@ -29931,12 +30030,15 @@ async function executeDrawCard(playerIdx) {
         if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • BẢO VỆ THỨC GIẤC`;
         if (centralIcon) centralIcon.textContent = '🛡️';
         if (p0.isAlive && p0.role === 'bodyguard') {
-          if (bannerText) bannerText.textContent = 'BẢO VỆ: Hãy bấm chọn 1 người để bảo vệ đêm nay (không chọn người đêm trước)!';
-          if (centralText) centralText.textContent = 'Bảo Vệ: Hãy chọn 1 người che chở đêm nay!';
+          if (centralText) centralText.textContent = 'Bảo Vệ: Hãy bấm chọn 1 người che chở đêm nay!';
+          startActionFallback(12, () => {
+            // Auto guard random valid target
+            runBotGuardAction();
+          }, 'BẢO VỆ: Bấm chọn 1 người để bảo vệ');
         } else {
           if (bannerText) bannerText.textContent = 'Bảo Vệ đang bí mật tuần tra trong đêm...';
           if (centralText) centralText.textContent = 'Bảo Vệ đang bí mật tuần tra che chở ngôi làng...';
-          // Auto bot guard action
+          if (secEl) secEl.textContent = '2s';
           setTimeout(runBotGuardAction, 1800);
         }
         renderWerewolfArena();
@@ -29946,12 +30048,16 @@ async function executeDrawCard(playerIdx) {
         if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • MA SÓI THỨC GIẤC`;
         if (centralIcon) centralIcon.textContent = '🐺';
         if (p0.isAlive && p0.role === 'werewolf') {
-          if (bannerText) bannerText.textContent = 'BẦY SÓI: Bấm chọn 1 con mồi dân làng để cắn chết đêm nay!';
-          if (centralText) centralText.textContent = 'Bầy Sói: Hãy chọn con mồi để cắn xé!';
+          if (centralText) centralText.textContent = 'Bầy Sói: Hãy bấm chọn con mồi để cắn xé!';
+          startActionFallback(12, () => {
+            // Auto wolf kill random non-wolf
+            runBotWolfAction();
+          }, 'BẦY SÓI: Bấm chọn 1 con mồi dân làng');
         } else {
           if (bannerText) bannerText.textContent = 'Bầy Ma Sói đang lẩn khuất tìm kiếm con mồi...';
           if (centralText) centralText.textContent = 'Bầy Ma Sói đang lùng sục con mồi trong bóng tối...';
-          setTimeout(runBotWolfAction, 2200);
+          if (secEl) secEl.textContent = '2s';
+          setTimeout(runBotWolfAction, 2000);
         }
         renderWerewolfArena();
         break;
@@ -29960,11 +30066,18 @@ async function executeDrawCard(playerIdx) {
         if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • TIÊN TRI THỨC GIẤC`;
         if (centralIcon) centralIcon.textContent = '🔮';
         if (p0.isAlive && p0.role === 'seer') {
-          if (bannerText) bannerText.textContent = 'TIÊN TRI: Bấm chọn 1 người để quả cầu pha lê soi danh tính thật!';
-          if (centralText) centralText.textContent = 'Tiên Tri: Hãy chọn 1 người để soi bản mệnh!';
+          if (centralText) centralText.textContent = 'Tiên Tri: Hãy bấm chọn 1 người để soi bản mệnh!';
+          startActionFallback(12, () => {
+            // Auto seer scry random
+            const targets = werewolfState.players.filter(p => p.isAlive && p.id !== 0 && !werewolfState.seerScryKnowledge[p.id]);
+            const chosen = targets.length > 0 ? targets[0] : werewolfState.players.find(p => p.isAlive && p.id !== 0);
+            if (chosen) handleWerewolfPodClick(chosen.id);
+            else setWerewolfPhase('NIGHT_WITCH');
+          }, 'TIÊN TRI: Bấm chọn 1 người để soi');
         } else {
           if (bannerText) bannerText.textContent = 'Tiên Tri đang thấu thị quả cầu pha lê...';
           if (centralText) centralText.textContent = 'Tiên Tri đang bí mật kết nối với các vì sao...';
+          if (secEl) secEl.textContent = '2s';
           setTimeout(runBotSeerAction, 1800);
         }
         renderWerewolfArena();
@@ -29986,9 +30099,14 @@ async function executeDrawCard(playerIdx) {
 
           const modalWitch = document.getElementById('werewolfModalWitch');
           if (modalWitch) modalWitch.classList.remove('hidden');
+
+          startActionFallback(15, () => {
+            handleWitchPass();
+          }, 'PHÙ THỦY: Chọn hành động');
         } else {
           if (bannerText) bannerText.textContent = 'Phù Thủy đang toan tính dùng bình thuốc...';
           if (centralText) centralText.textContent = 'Phù Thủy đang xem xét bình cứu và bình độc...';
+          if (secEl) secEl.textContent = '2s';
           setTimeout(runBotWitchAction, 1800);
         }
         renderWerewolfArena();
@@ -30007,6 +30125,7 @@ async function executeDrawCard(playerIdx) {
         break;
     }
   }
+  window.setWerewolfPhase = setWerewolfPhase;
 
   // --------------------------------------------------------------------------
   // POD INTERACTION CLICK ROUTER
@@ -30024,6 +30143,7 @@ async function executeDrawCard(playerIdx) {
         showToast('Bạn không thể bảo vệ cùng 1 người 2 đêm liên tiếp!');
         return;
       }
+      clearActionFallback();
       werewolfState.nightProtectedTarget = targetId;
       werewolfState.guardLastTarget = targetId;
       showToast(`🛡️ Bạn đã che chắn bảo vệ an toàn cho ${targetPlayer.name} đêm nay!`);
@@ -30039,6 +30159,7 @@ async function executeDrawCard(playerIdx) {
         showToast('Không thể cắn đồng đội Ma Sói!');
         return;
       }
+      clearActionFallback();
       werewolfState.nightWolfVictim = targetId;
       showToast(`🐺 Bầy Sói đã thống nhất cắn mục tiêu: ${targetPlayer.name}!`);
       playAudioTone(300, 'sawtooth', 0.3, 0.35);
@@ -30052,11 +30173,13 @@ async function executeDrawCard(playerIdx) {
         showToast('Không thể tự soi chính mình!');
         return;
       }
+      clearActionFallback();
       werewolfState.seerScryKnowledge[targetId] = targetPlayer.role;
       const targetNameEl = document.getElementById('werewolfSeerTargetName');
       const resIcon = document.getElementById('werewolfSeerResultIcon');
       const resText = document.getElementById('werewolfSeerResultText');
       const resBox = document.getElementById('werewolfSeerResultBox');
+      const seerBtnText = document.getElementById('btnConfirmSeerText');
 
       if (targetNameEl) targetNameEl.textContent = targetPlayer.name;
       const isWolf = (targetPlayer.role === 'werewolf');
@@ -30071,7 +30194,19 @@ async function executeDrawCard(playerIdx) {
       const m = document.getElementById('werewolfModalSeer');
       if (m) m.classList.remove('hidden');
 
-      setWerewolfPhase('NIGHT_WITCH');
+      let sec = 8;
+      if (seerBtnText) seerBtnText.textContent = `GHI NHỚ & ĐI NGỦ (${sec}s)`;
+
+      if (werewolfState.seerModalTimer) clearInterval(werewolfState.seerModalTimer);
+      werewolfState.seerModalTimer = setInterval(() => {
+        sec--;
+        if (seerBtnText) seerBtnText.textContent = `GHI NHỚ & ĐI NGỦ (${sec}s)`;
+        if (sec <= 0) {
+          clearInterval(werewolfState.seerModalTimer);
+          werewolfState.seerModalTimer = null;
+          confirmSeerScryAndContinue();
+        }
+      }, 1000);
       return;
     }
 
@@ -30089,10 +30224,9 @@ async function executeDrawCard(playerIdx) {
   }
   window.handleWerewolfPodClick = handleWerewolfPodClick;
 
-  // --------------------------------------------------------------------------
-  // BOT NIGHT ACTIONS
-  // --------------------------------------------------------------------------
+  // Bot action runners
   function runBotGuardAction() {
+    clearActionFallback();
     const alivePlayers = werewolfState.players.filter(p => p.isAlive && p.id !== werewolfState.guardLastTarget);
     if (alivePlayers.length > 0) {
       const chosen = alivePlayers[Math.floor(Math.random() * alivePlayers.length)];
@@ -30104,9 +30238,9 @@ async function executeDrawCard(playerIdx) {
   }
 
   function runBotWolfAction() {
+    clearActionFallback();
     const aliveNonWolves = werewolfState.players.filter(p => p.isAlive && p.role !== 'werewolf');
     if (aliveNonWolves.length > 0) {
-      // Prioritize seer or human if suspicious
       const chosen = aliveNonWolves[Math.floor(Math.random() * aliveNonWolves.length)];
       werewolfState.nightWolfVictim = chosen.id;
     }
@@ -30114,6 +30248,7 @@ async function executeDrawCard(playerIdx) {
   }
 
   function runBotSeerAction() {
+    clearActionFallback();
     const aliveUnscryed = werewolfState.players.filter(p => p.isAlive && p.id !== 0 && !werewolfState.seerScryKnowledge[p.id]);
     if (aliveUnscryed.length > 0) {
       const chosen = aliveUnscryed[Math.floor(Math.random() * aliveUnscryed.length)];
@@ -30123,12 +30258,12 @@ async function executeDrawCard(playerIdx) {
   }
 
   function runBotWitchAction() {
-    // Bot witch logic: heal if victim is innocent and not healed yet
+    clearActionFallback();
     if (!werewolfState.witchHealUsed && werewolfState.nightWolfVictim !== null) {
       const victim = werewolfState.players.find(p => p.id === werewolfState.nightWolfVictim);
       if (victim && victim.role !== 'werewolf' && Math.random() < 0.8) {
         werewolfState.witchHealUsed = true;
-        werewolfState.nightWolfVictim = null; // Saved!
+        werewolfState.nightWolfVictim = null;
         addChronicleLog('Phù Thủy đã bí mật sử dụng bình thuốc cứu người.', '🧪');
       }
     }
@@ -30137,6 +30272,7 @@ async function executeDrawCard(playerIdx) {
 
   // Human Witch Handlers
   function handleWitchUseHeal() {
+    clearActionFallback();
     if (werewolfState.witchHealUsed) {
       showToast('Bạn đã sử dụng hết Bình Cứu trong ván đấu này!');
       return;
@@ -30151,11 +30287,11 @@ async function executeDrawCard(playerIdx) {
   window.handleWitchUseHeal = handleWitchUseHeal;
 
   function handleWitchUsePoisonPrompt() {
+    clearActionFallback();
     if (werewolfState.witchPoisonUsed) {
       showToast('Bạn đã sử dụng hết Bình Độc trong ván đấu này!');
       return;
     }
-    // Simple prompt target for poison
     const candidates = werewolfState.players.filter(p => p.isAlive && p.id !== 0);
     const target = candidates[Math.floor(Math.random() * candidates.length)];
     werewolfState.nightWitchPoisonVictim = target.id;
@@ -30168,6 +30304,7 @@ async function executeDrawCard(playerIdx) {
   window.handleWitchUsePoisonPrompt = handleWitchUsePoisonPrompt;
 
   function handleWitchPass() {
+    clearActionFallback();
     closeWerewolfModal('werewolfModalWitch');
     setWerewolfPhase('DAWN_REVEAL');
   }
@@ -30177,11 +30314,11 @@ async function executeDrawCard(playerIdx) {
   // RESOLVE NIGHT & DAWN REVEAL
   // --------------------------------------------------------------------------
   function resolveNightPhase() {
+    clearActionFallback();
     const deaths = [];
 
     // Check Wolf kill
     if (werewolfState.nightWolfVictim !== null) {
-      // Check if protected by Bodyguard
       if (werewolfState.nightWolfVictim !== werewolfState.nightProtectedTarget) {
         deaths.push(werewolfState.nightWolfVictim);
       } else {
@@ -30238,10 +30375,8 @@ async function executeDrawCard(playerIdx) {
 
     renderWerewolfArena();
 
-    // Check Win Condition
     if (checkWerewolfWinCondition()) return;
 
-    // Proceed to Day Discussion
     setTimeout(() => setWerewolfPhase('DAY_DISCUSS'), 3500);
   }
 
@@ -30249,9 +30384,11 @@ async function executeDrawCard(playerIdx) {
   // DAY DISCUSSION & BOT SOCIAL DEDUCTION SPEECH
   // --------------------------------------------------------------------------
   function startDayDiscussion() {
+    clearActionFallback();
     const bannerText = document.getElementById('werewolfCenterBannerText');
     const phaseText = document.getElementById('werewolfPhaseText');
     const centralText = document.getElementById('werewolfCentralText');
+    const secEl = document.getElementById('werewolfSecondsLeft');
 
     if (phaseText) phaseText.textContent = `NGÀY ${werewolfState.dayCount} • TRANH LUẬN & ĐIỀU TRA`;
     if (bannerText) bannerText.textContent = 'Dân làng đang tranh luận sôi nổi! Hãy quan sát các nghi phạm trước giờ bỏ phiếu.';
@@ -30260,7 +30397,6 @@ async function executeDrawCard(playerIdx) {
     addChronicleLog(`Quảng trường mở phiên tranh luận ban ngày.`, '🗣️');
     renderWerewolfArena();
 
-    // Generate speech dialogue from 3 random alive bots
     const aliveBots = werewolfState.players.filter(p => p.isAlive && !p.isHuman);
     const speechLines = [
       "Tôi thấy đêm qua có bóng người lảng vảng gần nhà Lyra!",
@@ -30276,20 +30412,21 @@ async function executeDrawCard(playerIdx) {
       setTimeout(() => {
         if (bot.isAlive) {
           const line = speechLines[Math.floor(Math.random() * speechLines.length)];
-          showPlayerSpeech(bot.id, line, 3500);
+          showPlayerSpeech(bot.id, line, 3000);
         }
       }, delay);
-      delay += 3800;
+      delay += 3200;
     });
 
-    // After discussion, transition to Day Voting
-    setTimeout(() => setWerewolfPhase('DAY_VOTING'), delay + 1000);
+    if (secEl) secEl.textContent = `${Math.round(delay/1000)}s`;
+    setTimeout(() => setWerewolfPhase('DAY_VOTING'), delay + 800);
   }
 
   // --------------------------------------------------------------------------
   // DAY VOTING & LYNCH EXECUTION
   // --------------------------------------------------------------------------
   function startDayVoting() {
+    clearActionFallback();
     werewolfState.votes = {};
     const bannerText = document.getElementById('werewolfCenterBannerText');
     const phaseText = document.getElementById('werewolfPhaseText');
@@ -30309,7 +30446,6 @@ async function executeDrawCard(playerIdx) {
     const aliveTargets = werewolfState.players.filter(p => p.isAlive);
 
     aliveBots.forEach(b => {
-      // Bot votes randomly among other alive players
       const possible = aliveTargets.filter(t => t.id !== b.id);
       if (possible.length > 0) {
         const target = possible[Math.floor(Math.random() * possible.length)];
@@ -30334,9 +30470,9 @@ async function executeDrawCard(playerIdx) {
   }
 
   function resolveVotingExecution() {
+    clearActionFallback();
     playGavelLynch();
 
-    // Count votes
     const tally = {};
     Object.values(werewolfState.votes).forEach(tid => {
       tally[tid] = (tally[tid] || 0) + 1;
@@ -30365,7 +30501,7 @@ async function executeDrawCard(playerIdx) {
       if (bannerText) bannerText.textContent = msg;
       if (centralText) centralText.textContent = msg;
       addChronicleLog(msg, '⚖️');
-      showToast(msg);
+      showToast('⚖️ Phiên tòa hòa phiếu! Không ai bị treo cổ hôm nay.');
     } else {
       const lynchedPlayer = werewolfState.players[lynchedId];
       lynchedPlayer.isAlive = false;
@@ -30386,7 +30522,6 @@ async function executeDrawCard(playerIdx) {
 
     renderWerewolfArena();
 
-    // Check Win Condition
     if (checkWerewolfWinCondition()) return;
 
     // Next Night!
@@ -30398,9 +30533,9 @@ async function executeDrawCard(playerIdx) {
   // HUNTER REVENGE SHOT MECHANIC
   // --------------------------------------------------------------------------
   function triggerHunterRevengeShot(hunterId) {
+    clearActionFallback();
     const hunter = werewolfState.players[hunterId];
     if (hunter.isHuman) {
-      // Human Hunter gets to choose target via Modal!
       const grid = document.getElementById('werewolfHunterTargetGrid');
       const modal = document.getElementById('werewolfModalHunter');
       if (grid && modal) {
@@ -30415,9 +30550,22 @@ async function executeDrawCard(playerIdx) {
           </button>
         `).join('');
         modal.classList.remove('hidden');
+
+        // Auto fallback after 12s if player doesn't shoot
+        if (werewolfState.hunterModalTimer) clearInterval(werewolfState.hunterModalTimer);
+        let sec = 12;
+        werewolfState.hunterModalTimer = setInterval(() => {
+          sec--;
+          if (sec <= 0) {
+            clearInterval(werewolfState.hunterModalTimer);
+            werewolfState.hunterModalTimer = null;
+            if (aliveTargets.length > 0) {
+              executeHunterShot(aliveTargets[0].id);
+            }
+          }
+        }, 1000);
       }
     } else {
-      // Bot Hunter shoots random alive player
       const aliveTargets = werewolfState.players.filter(p => p.isAlive && p.id !== hunterId);
       if (aliveTargets.length > 0) {
         const victim = aliveTargets[Math.floor(Math.random() * aliveTargets.length)];
@@ -30427,6 +30575,11 @@ async function executeDrawCard(playerIdx) {
   }
 
   function executeHunterShot(targetId) {
+    clearActionFallback();
+    if (werewolfState.hunterModalTimer) {
+      clearInterval(werewolfState.hunterModalTimer);
+      werewolfState.hunterModalTimer = null;
+    }
     playHunterGunshot();
     closeWerewolfModal('werewolfModalHunter');
 
@@ -30469,6 +30622,7 @@ async function executeDrawCard(playerIdx) {
   }
 
   function announceWerewolfWinner(winningTeam) {
+    clearAllWerewolfTimers();
     werewolfState.isGameOver = true;
     werewolfState.winner = winningTeam;
     werewolfState.phase = 'GAME_OVER';
@@ -30476,58 +30630,115 @@ async function executeDrawCard(playerIdx) {
     const p0 = werewolfState.players[0];
     const isPlayerWinner = (p0.team === winningTeam);
 
-    const m = document.getElementById('werewolfModalGameOver');
-    const titleEl = document.getElementById('werewolfGameOverTitle');
-    const subEl = document.getElementById('werewolfGameOverSubtitle');
-    const iconEl = document.getElementById('werewolfGameOverIcon');
-    const listEl = document.getElementById('werewolfAllRolesRevealList');
+    const bannerTitle = document.getElementById('werewolfGameOverTitle');
+    const bannerDesc = document.getElementById('werewolfGameOverDesc');
+    const bannerBadge = document.getElementById('werewolfGameOverBadge');
+    const listGrid = document.getElementById('werewolfGameOverIdentityList');
 
     if (winningTeam === 'village') {
-      if (iconEl) iconEl.textContent = '🏆';
-      if (titleEl) {
-        titleEl.textContent = 'PHE DÂN LÀNG CHIẾN THẮNG!';
-        titleEl.className = 'text-lg sm:text-2xl font-black font-cinzel text-emerald-400';
+      if (bannerTitle) bannerTitle.textContent = 'PHE DÂN LÀNG CHIẾN THẮNG!';
+      if (bannerDesc) bannerDesc.textContent = 'Toàn bộ Ma Sói độc ác đã bị tiêu diệt! Ánh sáng công lý lại bao trùm Millers Hollow.';
+      if (bannerBadge) {
+        bannerBadge.textContent = '🏆 DÂN LÀNG TOÀN THẮNG';
+        bannerBadge.className = 'px-3 py-1 rounded-full text-xs font-mono font-black text-white bg-emerald-600 shadow-md';
       }
-      if (subEl) subEl.textContent = 'Toàn bộ Ma Sói độc ác đã bị tiêu diệt, mang lại sự bình yên vĩnh cửu cho ngôi làng!';
-      if (isPlayerWinner && typeof soundVictory === 'function') soundVictory();
-      if (!isPlayerWinner && typeof soundDefeat === 'function') soundDefeat();
-      addChronicleLog('🏆 CHIẾN THẮNG CUỐI CÙNG: Phe Dân Làng đã quét sạch Ma Sói!', '🏆');
+      playAudioTone(587.33, 'triangle', 0.8, 0.35);
+      setTimeout(() => playAudioTone(880, 'triangle', 1.2, 0.4), 250);
     } else {
-      if (iconEl) iconEl.textContent = '🐺';
-      if (titleEl) {
-        titleEl.textContent = 'PHE MA SÓI CHIẾN THẮNG!';
-        titleEl.className = 'text-lg sm:text-2xl font-black font-cinzel text-red-500';
+      if (bannerTitle) bannerTitle.textContent = 'PHE MA SÓI CHIẾN THẮNG!';
+      if (bannerDesc) bannerDesc.textContent = 'Bầy Sói đã áp đảo hoàn toàn dân làng! Millers Hollow vĩnh viễn chìm trong màn đêm đẫm máu.';
+      if (bannerBadge) {
+        bannerBadge.textContent = '🐺 MA SÓI THỐNG TRỊ';
+        bannerBadge.className = 'px-3 py-1 rounded-full text-xs font-mono font-black text-white bg-red-600 shadow-md';
       }
-      if (subEl) subEl.textContent = 'Bầy Ma Sói đã nuốt chửng ngôi làng! Bóng tối vĩnh viễn ngự trị trên quảng trường máu!';
-      if (isPlayerWinner && typeof soundVictory === 'function') soundVictory();
-      if (!isPlayerWinner && typeof soundDefeat === 'function') soundDefeat();
-      addChronicleLog('🐺 CHIẾN THẮNG CUỐI CÙNG: Bầy Ma Sói đã thâu tóm toàn bộ ngôi làng!', '🐺');
+      playWerewolfHowl();
     }
 
-    // Reveal All Roles List
-    if (listEl) {
-      listEl.innerHTML = werewolfState.players.map(p => {
+    if (listGrid) {
+      listGrid.innerHTML = werewolfState.players.map(p => {
         const def = WEREWOLF_ROLES[p.role];
         return `
-          <div class="p-2 rounded-xl border border-slate-700 bg-slate-900/80 flex items-center justify-between">
+          <div class="p-2.5 rounded-xl border ${p.isAlive ? 'border-slate-700 bg-slate-900/90' : 'border-red-900/50 bg-red-950/30 opacity-70'} flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <span class="text-base">${def.icon}</span>
-              <span class="text-xs font-bold text-slate-100">${p.name}</span>
+              <span class="text-xl">${def.icon}</span>
+              <div class="text-left">
+                <div class="text-xs font-bold text-slate-100 font-cinzel">${p.name} ${p.id === 0 ? '(Bạn)' : ''}</div>
+                <div class="text-[10px] text-slate-400">${p.title}</div>
+              </div>
             </div>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold text-white shadow-sm" style="background-color: ${def.teamColor}">${def.name}</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-black text-white" style="background-color: ${def.teamColor};">
+              ${def.name}
+            </span>
           </div>
         `;
       }).join('');
     }
 
-    if (m) m.classList.remove('hidden');
+    const modal = document.getElementById('werewolfModalGameOver');
+    if (modal) modal.classList.remove('hidden');
     renderWerewolfArena();
   }
+
+  // Emergency Fast Forward / Action Skip (Space Key)
+  function skipWerewolfWaitOrAct() {
+    clearActionFallback();
+    if (werewolfState.phaseTimer) {
+      clearInterval(werewolfState.phaseTimer);
+      werewolfState.phaseTimer = null;
+    }
+
+    if (werewolfState.phase === 'LOBBY') {
+      confirmWerewolfRoleAndStart();
+    } else if (werewolfState.phase === 'NIGHT_INTRO') {
+      setWerewolfPhase('NIGHT_GUARD');
+    } else if (werewolfState.phase === 'NIGHT_GUARD') {
+      runBotGuardAction();
+    } else if (werewolfState.phase === 'NIGHT_WOLVES') {
+      runBotWolfAction();
+    } else if (werewolfState.phase === 'NIGHT_SEER') {
+      runBotSeerAction();
+    } else if (werewolfState.phase === 'NIGHT_WITCH') {
+      handleWitchPass();
+    } else if (werewolfState.phase === 'DAWN_REVEAL') {
+      setWerewolfPhase('DAY_DISCUSS');
+    } else if (werewolfState.phase === 'DAY_DISCUSS') {
+      setWerewolfPhase('DAY_VOTING');
+    } else if (werewolfState.phase === 'DAY_VOTING') {
+      resolveVotingExecution();
+    }
+  }
+  window.skipWerewolfWaitOrAct = skipWerewolfWaitOrAct;
+
+  // Global keydown handler for Space shortcut in Werewolf
+  window.addEventListener('keydown', (e) => {
+    if (window.activeGameView !== 'werewolf') return;
+    const activeEl = document.activeElement;
+    const isInput = activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA' || activeEl.isContentEditable);
+    if (isInput) return;
+
+    if (e.code === 'Space' || e.key === ' ') {
+      e.preventDefault();
+      // If role modal is open, confirm role
+      const roleModal = document.getElementById('werewolfModalMyRole');
+      if (roleModal && !roleModal.classList.contains('hidden')) {
+        confirmWerewolfRoleAndStart();
+        return;
+      }
+      // If seer modal is open, confirm seer
+      const seerModal = document.getElementById('werewolfModalSeer');
+      if (seerModal && !seerModal.classList.contains('hidden')) {
+        confirmSeerScryAndContinue();
+        return;
+      }
+      skipWerewolfWaitOrAct();
+    }
+  });
 
   // Export to window
   window.WEREWOLF_ROLES = WEREWOLF_ROLES;
   window.initWerewolfGame = initWerewolfGame;
   window.renderWerewolfArena = renderWerewolfArena;
+  window.renderWerewolfTable = renderWerewolfArena;
   window.setWerewolfPhase = setWerewolfPhase;
   window.checkWerewolfWinCondition = checkWerewolfWinCondition;
   window.resolveNightPhase = resolveNightPhase;
@@ -30536,6 +30747,8 @@ async function executeDrawCard(playerIdx) {
   window.startDayVoting = startDayVoting;
   window.startDayDiscussion = startDayDiscussion;
 })();
+
+    
 
 </script>
 
@@ -31164,8 +31377,8 @@ async function executeDrawCard(playerIdx) {
         </p>
       </div>
 
-      <button type="button" onclick="closeWerewolfModal('werewolfModalMyRole')" class="btn-spring w-full py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-black text-xs font-mono shadow-xl border border-indigo-400 cursor-pointer">
-        ĐÃ HIỂU NHIỆM VỤ! VÀO VÁN ĐẤU
+      <button type="button" onclick="confirmWerewolfRoleAndStart()" class="btn-spring w-full py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-black text-xs font-mono shadow-xl border border-indigo-400 cursor-pointer flex items-center justify-center gap-2">
+        <span id="btnConfirmWerewolfRoleText">ĐÃ HIỂU NHIỆM VỤ! VÀO VÁN ĐẤU (8s)</span>
       </button>
     </div>
   </div>
@@ -31191,8 +31404,8 @@ async function executeDrawCard(playerIdx) {
         <span id="werewolfSeerResultText" class="font-cinzel font-black text-base text-red-400">PHE MA SÓI!</span>
       </div>
 
-      <button type="button" onclick="closeWerewolfModal('werewolfModalSeer')" class="btn-spring w-full py-2.5 rounded-2xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs font-mono shadow-md cursor-pointer">
-        GHI NHỚ & ĐI NGỦ
+      <button type="button" onclick="confirmSeerScryAndContinue()" class="btn-spring w-full py-2.5 rounded-2xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs font-mono shadow-md cursor-pointer flex items-center justify-center gap-2">
+        <span id="btnConfirmSeerText">GHI NHỚ & ĐI NGỦ (8s)</span>
       </button>
     </div>
   </div>

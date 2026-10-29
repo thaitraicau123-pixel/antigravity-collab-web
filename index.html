@@ -1491,6 +1491,25 @@
       z-index: 9999;
       transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
+
+    /* ================= KITTENS ENHANCED ANIMATIONS (v4.3.2) ================= */
+    @keyframes kittenPodBounce {
+      0% { transform: scale(1); }
+      35% { transform: scale(1.15); filter: brightness(1.4) drop-shadow(0 0 18px rgba(251, 191, 36, 0.9)); }
+      70% { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+    .kitten-pod-landing-bounce {
+      animation: kittenPodBounce 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    @keyframes kittenMyTurnPulse {
+      0%, 100% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.4), inset 0 0 10px rgba(245, 158, 11, 0.2); }
+      50% { box-shadow: 0 0 35px rgba(245, 158, 11, 0.9), inset 0 0 20px rgba(245, 158, 11, 0.5); }
+    }
+    .kitten-my-turn-glow {
+      animation: kittenMyTurnPulse 1.5s ease-in-out infinite;
+      border-color: #f59e0b !important;
+    }
 </style>
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col antialiased selection:bg-amber-400 selection:text-slate-900 w-full max-w-full overflow-x-hidden">
@@ -25230,7 +25249,7 @@ function renderCashStackHTML(amount) {
       }
     };
 
-    window.kittensState = {
+    var kittensState = window.kittensState = {
       mode: 'local',
       initialized: false,
       players: [],
@@ -25261,6 +25280,264 @@ function renderCashStackHTML(amount) {
       }
       return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><circle cx="20" cy="20" r="18" fill="%23f59e0b"/></svg>';
     }
+
+    
+    // Bomb Count Selector (1, 2, 3, hoặc 4 lá Bomb)
+    function setKittensBombCount(count) {
+      count = Math.max(1, Math.min(4, parseInt(count, 10) || 3));
+      kittensState.bombCount = count;
+      try {
+        localStorage.setItem('tabletop_kittens_bomb_count', String(count));
+      } catch (e) {}
+
+      // Update button visual states
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById('btnKittenBomb_' + i);
+        if (btn) {
+          if (i === count) {
+            btn.className = 'px-1.5 py-0.5 rounded text-[11px] font-black bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-sm border border-red-400 transition-all cursor-pointer';
+          } else {
+            btn.className = 'px-1.5 py-0.5 rounded text-[11px] font-bold text-slate-300 hover:text-white transition-all cursor-pointer';
+          }
+        }
+      }
+
+      showToast('💣 Đã chọn: ' + count + ' lá Mèo Nổ trong cọc bài! Bấm Ván Mới để áp dụng.');
+    }
+    window.setKittensBombCount = setKittensBombCount;
+
+    // 10-Second Turn Timer Engine
+    function startKittenTurnTimer() {
+      stopKittenTurnTimer();
+      kittensState.turnSecondsLeft = 10;
+      updateKittenTimerUI(10);
+
+      kittensState.turnTimerInterval = setInterval(() => {
+        // Paused during Nope Modal or Defuse Modal
+        const nopeModal = document.getElementById('kittenModalNopeIntervention');
+        const defuseModal = document.getElementById('kittenModalDefuse');
+        if ((nopeModal && !nopeModal.classList.contains('hidden')) || (defuseModal && !defuseModal.classList.contains('hidden'))) {
+          return;
+        }
+
+        kittensState.turnSecondsLeft--;
+        updateKittenTimerUI(kittensState.turnSecondsLeft);
+
+        if (kittensState.turnSecondsLeft <= 3 && kittensState.turnSecondsLeft > 0) {
+          if (typeof soundTone === 'function') soundTone(320, 'square', 0.05, 0.1);
+        }
+
+        if (kittensState.turnSecondsLeft <= 0) {
+          stopKittenTurnTimer();
+          handleKittenTurnTimeout();
+        }
+      }, 1000);
+    }
+
+    function resetKittenTurnTimer() {
+      startKittenTurnTimer();
+    }
+
+    function stopKittenTurnTimer() {
+      if (kittensState.turnTimerInterval) {
+        clearInterval(kittensState.turnTimerInterval);
+        kittensState.turnTimerInterval = null;
+      }
+    }
+
+    function updateKittenTimerUI(seconds) {
+      const lbl = document.getElementById('kittenTurnTimeRemaining');
+      const bar = document.getElementById('kittenTurnTimeBar');
+      if (lbl) {
+        lbl.textContent = seconds + 's';
+        if (seconds <= 3) {
+          lbl.className = 'text-xs sm:text-sm font-black text-red-400 font-mono min-w-[26px] text-center animate-ping';
+        } else {
+          lbl.className = 'text-xs sm:text-sm font-black text-amber-300 font-mono min-w-[26px] text-center';
+        }
+      }
+      if (bar) {
+        const pct = Math.max(0, Math.min(100, (seconds / 10) * 100));
+        bar.style.width = pct + '%';
+        if (seconds <= 3) {
+          bar.className = 'h-full bg-gradient-to-r from-red-500 to-rose-600 transition-all duration-300';
+        } else {
+          bar.className = 'h-full bg-gradient-to-r from-amber-400 to-yellow-500 transition-all duration-300';
+        }
+      }
+    }
+
+    // Auto Draw on Turn Timeout
+    function handleKittenTurnTimeout() {
+      const curIdx = kittensState.currentTurn;
+      const curPlayer = kittensState.players[curIdx];
+      if (!curPlayer || !curPlayer.isAlive || kittensState.isLocked) return;
+
+      if (curIdx === 0) {
+        showToast('⏰ HẾT 10 GIÂY! TỰ ĐỘNG RÚT BÀI ĐỂ KẾT THÚC LƯỢT!');
+        setKittenToast('⏰ Bạn đã hết 10 giây suy nghĩ! Hệ thống tự động rút bài.', true);
+      } else {
+        setKittenToast('⏰ ' + curPlayer.name + ' hết 10 giây! Tự động rút bài.');
+      }
+
+      executeDrawCard(curIdx);
+    }
+
+    // Nope Intervention Engine
+    function triggerNopeIntervention(playerIdx, cardId, cardHandIdx, targetPlayerIdx, onResolve) {
+      const p0 = kittensState.players[0];
+      const hasNope = p0 && p0.isAlive && p0.hand && p0.hand.includes('nope');
+
+      // Case 1: Bot played an action card and Human has Nope
+      if (playerIdx !== 0 && hasNope) {
+        const def = window.KITTEN_CARD_DEFS[cardId] || { name: cardId, badge: 'CHỨC NĂNG' };
+        const modal = document.getElementById('kittenModalNopeIntervention');
+        const cardNameEl = document.getElementById('kittenNopeCardName');
+        const titleEl = document.getElementById('kittenNopeNoticeTitle');
+        const botName = kittensState.players[playerIdx] ? kittensState.players[playerIdx].name : 'Đối thủ';
+
+        if (titleEl) titleEl.textContent = botName.toUpperCase() + ' ĐANG ĐÁNH LÁ CHỨC NĂNG!';
+        if (cardNameEl) cardNameEl.textContent = def.name + ' (' + def.badge + ')';
+
+        if (modal) modal.classList.remove('hidden');
+        if (typeof soundTone === 'function') {
+          soundTone(550, 'square', 0.15, 0.25);
+          setTimeout(() => soundTone(440, 'square', 0.2, 0.25), 150);
+        }
+
+        let secondsLeft = 3.5;
+        const barEl = document.getElementById('kittenNopeCountdownBar');
+        const secEl = document.getElementById('kittenNopeSeconds');
+
+        if (kittensState.nopeCountdownInterval) {
+          clearInterval(kittensState.nopeCountdownInterval);
+        }
+
+        kittensState.pendingNopeAction = {
+          playerIdx,
+          cardId,
+          cardHandIdx,
+          targetPlayerIdx,
+          onResolve
+        };
+
+        kittensState.nopeCountdownInterval = setInterval(() => {
+          secondsLeft -= 0.1;
+          if (secEl) secEl.textContent = Math.max(0, secondsLeft).toFixed(1);
+          if (barEl) {
+            const pct = Math.max(0, (secondsLeft / 3.5) * 100);
+            barEl.style.width = pct + '%';
+          }
+
+          if (secondsLeft <= 0) {
+            clearInterval(kittensState.nopeCountdownInterval);
+            kittensState.nopeCountdownInterval = null;
+            handleIgnoreNope();
+          }
+        }, 100);
+
+        return;
+      }
+
+      // Case 2: Human played action card and Bots might have Nope
+      if (playerIdx === 0) {
+        // Check alive bots for Nope
+        const botsWithNope = kittensState.players.filter(p => p.id !== 0 && p.isAlive && p.hand.includes('nope'));
+        if (botsWithNope.length > 0 && Math.random() < 0.4) {
+          // A bot decides to NOPE the human player!
+          const chosenBot = botsWithNope[Math.floor(Math.random() * botsWithNope.length)];
+          const nopeIdx = chosenBot.hand.indexOf('nope');
+          if (nopeIdx !== -1) {
+            chosenBot.hand.splice(nopeIdx, 1);
+            kittensState.discardPile.push({
+              cardId: 'nope',
+              playerIdx: chosenBot.id,
+              playerName: chosenBot.name,
+              time: Date.now()
+            });
+
+            if (typeof soundTone === 'function') soundTone(300, 'sawtooth', 0.25, 0.3);
+            setKittenToast('🛑 ' + chosenBot.name.toUpperCase() + ' ĐÃ ĐÁNH NOPE BÁC BỎ LÁ BÀI CỦA BẠN!', true);
+            renderKittensArena();
+            onResolve(true); // isNoped = true
+            return;
+          }
+        }
+      }
+
+      // No Nope triggered, proceed normally
+      onResolve(false);
+    }
+
+    function handleConfirmNope() {
+      if (kittensState.nopeCountdownInterval) {
+        clearInterval(kittensState.nopeCountdownInterval);
+        kittensState.nopeCountdownInterval = null;
+      }
+
+      const modal = document.getElementById('kittenModalNopeIntervention');
+      if (modal) modal.classList.add('hidden');
+
+      const action = kittensState.pendingNopeAction;
+      kittensState.pendingNopeAction = null;
+
+      if (!action) return;
+
+      // Human player discards 1 Nope
+      const p0 = kittensState.players[0];
+      const nopeIdx = p0.hand.indexOf('nope');
+      if (nopeIdx !== -1) {
+        p0.hand.splice(nopeIdx, 1);
+        kittensState.discardPile.push({
+          cardId: 'nope',
+          playerIdx: 0,
+          playerName: p0.name,
+          time: Date.now()
+        });
+
+        if (typeof soundTone === 'function') soundTone(320, 'sawtooth', 0.25, 0.3);
+        const botName = kittensState.players[action.playerIdx] ? kittensState.players[action.playerIdx].name : 'Đối thủ';
+        setKittenToast('🛑 BẠN ĐÃ NOPE THÀNH CÔNG! LÁ BÀI CỦA ' + botName.toUpperCase() + ' BỊ VÔ HIỆU HÓA!');
+        renderKittensArena();
+
+        action.onResolve(true); // Action cancelled!
+      } else {
+        action.onResolve(false);
+      }
+    }
+
+    function handleIgnoreNope() {
+      if (kittensState.nopeCountdownInterval) {
+        clearInterval(kittensState.nopeCountdownInterval);
+        kittensState.nopeCountdownInterval = null;
+      }
+
+      const modal = document.getElementById('kittenModalNopeIntervention');
+      if (modal) modal.classList.add('hidden');
+
+      const action = kittensState.pendingNopeAction;
+      kittensState.pendingNopeAction = null;
+
+      if (action && typeof action.onResolve === 'function') {
+        action.onResolve(false); // Action executes normally!
+      }
+    }
+    window.handleConfirmNope = handleConfirmNope;
+    window.handleIgnoreNope = handleIgnoreNope;
+
+    // Hotkey 'N' listener for Nope
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'n' || e.key === 'N') {
+          const modal = document.getElementById('kittenModalNopeIntervention');
+          if (modal && !modal.classList.contains('hidden')) {
+            e.preventDefault();
+            handleConfirmNope();
+          }
+        }
+      });
+    }
+
 
     function initKittensGame() {
       kittensState.mode = 'local';
@@ -25320,12 +25597,25 @@ function renderCashStackHTML(amount) {
         }
       }
 
-      // Add (Number of Players - 1 = 3) Exploding Kittens + 2 remaining Defuse cards into draw pile
+      // Add selected number of Exploding Kittens (1, 2, 3 or 4) + 2 remaining Defuse cards into draw pile
+      let savedBombCount = 3;
+      try {
+        const stored = localStorage.getItem('tabletop_kittens_bomb_count');
+        if (stored) savedBombCount = Math.max(1, Math.min(4, parseInt(stored, 10)));
+      } catch (e) {}
+      kittensState.bombCount = kittensState.bombCount || savedBombCount;
+
       const finalDeck = [...initialPool];
-      finalDeck.push('exploding_kitten', 'exploding_kitten', 'exploding_kitten');
+      for (let b = 0; b < kittensState.bombCount; b++) {
+        finalDeck.push('exploding_kitten');
+      }
       finalDeck.push('defuse', 'defuse');
 
-      // Shuffle final draw pile
+      // Shuffle final draw pile twice for 100% true randomness
+      for (let i = finalDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [finalDeck[i], finalDeck[j]] = [finalDeck[j], finalDeck[i]];
+      }
       for (let i = finalDeck.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [finalDeck[i], finalDeck[j]] = [finalDeck[j], finalDeck[i]];
@@ -25334,9 +25624,24 @@ function renderCashStackHTML(amount) {
       kittensState.drawPile = finalDeck;
       kittensState.initialized = true;
 
+      // Synchronize Bomb Selector UI Buttons
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById('btnKittenBomb_' + i);
+        if (btn) {
+          btn.className = (i === kittensState.bombCount)
+            ? 'px-1.5 py-0.5 rounded text-[11px] font-black bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-sm border border-red-400 transition-all cursor-pointer'
+            : 'px-1.5 py-0.5 rounded text-[11px] font-bold text-slate-300 hover:text-white transition-all cursor-pointer';
+        }
+      }
+
       renderKittensArena();
-      setKittenToast('🎮 Ván đấu Mèo Nổ bắt đầu! Bốc bài hoặc đánh bài trên tay.');
+      setKittenToast(`🎮 Ván Mèo Nổ bắt đầu! Cọc bài có ${kittensState.bombCount} lá Bomb. Hãy rút bài hoặc đánh bài!`);
       if (typeof soundTone === 'function') soundTone(600, 'triangle', 0.15, 0.2);
+
+      // Start 10-second turn countdown timer
+      if (typeof startKittenTurnTimer === 'function') {
+        startKittenTurnTimer();
+      }
     }
 
     function setKittenToast(text, isDanger = false) {
@@ -25505,6 +25810,13 @@ function renderCashStackHTML(amount) {
       if (handCountEl && pMe) handCountEl.textContent = `${pMe.hand ? pMe.hand.length : 0} lá`;
 
       if (handContainer && pMe) {
+        const isMyTurn = (kittensState.currentTurn === myIdx && !kittensState.isLocked && pMe.isAlive);
+        if (isMyTurn) {
+          handContainer.classList.add('kitten-my-turn-glow');
+        } else {
+          handContainer.classList.remove('kitten-my-turn-glow');
+        }
+
         if (!pMe.isAlive) {
           handContainer.innerHTML = `<div class="text-sm font-cinzel text-red-400 font-bold py-6">☠️ BẠN ĐÃ BỊ LOẠI KHỎI VÁN ĐẤU! Hãy quan sát các đối thủ còn lại.</div>`;
           return;
@@ -25653,9 +25965,14 @@ function renderCashStackHTML(amount) {
       const p = kittensState.players[playerIdx];
       if (!p || !p.hand || !p.hand[cardHandIdx]) return;
 
+      // Reset turn timer when any card is played
+      if (typeof resetKittenTurnTimer === 'function') {
+        resetKittenTurnTimer();
+      }
+
       kittensState.isLocked = true;
       const cardId = p.hand.splice(cardHandIdx, 1)[0];
-      const def = window.KITTEN_CARD_DEFS[cardId];
+      const def = window.KITTEN_CARD_DEFS[cardId] || { name: cardId, badge: 'BÀI', color: '#f59e0b' };
       kittensState.selectedHandIndices = [];
 
       kittensState.discardPile.push({
@@ -25673,7 +25990,26 @@ function renderCashStackHTML(amount) {
       // 1 SECOND VISIBILITY DELAY (Khán giả quan sát lá bài)
       await new Promise(r => setTimeout(r, 1000));
 
-      // Resolve card effect
+      // Nope Intervention Check for Action Cards
+      const isActionCard = ['attack', 'skip', 'favor', 'shuffle', 'see_future'].includes(cardId);
+      if (isActionCard && typeof triggerNopeIntervention === 'function') {
+        const isNoped = await new Promise(resolve => {
+          triggerNopeIntervention(playerIdx, cardId, cardHandIdx, targetPlayerIdx, resolve);
+        });
+
+        if (isNoped) {
+          setKittenToast(`🛑 Hiệu ứng của lá ${def.name} đã bị CHẶN ĐỨNG (NOPE)!`, true);
+          kittensState.isLocked = false;
+          renderKittensArena();
+          if (playerIdx === 0) {
+            if (typeof resetKittenTurnTimer === 'function') resetKittenTurnTimer();
+          } else if (kittensState.mode !== 'online') {
+            checkAndRunBot();
+          }
+          return;
+        }
+      }
+
       switch (cardId) {
         case 'attack':
           // End current player turn immediately without drawing
@@ -26044,7 +26380,7 @@ function renderCashStackHTML(amount) {
         flyEl.style.opacity = '1';
       });
 
-      // After 650ms: Trigger hand impact bounce & sound tone
+      // After 650ms: Trigger hand / pod impact bounce & sound tone
       setTimeout(() => {
         if (playerIdx === 0) {
           const handContainer = document.getElementById('kittenHandCardsContainer');
@@ -26054,6 +26390,14 @@ function renderCashStackHTML(amount) {
             handContainer.classList.add('kitten-hand-landing-bounce');
           }
           if (typeof soundTone === 'function') soundTone(620, 'triangle', 0.12, 0.2);
+        } else {
+          const botPod = document.getElementById('kittenPlayerPod_' + playerIdx);
+          if (botPod) {
+            botPod.classList.remove('kitten-pod-landing-bounce');
+            void botPod.offsetWidth;
+            botPod.classList.add('kitten-pod-landing-bounce');
+          }
+          if (typeof soundTone === 'function') soundTone(480, 'triangle', 0.1, 0.2);
         }
         if (flyEl && flyEl.parentNode) {
           flyEl.parentNode.removeChild(flyEl);
@@ -26457,6 +26801,26 @@ async function executeDrawCard(playerIdx) {
       renderKittensArena();
       updateOnlineRoomHUD();
 
+      // Start/reset 10-second turn timer for the active player
+      if (typeof startKittenTurnTimer === 'function') {
+        startKittenTurnTimer();
+      }
+
+      // If next player is human (idx 0), notify & highlight!
+      if (nextIdx === 0 && kittensState.players[0] && kittensState.players[0].isAlive) {
+        if (typeof soundTone === 'function') {
+          soundTone(784, 'sine', 0.15, 0.3);
+          setTimeout(() => soundTone(1046.5, 'triangle', 0.25, 0.35), 120);
+        }
+        setKittenToast('⭐ ĐẾN LƯỢT CỦA BẠN! Bạn có 10 giây để đánh hoặc bốc bài!', false);
+        const myHandEl = document.getElementById('kittenHandCardsContainer');
+        if (myHandEl) {
+          myHandEl.classList.remove('kitten-my-turn-glow');
+          void myHandEl.offsetWidth;
+          myHandEl.classList.add('kitten-my-turn-glow');
+        }
+      }
+
       // FIX DỨT ĐIỂM BOT ĐƠ: Tự động kích hoạt bot khi chuyển lượt (chỉ ở local mode)!
       kittensState.isLocked = false;
       if (kittensState.mode !== 'online') {
@@ -26534,6 +26898,7 @@ async function executeDrawCard(playerIdx) {
     }
 
     function announceKittensWinner(winner) {
+      if (typeof stopKittenTurnTimer === 'function') stopKittenTurnTimer();
       const myIdx = getMyKittenPlayerIdx();
       const isMe = (winner.id === myIdx);
       setKittenToast(`🏆🏆 ${winner.name} LÀ NGƯỜI SỐNG SÓT CUỐI CÙNG VÀ CHIẾN THẮNG! 🏆🏆`);
@@ -28175,6 +28540,41 @@ async function executeDrawCard(playerIdx) {
         </div>
 
       
+
+
+  <!-- ================= MODAL: CAN THIỆP NOPE (NOPE INTERVENTION POPUP) ================= -->
+  <div id="kittenModalNopeIntervention" class="hidden fixed inset-0 z-[100000] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 select-none">
+    <div class="w-full max-w-md bg-slate-900 border-4 border-red-500 rounded-3xl p-6 shadow-2xl flex flex-col items-center text-center space-y-4">
+      <div class="w-16 h-16 rounded-full bg-red-600/20 border-2 border-red-500 flex items-center justify-center text-3xl animate-bounce">
+        🛑
+      </div>
+      <div>
+        <h3 id="kittenNopeNoticeTitle" class="text-base sm:text-lg font-black font-cinzel text-red-400">
+          ĐỐI THỦ ĐANG ĐÁNH LÁ CHỨC NĂNG!
+        </h3>
+        <p id="kittenNopeNoticeDesc" class="text-xs sm:text-sm text-slate-200 mt-1">
+          Đối thủ vừa đánh lá: <strong class="text-amber-300 font-bold" id="kittenNopeCardName">Tấn Công 2X</strong>! Bạn có muốn dùng lá <strong>NOPE 🛑</strong> để chặn không?
+        </p>
+      </div>
+
+      <!-- Countdown Progress Bar -->
+      <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden border border-slate-700">
+        <div id="kittenNopeCountdownBar" class="h-full bg-gradient-to-r from-red-500 to-rose-600 transition-all duration-100" style="width: 100%;"></div>
+      </div>
+      <div class="text-xs font-mono text-slate-400">Thời gian quyết định: <span id="kittenNopeSeconds" class="text-red-400 font-bold">3.5</span>s</div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3 w-full pt-1">
+        <button type="button" onclick="handleIgnoreNope()" class="btn-spring flex-1 py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs font-mono border border-slate-600 cursor-pointer">
+          Bỏ Qua (Không Nope)
+        </button>
+        <button type="button" onclick="handleConfirmNope()" class="btn-spring flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-500 text-white font-black text-xs font-mono shadow-xl shadow-red-600/40 border-2 border-red-400 flex items-center justify-center gap-1.5 cursor-pointer animate-pulse">
+          <span>NOPE NGAY! 🛑</span>
+          <span class="px-1.5 py-0.5 rounded bg-black/40 text-[10px] font-mono text-white border border-white/20">Phím N</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>

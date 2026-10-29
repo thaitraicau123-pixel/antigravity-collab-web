@@ -4960,6 +4960,7 @@ html.dark #headerSeasonPillContainer svg {
               <i data-lucide="bot" class="w-3.5 h-3.5 text-cyan-400"></i>
               <span id="unoAutoPlayLabel">Tự Động (Auto)</span>
             </button>
+            <button onclick="reopenCurrentOnlineRoom()" class="btn-spring px-2.5 py-1 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-300 text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-sm" title="Mở phòng chơi trực tuyến P2P"><i data-lucide="radio" class="w-3.5 h-3.5 text-cyan-400"></i><span>Phòng P2P</span></button>
             <button onclick="openUnoModal('unoModalRules')" class="btn-spring px-3 py-1 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 text-xs font-bold border border-amber-500/40 flex items-center gap-1.5 transition">
               <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
               <span>Luật UNO</span>
@@ -6178,6 +6179,7 @@ html.dark #headerSeasonPillContainer svg {
             </div>
 
             <!-- Action buttons -->
+            <button onclick="reopenCurrentOnlineRoom()" class="btn-spring px-2.5 py-1.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/40 text-cyan-300 border border-cyan-500/40 text-xs font-bold flex items-center gap-1 cursor-pointer shadow-sm" title="Mở / Xem lại phòng P2P (Phím P)"><span>📡 PHÒNG P2P</span></button>
             <button onclick="openCatanRulesModal()" class="btn-spring px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs font-bold flex items-center gap-1 cursor-pointer" title="Xem Luật Chơi Catan">
               <span>📖 LUẬT CHƠI</span>
             </button>
@@ -24838,7 +24840,7 @@ const vKittens = document.getElementById('kittensView');
     window.selectMpGame = function(gameKey) {
       window.mpRoomState.selectedGame = gameKey;
       
-      const games = ['dice', 'chess', 'tictactoe', 'monopoly', 'kittens'];
+      const games = ['dice', 'chess', 'tictactoe', 'monopoly', 'kittens', 'werewolf', 'uno', 'catan'];
       games.forEach(g => {
         const card = document.getElementById('mpGameCard_' + g);
         if (!card) return;
@@ -24858,20 +24860,32 @@ const vKittens = document.getElementById('kittensView');
       if (label) label.textContent = MP_GAME_NAMES[gameKey] || gameKey;
 
       const hint = document.getElementById('mpPlayerCountHint');
+      const btn1 = document.getElementById('mpCountBtn_1');
       const btn2 = document.getElementById('mpCountBtn_2');
       const btn3 = document.getElementById('mpCountBtn_3');
-      const btn4 = document.getElementById('mpCountBtn_4');
 
       if (gameKey === 'chess' || gameKey === 'tictactoe') {
         window.selectMpAiCount(1);
         if (btn2) { btn2.classList.add('opacity-40', 'cursor-not-allowed'); btn2.disabled = true; }
         if (btn3) { btn3.classList.add('opacity-40', 'cursor-not-allowed'); btn3.disabled = true; }
-        if (btn4) { btn4.classList.add('opacity-40', 'cursor-not-allowed'); btn4.disabled = true; }
         if (hint) hint.textContent = 'Cờ Vua / Ca-rô chuẩn quy chế đối kháng 1v1 (1 Bot AI).';
-      } else if (gameKey === 'dice' || gameKey === 'monopoly' || gameKey === 'kittens') {
+      } else if (gameKey === 'werewolf') {
+        window.selectMpAiCount(3);
+        if (btn1) { btn1.classList.add('opacity-40', 'cursor-not-allowed'); btn1.disabled = true; }
+        if (btn2) { btn2.classList.add('opacity-40', 'cursor-not-allowed'); btn2.disabled = true; }
+        if (btn3) { btn3.classList.remove('opacity-40', 'cursor-not-allowed'); btn3.disabled = false; }
+        if (hint) hint.textContent = 'Ma Sói chuẩn bàn 7 người (người chơi kết nối + tự động bù Bot AI cho đủ 7).';
+      } else if (gameKey === 'catan') {
+        if (!window.mpRoomState.aiCount || window.mpRoomState.aiCount < 2) window.selectMpAiCount(2); // Catan tối thiểu 3 người (1 người + 2 AI)
+        if (btn1) { btn1.classList.add('opacity-40', 'cursor-not-allowed'); btn1.disabled = true; }
         if (btn2) { btn2.classList.remove('opacity-40', 'cursor-not-allowed'); btn2.disabled = false; }
         if (btn3) { btn3.classList.remove('opacity-40', 'cursor-not-allowed'); btn3.disabled = false; }
-        if (btn4) { btn4.classList.remove('opacity-40', 'cursor-not-allowed'); btn4.disabled = false; }
+        if (hint) hint.textContent = 'Đảo Catan chuẩn bàn 3 - 4 kỳ thủ (chọn 2 đến 3 Bot AI đối thủ).';
+      } else {
+        // dice, monopoly, kittens, uno
+        if (btn1) { btn1.classList.remove('opacity-40', 'cursor-not-allowed'); btn1.disabled = false; }
+        if (btn2) { btn2.classList.remove('opacity-40', 'cursor-not-allowed'); btn2.disabled = false; }
+        if (btn3) { btn3.classList.remove('opacity-40', 'cursor-not-allowed'); btn3.disabled = false; }
         if (hint) hint.textContent = 'Tùy chọn so tài cùng 1 đến 3 Bot AI đối thủ (tối đa 4 người chơi).';
       }
     };
@@ -24902,7 +24916,10 @@ const vKittens = document.getElementById('kittensView');
         { id: 'chess', name: 'cờ vua fide chess' },
         { id: 'tictactoe', name: 'ca-rô neon caro tic tac toe' },
         { id: 'monopoly', name: 'cờ tỷ phú 2.5d monopoly' },
-        { id: 'kittens', name: 'mèo nổ tabletop exploding kittens' }
+        { id: 'kittens', name: 'mèo nổ tabletop exploding kittens' },
+        { id: 'werewolf', name: 'ma sói huyền thoại trăng máu werewolf' },
+        { id: 'uno', name: 'uno battle royale bài uno 108 lá' },
+        { id: 'catan', name: 'đảo catan 3d settlers of catan' }
       ];
       let visibleCount = 0;
       games.forEach(g => {
@@ -25737,19 +25754,29 @@ const vKittens = document.getElementById('kittensView');
       switchGameView(room.game);
 
       if (room.game === 'monopoly') {
-        setupOnlineMonopoly(room);
+        if (typeof window.setupOnlineMonopoly === 'function') window.setupOnlineMonopoly(room);
+        else if (typeof setupOnlineMonopoly === 'function') setupOnlineMonopoly(room);
       } else if (room.game === 'dice') {
-        setupOnlineDice(room);
+        if (typeof window.setupOnlineDice === 'function') window.setupOnlineDice(room);
+        else if (typeof setupOnlineDice === 'function') setupOnlineDice(room);
       } else if (room.game === 'chess') {
-        setupOnlineChess(room);
+        if (typeof window.setupOnlineChess === 'function') window.setupOnlineChess(room);
+        else if (typeof setupOnlineChess === 'function') setupOnlineChess(room);
       } else if (room.game === 'tictactoe') {
-        setupOnlineTicTacToe(room);
+        if (typeof window.setupOnlineTicTacToe === 'function') window.setupOnlineTicTacToe(room);
+        else if (typeof setupOnlineTicTacToe === 'function') setupOnlineTicTacToe(room);
       } else if (room.game === 'kittens') {
-        setupOnlineKittens(room);
+        if (typeof window.setupOnlineKittens === 'function') window.setupOnlineKittens(room);
+        else if (typeof setupOnlineKittens === 'function') setupOnlineKittens(room);
       } else if (room.game === 'uno') {
-        setupOnlineUno(room);
+        if (typeof window.setupOnlineUno === 'function') window.setupOnlineUno(room);
+        else if (typeof setupOnlineUno === 'function') setupOnlineUno(room);
       } else if (room.game === 'werewolf') {
-        setupOnlineWerewolf(room);
+        if (typeof window.setupOnlineWerewolf === 'function') window.setupOnlineWerewolf(room);
+        else if (typeof setupOnlineWerewolf === 'function') setupOnlineWerewolf(room);
+      } else if (room.game === 'catan') {
+        if (typeof window.setupOnlineCatan === 'function') window.setupOnlineCatan(room);
+        else if (typeof setupOnlineCatan === 'function') setupOnlineCatan(room);
       }
 
       updateOnlineRoomHUD();
@@ -26283,6 +26310,130 @@ const vKittens = document.getElementById('kittensView');
       updateOnlineRoomHUD();
     };
 
+    // =========================================================================
+    // 🌾 ONLINE ENGINE: ĐẢO CATAN 3D (THE SETTLERS OF CATAN P2P SYNCHRONIZATION)
+    // =========================================================================
+    window.setupOnlineCatan = function(room) {
+      if (!window.catanState) {
+        if (typeof window.initCatanGame === 'function') window.initCatanGame();
+      }
+      const s = window.catanState;
+      if (!s) return;
+      s.mode = 'online';
+      if (!window.mpRoomState) window.mpRoomState = {};
+      window.mpRoomState.currentRoom = room;
+
+      const roomPlayers = (room && room.players) ? room.players : [];
+      const CATAN_PRESETS = [
+        { id: 0, color: '#ef4444', border: '#b91c1c', badge: 'bg-red-500/20 text-red-400 border-red-500/40' },
+        { id: 1, color: '#3b82f6', border: '#1d4ed8', badge: 'bg-blue-500/20 text-blue-400 border-blue-500/40' },
+        { id: 2, color: '#f59e0b', border: '#b45309', badge: 'bg-amber-500/20 text-amber-400 border-amber-500/40' },
+        { id: 3, color: '#10b981', border: '#047857', badge: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40' }
+      ];
+      const BOT_NAMES = ['Bot Cedric (Chiến Binh)', 'Bot Elora (Thương Nhân)', 'Bot Thorin (Thợ Mỏ)'];
+
+      // Nếu là Host (Slot 0) hoặc chưa có matchState trong room: Tạo ván mới và phát sóng
+      if ((window.myRoomPlayerIndex === 0 || !room.matchState) && (!room.matchState || !room.matchState.payload || !room.matchState.payload.hexes)) {
+        if (typeof window.initCatanGame === 'function') window.initCatanGame();
+
+        s.players = [];
+        for (let i = 0; i < 4; i++) {
+          const preset = CATAN_PRESETS[i];
+          if (i < roomPlayers.length) {
+            const rp = roomPlayers[i];
+            s.players.push({
+              id: i,
+              name: rp.name || ('Kỳ Thủ ' + (i + 1)),
+              isHuman: true,
+              color: preset.color,
+              border: preset.border,
+              badge: preset.badge,
+              resources: { wood: 1, brick: 1, sheep: 1, wheat: 1, ore: 0 },
+              victoryPoints: 2,
+              devCards: { knight: 0, victoryPoint: 0 },
+              playedKnights: 0
+            });
+          } else {
+            const bIdx = i - roomPlayers.length;
+            const bName = BOT_NAMES[bIdx % BOT_NAMES.length] || ('Bot AI ' + (i + 1));
+            s.players.push({
+              id: i,
+              name: '🤖 ' + bName,
+              isHuman: false,
+              color: preset.color,
+              border: preset.border,
+              badge: preset.badge,
+              resources: { wood: 1, brick: 1, sheep: 1, wheat: 1, ore: 0 },
+              victoryPoints: 2,
+              devCards: { knight: 0, victoryPoint: 0 },
+              playedKnights: 0
+            });
+          }
+        }
+
+        // Đặt 2 làng và 2 đường ban đầu cho 4 người chơi
+        if (typeof setupInitialSettlements === 'function') {
+          setupInitialSettlements(s.hexes, s.vertices, s.edges, s.players);
+        }
+
+        if (typeof window.syncOnlineCatanState === 'function') {
+          window.syncOnlineCatanState('INIT_MATCH', 'Trận đấu Đảo Catan P2P đã sẵn sàng!');
+        }
+      } else if (room.matchState && room.matchState.game === 'catan') {
+        window.applyOnlineGameState('catan', room.matchState, true);
+      } else {
+        if (typeof window.initCatanGame === 'function') window.initCatanGame();
+      }
+
+      if (typeof window.renderCatanArena === 'function') window.renderCatanArena();
+      updateOnlineRoomHUD();
+    };
+
+    window.syncOnlineCatanState = function(actionType, toastMsg, extra = {}) {
+      if (!window.isOnlineRoomMatch || !window.mpRoomState || !window.mpRoomState.currentRoom) return;
+      const s = window.catanState;
+      if (!s || !s.hexes) return;
+
+      const payload = {
+        actionType: actionType || 'STATE_SYNC',
+        toast: toastMsg || '',
+        currentTurnPlayer: s.currentTurnPlayer,
+        turnPhase: s.turnPhase,
+        roundNumber: s.roundNumber,
+        robberHexId: s.robberHexId,
+        isGameOver: s.isGameOver,
+        hexes: s.hexes.map(h => ({
+          id: h.id,
+          resource: h.resource,
+          number: h.number,
+          hasRobber: h.hasRobber
+        })),
+        vertices: s.vertices.map(v => ({
+          id: v.id,
+          building: v.building ? { player: v.building.player, type: v.building.type } : null
+        })),
+        edges: s.edges.map(e => ({
+          id: e.id,
+          road: e.road
+        })),
+        players: s.players.map(p => ({
+          id: p.id,
+          name: p.name,
+          isHuman: p.isHuman,
+          color: p.color,
+          victoryPoints: p.victoryPoints,
+          resources: { ...p.resources },
+          devCards: { ...p.devCards },
+          playedKnights: p.playedKnights
+        })),
+        ...extra
+      };
+
+      if (typeof window.pushOnlineGameState === 'function') {
+        window.pushOnlineGameState('catan', payload);
+      }
+    };
+
     window.pushOnlineGameState = async function(gameType, statePayload) {
       if (!window.isOnlineRoomMatch || !window.mpRoomState.currentRoom) return;
       const room = window.mpRoomState.currentRoom;
@@ -26302,7 +26453,7 @@ const vKittens = document.getElementById('kittensView');
       await syncMpRoomToStorageAndCloud(room);
     };
 
-    window.applyOnlineGameState = function(gameType, matchState, force = false) {
+    function applyOnlineGameState(gameType, matchState, force = false) {
       if (!matchState) return;
       const payload = matchState.payload || matchState;
       if (!payload) return;
@@ -26937,6 +27088,79 @@ const vKittens = document.getElementById('kittensView');
           checkAndRunUnoBot();
         }
 
+      } else if (gameType === 'catan') {
+        if (!payload || !window.catanState) return;
+        const s = window.catanState;
+        s.mode = 'online';
+
+        if (Array.isArray(payload.hexes)) {
+          payload.hexes.forEach(hData => {
+            const h = s.hexes[hData.id];
+            if (h) {
+              h.resource = hData.resource;
+              h.number = hData.number;
+              h.hasRobber = !!hData.hasRobber;
+            }
+          });
+        }
+
+        if (Array.isArray(payload.vertices)) {
+          payload.vertices.forEach(vData => {
+            const v = s.vertices[vData.id];
+            if (v) {
+              v.building = vData.building ? { ...vData.building } : null;
+            }
+          });
+        }
+
+        if (Array.isArray(payload.edges)) {
+          payload.edges.forEach(eData => {
+            const e = s.edges[eData.id];
+            if (e) {
+              e.road = (eData.road !== null && eData.road !== undefined) ? eData.road : null;
+            }
+          });
+        }
+
+        if (Array.isArray(payload.players)) {
+          payload.players.forEach((pData, idx) => {
+            if (s.players[idx]) {
+              s.players[idx].name = pData.name || s.players[idx].name;
+              s.players[idx].victoryPoints = (typeof pData.victoryPoints === 'number') ? pData.victoryPoints : s.players[idx].victoryPoints;
+              if (pData.resources) s.players[idx].resources = { ...pData.resources };
+              if (pData.devCards) s.players[idx].devCards = { ...pData.devCards };
+              s.players[idx].playedKnights = pData.playedKnights || s.players[idx].playedKnights;
+            }
+          });
+        }
+
+        if (typeof payload.currentTurnPlayer === 'number') s.currentTurnPlayer = payload.currentTurnPlayer;
+        if (payload.turnPhase) s.turnPhase = payload.turnPhase;
+        if (typeof payload.roundNumber === 'number') s.roundNumber = payload.roundNumber;
+        if (typeof payload.robberHexId === 'number') s.robberHexId = payload.robberHexId;
+        if (typeof payload.isGameOver === 'boolean') s.isGameOver = payload.isGameOver;
+
+        // Nếu nhận được kết quả đổ xúc xắc từ kỳ thủ khác
+        if (payload.actionType === 'ROLL_DICE' && payload.rollRes) {
+          if (s.diceTray && typeof s.diceTray.roll === 'function') {
+            s.diceTray.roll(payload.rollRes.values);
+          }
+        }
+
+        if (typeof window.renderCatanArena === 'function') window.renderCatanArena();
+        updateOnlineRoomHUD();
+
+        if (payload.toast && typeof showToast === 'function') showToast(payload.toast);
+
+        // Nếu lượt hiện tại là Bot AI và máy này là Host:
+        const curCatanP = s.players[s.currentTurnPlayer];
+        if (curCatanP && !curCatanP.isHuman && window.myRoomPlayerIndex === 0 && !s.isGameOver) {
+          if (s.botTimer) clearTimeout(s.botTimer);
+          s.botTimer = setTimeout(() => {
+            if (typeof runCatanBotTurn === 'function') runCatanBotTurn(curCatanP);
+          }, 1000);
+        }
+
       } else if (gameType === 'werewolf') {
         if (!payload) return;
         werewolfState.mode = 'online';
@@ -27001,6 +27225,7 @@ const vKittens = document.getElementById('kittensView');
         if (payload.toast && typeof showToast === 'function') showToast(payload.toast);
       }
     };
+    window.applyOnlineGameState = applyOnlineGameState;
 
     window.syncOnlineMonopolyState = function(toastMsg, winner) {
       if (!window.isOnlineRoomMatch) return;
@@ -27123,7 +27348,7 @@ const vKittens = document.getElementById('kittensView');
       pushOnlineGameState('uno', payload);
     };
 
-    window.updateOnlineRoomHUD = function() {
+    function updateOnlineRoomHUD() {
       const hud = document.getElementById('onlineRoomHUD');
       const btnMatchHud = document.getElementById('btnMatchHudReopenRoom');
       if (btnMatchHud) {
@@ -27176,6 +27401,9 @@ const vKittens = document.getElementById('kittensView');
         activePlayerName = curP ? curP.name : 'Kỳ Thủ';
       } else if (room.game === 'werewolf') {
         activePlayerName = (werewolfState && werewolfState.phase) ? ('Giai đoạn ' + werewolfState.phase) : 'Làng';
+      } else if (room.game === 'catan') {
+        const curP = (window.catanState && window.catanState.players) ? window.catanState.players[window.catanState.currentTurnPlayer] : null;
+        activePlayerName = curP ? curP.name : 'Kỳ Thủ Catan';
       }
 
       if (curTurnEl) curTurnEl.textContent = activePlayerName;
@@ -27183,7 +27411,8 @@ const vKittens = document.getElementById('kittensView');
       if (window.lucide && typeof lucide.createIcons === 'function') {
         lucide.createIcons();
       }
-    };
+    }
+    window.updateOnlineRoomHUD = updateOnlineRoomHUD;
 
     window.leaveOnlineMatch = function() {
       if (confirm('Bạn có chắc chắn muốn rời trận đấu P2P trực tuyến?')) {
@@ -30221,12 +30450,13 @@ async function executeDrawCard(playerIdx) {
     // Handle Player Click on Hand Card
     function handlePlayerCardClick(cardIdx) {
       if (unoState.isLocked) return;
-      if (unoState.currentTurn !== 0) {
+      const myUnoIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+      if (unoState.currentTurn !== myUnoIdx) {
         showToast('⏳ Chưa tới lượt của bạn!');
         return;
       }
 
-      const player = unoState.players[0];
+      const player = unoState.players[myUnoIdx];
       const card = player.hand[cardIdx];
       const topCard = unoState.discardPile[unoState.discardPile.length - 1];
 
@@ -30253,7 +30483,8 @@ async function executeDrawCard(playerIdx) {
       if (unoState.selectedWildCardIdx < 0) return;
       const cardIdx = unoState.selectedWildCardIdx;
       unoState.selectedWildCardIdx = -1;
-      executePlayUnoCard(0, cardIdx, color);
+      const myUnoIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+      executePlayUnoCard(myUnoIdx, cardIdx, color);
     }
 
     // Play Uno Card with 3D Arc Flying Animation
@@ -30398,11 +30629,12 @@ async function executeDrawCard(playerIdx) {
     // Handle Player Clicking Draw Pile
     function handleUnoPlayerDrawClick() {
       if (unoState.isLocked) return;
-      if (unoState.currentTurn !== 0) {
+      const myUnoIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+      if (unoState.currentTurn !== myUnoIdx) {
         showToast('⏳ Chưa tới lượt của bạn để rút bài!');
         return;
       }
-      executeDrawUnoCard(0);
+      executeDrawUnoCard(myUnoIdx);
     }
 
     // Execute Draw Card Logic
@@ -30621,32 +30853,40 @@ async function executeDrawCard(playerIdx) {
       }
 
       // 2. Hô UNO hợp lệ (còn 1 hoặc 2 lá)
+      const myUnoIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
       player.hasSaidUno = true;
-      if (unoState.unoCountdownActive && unoState.unoCountdownTarget === 0) {
+      if (unoState.unoCountdownActive && unoState.unoCountdownTarget === myUnoIdx) {
         stopUnoCountdown();
       }
       playUnoSound('uno_bell');
       showUnoCenterToast('🔔 BẠN ĐÃ HÔ UNO KỊP THỜI (TRONG 5S)! AN TOÀN!', 2000);
       renderUnoArena();
+
+      if (window.isOnlineRoomMatch && typeof window.syncOnlineUnoState === 'function') {
+        window.syncOnlineUnoState('SAY_UNO', `${player.name} vừa hô UNO an toàn!`);
+      }
     }
     window.handleSayUnoClick = handleSayUnoClick;
 
     // Bắt UNO: Bắt đúng đối thủ quên hô -> đối thủ bốc 2 lá. Bắt láo (không ai phạm quy) -> người bắt bị phạt bốc 2 lá!
     function handleCatchUnoClick() {
+      const myUnoIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
       let caughtTarget = null;
-      for (let i = 1; i <= 3; i++) {
-        const bot = unoState.players[i];
-        if (bot && bot.hand.length === 1 && !bot.hasSaidUno) {
-          caughtTarget = bot;
-          break;
+      for (let i = 0; i < unoState.players.length; i++) {
+        if (i !== myUnoIdx) {
+          const opponent = unoState.players[i];
+          if (opponent && opponent.hand.length === 1 && !opponent.hasSaidUno && !opponent.isOut) {
+            caughtTarget = opponent;
+            break;
+          }
         }
       }
 
       if (caughtTarget) {
-        // BẮT ĐÚNG THÀNH CÔNG!
         stopUnoCountdown();
         playUnoSound('penalty');
-        showUnoCenterToast(`💥 BẮT QUẢ TANG ${caughtTarget.name.toUpperCase()} QUÊN HÔ UNO! PHẠT BỐC THÊM 2 LÁ!`, 3000);
+        const toastMsg = `💥 BẮT QUẢ TANG ${caughtTarget.name.toUpperCase()} QUÊN HÔ UNO! PHẠT BỐC THÊM 2 LÁ!`;
+        showUnoCenterToast(toastMsg, 3000);
         for (let k = 0; k < 2; k++) {
           ensureDrawPileHasCards();
           if (unoState.drawPile.length > 0) {
@@ -30655,12 +30895,14 @@ async function executeDrawCard(playerIdx) {
         }
         caughtTarget.hasSaidUno = false;
         renderUnoArena();
+        if (window.isOnlineRoomMatch && typeof window.syncOnlineUnoState === 'function') {
+          window.syncOnlineUnoState('CATCH_UNO', toastMsg);
+        }
       } else {
-        // BẮT UNO LÁO! (Không có ai phạm quy mà bấm BẮT UNO)
-        // Người bấm bị phạt bốc thêm 2 lá!
-        const human = unoState.players[0];
+        const human = unoState.players[myUnoIdx] || unoState.players[0];
         playUnoSound('penalty');
-        showUnoCenterToast('🚫 BẮT UNO LÁO! KHÔNG CÓ AI PHẠM QUY! BẠN BỊ PHẠT BỐC THÊM 2 LÁ!', 3000);
+        const toastMsg = '🚫 BẮT UNO LÁO! KHÔNG CÓ AI PHẠM QUY! BẠN BỊ PHẠT BỐC THÊM 2 LÁ!';
+        showUnoCenterToast(toastMsg, 3000);
         for (let k = 0; k < 2; k++) {
           ensureDrawPileHasCards();
           if (unoState.drawPile.length > 0) {
@@ -30668,6 +30910,9 @@ async function executeDrawCard(playerIdx) {
           }
         }
         renderUnoArena();
+        if (window.isOnlineRoomMatch && typeof window.syncOnlineUnoState === 'function') {
+          window.syncOnlineUnoState('CATCH_UNO_FALSE', toastMsg);
+        }
       }
     }
     window.handleCatchUnoClick = handleCatchUnoClick;
@@ -32914,7 +33159,7 @@ async function executeDrawCard(playerIdx) {
                 <input type="text" id="mpGameSearchInput" oninput="filterMpGames(this.value)" placeholder="🔍 Tìm game..." class="w-28 sm:w-36 px-2.5 py-1 rounded-xl bg-slate-50 border border-slate-300 text-[11px] font-bold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-cyan-500 focus:bg-white shadow-2xs">
               </div>
               <button type="button" onclick="showAllMpGames()" id="btnMpViewAllGames" class="btn-spring px-2 py-1 rounded-xl bg-cyan-50 hover:bg-cyan-100 border border-cyan-300 text-cyan-900 text-[10px] font-black cursor-pointer shadow-2xs">
-                Xem Tất Cả (5)
+                Xem Tất Cả (8)
               </button>
             </div>
           </div>
@@ -32995,6 +33240,24 @@ async function executeDrawCard(playerIdx) {
               <div class="font-cinzel text-xs font-black text-slate-900 group-hover:text-purple-600 transition-colors">Ma Sói Trăng Máu</div>
               <div class="text-[10px] text-slate-500 font-bold mt-0.5">7 Người • Đấu Trí Đêm</div>
               <div class="mp-check-badge hidden absolute top-2 right-2 w-5 h-5 rounded-full bg-purple-600 text-white flex items-center justify-center text-[10px] font-black shadow-sm">✓</div>
+            </button>
+            <!-- Game 7: UNO Battle Royale -->
+            <button type="button" onclick="selectMpGame('uno')" id="mpGameCard_uno" class="mp-game-card group p-3 rounded-2xl bg-slate-50 border-2 border-slate-200 text-left transition-all hover:border-amber-400 relative cursor-pointer">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 via-orange-500/20 to-red-600/20 border border-amber-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform mb-2.5">
+                <span class="text-2xl filter drop-shadow">🃏</span>
+              </div>
+              <div class="font-cinzel text-xs font-black text-slate-900 group-hover:text-amber-600 transition-colors">UNO Battle Royale</div>
+              <div class="text-[10px] text-slate-500 font-bold mt-0.5">2-4 Người • 108 Lá Bài</div>
+              <div class="mp-check-badge hidden absolute top-2 right-2 w-5 h-5 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px] font-black shadow-sm">✓</div>
+            </button>
+            <!-- Game 8: Đảo Catan 3D -->
+            <button type="button" onclick="selectMpGame('catan')" id="mpGameCard_catan" class="mp-game-card group p-3 rounded-2xl bg-slate-50 border-2 border-slate-200 text-left transition-all hover:border-emerald-400 relative cursor-pointer">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 via-yellow-500/20 to-emerald-600/20 border border-emerald-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform mb-2.5">
+                <span class="text-2xl filter drop-shadow">🌾</span>
+              </div>
+              <div class="font-cinzel text-xs font-black text-slate-900 group-hover:text-emerald-600 transition-colors">Đảo Catan 3D</div>
+              <div class="text-[10px] text-slate-500 font-bold mt-0.5">3-4 Người • Xúc Xắc 3D</div>
+              <div class="mp-check-badge hidden absolute top-2 right-2 w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-black shadow-sm">✓</div>
             </button>
           </div>
           <div id="mpGameNoResults" class="hidden py-4 text-center text-xs text-slate-500 font-bold">Không tìm thấy tựa game phù hợp.</div>
@@ -34847,7 +35110,8 @@ async function executeDrawCard(playerIdx) {
 
   function renderCatanHUD() {
     const s = window.catanState;
-    const pHuman = s.players[0];
+    const myCatanIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+    const pHuman = s.players[myCatanIdx] || s.players[0];
     if (!pHuman) return;
 
     const r = pHuman.resources;
@@ -34968,7 +35232,8 @@ async function executeDrawCard(playerIdx) {
 
   async function onCatanRollDiceClick() {
     const s = window.catanState;
-    if (s.currentTurnPlayer !== 0 || s.turnPhase !== 'need_roll' || s.isRolling || s.isGameOver) return;
+    const myCatanIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+    if (s.currentTurnPlayer !== myCatanIdx || s.turnPhase !== 'need_roll' || s.isRolling || s.isGameOver) return;
 
     s.isRolling = true;
     renderCatanHUD();
@@ -34999,6 +35264,10 @@ async function executeDrawCard(playerIdx) {
     const sum = rollRes.sum;
 
     appendCatanLog(curP.name + ' đã đổ ra: [' + rollRes.values.join(' + ') + ' = ' + sum + ']', '🎲');
+
+    if (window.isOnlineRoomMatch && typeof window.syncOnlineCatanState === 'function') {
+      window.syncOnlineCatanState('ROLL_DICE', `${curP.name} đã đổ ra [${rollRes.values.join('+')} = ${sum}]!`, { rollRes: { values: rollRes.values, sum, isDoubles: rollRes.isDoubles } });
+    }
 
     if (sum !== 7) {
       const harvestReport = harvestResourcesForSum(sum);
@@ -35075,9 +35344,10 @@ async function executeDrawCard(playerIdx) {
 
   function onCatanHexClick(hexId) {
     const s = window.catanState;
-    if (s.turnPhase !== 'moving_robber' || s.currentTurnPlayer !== 0 || hexId === s.robberHexId) return;
+    const myCatanIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+    if (s.turnPhase !== 'moving_robber' || s.currentTurnPlayer !== myCatanIdx || hexId === s.robberHexId) return;
 
-    moveRobberToHex(hexId, s.players[0]);
+    moveRobberToHex(hexId, s.players[myCatanIdx]);
   };
 
   function moveRobberToHex(targetHexId, activePlayer) {
@@ -35113,6 +35383,10 @@ async function executeDrawCard(playerIdx) {
 
     s.turnPhase = 'action';
     renderCatanArena();
+
+    if (window.isOnlineRoomMatch && typeof window.syncOnlineCatanState === 'function') {
+      window.syncOnlineCatanState('MOVE_ROBBER', `${activePlayer.name} đã chuyển Tên Cướp sang ô #${targetHexId}!`, { targetHexId });
+    }
   }
 
   function botMoveRobber(botPlayer) {
@@ -35142,7 +35416,8 @@ async function executeDrawCard(playerIdx) {
 
   function toggleCatanBuildMode(mode) {
     const s = window.catanState;
-    if (s.currentTurnPlayer !== 0 || s.turnPhase !== 'action' || s.isGameOver) return;
+    const myCatanIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+    if (s.currentTurnPlayer !== myCatanIdx || s.turnPhase !== 'action' || s.isGameOver) return;
 
     if (s.selectedBuildMode === mode) {
       s.selectedBuildMode = null;
@@ -35172,15 +35447,19 @@ async function executeDrawCard(playerIdx) {
 
   function onCatanEdgeClick(edgeId) {
     const s = window.catanState;
-    if (s.selectedBuildMode !== 'road' || s.currentTurnPlayer !== 0) return;
+    const myCatanIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+    if (s.selectedBuildMode !== 'road' || s.currentTurnPlayer !== myCatanIdx || !isEdgeBuildable(edgeId, myCatanIdx)) return;
 
-    const p = s.players[0];
+    const p = s.players[myCatanIdx];
     if ((p.resources.wood || 0) < 1 || (p.resources.brick || 0) < 1) return;
 
     p.resources.wood--;
     p.resources.brick--;
-    s.edges[edgeId].road = 0;
+    s.edges[edgeId].road = myCatanIdx;
     s.selectedBuildMode = null;
+    if (window.isOnlineRoomMatch && typeof window.syncOnlineCatanState === 'function') {
+      window.syncOnlineCatanState('BUILD_ROAD', `${p.name} đã kéo dài 1 Con Đường!`, { edgeId });
+    }
 
     playCatanSFX('build');
     appendCatanLog('Bạn đã xây 1 Con Đường mới!', '🛣️');
@@ -35191,7 +35470,9 @@ async function executeDrawCard(playerIdx) {
 
   function onCatanVertexClick(vertexId) {
     const s = window.catanState;
-    const p = s.players[0];
+    const myCatanIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+    if (s.currentTurnPlayer !== myCatanIdx) return;
+    const p = s.players[myCatanIdx];
 
     if (s.selectedBuildMode === 'settlement') {
       if ((p.resources.wood || 0) < 1 || (p.resources.brick || 0) < 1 || (p.resources.sheep || 0) < 1 || (p.resources.wheat || 0) < 1) return;
@@ -35200,9 +35481,12 @@ async function executeDrawCard(playerIdx) {
       p.resources.brick--;
       p.resources.sheep--;
       p.resources.wheat--;
-      s.vertices[vertexId].building = { player: 0, type: 'settlement' };
+      s.vertices[vertexId].building = { player: myCatanIdx, type: 'settlement' };
       p.victoryPoints++;
       s.selectedBuildMode = null;
+      if (window.isOnlineRoomMatch && typeof window.syncOnlineCatanState === 'function') {
+        window.syncOnlineCatanState('BUILD_SETTLEMENT', `${p.name} đã xây 1 Ngôi Làng mới!`, { vertexId });
+      }
 
       playCatanSFX('build');
       appendCatanLog('Bạn đã lập 1 Ngôi Làng mới! (+1 Điểm Thắng)', '🏠');
@@ -35218,6 +35502,9 @@ async function executeDrawCard(playerIdx) {
       s.vertices[vertexId].building.type = 'city';
       p.victoryPoints++;
       s.selectedBuildMode = null;
+      if (window.isOnlineRoomMatch && typeof window.syncOnlineCatanState === 'function') {
+        window.syncOnlineCatanState('UPGRADE_CITY', `${p.name} đã nâng cấp 1 Thành Phố uy nghi!`, { vertexId });
+      }
 
       playCatanSFX('build');
       appendCatanLog('Bạn đã nâng cấp thành công 1 Thành Phố! (+1 Điểm Thắng, x2 thu hoạch)', '🏰');
@@ -35230,9 +35517,10 @@ async function executeDrawCard(playerIdx) {
 
   function buyCatanDevCard() {
     const s = window.catanState;
-    if (s.currentTurnPlayer !== 0 || s.turnPhase !== 'action' || s.isGameOver) return;
+    const myCatanIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+    if (s.currentTurnPlayer !== myCatanIdx || s.turnPhase !== 'action' || s.isGameOver) return;
 
-    const p = s.players[0];
+    const p = s.players[myCatanIdx];
     if ((p.resources.sheep || 0) < 1 || (p.resources.wheat || 0) < 1 || (p.resources.ore || 0) < 1) {
       setCatanBanner('Không đủ tài nguyên! Cần 1 Cừu (🐑) + 1 Lúa (🌾) + 1 Quặng Đá (⛰️) để mua Thẻ Dev.', '⚠️');
       return;
@@ -35258,11 +35546,16 @@ async function executeDrawCard(playerIdx) {
     playCatanSFX('harvest');
     checkCatanWinner();
     renderCatanArena();
+
+    if (window.isOnlineRoomMatch && typeof window.syncOnlineCatanState === 'function') {
+      window.syncOnlineCatanState('BUY_DEV_CARD', `${p.name} vừa rút 1 Thẻ Dev mới!`);
+    }
   };
 
   function openCatanTradeModal() {
     const s = window.catanState;
-    if (s.currentTurnPlayer !== 0 || s.turnPhase !== 'action' || s.isGameOver) return;
+    const myCatanIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+    if (s.currentTurnPlayer !== myCatanIdx || s.turnPhase !== 'action' || s.isGameOver) return;
 
     s.tradeState = { giveRes: null, receiveRes: null };
     renderTradeModalOptions();
@@ -35336,7 +35629,8 @@ async function executeDrawCard(playerIdx) {
 
   function confirmCatanTrade() {
     const s = window.catanState;
-    const p = s.players[0];
+    const myCatanIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+    const p = s.players[myCatanIdx] || s.players[0];
     const giveRes = s.tradeState.giveRes;
     const receiveRes = s.tradeState.receiveRes;
     if (!giveRes || !receiveRes || giveRes === receiveRes || (p.resources[giveRes] || 0) < 4) return;
@@ -35350,11 +35644,16 @@ async function executeDrawCard(playerIdx) {
 
     if (typeof closeModal === 'function') closeModal('catanTradeModal');
     renderCatanArena();
+
+    if (window.isOnlineRoomMatch && typeof window.syncOnlineCatanState === 'function') {
+      window.syncOnlineCatanState('CONFIRM_TRADE', `${p.name} vừa giao thương 4:1 với Ngân Hàng!`);
+    }
   };
 
   function endCatanTurn() {
     const s = window.catanState;
-    if (s.currentTurnPlayer !== 0 || s.turnPhase !== 'action' || s.isGameOver) return;
+    const myCatanIdx = (window.isOnlineRoomMatch && window.myRoomPlayerIndex >= 0) ? window.myRoomPlayerIndex : 0;
+    if (s.currentTurnPlayer !== myCatanIdx || s.turnPhase !== 'action' || s.isGameOver) return;
 
     s.selectedBuildMode = null;
     advanceToNextPlayer();
@@ -35374,7 +35673,11 @@ async function executeDrawCard(playerIdx) {
     renderCatanArena();
 
     const curP = s.players[s.currentTurnPlayer];
-    if (!curP.isHuman) {
+    if (window.isOnlineRoomMatch && typeof window.syncOnlineCatanState === 'function') {
+      window.syncOnlineCatanState('END_TURN', `Lượt chơi chuyển sang ${curP.name}`);
+    }
+
+    if (!curP.isHuman && (!window.isOnlineRoomMatch || window.myRoomPlayerIndex === 0)) {
       s.botTimer = setTimeout(() => {
         runCatanBotTurn(curP);
       }, 1000);

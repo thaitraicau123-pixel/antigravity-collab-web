@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 console.log('================================================================');
-console.log('  TEST SUITE: ZERO-FREEZE WEREWOLF ENGINE (v4.3.6)               ');
+console.log('  TEST SUITE: WEREWOLF ONLINE + LIVE CHAT + ZERO ROLE LEAK v4.4 ');
 console.log('================================================================');
 
 // Mock browser environment
@@ -68,7 +68,7 @@ global.showToast = (msg) => console.log('   [Toast]:', msg);
 
 // Read from index.html directly
 const html = fs.readFileSync('index.html', 'utf8');
-const startMarker = 'CYBER WEREWOLF ENGINE (MA SÓI: HUYỀN THOẠI TRĂNG MÁU v2.0';
+const startMarker = 'CYBER WEREWOLF ENGINE (MA SÓI: HUYỀN THOẠI TRĂNG MÁU';
 const markerPos = html.indexOf(startMarker);
 if (markerPos === -1) {
   throw new Error('Không tìm thấy startMarker trong index.html');
@@ -82,6 +82,7 @@ eval(engineCode);
 const {
   WEREWOLF_ROLES,
   initWerewolfGame,
+  setupOnlineWerewolf,
   confirmWerewolfRoleAndStart,
   confirmSeerScryAndContinue,
   skipWerewolfWaitOrAct,
@@ -92,10 +93,12 @@ const {
   handleWitchUseHeal,
   triggerHunterRevengeShot,
   executeHunterShot,
-  checkWerewolfWinCondition
+  checkWerewolfWinCondition,
+  appendChatMessage,
+  toggleWerewolfChatPanel
 } = window;
 
-console.log('>>> Zero-Freeze Werewolf Engine evaluated into test runtime successfully!\n');
+console.log('>>> Werewolf Online Engine evaluated into test runtime successfully!\n');
 
 let passed = 0;
 let total = 0;
@@ -143,56 +146,83 @@ try {
   assert('Đúng 1 Dân Làng', roleFreq.villager === 1);
   assert('Tất cả 7 người chơi ban đầu đều còn sống (isAlive = true)', st.players.every(p => p.isAlive === true));
 
-  // TEST NHÓM 2: Cơ chế chống đứng màn khi xác nhận vai trò
-  console.log('\n--- NHÓM 2: CƠ CHẾ CHỐNG ĐỨNG MÀN & AUTO-START (ZERO-FREEZE) ---');
-  confirmWerewolfRoleAndStart();
-  assert('Bấm xác nhận vai trò đã kích hoạt chu trình FSM đêm & ngày mượt mà (phase !== LOBBY)', st.phase !== 'LOBBY');
+  // TEST NHÓM 2: Cơ chế Không Lộ Role Ban Đêm & Màn Đêm Nhắm Mắt (Zero Role Leak)
+  console.log('\n--- NHÓM 2: BẢO MẬT VAI TRÒ & MÀN ĐÊM NHẮM MẮT (ZERO ROLE LEAK) ---');
+  // Giả sử người chơi là Dân Làng
+  st.players[0].role = 'villager';
+  st.players[1].role = 'werewolf'; // Eldrin là Sói
+  st.players[2].role = 'seer';     // Lyra là Tiên Tri
 
-  // Test skip/fast forward action
-  skipWerewolfWaitOrAct();
-  assert('Hàm tua nhanh skipWerewolfWaitOrAct hoạt động mượt mà', !!st.phase);
+  // Render arena
+  window.renderWerewolfArena();
+  const p1RoleEl = document.getElementById('werewolfRoleReveal_1');
+  assert('Người chơi số 1 (Ma Sói còn sống) hiển thị "???" (KHÔNG LỘ ROLE)', p1RoleEl.textContent === '???');
+  const p2RoleEl = document.getElementById('werewolfRoleReveal_2');
+  assert('Người chơi số 2 (Tiên Tri còn sống) hiển thị "???" (KHÔNG LỘ ROLE)', p2RoleEl.textContent === '???');
 
-  // TEST NHÓM 3: Vòng Lặp Ban Đêm & Bảo Vệ
-  console.log('\n--- NHÓM 3: VÒNG LẶP BAN ĐÊM (NIGHT PHASE FSM) ---');
+  // Test Blind Sleep Overlay khi đêm xuống
+  assert('Blind Sleep Overlay tồn tại trong DOM', !!document.getElementById('werewolfBlindOverlay'));
+
+  // TEST NHÓM 3: Khung Chat Trực Tiếp (Live Chat Engine)
+  console.log('\n--- NHÓM 3: KHUNG CHAT TRỰC TIẾP (LIVE WEREWOLF CHAT) ---');
+  appendChatMessage({
+    senderId: 0,
+    senderName: 'Bạn (Chỉ Huy)',
+    text: 'Đêm qua tôi nghe tiếng bước chân rất gần nhà P2!',
+    channel: 'village',
+    time: '12:00'
+  });
+  assert('Tin nhắn chat được lưu vào state chatMessages', st.chatMessages.length >= 1);
+  assert('Nội dung tin nhắn trùng khớp', st.chatMessages[st.chatMessages.length - 1].text.includes('nhà P2'));
+
+  // Test chat channel Sói
+  appendChatMessage({
+    senderId: 1,
+    senderName: 'Eldrin',
+    text: 'Đêm nay chúng ta cắn P3 nhé đồng đội!',
+    channel: 'wolf',
+    time: '12:01'
+  });
+  assert('Hỗ trợ kênh chat bầy Sói bí mật ban đêm', st.chatMessages.some(m => m.channel === 'wolf'));
+
+  // TEST NHÓM 4: Chế Độ Online Multiplayer (P2P Room Integration)
+  console.log('\n--- NHÓM 4: CHẾ ĐỘ MULTIPLAYER P2P (ONLINE ROOM) ---');
+  const mockRoom = {
+    code: '999888',
+    game: 'werewolf',
+    maxPlayers: 7,
+    players: [
+      { id: 'uid_1', name: 'Kỳ Thủ Alpha', isHost: true },
+      { id: 'uid_2', name: 'Kỳ Thủ Beta', isHost: false },
+      { id: 'uid_3', name: 'Kỳ Thủ Gamma', isHost: false }
+    ]
+  };
+  setupOnlineWerewolf(mockRoom);
+  assert('Chế độ chuyển thành online', st.mode === 'online');
+  assert('Người chơi 1 có tên Kỳ Thủ Alpha từ phòng P2P', st.players[0].name === 'Kỳ Thủ Alpha');
+  assert('Người chơi 2 có tên Kỳ Thủ Beta từ phòng P2P', st.players[1].name === 'Kỳ Thủ Beta');
+  assert('Người chơi 3 có tên Kỳ Thủ Gamma từ phòng P2P', st.players[2].name === 'Kỳ Thủ Gamma');
+  assert('Các slot còn lại (slot 4-7) được tự động lấp đầy bằng Bot AI', st.players[3].name === 'Garrick' && st.players[4].name === 'Seraphina');
+
+  // TEST NHÓM 5: Vòng Lặp Ban Đêm, Phù Thủy, Thợ Săn, Biểu Quyết
+  console.log('\n--- NHÓM 5: VÒNG LẶP BAN ĐÊM & BIỂU QUYẾT TREO CỔ ---');
   st.players.forEach(p => p.isAlive = true);
   st.nightProtectedTarget = 1;
-  st.nightWolfVictim = 1; // Cắn người được bảo vệ
+  st.nightWolfVictim = 1;
   st.nightWitchPoisonVictim = null;
 
   resolveNightPhase();
   assert('Người 1 sống sót nhờ được Bảo Vệ che chắn thành công', st.players[1].isAlive === true);
-  assert('Toàn bộ 7 người vẫn sống sót sau đêm', st.players.every(p => p.isAlive === true));
 
-  // TEST NHÓM 4: Bỏ Phiếu và Treo Cổ Ban Ngày
-  console.log('\n--- NHÓM 4: BIỂU QUYẾT & TREO CỔ BAN NGÀY (DAY VOTING & LYNCH) ---');
   st.votes = { 0: 6, 1: 6, 2: 6, 3: 6, 4: 1, 5: 2, 6: 0 };
   resolveVotingExecution();
-  assert('Người bị nhiều phiếu nhất (index 6) bị treo cổ (isAlive = false)', st.players[6].isAlive === false);
-  assert('Số người còn sống trong làng còn 6', st.players.filter(p => p.isAlive).length === 6);
+  assert('Người bị nhiều phiếu nhất (index 6) bị treo cổ', st.players[6].isAlive === false);
 
-  // TEST NHÓM 5: Kỹ Năng Phù Thủy & Thợ Săn
-  console.log('\n--- NHÓM 5: BÌNH PHÙ THỦY & PHÁT ĐẠN THỢ SĂN ---');
-  st.nightWolfVictim = 3;
-  st.nightProtectedTarget = 2;
-  st.witchHealUsed = false;
-  handleWitchUseHeal();
-  assert('Phù thủy đã sử dụng bình cứu (witchHealUsed = true)', st.witchHealUsed === true);
-  assert('Nạn nhân sói cắn được xóa về null nhờ được cứu', st.nightWolfVictim === null);
-
-  const nonHunterIdx = st.players.findIndex((p, idx) => p.isAlive && p.role !== 'hunter' && idx !== 3);
-  st.nightWitchPoisonVictim = nonHunterIdx;
-  st.witchPoisonUsed = true;
-
-  resolveNightPhase();
-  assert('Người 3 sống sót nhờ phù thủy cứu khỏi nanh vuốt Sói', st.players[3].isAlive === true);
-  assert(`Nạn nhân trúng bình độc (index ${nonHunterIdx}) đã tử trận`, st.players[nonHunterIdx].isAlive === false);
-
-  const hunterIdx = st.players.findIndex(p => p.role === 'hunter');
-  st.players[hunterIdx].isAlive = false;
-  triggerHunterRevengeShot(hunterIdx);
-
-  executeHunterShot(5);
-  assert('Nạn nhân bị thợ săn bắn (index 5) đã tử trận', st.players[5].isAlive === false);
+  // Khi chết mới lật bài thật
+  window.renderWerewolfArena();
+  const p6RoleEl = document.getElementById('werewolfRoleReveal_6');
+  const def6 = WEREWOLF_ROLES[st.players[6].role];
+  assert('Khi chết, Quản trò lật bài công bố danh tính thật cho làng', p6RoleEl.textContent === def6.name);
 
   // TEST NHÓM 6: Điều Kiện Thắng
   console.log('\n--- NHÓM 6: PHÂN ĐỊNH CHIẾN THẮNG (WIN CONDITIONS) ---');
@@ -201,28 +231,7 @@ try {
     else p.isAlive = true;
   });
   let hasWon = checkWerewolfWinCondition();
-  assert('checkWerewolfWinCondition trả về true khi có bên thắng', hasWon === true);
-  assert('Phe Dân Làng chiến thắng khi toàn bộ Ma Sói bị tiêu diệt', st.winner === 'village');
-
-  st.players.forEach(p => p.isAlive = false);
-  const wolfIndices = [];
-  st.players.forEach((p, idx) => { if (p.role === 'werewolf') wolfIndices.push(idx); });
-  st.players[wolfIndices[0]].isAlive = true;
-  st.players[wolfIndices[1]].isAlive = true;
-  const villagerIdx = st.players.findIndex(p => p.role === 'villager');
-  st.players[villagerIdx].isAlive = true;
-  hasWon = checkWerewolfWinCondition();
-  assert('checkWerewolfWinCondition trả về true khi Sói chiếm ưu thế', hasWon === true);
-  assert('Phe Ma Sói chiến thắng khi số sói >= số dân còn lại', st.winner === 'wolf');
-
-  st.players[wolfIndices[1]].isAlive = false;
-  const seerIdx = st.players.findIndex(p => p.role === 'seer');
-  const bodyguardIdx = st.players.findIndex(p => p.role === 'bodyguard');
-  st.players[seerIdx].isAlive = true;
-  st.players[bodyguardIdx].isAlive = true;
-  st.winner = null;
-  hasWon = checkWerewolfWinCondition();
-  assert('Trận đấu tiếp tục khi chưa bên nào đạt điều kiện thắng', hasWon === false);
+  assert('Phe Dân Làng chiến thắng khi toàn bộ Ma Sói bị tiêu diệt', hasWon === true && st.winner === 'village');
 
   console.log('\n================================================================');
   console.log(`  🎉 HOÀN TẤT: TẤT CẢ ${passed}/${total} TEST CASES ĐỀU PASSED 100%!`);

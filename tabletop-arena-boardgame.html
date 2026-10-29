@@ -4878,6 +4878,11 @@
           <!-- Right: Control Buttons -->
           <div class="flex items-center gap-2">
             <!-- Village Chronicle (Nhật Ký Làng) -->
+            <button type="button" onclick="toggleWerewolfChatPanel()" id="btnToggleWerewolfChat" class="btn-spring px-3 py-1.5 rounded-xl bg-purple-600/30 hover:bg-purple-600/40 text-purple-200 border border-purple-500/40 text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Bật/Tắt Khung Chat Trò Chuyện (Phím C)">
+              <span id="werewolfChatBtnIcon">💬</span>
+              <span>Trò Chuyện (C)</span>
+              <span id="werewolfChatUnreadBadge" class="hidden px-1.5 py-0.2 rounded-full bg-red-600 text-[9px] font-mono font-black text-white">0</span>
+            </button>
             <button type="button" onclick="skipWerewolfWaitOrAct()" class="btn-spring px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm cursor-pointer" title="Bỏ qua chờ đợi / Hành động ngay (Phím Space)">
               <span>⚡ Tua Nhanh (Space)</span>
             </button>
@@ -4892,7 +4897,29 @@
         </div>
 
         <!-- Village Tabletop Circle Arena -->
-        <div id="werewolfTableMat" class="relative w-full rounded-3xl p-4 sm:p-6 shadow-[0_0_60px_rgba(0,0,0,0.85)] border-2 border-slate-800/80 overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-gradient-to-b from-[#0b0f19] via-[#090d16] to-[#05070c]" style="min-height: 580px;">
+        <!-- Werewolf Arena Dual Stage: Table Plaza (Left) + Live Chat Panel (Right) -->
+        <div class="w-full flex flex-col lg:flex-row items-stretch gap-3">
+          
+          <!-- LEFT / CENTER: Village Tabletop Circle Arena -->
+          <div id="werewolfTableMat" class="relative flex-1 rounded-3xl p-4 sm:p-6 shadow-[0_0_60px_rgba(0,0,0,0.85)] border-2 border-slate-800/80 overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-gradient-to-b from-[#0b0f19] via-[#090d16] to-[#05070c]" style="min-height: 580px;">
+            
+            <!-- Night Blind Sleep Overlay (Chuẩn Đời Thực: Đêm nhắm mắt không thấy gì) -->
+            <div id="werewolfBlindOverlay" class="hidden absolute inset-0 z-30 bg-[#060810]/96 backdrop-blur-xl flex flex-col items-center justify-center text-center p-6 transition-all duration-700 select-none">
+              <div class="relative w-24 h-24 mb-4 flex items-center justify-center">
+                <div class="absolute inset-0 rounded-full bg-purple-600/20 blur-2xl animate-pulse"></div>
+                <div class="text-6xl filter drop-shadow-[0_0_20px_rgba(168,85,247,0.8)]">🌙</div>
+              </div>
+              <h3 class="font-cinzel text-xl sm:text-2xl font-black text-purple-200 tracking-wider mb-2">
+                CẢ LÀNG NHẮM MẮT NGỦ SAY...
+              </h3>
+              <p id="werewolfBlindNarrative" class="text-xs sm:text-sm text-purple-300/80 max-w-md font-serif italic leading-relaxed mb-4">
+                Trời tối rồi, tiếng chuông làng tắt lịm... Mọi người chìm vào giấc ngủ sâu. Quản trò đang âm thầm gọi các thế lực bóng đêm thức giấc...
+              </p>
+              <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-950/80 border border-purple-500/40 text-xs font-mono text-purple-300 shadow-inner animate-pulse">
+                <span>💤</span>
+                <span id="werewolfBlindStatusText">Bạn đang nhắm mắt - Vui lòng giữ trật tự</span>
+              </div>
+            </div>
           
           <!-- Background Fog & Ambient Light -->
           <div id="werewolfAmbientFog" class="absolute inset-0 pointer-events-none werewolf-night-fog transition-opacity duration-1000 opacity-90"></div>
@@ -5061,7 +5088,45 @@
 
         </div>
 
-      </div>
+      
+
+          <!-- RIGHT: Werewolf Live Discussion Chat Panel (Trò Chuyện Thời Gian Thực) -->
+          <div id="werewolfChatPanel" class="w-full lg:w-80 lg:shrink-0 flex flex-col rounded-3xl bg-slate-900/95 border-2 border-indigo-950/80 shadow-2xl backdrop-blur-md overflow-hidden transition-all duration-300" style="min-height: 580px;">
+            <!-- Chat Header with Channel Badge -->
+            <div class="px-3.5 py-2.5 bg-slate-950/90 border-b border-indigo-950/80 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span id="werewolfChatChannelIcon" class="text-base">☀️</span>
+                <div>
+                  <div id="werewolfChatChannelName" class="text-xs font-black font-cinzel text-amber-300 tracking-wider">LÀNG MILLERS HOLLOW</div>
+                  <div id="werewolfChatChannelSub" class="text-[9px] font-mono text-slate-400">Kênh Trò Chuyện Ban Ngày</div>
+                </div>
+              </div>
+              <span id="werewolfChatBadge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">MỞ</span>
+            </div>
+
+            <!-- Messages List -->
+            <div id="werewolfChatMessagesList" class="flex-1 p-3 overflow-y-auto space-y-2.5 custom-scrollbar text-xs" style="max-height: 460px;">
+              <div class="p-2.5 rounded-xl bg-purple-950/40 border border-purple-800/40 text-purple-200 text-[11px] leading-relaxed">
+                📜 <b>Quản Trò:</b> Chào mừng đến với Làng Millers Hollow! Hãy sử dụng khung chat này để tranh luận, chất vấn và vạch trần bầy Ma Sói.
+              </div>
+            </div>
+
+            <!-- Chat Input & Sender -->
+            <div class="p-2.5 bg-slate-950/90 border-t border-indigo-950/80">
+              <div id="werewolfChatLockedNotice" class="hidden py-1 px-2 rounded-xl bg-red-950/60 border border-red-800/60 text-center text-[10px] font-bold text-red-300 mb-1.5">
+                🌙 Ban đêm làng ngủ say, chỉ Ma Sói mới được chat nội bộ!
+              </div>
+              <form id="werewolfChatForm" onsubmit="handleSendWerewolfChat(event)" class="flex items-center gap-1.5">
+                <input type="text" id="werewolfChatInput" placeholder="Nhập lời biện luận của bạn... (Enter)" autocomplete="off" class="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500">
+                <button type="submit" id="btnSendWerewolfChat" class="btn-spring px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs shadow-md cursor-pointer shrink-0">
+                  Gửi
+                </button>
+              </form>
+            </div>
+          </div>
+
+        </div><!-- Close Dual Stage Container -->
+        </div>
 
 
       <!-- Close #mainViewArena properly here -->
@@ -12779,7 +12844,7 @@
     }
 
     function playRandomGame() {
-      const games = ['dice', 'chess', 'tictactoe', 'monopoly', 'kittens'];
+      const games = ['dice', 'chess', 'tictactoe', 'monopoly', 'kittens', 'werewolf'];
       const chosen = games[Math.floor(Math.random() * games.length)];
       enterGameFromLobby(chosen);
       showToast(`🎲 Đã ghép ngẫu nhiên vào: ${chosen === 'dice' ? 'Xúc Xắc 12 Ô' : (chosen === 'chess' ? 'Cờ Vua FIDE' : 'Ca-rô Neon')}!`);
@@ -29516,6 +29581,8 @@ async function executeDrawCard(playerIdx) {
 
   var werewolfState = window.werewolfState = {
     initialized: false,
+    mode: 'bot', // 'bot' hoặc 'online'
+    onlineRoom: null,
     phase: 'LOBBY',
     dayCount: 1,
     players: [],
@@ -29528,6 +29595,7 @@ async function executeDrawCard(playerIdx) {
     nightProtectedTarget: null,
     votes: {},
     chronicleLogs: [],
+    chatMessages: [],
     seerScryKnowledge: {},
     isGameOver: false,
     winner: null,
@@ -29631,7 +29699,8 @@ async function executeDrawCard(playerIdx) {
       const item = document.createElement('div');
       item.className = 'p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs flex items-start gap-2 animate-fadeIn';
       item.innerHTML = `<span class="text-base shrink-0">${icon}</span><div class="leading-relaxed"><b class="text-amber-400 font-mono">${timeStr}:</b> ${text}</div>`;
-      listEl.prepend(item);
+      if (typeof item.prepend === 'function') listEl.prepend(item);
+      else listEl.appendChild(item);
     }
   }
 
@@ -29692,11 +29761,156 @@ async function executeDrawCard(playerIdx) {
   }
 
   // --------------------------------------------------------------------------
-  // GAME INITIALIZATION & ROLE DEALING
+  // LIVE WEREWOLF CHAT ENGINE
   // --------------------------------------------------------------------------
-  function initWerewolfGame() {
+  function appendChatMessage(msgObj) {
+    werewolfState.chatMessages.push(msgObj);
+    const listEl = document.getElementById('werewolfChatMessagesList');
+    if (!listEl) return;
+
+    const item = document.createElement('div');
+    item.className = 'werewolf-chat-msg-enter p-2 rounded-xl text-xs flex flex-col gap-0.5 ' + 
+      (msgObj.channel === 'wolf' ? 'bg-red-950/50 border border-red-800/40 text-red-200' :
+       msgObj.channel === 'ghost' ? 'bg-slate-800/40 border border-slate-700/40 text-slate-400' :
+       'bg-slate-900/90 border border-slate-800/60 text-slate-200');
+
+    const badge = msgObj.channel === 'wolf' ? '<span class="px-1.5 py-0.2 rounded text-[9px] bg-red-600 text-white font-mono font-bold">SÓI</span>' :
+                  msgObj.channel === 'ghost' ? '<span class="px-1.5 py-0.2 rounded text-[9px] bg-slate-700 text-slate-300 font-mono">HỒN MA</span>' : '';
+
+    item.innerHTML = `
+      <div class="flex items-center justify-between text-[10px]">
+        <span class="font-bold ${msgObj.senderId === 0 ? 'text-amber-400' : 'text-purple-300'}">${msgObj.senderName}</span>
+        <div class="flex items-center gap-1">
+          ${badge}
+          <span class="text-slate-500 font-mono">${msgObj.time}</span>
+        </div>
+      </div>
+      <div class="leading-relaxed break-words font-sans mt-0.5">${escapeHtml(msgObj.text)}</div>
+    `;
+
+    listEl.appendChild(item);
+    listEl.scrollTop = listEl.scrollHeight;
+
+    // Show Speech bubble over the player's pod
+    if (msgObj.senderId !== undefined && msgObj.senderId !== null) {
+      showPlayerSpeech(msgObj.senderId, msgObj.text, 3500);
+    }
+  }
+
+  function escapeHtml(text) {
+    if (!text) return '';
+    return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function handleSendWerewolfChat(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const input = document.getElementById('werewolfChatInput');
+    if (!input || !input.value.trim()) return;
+
+    const text = input.value.trim();
+    input.value = '';
+
+    const p0 = werewolfState.players[0];
+    if (!p0) return;
+
+    // Determine Channel
+    const isNight = werewolfState.phase.startsWith('NIGHT');
+    let channel = 'village';
+
+    if (!p0.isAlive) {
+      channel = 'ghost';
+    } else if (isNight) {
+      if (p0.role === 'werewolf') {
+        channel = 'wolf';
+      } else {
+        showToast('🌙 Ban đêm bạn đang nhắm mắt ngủ say, không được phát ngôn!');
+        return;
+      }
+    }
+
+    const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const msgObj = {
+      senderId: 0,
+      senderName: p0.name,
+      text: text,
+      channel: channel,
+      time: timeStr
+    };
+
+    appendChatMessage(msgObj);
+
+    // If online P2P match, broadcast to other players in room
+    if (window.isOnlineRoomMatch && window.mpRoomState && window.mpRoomState.currentRoom) {
+      if (typeof window.syncMpRoomToStorageAndCloud === 'function') {
+        const cur = window.mpRoomState.currentRoom;
+        if (!cur.chatLogs) cur.chatLogs = [];
+        cur.chatLogs.push(msgObj);
+        window.syncMpRoomToStorageAndCloud(cur);
+      }
+    }
+  }
+  window.handleSendWerewolfChat = handleSendWerewolfChat;
+
+  function updateChatChannelUI() {
+    const iconEl = document.getElementById('werewolfChatChannelIcon');
+    const nameEl = document.getElementById('werewolfChatChannelName');
+    const subEl = document.getElementById('werewolfChatChannelSub');
+    const badgeEl = document.getElementById('werewolfChatBadge');
+    const lockedNotice = document.getElementById('werewolfChatLockedNotice');
+    const input = document.getElementById('werewolfChatInput');
+    const p0 = werewolfState.players[0];
+
+    const isNight = werewolfState.phase.startsWith('NIGHT');
+    if (!p0) return;
+
+    if (!p0.isAlive) {
+      if (iconEl) iconEl.textContent = '👻';
+      if (nameEl) nameEl.textContent = 'CÕI ÂM (HỒN MA)';
+      if (subEl) subEl.textContent = 'Trò Chuyện Giữa Các Linh Hồn';
+      if (badgeEl) { badgeEl.textContent = 'HỒN MA'; badgeEl.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-700 text-slate-300'; }
+      if (lockedNotice) lockedNotice.classList.add('hidden');
+      if (input) input.disabled = false;
+    } else if (isNight) {
+      if (p0.role === 'werewolf') {
+        if (iconEl) iconEl.textContent = '🐺';
+        if (nameEl) nameEl.textContent = 'KÊNH BẦY SÓI (MẬT)';
+        if (subEl) subEl.textContent = 'Bàn Bạc Chọn Con Mồi Trong Bóng Tối';
+        if (badgeEl) { badgeEl.textContent = 'MẬT SÓI'; badgeEl.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-red-600 text-white'; }
+        if (lockedNotice) lockedNotice.classList.add('hidden');
+        if (input) input.disabled = false;
+      } else {
+        if (iconEl) iconEl.textContent = '🌙';
+        if (nameEl) nameEl.textContent = 'LÀNG ĐANG NGỦ SAY';
+        if (subEl) subEl.textContent = 'Mọi Người Đang Nhắm Mắt';
+        if (badgeEl) { badgeEl.textContent = 'KHÓA'; badgeEl.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-800 text-slate-500'; }
+        if (lockedNotice) lockedNotice.classList.remove('hidden');
+        if (input) input.disabled = true;
+      }
+    } else {
+      if (iconEl) iconEl.textContent = '☀️';
+      if (nameEl) nameEl.textContent = 'LÀNG MILLERS HOLLOW';
+      if (subEl) subEl.textContent = 'Kênh Tranh Luận Ban Ngày';
+      if (badgeEl) { badgeEl.textContent = 'MỞ'; badgeEl.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'; }
+      if (lockedNotice) lockedNotice.classList.add('hidden');
+      if (input) input.disabled = false;
+    }
+  }
+
+  function toggleWerewolfChatPanel() {
+    const panel = document.getElementById('werewolfChatPanel');
+    if (!panel) return;
+    panel.classList.toggle('hidden');
+  }
+  window.toggleWerewolfChatPanel = toggleWerewolfChatPanel;
+
+  // --------------------------------------------------------------------------
+  // GAME INITIALIZATION (BOT & ONLINE MODES)
+  // --------------------------------------------------------------------------
+  function initWerewolfGame(onlineRoom) {
     clearAllWerewolfTimers();
 
+    werewolfState.mode = onlineRoom ? 'online' : 'bot';
+    werewolfState.onlineRoom = onlineRoom || null;
     werewolfState.dayCount = 1;
     werewolfState.phase = 'LOBBY';
     werewolfState.selectedTarget = null;
@@ -29708,13 +29922,21 @@ async function executeDrawCard(playerIdx) {
     werewolfState.nightProtectedTarget = null;
     werewolfState.votes = {};
     werewolfState.chronicleLogs = [];
+    werewolfState.chatMessages = [];
     werewolfState.seerScryKnowledge = {};
     werewolfState.isGameOver = false;
     werewolfState.winner = null;
 
-    // Clear chronicle list in modal
     const listEl = document.getElementById('werewolfChronicleLogList');
     if (listEl) listEl.innerHTML = '';
+    const chatList = document.getElementById('werewolfChatMessagesList');
+    if (chatList) {
+      chatList.innerHTML = `
+        <div class="p-2.5 rounded-xl bg-purple-950/40 border border-purple-800/40 text-purple-200 text-[11px] leading-relaxed">
+          📜 <b>Quản Trò:</b> Ván đấu bắt đầu! Hãy sử dụng khung chat này để thảo luận, bảo vệ bản thân và truy tìm Ma Sói.
+        </div>
+      `;
+    }
 
     // Standard 7 Roles Pool: 2 Werewolves, 1 Seer, 1 Bodyguard, 1 Witch, 1 Hunter, 1 Villager
     const pool = ['werewolf', 'werewolf', 'seer', 'bodyguard', 'witch', 'hunter', 'villager'];
@@ -29727,13 +29949,22 @@ async function executeDrawCard(playerIdx) {
       [pool[i], pool[j]] = [pool[j], pool[i]];
     }
 
-    // Setup 7 Players
+    // Setup 7 Players (Fill with online real players first, then fallback to Bots)
+    const roomPlayers = (onlineRoom && onlineRoom.players) ? onlineRoom.players : [];
     werewolfState.players = BOT_PROFILES.map((prof, idx) => {
       const rId = pool[idx];
+      let pName = prof.name;
+      let isHuman = prof.isHuman;
+
+      if (roomPlayers[idx]) {
+        pName = roomPlayers[idx].name || pName;
+        isHuman = true;
+      }
+
       return {
         id: prof.id,
-        name: prof.name,
-        isHuman: prof.isHuman,
+        name: pName,
+        isHuman: isHuman,
         title: prof.title,
         role: rId,
         team: WEREWOLF_ROLES[rId].team,
@@ -29746,6 +29977,7 @@ async function executeDrawCard(playerIdx) {
     werewolfState.initialized = true;
     addChronicleLog('Ván đấu bắt đầu! 7 người chơi đã tề tựu tại làng Millers Hollow.', '🏰');
     renderWerewolfArena();
+    updateChatChannelUI();
 
     // Show Human Role Modal & Auto Start Countdown
     openWerewolfRoleModal();
@@ -29754,7 +29986,14 @@ async function executeDrawCard(playerIdx) {
   window.initWerewolfGame = initWerewolfGame;
   window.restartWerewolfGame = initWerewolfGame;
 
-  // Confirm Role and start Night 1
+  // Setup Online Multiplayer Werewolf
+  window.setupOnlineWerewolf = function(room) {
+    if (!window.mpRoomState) window.mpRoomState = {};
+    window.mpRoomState.currentRoom = room;
+    window.isOnlineRoomMatch = true;
+    initWerewolfGame(room);
+  };
+
   function confirmWerewolfRoleAndStart() {
     if (werewolfState.roleModalTimer) {
       clearInterval(werewolfState.roleModalTimer);
@@ -29791,7 +30030,6 @@ async function executeDrawCard(playerIdx) {
 
     if (m) m.classList.remove('hidden');
 
-    // Auto-confirm fallback after 8s so game never freezes
     if (werewolfState.roleModalTimer) clearInterval(werewolfState.roleModalTimer);
     werewolfState.roleModalTimer = setInterval(() => {
       sec--;
@@ -29805,7 +30043,6 @@ async function executeDrawCard(playerIdx) {
   }
   window.openWerewolfRoleModal = openWerewolfRoleModal;
 
-  // Seer modal confirm
   function confirmSeerScryAndContinue() {
     if (werewolfState.seerModalTimer) {
       clearInterval(werewolfState.seerModalTimer);
@@ -29817,7 +30054,7 @@ async function executeDrawCard(playerIdx) {
   window.confirmSeerScryAndContinue = confirmSeerScryAndContinue;
 
   // --------------------------------------------------------------------------
-  // ARENA RENDERING
+  // ARENA RENDERING (ZERO ROLE LEAK - CHUẨN ĐỜI THẬT)
   // --------------------------------------------------------------------------
   function renderWerewolfArena() {
     if (!werewolfState.initialized) return;
@@ -29825,13 +30062,12 @@ async function executeDrawCard(playerIdx) {
     const p0 = werewolfState.players[0];
     const myDef = WEREWOLF_ROLES[p0.role];
 
-    // Cockpit Header Update
+    // Cockpit Header Update (Only show human's own role)
     const myRoleNameEl = document.getElementById('werewolfMyRoleName');
     const myRoleBadgeEl = document.getElementById('werewolfMyRoleBadge');
     if (myRoleNameEl) myRoleNameEl.textContent = myDef.name;
     if (myRoleBadgeEl) myRoleBadgeEl.style.backgroundColor = myDef.teamColor;
 
-    // Phase Badge & Sky Orb
     const phaseBadge = document.getElementById('werewolfPhaseBadge');
     const phaseIcon = document.getElementById('werewolfPhaseIcon');
     const phaseText = document.getElementById('werewolfPhaseText');
@@ -29865,7 +30101,7 @@ async function executeDrawCard(playerIdx) {
       if (fogEl) fogEl.style.opacity = '0.35';
     }
 
-    // Render 7 Player Pods
+    // Render 7 Player Pods (TUYỆT ĐỐI KHÔNG LỘ ROLE TRÊN POD NGƯỜI SỐNG)
     werewolfState.players.forEach((p, idx) => {
       const podEl = document.getElementById('werewolfPod_' + idx);
       const avEl = document.getElementById('werewolfAvatar_' + idx);
@@ -29879,39 +30115,54 @@ async function executeDrawCard(playerIdx) {
         avEl.innerHTML = window.renderPlayerAvatarSafe ? window.renderPlayerAvatarSafe(p.avatar, 'w-full h-full') : p.avatar;
       }
 
-      // Alive vs Dead Styling
+      // Alive vs Dead
       if (!p.isAlive) {
         podEl.classList.add('werewolf-player-dead');
         if (deadEl) deadEl.classList.remove('hidden');
         if (roleEl) {
+          // Chỉ khi chết mới lật bài thật
           const def = WEREWOLF_ROLES[p.role];
           roleEl.textContent = def.name;
           roleEl.style.backgroundColor = def.teamColor;
-          roleEl.classList.remove('bg-slate-800', 'text-slate-400');
+          roleEl.classList.remove('bg-slate-800', 'text-slate-500');
           roleEl.classList.add('text-white');
         }
       } else {
         podEl.classList.remove('werewolf-player-dead');
         if (deadEl) deadEl.classList.add('hidden');
 
-        // Reveal logic (Seer knows, or Wolf teammates know each other)
+        // CHUẨN ĐỜI THẬT: Người sống không bao giờ bị lộ Role
         const isSelf = (idx === 0);
         const isTeammateWolf = (p0.role === 'werewolf' && p.role === 'werewolf');
         const knownBySeer = (werewolfState.seerScryKnowledge[p.id]);
 
-        if (isSelf || isTeammateWolf || knownBySeer) {
+        if (isSelf) {
+          if (roleEl) {
+            roleEl.textContent = myDef.name;
+            roleEl.style.backgroundColor = myDef.teamColor;
+            roleEl.className = 'px-1.5 py-0.2 rounded text-[9px] font-mono font-bold text-white';
+          }
+        } else if (isTeammateWolf) {
+          // Ma Sói nhận diện đồng đội bí mật
+          if (roleEl) {
+            roleEl.textContent = '🐺 Đồng Đội';
+            roleEl.style.backgroundColor = '#ef4444';
+            roleEl.className = 'px-1.5 py-0.2 rounded text-[9px] font-mono font-bold text-white shadow-sm';
+          }
+        } else if (knownBySeer) {
+          // Tiên Tri đã soi người này
           if (roleEl) {
             const def = WEREWOLF_ROLES[p.role];
-            roleEl.textContent = def.name;
+            roleEl.textContent = `🔮 ${def.name}`;
             roleEl.style.backgroundColor = def.teamColor;
-            roleEl.classList.remove('bg-slate-800', 'text-slate-400');
-            roleEl.classList.add('text-white');
+            roleEl.className = 'px-1.5 py-0.2 rounded text-[9px] font-mono font-bold text-white shadow-sm';
           }
         } else {
+          // Dân thường bí ẩn hoàn toàn không biết gì
           if (roleEl) {
             roleEl.textContent = '???';
             roleEl.style.backgroundColor = '';
-            roleEl.className = 'px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-slate-400';
+            roleEl.className = 'px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-slate-500';
           }
         }
       }
@@ -29935,6 +30186,8 @@ async function executeDrawCard(playerIdx) {
         podEl.classList.remove('werewolf-target-selectable');
       }
     });
+
+    updateChatChannelUI();
   }
   window.renderWerewolfArena = renderWerewolfArena;
   window.renderWerewolfTable = renderWerewolfArena;
@@ -29971,7 +30224,7 @@ async function executeDrawCard(playerIdx) {
     }, duration);
   }
 
-  // Action Fallback Timer helper (prevents freezing if player doesn't click)
+  // Action Fallback Timer
   function startActionFallback(seconds, onTimeout, messagePrefix) {
     if (werewolfState.actionFallbackTimer) clearInterval(werewolfState.actionFallbackTimer);
     let sec = seconds;
@@ -30001,7 +30254,7 @@ async function executeDrawCard(playerIdx) {
   }
 
   // --------------------------------------------------------------------------
-  // NIGHT/DAY PHASE STATE MACHINE (FSM)
+  // NIGHT/DAY PHASE STATE MACHINE (FSM + BLIND SLEEP OVERLAY)
   // --------------------------------------------------------------------------
   function setWerewolfPhase(newPhase) {
     clearActionFallback();
@@ -30013,6 +30266,11 @@ async function executeDrawCard(playerIdx) {
     const centralIcon = document.getElementById('werewolfCentralIcon');
     const secEl = document.getElementById('werewolfSecondsLeft');
 
+    // Blind Sleep Overlay Elements
+    const blindOverlay = document.getElementById('werewolfBlindOverlay');
+    const blindNarrative = document.getElementById('werewolfBlindNarrative');
+    const blindStatus = document.getElementById('werewolfBlindStatusText');
+
     switch (newPhase) {
       case 'NIGHT_INTRO':
         if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • LÀNG ĐI NGỦ`;
@@ -30020,6 +30278,12 @@ async function executeDrawCard(playerIdx) {
         if (centralText) centralText.textContent = 'Trời tối rồi, cả làng đi ngủ say...';
         if (centralIcon) centralIcon.textContent = '🌙';
         if (secEl) secEl.textContent = '3s';
+
+        // Đêm buông xuống: Cả làng nhắm mắt ngủ
+        if (blindOverlay) blindOverlay.classList.remove('hidden');
+        if (blindNarrative) blindNarrative.textContent = 'Trời tối rồi, tiếng chuông làng tắt lịm... Mọi người chìm vào giấc mộng sâu. Quản trò đang âm thầm gọi các thế lực bóng đêm thức giấc...';
+        if (blindStatus) blindStatus.textContent = 'Bạn đang nhắm mắt ngủ say - Vui lòng giữ trật tự';
+
         playWerewolfHowl();
         addChronicleLog(`Đêm thứ ${werewolfState.dayCount} bắt đầu. Ngôi làng chìm vào bóng tối.`, '🌙');
         renderWerewolfArena();
@@ -30029,13 +30293,17 @@ async function executeDrawCard(playerIdx) {
       case 'NIGHT_GUARD':
         if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • BẢO VỆ THỨC GIẤC`;
         if (centralIcon) centralIcon.textContent = '🛡️';
+
         if (p0.isAlive && p0.role === 'bodyguard') {
+          // BẢO VỆ MỞ MẮT
+          if (blindOverlay) blindOverlay.classList.add('hidden');
           if (centralText) centralText.textContent = 'Bảo Vệ: Hãy bấm chọn 1 người che chở đêm nay!';
-          startActionFallback(12, () => {
-            // Auto guard random valid target
-            runBotGuardAction();
-          }, 'BẢO VỆ: Bấm chọn 1 người để bảo vệ');
+          startActionFallback(12, () => runBotGuardAction(), 'BẢO VỆ: Bấm chọn 1 người để bảo vệ');
         } else {
+          // Các vai trò khác vẫn nhắm mắt
+          if (blindOverlay) blindOverlay.classList.remove('hidden');
+          if (blindNarrative) blindNarrative.textContent = 'Quản trò âm thầm đánh thức Bảo Vệ... Tiếng bước chân nhẹ lướt qua các mái nhà tranh.';
+          if (blindStatus) blindStatus.textContent = 'Bảo Vệ đang bí mật tuần tra trong đêm...';
           if (bannerText) bannerText.textContent = 'Bảo Vệ đang bí mật tuần tra trong đêm...';
           if (centralText) centralText.textContent = 'Bảo Vệ đang bí mật tuần tra che chở ngôi làng...';
           if (secEl) secEl.textContent = '2s';
@@ -30047,13 +30315,18 @@ async function executeDrawCard(playerIdx) {
       case 'NIGHT_WOLVES':
         if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • MA SÓI THỨC GIẤC`;
         if (centralIcon) centralIcon.textContent = '🐺';
+
         if (p0.isAlive && p0.role === 'werewolf') {
+          // MA SÓI MỞ MẮT (Trăng Máu & Kênh Chat Sói Mật)
+          if (blindOverlay) blindOverlay.classList.add('hidden');
           if (centralText) centralText.textContent = 'Bầy Sói: Hãy bấm chọn con mồi để cắn xé!';
-          startActionFallback(12, () => {
-            // Auto wolf kill random non-wolf
-            runBotWolfAction();
-          }, 'BẦY SÓI: Bấm chọn 1 con mồi dân làng');
+          showToast('🐺 Bầy Sói thức giấc! Sử dụng Kênh Sói Mật trong khung chat để bàn bạc!');
+          startActionFallback(12, () => runBotWolfAction(), 'BẦY SÓI: Bấm chọn 1 con mồi dân làng');
         } else {
+          // Dân làng nhắm mắt nghe tiếng sói hú rợn người
+          if (blindOverlay) blindOverlay.classList.remove('hidden');
+          if (blindNarrative) blindNarrative.textContent = 'Tiếng gió rít và tiếng gầm gừ ghê rợn trong bóng tối... Bầy Ma Sói đang chọn con mồi cho bữa tiệc máu!';
+          if (blindStatus) blindStatus.textContent = 'Bầy Ma Sói đang lẩn khuất tìm con mồi...';
           if (bannerText) bannerText.textContent = 'Bầy Ma Sói đang lẩn khuất tìm kiếm con mồi...';
           if (centralText) centralText.textContent = 'Bầy Ma Sói đang lùng sục con mồi trong bóng tối...';
           if (secEl) secEl.textContent = '2s';
@@ -30065,16 +30338,22 @@ async function executeDrawCard(playerIdx) {
       case 'NIGHT_SEER':
         if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • TIÊN TRI THỨC GIẤC`;
         if (centralIcon) centralIcon.textContent = '🔮';
+
         if (p0.isAlive && p0.role === 'seer') {
+          // TIÊN TRI MỞ MẮT
+          if (blindOverlay) blindOverlay.classList.add('hidden');
           if (centralText) centralText.textContent = 'Tiên Tri: Hãy bấm chọn 1 người để soi bản mệnh!';
           startActionFallback(12, () => {
-            // Auto seer scry random
             const targets = werewolfState.players.filter(p => p.isAlive && p.id !== 0 && !werewolfState.seerScryKnowledge[p.id]);
             const chosen = targets.length > 0 ? targets[0] : werewolfState.players.find(p => p.isAlive && p.id !== 0);
             if (chosen) handleWerewolfPodClick(chosen.id);
             else setWerewolfPhase('NIGHT_WITCH');
           }, 'TIÊN TRI: Bấm chọn 1 người để soi');
         } else {
+          // Các vai trò khác nhắm mắt
+          if (blindOverlay) blindOverlay.classList.remove('hidden');
+          if (blindNarrative) blindNarrative.textContent = 'Quản trò gọi Tiên Tri thức giấc... Ánh sáng tím mờ ảo phát ra từ quả cầu pha lê soi thấu số phận.';
+          if (blindStatus) blindStatus.textContent = 'Tiên Tri đang thấu thị quả cầu pha lê...';
           if (bannerText) bannerText.textContent = 'Tiên Tri đang thấu thị quả cầu pha lê...';
           if (centralText) centralText.textContent = 'Tiên Tri đang bí mật kết nối với các vì sao...';
           if (secEl) secEl.textContent = '2s';
@@ -30086,7 +30365,10 @@ async function executeDrawCard(playerIdx) {
       case 'NIGHT_WITCH':
         if (phaseText) phaseText.textContent = `ĐÊM ${werewolfState.dayCount} • PHÙ THỦY THỨC GIẤC`;
         if (centralIcon) centralIcon.textContent = '🧙‍♀️';
+
         if (p0.isAlive && p0.role === 'witch') {
+          // PHÙ THỦY MỞ MẮT
+          if (blindOverlay) blindOverlay.classList.add('hidden');
           const victim = werewolfState.players.find(p => p.id === werewolfState.nightWolfVictim);
           const vicName = victim ? victim.name : 'Không có ai';
           const victimEl = document.getElementById('werewolfWitchVictimName');
@@ -30100,10 +30382,12 @@ async function executeDrawCard(playerIdx) {
           const modalWitch = document.getElementById('werewolfModalWitch');
           if (modalWitch) modalWitch.classList.remove('hidden');
 
-          startActionFallback(15, () => {
-            handleWitchPass();
-          }, 'PHÙ THỦY: Chọn hành động');
+          startActionFallback(15, () => handleWitchPass(), 'PHÙ THỦY: Chọn hành động');
         } else {
+          // Các vai trò khác nhắm mắt
+          if (blindOverlay) blindOverlay.classList.remove('hidden');
+          if (blindNarrative) blindNarrative.textContent = 'Quản trò gọi Phù Thủy thức giấc... Mùi dược thảo và độc dược thoang thoảng trong làn gió đêm.';
+          if (blindStatus) blindStatus.textContent = 'Phù Thủy đang toan tính bình thuốc...';
           if (bannerText) bannerText.textContent = 'Phù Thủy đang toan tính dùng bình thuốc...';
           if (centralText) centralText.textContent = 'Phù Thủy đang xem xét bình cứu và bình độc...';
           if (secEl) secEl.textContent = '2s';
@@ -30113,14 +30397,18 @@ async function executeDrawCard(playerIdx) {
         break;
 
       case 'DAWN_REVEAL':
+        // BÌNH MINH LÓ RẠNG: CẢ LÀNG MỞ MẮT
+        if (blindOverlay) blindOverlay.classList.add('hidden');
         resolveNightPhase();
         break;
 
       case 'DAY_DISCUSS':
+        if (blindOverlay) blindOverlay.classList.add('hidden');
         startDayDiscussion();
         break;
 
       case 'DAY_VOTING':
+        if (blindOverlay) blindOverlay.classList.add('hidden');
         startDayVoting();
         break;
     }
@@ -30381,7 +30669,7 @@ async function executeDrawCard(playerIdx) {
   }
 
   // --------------------------------------------------------------------------
-  // DAY DISCUSSION & BOT SOCIAL DEDUCTION SPEECH
+  // DAY DISCUSSION & BOT SOCIAL DEDUCTION SPEECH + LIVE CHAT INJECTION
   // --------------------------------------------------------------------------
   function startDayDiscussion() {
     clearActionFallback();
@@ -30391,7 +30679,7 @@ async function executeDrawCard(playerIdx) {
     const secEl = document.getElementById('werewolfSecondsLeft');
 
     if (phaseText) phaseText.textContent = `NGÀY ${werewolfState.dayCount} • TRANH LUẬN & ĐIỀU TRA`;
-    if (bannerText) bannerText.textContent = 'Dân làng đang tranh luận sôi nổi! Hãy quan sát các nghi phạm trước giờ bỏ phiếu.';
+    if (bannerText) bannerText.textContent = 'Dân làng đang tranh luận sôi nổi! Hãy gõ tin nhắn vào khung chat để biện luận.';
     if (centralText) centralText.textContent = 'Ai là kẻ giấu mặt trong bóng tối? Hãy lắng nghe lời khai!';
 
     addChronicleLog(`Quảng trường mở phiên tranh luận ban ngày.`, '🗣️');
@@ -30412,7 +30700,15 @@ async function executeDrawCard(playerIdx) {
       setTimeout(() => {
         if (bot.isAlive) {
           const line = speechLines[Math.floor(Math.random() * speechLines.length)];
-          showPlayerSpeech(bot.id, line, 3000);
+          const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          // Inject to chat list as well as speech bubble
+          appendChatMessage({
+            senderId: bot.id,
+            senderName: bot.name,
+            text: line,
+            channel: 'village',
+            time: timeStr
+          });
         }
       }, delay);
       delay += 3200;
@@ -30453,7 +30749,6 @@ async function executeDrawCard(playerIdx) {
       }
     });
 
-    // 12-second countdown to resolve vote
     let secondsLeft = 12;
     const secEl = document.getElementById('werewolfSecondsLeft');
     if (werewolfState.phaseTimer) clearInterval(werewolfState.phaseTimer);
@@ -30551,7 +30846,6 @@ async function executeDrawCard(playerIdx) {
         `).join('');
         modal.classList.remove('hidden');
 
-        // Auto fallback after 12s if player doesn't shoot
         if (werewolfState.hunterModalTimer) clearInterval(werewolfState.hunterModalTimer);
         let sec = 12;
         werewolfState.hunterModalTimer = setInterval(() => {
@@ -30709,22 +31003,27 @@ async function executeDrawCard(playerIdx) {
   }
   window.skipWerewolfWaitOrAct = skipWerewolfWaitOrAct;
 
-  // Global keydown handler for Space shortcut in Werewolf
+  // Global keydown handler
   window.addEventListener('keydown', (e) => {
     if (window.activeGameView !== 'werewolf') return;
     const activeEl = document.activeElement;
     const isInput = activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA' || activeEl.isContentEditable);
-    if (isInput) return;
 
-    if (e.code === 'Space' || e.key === ' ') {
+    // Shortcut 'C' or 'c': Toggle chat panel
+    if ((e.key === 'c' || e.key === 'C') && !e.ctrlKey && !e.altKey && !e.metaKey && !isInput) {
       e.preventDefault();
-      // If role modal is open, confirm role
+      toggleWerewolfChatPanel();
+      return;
+    }
+
+    // Shortcut 'Space': Fast forward
+    if ((e.code === 'Space' || e.key === ' ') && !isInput) {
+      e.preventDefault();
       const roleModal = document.getElementById('werewolfModalMyRole');
       if (roleModal && !roleModal.classList.contains('hidden')) {
         confirmWerewolfRoleAndStart();
         return;
       }
-      // If seer modal is open, confirm seer
       const seerModal = document.getElementById('werewolfModalSeer');
       if (seerModal && !seerModal.classList.contains('hidden')) {
         confirmSeerScryAndContinue();
@@ -30746,6 +31045,7 @@ async function executeDrawCard(playerIdx) {
   window.triggerHunterRevengeShot = triggerHunterRevengeShot;
   window.startDayVoting = startDayVoting;
   window.startDayDiscussion = startDayDiscussion;
+  window.appendChatMessage = appendChatMessage;
 })();
 
     
@@ -30907,6 +31207,15 @@ async function executeDrawCard(playerIdx) {
               <div class="text-xs font-black text-slate-900 group-hover:text-rose-700">Mèo Nổ Tabletop</div>
               <div class="text-[10px] text-slate-600 font-mono font-bold">2-4 Người / AI</div>
               <div class="mp-check-badge hidden absolute top-2 right-2 text-cyan-600 font-black text-xs">✓</div>
+            </button>
+            <!-- Game 6: Werewolf (Ma Sói) -->
+            <button type="button" onclick="selectMpGame('werewolf')" id="mpGameCard_werewolf" class="mp-game-card group p-3 rounded-2xl bg-slate-50 border-2 border-slate-200 text-left transition-all hover:border-purple-400 relative cursor-pointer">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600/20 to-red-600/20 border border-purple-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform mb-2.5">
+                <span class="text-2xl filter drop-shadow">🐺</span>
+              </div>
+              <div class="font-cinzel text-xs font-black text-slate-900 group-hover:text-purple-600 transition-colors">Ma Sói Trăng Máu</div>
+              <div class="text-[10px] text-slate-500 font-bold mt-0.5">7 Người • Đấu Trí Đêm</div>
+              <div class="mp-check-badge hidden absolute top-2 right-2 w-5 h-5 rounded-full bg-purple-600 text-white flex items-center justify-center text-[10px] font-black shadow-sm">✓</div>
             </button>
           </div>
           <div id="mpGameNoResults" class="hidden py-4 text-center text-xs text-slate-500 font-bold">Không tìm thấy tựa game phù hợp.</div>

@@ -2654,6 +2654,56 @@ html.dark #headerSeasonPillContainer svg {
           </button>
         </div>
 
+        <!-- BENTO CARD 9: BIỆT THỰ MA ÁM 3D (BETRAYAL AT HOUSE ON THE HILL) -->
+        <div class="group relative rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-slate-900/90 via-purple-950/40 to-rose-950/50 border-2 border-rose-500/40 hover:border-rose-400/80 shadow-2xl hover:shadow-rose-500/20 transition-all duration-300 flex flex-col justify-between overflow-hidden backdrop-blur-xl">
+          <div class="absolute -top-16 -right-16 w-44 h-44 rounded-full bg-gradient-to-br from-rose-500/20 to-purple-500/20 blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-500"></div>
+
+          <div class="space-y-3 relative z-10">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl sm:text-4xl filter drop-shadow-md group-hover:scale-110 transition-transform">🏰</span>
+              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-500/20 border border-rose-400/40 text-rose-300 text-[10px] font-mono font-black tracking-wide">
+                <span>3-6 NGƯỜI • HAUNT ROLL</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
+              </div>
+            </div>
+
+            <div>
+              <div class="text-[11px] font-mono text-purple-400 font-bold uppercase tracking-wider">Kinh Dị Gothic • Phản Bội Bí Ẩn • 3 Tầng Biệt Thự</div>
+              <h3 class="text-xl sm:text-2xl font-cinzel font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-300 via-red-200 to-purple-300 tracking-wide mt-0.5">
+                BIỆT THỰ MA ÁM 3D
+              </h3>
+            </div>
+
+            <p class="text-xs sm:text-sm text-slate-300 line-clamp-3 leading-relaxed">
+              Bước vào ngôi biệt thự u ám với 3 tầng lầu huyền bí. Khám phá các căn phòng ma quái, thu thập bảo vật Omen, thực hiện Haunt Roll định mệnh và sinh tồn khi một đồng đội trở thành Kẻ Phản Bội (The Traitor)!
+            </p>
+
+            <div class="pt-2 border-t border-slate-700/60 grid grid-cols-2 gap-2 text-[11px] text-slate-300 font-mono">
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <span class="text-rose-400">❖</span>
+                <span>Bản đồ 3 Tầng Lầu Gothic</span>
+              </div>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <span class="text-purple-400">❖</span>
+                <span>Haunt Roll & Traitor Thức Tỉnh</span>
+              </div>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <span class="text-amber-400">❖</span>
+                <span>Xúc Xắc 3D Obsidian Engine</span>
+              </div>
+              <div class="flex items-center gap-1.5 whitespace-nowrap truncate">
+                <span class="text-emerald-400">❖</span>
+                <span>4 Chỉ Số Sinh Tử (Might/Sanity)</span>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="enterGameFromLobby('betrayal')" class="btn-spring w-full py-2.5 sm:py-3 mt-4 rounded-2xl bg-gradient-to-r from-rose-600 via-red-600 to-purple-700 hover:from-rose-500 hover:to-purple-600 text-white font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-rose-600/30 border-2 border-rose-400/80 transition-all cursor-pointer whitespace-nowrap">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3.5 h-3.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>BƯỚC VÀO BIỆT THỰ (3-6 NGƯỜI)</span>
+          </button>
+        </div>
+
       </div>
 
       <!-- Quick Action Utilities Bar -->
@@ -5784,6 +5834,10 @@ html.dark #headerSeasonPillContainer svg {
           <span class="text-amber-600 font-bold">🌾</span>
           <span>8. Đảo Catan 3D</span>
         </button>
+        <button onclick="filterRulesCategory('betrayal')" id="ruleTabBetrayal" class="btn-spring px-3.5 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-white/80 flex items-center gap-2 whitespace-nowrap transition-all font-bold">
+          <span class="text-rose-600 font-bold">🏰</span>
+          <span>9. Biệt Thự Ma Ám (Betrayal)</span>
+        </button>
       </div>
 
       <!-- BẢNG CƠ CẤU GIẢI THƯỞNG BÀN CỜ THEO ĐỘ KHÓ (XU 🪙 & KIM CƯƠNG 💎) -->
@@ -6015,6 +6069,29 @@ html.dark #headerSeasonPillContainer svg {
               </div>
             </div>
             <div class="mt-3 pt-2 border-t border-slate-100 text-[10px] text-slate-500 font-semibold leading-relaxed">Xây đường, lập làng, thu hoạch tài nguyên.</div>
+          </div>
+          <!-- Game 9: Betrayal at House on the Hill -->
+          <div class="p-4 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between hover:border-rose-500 hover:shadow-md transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-black text-rose-900 flex items-center gap-1.5"><span class="text-base">🏰</span> Biệt Thự Ma Ám 3D</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-rose-100 text-rose-900 border border-rose-300 font-mono font-black shrink-0">Haunt & Sinh Tồn</span>
+              </div>
+              <div class="space-y-1.5 text-slate-700 font-bold">
+                <div class="flex justify-between items-center py-1 border-b border-slate-100 text-[11px]"><span class="text-emerald-700 font-extrabold flex items-center gap-1 shrink-0">🏆 Thắng Trận (Traitor/Survivor):</span><span class="font-mono font-black text-slate-900 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200 shrink-0">+420🪙 / +30💎</span></div>
+                <div class="flex justify-between items-center py-1 border-b border-slate-100 text-[11px]"><span class="text-rose-700 font-extrabold flex items-center gap-1 shrink-0">💔 Thua Cuộc / Bị Hạ Gục:</span><span class="font-mono font-black text-slate-900 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200 shrink-0">+70🪙 / +5💎</span></div>
+              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200/80">
+                <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-1 flex items-center gap-1">
+                  <span>📊 Thưởng Khám Phá & Haunt:</span>
+                </div>
+                <div class="flex flex-wrap items-center gap-1 text-[11px] font-mono font-black text-slate-800">
+                  <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 shadow-xs">Mở Phòng: +15🪙</span>
+                  <span class="px-2 py-0.5 rounded-md bg-white border border-slate-200 shadow-xs">Hạ Gục Đối Thủ: +50🪙</span>
+                </div>
+              </div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-slate-100 text-[10px] text-slate-500 font-semibold leading-relaxed">Khám phá 3 tầng lầu, Haunt Roll, Traitor vs Survivors.</div>
           </div>
         </div>
       </div>
@@ -6478,6 +6555,71 @@ html.dark #headerSeasonPillContainer svg {
           </div>
         </div>
 
+        <!-- CARD 9: BIỆT THỰ MA ÁM 3D (BETRAYAL AT HOUSE ON THE HILL) -->
+        <div id="ruleCardBetrayal" class="rule-bento-card p-5 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col justify-between space-y-4 hover:border-rose-500 transition-all">
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between pb-3 border-b border-board-border/60">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-500 shadow-inner">
+                  <span class="text-xl">🏰</span>
+                </div>
+                <div>
+                  <h3 class="font-cinzel font-black text-slate-900 text-sm">BIỆT THỰ MA ÁM 3D</h3>
+                  <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Betrayal at House on the Hill</p>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-rose-100 text-rose-800 border border-rose-300">
+                3-6 Người
+              </span>
+            </div>
+
+            <div class="space-y-2 text-[11px] text-slate-700 font-sans leading-relaxed">
+              <div class="p-2.5 rounded-xl bg-rose-50 border-2 border-rose-300 text-rose-950 space-y-1">
+                <div class="font-black flex items-center gap-1.5 text-rose-900">
+                  <span>🗺️</span>
+                  <span>3 Tầng Biệt Thự & Thám Hiểm Lật Phòng:</span>
+                </div>
+                <div class="text-[11px] text-slate-700 font-bold pl-5">
+                  Bắt đầu tại Grand Staircase ở Tầng Trệt. Di chuyển qua các cửa phòng để lật ô gạch mới trên 3 tầng (Trệt, Lầu, Hầm). Khi lật phòng có biểu tượng: rút thẻ 🌀 <strong>Event</strong> (thử thách xúc xắc), 🗡️ <strong>Item</strong> (vũ khí/bảo vật) hoặc 🔮 <strong>Omen</strong> (điềm báo).
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-purple-50 border-2 border-purple-300 text-purple-950 space-y-1">
+                <div class="font-black flex items-center gap-1.5 text-purple-900">
+                  <span>🔮</span>
+                  <span>Haunt Roll & Traitor Thức Tỉnh:</span>
+                </div>
+                <div class="text-[11px] text-slate-700 font-bold pl-5">
+                  Mỗi khi rút lá Omen, kỳ thủ phải đổ <strong>Haunt Roll</strong> bằng xúc xắc 3D Obsidian. Nếu tổng điểm &lt; số Omen đã rút, <strong>THE HAUNT KÍCH HOẠT</strong>! Một người chơi biến thành <strong>Kẻ Phản Bội (The Traitor)</strong>, các người chơi còn lại thành <strong>Survivors</strong> hợp lực sinh tồn!
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-950 space-y-1">
+                <div class="font-black flex items-center gap-1.5 text-amber-900">
+                  <span>⚔️</span>
+                  <span>4 Chỉ Số Sinh Tử & Chiến Đấu Xúc Xắc:</span>
+                </div>
+                <div class="text-[11px] text-slate-700 font-bold pl-5">
+                  • <strong>Might</strong> (Sức mạnh cận chiến) &bull; <strong>Speed</strong> (Số bước đi)<br>
+                  • <strong>Sanity</strong> (Tinh thần/chống ảo ảnh) &bull; <strong>Knowledge</strong> (Trí tuệ)<br>
+                  Khi Haunt diễn ra: Kỳ thủ chạm vạch 💀 sẽ <strong>Chết Vĩnh Viễn</strong>! Phe Survivors thắng khi tiêu diệt Traitor; Traitor thắng khi hạ gục toàn bộ Survivors!
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-2 pt-2 border-t border-board-border/60">
+            <div class="p-2.5 rounded-xl bg-rose-50 border-2 border-rose-300 text-rose-950 font-black font-bold flex items-center gap-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-rose-600 shrink-0"><path d="M12 2v20M2 12h20"/></svg>
+              <span>Mục tiêu: Hoàn thành nhiệm vụ phe Traitor hoặc Survivors!</span>
+            </div>
+            <button onclick="enterGameFromLobby('betrayal')" class="btn-spring w-full py-2.5 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-900 border border-rose-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+              <span>Bước Vào Biệt Thự Ngay</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -6722,6 +6864,318 @@ html.dark #headerSeasonPillContainer svg {
 
       </div>
 
+      <!-- ================= VIEW 9: BETRAYAL AT HOUSE ON THE HILL 3D (BIỆT THỰ MA ÁM 3D) ================= -->
+      <div id="betrayalView" class="hidden relative w-full flex-col items-center justify-center p-2 sm:p-4 my-auto select-none overflow-hidden max-w-[1440px] mx-auto min-h-[680px]">
+        
+        <!-- Top Cockpit Header -->
+        <div class="w-full flex items-center justify-between gap-3 mb-3 px-4 py-2.5 rounded-2xl bg-slate-900/95 border-2 border-rose-950/80 shadow-2xl flex-wrap backdrop-blur-xl">
+          <div class="flex items-center gap-3">
+            <button onclick="exitGameToLobby()" class="btn-spring px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs font-black flex items-center gap-1.5 transition-all cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span>VỀ SẢNH</span>
+            </button>
+            <div class="flex items-center gap-2">
+              <span class="text-xl filter drop-shadow">🏰</span>
+              <div>
+                <h2 class="font-cinzel text-sm sm:text-base font-black text-rose-300 tracking-wider flex items-center gap-2">
+                  <span>BIỆT THỰ MA ÁM 3D</span>
+                  <span id="betrayalHauntStatusBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/40">GIAI ĐOẠN KHÁM PHÁ</span>
+                </h2>
+                <div class="text-[10px] text-slate-400 font-mono flex items-center gap-2">
+                  <span id="betrayalRoundText">VÒNG 1</span>
+                  <span>•</span>
+                  <span>BETRAYAL AT HOUSE ON THE HILL</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mid: Turn & Haunt Gauge Indicators -->
+          <div class="flex items-center gap-2.5">
+            <!-- Haunt Danger Meter -->
+            <div id="betrayalHauntGauge" class="px-3 py-1.5 rounded-xl bg-rose-950/60 border border-rose-500/40 flex items-center gap-2 shadow-inner">
+              <span class="text-sm">🔮</span>
+              <div class="flex flex-col">
+                <span class="text-[9px] text-rose-400 uppercase font-black">OMEN COUNTER</span>
+                <span id="betrayalOmenCountText" class="text-xs font-mono font-black text-rose-300">0 / 6 LÁ BÀI</span>
+              </div>
+            </div>
+
+            <!-- Turn Indicator -->
+            <div id="betrayalTurnIndicator" class="px-3 py-1.5 rounded-xl border text-xs font-mono font-bold flex items-center gap-2 shadow-inner bg-blue-500/20 text-blue-300 border-blue-500/40">
+              <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+              <span id="betrayalTurnText">LƯỢT CỦA BẠN (GIÁO SƯ BRANDON)</span>
+            </div>
+          </div>
+
+          <!-- Right Action Controls -->
+          <div class="flex items-center gap-2">
+            <button onclick="openModal('multiplayerRoomModal')" class="btn-spring px-3 py-1.5 rounded-xl bg-cyan-900/60 hover:bg-cyan-800 text-cyan-200 border border-cyan-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition">
+              <i data-lucide="users" class="w-3.5 h-3.5 text-cyan-400"></i>
+              <span>PHÒNG P2P</span>
+            </button>
+            <button onclick="openBetrayalRulesModal()" class="btn-spring px-3 py-1.5 rounded-xl bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 border border-rose-500/40 text-xs font-bold flex items-center gap-1.5 shadow-sm transition cursor-pointer">
+              <span>📖 LUẬT CHƠI</span>
+            </button>
+            <button onclick="initBetrayalGame()" class="btn-spring px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 text-xs font-black flex items-center gap-1.5 transition-all cursor-pointer">
+              <span>🔄 VÁN MỚI</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Mansion Story / Event Banner -->
+        <div id="betrayalEventBanner" class="w-full mb-3 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-rose-950/70 via-purple-950/60 to-slate-900/90 border border-rose-500/40 shadow-xl flex items-center justify-between text-xs font-mono text-rose-200 backdrop-blur-md">
+          <div class="flex items-center gap-2 truncate">
+            <span id="betrayalBannerIcon" class="text-base animate-pulse">🕯️</span>
+            <span id="betrayalBannerText" class="truncate font-semibold">Cánh cửa biệt thự đóng sầm lại phía sau lưng bạn... Hãy khám phá các căn phòng và cẩn trọng trước điềm báo Omen!</span>
+          </div>
+          <span id="betrayalBannerExtra" class="text-[10px] text-rose-400/80 font-bold shrink-0 ml-2">KHÁM PHÁ</span>
+        </div>
+
+        <!-- Main Mansion Workspace Layout (Map Grid + Side Controls) -->
+        <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-3.5 items-start">
+          
+          <!-- LEFT 8 COLS: 3-FLOOR MANSION MAP VIEWPORT -->
+          <div class="lg:col-span-8 flex flex-col gap-3">
+            
+            <!-- Floor Switcher Tabs -->
+            <div class="w-full flex items-center justify-between bg-slate-900/90 p-2 rounded-2xl border-2 border-slate-800 shadow-xl backdrop-blur-md">
+              <div class="flex items-center gap-2">
+                <button onclick="switchBetrayalFloor('upper')" id="btnFloorUpper" class="btn-spring px-3 py-1.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white bg-slate-800/80 border border-slate-700 flex items-center gap-1.5 transition-all cursor-pointer">
+                  <span>🌙 TẦNG TRÊN (LẦU)</span>
+                </button>
+                <button onclick="switchBetrayalFloor('ground')" id="btnFloorGround" class="btn-spring px-3.5 py-1.5 rounded-xl text-xs font-bold text-rose-300 bg-rose-950/70 border-2 border-rose-500/80 shadow-md flex items-center gap-1.5 transition-all cursor-pointer">
+                  <span>🏛️ TẦNG TRỆT (GROUND)</span>
+                </button>
+                <button onclick="switchBetrayalFloor('basement')" id="btnFloorBasement" class="btn-spring px-3 py-1.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white bg-slate-800/80 border border-slate-700 flex items-center gap-1.5 transition-all cursor-pointer">
+                  <span>💀 TẦNG HẦM (BASEMENT)</span>
+                </button>
+              </div>
+
+              <div class="text-[11px] font-mono text-slate-400 flex items-center gap-2">
+                <span>VỊ TRÍ CỦA BẠN:</span>
+                <span id="betrayalCurrentRoomName" class="font-bold text-rose-400">Grand Staircase</span>
+              </div>
+            </div>
+
+            <!-- Mansion Grid Canvas / Tile Matrix (5x5 Rooms) -->
+            <div class="relative w-full rounded-3xl bg-slate-950/90 border-2 border-slate-800 shadow-2xl p-4 overflow-hidden flex flex-col items-center justify-center min-h-[460px]">
+              <!-- Gothic Mansion Ambient Shadows & Background Grid -->
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(159,18,57,0.15)_0%,rgba(9,13,22,0.95)_75%)] pointer-events-none"></div>
+
+              <!-- 5x5 Grid Container -->
+              <div id="betrayalMansionGrid" class="relative z-10 grid grid-cols-5 gap-2.5 sm:gap-3.5 p-2 transition-all">
+                <!-- 25 Room Tiles will be rendered dynamically by renderBetrayalGrid() -->
+              </div>
+
+              <!-- Interactive Hint Prompt -->
+              <div class="relative z-10 mt-3 text-center text-xs font-mono text-slate-400">
+                <span id="betrayalPromptText">🎲 Nhấp vào một căn phòng liền kề phát sáng màu xanh để bước sang và lật phòng mới.</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT 4 COLS: DICE TRAY, ACTIVE DOSSIER, STATS & INVENTORY -->
+          <div class="lg:col-span-4 flex flex-col gap-3">
+            
+            <!-- 1. 3D Obsidian Pip Dice Mount -->
+            <div class="w-full bg-slate-900/90 rounded-3xl p-3.5 sm:p-4 border-2 border-slate-800 shadow-xl flex flex-col items-center justify-center relative overflow-hidden">
+              <div class="w-full flex items-center justify-between text-[11px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-2">
+                <span class="flex items-center gap-1.5 text-rose-400">
+                  <span>🎲 XÚC XẮC 3D OBSIDIAN PIPS</span>
+                </span>
+                <span id="betrayalDiceModeLabel" class="text-[10px] text-amber-400">ĐỔ DI CHUYỂN / HAUNT</span>
+              </div>
+
+              <!-- Mount target for Dice3DObsidianEngine -->
+              <div id="betrayalDiceContainer" class="w-full flex items-center justify-center py-1">
+                <div id="dice-container-betrayal" class="w-full flex items-center justify-center"></div>
+              </div>
+
+              <!-- Roll Action Button (SPACE KEY) -->
+              <button id="betrayalRollDiceBtn" onclick="onBetrayalRollDiceClick()" class="btn-spring w-full mt-3 py-3 rounded-2xl bg-gradient-to-r from-rose-600 via-red-600 to-rose-700 hover:from-rose-500 hover:to-red-500 text-white font-black text-sm font-cinzel flex items-center justify-center gap-2 shadow-lg shadow-rose-600/30 border-2 border-rose-400 cursor-pointer transition-all">
+                <span class="text-lg">🎲</span>
+                <span>ĐỔ XÚC XẮC [SPACE]</span>
+              </button>
+            </div>
+
+            <!-- 2. Active Explorer Dossier (4 Traits: Might, Speed, Sanity, Knowledge) -->
+            <div class="w-full bg-slate-900/90 rounded-3xl p-3.5 sm:p-4 border-2 border-slate-800 shadow-xl flex flex-col">
+              <div class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-800">
+                <div class="flex items-center gap-2.5">
+                  <span id="betrayalPlayerAvatar" class="text-2xl">👨‍🏫</span>
+                  <div>
+                    <div id="betrayalPlayerName" class="text-xs font-cinzel font-black text-white">Giáo Sư Brandon</div>
+                    <div id="betrayalPlayerRole" class="text-[10px] font-mono text-blue-400 font-bold uppercase">The Scholar • Survivor</div>
+                  </div>
+                </div>
+                <div class="flex flex-col items-end">
+                  <span class="text-[9px] text-slate-400 uppercase font-mono">BƯỚC ĐI CÒN LẠI</span>
+                  <span id="betrayalMovesLeftText" class="text-sm font-mono font-black text-emerald-400">3 BƯỚC</span>
+                </div>
+              </div>
+
+              <!-- 4 Trait Gauges (Might, Speed, Sanity, Knowledge) -->
+              <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+                <!-- Might -->
+                <div class="p-2 rounded-xl bg-red-950/40 border border-red-500/40 flex flex-col justify-between">
+                  <div class="flex items-center justify-between text-[10px] text-red-300 font-bold">
+                    <span>⚔️ MIGHT</span>
+                    <span id="traitMightVal">3 / 8</span>
+                  </div>
+                  <div class="w-full h-1.5 bg-slate-800 rounded-full mt-1.5 overflow-hidden">
+                    <div id="traitMightBar" class="h-full bg-gradient-to-r from-red-600 to-rose-400 rounded-full transition-all" style="width: 37.5%"></div>
+                  </div>
+                </div>
+
+                <!-- Speed -->
+                <div class="p-2 rounded-xl bg-emerald-950/40 border border-emerald-500/40 flex flex-col justify-between">
+                  <div class="flex items-center justify-between text-[10px] text-emerald-300 font-bold">
+                    <span>👟 SPEED</span>
+                    <span id="traitSpeedVal">3 / 8</span>
+                  </div>
+                  <div class="w-full h-1.5 bg-slate-800 rounded-full mt-1.5 overflow-hidden">
+                    <div id="traitSpeedBar" class="h-full bg-gradient-to-r from-emerald-600 to-teal-400 rounded-full transition-all" style="width: 37.5%"></div>
+                  </div>
+                </div>
+
+                <!-- Sanity -->
+                <div class="p-2 rounded-xl bg-purple-950/40 border border-purple-500/40 flex flex-col justify-between">
+                  <div class="flex items-center justify-between text-[10px] text-purple-300 font-bold">
+                    <span>🧠 SANITY</span>
+                    <span id="traitSanityVal">5 / 8</span>
+                  </div>
+                  <div class="w-full h-1.5 bg-slate-800 rounded-full mt-1.5 overflow-hidden">
+                    <div id="traitSanityBar" class="h-full bg-gradient-to-r from-purple-600 to-indigo-400 rounded-full transition-all" style="width: 62.5%"></div>
+                  </div>
+                </div>
+
+                <!-- Knowledge -->
+                <div class="p-2 rounded-xl bg-blue-950/40 border border-blue-500/40 flex flex-col justify-between">
+                  <div class="flex items-center justify-between text-[10px] text-blue-300 font-bold">
+                    <span>📚 KNOWLEDGE</span>
+                    <span id="traitKnowledgeVal">6 / 8</span>
+                  </div>
+                  <div class="w-full h-1.5 bg-slate-800 rounded-full mt-1.5 overflow-hidden">
+                    <div id="traitKnowledgeBar" class="h-full bg-gradient-to-r from-blue-600 to-cyan-400 rounded-full transition-all" style="width: 75%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Controls: Attack, End Turn -->
+              <div class="mt-3 grid grid-cols-2 gap-2">
+                <button id="betrayalBtnAttack" onclick="onBetrayalAttackClick()" class="btn-spring py-2 px-2.5 rounded-xl bg-slate-800 border border-slate-700 hover:border-red-500 text-red-300 text-xs font-black flex items-center justify-center gap-1.5 cursor-pointer shadow-md opacity-50 pointer-events-none">
+                  <span>⚔️ TẤN CÔNG</span>
+                </button>
+                <button id="betrayalBtnEndTurn" onclick="endBetrayalTurn()" class="btn-spring py-2 px-2.5 rounded-xl bg-gradient-to-r from-slate-700 to-slate-800 hover:from-rose-700 hover:to-red-800 text-white text-xs font-black flex items-center justify-center gap-1.5 cursor-pointer shadow-md">
+                  <span>🛑 HẾT LƯỢT</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. Inventory & Relics (Items & Omens) -->
+            <div class="w-full bg-slate-900/90 rounded-3xl p-3.5 sm:p-4 border-2 border-slate-800 shadow-xl flex flex-col">
+              <div class="text-[11px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
+                <span>🎒 KHO BẢO VẬT CỦA BẠN</span>
+                <span id="betrayalItemCountText" class="text-[10px] text-amber-400">0 ITEMS • 0 OMENS</span>
+              </div>
+              <div id="betrayalInventoryList" class="flex flex-wrap gap-1.5 min-h-[48px] p-2 rounded-2xl bg-slate-950/60 border border-slate-800 items-center">
+                <span class="text-[10px] text-slate-500 italic">Chưa có bảo vật nào. Hãy khám phá phòng để tìm!</span>
+              </div>
+            </div>
+
+            <!-- 4. 4-Player Status & Haunt Board -->
+            <div class="w-full bg-slate-900/90 rounded-3xl p-3.5 sm:p-4 border-2 border-slate-800 shadow-xl">
+              <div class="text-[11px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
+                <span>👥 TÌNH TRẠNG KỲ THỦ</span>
+                <span class="text-[10px] text-rose-400">SURVIVAL CHECK</span>
+              </div>
+              <div id="betrayalPlayerList" class="space-y-1.5"></div>
+            </div>
+
+            <!-- 5. Mansion Action Log -->
+            <div class="w-full bg-slate-900/90 rounded-3xl p-3.5 sm:p-4 border-2 border-slate-800 shadow-xl flex flex-col">
+              <div class="text-[11px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
+                <span>📜 NHẬT KÝ THÁM HIỂM</span>
+                <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+              </div>
+              <div id="betrayalActionLog" class="h-28 overflow-y-auto space-y-1 font-mono text-[11px] pr-1 select-text"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Modal Luật Chơi Riêng Cho Betrayal (#betrayalRulesModal) -->
+      <div id="betrayalRulesModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+        <div class="w-full max-w-xl tabletop-mat rounded-3xl p-5 sm:p-6 shadow-2xl border-2 border-rose-500/50 transform scale-90 transition-transform duration-300 relative max-h-[88vh] overflow-y-auto">
+          <button onclick="closeModal('betrayalRulesModal')" class="absolute top-5 right-5 p-1.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+
+          <div class="flex items-center gap-3 mb-4 pb-3 border-b border-rose-500/30">
+            <div class="w-10 h-10 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-400 text-lg shadow-inner shrink-0">
+              🏰
+            </div>
+            <div>
+              <h3 class="font-cinzel text-base font-bold text-rose-300 flex items-center gap-2">
+                LUẬT CHƠI BIỆT THỰ MA ÁM 3D
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/40 font-mono">Official Rules</span>
+              </h3>
+              <p class="text-[11px] text-slate-400">Betrayal at House on the Hill - Cẩm nang sinh tồn & Haunt</p>
+            </div>
+          </div>
+
+          <div class="space-y-3.5 text-xs text-slate-300 leading-relaxed font-sans">
+            <div class="p-3 rounded-2xl bg-slate-900/80 border border-rose-500/30">
+              <h4 class="font-bold text-rose-400 text-sm mb-1.5 flex items-center gap-1.5">
+                <span>1. Giai Đoạn Khám Phá (Exploration Phase)</span>
+              </h4>
+              <p>Mỗi lượt người chơi đổ xúc xắc để xác định số bước di chuyển (dựa trên chỉ số Speed). Khi bước vào ô phòng chưa mở, một Room Tile ngẫu nhiên sẽ được lật mở và gắn vào bản đồ tương ứng tầng (Ground, Upper, Basement). Tùy vào biểu tượng trên phòng, bạn sẽ rút thẻ:</p>
+              <ul class="list-disc pl-5 mt-1 space-y-0.5 text-slate-400">
+                <li>🌀 <strong>Event</strong>: Kích hoạt sự kiện kỳ bí, thường yêu cầu thử thách xúc xắc.</li>
+                <li>🗡️ <strong>Item</strong>: Nhận vũ khí hoặc bảo vật tăng chỉ số sinh tử.</li>
+                <li>🔮 <strong>Omen</strong>: Nhận cổ vật điềm báo và <strong>BẮT BUỘC ĐỔ HAUNT ROLL</strong>!</li>
+              </ul>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-purple-950/40 border border-purple-500/30">
+              <h4 class="font-bold text-purple-400 text-sm mb-1.5 flex items-center gap-1.5">
+                <span>2. Haunt Roll & Thảm Họa Bùng Nổ</span>
+              </h4>
+              <p>Khi một người chơi rút thẻ Omen, số Omen trên bàn tăng lên. Người chơi đó phải đổ xúc xắc 3D Obsidian (2 viên). Nếu tổng điểm xúc xắc &lt; số Omen đã rút, <strong>THE HAUNT BÙNG NỔ!</strong></p>
+              <p class="mt-1">Một người chơi sẽ bị tha hóa thành <strong>Kẻ Phản Bội (The Traitor)</strong> biến thành Quái vật/Ma Cà Rồng với lượng Máu vượt trội. Các người chơi còn lại trở thành <strong>Những Người Sống Sót (Survivors)</strong> kết liên minh cùng nhau chống lại Traitor!</p>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-red-950/40 border border-red-500/30">
+              <h4 class="font-bold text-red-400 text-sm mb-1.5 flex items-center gap-1.5">
+                <span>3. 4 Thuộc Tính & Cái Chết Vĩnh Viễn</span>
+              </h4>
+              <p>Mỗi Explorer sở hữu 4 chỉ số: <strong>Might</strong> (Sức mạnh đánh cận chiến), <strong>Speed</strong> (Số bước đi), <strong>Sanity</strong> (Tinh thần) và <strong>Knowledge</strong> (Trí tuệ). Trước Haunt, nếu chỉ số giảm về 0 bạn chỉ bị choáng; nhưng <strong>sau khi Haunt diễn ra, nếu bất kỳ chỉ số nào rơi về 0, nhân vật sẽ CHẾT VĨNH VIỄN!</strong></p>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-emerald-950/40 border border-emerald-500/30">
+              <h4 class="font-bold text-emerald-400 text-sm mb-1.5 flex items-center gap-1.5">
+                <span>4. Điều Kiện Chiến Thắng</span>
+              </h4>
+              <ul class="list-disc pl-5 space-y-0.5 text-slate-300">
+                <li>🏆 <strong>Phe Survivors Thắng</strong>: Hợp lực tấn công tiêu diệt hoàn toàn Kẻ Phản Bội (đưa máu Traitor về 0).</li>
+                <li>😈 <strong>Phe Traitor Thắng</strong>: Tiêu diệt toàn bộ những người sống sót trong ngôi biệt thự!</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-rose-500/30 flex justify-end">
+            <button onclick="closeModal('betrayalRulesModal')" class="btn-spring px-5 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-red-700 hover:from-rose-500 hover:to-red-600 text-white font-black text-xs font-mono cursor-pointer shadow-md">
+              ĐÃ HIỂU LUẬT CHƠI
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- ================= TABLETOP FOOTER ================= -->
   <footer class="w-full mt-auto bg-[#070B14] border-t border-board-border/80 px-4 sm:px-8 py-7 text-xs text-slate-400">
     <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-6">
@@ -6743,6 +7197,7 @@ html.dark #headerSeasonPillContainer svg {
           <li><button onclick="switchMainTab('arena'); switchGameView('chess')" class="hover:text-amber-400 transition-colors font-semibold text-amber-300 flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-300"><path d="M12 2v4m-2-2h4"/><path d="M6 7l3 2 3-3 3 3 3-2 1 6H5l1-6z"/></svg><span>Cờ Vua Hoàng Gia (FIDE 8x8)</span></button></li>
               <li><button onclick="switchMainTab('arena'); switchGameView('monopoly')" class="hover:text-emerald-400 transition-colors font-bold text-emerald-400 flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-emerald-400"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 10a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v11H9V10z"/></svg><span>Cờ Tỷ Phú Hoàng Gia (2.5D)</span></button></li>
           <li><button onclick="switchMainTab('arena'); switchGameView('catan')" class="hover:text-amber-400 transition-colors font-bold text-amber-300 flex items-center gap-1.5"><span class="text-sm">🌾</span><span>Đảo Catan 3D (Settlers)</span></button></li>
+          <li><button onclick="switchMainTab('arena'); switchGameView('betrayal')" class="hover:text-rose-400 transition-colors font-bold text-rose-300 flex items-center gap-1.5"><span class="text-sm">🏰</span><span>Biệt Thự Ma Ám 3D</span></button></li>
           <li><button onclick="switchMainTab('arena'); switchGameView('werewolf')" class="hover:text-purple-400 transition-colors font-bold text-purple-300 flex items-center gap-1.5"><span class="text-sm">🐺</span><span>Ma Sói Online</span></button></li>
           <li><button onclick="switchMainTab('arena'); switchGameView('uno')" class="hover:text-yellow-400 transition-colors font-bold text-yellow-300 flex items-center gap-1.5"><span class="text-sm">🃏</span><span>UNO Battle Royale</span></button></li>
           <li><button onclick="switchMainTab('leaderboard')" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 text-amber-400"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M6 4h12v5a6 6 0 0 1-12 0V4z"/></svg><span>Bảng Xếp Hạng Kỳ Thủ</span></button></li>
@@ -7369,7 +7824,7 @@ html.dark #headerSeasonPillContainer svg {
         </div>
         <div>
           <h3 class="font-cinzel text-base font-bold text-white flex items-center gap-2">
-            Cẩm Nang & Luật Chơi 8 Bộ Môn
+            Cẩm Nang & Luật Chơi 9 Bộ Môn
             <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono">Master Rulebook</span>
           </h3>
           <p class="text-[11px] text-slate-400">Tra cứu nhanh luật thi đấu chuẩn quốc tế của toàn bộ sàn đấu</p>
@@ -7386,6 +7841,7 @@ html.dark #headerSeasonPillContainer svg {
         <button onclick="switchQuickRuleTab('werewolf')" id="qRuleTab_werewolf" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-white whitespace-nowrap transition-all">🐺 Ma Sói</button>
         <button onclick="switchQuickRuleTab('uno')" id="qRuleTab_uno" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-white whitespace-nowrap transition-all">🃏 UNO</button>
         <button onclick="switchQuickRuleTab('catan')" id="qRuleTab_catan" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-white whitespace-nowrap transition-all">🌾 Đảo Catan</button>
+        <button onclick="switchQuickRuleTab('betrayal')" id="qRuleTab_betrayal" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-white whitespace-nowrap transition-all">🏰 Biệt Thự Ma Ám</button>
       </div>
 
       <!-- Quick Rule Contents Panel -->
@@ -7454,12 +7910,20 @@ html.dark #headerSeasonPillContainer svg {
           </div>
           <p class="text-slate-700 leading-relaxed font-medium">Đổ 2 xúc xắc 3D Obsidian-Cyan để thu hoạch 5 tài nguyên (Gỗ, Gạch, Cừu, Lúa, Đá) từ 19 lục giác. Xây Đường (Gỗ+Gạch), dựng Làng (+1 VP, cách xa nhau ≥ 2 cạnh), nâng Thành Phố (+2 VP, x2 thu hoạch), Tên Cướp số 7 phạt bỏ nửa bài nếu > 7 lá, đổi 4:1 Ngân hàng. Kỳ thủ đầu tiên đạt <strong>10 Điểm Thắng (VP)</strong> chiến thắng!</p>
         </div>
+
+        <!-- 9. BETRAYAL AT HOUSE ON THE HILL -->
+        <div id="qRuleContent_betrayal" class="hidden p-4 rounded-2xl bg-rose-50/80 border-2 border-rose-200 space-y-2 text-slate-800">
+          <div class="font-bold text-rose-900 flex items-center gap-1.5 text-sm font-cinzel">
+            🏰 BIỆT THỰ MA ÁM 3D (BETRAYAL AT HOUSE ON THE HILL)
+          </div>
+          <p class="text-slate-700 leading-relaxed font-medium">Khám phá ngôi biệt thự ma quái 3 tầng (Trệt, Lầu, Hầm). Đổ xúc xắc di chuyển theo Speed. Khi lật phòng mới, rút lá Event (thử thách xúc xắc), Item (bảo vật) hoặc Omen (điềm báo). Mỗi lá Omen buộc phải đổ <strong>Haunt Roll</strong> bằng xúc xắc 3D. Nếu tổng điểm &lt; số Omen, <strong>The Haunt thức tỉnh</strong>: một người chơi biến thành <strong>Kẻ Phản Bội (The Traitor)</strong>, các người chơi còn lại thành <strong>Survivors</strong> hợp lực đánh bại Traitor trước khi bị tiêu diệt!</p>
+        </div>
       </div>
 
       <div class="mt-4 pt-3 border-t border-board-border flex items-center justify-between gap-2">
         <button onclick="switchMainTab('rules'); closeModal('rulesModal');" class="btn-spring px-3.5 py-1.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/40 text-cyan-300 border border-cyan-500/40 text-xs font-bold flex items-center gap-1.5 cursor-pointer">
           <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-          <span>Xem Toàn Bộ 8 Bộ Môn Chi Tiết</span>
+          <span>Xem Toàn Bộ 9 Bộ Môn Chi Tiết</span>
         </button>
         <button onclick="closeModal('rulesModal')" class="btn-spring px-4 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs font-mono">
           Đóng
@@ -13881,7 +14345,8 @@ html.dark #headerSeasonPillContainer svg {
         kittens: document.getElementById('ruleCardKittens'),
         werewolf: document.getElementById('ruleCardWerewolf'),
         uno: document.getElementById('ruleCardUno'),
-        catan: document.getElementById('ruleCardCatan')
+        catan: document.getElementById('ruleCardCatan'),
+        betrayal: document.getElementById('ruleCardBetrayal')
       };
       const tabs = {
         all: document.getElementById('ruleTabAll'),
@@ -13892,7 +14357,8 @@ html.dark #headerSeasonPillContainer svg {
         kittens: document.getElementById('ruleTabKittens'),
         werewolf: document.getElementById('ruleTabWerewolf'),
         uno: document.getElementById('ruleTabUno'),
-        catan: document.getElementById('ruleTabCatan')
+        catan: document.getElementById('ruleTabCatan'),
+        betrayal: document.getElementById('ruleTabBetrayal')
       };
       
       const container = document.getElementById('rulesCardsContainer');
@@ -13937,7 +14403,7 @@ html.dark #headerSeasonPillContainer svg {
     };
 
     window.switchQuickRuleTab = function(game) {
-      const allGames = ['dice', 'caro', 'chess', 'monopoly', 'kittens', 'werewolf', 'uno', 'catan'];
+      const allGames = ['dice', 'caro', 'chess', 'monopoly', 'kittens', 'werewolf', 'uno', 'catan', 'betrayal'];
       allGames.forEach(g => {
         const content = document.getElementById('qRuleContent_' + g);
         const tab = document.getElementById('qRuleTab_' + g);
@@ -19720,9 +20186,10 @@ const vKittens = document.getElementById('kittensView');
       const vUno = document.getElementById('unoView');
       const vWerewolf = document.getElementById('werewolfView');
       const vCatan = document.getElementById('catanView');
+      const vBetrayal = document.getElementById('betrayalView');
 
             // Hide all game views first (Defensive Clean Wipe)
-      [vDice, vTTT, vChess, vMono, vKittens, vUno, vWerewolf, vCatan].forEach(v => {
+      [vDice, vTTT, vChess, vMono, vKittens, vUno, vWerewolf, vCatan, vBetrayal].forEach(v => {
         if (v) {
           v.classList.add('hidden');
           v.classList.remove('grid', 'flex', 'block', 'view-fade-slide');
@@ -19859,6 +20326,24 @@ const vKittens = document.getElementById('kittensView');
         if (titleEl) {
           titleEl.className = 'flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-950/40 border border-amber-500/40 text-amber-300 font-cinzel text-xs font-bold shadow-inner transition-all duration-200';
           titleEl.innerHTML = `<span class="text-base">🌾</span><span class="tracking-wider">ĐẢO CATAN 3D (SETTLERS OF CATAN)</span>`;
+        }
+        if (specBar) specBar.classList.add('hidden');
+      } else if (tab === 'betrayal') {
+        const vBetrayal = document.getElementById('betrayalView');
+        if (vBetrayal) {
+          vBetrayal.style.display = '';
+          vBetrayal.classList.remove('hidden');
+          void vBetrayal.offsetWidth;
+          vBetrayal.classList.add('flex', 'view-fade-slide');
+          if (typeof initBetrayalGame === 'function' && (!window.betrayalState || !window.betrayalState.initialized)) {
+            initBetrayalGame();
+          } else if (typeof renderBetrayalArena === 'function') {
+            renderBetrayalArena();
+          }
+        }
+        if (titleEl) {
+          titleEl.className = 'flex items-center gap-2 px-3 py-1.5 rounded-xl bg-rose-950/50 border border-rose-500/50 text-rose-300 font-cinzel text-xs font-bold shadow-inner transition-all duration-200';
+          titleEl.innerHTML = `<span class="text-base">🏰</span><span class="tracking-wider">BIỆT THỰ MA ÁM 3D (BETRAYAL AT HOUSE ON THE HILL)</span>`;
         }
         if (specBar) specBar.classList.add('hidden');
       } else if (tab === 'kittens') {
@@ -25147,7 +25632,8 @@ const vKittens = document.getElementById('kittensView');
       kittens: 'Mèo Nổ Tabletop',
       uno: 'UNO Battle Royale',
       werewolf: 'Ma Sói Huyền Thoại',
-      catan: 'Đảo Catan 3D'
+      catan: 'Đảo Catan 3D',
+      betrayal: 'Biệt Thự Ma Ám 3D'
     };
 
     const MP_GAME_ICONS = {
@@ -26217,6 +26703,9 @@ const vKittens = document.getElementById('kittensView');
       } else if (room.game === 'catan') {
         if (typeof window.setupOnlineCatan === 'function') window.setupOnlineCatan(room);
         else if (typeof setupOnlineCatan === 'function') setupOnlineCatan(room);
+      } else if (room.game === 'betrayal') {
+        if (typeof window.setupOnlineBetrayal === 'function') window.setupOnlineBetrayal(room);
+        else if (typeof setupOnlineBetrayal === 'function') setupOnlineBetrayal(room);
       }
 
       updateOnlineRoomHUD();
@@ -26748,6 +27237,149 @@ const vKittens = document.getElementById('kittensView');
       }
       renderWerewolfArena();
       updateOnlineRoomHUD();
+    };
+
+    // =========================================================================
+    // 🏰 ONLINE ENGINE: BIỆT THỰ MA ÁM 3D (BETRAYAL AT HOUSE ON THE HILL P2P)
+    // =========================================================================
+    window.setupOnlineBetrayal = function(room) {
+      window.isOnlineRoomMatch = true;
+      if (!window.betrayalState || !window.betrayalState.initialized || !window.betrayalState.diceTray) {
+        if (typeof window.initBetrayalGame === 'function') window.initBetrayalGame();
+      }
+      const s = window.betrayalState;
+      if (!s) return;
+      s.mode = 'online';
+      if (!window.mpRoomState) window.mpRoomState = {};
+      window.mpRoomState.currentRoom = room;
+
+      const roomPlayers = (room && room.players) ? room.players : [];
+      const PRESETS = [
+        { id: 0, name: 'Giáo Sư Brandon', title: 'The Scholar', avatar: '👨‍🏫', color: '#3b82f6', border: '#1d4ed8', badge: 'bg-blue-500/20 text-blue-400 border-blue-500/40', traits: { might: 3, speed: 3, sanity: 5, knowledge: 6 } },
+        { id: 1, name: 'Ox Bellows', title: 'The Bruiser', avatar: '🥊', color: '#ef4444', border: '#b91c1c', badge: 'bg-red-500/20 text-red-400 border-red-500/40', traits: { might: 6, speed: 4, sanity: 3, knowledge: 3 } },
+        { id: 2, name: 'Vivian Lopez', title: 'The Clairvoyant', avatar: '🔮', color: '#f59e0b', border: '#b45309', badge: 'bg-amber-500/20 text-amber-400 border-amber-500/40', traits: { might: 2, speed: 4, sanity: 6, knowledge: 4 } },
+        { id: 3, name: 'Peter Akimoto', title: 'The Runner', avatar: '🏃', color: '#10b981', border: '#047857', badge: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40', traits: { might: 3, speed: 6, sanity: 4, knowledge: 3 } }
+      ];
+
+      // Nếu là Host (Slot 0) hoặc chưa có matchState: Tạo ván mới và phát sóng
+      if ((window.myRoomPlayerIndex === 0 || !room.matchState) && (!room.matchState || !room.matchState.payload || !room.matchState.payload.floors)) {
+        if (typeof window.initBetrayalGame === 'function') window.initBetrayalGame();
+        s.mode = 'online';
+
+        s.players = [];
+        for (let i = 0; i < 4; i++) {
+          const preset = PRESETS[i];
+          if (i < roomPlayers.length) {
+            const rp = roomPlayers[i];
+            s.players.push({
+              id: i,
+              name: rp.name || preset.name,
+              title: preset.title,
+              avatar: preset.avatar,
+              color: preset.color,
+              border: preset.border,
+              badge: preset.badge,
+              isHuman: true,
+              floor: 'ground',
+              pos: { x: 2, y: 2 },
+              movesLeft: preset.traits.speed,
+              traits: { ...preset.traits },
+              items: [],
+              omens: [],
+              isTraitor: false,
+              isAlive: true,
+              hp: 10
+            });
+          } else {
+            s.players.push({
+              id: i,
+              name: '🤖 Bot ' + preset.name,
+              title: preset.title,
+              avatar: preset.avatar,
+              color: preset.color,
+              border: preset.border,
+              badge: preset.badge,
+              isHuman: false,
+              floor: 'ground',
+              pos: { x: 2, y: 2 },
+              movesLeft: preset.traits.speed,
+              traits: { ...preset.traits },
+              items: [],
+              omens: [],
+              isTraitor: false,
+              isAlive: true,
+              hp: 10
+            });
+          }
+        }
+
+        s.currentTurnPlayer = 0;
+        s.roundNumber = 1;
+        s.turnPhase = 'explore';
+        s.isRolling = false;
+        s.isGameOver = false;
+        s.omenCount = 0;
+        s.isHauntActive = false;
+        s.traitorPlayerId = null;
+
+        if (typeof window.syncOnlineBetrayalState === 'function') {
+          window.syncOnlineBetrayalState('INIT_MATCH', 'Trận thám hiểm Biệt Thự Ma Ám P2P đã sẵn sàng!');
+        }
+      } else if (room.matchState && room.matchState.game === 'betrayal') {
+        window.applyOnlineGameState('betrayal', room.matchState, true);
+      } else {
+        if (typeof window.initBetrayalGame === 'function') window.initBetrayalGame();
+      }
+
+      if (typeof window.renderBetrayalArena === 'function') window.renderBetrayalArena();
+      updateOnlineRoomHUD();
+    };
+
+    window.syncOnlineBetrayalState = function(actionType, toastMsg, extra = {}) {
+      if (!window.isOnlineRoomMatch || !window.mpRoomState || !window.mpRoomState.currentRoom) return;
+      const s = window.betrayalState;
+      if (!s || !s.floors) return;
+
+      const payload = {
+        actionType: actionType || 'STATE_SYNC',
+        toast: toastMsg || '',
+        currentTurnPlayer: s.currentTurnPlayer,
+        roundNumber: s.roundNumber,
+        activeFloor: s.activeFloor,
+        turnPhase: s.turnPhase,
+        omenCount: s.omenCount,
+        isHauntActive: s.isHauntActive,
+        traitorPlayerId: s.traitorPlayerId,
+        isGameOver: s.isGameOver,
+        winnerTeam: s.winnerTeam,
+        floors: {
+          ground: s.floors.ground,
+          upper: s.floors.upper,
+          basement: s.floors.basement
+        },
+        players: s.players.map(p => ({
+          id: p.id,
+          name: p.name,
+          title: p.title,
+          avatar: p.avatar,
+          color: p.color,
+          isHuman: p.isHuman,
+          floor: p.floor,
+          pos: { ...p.pos },
+          movesLeft: p.movesLeft,
+          traits: { ...p.traits },
+          items: [...p.items],
+          omens: [...p.omens],
+          isTraitor: p.isTraitor,
+          isAlive: p.isAlive,
+          hp: p.hp
+        })),
+        ...extra
+      };
+
+      if (typeof window.pushOnlineGameState === 'function') {
+        window.pushOnlineGameState('betrayal', payload);
+      }
     };
 
     // =========================================================================
@@ -27533,6 +28165,70 @@ const vKittens = document.getElementById('kittensView');
         const curUnoP = unoState.players[unoState.currentTurn];
         if (curUnoP && !curUnoP.isHuman && window.myRoomPlayerIndex === 0) {
           checkAndRunUnoBot();
+        }
+
+      } else if (gameType === 'betrayal') {
+        if (!payload) return;
+        if (!window.betrayalState || !window.betrayalState.initialized || !window.betrayalState.diceTray) {
+          if (typeof window.initBetrayalGame === 'function') window.initBetrayalGame();
+        }
+        const s = window.betrayalState;
+        if (!s) return;
+        s.mode = 'online';
+
+        if (typeof payload.currentTurnPlayer === 'number') s.currentTurnPlayer = payload.currentTurnPlayer;
+        if (typeof payload.roundNumber === 'number') s.roundNumber = payload.roundNumber;
+        if (payload.activeFloor) s.activeFloor = payload.activeFloor;
+        if (payload.turnPhase) s.turnPhase = payload.turnPhase;
+        if (typeof payload.omenCount === 'number') s.omenCount = payload.omenCount;
+        if (typeof payload.isHauntActive === 'boolean') s.isHauntActive = payload.isHauntActive;
+        if (payload.traitorPlayerId !== undefined) s.traitorPlayerId = payload.traitorPlayerId;
+        if (typeof payload.isGameOver === 'boolean') s.isGameOver = payload.isGameOver;
+        if (payload.winnerTeam) s.winnerTeam = payload.winnerTeam;
+
+        if (payload.floors) {
+          s.floors.ground = payload.floors.ground || s.floors.ground;
+          s.floors.upper = payload.floors.upper || s.floors.upper;
+          s.floors.basement = payload.floors.basement || s.floors.basement;
+        }
+
+        if (Array.isArray(payload.players)) {
+          payload.players.forEach((pData, idx) => {
+            if (s.players[idx]) {
+              s.players[idx].name = pData.name || s.players[idx].name;
+              s.players[idx].floor = pData.floor || s.players[idx].floor;
+              if (pData.pos) s.players[idx].pos = { ...pData.pos };
+              if (typeof pData.movesLeft === 'number') s.players[idx].movesLeft = pData.movesLeft;
+              if (pData.traits) s.players[idx].traits = { ...pData.traits };
+              if (Array.isArray(pData.items)) s.players[idx].items = [...pData.items];
+              if (Array.isArray(pData.omens)) s.players[idx].omens = [...pData.omens];
+              s.players[idx].isTraitor = !!pData.isTraitor;
+              s.players[idx].isAlive = (pData.isAlive !== undefined) ? pData.isAlive : true;
+              if (typeof pData.hp === 'number') s.players[idx].hp = pData.hp;
+            }
+          });
+        }
+
+        // Đồng bộ hiệu ứng xúc xắc 3D khi kỳ thủ khác đổ
+        if (payload.actionType === 'ROLL_DICE' && payload.rollRes) {
+          s.isRolling = false;
+          if (s.diceTray && typeof s.diceTray.roll === 'function') {
+            s.diceTray.roll(payload.rollRes.values);
+          }
+        }
+
+        if (typeof window.renderBetrayalArena === 'function') window.renderBetrayalArena();
+        updateOnlineRoomHUD();
+
+        if (payload.toast && typeof showToast === 'function') showToast(payload.toast);
+
+        // Nếu lượt hiện tại là Bot AI và máy này là Host:
+        const curBetrayalP = s.players[s.currentTurnPlayer];
+        if (curBetrayalP && !curBetrayalP.isHuman && window.myRoomPlayerIndex === 0 && !s.isGameOver) {
+          if (s.botTimer) clearTimeout(s.botTimer);
+          s.botTimer = setTimeout(() => {
+            if (typeof runBetrayalBotTurn === 'function') runBetrayalBotTurn(curBetrayalP);
+          }, 1200);
         }
 
       } else if (gameType === 'catan') {
@@ -33619,7 +34315,7 @@ async function executeDrawCard(playerIdx) {
                 <input type="text" id="mpGameSearchInput" oninput="filterMpGames(this.value)" placeholder="🔍 Tìm game..." class="w-28 sm:w-36 px-2.5 py-1 rounded-xl bg-slate-50 border border-slate-300 text-[11px] font-bold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-cyan-500 focus:bg-white shadow-2xs">
               </div>
               <button type="button" onclick="showAllMpGames()" id="btnMpViewAllGames" class="btn-spring px-2 py-1 rounded-xl bg-cyan-50 hover:bg-cyan-100 border border-cyan-300 text-cyan-900 text-[10px] font-black cursor-pointer shadow-2xs">
-                Xem Tất Cả (8)
+                Xem Tất Cả (9)
               </button>
             </div>
           </div>
@@ -33718,6 +34414,15 @@ async function executeDrawCard(playerIdx) {
               <div class="font-cinzel text-xs font-black text-slate-900 group-hover:text-emerald-600 transition-colors">Đảo Catan 3D</div>
               <div class="text-[10px] text-slate-500 font-bold mt-0.5">3-4 Người • Xúc Xắc 3D</div>
               <div class="mp-check-badge hidden absolute top-2 right-2 w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-black shadow-sm">✓</div>
+            </button>
+            <!-- Game 9: Biệt Thự Ma Ám (Betrayal at House on the Hill 3D) -->
+            <button type="button" onclick="selectMpGame('betrayal')" id="mpGameCard_betrayal" class="mp-game-card group p-3 rounded-2xl bg-slate-50 border-2 border-slate-200 text-left transition-all hover:border-rose-500 relative cursor-pointer">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-950/40 via-purple-900/30 to-red-600/20 border border-rose-500/40 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform mb-2.5">
+                <span class="text-2xl filter drop-shadow">🏰</span>
+              </div>
+              <div class="font-cinzel text-xs font-black text-slate-900 group-hover:text-rose-600 transition-colors">Biệt Thự Ma Ám 3D</div>
+              <div class="text-[10px] text-slate-500 font-bold mt-0.5">3-6 Người • Haunt Roll • Traitor</div>
+              <div class="mp-check-badge hidden absolute top-2 right-2 w-5 h-5 rounded-full bg-rose-600 text-white flex items-center justify-center text-[10px] font-black shadow-sm">✓</div>
             </button>
           </div>
           <div id="mpGameNoResults" class="hidden py-4 text-center text-xs text-slate-500 font-bold">Không tìm thấy tựa game phù hợp.</div>
@@ -34695,6 +35400,31 @@ async function executeDrawCard(playerIdx) {
 
       <div class="pt-4 border-t border-slate-800">
         <button onclick="closeModal('catanWinModal'); initCatanGame();" class="btn-spring w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm font-mono shadow-xl border border-amber-300 cursor-pointer">
+          🔄 BẮT ĐẦU VÁN MỚI NGAY
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: BETRAYAL VICTORY (#betrayalWinModal) ================= -->
+  <div id="betrayalWinModal" class="fixed inset-0 z-[130] flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div class="w-full max-w-md bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-rose-500/80 rounded-3xl p-6 sm:p-7 text-center shadow-2xl relative space-y-4">
+      <div id="betrayalWinIcon" class="text-6xl animate-bounce">🏰</div>
+      <div>
+        <h2 id="betrayalWinHeader" class="text-2xl sm:text-3xl font-cinzel font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-red-300 to-purple-400 tracking-wide">
+          THÁM HIỂM KẾT THÚC!
+        </h2>
+        <div id="betrayalWinnerTitle" class="text-sm font-mono text-rose-400 mt-1 font-bold">
+          CHIẾN THẮNG HUY HOÀNG
+        </div>
+      </div>
+
+      <p id="betrayalWinnerDesc" class="text-xs text-slate-300 leading-relaxed font-sans">
+        Những người sống sót đã đánh bại chúa tể bóng đêm và thoát khỏi Biệt Thự Ma Ám thành công!
+      </p>
+
+      <div class="pt-4 border-t border-slate-800">
+        <button onclick="closeModal('betrayalWinModal'); initBetrayalGame();" class="btn-spring w-full py-3.5 rounded-2xl bg-gradient-to-r from-rose-600 via-red-500 to-rose-700 hover:from-rose-500 hover:to-red-400 text-white font-black text-sm font-mono shadow-xl border border-rose-400 cursor-pointer">
           🔄 BẮT ĐẦU VÁN MỚI NGAY
         </button>
       </div>
@@ -36415,19 +37145,26 @@ async function executeDrawCard(playerIdx) {
   // Auto-route on load if hash specified (e.g. #catan, #werewolf, #uno)
   window.addEventListener('DOMContentLoaded', function() {
     const hash = (window.location.hash || '').replace('#', '').toLowerCase();
-    if (['catan', 'werewolf', 'uno', 'kittens', 'monopoly', 'chess', 'tictactoe', 'dice'].includes(hash)) {
+    if (['betrayal', 'catan', 'werewolf', 'uno', 'kittens', 'monopoly', 'chess', 'tictactoe', 'dice'].includes(hash)) {
       if (typeof window.switchMainTab === 'function') window.switchMainTab('arena');
       if (typeof window.switchGameView === 'function') window.switchGameView(hash);
     }
   });
 
   document.addEventListener('keydown', function(e) {
-    if (e.code === 'Space' && (window.activeGameView === 'catan' || window.activeTab === 'catan')) {
+    if (e.code === 'Space') {
       const activeEl = document.activeElement;
       if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')) return;
-      e.preventDefault();
-      if (typeof window.onCatanRollDiceClick === 'function') {
-        window.onCatanRollDiceClick();
+      if (window.activeGameView === 'catan' || window.activeTab === 'catan') {
+        e.preventDefault();
+        if (typeof window.onCatanRollDiceClick === 'function') {
+          window.onCatanRollDiceClick();
+        }
+      } else if (window.activeGameView === 'betrayal' || window.activeTab === 'betrayal') {
+        e.preventDefault();
+        if (typeof window.onBetrayalRollDiceClick === 'function') {
+          window.onBetrayalRollDiceClick();
+        }
       }
     }
   });
@@ -36436,5 +37173,1128 @@ async function executeDrawCard(playerIdx) {
 
   </script>
 
+
+  <!-- ========================================================================= -->
+  <!-- 🏰 BIỆT THỰ MA ÁM 3D (BETRAYAL AT HOUSE ON THE HILL) - ENGINE HOÀN CHỈNH  -->
+  <!-- Tích hợp Xúc Xắc 3D Obsidian Pips (Dice3DObsidianEngine)                   -->
+  <!-- Đạt chuẩn Argon-Flash & The Agency 282 Agents (Zero-Regression)           -->
+  <!-- ========================================================================= -->
+  <script>
+  (function() {
+    'use strict';
+
+    // Gothic Mansion Web Audio SFX Synthesizer
+    function playBetrayalSFX(type) {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        if (!window.__betrayalAudioCtx) window.__betrayalAudioCtx = new AudioCtx();
+        const ctx = window.__betrayalAudioCtx;
+        if (ctx.state === 'suspended') ctx.resume();
+
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === 'door') {
+          // Creaking door sound
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(140, now);
+          osc.frequency.exponentialRampToValueAtTime(70, now + 0.35);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+          osc.start(now);
+          osc.stop(now + 0.4);
+        } else if (type === 'item') {
+          // Antique chime sound
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(520, now);
+          osc.frequency.exponentialRampToValueAtTime(1040, now + 0.25);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+          osc.start(now);
+          osc.stop(now + 0.32);
+        } else if (type === 'omen') {
+          // Ominous bell toll
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.exponentialRampToValueAtTime(110, now + 0.6);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
+          osc.start(now);
+          osc.stop(now + 0.7);
+        } else if (type === 'haunt') {
+          // Thunder clap & doom crescendo
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(80, now);
+          osc.frequency.exponentialRampToValueAtTime(40, now + 0.8);
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.85);
+          osc.start(now);
+          osc.stop(now + 0.9);
+        } else if (type === 'combat') {
+          // Sword clack / impact
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(380, now);
+          osc.frequency.exponentialRampToValueAtTime(120, now + 0.15);
+          gain.gain.setValueAtTime(0.18, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+          osc.start(now);
+          osc.stop(now + 0.2);
+        } else if (type === 'win') {
+          // Victory fanfare
+          const notes = [440, 554, 659, 880];
+          notes.forEach((freq, idx) => {
+            const nOsc = ctx.createOscillator();
+            const nGain = ctx.createGain();
+            nOsc.type = 'triangle';
+            nOsc.frequency.setValueAtTime(freq, now + idx * 0.1);
+            nGain.gain.setValueAtTime(0.12, now + idx * 0.1);
+            nGain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.25);
+            nOsc.connect(nGain);
+            nGain.connect(ctx.destination);
+            nOsc.start(now + idx * 0.1);
+            nOsc.stop(now + idx * 0.1 + 0.28);
+          });
+        }
+      } catch (e) {}
+    }
+
+    // 4 Preset Explorers
+    const EXPLORER_PRESETS = [
+      { id: 0, name: 'Giáo Sư Brandon', title: 'The Scholar', avatar: '👨‍🏫', color: '#3b82f6', border: '#1d4ed8', badge: 'bg-blue-500/20 text-blue-400 border-blue-500/40', traits: { might: 3, speed: 3, sanity: 5, knowledge: 6 } },
+      { id: 1, name: 'Ox Bellows', title: 'The Bruiser', avatar: '🥊', color: '#ef4444', border: '#b91c1c', badge: 'bg-red-500/20 text-red-400 border-red-500/40', traits: { might: 6, speed: 4, sanity: 3, knowledge: 3 } },
+      { id: 2, name: 'Vivian Lopez', title: 'The Clairvoyant', avatar: '🔮', color: '#f59e0b', border: '#b45309', badge: 'bg-amber-500/20 text-amber-400 border-amber-500/40', traits: { might: 2, speed: 4, sanity: 6, knowledge: 4 } },
+      { id: 3, name: 'Peter Akimoto', title: 'The Runner', avatar: '🏃', color: '#10b981', border: '#047857', badge: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40', traits: { might: 3, speed: 6, sanity: 4, knowledge: 3 } }
+    ];
+
+    // Room Tile Archetypes per floor
+    const GROUND_ROOM_POOL = [
+      { name: 'Dining Room', icon: '🍽️', type: 'item', desc: 'Phòng tiệc xa hoa vương đầy bụi bặm.' },
+      { name: 'Kitchen', icon: '🍳', type: 'item', desc: 'Nhà bếp âm u với những dụng cụ cổ xưa.' },
+      { name: 'Ballroom', icon: '💃', type: 'event', desc: 'Sảnh khiêu vũ tráng lệ với điệu nhạc vô hình.' },
+      { name: 'Conservatory', icon: '🌿', type: 'event', desc: 'Nhà kính hoang tàn đầy cây leo độc dị.' },
+      { name: 'Gardens', icon: '🥀', type: 'event', desc: 'Vườn hoa héo tàn rợp bóng sương mù.' },
+      { name: 'Graveyard', icon: '🪦', type: 'omen', desc: 'Khu mộ cổ hoang vắng dưới trăng máu.' },
+      { name: 'Library', icon: '📖', type: 'item', desc: 'Thư viện cổ chứa vô số mật tịch quý giá.' },
+      { name: 'Drawing Room', icon: '🛋️', type: 'event', desc: 'Phòng tranh với ánh mắt dõi theo bước chân bạn.' },
+      { name: 'Chapel Entrance', icon: '⛪', type: 'omen', desc: 'Cổng nguyện đường phảng phất mùi trầm hương u ám.' },
+      { name: 'Dark Hallway', icon: '🚪', type: 'none', desc: 'Hành lang hun hút tối tăm không một bóng đèn.' }
+    ];
+
+    const UPPER_ROOM_POOL = [
+      { name: 'Master Bedroom', icon: '🛏️', type: 'item', desc: 'Phòng ngủ của cựu gia chủ biệt thự.' },
+      { name: 'Attic', icon: '🕸️', type: 'event', desc: 'Gác xép giăng đầy mạng nhện và hộp gỗ cổ.' },
+      { name: 'Tower Room', icon: '🗼', type: 'omen', desc: 'Đỉnh tháp quan sát ngắm nhìn trăng khuyết.' },
+      { name: 'Balcony', icon: '🌌', type: 'event', desc: 'Ban công lộng gió buốt lạnh thấu xương.' },
+      { name: 'Bloody Room', icon: '🩸', type: 'event', desc: 'Căn phòng vương vết máu tươi chưa ráo.' },
+      { name: 'Creepy Crawlspace', icon: '🕳️', type: 'omen', desc: 'Khe hẹp bò qua phát ra tiếng thở nặng nhọc.' },
+      { name: 'Operating Lab', icon: '🧪', type: 'item', desc: 'Phòng thí nghiệm giải phẫu rùng rợn.' },
+      { name: 'Mystic Elevator', icon: '🛗', type: 'event', desc: 'Thang máy bí ẩn tự chuyển động giữa các tầng.' },
+      { name: 'Chapel', icon: '🕯️', type: 'omen', desc: 'Thánh đường thiêng liêng xua đuổi tà khí.' },
+      { name: 'Gallery', icon: '🖼️', type: 'none', desc: 'Hành lang trưng bày các chân dung gia tộc.' }
+    ];
+
+    const BASEMENT_ROOM_POOL = [
+      { name: 'Crypt', icon: '⚰️', type: 'omen', desc: 'Hầm mộ cổ nơi an nghỉ của các lãnh chúa.' },
+      { name: 'Catacombs', icon: '💀', type: 'event', desc: 'Mê cung xương người lạnh ngắt hun hút.' },
+      { name: 'Furnace Room', icon: '🔥', type: 'event', desc: 'Lò sưởi rực lửa than hồng bỏng rát.' },
+      { name: 'Pentagram Chamber', icon: '🔯', type: 'omen', desc: 'Căn phòng tế lễ khắc ấn chú ma quỷ.' },
+      { name: 'Chasm', icon: '🕳️', type: 'event', desc: 'Vực sâu không đáy chia cắt lòng đất.' },
+      { name: 'Underground Lake', icon: '🌊', type: 'event', desc: 'Hồ nước ngầm đen tuyền tĩnh lặng.' },
+      { name: 'Wine Cellar', icon: '🍷', type: 'item', desc: 'Hầm rượu cổ lưu trữ nhiều thần dược.' },
+      { name: 'Torture Chamber', icon: '⛓️', type: 'item', desc: 'Phòng tra tấn chứa đầy binh khí cổ xưa.' },
+      { name: 'Vault', icon: '🗝️', type: 'item', desc: 'Kho báu kiên cố chứa bảo vật gia tộc.' },
+      { name: 'Dungeon', icon: '🧱', type: 'none', desc: 'Ngục tối ẩm thấp rỉ nước rùng rợn.' }
+    ];
+
+    const ITEMS_POOL = [
+      { id: 'item_sword', name: 'Gươm Ánh Sáng', icon: '⚔️', bonus: { might: 2 }, desc: '+2 Might (Tăng sức mạnh chiến đấu đối kháng)' },
+      { id: 'item_armor', name: 'Áo Giáp Hắc Ám', icon: '🛡️', bonus: { hp: 3 }, desc: '+3 Máu (Tăng sức bền sinh tồn)' },
+      { id: 'item_potion', name: 'Lọ Tiên Dược', icon: '🧪', bonus: { sanity: 2, hp: 2 }, desc: '+2 Sanity & +2 Máu hồi phục' },
+      { id: 'item_boots', name: 'Giày Bảy Dặm', icon: '👟', bonus: { speed: 2 }, desc: '+2 Speed (Tăng bước đi khám phá)' },
+      { id: 'item_monocle', name: 'Kính Huyền Thuật', icon: '🔮', bonus: { knowledge: 2 }, desc: '+2 Knowledge (Giải mã bí ẩn)' },
+      { id: 'item_amulet', name: 'Bùa Hộ Mệnh', icon: '🧿', bonus: { sanity: 1, knowledge: 1 }, desc: '+1 Sanity & +1 Knowledge phòng thủ' },
+      { id: 'item_revolver', name: 'Khẩu Súng Cổ', icon: '🔫', bonus: { might: 2 }, desc: '+2 Might (Bắn từ xa uy lực)' },
+      { id: 'item_bell', name: 'Chuông Bạc Thanh Tẩy', icon: '🔔', bonus: { sanity: 2 }, desc: '+2 Sanity (Trấn an tinh thần)' }
+    ];
+
+    const OMENS_POOL = [
+      { id: 'omen_book', name: 'Quyển Sách Ma Quái', icon: '📖', desc: 'Sách cổ ghi chép nghi thức gọi quỷ.' },
+      { id: 'omen_skull', name: 'Hộp Sọ Pha Lê', icon: '💀', desc: 'Hộp sọ phát ra tiếng thì thầm rợn tóc gáy.' },
+      { id: 'omen_ring', name: 'Nhẫn Nguyền Rủa', icon: '💍', desc: 'Chiếc nhẫn siết chặt ngón tay người đeo.' },
+      { id: 'omen_dagger', name: 'Dao Tế Lễ', icon: '🗡️', desc: 'Lưỡi dao khát máu lóe sắc đỏ ma quái.' },
+      { id: 'omen_darkbell', name: 'Chuông Hắc Ám', icon: '🔔', desc: 'Tiếng chuông điểm giờ tàn vong.' },
+      { id: 'omen_mask', name: 'Mặt Nạ Tử Thần', icon: '🎭', desc: 'Mặt nạ che giấu bóng hình kẻ tha hóa.' }
+    ];
+
+    const EVENTS_POOL = [
+      { id: 'evt_whisper', name: 'Tiếng Khóc Oan Hồn', icon: '👻', trait: 'sanity', difficulty: 4, successText: 'Bạn giữ vững tâm trí, không hề nao núng!', failText: 'Nỗi sợ hãi tột cùng xâm chiếm! Mất 1 Sanity.', penalty: { sanity: -1 } },
+      { id: 'evt_trap', name: 'Bẫy Sập Dưới Chân', icon: '⚠️', trait: 'speed', difficulty: 4, successText: 'Bạn nhanh nhẹn nhảy qua bẫy chông!', failText: 'Bị đá đè trúng chân! Mất 1 Máu.', penalty: { hp: -1 } },
+      { id: 'evt_fog', name: 'Sương Mù Ảo Ảnh', icon: '🌫️', trait: 'knowledge', difficulty: 3, successText: 'Bạn định hướng chuẩn xác xuyên qua sương mù.', failText: 'Lạc lối trong sương mù dày đặc! Mất 1 bước đi.', penalty: { moves: -1 } },
+      { id: 'evt_bat', name: 'Đàn Dơi Khát Máu', icon: '🦇', trait: 'might', difficulty: 4, successText: 'Bạn vung gậy xua đuổi đàn dơi tàn bạo!', failText: 'Đàn dơi lao vào cắn xé! Mất 1 Máu.', penalty: { hp: -1 } }
+    ];
+
+    // Initialize Empty 5x5 Floor Grid
+    function createEmptyFloorGrid(floorType) {
+      const grid = [];
+      for (let y = 0; y < 5; y++) {
+        const row = [];
+        for (let x = 0; x < 5; x++) {
+          // Ô (2, 2) tầng Ground là Grand Staircase
+          if (floorType === 'ground' && x === 2 && y === 2) {
+            row.push({
+              x, y,
+              name: 'Grand Staircase',
+              icon: '🏛️',
+              type: 'safe',
+              discovered: true,
+              floor: 'ground',
+              desc: 'Cầu thang đại sảnh kết nối Tầng Trên và Tầng Hầm.'
+            });
+          } else {
+            row.push({
+              x, y,
+              name: 'Chưa khám phá',
+              icon: '❓',
+              type: 'unknown',
+              discovered: false,
+              floor: floorType,
+              desc: 'Căn phòng bị bao phủ bởi sương mù và bóng tối.'
+            });
+          }
+        }
+        grid.push(row);
+      }
+      return grid;
+    }
+
+    // Global Betrayal State
+    window.betrayalState = {
+      initialized: false,
+      mode: 'local',
+      currentTurnPlayer: 0,
+      roundNumber: 1,
+      activeFloor: 'ground',
+      turnPhase: 'explore', // 'explore' | 'haunt_roll' | 'combat' | 'ended'
+      isRolling: false,
+      isGameOver: false,
+      winnerTeam: null, // 'survivors' | 'traitor'
+      omenCount: 0,
+      isHauntActive: false,
+      traitorPlayerId: null,
+      diceTray: null,
+      diceHistory: [],
+      actionLogs: [],
+      floors: {
+        ground: createEmptyFloorGrid('ground'),
+        upper: createEmptyFloorGrid('upper'),
+        basement: createEmptyFloorGrid('basement')
+      },
+      players: [],
+      decks: {
+        groundRooms: [...GROUND_ROOM_POOL],
+        upperRooms: [...UPPER_ROOM_POOL],
+        basementRooms: [...BASEMENT_ROOM_POOL],
+        items: [...ITEMS_POOL],
+        omens: [...OMENS_POOL],
+        events: [...EVENTS_POOL]
+      },
+      botTimer: null
+    };
+
+    // Shuffler helper
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // Append log message
+    function logBetrayalAction(msg, type = 'info') {
+      const s = window.betrayalState;
+      const timestamp = new Date().toLocaleTimeString('vi-VN', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const entry = { text: msg, type, time: timestamp };
+      s.actionLogs.unshift(entry);
+      if (s.actionLogs.length > 50) s.actionLogs.pop();
+      renderBetrayalLog();
+    }
+
+    // =========================================================================
+    // CORE INITIALIZATION: initBetrayalGame
+    // =========================================================================
+    function initBetrayalGame() {
+      const s = window.betrayalState;
+      if (s.botTimer) clearTimeout(s.botTimer);
+
+      s.initialized = true;
+      s.mode = (window.isOnlineRoomMatch) ? 'online' : 'local';
+      s.currentTurnPlayer = 0;
+      s.roundNumber = 1;
+      s.activeFloor = 'ground';
+      s.turnPhase = 'explore';
+      s.isRolling = false;
+      s.isGameOver = false;
+      s.winnerTeam = null;
+      s.omenCount = 0;
+      s.isHauntActive = false;
+      s.traitorPlayerId = null;
+      s.actionLogs = [];
+
+      // Reset decks
+      s.decks.groundRooms = shuffleArray(GROUND_ROOM_POOL);
+      s.decks.upperRooms = shuffleArray(UPPER_ROOM_POOL);
+      s.decks.basementRooms = shuffleArray(BASEMENT_ROOM_POOL);
+      s.decks.items = shuffleArray(ITEMS_POOL);
+      s.decks.omens = shuffleArray(OMENS_POOL);
+      s.decks.events = shuffleArray(EVENTS_POOL);
+
+      // Reset floors
+      s.floors.ground = createEmptyFloorGrid('ground');
+      s.floors.upper = createEmptyFloorGrid('upper');
+      s.floors.basement = createEmptyFloorGrid('basement');
+
+      // Initialize 4 Players
+      s.players = EXPLORER_PRESETS.map((preset, idx) => ({
+        id: idx,
+        name: preset.name,
+        title: preset.title,
+        avatar: preset.avatar,
+        color: preset.color,
+        border: preset.border,
+        badge: preset.badge,
+        isHuman: (idx === 0), // Player 1 is human, others are Bots in local mode
+        floor: 'ground',
+        pos: { x: 2, y: 2 },
+        movesLeft: preset.traits.speed,
+        traits: { ...preset.traits },
+        items: [],
+        omens: [],
+        isTraitor: false,
+        isAlive: true,
+        hp: 10
+      }));
+
+      // 1. Khởi tạo khay xúc xắc 3D Obsidian Engine theo đúng mẫu người dùng
+      try {
+        const engine = (typeof Dice3DObsidianEngine !== 'undefined') ? Dice3DObsidianEngine : ((typeof window !== 'undefined' && window.Dice3DObsidianEngine) ? window.Dice3DObsidianEngine : null);
+        if (engine && typeof engine.mount === 'function') {
+          s.diceTray = engine.mount('#dice-container-betrayal', {
+            diceCount: 2,          // 2 viên xúc xắc
+            sizePx: 44,            // Kích thước mỗi viên (px)
+            theme: 'crimson-casino' // Sắc đỏ ma quái Gothic cho Betrayal
+          });
+        }
+      } catch (err) {
+        console.warn('Dice3DObsidianEngine mount error:', err);
+      }
+
+      logBetrayalAction('🏰 Chào mừng bạn đến với Biệt Thự Ma Ám 3D! Khám phá phòng và chuẩn bị đối mặt Haunt.', 'highlight');
+      renderBetrayalArena();
+    }
+
+    // Switch Floor View
+    function switchBetrayalFloor(floor) {
+      const s = window.betrayalState;
+      s.activeFloor = floor;
+      renderBetrayalArena();
+    }
+
+    // Move player token helper
+    function movePlayerToken(steps) {
+      const s = window.betrayalState;
+      const curP = s.players[s.currentTurnPlayer];
+      if (!curP) return;
+      curP.movesLeft = Math.max(0, steps);
+      logBetrayalAction(`🎲 ${curP.name} đổ được ${steps} điểm! Nhận ${curP.movesLeft} bước di chuyển.`, 'info');
+      renderBetrayalArena();
+    }
+
+    // =========================================================================
+    // ROLL DICE ACTION: onBetrayalRollDiceClick
+    // =========================================================================
+    async function onBetrayalRollDiceClick() {
+      const s = window.betrayalState;
+      if (!s.initialized || s.isRolling || s.isGameOver) return;
+
+      const curP = s.players[s.currentTurnPlayer];
+      if (!curP || !curP.isAlive) return;
+
+      // Online P2P Turn Lock
+      if (s.mode === 'online' && window.myRoomPlayerIndex !== undefined) {
+        if (window.myRoomPlayerIndex !== s.currentTurnPlayer) {
+          if (typeof showToast === 'function') {
+            showToast(`⏳ Đang đợi lượt của ${curP.name}!`, 'info');
+          }
+          return;
+        }
+      }
+
+      s.isRolling = true;
+      const rollBtn = document.getElementById('betrayalRollDiceBtn');
+      if (rollBtn) rollBtn.classList.add('opacity-50', 'pointer-events-none');
+
+      try {
+        if (!s.diceTray) {
+          const engine = (typeof Dice3DObsidianEngine !== 'undefined') ? Dice3DObsidianEngine : ((typeof window !== 'undefined' && window.Dice3DObsidianEngine) ? window.Dice3DObsidianEngine : null);
+          if (engine && typeof engine.mount === 'function') {
+            s.diceTray = engine.mount('#dice-container-betrayal', {
+              diceCount: 2,
+              sizePx: 44,
+              theme: 'crimson-casino'
+            });
+          }
+        }
+
+        // 2. Khi bấm đổ xúc xắc (tự động chạy đủ 3 giai đoạn: Lăn 1000ms -> Chốt mặt chấm -> Nghỉ 600ms)
+        let rollRes = { values: [1 + Math.floor(Math.random() * 6), 1 + Math.floor(Math.random() * 6)], sum: 7, isDoubles: false };
+        if (s.diceTray && typeof s.diceTray.roll === 'function') {
+          rollRes = await s.diceTray.roll();
+        } else {
+          rollRes.sum = rollRes.values[0] + rollRes.values[1];
+          rollRes.isDoubles = (rollRes.values[0] === rollRes.values[1]);
+        }
+
+        const { values, sum, isDoubles } = rollRes;
+        s.diceHistory.unshift({ values, sum, time: Date.now() });
+
+        // Broadcast roll result in Online P2P
+        if (s.mode === 'online' && typeof window.syncOnlineBetrayalState === 'function') {
+          window.syncOnlineBetrayalState('ROLL_DICE', `${curP.name} đổ xúc xắc ra [${values.join(', ')}] = ${sum}!`, { rollRes });
+        }
+
+        // Handle Phases
+        if (s.turnPhase === 'explore') {
+          movePlayerToken(sum);
+          if (typeof showToast === 'function') {
+            showToast(`🎲 Bạn đổ được ${sum} điểm! Bước đi: ${sum}`, 'success');
+          }
+        } else if (s.turnPhase === 'haunt_roll') {
+          resolveHauntRoll(rollRes);
+        } else if (s.turnPhase === 'combat') {
+          resolveCombatRoll(rollRes);
+        }
+
+      } catch (err) {
+        console.error('Betrayal Dice Roll Error:', err);
+      } finally {
+        s.isRolling = false;
+        if (rollBtn) rollBtn.classList.remove('opacity-50', 'pointer-events-none');
+        renderBetrayalArena();
+      }
+    }
+
+    // =========================================================================
+    // HAUNT ROLL RESOLUTION
+    // =========================================================================
+    function resolveHauntRoll(rollRes) {
+      const s = window.betrayalState;
+      const curP = s.players[s.currentTurnPlayer];
+      const sum = rollRes.sum;
+
+      logBetrayalAction(`🔮 Haunt Roll: ${curP.name} đổ được ${sum} điểm (Số Omen hiện tại: ${s.omenCount}).`, 'highlight');
+
+      if (sum < s.omenCount) {
+        // HAUNT EXPLOSION!
+        s.isHauntActive = true;
+        playBetrayalSFX('haunt');
+
+        // Choose Traitor: Player with lowest sanity or current player
+        let traitor = curP;
+        let minSanity = curP.traits.sanity;
+        s.players.forEach(p => {
+          if (p.isAlive && p.traits.sanity < minSanity) {
+            minSanity = p.traits.sanity;
+            traitor = p;
+          }
+        });
+
+        s.traitorPlayerId = traitor.id;
+        traitor.isTraitor = true;
+        traitor.title = 'Vampire Lord';
+        traitor.avatar = '🧛';
+        traitor.hp = 14;
+        traitor.traits.might += 3;
+        traitor.traits.speed += 1;
+
+        // Survivors
+        s.players.forEach(p => {
+          if (p.id !== traitor.id) {
+            p.isTraitor = false;
+            p.hp = 8;
+          }
+        });
+
+        s.turnPhase = 'explore';
+        logBetrayalAction(`🚨 THẢM HỌA BÙNG NỔ! ${traitor.name} đã bị tha hóa thành Kẻ Phản Bội (The Traitor)! Các Survivors hãy hợp lực tiêu diệt Traitor!`, 'danger');
+        
+        if (typeof showToast === 'function') {
+          showToast(`🚨 THẢM HỌA BÙNG NỔ! ${traitor.name} biến thành Traitor!`, 'danger');
+        }
+
+        if (s.mode === 'online' && typeof window.syncOnlineBetrayalState === 'function') {
+          window.syncOnlineBetrayalState('HAUNT_EXPLODED', `🚨 Thảm họa bùng nổ! ${traitor.name} biến thành Vampire Lord!`);
+        }
+
+      } else {
+        // Haunt avoided
+        logBetrayalAction(`🕊️ Hú vía! Haunt chưa bùng nổ (Đổ được ${sum} >= ${s.omenCount}). Mọi người tạm thời an toàn!`, 'info');
+        if (typeof showToast === 'function') {
+          showToast(`🕊️ An toàn! ${sum} >= ${s.omenCount} Omen.`, 'info');
+        }
+        s.turnPhase = 'explore';
+      }
+
+      renderBetrayalArena();
+    }
+
+    // =========================================================================
+    // TILE INTERACTION & DISCOVERY: onBetrayalTileClick
+    // =========================================================================
+    function onBetrayalTileClick(x, y) {
+      const s = window.betrayalState;
+      if (!s.initialized || s.isRolling || s.isGameOver) return;
+
+      const curP = s.players[s.currentTurnPlayer];
+      if (!curP || !curP.isAlive) return;
+
+      // Online P2P Turn Lock
+      if (s.mode === 'online' && window.myRoomPlayerIndex !== undefined) {
+        if (window.myRoomPlayerIndex !== s.currentTurnPlayer) {
+          if (typeof showToast === 'function') {
+            showToast(`⏳ Đang đợi lượt của ${curP.name}!`, 'info');
+          }
+          return;
+        }
+      }
+
+      // Check current floor vs active floor
+      if (curP.floor !== s.activeFloor) {
+        if (typeof showToast === 'function') {
+          showToast(`⚠️ Nhân vật của bạn đang ở ${curP.floor.toUpperCase()}! Hãy chuyển tầng để điều khiển.`, 'warning');
+        }
+        return;
+      }
+
+      // Must be adjacent tile (Manhattan distance = 1)
+      const dx = Math.abs(x - curP.pos.x);
+      const dy = Math.abs(y - curP.pos.y);
+      if (dx + dy !== 1) {
+        if (dx === 0 && dy === 0) {
+          if (typeof showToast === 'function') showToast(`Bạn đang đứng ở căn phòng này!`, 'info');
+          return;
+        }
+        if (typeof showToast === 'function') {
+          showToast(`Chỉ có thể bước vào căn phòng liền kề phát sáng xanh!`, 'warning');
+        }
+        return;
+      }
+
+      // Check remaining moves
+      if (curP.movesLeft <= 0) {
+        if (typeof showToast === 'function') {
+          showToast(`⚠️ Bạn đã hết bước đi! Hãy đổ xúc xắc hoặc ấn [HẾT LƯỢT].`, 'warning');
+        }
+        return;
+      }
+
+      // Execute movement
+      curP.pos = { x, y };
+      curP.movesLeft--;
+
+      const currentGrid = s.floors[s.activeFloor];
+      const targetTile = currentGrid[y][x];
+
+      // If tile is not discovered, reveal it!
+      if (!targetTile.discovered) {
+        targetTile.discovered = true;
+        playBetrayalSFX('door');
+
+        // Draw room from deck
+        let deck = s.decks.groundRooms;
+        if (s.activeFloor === 'upper') deck = s.decks.upperRooms;
+        if (s.activeFloor === 'basement') deck = s.decks.basementRooms;
+
+        const drawnRoom = deck.length > 0 ? deck.pop() : { name: 'Bí Ẩn Tàn Tích', icon: '🏚️', type: 'event', desc: 'Căn phòng cổ xưa hoang phế.' };
+        targetTile.name = drawnRoom.name;
+        targetTile.icon = drawnRoom.icon;
+        targetTile.type = drawnRoom.type;
+        targetTile.desc = drawnRoom.desc;
+
+        logBetrayalAction(`🚪 ${curP.name} đã khám phá căn phòng mới: [${targetTile.name}] (${targetTile.desc})`, 'highlight');
+
+        // Resolve tile trigger
+        if (targetTile.type === 'item') {
+          const item = s.decks.items.length > 0 ? s.decks.items.pop() : ITEMS_POOL[0];
+          curP.items.push(item);
+          playBetrayalSFX('item');
+          // Apply bonuses
+          if (item.bonus.might) curP.traits.might += item.bonus.might;
+          if (item.bonus.speed) curP.traits.speed += item.bonus.speed;
+          if (item.bonus.sanity) curP.traits.sanity += item.bonus.sanity;
+          if (item.bonus.knowledge) curP.traits.knowledge += item.bonus.knowledge;
+          if (item.bonus.hp) curP.hp += item.bonus.hp;
+
+          logBetrayalAction(`🎁 ${curP.name} tìm thấy bảo vật: [${item.name}]! (${item.desc})`, 'highlight');
+          if (typeof showToast === 'function') {
+            showToast(`🎁 Tìm thấy [${item.name}]!`, 'success');
+          }
+        } else if (targetTile.type === 'omen') {
+          const omen = s.decks.omens.length > 0 ? s.decks.omens.pop() : OMENS_POOL[0];
+          curP.omens.push(omen);
+          s.omenCount++;
+          playBetrayalSFX('omen');
+          logBetrayalAction(`🔮 ĐIỀM BÁO NGUY HIỂM! ${curP.name} rút phải Omen: [${omen.name}]! Omen Counter: ${s.omenCount}/6.`, 'danger');
+          
+          if (!s.isHauntActive) {
+            s.turnPhase = 'haunt_roll';
+            if (typeof showToast === 'function') {
+              showToast(`🔮 ĐIỀM BÁO! Bắt buộc đổ Haunt Roll!`, 'warning');
+            }
+          }
+        } else if (targetTile.type === 'event') {
+          const evt = s.decks.events.length > 0 ? s.decks.events.pop() : EVENTS_POOL[0];
+          logBetrayalAction(`⚡ Sự Kiện: [${evt.name}]! Thử thách chỉ số ${evt.trait.toUpperCase()}.`, 'info');
+          // Simple challenge
+          const playerVal = curP.traits[evt.trait] || 3;
+          if (playerVal >= evt.difficulty) {
+            logBetrayalAction(`✅ ${curP.name} đã vượt qua thử thách: ${evt.successText}`, 'info');
+            if (typeof showToast === 'function') showToast(`✅ Vượt qua thử thách!`, 'success');
+          } else {
+            logBetrayalAction(`❌ ${curP.name} thất bại thử thách: ${evt.failText}`, 'warning');
+            if (evt.penalty.hp) curP.hp = Math.max(1, curP.hp + evt.penalty.hp);
+            if (evt.penalty.sanity) curP.traits.sanity = Math.max(1, curP.traits.sanity + evt.penalty.sanity);
+            if (evt.penalty.moves) curP.movesLeft = Math.max(0, curP.movesLeft + evt.penalty.moves);
+            if (typeof showToast === 'function') showToast(`❌ Bị tổn thương!`, 'warning');
+          }
+        }
+      }
+
+      // Sync Online State
+      if (s.mode === 'online' && typeof window.syncOnlineBetrayalState === 'function') {
+        window.syncOnlineBetrayalState('MOVE_EXPLORE', `${curP.name} bước vào [${targetTile.name}]`);
+      }
+
+      renderBetrayalArena();
+    }
+
+    // =========================================================================
+    // COMBAT ACTION: onBetrayalAttackClick
+    // =========================================================================
+    function onBetrayalAttackClick() {
+      const s = window.betrayalState;
+      if (!s.initialized || s.isRolling || s.isGameOver || !s.isHauntActive) return;
+
+      const curP = s.players[s.currentTurnPlayer];
+      if (!curP || !curP.isAlive) return;
+
+      // Find enemy in the same room & floor
+      const enemy = s.players.find(p => p.isAlive && p.floor === curP.floor && p.pos.x === curP.pos.x && p.pos.y === curP.pos.y && p.isTraitor !== curP.isTraitor);
+      if (!enemy) {
+        if (typeof showToast === 'function') showToast(`Không có kẻ thù nào trong cùng căn phòng!`, 'info');
+        return;
+      }
+
+      // Combat roll
+      playBetrayalSFX('combat');
+      const atkRoll = Math.floor(Math.random() * 6) + 1 + (curP.traits.might || 3);
+      const defRoll = Math.floor(Math.random() * 6) + 1 + (enemy.traits.might || 3);
+      const diff = Math.abs(atkRoll - defRoll);
+      const damage = Math.max(1, diff);
+
+      if (atkRoll >= defRoll) {
+        enemy.hp -= damage;
+        logBetrayalAction(`⚔️ CHIẾN ĐẤU: ${curP.name} (Might ${atkRoll}) đã tấn công trúng ${enemy.name} (Might ${defRoll}) gây ${damage} sát thương! (${enemy.name} còn ${Math.max(0, enemy.hp)} HP)`, 'danger');
+        if (typeof showToast === 'function') showToast(`⚔️ Đánh trúng! Gây ${damage} sát thương!`, 'success');
+        if (enemy.hp <= 0) {
+          enemy.isAlive = false;
+          logBetrayalAction(`💀 ${enemy.name} ĐÃ BỊ HẠ GỤC!`, 'danger');
+        }
+      } else {
+        curP.hp -= damage;
+        logBetrayalAction(`🛡️ CHIẾN ĐẤU: ${enemy.name} phản đòn (Might ${defRoll} vs ${atkRoll}) khiến ${curP.name} nhận ${damage} sát thương! (${curP.name} còn ${Math.max(0, curP.hp)} HP)`, 'danger');
+        if (typeof showToast === 'function') showToast(`🛡️ Bị phản đòn! Mất ${damage} HP!`, 'warning');
+        if (curP.hp <= 0) {
+          curP.isAlive = false;
+          logBetrayalAction(`💀 ${curP.name} ĐÃ HY SINH!`, 'danger');
+        }
+      }
+
+      // Check Victory Condition
+      checkBetrayalVictory();
+
+      if (s.mode === 'online' && typeof window.syncOnlineBetrayalState === 'function') {
+        window.syncOnlineBetrayalState('COMBAT', `${curP.name} giao chiến với ${enemy.name}!`);
+      }
+
+      renderBetrayalArena();
+    }
+
+    // Check Victory
+    function checkBetrayalVictory() {
+      const s = window.betrayalState;
+      if (s.isGameOver || !s.isHauntActive) return;
+
+      const traitor = s.players.find(p => p.isTraitor);
+      const livingSurvivors = s.players.filter(p => !p.isTraitor && p.isAlive);
+
+      if (traitor && !traitor.isAlive) {
+        // Survivors Win!
+        s.isGameOver = true;
+        s.winnerTeam = 'survivors';
+        playBetrayalSFX('win');
+        logBetrayalAction('🏆 CHIẾN THẮNG! Những Người Sống Sót (Survivors) đã tiêu diệt Chúa tể Ma Cà Rồng và thoát khỏi Biệt Thự!', 'highlight');
+        showBetrayalWinModal('survivors', traitor);
+      } else if (livingSurvivors.length === 0) {
+        // Traitor Wins!
+        s.isGameOver = true;
+        s.winnerTeam = 'traitor';
+        playBetrayalSFX('haunt');
+        logBetrayalAction('🩸 KẺ PHẢN BỘI THẮNG! Toàn bộ những kẻ xâm phạm đã bị tiêu diệt. Biệt thự chìm trong bóng đêm vĩnh hằng!', 'danger');
+        showBetrayalWinModal('traitor', traitor);
+      }
+    }
+
+    function showBetrayalWinModal(team, traitor) {
+      const modal = document.getElementById('betrayalWinModal');
+      const icon = document.getElementById('betrayalWinIcon');
+      const header = document.getElementById('betrayalWinHeader');
+      const title = document.getElementById('betrayalWinnerTitle');
+      const desc = document.getElementById('betrayalWinnerDesc');
+
+      if (team === 'survivors') {
+        if (icon) icon.textContent = '🏆';
+        if (header) header.textContent = 'SURVIVORS CHIẾN THẮNG!';
+        if (title) title.textContent = 'TIÊU DIỆT KẺ PHẢN BỘI THÀNH CÔNG!';
+        if (desc) desc.textContent = 'Ánh sáng bình minh đã rọi vào căn biệt thự! Lòng can đảm và tình đoàn kết của những người sống sót đã đánh tan bóng tối hắc ám.';
+      } else {
+        if (icon) icon.textContent = '🩸';
+        if (header) header.textContent = 'THE TRAITOR THỐNG TRỊ!';
+        if (title) title.textContent = `${(traitor ? traitor.name : 'KẺ PHẢN BỘI')} ĐÃ ĐỒ SÁT TOÀN BỘ!`;
+        if (desc) desc.textContent = 'Không một ai còn sống sót để kể lại câu chuyện kinh hoàng trong căn Biệt Thự Ma Ám. Bóng đêm ngự trị muôn đời!';
+      }
+
+      if (typeof openModal === 'function') openModal('betrayalWinModal');
+    }
+
+    // =========================================================================
+    // END TURN: endBetrayalTurn
+    // =========================================================================
+    function endBetrayalTurn() {
+      const s = window.betrayalState;
+      if (!s.initialized || s.isRolling || s.isGameOver) return;
+
+      const curP = s.players[s.currentTurnPlayer];
+      if (s.mode === 'online' && window.myRoomPlayerIndex !== undefined) {
+        if (window.myRoomPlayerIndex !== s.currentTurnPlayer) {
+          if (typeof showToast === 'function') showToast(`⏳ Đang đợi lượt của ${curP.name}!`, 'info');
+          return;
+        }
+      }
+
+      logBetrayalAction(`🛑 ${curP.name} kết thúc lượt đi.`, 'info');
+
+      // Next player
+      let nextIdx = (s.currentTurnPlayer + 1) % 4;
+      let loopCount = 0;
+      while (!s.players[nextIdx].isAlive && loopCount < 4) {
+        nextIdx = (nextIdx + 1) % 4;
+        loopCount++;
+      }
+
+      if (nextIdx <= s.currentTurnPlayer) {
+        s.roundNumber++;
+      }
+
+      s.currentTurnPlayer = nextIdx;
+      s.turnPhase = 'explore';
+      const newP = s.players[s.currentTurnPlayer];
+      newP.movesLeft = newP.traits.speed;
+
+      // Auto switch active floor to current player's floor
+      s.activeFloor = newP.floor;
+
+      logBetrayalAction(`👉 Bắt đầu lượt của: ${newP.name} (${newP.title}) - ${newP.movesLeft} bước đi.`, 'info');
+
+      if (s.mode === 'online' && typeof window.syncOnlineBetrayalState === 'function') {
+        window.syncOnlineBetrayalState('END_TURN', `Chuyển lượt sang ${newP.name}`);
+      }
+
+      renderBetrayalArena();
+
+      // If Bot turn in local mode or host in online mode
+      if (!newP.isHuman && !s.isGameOver) {
+        if (s.mode === 'local' || (s.mode === 'online' && window.myRoomPlayerIndex === 0)) {
+          if (s.botTimer) clearTimeout(s.botTimer);
+          s.botTimer = setTimeout(() => {
+            runBetrayalBotTurn(newP);
+          }, 1200);
+        }
+      }
+    }
+
+    // =========================================================================
+    // BOT AI ROUTINE: runBetrayalBotTurn
+    // =========================================================================
+    function runBetrayalBotTurn(bot) {
+      const s = window.betrayalState;
+      if (s.isGameOver || s.currentTurnPlayer !== bot.id || !bot.isAlive) return;
+
+      logBetrayalAction(`🤖 Bot [${bot.name}] đang suy tính nước đi...`, 'info');
+
+      // 1. Roll dice if not rolled
+      const rollAmount = Math.floor(Math.random() * 6) + 1 + Math.floor(Math.random() * 6) + 1;
+      bot.movesLeft = rollAmount;
+      logBetrayalAction(`🤖 Bot [${bot.name}] đổ được ${rollAmount} bước đi.`, 'info');
+
+      // 2. Find adjacent tile
+      const validTiles = [];
+      const deltas = [[0, -1], [0, 1], [-1, 0], [1, 0]];
+      deltas.forEach(([dx, dy]) => {
+        const nx = bot.pos.x + dx;
+        const ny = bot.pos.y + dy;
+        if (nx >= 0 && nx < 5 && ny >= 0 && ny < 5) {
+          validTiles.push({ x: nx, y: ny });
+        }
+      });
+
+      if (validTiles.length > 0) {
+        // Prefer undiscovered tile
+        const floorGrid = s.floors[bot.floor];
+        let chosen = validTiles.find(t => !floorGrid[t.y][t.x].discovered) || validTiles[0];
+
+        setTimeout(() => {
+          onBetrayalTileClick(chosen.x, chosen.y);
+
+          // 3. Attack if in combat
+          setTimeout(() => {
+            if (s.isHauntActive) {
+              const enemy = s.players.find(p => p.isAlive && p.floor === bot.floor && p.pos.x === bot.pos.x && p.pos.y === bot.pos.y && p.isTraitor !== bot.isTraitor);
+              if (enemy) {
+                onBetrayalAttackClick();
+              }
+            }
+
+            // 4. End Bot turn
+            setTimeout(() => {
+              endBetrayalTurn();
+            }, 1000);
+          }, 800);
+        }, 800);
+      } else {
+        setTimeout(() => {
+          endBetrayalTurn();
+        }, 1000);
+      }
+    }
+
+    // =========================================================================
+    // UI RENDERING: renderBetrayalArena & Sub-renders
+    // =========================================================================
+    function renderBetrayalArena() {
+      const s = window.betrayalState;
+      if (!s.initialized) return;
+
+      renderBetrayalHUD();
+      renderBetrayalGrid();
+      renderBetrayalPlayers();
+      renderBetrayalInventory();
+      renderBetrayalLog();
+    }
+
+    function renderBetrayalHUD() {
+      const s = window.betrayalState;
+      const curP = s.players[s.currentTurnPlayer];
+      if (!curP) return;
+
+      // Round Text
+      const roundEl = document.getElementById('betrayalRoundText');
+      if (roundEl) roundEl.textContent = `VÒNG ${s.roundNumber}`;
+
+      // Haunt Status Badge
+      const hauntBadge = document.getElementById('betrayalHauntStatusBadge');
+      if (hauntBadge) {
+        if (s.isHauntActive) {
+          hauntBadge.textContent = '🚨 THẢM HỌA HAUNT BÙNG NỔ!';
+          hauntBadge.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/40 animate-pulse';
+        } else {
+          hauntBadge.textContent = 'GIAI ĐOẠN KHÁM PHÁ';
+          hauntBadge.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/40';
+        }
+      }
+
+      // Omen Counter
+      const omenCountEl = document.getElementById('betrayalOmenCountText');
+      if (omenCountEl) omenCountEl.textContent = `${s.omenCount} / 6 LÁ BÀI`;
+
+      // Turn Indicator
+      const turnIndicator = document.getElementById('betrayalTurnIndicator');
+      const turnText = document.getElementById('betrayalTurnText');
+      if (turnIndicator && turnText) {
+        turnText.textContent = `LƯỢT: ${curP.name.toUpperCase()} (${curP.title.toUpperCase()})`;
+        turnIndicator.style.borderColor = curP.border;
+        turnIndicator.style.backgroundColor = `${curP.color}22`;
+        turnIndicator.style.color = curP.color;
+      }
+
+      // Event Banner
+      const bannerIcon = document.getElementById('betrayalBannerIcon');
+      const bannerText = document.getElementById('betrayalBannerText');
+      const bannerExtra = document.getElementById('betrayalBannerExtra');
+      if (bannerText) {
+        if (s.isHauntActive) {
+          const traitor = s.players.find(p => p.isTraitor);
+          bannerIcon.textContent = '🩸';
+          bannerText.textContent = `THẢM HỌA: ${traitor ? traitor.name : 'Traitor'} đã trở thành Quái Vật! Hãy tiêu diệt hắn trước khi quá muộn!`;
+          bannerExtra.textContent = 'CHIẾN ĐẤU';
+          bannerExtra.className = 'text-[10px] text-red-400 font-bold shrink-0 ml-2 animate-pulse';
+        } else if (s.turnPhase === 'haunt_roll') {
+          bannerIcon.textContent = '🔮';
+          bannerText.textContent = `ĐIỀM BÁO! ${curP.name} vừa rút Omen! Hãy ấn [ĐỔ XÚC XẮC] để kiểm tra Haunt Roll.`;
+          bannerExtra.textContent = 'HAUNT ROLL';
+          bannerExtra.className = 'text-[10px] text-purple-400 font-bold shrink-0 ml-2 animate-pulse';
+        } else {
+          bannerIcon.textContent = '🕯️';
+          bannerText.textContent = `${curP.name} đang thám hiểm ${s.activeFloor.toUpperCase()}. Hãy di chuyển vào các ô phòng liền kề để khám phá bí ẩn!`;
+          bannerExtra.textContent = 'KHÁM PHÁ';
+          bannerExtra.className = 'text-[10px] text-rose-400/80 font-bold shrink-0 ml-2';
+        }
+      }
+
+      // Floor Switcher Active Styles
+      ['upper', 'ground', 'basement'].forEach(fl => {
+        const btn = document.getElementById('btnFloor' + fl.charAt(0).toUpperCase() + fl.slice(1));
+        if (btn) {
+          if (s.activeFloor === fl) {
+            btn.className = 'btn-spring px-3.5 py-1.5 rounded-xl text-xs font-bold text-rose-300 bg-rose-950/70 border-2 border-rose-500/80 shadow-md flex items-center gap-1.5 transition-all cursor-pointer';
+          } else {
+            btn.className = 'btn-spring px-3 py-1.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white bg-slate-800/80 border border-slate-700 flex items-center gap-1.5 transition-all cursor-pointer';
+          }
+        }
+      });
+
+      // Current Room Name
+      const roomNameEl = document.getElementById('betrayalCurrentRoomName');
+      const curGrid = s.floors[curP.floor];
+      const curRoom = curGrid && curGrid[curP.pos.y] && curGrid[curP.pos.y][curP.pos.x];
+      if (roomNameEl) {
+        roomNameEl.textContent = curRoom ? `${curRoom.name} (${curP.floor.toUpperCase()})` : 'Grand Staircase';
+      }
+
+      // Active Explorer Dossier
+      const avatarEl = document.getElementById('betrayalPlayerAvatar');
+      const nameEl = document.getElementById('betrayalPlayerName');
+      const roleEl = document.getElementById('betrayalPlayerRole');
+      const movesEl = document.getElementById('betrayalMovesLeftText');
+
+      if (avatarEl) avatarEl.textContent = curP.avatar;
+      if (nameEl) nameEl.textContent = curP.name;
+      if (roleEl) roleEl.textContent = `${curP.title} • ${(curP.isTraitor ? 'THE TRAITOR 🩸' : 'SURVIVOR 🛡️')} • ${curP.hp} HP`;
+      if (movesEl) movesEl.textContent = `${curP.movesLeft} BƯỚC`;
+
+      // 4 Trait Gauges
+      const traits = curP.traits;
+      const setGauge = (key, val, max = 8) => {
+        const valEl = document.getElementById(`trait${key}Val`);
+        const barEl = document.getElementById(`trait${key}Bar`);
+        if (valEl) valEl.textContent = `${val} / ${max}`;
+        if (barEl) barEl.style.width = `${Math.min(100, (val / max) * 100)}%`;
+      };
+
+      setGauge('Might', traits.might);
+      setGauge('Speed', traits.speed);
+      setGauge('Sanity', traits.sanity);
+      setGauge('Knowledge', traits.knowledge);
+
+      // Dice mode label & Roll button
+      const diceModeLabel = document.getElementById('betrayalDiceModeLabel');
+      const rollBtn = document.getElementById('betrayalRollDiceBtn');
+      if (diceModeLabel && rollBtn) {
+        if (s.turnPhase === 'haunt_roll') {
+          diceModeLabel.textContent = '🔮 ĐỔ HAUNT ROLL';
+          rollBtn.className = 'btn-spring w-full mt-3 py-3 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-sm font-cinzel flex items-center justify-center gap-2 shadow-lg shadow-purple-600/40 border-2 border-purple-400 cursor-pointer transition-all animate-pulse';
+        } else {
+          diceModeLabel.textContent = '🎲 ĐỔ DI CHUYỂN';
+          rollBtn.className = 'btn-spring w-full mt-3 py-3 rounded-2xl bg-gradient-to-r from-rose-600 via-red-600 to-rose-700 hover:from-rose-500 hover:to-red-500 text-white font-black text-sm font-cinzel flex items-center justify-center gap-2 shadow-lg shadow-rose-600/30 border-2 border-rose-400 cursor-pointer transition-all';
+        }
+      }
+
+      // Attack Button unlock if in combat condition
+      const atkBtn = document.getElementById('betrayalBtnAttack');
+      if (atkBtn) {
+        const hasEnemy = s.isHauntActive && s.players.some(p => p.isAlive && p.floor === curP.floor && p.pos.x === curP.pos.x && p.pos.y === curP.pos.y && p.isTraitor !== curP.isTraitor);
+        if (hasEnemy) {
+          atkBtn.className = 'btn-spring py-2 px-2.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white text-xs font-black flex items-center justify-center gap-1.5 cursor-pointer shadow-lg border-2 border-red-400 animate-pulse';
+        } else {
+          atkBtn.className = 'btn-spring py-2 px-2.5 rounded-xl bg-slate-800 border border-slate-700 text-red-300 text-xs font-black flex items-center justify-center gap-1.5 shadow-md opacity-40 pointer-events-none';
+        }
+      }
+    }
+
+    function renderBetrayalGrid() {
+      const s = window.betrayalState;
+      const gridContainer = document.getElementById('betrayalMansionGrid');
+      if (!gridContainer) return;
+
+      const curP = s.players[s.currentTurnPlayer];
+      const floorGrid = s.floors[s.activeFloor];
+      let html = '';
+
+      for (let y = 0; y < 5; y++) {
+        for (let x = 0; x < 5; x++) {
+          const tile = floorGrid[y][x];
+          // Check if adjacent to current player on this floor
+          const isAdjacent = (curP && curP.floor === s.activeFloor && (Math.abs(x - curP.pos.x) + Math.abs(y - curP.pos.y) === 1));
+          const isPlayerHere = s.players.filter(p => p.isAlive && p.floor === s.activeFloor && p.pos.x === x && p.pos.y === y);
+
+          let tileBorder = 'border-slate-800/80 bg-slate-900/60';
+          let cursorStyle = '';
+
+          if (isAdjacent && curP.movesLeft > 0) {
+            tileBorder = 'border-2 border-emerald-400/90 bg-emerald-950/40 shadow-lg shadow-emerald-500/20 animate-pulse';
+            cursorStyle = 'cursor-pointer hover:scale-105';
+          } else if (tile.discovered) {
+            tileBorder = 'border-slate-700 bg-slate-900/90 shadow-md';
+          }
+
+          let tokenBadges = '';
+          if (isPlayerHere.length > 0) {
+            tokenBadges = `<div class="absolute -top-2 -right-2 flex -space-x-1 z-20">` +
+              isPlayerHere.map(p => `<span class="w-6 h-6 rounded-full flex items-center justify-center text-xs shadow-md border" style="background:${p.color}; border-color:${p.border}" title="${p.name}">${p.avatar}</span>`).join('') +
+              `</div>`;
+          }
+
+          if (tile.discovered) {
+            html += `
+              <div onclick="onBetrayalTileClick(${x}, ${y})" class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl ${tileBorder} p-1 flex flex-col items-center justify-between text-center select-none transition-all ${cursorStyle}">
+                ${tokenBadges}
+                <div class="text-base sm:text-lg mt-0.5">${tile.icon}</div>
+                <div class="text-[9px] sm:text-[10px] font-bold text-slate-200 truncate w-full px-1">${tile.name}</div>
+                <div class="text-[8px] font-mono text-rose-400 uppercase font-black">${tile.type !== 'none' ? tile.type : ''}</div>
+              </div>
+            `;
+          } else {
+            html += `
+              <div onclick="onBetrayalTileClick(${x}, ${y})" class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl ${tileBorder} p-1 flex flex-col items-center justify-center text-center select-none transition-all ${cursorStyle}">
+                ${tokenBadges}
+                <span class="text-xs sm:text-sm text-slate-600 font-mono font-bold">${isAdjacent ? 'BƯỚC VÀO' : '???'}</span>
+              </div>
+            `;
+          }
+        }
+      }
+
+      gridContainer.innerHTML = html;
+    }
+
+    function renderBetrayalPlayers() {
+      const s = window.betrayalState;
+      const listEl = document.getElementById('betrayalPlayerList');
+      if (!listEl) return;
+
+      listEl.innerHTML = s.players.map(p => {
+        const isTurn = (p.id === s.currentTurnPlayer);
+        const traitorTag = p.isTraitor ? '<span class="text-[9px] px-1.5 py-0.5 rounded-full bg-red-500/20 text-red-400 border border-red-500/40 font-black">TRAITOR</span>' : '<span class="text-[9px] px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/40">SURVIVOR</span>';
+        const aliveTag = p.isAlive ? `<span class="font-bold text-emerald-400">${p.hp} HP</span>` : '<span class="font-bold text-red-500">ĐÃ CHẾT</span>';
+        const activeGlow = isTurn ? 'border-2 border-rose-500 bg-rose-950/40 shadow-md' : 'border border-slate-800 bg-slate-950/40';
+
+        return `
+          <div class="flex items-center justify-between p-2 rounded-xl ${activeGlow} transition-all">
+            <div class="flex items-center gap-2 truncate">
+              <span class="text-base">${p.avatar}</span>
+              <div class="truncate">
+                <div class="text-xs font-bold text-white flex items-center gap-1.5 truncate">
+                  <span>${p.name}</span>
+                  ${traitorTag}
+                </div>
+                <div class="text-[10px] text-slate-400 font-mono truncate">${p.floor.toUpperCase()} • Vị trí: (${p.pos.x}, ${p.pos.y})</div>
+              </div>
+            </div>
+            <div class="flex flex-col items-end shrink-0 text-xs font-mono">
+              ${aliveTag}
+              <span class="text-[9px] text-slate-500">Speed: ${p.traits.speed}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderBetrayalInventory() {
+      const s = window.betrayalState;
+      const curP = s.players[s.currentTurnPlayer];
+      const countEl = document.getElementById('betrayalItemCountText');
+      const listEl = document.getElementById('betrayalInventoryList');
+      if (!curP || !listEl) return;
+
+      const allCards = [...curP.items, ...curP.omens];
+      if (countEl) countEl.textContent = `${curP.items.length} ITEMS • ${curP.omens.length} OMENS`;
+
+      if (allCards.length === 0) {
+        listEl.innerHTML = `<span class="text-[10px] text-slate-500 italic p-1">Chưa có bảo vật nào. Hãy khám phá phòng để tìm!</span>`;
+      } else {
+        listEl.innerHTML = allCards.map(item => `
+          <div class="px-2 py-1 rounded-xl bg-slate-900 border border-slate-700 flex items-center gap-1.5 shadow-sm text-xs" title="${item.desc}">
+            <span>${item.icon || '📜'}</span>
+            <span class="font-bold text-rose-300 text-[11px] truncate max-w-[120px]">${item.name}</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    function renderBetrayalLog() {
+      const s = window.betrayalState;
+      const logContainer = document.getElementById('betrayalActionLog');
+      if (!logContainer) return;
+
+      logContainer.innerHTML = s.actionLogs.map(log => {
+        let color = 'text-slate-400';
+        if (log.type === 'highlight') color = 'text-amber-300 font-semibold';
+        if (log.type === 'danger') color = 'text-red-400 font-bold';
+        if (log.type === 'info') color = 'text-blue-300';
+        return `
+          <div class="flex items-start gap-1.5 leading-snug">
+            <span class="text-slate-600 text-[10px] shrink-0">[${log.time}]</span>
+            <span class="${color}">${log.text}</span>
+          </div>
+        `;
+      }).join('');
+
+      logContainer.scrollTop = 0;
+    }
+
+    // Modal Helper
+    function openBetrayalRulesModal() {
+      if (typeof openModal === 'function') openModal('betrayalRulesModal');
+    }
+
+    // Safe navigation exit helper
+    window.exitGameToLobby = function() {
+      if (typeof window.requestExitArenaToLobby === 'function') {
+        window.requestExitArenaToLobby('lobby');
+      } else if (typeof window.switchMainTab === 'function') {
+        window.switchMainTab('lobby');
+      }
+    };
+
+    // EXPORT ALL FUNCTIONS TO WINDOW
+    window.initBetrayalGame = initBetrayalGame;
+    window.switchBetrayalFloor = switchBetrayalFloor;
+    window.onBetrayalRollDiceClick = onBetrayalRollDiceClick;
+    window.onBetrayalTileClick = onBetrayalTileClick;
+    window.onBetrayalAttackClick = onBetrayalAttackClick;
+    window.endBetrayalTurn = endBetrayalTurn;
+    window.openBetrayalRulesModal = openBetrayalRulesModal;
+    window.renderBetrayalArena = renderBetrayalArena;
+    window.movePlayerToken = movePlayerToken;
+    window.resolveHauntRoll = resolveHauntRoll;
+    window.runBetrayalBotTurn = runBetrayalBotTurn;
+
+  })();
+  </script>
 </body>
 </html>

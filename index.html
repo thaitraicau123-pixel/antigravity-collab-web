@@ -365,36 +365,69 @@
       box-shadow: 0 3px 0 0 #CBD5E1 !important;
     }
 
-    /* 2D Cartoon High-Contrast Typography & Stickers */
+    /* 🍎 Apple Design System: Adaptive High-Legibility Typography */
     .tabletop-mat h3,
     .tabletop-mat .font-cinzel {
-      color: #0F172A !important;
-      font-weight: 800 !important;
+      color: #1D1D1F !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.022em !important;
     }
     .tabletop-mat p {
-      color: #475569 !important;
+      color: #6E6E73 !important;
+      font-weight: 500 !important;
     }
     .tabletop-mat .text-slate-300,
     .tabletop-mat .text-slate-400 {
-      color: #334155 !important;
+      color: #48484A !important;
     }
 
-    /* 2D Cartoon Main Lobby Hero Header & Badges */
     #mainViewLobby h1 {
-      color: #0F172A !important;
-      filter: drop-shadow(0 3px 0 rgba(226, 232, 240, 0.95)) !important;
+      color: #1D1D1F !important;
+      filter: none !important;
+      letter-spacing: -0.035em !important;
+      font-weight: 800 !important;
     }
-    #mainViewLobby p.text-slate-300 {
-      color: #475569 !important;
+    #mainViewLobby p {
+      color: #6E6E73 !important;
     }
-    .bg-board-tray {
-      background-color: #FFFFFF !important;
-      border-color: #E2E8F0 !important;
-      color: #1E293B !important;
+
+    /* 🍎 Apple Dark Mode: Crisp Contrast & Vibrancy */
+    html.dark .tabletop-mat h3,
+    html.dark .tabletop-mat .font-cinzel {
+      color: #F5F5F7 !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.022em !important;
     }
-    .border-board-border { border-color: #E2E8F0 !important; } @media screen { .cartoon-2d-canvas {
-      border-color: #E2E8F0 !important;
+    html.dark .tabletop-mat p {
+      color: #A1A1A6 !important;
+      font-weight: 400 !important;
     }
+    html.dark .tabletop-mat .text-slate-300,
+    html.dark .tabletop-mat .text-slate-400 {
+      color: #8E8E93 !important;
+    }
+    html.dark .tabletop-mat .text-slate-800,
+    html.dark .tabletop-mat .text-slate-700 {
+      color: #E5E5EA !important;
+    }
+    html.dark #mainViewLobby h1 {
+      color: #F5F5F7 !important;
+      filter: none !important;
+      letter-spacing: -0.035em !important;
+    }
+    html.dark #mainViewLobby p {
+      color: #A1A1A6 !important;
+    }
+    html.dark #mainViewLobby .bg-white {
+      background-color: rgba(255, 255, 255, 0.08) !important;
+      border-color: rgba(255, 255, 255, 0.12) !important;
+      color: #E5E5EA !important;
+    }
+    html.dark header .text-slate-800 {
+      color: #F5F5F7 !important;
+    }
+    html.dark header .text-slate-700 {
+      color: #A1A1A6 !important;
     }
   
     /* Royal Chess Piece Styling */
@@ -1925,6 +1958,257 @@ html.dark #headerSeasonPillContainer svg {
   color: #FBBF24 !important;
 }
 
+
+    /* =========================================================================
+       🍎 APPLE DESIGN SYSTEM: HUMAN INTERFACE GUIDELINES & FLUID MOTION (v4.9.0)
+       Translated from Apple WWDC (Designing Fluid Interfaces & UI Typography)
+       ========================================================================= */
+
+    :root {
+      --font-apple: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+      --font-apple-mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
+      
+      /* Apple Fluid Spring Motion */
+      --ease-apple-spring: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-apple-press: cubic-bezier(0.2, 0, 0, 1);
+      --ease-apple-hover: cubic-bezier(0.25, 0.1, 0.25, 1);
+      
+      /* Apple System Accent Colors */
+      --apple-blue: #0071E3;
+      --apple-blue-hover: #0077ED;
+      --apple-indigo: #5856D6;
+      --apple-purple: #AF52DE;
+      --apple-pink: #FF2D55;
+      --apple-red: #FF3B30;
+      --apple-orange: #FF9500;
+      --apple-yellow: #FFCC00;
+      --apple-green: #34C759;
+      --apple-teal: #30B0C7;
+      --apple-cyan: #32ADE6;
+
+      /* Apple Light Material Tokens */
+      --apple-bg: #F5F5F7;
+      --apple-card-bg: rgba(255, 255, 255, 0.82);
+      --apple-card-border: rgba(0, 0, 0, 0.08);
+      --apple-card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 1px 3px 0 rgba(0, 0, 0, 0.03);
+      --apple-card-highlight: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
+      --apple-text-primary: #1D1D1F;
+      --apple-text-secondary: #86868B;
+      --apple-text-tertiary: #A1A1A6;
+    }
+
+    /* 🍎 Universal Apple Typography */
+    body, button, input, select, textarea {
+      font-family: var(--font-apple) !important;
+      -webkit-font-smoothing: antialiased !important;
+      -moz-osx-font-smoothing: grayscale !important;
+      text-rendering: optimizeLegibility !important;
+    }
+
+    h1, h2, h3, h4, .font-cinzel {
+      font-family: var(--font-apple) !important;
+      letter-spacing: -0.028em !important; /* Apple optical tracking for large titles */
+      font-weight: 700 !important;
+    }
+
+    /* 🍎 Apple Light Canvas: Neutral Crisp Surface + Ambient Specular Glow */
+    body {
+      background-color: var(--apple-bg) !important;
+      background-image:
+        radial-gradient(ellipse 90% 60% at 50% -8%, rgba(0, 113, 227, 0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 65% 45% at 88% 22%, rgba(175, 82, 222, 0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 45% at 12% 80%, rgba(52, 199, 89, 0.04) 0%, transparent 60%) !important;
+      background-size: 100% 100% !important;
+      background-attachment: fixed !important;
+      color: var(--apple-text-primary) !important;
+    }
+
+    /* 🍎 Apple Dark Canvas: Deep Space OLED Black + Subtle Ambient Mesh Glow */
+    html.dark body {
+      background-color: #000000 !important;
+      background-image:
+        radial-gradient(ellipse 90% 60% at 50% -8%, rgba(10, 132, 255, 0.14) 0%, transparent 75%),
+        radial-gradient(ellipse 65% 45% at 88% 25%, rgba(191, 90, 242, 0.09) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 45% at 12% 80%, rgba(48, 209, 88, 0.06) 0%, transparent 65%) !important;
+      background-size: 100% 100% !important;
+      background-attachment: fixed !important;
+      color: #F5F5F7 !important;
+    }
+
+    /* 🍎 Apple Translucent Frosted Glass Cards (.tabletop-mat) */
+    .tabletop-mat {
+      background: var(--apple-card-bg) !important;
+      backdrop-filter: blur(28px) saturate(190%) !important;
+      -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+      border: 1px solid var(--apple-card-border) !important;
+      border-radius: 24px !important; /* Apple Squircle */
+      box-shadow: var(--apple-card-shadow), var(--apple-card-highlight) !important;
+      transition: transform 0.28s var(--ease-apple-spring), box-shadow 0.28s var(--ease-apple-spring), border-color 0.2s ease !important;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .tabletop-mat:hover {
+        transform: translateY(-4px) scale(1.006) !important;
+        border-color: rgba(0, 113, 227, 0.35) !important;
+        box-shadow: 
+          0 20px 40px -8px rgba(0, 0, 0, 0.08),
+          0 1px 3px 0 rgba(0, 0, 0, 0.04),
+          inset 0 1px 1px 0 rgba(255, 255, 255, 1) !important;
+      }
+    }
+
+    .tabletop-mat:active {
+      transform: scale(0.985) !important;
+      box-shadow: var(--apple-card-shadow) !important;
+    }
+
+    /* Dark Mode Frosted Glass Materials */
+    html.dark .tabletop-mat {
+      background: rgba(26, 26, 32, 0.76) !important;
+      backdrop-filter: blur(32px) saturate(190%) !important;
+      -webkit-backdrop-filter: blur(32px) saturate(190%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      box-shadow: 
+        0 12px 35px -4px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.16) !important;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      html.dark .tabletop-mat:hover {
+        border-color: rgba(10, 132, 255, 0.45) !important;
+        box-shadow: 
+          0 22px 50px -6px rgba(0, 0, 0, 0.75),
+          0 0 24px rgba(10, 132, 255, 0.18),
+          inset 0 1px 0 0 rgba(255, 255, 255, 0.24) !important;
+      }
+    }
+
+    /* 🍎 Apple Button Micro-Interactions: Instant Press Response */
+    .btn-spring {
+      transition: transform 0.12s var(--ease-apple-press), box-shadow 0.15s ease, filter 0.15s ease, background-color 0.15s ease !important;
+    }
+
+    .btn-spring:active {
+      transform: scale(0.96) !important;
+    }
+
+    /* 🍎 Apple Floating Frosted Glass Header */
+    header {
+      background: rgba(255, 255, 255, 0.82) !important;
+      backdrop-filter: blur(28px) saturate(210%) !important;
+      -webkit-backdrop-filter: blur(28px) saturate(210%) !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+    }
+
+    html.dark header {
+      background: rgba(18, 18, 22, 0.82) !important;
+      backdrop-filter: blur(32px) saturate(210%) !important;
+      -webkit-backdrop-filter: blur(32px) saturate(210%) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+    }
+
+    /* 🍎 Apple Segmented Control for Navigation Tabs */
+    #mainNavBar {
+      background: rgba(0, 0, 0, 0.05) !important;
+      border: 1px solid rgba(0, 0, 0, 0.06) !important;
+      border-radius: 9999px !important;
+      padding: 3px !important;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    #mainNavBar button {
+      border-radius: 9999px !important;
+      font-weight: 600 !important;
+      transition: all 0.2s var(--ease-apple-spring) !important;
+    }
+
+    #mainNavBar button.active, #mainNavBar button.bg-gradient-to-r {
+      background: #FFFFFF !important;
+      color: #1D1D1F !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    html.dark #mainNavBar {
+      background: rgba(255, 255, 255, 0.07) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    html.dark #mainNavBar button.active, html.dark #mainNavBar button.bg-gradient-to-r {
+      background: rgba(255, 255, 255, 0.2) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+    }
+
+    /* 🍎 Apple Modal Sheets & Dialogs */
+    [id$="Modal"] {
+      backdrop-filter: blur(18px) !important;
+      -webkit-backdrop-filter: blur(18px) !important;
+      background: rgba(0, 0, 0, 0.45) !important;
+    }
+
+    [id$="Modal"] > div {
+      border-radius: 28px !important;
+      backdrop-filter: blur(36px) saturate(200%) !important;
+      -webkit-backdrop-filter: blur(36px) saturate(200%) !important;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+    }
+
+    html.dark [id$="Modal"] > div {
+      background: rgba(28, 28, 35, 0.88) !important;
+      border: 1px solid rgba(255, 255, 255, 0.14) !important;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+    }
+
+    /* 🍎 Apple High-Precision Scrollbars */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 9999px;
+    }
+    html.dark ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.22);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.35);
+    }
+    html.dark ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.38);
+    }
+
+    /* 🍎 Accessibility & Reduced Motion Support (WWDC 2026 Guidelines) */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .view-fade-slide {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    @media (prefers-reduced-transparency: reduce) {
+      header, .tabletop-mat, [id$="Modal"] > div {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background-color: #FFFFFF !important;
+      }
+      html.dark header, html.dark .tabletop-mat, html.dark [id$="Modal"] > div {
+        background-color: #141416 !important;
+      }
+    }
+
 </style>
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col antialiased selection:bg-amber-400 selection:text-slate-900 w-full max-w-full overflow-x-hidden">
@@ -2242,12 +2526,12 @@ html.dark #headerSeasonPillContainer svg {
       
       <!-- Lobby Hero Header -->
       <div class="w-full text-center mb-8 pt-2 relative">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100/90 border-2 border-amber-400 text-amber-900 text-xs font-black mb-3 shadow-sm">
-          <i data-lucide="crown" class="w-4 h-4 text-amber-600"></i>
-          <span>GRANDMASTER GAME SELECTION HUB</span>
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/5 dark:bg-white/10 backdrop-blur-md border border-black/5 dark:border-white/10 text-slate-700 dark:text-slate-200 text-xs font-semibold mb-3 shadow-xs">
+          <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
+          <span>TABLETOP ARENA • HUMAN INTERFACE EDITION</span>
         </div>
-        <h1 class="font-cinzel text-3xl sm:text-5xl font-black text-slate-900 drop-shadow-[0_4px_0_rgba(203,213,225,0.9)] tracking-wide mb-3">
-          ĐẠI SẢNH <span class="bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 bg-clip-text text-transparent">TRÒ CHƠI</span>
+        <h1 class="font-cinzel text-3xl sm:text-5xl font-black tracking-tight mb-3">
+          <span class="text-slate-900 dark:text-white">ĐẠI SẢNH </span><span class="bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 bg-clip-text text-transparent">TRÒ CHƠI</span>
         </h1>
         <p class="text-sm sm:text-base text-slate-700 max-w-2xl mx-auto font-sans font-bold leading-relaxed">
           Tuyển chọn các đấu trường cờ bàn thượng hạng. Chọn trò chơi bạn yêu thích để bắt đầu cuộc đấu trí cùng AI thông minh hoặc bạn bè!
@@ -2256,7 +2540,7 @@ html.dark #headerSeasonPillContainer svg {
         <!-- Feature Badges Pill -->
         <!-- Multiplayer Hero Action Pill -->
         <div class="mt-4 mb-3 flex justify-center">
-          <button onclick="openMultiplayerModal('create')" class="btn-spring px-5 sm:px-6 py-2.5 sm:py-3 rounded-2xl bg-gradient-to-r from-cyan-600 via-teal-500 to-amber-500 hover:from-cyan-500 hover:to-amber-400 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-2.5 shadow-xl shadow-cyan-500/25 border border-cyan-300/40 cursor-pointer group transition-all">
+          <button onclick="openMultiplayerModal('create')" class="btn-spring px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-500 dark:bg-blue-500 dark:hover:bg-blue-400 text-white font-semibold text-xs sm:text-sm flex items-center gap-2.5 shadow-lg shadow-blue-500/25 border border-blue-400/40 cursor-pointer group transition-all">
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
             <i data-lucide="radio" class="w-4 h-4 text-slate-950"></i>
             <span class="tracking-wide uppercase">TẠO / VÀO PHÒNG P2P</span>
